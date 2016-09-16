@@ -1,72 +1,134 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Entrada de Dados</title>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="css/base.css" rel="stylesheet" type="text/css">
+<link href="css/headhesive.css" rel="stylesheet" type="text/css">
 <link type="text/css" rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+  <div id="barra-brasil"></div>
+  <div id="menu"></div>
+
   <div id="header"></div>
   <div class="atualizacao"></div>
   <div id="Dados"></div>
-  <div id="container">
-    <h4 class="tipo_entrada">TIPO DE ENTRADA</h3>
-    <input type="radio" name="tipo_entrada" value="web_service" onclick="toggle()"> Web Service
-    <input type="radio" name="tipo_entrada" value="arquivo" onclick="toggle()"> Arquivo<br>
 
-    <!--Formulario Web Service-->
-    <div id="web_service" style="display:block;">
-      <div class="line">
-        <label>Endereço do Serviço: </label> <input type="text" class="">
+
+  <div class="section">
+    <div class="container" id="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-primary">Entrada de Dados</h1>
+        <hr>
       </div>
-      <div class="line">
-        <label>Indique o endereço de acesso(url) do webservice</label>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Verifique as regras para o envio dos dados <a href="contado.html">clicando aqui.</a></h4>
       </div>
-      <div class="line">
-        <label>Arquivo retornado: <div id="arquivo_retornado_dropdown"></div>
-      </div>
-      <div class="line">
-        <label>Selecione como o arquivo do webservice foi estuturado</label>
-      </div>
-      <div class="line">
-        <label>Periodicidade: </label> <input type="text"/><div id="periodicidade_dropdown"></div>
-      </div>
-      <div class="line">
-        <label>Indique a periodicidade com a qual o Mapa deve atualizar os dados</label>
-      </div>
-      <div class="line">
-        <button>Enviar Dados</button>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="tipo_entrada">TIPO DE ENTRADA</h4>
+        <label class="control-label">Web Service</label>
+        <input type="radio" name="tipo_entrada" value="web_service" onclick="toggle()">
+        <label class="control-label">Arquivo</label>
+        <input type="radio" name="tipo_entrada" value="arquivo" onclick="toggle()">
       </div>
     </div>
 
-    <!--Formulario Arquivo-->
-    <div id="arquivo" style="display:none;">
-      <div class="line">
-        <label>Arquivo Enviado: </label> <input type="file" class="">
-      </div>
-      <div class="line">
-        <label>Selecione o arquivo a ser enviado</label>
-      </div>
-      <div class="line">
-        <label>Tipo de Arquivo: </label><div id="tipo_arquivo_dropdown"></div>
-      </div>
-      <div class="line">
-        <button>Enviar Dados</button>
-      </div>
-    </div>
+    <form role="form">
+      <div class="row">
+        <div class="col-md-12">
 
-    <!-- Blocos de texto-->
-    <h4> FORMATO DOS DADOS</h4>
-    <div id="bloco_texto_formato_dados"></div>
+          <!--Formulario Web Service-->
+          <div id="web_service" style="display:block;">
+            <div class="form-group">
+              <label class="control-label">Endereço do Serviço: </label>
+              <input class="form-control" placeholder="Endereço do Serviço" type="text" >
+            </div>
+            <div class="form-group">
+              <label class="control-label">Indique o endereço de acesso(url) do webservice</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Arquivo retornado:</label>
+              <div id="arquivo_retornado_dropdown"></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Selecione como o arquivo do webservice foi estuturado</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Periodicidade: </label>
+              <input class="form-control" type="text"/>
+              <div id="periodicidade_dropdown"></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Indique a periodicidade com a qual o Mapa deve atualizar os dados</label>
+            </div>
+          </div>
+
+          <!--Formulario Arquivo-->
+          <div id="arquivo" style="display:none;">
+            <div class="form-group">
+              <label class="control-label">Arquivo Enviado:</label>
+              <input class="form-control" type="file" >
+            </div>
+            <div class="form-group">
+              <label class="control-label">Selecione o arquivo a ser enviado</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Tipo de Arquivo: </label>
+              <div id="tipo_arquivo_dropdown"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <div class="col-sm-offset-0 text-center">
+              <button class="btn btn-success">Enviar Dados</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <!-- Blocos de texto-->
+              <h4> FORMATO DOS DADOS</h4>
+              <div id="bloco_texto_formato_dados"></div>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </form>
+    </div>
   </div>
-</body>
+
+
+  <div id="rodape"></div>
+  <footer class="section section-primary">
+    <div class="container">
+      <div id="footer-brasil"></div>
+    </div>
+  </footer>
+
+
 <!--SCRIPTS-->
 <script src="js/libs/react-15.3.1/react.min.js"></script>
 <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
 <script src="js/libs/babel-core/5.8.24/browser.min.js"></script>
 <script type="text/babel" src="js/components/entradaDadosComponentes.js"></script>
 <script type="text/javascript" src="js/libs/jquery-3.1.0/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/libs/bootstrap-3.3.7/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/headhesive.min.js"></script>
+<script src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 <script>
   function toggle(condition){
       $("#arquivo").toggle();
@@ -74,4 +136,5 @@
   }
 </script>
 
+</body>
 </html>
