@@ -5,9 +5,9 @@ var BlocoTexto = React.createClass({
     var items=[];
     for (var i=0; i<this.props.dados.length; i++){
       items.push(
-        <div class="bloco">
+        <div className="bloco">
           <h5>{this.props.dados[i].titulo}</h5>
-          <div class="texto">{this.props.dados[i].formato}</div>
+          <div className="texto">{this.props.dados[i].formato}</div>
         </div>
       );
     }
