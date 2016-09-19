@@ -39,7 +39,7 @@ var Dropdown = React.createClass({
     render: function() {
         return (
           <div>
-           <select>
+           <select className="form-control">
               {this.renderListItems()}
             </select>
           </div>
