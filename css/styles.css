@@ -58,6 +58,27 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   width: 100%;
 }
 
+.topo{
+  background: url('../img/topo.gif') no-repeat 0 0;
+  text-decoration: none;
+  display: inline-block;
+  text-indent: 15px;
+  float: right;
+  color: black;
+  font-weight: bold;
+  font-size: smaller;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.media-heading{
+  font-weight: bold;
+}
+.subTitulo{
+  color: #337cbb;
+  font-weight: bold;
+  background-color: aliceblue;
+}
+
 /*Página entradadedados.html*/
 #bloco_texto_formato_dados{
   clear: both;
