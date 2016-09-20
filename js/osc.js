@@ -11,7 +11,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 			if(response.data.msg == undefined){
 				self.osc = response.data;
 	    	self.msg = '';
-        console.log(self.osc);
+        //console.log(self.osc);
 			}else{
 				self.msg = response.data.msg;
 			}

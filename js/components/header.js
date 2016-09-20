@@ -1,4 +1,23 @@
 /*** Componente responsável pela parte superior da página ***/
+//Parametros
+var menu = ["Home", "Mapa", "Dados", "Login"];
+function MenuDropDownObject (text='', link=''){
+  this.text = text;
+  this.link = link;
+}
+var linksSubmenu = [];
+linksSubmenu.push(new MenuDropDownObject("Sobre", "#"));
+linksSubmenu.push(new MenuDropDownObject("Versão", "#"));
+linksSubmenu.push(new MenuDropDownObject("Metodologia", "#"));
+linksSubmenu.push(new MenuDropDownObject());
+linksSubmenu.push(new MenuDropDownObject("FAQ", "#"));
+linksSubmenu.push(new MenuDropDownObject("Glossário", "#"));
+linksSubmenu.push(new MenuDropDownObject());
+linksSubmenu.push(new MenuDropDownObject("Equipe", "#"));
+linksSubmenu.push(new MenuDropDownObject("Apoio", "#"));
+linksSubmenu.push(new MenuDropDownObject("Links", "#"));
+
+//Componentes individuais
 var BotaoResponsivo = React.createClass({
   renderListItems: function(){
     var icons = [];
@@ -23,27 +42,6 @@ var BotaoResponsivo = React.createClass({
   }
 });
 
-var Menu = React.createClass({
-  renderListItems: function(){
-    var items = [];
-
-    for (var i = 0; i < this.props.items.length; i++) {
-      if(i==1){//posição em que o dropdown do mapa deve aparecer
-        items.push(<li id="dropdown-menu-header" className="dropdown"></li>);
-      }
-      items.push(<li><a href="#">{this.props.items[i]}</a></li>);
-    }
-    return items;
-  },
-  render: function () {
-    return (
-      <div>
-        <ul className="nav navbar-nav navbar-right">{this.renderListItems()}</ul>
-      </div>
-    );
-  }
-});
-
 var DropdownMenu = React.createClass({
   renderList: function(){
     var elems = [];
@@ -64,24 +62,44 @@ var DropdownMenu = React.createClass({
   }
 });
 
-var menu = ["Home", "Mapa", "Dados", "Login"];
-ReactDOM.render(<BotaoResponsivo icons={menu}/>, document.getElementById("menu-mobile"));
-ReactDOM.render(<Menu items={menu}/>, document.getElementById("navbar-ex-collapse"));
+var Menu = React.createClass({
+  renderListItems: function(){
+    var items = [];
 
-function MenuDropDownObject (text='', link=''){
-  this.text = text;
-  this.link = link;
-}
-var linksSubmenu = [];
-linksSubmenu.push(new MenuDropDownObject("Sobre", "#"));
-linksSubmenu.push(new MenuDropDownObject("Versão", "#"));
-linksSubmenu.push(new MenuDropDownObject("Metodologia", "#"));
-linksSubmenu.push(new MenuDropDownObject());
-linksSubmenu.push(new MenuDropDownObject("FAQ", "#"));
-linksSubmenu.push(new MenuDropDownObject("Glossário", "#"));
-linksSubmenu.push(new MenuDropDownObject());
-linksSubmenu.push(new MenuDropDownObject("Equipe", "#"));
-linksSubmenu.push(new MenuDropDownObject("Apoio", "#"));
-linksSubmenu.push(new MenuDropDownObject("Links", "#"));
+    for (var i = 0; i < this.props.items.length; i++) {
+      if(i==1){//posição em que o dropdown do mapa deve aparecer
+        items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={linksSubmenu}/></li>);
+      }
+      items.push(<li><a href="#">{this.props.items[i]}</a></li>);
+    }
+    return items;
+  },
+  render: function () {
+    return (
+      <div>
+        <ul className="nav navbar-nav navbar-right">{this.renderListItems()}</ul>
+      </div>
+    );
+  }
+});
 
-ReactDOM.render(<DropdownMenu submenu={linksSubmenu}/>, document.getElementById("dropdown-menu-header"));
+
+//ReactDOM.render(<BotaoResponsivo icons={menu}/>, document.getElementById("menu-mobile"));
+//ReactDOM.render(<Menu items={menu}/>, document.getElementById("navbar-ex-collapse"));
+//ReactDOM.render(<DropdownMenu submenu={linksSubmenu}/>, document.getElementById("dropdown-menu-header"));
+
+//Componente COMPLETO do cabeçalho
+var Header = React.createClass({
+  render:function(){
+    return (
+      <div className="navbar navbar-default navbar-static-top">
+        <div className="container">
+          <div id="menu-mobile" class="navbar-header"><BotaoResponsivo icons={menu}/></div>
+          <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu items={menu}/></div>
+        </div>
+      </div>
+    );
+  }
+});
+
+ReactDOM.render(<Header/>, document.getElementById("header"));

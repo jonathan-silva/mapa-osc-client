@@ -1,4 +1,21 @@
-/*** Componente responsável pela parte inferior da página ***/
+/*** RODAPÉ ***/
+//Parametros
+function BlockFooterObject(title, urls=[], texts=[]){
+  this.title = title;
+  this.urls = urls;
+  this.texts = texts;
+}
+// links do menu inferior
+var blocks = [];
+blocks.push(new BlockFooterObject("Mapa das OCSs", ["faq.html", "metodologia.html", "contato.html", "termos.html"], ["Dúvidas Frequentes", "Metodologia", "Contato e Sugestões", "Termos de Uso"]));
+blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"]));
+blocks.push(new BlockFooterObject("Links Úteis", ["http://www.convenios.gov.br/portal/", "http://bibliotecadigital.abong.org.br/", "http://www.secretariageral.gov.br/atuacao/mrosc/estudos-e-pesquisas", "ftp://ftp.ibge.gov.br/Fundacoes_Privadas_e_Associacoes/2010/fasfil.pdf", "http://www.participa.br", "http://www.secretariageral.gov.br/mrosc", "http://sniic.cultura.gov.br/"], ["Portal dos Convênios", "Biblioteca Digital das OSCs", "Biblioteca do Marco Legal das OSC", "Pesquisa FASFIL 2010", "Participa.br", "Marco Legal das OSC", "Sniic - Sistema Nacional de Informações e Indicadores Culturais"]));
+// src e alt, respectivamente, da parte de "realização" normal e com contraste
+var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
+//Carrossel do rodapé
+var imgList = ["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_fgv.png", "img\\logo_pnud.png"];
+
+//Componentes individuais
 var Carousel = React.createClass({
   renderListItems: function(){
     var images = [];
@@ -41,6 +58,7 @@ var Carousel = React.createClass({
   }
 });
 
+
 var Realizacao = React.createClass({
   render: function(){
     return (<div><span>Realização:</span>
@@ -50,6 +68,7 @@ var Realizacao = React.createClass({
         </a></div>);
   }
 });
+
 
 var MenuInferior = React.createClass({
   geraLinks: function (block){
@@ -72,23 +91,41 @@ var MenuInferior = React.createClass({
   }
 });
 
-function BlockFooterObject(title, urls=[], texts=[]){
-  this.title = title;
-  this.urls = urls;
-  this.texts = texts;
-}
+//ReactDOM.render(<MenuInferior blockObject={blocks}/>, document.getElementById("menu-inferior"));
+//ReactDOM.render(<Realizacao items={imgsAltRealizacao}/>, document.getElementById("realizacao"));
+//ReactDOM.render(<Carousel images={imgList}/>, document.getElementById("carousel"));
 
 
-// links do menu inferior
-var blocks = [];
-blocks.push(new BlockFooterObject("Mapa das OCSs", ["faq.html", "metodologia.html", "contato.html", "termos.html"], ["Dúvidas Frequentes", "Metodologia", "Contato e Sugestões", "Termos de Uso"]));
-blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"]));
-blocks.push(new BlockFooterObject("Links Úteis", ["http://www.convenios.gov.br/portal/", "http://bibliotecadigital.abong.org.br/", "http://www.secretariageral.gov.br/atuacao/mrosc/estudos-e-pesquisas", "ftp://ftp.ibge.gov.br/Fundacoes_Privadas_e_Associacoes/2010/fasfil.pdf", "http://www.participa.br", "http://www.secretariageral.gov.br/mrosc", "http://sniic.cultura.gov.br/"], ["Portal dos Convênios", "Biblioteca Digital das OSCs", "Biblioteca do Marco Legal das OSC", "Pesquisa FASFIL 2010", "Participa.br", "Marco Legal das OSC", "Sniic - Sistema Nacional de Informações e Indicadores Culturais"]));
-ReactDOM.render(<MenuInferior blockObject={blocks}/>, document.getElementById("menu-inferior"));
+//Componente COMPLETO do rodapé (com todos os outros componentes juntos)
+var Footer = React.createClass({
+  render:function(){
+    var tituloLogo = "Mapa das Organizações da Sociedade Civil";
+    var ano = 2016;
+    return (
 
-// src e alt, respectivamente, da parte de "realização" normal e com contraste
-var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
-ReactDOM.render(<Realizacao items={imgsAltRealizacao}/>, document.getElementById("realizacao"));
+        <div className="section partners">
+          <div className="section">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                  <h5>{tituloLogo} © {ano}</h5>
+                </div>
+                <div id="carousel"  className="col-md-3">
+                  {<Carousel images={imgList}/>}
+                </div>
+                <div id="realizacao" className="col-md-3">
+                  <Realizacao items={imgsAltRealizacao}/>
+                </div>
+              </div>
+              <hr/>
+              <div className="row">
+                <MenuInferior blockObject={blocks}/>
+              </div>
+            </div>
+          </div>
+        </div>
 
-var imgList = ["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_fgv.png", "img\\logo_pnud.png"];
-ReactDOM.render(<Carousel images={imgList}/>, document.getElementById("carousel"));
+    );
+  }
+});
+ReactDOM.render(<Footer/>, document.getElementById("rodape"));
