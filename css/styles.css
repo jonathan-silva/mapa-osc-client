@@ -100,3 +100,11 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 .formEnderecoServico{
   max-width: 600px
 }
+
+/*Página resultado-consulta.html*/
+.tablesaw-sortable th.tablesaw-sortable-head button {
+  color: #337cbb;
+  font-weight: bold;
+  text-align: center;
+  outline:0;
+}
