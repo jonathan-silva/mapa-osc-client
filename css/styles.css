@@ -78,6 +78,12 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   font-weight: bold;
   background-color: aliceblue;
 }
+.subTituloItem{
+  color: #337cbb;
+}
+.txtBloco{
+  text-indent: 2em;
+}
 
 /*Página entradadedados.html*/
 #bloco_texto_formato_dados{
