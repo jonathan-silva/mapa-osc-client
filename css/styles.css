@@ -88,6 +88,19 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   max-width: 900px;
   font-size: 12px;
 }
+.media-object {
+   padding: 1px;
+   background-color: #337cbb;
+   box-shadow: 1px 1px 3px #363636;
+   -webkit-box-shadow: 1px 1px 3px #363636;
+   -moz-box-shadow: 1px 1px 3px #363636;
+}
+.media{
+  min-height: 68px;
+}
+.h4-texto{
+  padding-bottom: 20px;
+}
 
 /*Página entradadedados.html*/
 #bloco_texto_formato_dados{
