@@ -84,6 +84,10 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 .txtBloco{
   text-indent: 2em;
 }
+.table-texto{
+  max-width: 900px;
+  font-size: 12px;
+}
 
 /*Página entradadedados.html*/
 #bloco_texto_formato_dados{
