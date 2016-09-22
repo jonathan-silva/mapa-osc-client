@@ -99,7 +99,7 @@
           <h4 class="modal-title" id="myModalLabel">Formatos dos Dados para Enviar</h4>
         </div>
         <div class="modal-body">
-          <div id="bloco_texto_formato_dados"></div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -107,7 +107,7 @@
       </div>
     </div>
   </div>
-
+  <div id="bloco_texto_formato_dados"></div>
   <div id="rodape"></div>
   <footer class="section section-primary">
     <div class="container">
@@ -116,22 +116,14 @@
   </footer>
 
 
-<!--SCRIPTS-->
-<script src="js/libs/react-15.3.1/react.min.js"></script>
-<script src="js/libs/react-15.3.1/react-dom.min.js"></script>
-<script src="js/libs/babel-core/5.8.24/browser.min.js"></script>
-<script type="text/babel" src="js/components/entradaDadosComponentes.js"></script>
-<script type="text/babel" src="js/components/header.js"></script>
-<script type="text/babel" src="js/components/footer.js"></script>
-<script type="text/javascript" src="js/libs/jquery-3.1.0/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="js/libs/bootstrap-3.3.7/bootstrap.min.js"></script>
-<script src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
-<script>
-  function toggle(condition){
-      $("#arquivo").toggle();
-      $("#web_service").toggle();
-  }
-</script>
+  <!--SCRIPTS-->
+  <script src="js/libs/react-15.3.1/react.min.js"></script>
+  <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+  <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+  <script src="js/config.js"></script>
+  <script type="text/javascript" data-main="js/entradadedados.js" src="js/libs/require-2.3.2/require.min.js"></script>
+  <script src="js/config.js"></script>
+  <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
 </body>
 </html>
