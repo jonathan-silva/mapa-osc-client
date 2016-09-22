@@ -1,4 +1,4 @@
-define(['react'], function (React) {
+define('componenteBlocoDeTexto', ['react'], function (React) {
 
   var BlocoTexto = React.createClass({
     renderListItems: function(){
@@ -21,6 +21,7 @@ define(['react'], function (React) {
   return BlocoTexto;
 });
 
+define('componenteDropdown', ['react'], function (React) {
   var Dropdown = React.createClass({
     getInitialState:function(){
         return {selectValue:this.props.list[0]};
@@ -49,11 +50,5 @@ define(['react'], function (React) {
       }
   });
 
-
-  var arquivosRetornados, arquivosEnviados;
-  arquivosRetornados = arquivosEnviados = ["XML", "JSON", "CSV"];
-  var periodicidade = ["Dia(s)", "Semana(s)", "Mês(es)"];
-
-  ReactDOM.render(<Dropdown list={arquivosRetornados}/>, document.getElementById("arquivo_retornado_dropdown"));
-  ReactDOM.render(<Dropdown list={periodicidade}/>, document.getElementById("periodicidade_dropdown"));
-  ReactDOM.render(<Dropdown list={arquivosEnviados}/>, document.getElementById("tipo_arquivo_dropdown"));
+  return Dropdown;
+});
