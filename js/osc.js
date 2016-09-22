@@ -5,15 +5,17 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 
 	self.carregarDadosGerais = function(){
 		var idOsc = $location.path().split('/')[1];
-		var url = 'http://localhost:8080/organization/id/' + idOsc;
+		var url = 'http://localhost:8080/api/osc/' + idOsc;
 
 		$http.get(url).then(function(response) {
+      console.log(response);
 			if(response.data.msg == undefined){
 				self.osc = response.data;
 	    	self.msg = '';
-        //console.log(self.osc);
+        console.log(self.osc);
 			}else{
 				self.msg = response.data.msg;
+        console.log(self.msg);
 			}
 		});
 	};
