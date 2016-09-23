@@ -179,40 +179,30 @@
               <h3>Colaboradores</h3>
               <div>
                 <label>Total de Colaboradores</label>
-                <p class="form-control-static">0</p>
+                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores}}</p>
               </div>
               <div>
                 <label>Trabalhadores com vínculo</label>
-                <p class="form-control-static">0</p>
+                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_vinculo}}</p>
               </div>
               <div>
                 <label>Trabalhadores com deficiência</label>
-                <p class="form-control-static">0</p>
+                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_deficiencia}}</p>
               </div>
               <div class="form-group">
                 <label>Voluntários</label>
-                <p class="form-control-static">0</p>
+                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_voluntarios}}</p>
               </div>
             </div>
             <div class="col-md-7 form-inline">
               <h3>Quadro de Dirigentes</h3>
-              <div class="edit-toggle ">
+              <div class="edit-toggle " ng-repeat="dirigente in ctrl.osc.dirigentes">
                 <div class="form-group">
-                  <p class="form-control-static">Abc</p>
+                  <p class="form-control-static">{{dirigente.tx_cargo_dirigente}}</p>
                 </div>
                 <span>:</span>
                 <div class="form-group">
-                  <p class="form-control-static">Abc</p>
-                </div>
-
-              </div>
-              <div class="edit-toggle ">
-                <div class="form-group">
-                  <p class="form-control-static">Abc</p>
-                </div>
-                <span>:</span>
-                <div class="form-group">
-                  <p class="form-control-static">Abc</p>
+                  <p class="form-control-static">{{dirigente.tx_nome_dirigente}}</p>
                 </div>
               </div>
             </div>
