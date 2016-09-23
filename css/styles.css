@@ -101,6 +101,9 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 .h4-texto{
   padding-bottom: 20px;
 }
+.media-heading{
+  margin-bottom: 10px;
+}
 
 /*Página entradadedados.html*/
 #bloco_texto_formato_dados{
