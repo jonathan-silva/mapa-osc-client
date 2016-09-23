@@ -293,37 +293,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr ng-repeat="conferencia in ctrl.osc.conferencias">
                     <td>
-                      <p class="form-control-static">Juventude e Cidadania no Século XXI</p>
+                      <p class="form-control-static">{{conferencia.tx_nome_conferencia}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">21/02/2000</p>
+                      <p class="form-control-static">{{conferencia.dt_data_inicio_conferencia}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">25/02/2000</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">Juventude e Cidadania no Século XXI</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">21/02/2000</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">25/02/2000</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">Juventude e Cidadania no Século XXI</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">21/02/2000</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">25/02/2000</p>
+                      <p class="form-control-static">{{conferencia.dt_data_fim_conferencia}}</p>
                     </td>
                   </tr>
                 </tbody>
