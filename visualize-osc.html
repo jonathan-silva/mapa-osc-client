@@ -110,23 +110,18 @@
           </div>
           <div class="col-md-12">
             <h2>Áreas de Atuação</h2>
-            <div class="col-md-7 ">
+            <div class="col-md-7 " ng-repeat="area in ctrl.osc.areas_atuacao">
               <div class="form-group">
-                <label>{{ctrl.osc.areasDeAtuacao[0].rotulo}}</label>
+                <label>{{area.tx_nome_macro_area_fasfil}}</label>
                 <div>
-                  <strong>Área</strong> -&gt; <em>{{ctrl.osc.areasDeAtuacao[0].valor}}</em>
+                  <strong>Área</strong> -&gt; <em>{{area.tx_nome_area_fasfil}}</em>
                 </div>
               </div>
               <div class="form-group">
                 <label>Áreas autodeclaradas</label>
-                <div class="form-group" ng-repeat="item in ctrl.osc.areasDeAtuacao[1].valor">
+                <div class="form-group" ng-repeat="autodeclarada in area.areas_autodeclaradas">
                   <div class="">
-                    <p class="form-control-static">{{item.valor}}</p>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="">
-                    <p class="form-control-static">{{item.valor}}</p>
+                    <p class="form-control-static">{{autodeclarada.tx_nome_area_atuacao_declarada}}</p>
                   </div>
                 </div>
               </div>
