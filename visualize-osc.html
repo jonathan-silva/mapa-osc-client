@@ -164,25 +164,10 @@
           </div>
           <div class="col-md-8 " id="menu2 ">
             <h2>Titulações e Certificações</h2>
-            <div>
-              <label>UPF:</label>
-              <span>Possui</span>
-              <span>(Emitido em ABC - Válido até CDE)</span>
-            </div>
-            <div>
-              <label>OSCIP:</label>
-              <span>Possui</span>
-              <span>(Emitido em ABC - Válido até CDE)</span>
-            </div>
-            <div>
-              <label>CEBAS-123:</label>
-              <span>Possui</span>
-              <span>(Emitido em ABC - Válido até CDE)</span>
-            </div>
-            <div>
-              <label>CEBAS-456:</label>
-              <span>Não possui</span>
-              <span>(Emitido em ABC - Válido até CDE)</span>
+            <div ng-repeat="certificacao in ctrl.osc.certificacoes">
+              <label>{{certificacao.nm_certificado}}</label>
+              <span>{{certificacao.ft_certificado}}</span>
+              <span>(Emitido em {{certificacao.dt_inicio_certificado}} - Válido até {{certificacao.dt_fim_certificado}})</span>
             </div>
           </div>
           <div class="col-md-12 ">
