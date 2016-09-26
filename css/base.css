@@ -1439,7 +1439,7 @@ dl {
 }
 dt,
 dd {
-  line-height: 1.42857143;
+  line-height: 1.6;
 }
 dt {
   font-weight: bold;
@@ -1450,7 +1450,7 @@ dd {
 @media (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
-    width: 160px;
+    width: 200px;
     clear: left;
     text-align: right;
     overflow: hidden;
@@ -1458,7 +1458,7 @@ dd {
     white-space: nowrap;
   }
   .dl-horizontal dd {
-    margin-left: 180px;
+    margin-left: 220px;
   }
 }
 abbr[title],
@@ -1611,6 +1611,7 @@ pre code {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 10px;
 }
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
   float: left;
@@ -5820,7 +5821,8 @@ button.close {
   }
 }
 @media (min-width: 992px) {
-  .modal-lg {
+
+.modal-lg {
     width: 900px;
   }
 }
