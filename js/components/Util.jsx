@@ -1,5 +1,4 @@
 define('componenteBlocoDeTexto', ['react'], function (React) {
-
   var BlocoTexto = React.createClass({
     renderListItems: function(){
       var items=[];
@@ -51,4 +50,20 @@ define('componenteDropdown', ['react'], function (React) {
   });
 
   return Dropdown;
+});
+
+
+define('componenteLink', ['react'], function (React) {
+  var Link = React.createClass({
+    var items = [];
+    var aObj = this.props.a;
+    renderList: function(){
+      for(var i=0; i<aObj.length; i++){
+        items.push(<a id=aObj.id href=aObj.src>aObj.text</a>);
+      }
+    },
+    render: function(){
+      return (<div>{this.renderList()}</div>);
+    }
+  });
 });

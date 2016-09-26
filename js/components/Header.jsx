@@ -73,10 +73,12 @@ define(['react'], function(React) {
       var headerObject = this.props.headerObject;
 
       return (
-        <div className="navbar navbar-default navbar-static-top">
-          <div className="container">
-            <div id="menu-mobile" class="navbar-header"><BotaoResponsivo icons={headerObject.menuList}/></div>
-            <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
+        <div id="topo_acessibilidade">
+          <div className="navbar navbar-default navbar-static-top">
+            <div className="container">
+              <div id="menu-mobile" class="navbar-header"><BotaoResponsivo icons={headerObject.menuList}/></div>
+              <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
+            </div>
           </div>
         </div>
       );
