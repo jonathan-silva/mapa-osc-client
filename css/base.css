@@ -1587,6 +1587,7 @@ pre code {
   }
 }
 @media (min-width: 992px) {
+
   .container {
     width: 970px;
   }
@@ -5819,6 +5820,7 @@ button.close {
   .modal-sm {
     width: 300px;
   }
+
 }
 @media (min-width: 992px) {
 
@@ -6408,6 +6410,26 @@ button.close {
   .visible-xs-inline-block {
     display: inline-block !important;
   }
+  #nav1 {
+      padding-left: 0px;
+      width: 50%;
+      font-size: 12px;
+  }
+  #nav2 {
+      margin-right: 0px;
+      width: 50%;
+      font-size: 12px;
+      padding-left: 4px ;
+    }
+    .navbar-toggle{
+      margin-right: 5px !important;
+    }
+    .brand-text-style {
+      padding-top: 5px !important;
+      width: 200px !important;
+      font-size: 14px!important;
+      font-weight: bold !important;
+    }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .visible-sm {
@@ -6438,6 +6460,20 @@ button.close {
   .visible-sm-inline-block {
     display: inline-block !important;
   }
+  #nav1 {
+    padding-left: 4px ;
+  }
+  #nav2 {
+    padding-left: 4px ;
+  }
+  .extensao {
+    width: 800px;
+  }
+  .brand-text-style{
+    padding-top: 5px !important;
+    width: 230px;
+  }
+
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .visible-md {

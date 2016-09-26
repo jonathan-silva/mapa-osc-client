@@ -1,13 +1,18 @@
 #header{
   box-shadow: 0px 1px 10px gray;
 }
+#dropdown-menu-header{
+    padding-top: 15px;
+}
 #topo_acessibilidade {
-  height: 23px;
+  height: auto;
   width: 100%;
   background: rgba(255, 255, 255, 0.5);
-  padding: 4px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  padding-left: 0px;
+  padding-right: 0px;
   display: table;
-  font-size: 12;
 }
 #nav1 li, #nav2 li {
   display: inline-block;
@@ -22,14 +27,13 @@
 }
 #nav1{
   float:left;
+  font-size: 12px;
 }
 #nav2{
   float:right;
-  margin-right: 30px;
+  font-size: 12px;
 }
-#dropdown-menu-header{
-    padding-top: 15px;
-}
+
 .dropdown-toggle{
     color: #404040;
     padding:15px;
