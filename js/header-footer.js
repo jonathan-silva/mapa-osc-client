@@ -17,9 +17,9 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
 
   var menuList = [];
   menuList.push(new MenuListObject("Home", "index.html"));
-  menuList.push(new MenuListObject());//espaço para o dropdown
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Dados", "dados.html"));
+  menuList.push(new MenuListObject("Contato", "contato.html"));
   menuList.push(new MenuListObject("Login", "#"));
 
   var linksSubmenu = [];

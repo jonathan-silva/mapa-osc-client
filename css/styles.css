@@ -27,7 +27,21 @@
   float:right;
   margin-right: 30px;
 }
-
+#dropdown-menu-header{
+    padding-top: 15px;
+}
+.dropdown-toggle{
+    color: #404040;
+    padding:15px;
+}
+.dropdown-toggle:hover{
+  color: #337cbb;
+  text-decoration:none;
+}
+.dropdown-toggle:focus{
+  color: #337cbb;
+  text-decoration:none;
+}
 
 div.dropdown-container > div.dropdown-display {
   float: left;
