@@ -7,8 +7,9 @@ define(['react'], function(React) {
   var BotaoResponsivo = React.createClass({
     renderListItems: function(){
       var icons = [];
-      for (var i = 0; i < this.props.icons.length; i++) {
-        icons.push(<span className="icon-bar">{this.props.icons[i]}</span>);
+      var qtdeLinha = 3;
+      for (var i = 0; i < qtdeLinha; i++) {
+        icons.push(<span className="icon-bar"></span>);
       }
       return icons;
     },
@@ -54,7 +55,7 @@ define(['react'], function(React) {
         if(i==1){//posição em que o dropdown do mapa deve aparecer
           items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.dropdown}/></li>);
         }
-        items.push(<li><a href="#">{this.props.headerObject.menuList[i]}</a></li>);
+        items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
       }
       return items;
     },
@@ -75,7 +76,7 @@ define(['react'], function(React) {
       return (
         <div className="navbar navbar-default navbar-static-top">
           <div className="container">
-            <div id="menu-mobile" class="navbar-header"><BotaoResponsivo icons={headerObject.menuList}/></div>
+            <div id="menu-mobile" class="navbar-header"><BotaoResponsivo/></div>
             <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
           </div>
         </div>

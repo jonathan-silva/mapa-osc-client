@@ -10,19 +10,28 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
     this.menuList = menuList;
   }
 
-  var menuList = ["Home", "Mapa", "Dados", "Login"];
+  function MenuListObject(text='', link=''){
+    this.text = text;
+    this.link = link;
+  }
+
+  var menuList = [];
+  menuList.push(new MenuListObject("Home", "index.html"));
+  menuList.push(new MenuListObject());//espaço para o dropdown
+  menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
+  menuList.push(new MenuListObject("Dados", "dados.html"));
+  menuList.push(new MenuListObject("Login", "#"));
 
   var linksSubmenu = [];
-  linksSubmenu.push(new MenuDropDownObject("Sobre", "#"));
-  linksSubmenu.push(new MenuDropDownObject("Versão", "#"));
-  linksSubmenu.push(new MenuDropDownObject("Metodologia", "#"));
+  linksSubmenu.push(new MenuDropDownObject("Sobre", "sobre.html"));
+  linksSubmenu.push(new MenuDropDownObject("Versão", "versao.html"));
+  linksSubmenu.push(new MenuDropDownObject("Metodologia", "metodologia.html"));
   linksSubmenu.push(new MenuDropDownObject());
-  linksSubmenu.push(new MenuDropDownObject("FAQ", "#"));
-  linksSubmenu.push(new MenuDropDownObject("Glossário", "#"));
+  linksSubmenu.push(new MenuDropDownObject("Ajuda", "ajuda.html"));
   linksSubmenu.push(new MenuDropDownObject());
-  linksSubmenu.push(new MenuDropDownObject("Equipe", "#"));
-  linksSubmenu.push(new MenuDropDownObject("Apoio", "#"));
-  linksSubmenu.push(new MenuDropDownObject("Links", "#"));
+  linksSubmenu.push(new MenuDropDownObject("Equipe", "equipe.html"));
+  linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
+  linksSubmenu.push(new MenuDropDownObject("Links", "links-uteis.html"));
 
   Header = React.createFactory(Header);
   ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList)}), document.getElementById("header"));
