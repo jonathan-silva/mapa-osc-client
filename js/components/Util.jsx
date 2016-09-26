@@ -21,6 +21,41 @@ define('componenteBlocoDeTexto', ['react'], function (React) {
   return BlocoTexto;
 });
 
+define('componenteLinksUteis', ['react'], function (React) {
+
+  var LinksUteis = React.createClass({
+    renderListItems: function(){
+      var items=[];
+      for (var i=0; i<this.props.dados.length; i++){
+        items.push(
+          <li className="media">
+              <a className="pull-left" href={this.props.dados[i].elo} target="_blank">
+               <img className="media-object img-circle" src={this.props.dados[i].imagem} height="64" width="64"></img></a>
+              <div className="media-body">
+                  <h4 className="media-heading">
+                   <a className="btn-link" href={this.props.dados[i].elo} target="_blank">
+                    {this.props.dados[i].titulo}</a></h4>
+                  <p>{this.props.dados[i].desc}</p>
+              </div>
+          </li>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (
+        <div className="col-md-12">
+         <h4 className="h4-texto">Relação de links úteis</h4>
+         <ul className="media-list">{this.renderListItems()}
+         </ul>
+        </div>
+       );
+    }
+  });
+
+  return LinksUteis;
+});
+
 define('componenteDropdown', ['react'], function (React) {
   var Dropdown = React.createClass({
     getInitialState:function(){
