@@ -205,3 +205,9 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   text-align: center;
   outline:0;
 }
+
+/*Página glossario.html*/
+.glossario{
+  margin-top: 0px;
+  min-height:0px;
+}
