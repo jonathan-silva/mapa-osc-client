@@ -35,3 +35,17 @@ require(['react', 'jsx!components/Util'], function (React) {
     ReactDOM.render(Dropdown({list:arquivosEnviados}), document.getElementById("tipo_arquivo_dropdown"));
    });
 });
+
+require(['jquery'], function (React) {
+
+  $("input:radio").change(function () {
+    if($(this).val() === "web_service"){
+      $("#web_service").show();
+      $("#arquivo").hide();
+    }
+    else {
+      $("#arquivo").show();
+      $("#web_service").hide();
+    }
+  });
+});

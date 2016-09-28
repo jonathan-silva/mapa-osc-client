@@ -15,7 +15,7 @@
   <div id="header"></div>
   <!--Fim header-->
 
-  <div class="section">
+  <div id="conteudo" class="section">
     <div class="container" id="container">
     <div class="row">
       <div class="col-md-12">
@@ -32,9 +32,9 @@
       <div class="col-md-12">
         <h4 class="tipo_entrada">TIPO DE ENTRADA</h4>
         <label class="control-label">Web Service</label>
-        <input type="radio" name="tipo_entrada" value="web_service" onclick="toggle()">
+        <input type="radio" name="tipo_entrada" checked="checked" value="web_service">
         <label class="control-label">Arquivo</label>
-        <input type="radio" name="tipo_entrada" value="arquivo" onclick="toggle()">
+        <input type="radio" name="tipo_entrada" value="arquivo">
       </div>
     </div>
 
@@ -122,13 +122,7 @@
   <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
   <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
   <script src="js/config.js"></script>
-  <script type="text/javascript" src="js/entradadedados.js"></script>
+  <script type="text/javascript" src="js/entrada-dados.js"></script>
   <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
-  <script>
-    function toggle(condition){
-        $("#arquivo").toggle();
-        $("#web_service").toggle();
-    }
-  </script>
 </body>
 </html>
