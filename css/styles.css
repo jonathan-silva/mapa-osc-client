@@ -211,3 +211,26 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   margin-top: 0px;
   min-height:0px;
 }
+
+/*Página confirmacao-contato.html*/
+.col-width{
+  max-width: 110px;
+}
+.texto-contato {
+  padding-top: 0px;
+}
+
+/*Página contato.html*/
+#assunto{
+    max-width: 200px;
+  }
+#nome{
+    max-width: 600px;
+  }
+#email{
+    max-width: 600px;
+  }
+#mensagem{
+  height: 200px;
+  max-width: 600px;
+}
