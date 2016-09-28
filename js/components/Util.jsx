@@ -88,7 +88,7 @@ define('componenteDropdown', ['react'], function (React) {
 });
 
 
-define('componenteLink', ['react'], function (React) {
+/*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
     var items = [];
     var aObj = this.props.a;
@@ -101,4 +101,4 @@ define('componenteLink', ['react'], function (React) {
       return (<div>{this.renderList()}</div>);
     }
   });
-});
+});*/
