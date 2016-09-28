@@ -8,11 +8,11 @@ require.config({
     "babel": "libs/babel-core/5.8.24/browser.min",
     "jquery": "libs/jquery-3.1.0/jquery-3.1.0.min",
     "jquery-ui": "libs/jquery-ui-1.12.0/jquery-ui",
-    "bootstrap" :"libs/bootstrap-3.3.7/bootstrap.min"
+    "bootstrap" :"libs/bootstrap-3.3.7/bootstrap.min",
   },
   shim: {
-          'bootstrap': ['jquery'],
-          'jquery-ui': ['jquery']
+          'jquery-ui': ['jquery'],
+          'bootstrap': ['jquery-ui']
       },
   jsx: {
     fileExtension: '.jsx',
