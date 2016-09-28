@@ -33,7 +33,9 @@
   float:right;
   font-size: 12px;
 }
-
+.btn-link{
+  cursor: pointer;
+}
 .dropdown-toggle{
     color: #404040;
     padding:15px;
@@ -233,4 +235,17 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 #mensagem{
   height: 200px;
   max-width: 600px;
+}
+
+/*Página HEADER LOGIN*/
+.form-login{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#lembrarLogin{
+  margin-left:0px;
+}
+
+#cpf, #senha, #confirmarSenha {
+  max-width: 250px;
 }
