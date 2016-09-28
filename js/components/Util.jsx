@@ -55,6 +55,40 @@ define('componenteLinksUteis', ['react'], function (React) {
   return LinksUteis;
 });
 
+define('componenteGlossario', ['react'], function (React) {
+
+  var Glossario = React.createClass({
+    renderListItems: function(){
+      var items=[];
+      for (var i=0; i<this.props.dados.length; i++){
+        items.push(
+          <li className="media glossario">
+              <div className="media-left">
+                <span className="glyphicon glyphicon-minus" aria-hidden="true"></span>
+              </div>
+              <div className="media-body">
+                <h4 className="media-heading">{this.props.dados[i].topico}</h4>
+                <p>{this.props.dados[i].desc}</p>
+              </div>
+          </li>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (
+        <div className="col-md-12">
+          <ul className="media-list">{this.renderListItems()}
+         </ul>
+         <a href="#header" class="topo">Voltar para o topo</a>
+        </div>
+       );
+    }
+  });
+
+  return Glossario;
+});
+
 define('componenteDropdown', ['react'], function (React) {
   var Dropdown = React.createClass({
     getInitialState:function(){
