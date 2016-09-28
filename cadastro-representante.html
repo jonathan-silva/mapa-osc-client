@@ -37,8 +37,8 @@
                 ou CNPJ.</h3>
               <form role="form">
                 <div class="form-group">
-                  <label class="control-label" for="exampleInputEmail1">Nome ou CNPJ da Entidade:</label>
-                  <input class="form-control" id="exampleInputEmail1" placeholder="Nome ou CNPJ da entidade" type="text">
+                  <label class="control-label" for="nomeEntidade">Nome ou CNPJ da Entidade:</label>
+                  <input class="form-control" id="nomeEntidade" placeholder="Nome ou CNPJ da entidade" type="text">
                 </div>
                 <hr>
                 <h3>Informe seus dados de identificação.</h3>
@@ -47,12 +47,12 @@
                   <input class="form-control" id="nome" placeholder="Nome" type="text">
                 </div>
                 <div class="form-group">
-                  <label class="control-label" for="cpf">CPF:</label>
-                  <input class="form-control" id="cpf" placeholder="CPF" type="text">
-                </div>
-                <div class="form-group">
                   <label class="control-label" for="email">Email:</label>
                   <input class="form-control" id="email" placeholder="E-mail" type="email">
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="cpf">CPF:</label>
+                  <input class="form-control" id="cpf" placeholder="CPF" type="text">
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="senha">Senha:</label>
@@ -65,19 +65,19 @@
                 <div class="form-group">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox">Concordo com os
-                      <a>termos de uso</a>
+                      <input id="termoUso" type="checkbox">Concordo com os
+                      <a target="_blank" href="termo-uso.html">termos de uso</a>
                     </label>
                   </div>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox">Desejo receber email sobre as novidades do Mapa das Organizações da Sociedade
+                      <input id="newsletter" type="checkbox">Desejo receber email sobre as novidades do Mapa das Organizações da Sociedade
                       Civil.</label>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="col-sm-offset-0 text-center">
-                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <button type="submit" class="btn btn-success">Enviar</button>
                     <button type="submit" class="btn btn-danger">Cancelar</button>
                   </div>
                 </div>

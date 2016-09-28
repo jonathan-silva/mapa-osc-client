@@ -54,8 +54,14 @@ define(['react'], function(React) {
       for (var i = 0; i < this.props.headerObject.menuList.length; i++) {
         if(i==1){//posição em que o dropdown do mapa deve aparecer
           items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.dropdown}/></li>);
+          items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
-        items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        else if(i == this.props.headerObject.menuList.length-1){
+          items.push(<li><a className="btn-link" data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
+        }
+        else{
+          items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        }
       }
       return items;
     },
@@ -96,6 +102,39 @@ define(['react'], function(React) {
           <div className="container">
             <div id="menu-mobile" className="navbar-header"><BotaoResponsivo/></div>
             <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
+          </div>
+        </div>
+        <div className="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 className="modal-title" id="modalLogin">Identificação</h4>
+              </div>
+              <div className="modal-body">
+                <form className="form-login">
+                  <div className="form-group">
+                    <label className="control-label">Email:</label>
+                    <input className="form-control" id="emailLogin" placeholder="Email" type="text"></input>
+                  </div>
+                  <div className="form-group">
+                    <label className="control-label">Senha:</label>
+                    <input className="form-control" id="senhaLogin" placeholder="Senha" type="password"></input>
+                  </div>
+                  <div className="form-group">
+                    <div className="checkbox">
+                      <input id="lembrarLogin" type="checkbox"></input><label>Lembrar de mim</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="submit" className="btn btn-primary">Entrar</button>
+                <a className="btn btn-success" href="cadastro-representante.html">Cadastrar</a>
+                <a className="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                <a type="button" className="btn btn-link" href="recuperar-senha.html">Esqueci a senha</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
