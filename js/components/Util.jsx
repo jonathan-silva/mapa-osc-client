@@ -121,6 +121,34 @@ define('componenteDropdown', ['react'], function (React) {
   return Dropdown;
 });
 
+define('componenteFormItem', ['react'], function (React) {
+  var FormItem = React.createClass({
+    renderListItems: function(){
+      var items=[];
+      items.push(<h3>{this.props.header}</h3>);
+      for (var i=0; i<this.props.dados.length; i++){
+        items.push(
+          <div className="form-group">
+            <label className="control-label" for={this.props.dados[i].id}>{this.props.dados[i].label}:</label>
+            <input className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].label} type={this.props.dados[i].type}></input>
+          </div>
+        );
+      }
+    //  item.push(</form>);
+      return items;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return FormItem;
+});
+
 
 /*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
