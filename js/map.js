@@ -80,7 +80,7 @@ require(['jquery'], function(){
             this_response = response.substring(last_response_len);
             last_response_len = response.length;
         }
-        console.log("-----------------------------------------------------------------------------");
+        //console.log("-----------------------------------------------------------------------------");
         console.log(this_response);
       }
 
