@@ -12,7 +12,7 @@ require(['react', 'jsx!components/Util'], function (React) {
 //var desc = ["Descrição do Site"]
 //var imagem = ["img/simbolo.png"]
 //var elo = ["#"]
-    var titulo = ["Portal de Convênios","Biblioteca Digital das OSCs","Biblioteca do Marco Legal das OSCs","Pesquisa FASFIL 2010","Participa.br","Marco Legal das OSCs","Sniic - Sistema Nacional de Informações e Indicadores Culturais"];
+    var titulo = ["Portal de Convênios","Biblioteca Digital das OSCs","Biblioteca do Marco Regulatório das OSCs","Pesquisa FASFIL 2010","Participa.br","Marco Regulatório das OSCs","Sniic - Sistema Nacional de Informações e Indicadores Culturais"];
     var desc = [
     "O Portal dos Convênios é o sítio eletrônico que abriga o Sistema de Gestão de Convênios e Contratos de Repasse – SICONV, bem como todo o conjunto de informações relacionadas à Convênios e Contratos de Repasse.",
     "Biblioteca da Associação Brasileira de Organizações Não Governamentais - Abong",

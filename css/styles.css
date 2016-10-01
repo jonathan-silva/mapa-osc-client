@@ -249,3 +249,17 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 #cpf, #senha, #confirmarSenha {
   max-width: 250px;
 }
+
+/*Página Dados e Indicadores*/
+.col-3-dados{
+  width: 30%
+}
+.col-9-dados{
+  width: 70%
+}
+.col-6-dados{
+  width: 100%
+}
+#grafico-1,#grafico-2,#grafico-3,#grafico-4{
+  height: 450px;
+}

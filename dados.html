@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Dados e Indicadores</title>
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="css/base.css" rel="stylesheet" type="text/css">
+      <link href="css/styles.css" rel="stylesheet" type="text/css">
+      <link href="css/libs/nv-d3/nv.d3.css" rel="stylesheet" type="text/css">
+      <link href="css/bootstrap.vertical-tabs.min.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body>
+
+    <!-- header -->
+    <div id="barra-brasil"></div>
+    <div id="header"></div>
+    <!--Fim header-->
+
+    <div id="conteudo" class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-primary">Dados e Indicadores</h1>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <h3>Veja alguns indicadores e graficos dsad ad ff.....</h3>
+          </div>
+          <div class="col-md-3">
+            <a class="btn btn-success" href="http://extrator.ipea.gov.br/">Monte sua Consulta</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-6-dados">
+            <div class="col-xs-3 col-3-dados"> <!-- required for floating -->
+              <!-- Nav tabs -->
+              <ul  class="lead nav nav-tabs nav-pills tabs-left nav-stacked" id="tabGrafico">
+                <li class="active"><a href="#dado-1" data-toggle="tab">Natureza Jurídica (2013)</a></li>
+                <li><a href="#dado-2" data-toggle="tab">Vínculos de trabalho das OSCs</a></li>
+                <li><a href="#dado-3" data-toggle="tab">Títulos ou Certificações Federais</a></li>
+                <li><a href="#dado-4" data-toggle="tab">Relação com a administração federal</a></li>
+              </ul>
+            </div>
+
+            <div class="col-xs-9 col-9-dados">
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="dado-1">
+                  <h4>Percentual e número de instituições por Natureza Jurídica (2013)</h4>
+                  <div class="chart-container" id="grafico-1"><svg></svg></div>
+                  <h5>Fonte:(2013)</h5>
+                </div>
+                <div class="tab-pane" id="dado-2">
+                  <h4>% e número de vínculos de trabalho das OSCs, por natureza jurídica</h4>
+                  <div class="chart-container" id="grafico-2"><svg></svg></div>
+                  <h5>Fonte:(2013)</h5>
+                </div>
+                <div class="tab-pane" id="dado-3">
+                  <h4>% de OSCs que possuem Títulos ou certificações federais (2009-2015)</h4>
+                  <div class="chart-container" id="grafico-3"><svg></svg></div>
+                  <h5>Fonte:(2013)</h5>
+                </div>
+                <div class="tab-pane" id="dado-4">
+                  <h4>Número de OSCs que mantiveram relação com a administração federal</h4>
+                  <div class="chart-container" id="grafico-4"><svg></svg></div>
+                  <h5>fonte: (2009-2016)</h5>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <a href="#header" class="topo">Voltar para o topo</a>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="rodape"></div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div id="footer-brasil"></div>
+      </div>
+    </footer>
+    <!--Fim footer-->
+
+    <!--SCRIPTS-->
+    <script src="js/libs/react-15.3.1/react.min.js"></script>
+    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+    <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/dados.js"></script>
+    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+
+  </body>
+</html>
