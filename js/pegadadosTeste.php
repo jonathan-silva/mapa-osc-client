@@ -1,5 +1,5 @@
 <?php
-  $limite = isset($_POST['limite']) ? $_POST['limite'] : 0;
+  $limite = isset($_POST['limite']) ? $_POST['limite'] : 50000;
 
   $SQLPontos = "SELECT bosc_sq_osc AS id, ST_Y(ospr_geometry), ST_X(ospr_geometry) FROM portal.vm_osc_principal group by bosc_sq_osc order by bosc_sq_osc  limit ".$limite;
 
@@ -16,12 +16,27 @@
 
   $chunks = count($json)/4;
   $pieceOfArray = array_chunk($json, $chunks, true);
-
+  $arrayJSON = '';
   while(@ob_end_clean());
-  foreach ($pieceOfArray as $key => $value) {
-    echo(json_encode($value));
+  $size = count($pieceOfArray);
+
+  for($i=0; $i<$size; $i++){
+    $f=json_encode($pieceOfArray[$i]);
+    if($i!=$size-1) $f.=',';
+    //print_r("----------------------------------------");
+    print_r($f);
     flush();
     //sleep(1);
-    //usleep(10000);
   }
+    /*foreach ($pieceOfArray as $key => $value) {
+        foreach($value as $k => $v) {
+        $arrayString = json_encode($v);
+        //$arrayString=str_replace("}{", "},{", $f);
+        print_r($arrayString.',');
+        flush();
+        //sleep(1);
+        //usleep(10000);
+      }
+
+  }*/
 ?>
