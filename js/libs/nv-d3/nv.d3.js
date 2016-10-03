@@ -2927,7 +2927,7 @@ nv.models.discreteBar = function() {
     , forceY = [0] // 0 is forced by default.. this makes sense for the majority of bar graphs... user can always do chart.forceY([]) to remove
     , color = nv.utils.defaultColor()
     , showValues = false
-    , valueFormat = d3.format('2f')
+    , valueFormat = d3.format('r')
     , xDomain
     , yDomain
     , xRange
@@ -3300,7 +3300,7 @@ nv.models.discreteBarChart = function() {
     ;
   yAxis
     .orient((rightAlignYAxis) ? 'right' : 'left')
-    .tickFormat(d3.format('0d'))
+    .tickFormat(d3.format('r'))
     ;
 
   //============================================================
@@ -8024,7 +8024,7 @@ nv.models.multiBarChart = function() {
     ;
   yAxis
     .orient((rightAlignYAxis) ? 'right' : 'left')
-    .tickFormat(d3.format('0d'))
+    .tickFormat(d3.format('r'))
     ;
 
   controls.updateState(false);
@@ -8517,7 +8517,7 @@ nv.models.multiBarHorizontal = function() {
     , stacked = false
     , showValues = false
     , valuePadding = 60
-    , valueFormat = d3.format('0f')
+    , valueFormat = d3.format('r')
     , delay = 1200
     , xDomain
     , yDomain
@@ -8969,7 +8969,7 @@ nv.models.multiBarHorizontalChart = function() {
     ;
   yAxis
     .orient('bottom')
-    .tickFormat(d3.format('0d'))
+    .tickFormat(d3.format('r'))
     ;
 
   controls.updateState(false);
@@ -10202,7 +10202,7 @@ nv.models.pie = function() {
     , getDescription = function(d) { return d.description }
     , id = Math.floor(Math.random() * 10000) //Create semi-unique ID in case user doesn't select one
     , color = nv.utils.defaultColor()
-    , valueFormat = d3.format('2f')
+    , valueFormat = d3.format('r')
     , showLabels = true
     , pieLabelsOutside = true
     , donutLabelsOutside = false
@@ -13012,8 +13012,8 @@ nv.models.sparklinePlus = function() {
     , y
     , index = []
     , paused = false
-    , xTickFormat = d3.format(',r')
-    , yTickFormat = d3.format('2f')
+    , xTickFormat = d3.format('r')
+    , yTickFormat = d3.format('r')
     , showValue = true
     , alignValue = true
     , rightAlignValue = false
@@ -13666,7 +13666,7 @@ nv.models.stackedAreaChart = function() {
       }
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
-    , yAxisTickFormat = d3.format('2f')
+    , yAxisTickFormat = d3.format('r')
     , state = { style: stacked.style() }
     , defaultState = null
     , noData = 'No Data Available.'

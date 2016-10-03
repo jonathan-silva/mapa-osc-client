@@ -260,6 +260,51 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 .col-6-dados{
   width: 100%
 }
-#grafico-1,#grafico-2,#grafico-3,#grafico-4{
+#grafico-1,#grafico-2,#grafico-3,#grafico-4,#graficoMain-1,#graficoMain-2{
   height: 450px;
+}
+.histoGram{
+  margin: 10px;
+  float: left;
+  max-height: 300px;
+  max-width: 500px;
+}
+.pieChart{
+  margin: 10px;
+  max-width: 250px;
+  float: left;
+  max-height: 250px;
+  margin-top: 70px;
+}
+
+path {  stroke: #fff; }
+path:hover {  opacity:0.9; }
+rect:hover {  fill:blue; }
+.axis {  font: 10px sans-serif; }
+.legend tr{    border-bottom:1px solid grey; }
+.legend tr:first-child{    border-top:1px solid grey; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {  display: none; }
+.legend{
+    float: left;
+    margin: 10px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-top: 80px;
+}
+.legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+.legendFreq, .legendPerc{
+    align:right;
+    width:50px;
 }

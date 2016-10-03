@@ -5,7 +5,7 @@ require(['jquery-ui'], function (React) {
 
 
 require(["nv.d3.lib"], function (React) {
-  console.log(d3.version);
+
   var jsonGrafico3 = [{key: "Grafico 3", values: [{"label" : "CEBAS Educação", "value" : 4 }, {"label" : "CEBAS Saúde", "value" : 200 } ,{ "label" : "CEBAS Assistência Social" , "value" : 498 } , {"label" : "OSCIP", "value" : 7991}]}];
   var jsonGrafico4 = [{key: "Grafico 4", values: [{"label" : "FINEP", "value" : 5 }, {"label" : "SALIC", "value" : 515 } , { "label" : "SLIE" , "value" : 656 } , {"label" : "SICONV", "value" : 1921} , { "label" : "Tituladas ou Certificadas" , "value" : 8693 }, { "label" : "SIAFI" , "value" : 68021 } ]}];
   var jsonGrafico1 = [{"label": "Fundação Privada", "value" : 8123 } ,  {"label": "Organização Religiosa", "value" : 41587 } , { "label": "Associação Privado", "value" : 391582} ];
