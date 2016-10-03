@@ -20,6 +20,55 @@ define('componenteBlocoDeTexto', ['react'], function (React) {
   return BlocoTexto;
 });
 
+define('componenteResultadoDaConsulta', ['react'], function (React) {
+  var ResultadoConsulta = React.createClass({
+    renderListItems: function(){
+      var items=[];
+      for (var i=0; i<this.props.dados.length; i++){
+        items.push(
+          <tr>
+            <th scope="row">
+              <a href="#" className="pull-left"><img className="img-circle media-object" src={this.props.dados[i].imagem} height="64" width="64"></img></a>
+            </th>
+            <td className="title">{this.props.dados[i].nome}</td>
+            <td>{this.props.dados[i].cnpj}</td>
+            <td>{this.props.dados[i].natjur}</td>
+            <td>{this.props.dados[i].end}</td>
+            <td>
+              <button type="button" className="btn btn-info" href="perguntas-frequentes.html" >Detalhar
+              <span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </td>
+          </tr>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (
+
+        <table className="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
+          <thead>
+            <tr>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"></th>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" data-tablesaw-sortable-default-col>Nome da OSC</th>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">CNPJ</th>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Natureza Jurídica</th>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Endereço</th>
+              <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Detalhar</th>
+            </tr>
+          </thead>
+          <tbody>
+           {this.renderListItems()}
+           </tbody>
+       </table>
+
+        );
+    }
+  });
+
+  return ResultadoConsulta;
+});
+
 define('componenteLinksUteis', ['react'], function (React) {
 
   var LinksUteis = React.createClass({

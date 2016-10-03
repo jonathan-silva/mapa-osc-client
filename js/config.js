@@ -12,7 +12,9 @@ require.config({
     "d3": "libs/nv-d3/d3.v3",
     "nv.d3":"libs/nv-d3/nv.d3",
     "nv.d3.lib":"libs/nv-d3/nv.d3.lib",
-    "stream":"libs/nv-d3/stream-layers"
+    "stream":"libs/nv-d3/stream-layers",
+    "tablesaw":"libs/tablesaw-3.0/tablesaw",
+    "tablesaw-init":"libs/tablesaw-3.0/tablesaw-init"
   },
   shim: {
           'jquery-ui': ['jquery'],
@@ -20,7 +22,8 @@ require.config({
           'd3': ['bootstrap'],
           'nv.d3': ['d3'],
           'stream':['nv.d3'],
-          'nv.d3.lib': ['stream']
+          'nv.d3.lib': ['stream'],
+          'tablesaw-init':['tablesaw']
       },
   jsx: {
     fileExtension: '.jsx',
