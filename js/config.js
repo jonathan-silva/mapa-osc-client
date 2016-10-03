@@ -14,7 +14,8 @@ require.config({
     "nv.d3.lib":"libs/nv-d3/nv.d3.lib",
     "stream":"libs/nv-d3/stream-layers",
     "tablesaw":"libs/tablesaw-3.0/tablesaw",
-    "tablesaw-init":"libs/tablesaw-3.0/tablesaw-init"
+    "tablesaw-init":"libs/tablesaw-3.0/tablesaw-init",
+    "rotas":"rotas"
   },
   shim: {
           'jquery-ui': ['jquery'],
