@@ -12,7 +12,8 @@ require.config({
     "d3": "libs/nv-d3/d3.v3",
     "nv.d3":"libs/nv-d3/nv.d3",
     "nv.d3.lib":"libs/nv-d3/nv.d3.lib",
-    "stream":"libs/nv-d3/stream-layers"
+    "stream":"libs/nv-d3/stream-layers",
+    "rotas":"rotas"
   },
   shim: {
           'jquery-ui': ['jquery'],
