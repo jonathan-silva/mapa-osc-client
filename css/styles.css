@@ -308,3 +308,19 @@ rect:hover {  fill:blue; }
     align:right;
     width:50px;
 }
+.export {
+    padding: 3px 4px 3px 4px;
+    display: inline;
+    cursor: pointer;
+}
+
+/*Página Dados e Indicadores*/
+.formDataTermino, .formNumeroChamada{
+  max-width: 250px;
+}
+.formNomePrograma, .formOrgao{
+  max-width: 600px;
+}
+.formArquivoEdital{
+  max-width: 500px;
+}

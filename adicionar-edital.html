@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adicionar Edital</title>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+  <!-- header -->
+  <div id="barra-brasil"></div>
+  <div id="header"></div>
+  <!--Fim header-->
+
+  <div id="conteudo" class="section">
+    <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-primary">Adicionar Edital</h1>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Para adicionar um edital é necessário fdsf...</h4>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <form role="form">
+
+          <!--Formulario Arquivo-->
+          <div id="arquivo">
+            <div class="form-group">
+              <label class="control-label">Orgão*: </label>
+              <input class="form-control formOrgao" placeholder="Nome do Orgão" name="Nome do Orgão" type="text" autofocus required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Nome do Programa*: </label>
+              <input class="form-control formNomePrograma" placeholder="Nome do Programa" name="Nome do Programa" type="text" required >
+            </div>
+            <div class="form-group">
+              <label class="control-label">Número da Chamada*: </label>
+              <input class="form-control formNumeroChamada" placeholder="Número da Chamada" name="Número da Chamada" type="text" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Data do Término*: </label>
+              <input id="datepicker" class="form-control formDataTermino" placeholder="Data do Término" name="Data do Término" type="data" required>
+            </div>
+            <div class="form-group">
+              <h4>Selecione o arquivo a ser enviado</h4>
+              <label class="control-label">Arquivo Enviado*:</label>
+              <input class="form-control formArquivoEdital" type="file" name="Escolher Arquivo" required>
+              <h4>*Campos Obrigatórios.</h4>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-0">
+              <a href="index.html" class="btn btn-danger">Cancelar</a>
+              <button type="submit" class="btn btn-success">Adicionar</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+  <!-- footer -->
+  <div id="rodape"></div>
+  <footer class="section section-primary">
+    <div class="container">
+      <div id="footer-brasil"></div>
+    </div>
+  </footer>
+  <!--Fim footer-->
+
+  <!--SCRIPTS-->
+  <script src="js/libs/react-15.3.1/react.min.js"></script>
+  <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+  <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+  <script src="js/config.js"></script>
+  <script type="text/javascript" src="js/adicionar-edital.js"></script>
+  <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+</body>
+</html>
