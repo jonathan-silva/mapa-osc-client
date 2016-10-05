@@ -26,7 +26,7 @@ require(['jquery', 'rotas'], function(){
     var leafletView = new PruneClusterForLeaflet();
 
     $.ajax({
-        url: "js/pegadadosTeste.php",//trocar pela rota correta
+        url: "js/mockDadosGeograficos.php",//trocar pela rota correta
         data: { limite: '100000' },
         type: "POST",
         dataType: "json",
@@ -87,7 +87,8 @@ require(['jquery', 'rotas'], function(){
           type: "GET",
           dataType: "json",
           complete: function(data){
-            var cabecalho = data.responseJSON.cabecalho;
+            //console.log(data);
+            var cabecalho = data.responseJSON === undefined ? undefined : data.responseJSON.cabecalho;
             var idOSC = cabecalho === undefined ? "OSC ainda não registrada no banco" : cabecalho.cd_identificador_osc;
             leafletMarker.bindPopup('Codigo identificador da OSC= '+idOSC).openPopup();
           }
