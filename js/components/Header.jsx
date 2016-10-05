@@ -1,7 +1,7 @@
 /*** Componente responsável pela parte superior da página ***/
 define(['react'], function(React) {
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
-  var titulo = "O Mapa";
+  var titulo = "O Portal";
 
   //Componentes individuais
   var BotaoResponsivo = React.createClass({
@@ -16,7 +16,7 @@ define(['react'], function(React) {
     render: function () {
       return (
         <div>
-          <a className="navbar-brand brand-master-style" contenteditable="true">
+          <a href="index.html" className="navbar-brand brand-master-style" contenteditable="true">
             <img src="img/simbolo.png" className="brand-style"></img>
             <span className="brand-text-style">{tituloLogo}</span>
           </a>
