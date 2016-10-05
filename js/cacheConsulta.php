@@ -21,7 +21,7 @@
   $valor = $cache->getCoordenadas($chave);
 
   if($valor!=""){
-    print_r("valor pego diretamente do cache: ".$valor);
+    print_r($valor);
   }
   else{
 	   $dadosMockJSON = file_get_contents("js/mockDadosGeograficos.php");//$url
