@@ -223,59 +223,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
-                      <p class="form-control-static">conselho dos amigos pela Juventude</p>
+                      <p class="form-control-static">{{conselho.nm_conselho}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">10</p>
+                      <p class="form-control-static">{{conselho.nr_numero_assentos}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">Mensal</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">conselho dos amigos pela Juventude</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">10</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">Mensal</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">conselho dos amigos pela Juventude</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">10</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">Mensal</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">conselho dos amigos pela Juventude</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">10</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">Mensal</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">conselho dos amigos pela Juventude</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">10</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">Mensal</p>
+                      <p class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -293,7 +249,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="conferencia in ctrl.osc.conferencias">
+                  <tr ng-repeat="conferencia in ctrl.osc.participacao_social.conferencia">
                     <td>
                       <p class="form-control-static">{{conferencia.tx_nome_conferencia}}</p>
                     </td>
@@ -318,26 +274,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr ng-repeat="outra in ctrl.osc.participacao_social.outra">
                     <td>
-                      <p class="form-control-static">Moradores de Santa Luzia</p>
+                      <p class="form-control-static">{{outra.tx_nome_outra_participacao_social}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">TIPO DESCONHECIDO</p>
+                      <p class="form-control-static">{{outra.tx_tipo_outra_participacao_social}}</p>
                     </td>
                     <td>
-                      <p class="form-control-static">Mensal</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p class="form-control-static">Moradores de Santa Luzia</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">TIPO DESCONHECIDO</p>
-                    </td>
-                    <td>
-                      <p class="form-control-static">Mensal</p>
+                      <p class="form-control-static">{{outra.dt_data_ingresso_outra_participacao_social}}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -356,19 +301,19 @@
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias federais:</label>
-                <span>0,00</span>
+                <span>{{ctrl.osc.recursos.nr_valor_federal}}</span>
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias estaduais:</label>
-                <span>0,00</span>
+                <span>{{ctrl.osc.recursos.nr_valor_estadual}}</span>
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias municipais:</label>
-                <span>0,00</span>
+                <span>{{ctrl.osc.recursos.nr_valor_municipal}}</span>
               </div>
               <div class="form-group">
                 <label>Valor dos recursos privados:</label>
-                <span>0,00</span>
+                <span>{{ctrl.osc.recursos.nr_valor_privado}}</span>
               </div>
               <div class="form-group">
                 <p class="form-control-static"><a href="{{ctrl.osc.recursos.ft_link_demonstracao_contabil}}">{{ctrl.osc.recursos.tx_link_demonstracao_contabil}}</a></p>
@@ -379,22 +324,13 @@
             </div>
             <div class="col-md-7 form-inline">
               <h3>Conselho Contábil</h3>
-              <div class="edit-toggle ">
+              <div class="edit-toggle " ng-repeat="conselheiro in ctrl.osc.recursos.conselho_contabil">
                 <div class="form-group">
-                  <p class="form-control-static">Abc</p>
+                  <p class="form-control-static">{{conselheiro.tx_cargo_conselheiro}}</p>
                 </div>
                 <span>:</span>
                 <div class="form-group">
-                  <p class="form-control-static">Abc</p>
-                </div>
-              </div>
-              <div class="edit-toggle ">
-                <div class="form-group">
-                  <p class="form-control-static">Abc</p>
-                </div>
-                <span>:</span>
-                <div class="form-group">
-                  <p class="form-control-static">Abc</p>
+                  <p class="form-control-static">{{conselheiro.tx_nome_conselheiro}}</p>
                 </div>
               </div>
             </div>
