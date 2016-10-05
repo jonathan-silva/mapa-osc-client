@@ -1,4 +1,5 @@
 require(['react', 'jsx!components/Util'], function (React) {
+
   require(['componenteFormItem'], function(FormItem){
     function FormItens(id, label, type){
       this.id = id;
@@ -31,4 +32,9 @@ require(['react', 'jsx!components/Util'], function (React) {
     ReactDOM.render(FormItem({header:hd, dados:formItens}), document.getElementById("form-org"));
     ReactDOM.render(FormItem({header:hd2, dados:formItens2}), document.getElementById("form-dados"));
    });
+
+   require(['jquery-ui'], function (React) {
+      $(".captcha input").checkboxradio();
+    });
+
 });
