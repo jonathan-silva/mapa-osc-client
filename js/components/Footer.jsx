@@ -31,11 +31,11 @@ define(['react'], function(React) {
               <div role="listbox" className="carousel-inner" >{this.renderListItems()}</div>
               {/* Controls */}
               <a data-slide="prev" role="button" href="#carousel-apoio" className="left carousel-control">
-                <span aria-hidden="true" className="icon-prev fa fa-angle-left" />
+                <span aria-hidden="true" className="glyphicon glyphicon-chevron-left" />
                 <span className="sr-only">Previous</span>
               </a>
               <a data-slide="next" role="button" href="#carousel-apoio" className="right carousel-control">
-                <span aria-hidden="true" className="icon-next fa fa-angle-right" />
+                <span aria-hidden="true" className="glyphicon glyphicon-chevron-right" />
                 <span className="sr-only">Next</span>
               </a>
             </div>
@@ -50,7 +50,7 @@ define(['react'], function(React) {
   var Realizacao = React.createClass({
     render: function(){
       return (<div><span>Realização:</span>
-          <a target="_blank" href="http://www.ipea.gov.br">
+          <a className="logoIpea" target="_blank" href="http://www.ipea.gov.br">
             <img alt={this.props.items[1]} src={this.props.items[0]} className="normal" />
             <img style={{display: 'none'}} alt={this.props.items[3]} src={this.props.items[2]} className="contraste" />
           </a></div>);
@@ -96,13 +96,13 @@ define(['react'], function(React) {
             <div className="section">
               <div className="container">
                 <div className="row">
-                  <div className="col-md-3">
+                  <div className="col-md-4">
                     <h5>{tituloLogo} © {ano}</h5>
                   </div>
-                  <div id="carousel"  className="col-md-3">
+                  <div id="carousel"  className="col-md-4">
                     {<Carousel images={imgList}/>}
                   </div>
-                  <div id="realizacao" className="col-md-3">
+                  <div id="realizacao" className="col-md-4">
                     <Realizacao items={imgsAltRealizacao}/>
                   </div>
                 </div>
