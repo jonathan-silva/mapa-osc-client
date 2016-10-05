@@ -48,9 +48,10 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   }
   // links do menu inferior
   var blocks = [];
-  blocks.push(new BlockFooterObject("Mapa das OCSs", ["faq.html", "metodologia.html", "contato.html", "termos.html"], ["Dúvidas Frequentes", "Metodologia", "Contato e Sugestões", "Termos de Uso"]));
+  blocks.push(new BlockFooterObject("Portal das OCSs", ["metodologia.html", "termos.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"]));
+  blocks.push(new BlockFooterObject("Ajuda", ["glossario.html", "perguntas-frequentes.html", "tutoriais.html", "mapa-do-site.html"], ["Glossário", "Perguntas Frequentes", "Tutoriais", "Mapa do Site"]));
   blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"]));
-  blocks.push(new BlockFooterObject("Links Úteis", ["http://www.convenios.gov.br/portal/", "http://bibliotecadigital.abong.org.br/", "http://www.secretariageral.gov.br/atuacao/mrosc/estudos-e-pesquisas", "ftp://ftp.ibge.gov.br/Fundacoes_Privadas_e_Associacoes/2010/fasfil.pdf", "http://www.participa.br", "http://www.secretariageral.gov.br/mrosc", "http://sniic.cultura.gov.br/"], ["Portal dos Convênios", "Biblioteca Digital das OSCs", "Biblioteca do Marco Regulatório das OSC", "Pesquisa FASFIL 2010", "Participa.br", "Marco Regulatório das OSCs", "Sniic - Sistema Nacional de Informações e Indicadores Culturais"]));
+
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
   //Carrossel do rodapé
