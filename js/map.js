@@ -26,8 +26,8 @@ require(['jquery', 'rotas'], function(){
     var leafletView = new PruneClusterForLeaflet();
 
     $.ajax({
-        url: "js/mockDadosGeograficos.php",//trocar pela rota correta
-        data: { limite: '100000' },
+        url: "js/cacheConsulta.php",//trocar pela rota correta
+        data: { chave:'consultaTudo' },
         type: "POST",
         dataType: "json",
         beforeSend: function() {
