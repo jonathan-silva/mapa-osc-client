@@ -32,4 +32,10 @@ require(['react', 'jsx!components/Util'], function (React) {
     ReactDOM.render(FormItem({header:hd, dados:formItens}), document.getElementById("form-dados"));
     ReactDOM.render(FormItem({header:hd2, dados:formItens2}), document.getElementById("form-org"));
    });
+
+   require(['jquery-ui'], function (React) {
+
+     $(".captcha input").checkboxradio();
+
+   });
 });
