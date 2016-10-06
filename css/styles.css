@@ -132,6 +132,7 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   color: #337cbb;
   font-weight: bold;
   background-color: aliceblue;
+  margin-bottom: 20px;
 }
 .subTituloItem{
   color: #337cbb;
@@ -355,4 +356,10 @@ fieldset legend {
 }
 .checkbox label{
     margin-bottom: 5px;
+  }
+  .text-list{
+    text-indent:0px
+  }
+  .text-list li{
+    margin-top: 5px;
   }
