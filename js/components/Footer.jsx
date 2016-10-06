@@ -61,7 +61,7 @@ define(['react'], function(React) {
   var MenuInferior = React.createClass({
     geraLinks: function (block){
       var arr = [];
-      for(var i=0; i< block.urls.length; i++) arr.push(<dd><a href={block.urls[i]}>{block.texts[i]}</a></dd>);
+      for(var i=0; i< block.urls.length; i++) arr.push(<dd><a href={block.urls[i]} target={block.target[i]}>{block.texts[i]}</a></dd>);
 
       return arr;
     },

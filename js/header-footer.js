@@ -41,16 +41,17 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
 //Footer da página
 require(['react', 'jsx!components/Footer'], function(React, Footer) {
 
-  function BlockFooterObject(title, urls=[], texts=[]){
+  function BlockFooterObject(title, urls=[], texts=[], target='_self'){
     this.title = title;
     this.urls = urls;
     this.texts = texts;
+    this.target= target;
   }
   // links do menu inferior
   var blocks = [];
-  blocks.push(new BlockFooterObject("Portal das OCSs", ["metodologia.html", "termos.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"]));
+  blocks.push(new BlockFooterObject("Portal das OCSs", ["metodologia.html", "termos-uso.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"]));
   blocks.push(new BlockFooterObject("Ajuda", ["glossario.html", "perguntas-frequentes.html", "tutoriais.html", "mapa-do-site.html"], ["Glossário", "Perguntas Frequentes", "Tutoriais", "Mapa do Site"]));
-  blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"]));
+  blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"],"_blank"));
 
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];

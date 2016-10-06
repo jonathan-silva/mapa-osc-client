@@ -89,7 +89,7 @@ define(['react'], function(React) {
               <li>Ir para o <a href="#rodape" accesskey="3">Rodapé [3]</a></li>
             </ul>
             <ul id="nav2">
-              <li><a href="acessibilidade.html" target="_blank">Acessibilidade</a></li>
+              <li><a href="acessibilidade.html" target="_self">Acessibilidade</a></li>
               <li id="contraste">Contraste <a id="contraste_normal" href="#"><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" href="#"><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
               <li>Tamanho do texto
               <a href="#" title="Aumentar fonte" className="inc-font"> A+</a>
