@@ -5,9 +5,10 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
     this.text = text;
     this.link = link;
   }
-  function Menu(dropdown, menuList){
+  function Menu(dropdown, menuList, menuLogado){
     this.dropdown = dropdown;
     this.menuList = menuList;
+    this.menuLogado = menuLogado;
   }
 
   function MenuListObject(text='', link=''){
@@ -20,7 +21,7 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Dados", "dados.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
-  menuList.push(new MenuListObject("Login", "#"));
+  menuList.push(new MenuListObject("Entrar", "#"));
 
   var linksSubmenu = [];
   linksSubmenu.push(new MenuDropDownObject("Sobre", "sobre.html"));
@@ -33,8 +34,16 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
   linksSubmenu.push(new MenuDropDownObject("Links", "links-uteis.html"));
 
+  var linksUsuarioLogado = [];
+  linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject());
+  linksUsuarioLogado.push(new MenuDropDownObject("Gerenciar Editais", "consultar-editais.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject());
+  linksUsuarioLogado.push(new MenuDropDownObject("Sair", "#"));
+
   Header = React.createFactory(Header);
-  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList)}), document.getElementById("header"));
+  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado)}), document.getElementById("header"));
 });
 
 
@@ -71,4 +80,5 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
 
 //Bibliotecas
 define(["jquery", "bootstrap"], function($) {
+
 });

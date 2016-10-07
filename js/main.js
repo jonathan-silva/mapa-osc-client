@@ -228,6 +228,4 @@ require(["nv.d3.lib"], function (React) {
 
   dashboard('#graficoMain-3',freqData);
 
-
-
 } );

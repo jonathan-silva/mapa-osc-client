@@ -363,3 +363,6 @@ fieldset legend {
   .text-list li{
     margin-top: 5px;
   }
+  .logado{
+    display: none !important;
+  }
