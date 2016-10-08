@@ -37,65 +37,54 @@
     ReactDOM.render(Dropdown({list:arquivosEnviados}), document.getElementById("tipo_arquivo_dropdown"));
    });
 });
-
-require(['jquery'], function (React) {
-
-  $("input:radio").change(function () {
-    if($(this).val() === "web_service"){
-      $("#web_service").show();
-      $("#arquivo").hide();
-    }
-    else {
-      $("#arquivo").show();
-      $("#web_service").hide();
-    }
-  });*//*
-});*/
-function tabela (newData){
-  $('#resultadoconsulta_formato_dados').DataTable({
-    responsive: true,
-     processing: true,
-     data: newData,
-     columns: [
-             {title: ""},
-             {title: "Nome da OSC" },
-             {title: "CNPJ" },
-             {title: "Natureza Jurídica" },
-             {title: "Endereço" },
-             {title: "Detalhar" }
-         ],
-     order: [],
-     aoColumnDefs: [
-       {bSortable :false, aTargets: [0]},
-       {bSortable :false, aTargets: [5]},
-       {bSortable :false, aTargets: [4]}
-     ]
-   });
-}
-
-var dado = 'Terra';
-var newData;
-$.ajax({
-  url: 'http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/'+dado,
-  type: 'GET',
-  dataType: 'json',
-  error: function(){
-    console.log("Error");
-  },
-  success: function(data){
-    newData = new Array(data.length);
-      for (var i=0; i < data.length; i++){
-        newData[i] = new Array(6);
-        newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
-        newData[i][1] = data[i].tx_nome_osc;
-        newData[i][2] = data[i].cd_identificador_osc;
-        newData[i][3] = data[i].tx_natureza_juridica_osc;
-        newData[i][4] = data[i].tx_endereco_osc;
-        newData[i][5] = "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>";
-        /*("<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>",
-      data[i].cd_identificador_osc, data[i].tx_nome_osc, data[i].tx_natureza_juridica_osc, data[i].tx_endereco_osc,
-      "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>");*/
-      }
-      tabela(newData);
+*/
+require(['datatable'], function (React) {
+  function tabela (newData){
+    $('#resultadoconsulta_formato_dados').DataTable({
+      responsive: true,
+       processing: true,
+       data: newData,
+       columns: [
+               {title: ""},
+               {title: "Nome da OSC" },
+               {title: "CNPJ" },
+               {title: "Natureza Jurídica" },
+               {title: "Endereço" },
+               {title: "Detalhar" }
+           ],
+       order: [],
+       aoColumnDefs: [
+         {bSortable :false, aTargets: [0]},
+         {bSortable :false, aTargets: [5]},
+         {bSortable :false, aTargets: [4]}
+       ]
+     });
   }
+
+  var dado = 'Terra';
+  var newData;
+  $.ajax({
+    url: 'http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/'+dado,
+    type: 'GET',
+    dataType: 'json',
+    error: function(){
+      console.log("Error");
+    },
+    success: function(data){
+      newData = new Array(data.length);
+        for (var i=0; i < data.length; i++){
+          newData[i] = new Array(6);
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][1] = data[i].tx_nome_osc;
+          newData[i][2] = data[i].cd_identificador_osc;
+          newData[i][3] = data[i].tx_natureza_juridica_osc;
+          newData[i][4] = data[i].tx_endereco_osc;
+          newData[i][5] = "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>";
+          /*("<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>",
+        data[i].cd_identificador_osc, data[i].tx_nome_osc, data[i].tx_natureza_juridica_osc, data[i].tx_endereco_osc,
+        "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>");*/
+        }
+        tabela(newData);
+    }
+  });
 });

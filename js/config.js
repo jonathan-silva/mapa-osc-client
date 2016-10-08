@@ -15,17 +15,19 @@ require.config({
     "stream":"libs/nv-d3/stream-layers",
     "tablesaw":"libs/tablesaw-3.0/tablesaw",
     "tablesaw-init":"libs/tablesaw-3.0/tablesaw-init",
+    "datatable": "https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min",
     "rotas":"rotas"
   },
   shim: {
-          'jquery-ui': ['jquery'],
-          'bootstrap': ['jquery-ui'],
-          'd3': ['bootstrap'],
-          'nv.d3': ['d3'],
-          'stream':['nv.d3'],
-          'nv.d3.lib': ['stream'],
-          'tablesaw-init':['tablesaw']
-      },
+      'jquery-ui': ['jquery'],
+      'bootstrap': ['jquery-ui'],
+      'd3': ['bootstrap'],
+      'nv.d3': ['d3'],
+      'stream':['nv.d3'],
+      'nv.d3.lib': ['stream'],
+      'tablesaw-init':['tablesaw'],
+      'datatable':['jquery']
+  },
   jsx: {
     fileExtension: '.jsx',
     harmony: true,
