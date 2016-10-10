@@ -83,7 +83,7 @@ require(['jquery', 'rotas'], function(){
 
     $.ajax({
         url: "js/cacheConsulta.php",//trocar pela rota correta
-        data: { chave:'consultaTudo' },
+        data: { chave:'consultaTudo', rota: 'http://mapaosc-desenv:8383/api/geo/osc/regiao/1' },
         type: "POST",
         dataType: "json",
         beforeSend: function() {

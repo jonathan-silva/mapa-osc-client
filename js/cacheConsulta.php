@@ -24,7 +24,7 @@
     print_r($valor);
   }
   else{
-	   $dadosMockJSON = file_get_contents("mockDadosGeograficos.php");//$url
+	   $dadosMockJSON = file_get_contents($url);//"mockDadosGeograficos.php");//$url
      $cache->setCoordenadas($chave, $dadosMockJSON);
      print_r($dadosMockJSON);
   }
