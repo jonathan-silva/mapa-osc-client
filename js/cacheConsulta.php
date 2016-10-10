@@ -3,7 +3,7 @@
   ini_set("display_errors", 1);
   include_once( "../cache/mapa.php");
   $chave = isset($_POST['chave']) ? md5($_POST['chave']) : '';
-  $url = isset($_POST['url']) ? $_POST['url'] : '';
+  $rota = isset($_POST['rota']) ? $_POST['rota'] : '';
   $valor="";
 
   //teste
@@ -24,7 +24,7 @@
     print_r($valor);
   }
   else{
-	   $dadosMockJSON = file_get_contents($url);//"mockDadosGeograficos.php");//$url
+	   $dadosMockJSON = file_get_contents($rota);//"mockDadosGeograficos.php");//$url
      $cache->setCoordenadas($chave, $dadosMockJSON);
      print_r($dadosMockJSON);
   }
