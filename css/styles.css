@@ -215,6 +215,12 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   min-height:0px;
 }
 
+/*Página tutoriais.html*/
+.tutorial{
+  margin-top: 30px;
+  min-height:0px;
+}
+
 /*Página confirmacao-contato.html*/
 .col-width{
   max-width: 110px;
