@@ -61,10 +61,10 @@ require(['datatable'], function (React) {
      });
   }
 
-  var dado = 'Terra';
+  var dado = readCookie('cookieindex'); //  console.log(readCookie('cookieindex'));//
   var newData;
   $.ajax({
-    url: 'http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/'+dado,
+    url: 'http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/'+dado,//[0].tx_nome_osc,
     type: 'GET',
     dataType: 'json',
     error: function(){
@@ -78,8 +78,8 @@ require(['datatable'], function (React) {
           newData[i][1] = data[i].tx_nome_osc;
           newData[i][2] = data[i].cd_identificador_osc;
           newData[i][3] = data[i].tx_natureza_juridica_osc;
-          newData[i][4] = data[i].tx_endereco_osc;
-          newData[i][5] = "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>";
+          newData[i][4] = data[i].tx_endereco_osc; //createCookie(\'cookieDetalhar\','+data[i].id_osc+',0.5);
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
           /*("<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>",
         data[i].cd_identificador_osc, data[i].tx_nome_osc, data[i].tx_natureza_juridica_osc, data[i].tx_endereco_osc,
         "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>");*/
