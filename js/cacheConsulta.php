@@ -17,15 +17,15 @@
 
 
 
-  $cache = new Cache();
-  $valor = $cache->getCoordenadas($chave);
+  //$cache = new Cache();
+  //$valor = $cache->getCoordenadas($chave);
 
   if($valor!=""){
     print_r($valor);
   }
   else{
 	   $dadosMockJSON = file_get_contents($rota);//"mockDadosGeograficos.php");//$url
-     $cache->setCoordenadas($chave, $dadosMockJSON);
+     //$cache->setCoordenadas($chave, $dadosMockJSON);
      print_r($dadosMockJSON);
   }
 
