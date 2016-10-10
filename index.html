@@ -7,6 +7,7 @@
     <link rel="icon" href="img/fav.png"/>
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <link href="css/libs/nv-d3/nv.d3.css" rel="stylesheet" type="text/css">
@@ -70,28 +71,60 @@
           <div class="col-md-offset-3 col-md-6">
             <ul class="nav nav-pills">
               <li class="active">
-                <a href="#">Organização</a>
+                <a data-toggle="pill" title="Buscar pelo Nome, CNPJ ou Endereço da Organização" href="#organizacao">Organização</a>
               </li>
               <li>
-                <a href="#">Município</a>
+                <a data-toggle="pill" title="Buscar pelo Nome do Município" href="#municipio">Município</a>
               </li>
               <li>
-                <a href="#">Estado</a>
+                <a data-toggle="pill" title="Buscar pelo Nome do Estado" href="#estado">Estado</a>
               </li>
               <li>
-                <a href="#">Região</a>
+                <a data-toggle="pill" title="Bucar pelo Nome da Região" href="#regiao">Região</a>
               </li>
             </ul>
-            <form role="form">
-              <div class="form-group">
-                <div class="input-group input-group-lg">
-                  <input type="text" class="form-control" placeholder="Digite o nome, CNPJ ou Endereço da organização">
-                  <span class="input-group-btn">
-                    <a class="btn btn-primary" type="submit">Buscar</a>
-                  </span>
-                </div>
+            <div class="tab-content">
+              <div id="organizacao" class="tab-pane fade in active">
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <input type="text" class="form-control" placeholder="Digite o Nome, CNPJ ou Endereço da Organização">
+                      <span class="input-group-btn"><a class="btn btn-primary" type="submit">Buscar</a></span>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
+              <div id="municipio" class="tab-pane fade">
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <input type="text" class="form-control" placeholder="Digite o Nome do Município">
+                      <span class="input-group-btn"><a class="btn btn-primary" type="submit">Buscar</a></span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div id="estado" class="tab-pane fade">
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <input type="text" class="form-control" placeholder="Digite o Nome do Estado">
+                      <span class="input-group-btn"><a class="btn btn-primary" type="submit">Buscar</a></span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div id="regiao" class="tab-pane fade">
+                <form role="form">
+                  <div class="form-group">
+                    <div class="input-group input-group-lg">
+                      <input type="text" class="form-control" placeholder="Digite o Nome da Região">
+                      <span class="input-group-btn"><a class="btn btn-primary" type="submit">Buscar</a></span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
