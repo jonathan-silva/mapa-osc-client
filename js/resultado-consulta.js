@@ -31,7 +31,7 @@ require(['datatable'], function (React) {
       console.log("Error");
     },
     success: function(data){
-<<<<<<< HEAD
+
       var sizeOfData = data.length;
       var columns = 6;
       newData = new Array(sizeOfData);
