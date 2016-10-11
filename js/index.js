@@ -44,7 +44,7 @@ require(["jquery-ui"], function (React) {
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
     val = val.replace(/ /g, '+');//troca espaços por '+'
-    var link = "/resultado-consulta.html?"+id+"="+val;
+    var link = "./resultado-consulta.html?"+id+"="+val;
     location.href=link;
     //console.log(link);
   });
