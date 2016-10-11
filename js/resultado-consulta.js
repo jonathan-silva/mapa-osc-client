@@ -1,4 +1,4 @@
-require(['jquery','datatable'], function (React) {
+require(['jquery','datatable', 'google', 'rotas', 'leaflet', 'leafletCluster'], function (React) {
   var newData;
   var valoresURL = window.location.href.split('?')[1].split('=');
   var tipoConsulta = valoresURL[0];
@@ -85,9 +85,8 @@ require(['jquery','datatable'], function (React) {
   }
 
   function carregaMapa(dados){
-    pontos = dados.responseJSON;
-    for(var i=0; i<pontos.length; i++)
-      map.addLayer(loadPoint(pontos[i].id_osc, pontos[i].lat, pontos[i].lng));
+    for(var i=0; i<dados.length; i++)
+      map.addLayer(loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng));
 
     leafletView.ProcessView();
   }
@@ -116,7 +115,9 @@ require(['jquery','datatable'], function (React) {
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
         tabela(newData);
+        //console.log(data);
         carregaMapa(data);
+        console.log("OK");
       }
     }
   });
