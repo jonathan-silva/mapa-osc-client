@@ -1,4 +1,34 @@
-require(['datatable'], function (React) {
+require(['jquery','datatable'], function (React) {
+  var newData;
+  var valoresURL = window.location.href.split('?')[1].split('=');
+  var tipoConsulta = valoresURL[0];
+  var stringBuscada = valoresURL[1];
+  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";//pra teste apenas a busca por organização está habilitada no momento
+
+  var last_response_len = false;
+  var lat=-16.55555555; var lng= -60.55555555;
+  var map = new L.Map('map', {center: new L.LatLng(lat, lng), zoom: 4});
+  var leafletView = new PruneClusterForLeaflet();
+  var ggl2 = new L.Google('RODMAP');
+  map.addLayer(ggl2);
+  map.addControl(new L.Control.Layers({'Google':ggl2}, {}));
+
+  if(tipoConsulta=="organizacao"){
+    urlRota+="search/osc/"+stringBuscada;
+  }
+  else if(tipoConsulta=="municipio"){
+
+  }
+  else if(tipoConsulta=="estado"){
+
+  }
+  else if(tipoConsulta=="regiao"){
+
+  }
+  else{
+    console.log("ERRO!");
+  }
+
   function tabela (newData){
     $('#resultadoconsulta_formato_dados').DataTable({
       responsive: true,
@@ -21,27 +51,47 @@ require(['datatable'], function (React) {
      });
   }
 
-  var valoresURL = window.location.href.split('?')[1].split('=');
-  var tipoConsulta = valoresURL[0];
-  var stringBuscada = valoresURL[1];
-  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";//pra teste apenas a busca por organização está habilitada no momento
+  function carregaOSC(id, leafletMarker){
+    var rotas = new Rotas();
+      $.ajax({
+          url: rotas.OSCByID(id),
+          type: "GET",
+          dataType: "json",
+          complete: function(data){
+            //console.log(data);
+            for(var i=0; i<data.length; i++){
+              var response = data.responseJSON === undefined ? undefined : data.responseJSON.cabecalho;
+              var idOSC = response === undefined ? "" : response.cd_identificador_osc;
+              leafletMarker.bindPopup('Codigo identificador da OSC= '+idOSC).openPopup();
+            }
+          }
+    });
+  }
 
-  if(tipoConsulta=="organizacao"){
-    urlRota+="search/osc/"+stringBuscada;
-  }
-  else if(tipoConsulta=="municipio"){
+  function loadPoint(id, latFinal, lngFinal){
+    if(latFinal !="" || lngFinal != ""){
+      var marker = new PruneCluster.Marker(latFinal, lngFinal);
+      marker.data.ID = id;
 
-  }
-  else if(tipoConsulta=="estado"){
+      leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
+          leafletMarker.on('click', function(){
+            carregaOSC(data.ID, leafletMarker);
+          });
+      };
 
+      leafletView.RegisterMarker(marker);
+      return leafletView;
+    }
   }
-  else if(tipoConsulta=="regiao"){
 
+  function carregaMapa(dados){
+    pontos = dados.responseJSON;
+    for(var i=0; i<pontos.length; i++)
+      map.addLayer(loadPoint(pontos[i].id_osc, pontos[i].lat, pontos[i].lng));
+
+    leafletView.ProcessView();
   }
-  else{
-    console.log("ERRO!");
-  }
-  var newData;
+
   $.ajax({
     url: urlRota,
     type: 'GET',
@@ -66,13 +116,14 @@ require(['datatable'], function (React) {
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
         tabela(newData);
+        carregaMapa(data);
       }
     }
   });
 });
 
 
-
+/*
 require(['jquery', 'rotas'], function(){
   //carrega pontos em pedaços
   (function addXhrProgressEvent($) {
@@ -116,7 +167,7 @@ require(['jquery', 'rotas'], function(){
         complete: function(dados) {
           //var pontos = '[{"2":["-15.7783899","-47.9286308"],"3":["-15.7993202","-47.8981781"]},{"4":["-15.7958345","-47.8923149"],"5":["-15.8199205","-47.9239616"]},{"6":["-15.7980804","-47.8906555"],"7":["-15.7952542779082","-47.9394622544892"]},{"11":["-15.8751554","-47.9755211"],"15":["-15.8104582","-47.8541069"]},{"16":["-15.793664","-47.8509483"]}]';
           pontos = dados.responseJSON;
-          pontos = JSON.parse('[{"id_osc":22365,"lat":"-1.74820834599956","lng":"-47.0633436779996"},{"id_osc":22390,"lat":"-1.89886019799957","lng":"-49.3907389839996"},{"id_osc":22410,"lat":"-1.76024734199956","lng":"-55.8584121719996"},{"id_osc":22451,"lat":"-1.90143278399955","lng":"-55.5212850339996"},{"id_osc":22487,"lat":"-2.43663717199956","lng":"-54.7298703269996"},{"id_osc":22490,"lat":"-1.28689238999959","lng":"-47.9512049799996"},{"id_osc":22547,"lat":"-7.94180843999959","lng":"-55.1663152319996"},{"id_osc":22579,"lat":"-1.39623169999959","lng":"-48.8664998849996"},{"id_osc":22602,"lat":"-2.43885314899956","lng":"-54.7000788909996"}]');
+          //pontos = JSON.parse('[{"id_osc":22365,"lat":"-1.74820834599956","lng":"-47.0633436779996"},{"id_osc":22390,"lat":"-1.89886019799957","lng":"-49.3907389839996"},{"id_osc":22410,"lat":"-1.76024734199956","lng":"-55.8584121719996"},{"id_osc":22451,"lat":"-1.90143278399955","lng":"-55.5212850339996"},{"id_osc":22487,"lat":"-2.43663717199956","lng":"-54.7298703269996"},{"id_osc":22490,"lat":"-1.28689238999959","lng":"-47.9512049799996"},{"id_osc":22547,"lat":"-7.94180843999959","lng":"-55.1663152319996"},{"id_osc":22579,"lat":"-1.39623169999959","lng":"-48.8664998849996"},{"id_osc":22602,"lat":"-2.43885314899956","lng":"-54.7000788909996"}]');
           //console.log(pontos);
           //for(var k in pontos)
             //map.addLayer(loadPoint(k, pontos[k][0], pontos[k][1]));
@@ -176,3 +227,4 @@ require(['jquery', 'rotas'], function(){
     });
   }
 });
+*/

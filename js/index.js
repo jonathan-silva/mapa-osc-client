@@ -8,18 +8,7 @@ require(["nv.d3.lib"], function (React) {
   createBarChart('#graficoMain-1',jsonGrafico1);
   createDonutChart('#graficoMain-2',jsonGrafico2);
   createMultiBarChart('#graficoMain-3',jsonGrafico3);
-
-  createCookie('cookieindex',"Terra",1);
-
 } );
-
-
-
-
-
-
-
-
 
 require(["jquery-ui"], function (React) {
 
@@ -38,6 +27,7 @@ require(["jquery-ui"], function (React) {
     }
   });
 
+  //botao de consulta
   var div = $(".tab-content");
   div.find(".btn.btn-primary").on("click", function(){
     var tabAtiva = div.find('.tab-pane.fade.active.in');
