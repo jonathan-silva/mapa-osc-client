@@ -13,6 +13,14 @@ require(["nv.d3.lib"], function (React) {
 
 } );
 
+
+
+
+
+
+
+
+
 require(["jquery-ui"], function (React) {
 
   $(document).tooltip({
@@ -28,5 +36,16 @@ require(["jquery-ui"], function (React) {
           .appendTo( this );
       }
     }
+  });
+
+  var div = $(".tab-content");
+  div.find(".btn.btn-primary").on("click", function(){
+    var tabAtiva = div.find('.tab-pane.fade.active.in');
+    var id = tabAtiva.attr("id");
+    var val = tabAtiva.find(".form-control").val();
+    val = val.replace(/ /g, '+');//troca espaços por '+'
+    var link = "/resultado-consulta.html?"+id+"="+val;
+    location.href=link;
+    //console.log(link);
   });
 });
