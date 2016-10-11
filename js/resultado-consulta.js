@@ -21,34 +21,52 @@ require(['datatable'], function (React) {
      });
   }
 
-  var dado = readCookie('cookieindex'); //  console.log(readCookie('cookieindex'));//
+  var valoresURL = window.location.href.split('?')[1].split('=');
+  var tipoConsulta = valoresURL[0];
+  var stringBuscada = valoresURL[1];
+  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";//pra teste apenas a busca por organização está habilitada no momento
+
+  if(tipoConsulta=="organizacao"){
+    urlRota+="search/osc/"+stringBuscada;
+  }
+  else if(tipoConsulta=="municipio"){
+
+  }
+  else if(tipoConsulta=="estado"){
+
+  }
+  else if(tipoConsulta=="regiao"){
+
+  }
+  else{
+    console.log("ERRO!");
+  }
   var newData;
   $.ajax({
-    url: 'http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/'+dado,//[0].tx_nome_osc,
+    url: urlRota,
     type: 'GET',
     dataType: 'json',
     error: function(){
       console.log("Error");
     },
     success: function(data){
+      if(data!==undefined){
+        var sizeOfData = data.length;
+        var columns = 6;
 
-      var sizeOfData = data.length;
-      var columns = 6;
-      newData = new Array(sizeOfData);
+        newData = new Array(sizeOfData);
 
-      for (var i=0; i < sizeOfData; i++){
-        newData[i] = new Array(columns);
-        newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
-        newData[i][1] = data[i].tx_nome_osc;
-        newData[i][2] = data[i].cd_identificador_osc;
-        newData[i][3] = data[i].tx_natureza_juridica_osc;
-        newData[i][4] = data[i].tx_endereco_osc;
-        newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
-        /*("<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>",
-      data[i].cd_identificador_osc, data[i].tx_nome_osc, data[i].tx_natureza_juridica_osc, data[i].tx_endereco_osc,
-      "<button type='button' class='btn btn-info' href='#'>Detalhar<span class='glyphicon glyphicon-search' aria-hidden='true'></span></button>");*/
+        for (var i=0; i < sizeOfData; i++){
+          newData[i] = new Array(columns);
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][1] = data[i].tx_nome_osc;
+          newData[i][2] = data[i].cd_identificador_osc;
+          newData[i][3] = data[i].tx_natureza_juridica_osc;
+          newData[i][4] = data[i].tx_endereco_osc;
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+        }
+        tabela(newData);
       }
-      tabela(newData);
     }
   });
 });
