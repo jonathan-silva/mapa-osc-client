@@ -28,20 +28,7 @@ require(["nv.d3.lib"], function (React) {
     }
   ];
 
-  var jsonGrafico71 = [
-      {
-        "key" : "Quantidade" ,
-        "bar": true,
-        "color": "#ccf",
-        "values" : [ [ 2005 , 12710.0] , [ 2006 , 125000.0] , [ 2007 , 151000.0] , [ 2008 , 100] ]
-      } ,
-      {
-        "key" : "Preço" ,
-        "color" : "#333",
-        "values" : [ [ 2005 , 71.89] , [ 2006 , 75.51] , [ 2007 , 68.49] , [ 2008 , 62.72] ]
-      }
-    ];
-    var jsonGrafico7 = [
+  var jsonGrafico7 = [
         {
           "key" : "Quantidade" ,
           "bar": true,
@@ -55,6 +42,68 @@ require(["nv.d3.lib"], function (React) {
         }
       ];
 
+
+
+    var jsonGrafico8 =   [
+    {
+      "key" : "North America" ,
+      "values" : [{"label" : 2005, "value" : 71.89} , {"label" : 2006, "value" : 75.51} , {"label" : 2007, "value" : 58.49} , {"label" : 2008, "value" : 42.72}]
+    },
+
+    {
+      "key" : "Africa" ,
+      "values" : [{"label" : 2005, "value" : 91.89} , {"label" : 2006, "value" : 85.51} , {"label" : 2007, "value" : 68.49} , {"label" : 2008, "value" : 62.72}]
+    }
+  ];
+
+  var jsonGrafico9 = [
+    {
+      "key": "Series 1",
+      "color": "#d67777",
+      "values": [
+        {
+          "label" : "Group A" ,
+          "value" : -1.87
+        } ,
+        {
+          "label" : "Group B" ,
+          "value" : -8.09
+        } ,
+        {
+          "label" : "Group C" ,
+          "value" : -0.57
+        } ,
+        {
+          "label" : "Group D" ,
+          "value" : -2.41
+        }
+      ]
+    },
+    {
+      "key": "Series 2",
+      "color": "#4f99b4",
+      "values": [
+        {
+          "label" : "Group A" ,
+          "value" : 25.30
+        } ,
+        {
+          "label" : "Group B" ,
+          "value" : 16.75
+        } ,
+        {
+          "label" : "Group C" ,
+          "value" : 18.45
+        } ,
+        {
+          "label" : "Group D" ,
+          "value" : 8.61
+        }
+      ]
+    }
+  ];
+
+
   createDonutChart('#grafico-1',jsonGrafico1);
   createDonutChart('#grafico-2',jsonGrafico2);
   createBarChart('#grafico-3',jsonGrafico3);
@@ -62,6 +111,8 @@ require(["nv.d3.lib"], function (React) {
   createMultiBarChart('#grafico-5',jsonGrafico5);
   createLineChart('#grafico-6',jsonGrafico6);
   createLinePlusBarChart('#grafico-7',jsonGrafico7);
+  createStackedAreaChart('#grafico-8',jsonGrafico8);
+  createMultiBarHorizontalChart('#grafico-9',jsonGrafico9);
 
   jQuery('#tabGrafico a').click(function (e) {
       e.preventDefault()

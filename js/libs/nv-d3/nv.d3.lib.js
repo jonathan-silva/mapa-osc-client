@@ -104,12 +104,12 @@ function createLinePlusBarChart(grafico, valores)
 			.x(function(d) { return d.label })
 			.y(function(d) { return d.value })
 			;
-
-		//	chart.xAxis.tickFormat(function(d) {
-	//			var dx = valores[0].values[d] && valores[0].values[d][0] || 0;
-		//		return d3.time.format('%x')(new Date(dx))
-//    });
-
+/*
+			chart.xAxis.tickFormat(function(d) {
+				var dx = valores[0].values[d] && valores[0].values[d][0] || 0;
+				return d3.time.format('%x')(new Date(dx))
+   });
+*/
 	chart.y1Axis
 			.tickFormat(d3.format(',f'));
 
@@ -127,4 +127,59 @@ function createLinePlusBarChart(grafico, valores)
 	//Update the chart when window resizes.
 	nv.utils.windowResize(chart.update);
 	return chart;
+}
+
+function createStackedAreaChart(grafico, valores)
+{
+		var chart = nv.models.stackedAreaChart()
+							 .margin({right: 100})
+					//		 .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+					//		 .y(function(d) { return d[1] })   //...in case your data is formatted differently.
+							 .x(function(d) { return d.label })
+							 .y(function(d) { return d.value })
+							 .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
+							 .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+							 .transitionDuration(500)
+							 .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+							 .clipEdge(true);
+
+	 //Format x-axis labels with custom function.
+/*	 chart.xAxis
+			 .tickFormat(function(d) {
+				 return d3.time.format('%x')(new Date(d))
+	 });
+*/
+	 chart.yAxis
+			 .tickFormat(d3.format(',.2f'));
+
+	 d3.select(grafico + " svg")
+		 .datum(valores)
+		 .call(chart);
+
+	 nv.utils.windowResize(chart.update);
+
+	 return chart;
+ }
+
+ function createMultiBarHorizontalChart(grafico, valores)
+ {
+		 var chart = nv.models.multiBarHorizontalChart()
+								.x(function(d) { return d.label })
+								.y(function(d) { return d.value })
+								.margin({top: 30, right: 20, bottom: 50, left: 175})
+								.showValues(true)           //Show bar value next to each bar.
+								.tooltips(true)             //Show tooltips on hover.
+								.transitionDuration(350)
+								.showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
+
+		chart.yAxis
+				.tickFormat(d3.format(',.2f'));
+
+		d3.select(grafico + " svg")
+				.datum(valores)
+				.call(chart);
+
+		nv.utils.windowResize(chart.update);
+
+		return chart;
 }
