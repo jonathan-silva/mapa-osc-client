@@ -6,8 +6,11 @@ define('componenteDropdownList', ['react', 'componenteDropdown'], function (Reac
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
         items.push(
-            <div>
+            <div className="input-group">
               <Dropdown list={this.props.options} selected={item.tx_nome_area_atuacao_declarada}></Dropdown>
+                <span className="input-group-btn">
+                  <button className="btn-primary btn">Remover</button>
+                </span>
             </div>
         );
       }
@@ -43,6 +46,9 @@ define('componenteHeaderAreaDeAtuacao', ['react', 'componenteDropdownList'], fun
               </div>
             </div>
             <DropdownList dados={item.areas_autodeclaradas} options={["autodeclarada 1","autodeclarada 2", "outro"]}></DropdownList>
+            <div>
+              <a href="#" className="btn btn-primary">Adicionar Área</a>
+            </div>
           </div>
         );
       }
