@@ -1,5 +1,5 @@
 require(['jquery','datatable', 'google'], function (React) {
-  var isCacheEnabled = true;
+  var isCacheEnabled = false;
   var tipoRequisicao;
   var parametros='';
   var newData;
@@ -108,7 +108,7 @@ require(['jquery','datatable', 'google'], function (React) {
     dataType: 'json',
     data: parametros,
     error: function(){
-      console.log("Error");
+      console.log("Erro no AJAX");
     },
     success: function(data){
       if(data!==undefined){
