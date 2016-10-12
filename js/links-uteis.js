@@ -36,7 +36,10 @@ require(['react', 'jsx!components/Util'], function (React) {
     ReactDOM.render(LinksUteis({dados:linksuteis}), document.getElementById("linksuteis_formato_dados"));
   });
 
-
+  /* Comentei esse trecho, não parece fazer sentido e gera o seguinte
+   * erro no React: https://facebook.github.io/react/docs/error-decoder.html?invariant=37
+   * porque não existe o elemento de id "tipo_arquivo_dropdown".
+   * Verificar para remover se necessário
   require(['componenteDropdown'], function(Dropdown){
     //var arquivosRetornados, arquivosEnviados;
     //arquivosRetornados = arquivosEnviados = ["XML", "JSON", "CSV"];
@@ -47,5 +50,5 @@ require(['react', 'jsx!components/Util'], function (React) {
     //ReactDOM.render(Dropdown({list: arquivosRetornados}), document.getElementById("arquivo_retornado_dropdown"));
     ReactDOM.render(Dropdown({list:prox}), document.getElementById("prox_dropdown"));
     //ReactDOM.render(Dropdown({list:arquivosEnviados}), document.getElementById("tipo_arquivo_dropdown"));
-   });
+  });*/
 });

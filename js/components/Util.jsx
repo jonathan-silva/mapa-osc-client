@@ -148,10 +148,13 @@ define('componenteDropdown', ['react'], function (React) {
     },
     renderListItems: function () {
       var items = [];
-
       for(var i=0; i<this.props.list.length; i++){
         var val = this.props.list[i];
-        items.push(<option value={val}>{val}</option>);
+        if (val == this.props.selected) {
+          items.push(<option value={val} selected>{val}</option>);
+        } else {
+          items.push(<option value={val}>{val}</option>);
+        }
       }
 
       return items;
@@ -170,16 +173,28 @@ define('componenteDropdown', ['react'], function (React) {
   return Dropdown;
 });
 
-define('componenteFormItem', ['react'], function (React) {
+define('componenteFormItem', ['react','componenteDropdown'], function (React, Dropdown) {
   var FormItem = React.createClass({
     renderListItems: function(){
       var items=[];
-      items.push(<h3>{this.props.header}</h3>);
+      var HeaderElement = `h${this.props.header.priority}`;
+      items.push(<HeaderElement>{this.props.header.text}</HeaderElement>);
       for (var i=0; i<this.props.dados.length; i++){
+        var item = this.props.dados[i];
+        var ContentElement;
+        if(this.props.dados[i].type == 'p'){
+          ContentElement = <p className="form-control-static" id={this.props.dados[i].id}>{this.props.dados[i].content}</p>
+        } else if(this.props.dados[i].type == 'textarea') {
+          ContentElement = <textarea className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content}></textarea>
+        } else if(this.props.dados[i].type == 'select'){
+          ContentElement = <Dropdown list={item.options} selected={item.content}></Dropdown>
+        } else {
+          ContentElement = <input className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content} type={this.props.dados[i].type}></input>
+        }
         items.push(
           <div className="form-group">
             <label className="control-label" for={this.props.dados[i].id}>{this.props.dados[i].label}:</label>
-            <input className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].label} type={this.props.dados[i].type}></input>
+            {ContentElement}
           </div>
         );
       }
@@ -190,7 +205,7 @@ define('componenteFormItem', ['react'], function (React) {
 
       render: function() {
           return (
-            <div>{this.renderListItems()}</div>
+            <div className="{this.props.container.className}">{this.renderListItems()}</div>
           );
       }
   });
