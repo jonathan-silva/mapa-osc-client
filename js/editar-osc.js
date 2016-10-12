@@ -1,6 +1,6 @@
-require(['react', 'jsx!components/Util'], function (React) {
+require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteDropdown'], function(FormItem, Dropdown){
+  require(['componenteFormItem', 'componenteHeaderAreaDeAtuacao'], function(FormItem, AreaDeAtuacao){
     function FormItens(id, label, content, type, options){
       this.id = id;
       this.label = label;
@@ -299,20 +299,6 @@ require(['react', 'jsx!components/Util'], function (React) {
     //Dados Gerais
 
     var dadosGerais = result.dados_gerais;
-    var dadosGeraisKeys = Object.keys(dadosGerais);
-    //console.log(dadosGerais);
-    /*
-    for (var i=0; i<dadosGeraisKeys.length; i++){
-      console.log(dadosGeraisKeys[i]);
-      formItens.push(new FormItens(dadosGeraisKeys[i], "desc[i]","imagem[i]"));
-    }
-    console.log(formItens);
-    FormItem = React.createFactory(FormItens);
-    console.log(FormItem);
-    var hd = "2";
-    ReactDOM.render(FormItem({header:hd, dados:formItens}), document.getElementById("dados_gerais"));*/
-
-    //formulario 1
     var dados_form =
     {
       "form_items": [
@@ -391,20 +377,32 @@ require(['react', 'jsx!components/Util'], function (React) {
       ]
     };
     var items = dados_form.form_items;
-    // alterar para json
     var headerPriority = '2';
     var headerText = 'Dados Gerais';
     var formItens = [];
 
     for (var i=0; i<items.length; i++){
       formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].type, items[i].options));
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:{priority: headerPriority, text: headerText}, dados:formItens}
-        ), document.getElementById("dados_gerais")
-      );
     }
+    FormItem = React.createFactory(FormItem);
+    console.log(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("dados_gerais")
+    );
+
+    //Áreas de atuação
+    var areas_atuacao = result.areas_atuacao;
+    headerPriority = '2';
+    headerText = 'Áreas de Atuação';
+    AreaDeAtuacao = React.createFactory(AreaDeAtuacao);
+    console.log(AreaDeAtuacao);
+    ReactDOM.render(
+      AreaDeAtuacao(
+        {header:{priority: headerPriority, text: headerText}, dados:areas_atuacao}
+      ), document.getElementById("areas_de_atuacao")
+    );
   });
 });
 
@@ -415,7 +413,7 @@ function montarEnderecoImovel(dadosGerais){
     dadosGerais.nm_cep];
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
-    if (endereco[i] != null){
+    if (endereco[i] !== null){
       tx_endereco_completo += endereco[i] + ', ';
     } else {
       tx_endereco_completo = 'Endereço não registrado.';
