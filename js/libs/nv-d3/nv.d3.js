@@ -1,3 +1,6 @@
+//alt 1 - retirado da serie a legenda eixo esquerda e direita
+//alt 2 - traducao
+
 (function(){
 
 var nv = window.nv || {};
@@ -2152,7 +2155,7 @@ nv.models.cumulativeLineChart = function() {
     , rescaleY = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>'//alt 2 traducao
       }
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
@@ -4097,7 +4100,7 @@ nv.models.historicalBarChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       }
     , x
     , y
@@ -5407,7 +5410,7 @@ nv.models.lineChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       }
     , x
     , y
@@ -5875,7 +5878,7 @@ nv.models.linePlusBarChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>';
+               '<p>' +  y + ' em ' + x + '</p>'; //alt 2 traducao
       }
     , x
     , y1
@@ -6018,7 +6021,7 @@ nv.models.linePlusBarChart = function() {
         g.select('.nv-legendWrap')
             .datum(data.map(function(series) {
               series.originalKey = series.originalKey === undefined ? series.key : series.originalKey;
-              series.key = series.originalKey + (series.bar ? ' (left axis)' : ' (right axis)');
+              series.key = series.originalKey + (series.bar ? '' : '');//alt 1
               return series;
             }))
           .call(legend);
@@ -6314,7 +6317,7 @@ nv.models.lineWithFocusChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       }
     , noData = "No Data Available."
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'brush')
@@ -6892,7 +6895,7 @@ nv.models.linePlusBarWithFocusChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>';
+               '<p>' +  y + ' em ' + x + '</p>'; //alt 2 traducao
       }
     , x
     , x2
@@ -7071,7 +7074,7 @@ nv.models.linePlusBarWithFocusChart = function() {
         g.select('.nv-legendWrap')
             .datum(data.map(function(series) {
               series.originalKey = series.originalKey === undefined ? series.key : series.originalKey;
-              series.key = series.originalKey + (series.bar ? ' (left axis)' : ' (right axis)');
+              series.key = series.originalKey + (series.bar ? '' : '');//alt 1
               return series;
             }))
           .call(legend);
@@ -8000,7 +8003,7 @@ nv.models.multiBarChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' on ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       }
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
@@ -9369,7 +9372,7 @@ nv.models.multiChart = function() {
       tooltips = true,
       tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' at ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       },
       x,
       y,
@@ -13662,7 +13665,7 @@ nv.models.stackedAreaChart = function() {
     , tooltips = true
     , tooltip = function(key, x, y, e, graph) {
         return '<h3>' + key + '</h3>' +
-               '<p>' +  y + ' on ' + x + '</p>'
+               '<p>' +  y + ' em ' + x + '</p>' //alt 2 traducao
       }
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()

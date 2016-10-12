@@ -1,20 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Resultado da Consulta</title>
       <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <!--<script type="text/javascript" src="js/libs/jquery-3.1.0/jquery-3.1.0.min.js"></script>-->
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/><!--js/libs/datatable/datatables.min.css-->
       <link href="css/base.css" rel="stylesheet" type="text/css">
-      <link href="css/libs/tablesaw-3.0/tablesaw.css" rel="stylesheet">
       <link href="css/styles.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="css/libs/leaflet-0.7.7/leaflet.css">
+      <link rel="stylesheet" href="css/libs/leaflet-0.7.7/pruneCluster.css">
+
+
   </head>
   <body>
+    <style>
+    #map {
+            width:100%;
+            height:600px;
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+    }
+    </style>
     <!-- header -->
     <div id="barra-brasil"></div>
     <div id="header"></div>
     <!--Fim header-->
-
     <div id="conteudo" class="section">
       <div class="container">
         <div class="row">
@@ -25,110 +38,24 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-
-
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#mapa" aria-controls="home" role="tab" data-toggle="tab">Visualizar por Mapa</a></li>
                 <li role="presentation"><a href="#lista" aria-controls="profile" role="tab" data-toggle="tab">Visualizar por Lista</a></li>
               </ul>
-
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="mapa">
-
-                  <div id="mapaOsc"></div>
-
+                  <div id="map"><!-- Mapa --></div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="lista">
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <nav aria-label="Page navigation">
-                          <ul class="pagination">
-                            <li class="disabled">
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo; Anterior</span>
-                              </a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">Próxima &raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                      </nav>
-                    </div>
-                  </div>
-                  <div id="resultadoconsulta_formato_dados"> </div>
-
-                  <!--table class="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
-              			<thead>
-              				<tr>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"></th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" data-tablesaw-sortable-default-col>Nome da OSC</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">CNPJ</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Natureza Jurídica</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Endereço</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3">Detalhar</th>
-                    	</tr>
-              			</thead>
-              			<tbody>
-
-                      <tr>
-                        <th scope="row">
-                          <a href="#" class="pull-left"><img class="img-circle media-object" src="img/camera.png" height="64" width="64"></a>
-                        </th>
-                        <td class="title">BSOC DE MORADORES DA VILA MENDONCA</td>
-                        <td>05.451.822/0001-02</td>
-                        <td>Associação Privada</td>
-                        <td>AVE MARANHAO 0, VILA MENDONCA, Floresta do Araguaia, PA, 68543000</td>
-                        <td>
-                          <button type="button" class="btn btn-info" href="perguntas-frequentes.html" >Detalhar
-                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <a href="#" class="pull-left"><img class="img-circle media-object" src="img/camera.png" height="64" width="64"></a>
-                        </th>
-                        <td class="title">ASOC DE MORADORES DA VILA MENDONCA</td>
-                        <td>08.451.822/0001-02</td>
-                        <td>Bssociação Privada</td>
-                        <td>AVE MARANHAO 0, VILA MENDONCA, Floresta do Araguaia, PA, 68543000</td>
-                        <td>
-                          <button type="button" class="btn btn-info" href="perguntas-frequentes.html" >Detalhar
-                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">
-                          <a href="#" class="pull-left"><img class="img-circle media-object" src="img/camera.png" height="64" width="64"></a>
-                        </th>
-                        <td class="title">cSOC DE MORADORES DA VILAMENDONCA</td>
-                        <td>07.451.822/0001-02</td>
-                        <td>Associação Privada</td>
-                        <td>AVE MARANHAO 0, VILA MENDONCA, Floresta do Araguaia, PA, 68543000</td>
-                        <td>
-                          <button type="button" class="btn btn-info" href="perguntas-frequentes.html" >Detalhar
-                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table-->
-
+                  <table id="resultadoconsulta_formato_dados" class="display responsive"></table>
                 </div>
               </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- footer -->
     <div id="rodape"></div>
     <footer class="section section-primary">
@@ -137,17 +64,12 @@
       </div>
     </footer>
     <!--Fim footer-->
-
     <!--SCRIPTS-->
-    <script src="js/libs/tablesaw-3.0/tablesaw.js"></script>
-	  <script src="js/libs/tablesaw-3.0/tablesaw-init.js"></script>
     <script src="js/libs/react-15.3.1/react.min.js"></script>
     <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
     <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
     <script src="js/config.js"></script>
     <script type="text/javascript" src="js/resultado-consulta.js"></script>
     <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
-
-
-  </body>
+</body>
 </html>
