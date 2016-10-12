@@ -1,4 +1,7 @@
-require(['jquery','datatable', 'google', 'rotas', 'leaflet', 'leafletCluster'], function (React) {
+require(['jquery','datatable', 'google'], function (React) {
+  var isCacheEnabled = true;
+  var tipoRequisicao;
+  var parametros='';
   var newData;
   var valoresURL = window.location.href.split('?')[1].split('=');
   var tipoConsulta = valoresURL[0];
@@ -91,10 +94,19 @@ require(['jquery','datatable', 'google', 'rotas', 'leaflet', 'leafletCluster'], 
     leafletView.ProcessView();
   }
 
+  if(isCacheEnabled){
+    tipoRequisicao = 'POST';
+    parametros={chave: urlRota, rota: urlRota};
+    urlRota = "js/cacheConsulta.php";//sobrescreve rota do ajax para chamar php responsável pelo cache
+  }
+  else{
+    tipoRequisicao = 'GET';
+  }
   $.ajax({
     url: urlRota,
-    type: 'GET',
+    type: tipoRequisicao,
     dataType: 'json',
+    data: parametros,
     error: function(){
       console.log("Error");
     },

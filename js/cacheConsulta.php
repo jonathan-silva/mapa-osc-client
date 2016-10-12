@@ -6,27 +6,16 @@
   $rota = isset($_POST['rota']) ? $_POST['rota'] : '';
   $valor="";
 
-  //teste
-  //$chave = "hash";
-  //$url = "http://mapaosc-desenv.ipea.gov.br:8383/api/osc/2";
-  //fim teste
-
-  //$redis = new Redis();
-  //$redis->connect("localhost", 6379);
-  //$valor = $redis->get($chave);
-
-
-
-  //$cache = new Cache();
-  //$valor = $cache->getCoordenadas($chave);
+  $cache = new Cache();
+  $valor = $cache->getCoordenadas($chave);
 
   if($valor!=""){
     print_r($valor);
   }
   else{
-	   $dadosMockJSON = file_get_contents($rota);//"mockDadosGeograficos.php");//$url
-     //$cache->setCoordenadas($chave, $dadosMockJSON);
-     print_r($dadosMockJSON);
+	   $dadosJSON = file_get_contents($rota);//"mockDadosGeograficos.php");
+     $cache->setCoordenadas($chave, $dadosJSON);
+     print_r($dadosJSON);
   }
 
 ?>
