@@ -1,4 +1,4 @@
-require(['jquery','datatable', 'google'], function (React) {
+require(['jquery','datatables-responsive', 'google'], function (React) {
   var isCacheEnabled = false;
   var tipoRequisicao;
   var parametros='';
@@ -38,19 +38,20 @@ require(['jquery','datatable', 'google'], function (React) {
        processing: true,
        data: newData,
        columns: [
-               {title: ""},
-               {title: "Nome da OSC" },
-               {title: "CNPJ" },
-               {title: "Natureza Jurídica" },
-               {title: "Endereço" },
-               {title: "Detalhar" }
+               {title: "", width: 50},
+               {title: "Nome da OSC"},
+               {title: "CNPJ"},
+               {title: "Natureza Jurídica"},
+               {title: "Endereço"},
+               {title: "Detalhar"}
            ],
        order: [],
        aoColumnDefs: [
          {bSortable :false, aTargets: [0]},
          {bSortable :false, aTargets: [5]},
          {bSortable :false, aTargets: [4]}
-       ]
+       ],
+       autoWidth: true
      });
   }
 
@@ -72,7 +73,7 @@ require(['jquery','datatable', 'google'], function (React) {
   }
 
   function loadPoint(id, latFinal, lngFinal){
-    if(latFinal !="" || lngFinal != ""){
+    if(latFinal !=="" || lngFinal !== ""){
       var marker = new PruneCluster.Marker(latFinal, lngFinal);
       marker.data.ID = id;
 
@@ -124,7 +125,7 @@ require(['jquery','datatable', 'google'], function (React) {
           newData[i][2] = data[i].cd_identificador_osc;
           newData[i][3] = data[i].tx_natureza_juridica_osc;
           newData[i][4] = data[i].tx_endereco_osc;
-          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
         tabela(newData);
         //console.log(data);
