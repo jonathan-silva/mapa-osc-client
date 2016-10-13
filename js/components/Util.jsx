@@ -182,12 +182,19 @@ define('componenteFormItem', ['react','componenteDropdown'], function (React, Dr
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
         var ContentElement;
+        console.log(item);
         if(this.props.dados[i].type == 'p'){
           ContentElement = <p className="form-control-static" id={this.props.dados[i].id}>{this.props.dados[i].content}</p>
         } else if(this.props.dados[i].type == 'textarea') {
           ContentElement = <textarea className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content}></textarea>
         } else if(this.props.dados[i].type == 'select'){
           ContentElement = <Dropdown list={item.options} selected={item.content}></Dropdown>
+        } else if(this.props.dados[i].id == "tx_endereco_eletronico_sugerido"){
+          ContentElement =
+          <div className="input-box-with-pretext">
+            <input className="form-control with-pretext" id={this.props.dados[i].id} placeholder={this.props.dados[i].content} type={this.props.dados[i].type}></input>
+            <span className="pre-text">{item.pretext}</span>
+          </div>
         } else {
           ContentElement = <input className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content} type={this.props.dados[i].type}></input>
         }

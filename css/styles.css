@@ -519,3 +519,17 @@ body.indisponivel {
 .left {
 	float: left;
 }
+.pre-text{
+  position: absolute;
+  display: block;
+  left: 10px;
+  top: 7px;
+  z-index: 9;
+}
+.with-pretext{
+  display: block;
+  padding: 9px 10px 10px 165px;
+}
+.input-box-with-pretext{
+  position: relative;
+}

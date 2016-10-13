@@ -1,12 +1,13 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(['componenteFormItem', 'componenteHeaderAreaDeAtuacao'], function(FormItem, AreaDeAtuacao){
-    function FormItens(id, label, content, type, options){
+    function FormItens(id, label, content, type, options, pretext){
       this.id = id;
       this.label = label;
       this.content = content;
       this.type = type;
       this.options = options;
+      this.pretext = pretext;
     }
     var result = {
         "cabecalho": {
@@ -40,7 +41,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "ft_sigla_osc": null,
           "tx_url_osc": null,
           "ft_url_osc": null,
-          "dt_fundacao_osc": null,
+          "dt_inscricao_osc": "09/09/1990",
+          "ft_inscricao_osc": null,
+          "dt_fundacao_osc": "05/08/1990",
           "ft_fundacao_osc": null,
           "tx_nome_responsavel_legal": null,
           "ft_nome_responsavel_legal": null,
@@ -48,6 +51,8 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "ft_link_estatuto_osc": null,
           "tx_resumo_osc": null,
           "ft_resumo_osc": null,
+          "tx_endereco_eletronico_sugerido": "endereço sugerido",
+          "ft_endereco_eletronico_sugerido": null,
           "tx_endereco": null,
           "ft_endereco": null,
           "nr_localizacao": null,
@@ -68,7 +73,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "ft_site": null,
           "tx_telefone": null,
           "ft_telefone": null,
-          "tx_nome_situacao_imovel_osc": "Cedido",
+          "tx_nome_situacao_imovel_osc": "Alugado",
           "ft_nome_situacao_imovel_osc": null
         },
         "descricao": {
@@ -310,21 +315,45 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         },
         {
           "id": "tx_sigla_osc",
-          "label": "Sigla OSC",
+          "label": "Sigla da OSC",
           "content": dadosGerais.tx_sigla_osc,
           "type": "text"
         },
         {
+          "id": "tx_endereco_eletronico_sugerido",
+          "label": "Endereço eletrônico sugerido para esta página",
+          "content": dadosGerais.tx_endereco_eletronico_sugerido,
+          "pretext": "mapaosc.ipea.gov.br/",
+          "type": "text"
+        },
+        {
           "id": "tx_endereco",
-          "label": "Endereço do Imóvel",
+          "label": "Endereço da OSC",
           "content": montarEnderecoImovel(dadosGerais),
           "type": "p"
+        },
+        {
+          "id": "tx_nome_situacao_imovel_osc",
+          "label": "Situação do Imóvel",
+          "content": dadosGerais.tx_nome_situacao_imovel_osc,
+          "type": "select",
+          "options": [
+            "Próprio",
+            "Alugado",
+            "Outro"
+          ]
         },
         {
           "id": "tx_nome_responsavel_legal",
           "label": "Responsável Legal",
           "content": dadosGerais.tx_nome_responsavel_legal,
-          "type": "p"
+          "type": "text"
+        },
+        {
+          "id": "dt_inscricao_osc",
+          "label": "Ano de inscrição no Cadastro de CNPJ",
+          "content": dadosGerais.dt_inscricao_osc,
+          "type": "text"
         },
         {
           "id": "dt_fundacao_osc",
@@ -339,6 +368,12 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "type": "text"
         },
         {
+          "id": "tx_resumo_osc",
+          "label": "O que a OSC faz",
+          "content": dadosGerais.tx_resumo_osc,
+          "type": "textarea"
+        },
+        {
           "id": "tx_site",
           "label": "Site",
           "content": dadosGerais.tx_site,
@@ -351,26 +386,8 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "type": "text"
         },
         {
-          "id": "tx_resumo_osc",
-          "label": "Resumo da OSC",
-          "content": dadosGerais.tx_resumo_osc,
-          "type": "textarea"
-        },
-        {
-          "id": "tx_nome_situacao_imovel_osc",
-          "label": "Endereço do Imóvel",
-          "content": dadosGerais.tx_nome_situacao_imovel_osc,
-          "type": "select",
-          "options": [
-            "Alugado",
-            "Próprio",
-            "Cedido",
-            "Comodato"
-          ]
-        },
-        {
           "id": "tx_link_estatuto_osc",
-          "label": "Link do Estatuto",
+          "label": "Link para o Estatuto da OSC",
           "content": dadosGerais.tx_link_estatuto_osc,
           "type": "text"
         },
@@ -382,10 +399,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     var formItens = [];
 
     for (var i=0; i<items.length; i++){
-      formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].type, items[i].options));
+      formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].type, items[i].options, items[i].pretext));
     }
     FormItem = React.createFactory(FormItem);
-    console.log(FormItem);
     ReactDOM.render(
       FormItem(
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
@@ -397,7 +413,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     headerPriority = '2';
     headerText = 'Áreas de Atuação';
     AreaDeAtuacao = React.createFactory(AreaDeAtuacao);
-    console.log(AreaDeAtuacao);
     ReactDOM.render(
       AreaDeAtuacao(
         {header:{priority: headerPriority, text: headerText}, dados:areas_atuacao}
