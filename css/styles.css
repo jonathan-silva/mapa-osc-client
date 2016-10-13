@@ -530,6 +530,25 @@ body.indisponivel {
   display: block;
   padding: 9px 10px 10px 165px;
 }
-.input-box-with-pretext{
+.input-box{
   position: relative;
+  padding: 0 50px 0 0;
+}
+.fonte-de-dados {
+  position: absolute;
+  display: block;
+  right: 15px;
+  top: 3px;
+  width: 30px;
+  height: 30px;
+  z-index: 9;
+  background-repeat: no-repeat;
+  background-position: top;
+  font-size: 0;
+}
+.dado-organizacao {
+  background-image: url('../img/dado_representante.png');
+}
+.dado-oficial {
+  background-image: url('../img/base_dados.png');
 }

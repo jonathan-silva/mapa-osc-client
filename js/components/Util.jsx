@@ -181,26 +181,53 @@ define('componenteFormItem', ['react','componenteDropdown'], function (React, Dr
       items.push(<HeaderElement>{this.props.header.text}</HeaderElement>);
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
+        var placeholder = item.content;
+        if((item.content == null) && (item.placeholder != undefined)){
+          placeholder = item.placeholder;
+        }
+        var titleSpanFonte = "Informação preenchida pela Organização";
+        var SpanFonte =
+          <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}></span>
+        if((item.fonte) && (item.type== 'p')){
+          titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
+          SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}></span>
+        }
         var ContentElement;
-        console.log(item);
-        if(this.props.dados[i].type == 'p'){
-          ContentElement = <p className="form-control-static" id={this.props.dados[i].id}>{this.props.dados[i].content}</p>
-        } else if(this.props.dados[i].type == 'textarea') {
-          ContentElement = <textarea className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content}></textarea>
-        } else if(this.props.dados[i].type == 'select'){
-          ContentElement = <Dropdown list={item.options} selected={item.content}></Dropdown>
-        } else if(this.props.dados[i].id == "tx_endereco_eletronico_sugerido"){
+        if(item.type == 'p'){
           ContentElement =
-          <div className="input-box-with-pretext">
-            <input className="form-control with-pretext" id={this.props.dados[i].id} placeholder={this.props.dados[i].content} type={this.props.dados[i].type}></input>
+          <div className="input-box">
+            <p className="form-control-static" id={item.id}>{placeholder}</p>
+            {SpanFonte}
+          </div>
+        } else if(item.type == 'textarea') {
+          ContentElement =
+          <div className="input-box">
+            <textarea className="form-control" id={item.id} placeholder={placeholder}></textarea>
+            {SpanFonte}
+          </div>
+        } else if(item.type == 'select'){
+          ContentElement =
+          <div className="input-box">
+            <Dropdown list={item.options} selected={item.content}></Dropdown>
+            {SpanFonte}
+          </div>
+        } else if(item.id == "tx_endereco_eletronico_sugerido"){
+          ContentElement =
+          <div className="input-box">
+            <input className="form-control with-pretext" id={item.id} placeholder={placeholder} type={item.type}></input>
             <span className="pre-text">{item.pretext}</span>
+            {SpanFonte}
           </div>
         } else {
-          ContentElement = <input className="form-control" id={this.props.dados[i].id} placeholder={this.props.dados[i].content} type={this.props.dados[i].type}></input>
+          ContentElement =
+          <div className="input-box">
+            <input className="form-control" id={item.id} placeholder={placeholder} type={item.type}></input>
+            {SpanFonte}
+          </div>
         }
         items.push(
           <div className="form-group">
-            <label className="control-label" for={this.props.dados[i].id}>{this.props.dados[i].label}:</label>
+            <label className="control-label" for={item.id}>{item.label}:</label>
             {ContentElement}
           </div>
         );
