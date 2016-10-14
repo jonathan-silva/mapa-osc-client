@@ -34,7 +34,20 @@ require(["jquery-ui"], function (React) {
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
     val = val.replace(/ /g, '+');//troca espaços por '+'
-    var link = "./resultado-consulta.html?"+id+"="+val;
+    var link;
+    if (id == 'organizacao'){
+      link = "./resultado-consulta.html?"+id+"="+val;
+    }
+    else {
+      val = $('.response').val();
+      if (val !== ''){
+        link = "./resultado-consulta.html?"+id+"="+val;
+      }
+      else{
+
+      }
+
+    }
     location.href=link;
     //console.log(link);
   });
@@ -53,7 +66,7 @@ require(["jquery-ui"], function (React) {
                     label: item.tx_nome_osc,
                     value: item.tx_nome_osc,
                     id: item.id_osc
-                }
+                };
             }));
            },
            error: function () {
@@ -81,7 +94,7 @@ require(["jquery-ui"], function (React) {
                     label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
                     value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
                     id: item.edmu_cd_municipio
-                }
+                };
             }));
            },
            error: function () {
@@ -90,8 +103,67 @@ require(["jquery-ui"], function (React) {
        });
    },
    select: function(event, ui){
-     //$('.response').val(ui.id);
-     console.log(ui.item.id);
+     $('.response').val(ui.item.id);
+     link = "./resultado-consulta.html?"+'municipio'+"="+ui.item.id;
+     location.href=link;
    }
  });
+
+ //autocomplete estado
+ $("#estado .form-control").autocomplete({
+   minLength: 3,
+   source: function (request, response) {
+      $.ajax({
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/estado/"+request.term,//4204251
+          type: 'GET',
+          dataType: "json",
+          success: function (data) {
+            response($.map( data, function( item ) {
+               return {
+                   label: item.eduf_nm_uf,
+                   value: item.eduf_nm_uf,
+                   id: item.eduf_cd_uf
+               };
+           }));
+          },
+          error: function () {
+              response([]);
+          }
+      });
+  },
+  select: function(event, ui){
+    $('.response').val(ui.item.id);
+    link = "./resultado-consulta.html?"+'estado'+"="+ui.item.id;
+    location.href=link;
+  }
+});
+
+//autocomplete regiao
+$("#regiao .form-control").autocomplete({
+  minLength: 3,
+  source: function (request, response) {
+     $.ajax({
+         url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/regiao/"+request.term,//4204251
+         type: 'GET',
+         dataType: "json",
+         success: function (data) {
+           response($.map( data, function( item ) {
+              return {
+                  label: item.edre_nm_regiao,
+                  value: item.edre_nm_regiao,
+                  id: item.edre_cd_regiao
+              };
+          }));
+         },
+         error: function () {
+             response([]);
+         }
+     });
+ },
+ select: function(event, ui){
+   $('.response').val(ui.item.id);
+   link = "./resultado-consulta.html?"+'regiao'+"="+ui.item.id;
+   location.href=link;
+ }
+});
 });
