@@ -38,4 +38,60 @@ require(["jquery-ui"], function (React) {
     location.href=link;
     //console.log(link);
   });
+
+  //autocomplete organizacao
+  $("#organizacao .form-control").autocomplete({
+    minLength: 3,
+    source: function (request, response) {
+       $.ajax({
+           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/"+request.term,
+           type: 'GET',
+           dataType: "json",
+           success: function (data) {
+             response($.map( data, function( item ) {
+                return {
+                    label: item.tx_nome_osc,
+                    value: item.tx_nome_osc,
+                    id: item.id_osc
+                }
+            }));
+           },
+           error: function () {
+               response([]);
+           }
+       });
+   },
+   select: function(event, ui){
+     //$('.response').val(ui.item.tx_nome_osc);
+     //console.log(ui);
+   }
+ });
+
+  //autocomplete municipio
+  $("#municipio .form-control").autocomplete({
+    minLength: 3,
+    source: function (request, response) {
+       $.ajax({
+           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/municipio/"+request.term,//4204251
+           type: 'GET',
+           dataType: "json",
+           success: function (data) {
+             response($.map( data, function( item ) {
+                return {
+                    label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                    value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                    id: item.edmu_cd_municipio
+                }
+            }));
+           },
+           error: function () {
+               response([]);
+           }
+       });
+   },
+   select: function(event, ui){
+     //$('.response').val(ui.id);
+     console.log(ui.item.id);
+   }
+ });
 });
