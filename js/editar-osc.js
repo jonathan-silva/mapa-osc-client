@@ -498,6 +498,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         },
         select: function(event, ui){
          //$('.response').val(ui.item.tx_nome_osc);
+         console.log(ui.item);
          var targetElement = event.target;
          var id = macro_area_suggestions.indexOf(ui.item);
          var $container = $($(targetElement).siblings(".subareas")[0]);
@@ -519,13 +520,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
          if($element.hasClass('hidden')){
            $element.toggleClass('hidden');
          }
-         //renderizarSubareas(ui.item);
        }
      });
     });
-    function renderizarSubareas(item){
-
-    }
   });
 });
 
@@ -533,7 +530,8 @@ function getSuggestions(){
   var suggestions = [
     {
       "label": "Habitação",
-      "value": "habitacao",
+      "value": "Habitação",
+      "id": "habitacao",
       "subareas": [
         {
           "label":"Habitação",
@@ -547,7 +545,8 @@ function getSuggestions(){
     },
     {
       "label": "Saúde",
-      "value": "saude",
+      "value": "Saúde",
+      "id": "saude",
       "subareas": [
         {
           "label":"Hospitais",
@@ -565,7 +564,8 @@ function getSuggestions(){
     },
     {
       "label": "Cultura e recreação",
-      "value": "cultura",
+      "value": "Cultura e recreação",
+      "id": "cultura",
       "subareas": [
         {
           "label":"Cultura e arte",
@@ -583,7 +583,8 @@ function getSuggestions(){
     },
     {
       "label": "Educação",
-      "value": "educacao",
+      "value": "Educação",
+      "id": "educacao",
       "subareas": [
         {
           "label":"Educação infantil",
@@ -621,7 +622,8 @@ function getSuggestions(){
     },
     {
       "label": "Assistência social",
-      "value": "assistencia_social",
+      "value": "Assistência social",
+      "id": "assistencia_social",
       "subareas": [
         {
           "label":"Assitência social",
@@ -635,7 +637,8 @@ function getSuggestions(){
     },
     {
       "label": "Religião",
-      "value": "religiao",
+      "value": "Religião",
+      "id": "religiao",
       "subareas": [
         {
           "label":"Religião",
@@ -649,7 +652,8 @@ function getSuggestions(){
     },
     {
       "label": "Associações patronais, profissionais e de produtores rurais",
-      "value": "associacoes_patronais",
+      "value": "Associações patronais, profissionais e de produtores rurais",
+      "id": "associacoes_patronais",
       "subareas": [
         {
           "label":"Associações empresariais e patronais",
@@ -675,7 +679,8 @@ function getSuggestions(){
     },
     {
       "label": "Meio ambiente e proteção animal",
-      "value": "meio_ambiente_e_protecao_animal",
+      "value": "Meio ambiente e proteção animal",
+      "id": "meio_ambiente_e_protecao_animal",
       "subareas": [
         {
           "label":"Meio ambiente",
@@ -693,7 +698,8 @@ function getSuggestions(){
     },
     {
       "label": "Desenvolvimento e defesa de direitos",
-      "value": "desenvolvimento",
+      "value": "Desenvolvimento e defesa de direitos",
+      "id": "desenvolvimento",
       "subareas": [
         {
           "label":"Associação de moradores",
