@@ -173,7 +173,51 @@ define('componenteDropdown', ['react'], function (React) {
   return Dropdown;
 });
 
-define('componenteFormItem', ['react','componenteDropdown'], function (React, Dropdown) {
+define('componenteCheckbox', ['react'], function (React) {
+  var Checkbox = React.createClass({
+    renderListItems: function(){
+      var areas = this.props.dados;
+      var itensArea = [];
+      console.log(areas)
+      for (var i = 0 ; i < areas.length; i++){
+        console.log(i);
+        var itemsSubarea = [];
+        var subareas = areas[i];
+        for (var j = 0; j < subareas.length; j++) {
+          var item = subareas[j];
+          var checkboxElement =
+          <div className="input-box checkbox">
+            <label>
+              <input type="checkbox" value={item.value}>
+              </input>
+              {item.label}
+            </label>
+          </div>
+          itemsSubarea.push(
+            checkboxElement
+          );
+        }
+        var containerElement =
+        <div id = {i} className="hidden">{itemsSubarea}</div>
+        itensArea.push(
+          containerElement
+        );
+      }
+      return itensArea;
+    },
+
+
+      render: function() {
+          return (
+            <div className="subareas">{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return Checkbox;
+});
+
+define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox'], function (React, Dropdown, Checkbox) {
   var FormItem = React.createClass({
     renderListItems: function(){
       var items=[];
@@ -191,6 +235,10 @@ define('componenteFormItem', ['react','componenteDropdown'], function (React, Dr
         if((item.fonte) && (item.type== 'p')){
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}></span>
+        }
+        var custom_class = "";
+        if(item.custom_class){
+          custom_class = " "+item.custom_class;
         }
         var ContentElement;
         if(item.type == 'p'){
@@ -218,10 +266,24 @@ define('componenteFormItem', ['react','componenteDropdown'], function (React, Dr
             <span className="pre-text">{item.pretext}</span>
             {SpanFonte}
           </div>
-        } else {
+        } else if(item.suggestions){
+          var areas = item.suggestions;
+          var subareas = [];
+          for (var j = 0; j < areas.length; j++) {
+             subareas.push(areas[j].subareas);
+          }
+          var className = "form-control"+custom_class;
           ContentElement =
           <div className="input-box">
-            <input className="form-control" id={item.id} placeholder={placeholder} type={item.type}></input>
+            <input className={className}  id={item.id} placeholder={placeholder} type={item.type}></input>
+            {SpanFonte}
+            <Checkbox dados={subareas}></Checkbox>
+          </div>
+        } else {
+          var className = "form-control"+custom_class;
+          ContentElement =
+          <div className="input-box">
+            <input className={className}  id={item.id} placeholder={placeholder} type={item.type}></input>
             {SpanFonte}
           </div>
         }

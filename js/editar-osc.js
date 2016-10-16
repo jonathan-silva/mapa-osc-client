@@ -1,7 +1,7 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(['componenteFormItem', 'componenteHeaderAreaDeAtuacao'], function(FormItem, AreaDeAtuacao){
-    function FormItens(id, label, content, fonte, placeholder, type, options, pretext){
+    function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class){
       this.id = id;
       this.label = label;
       this.content = content;
@@ -10,6 +10,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.type = type;
       this.options = options;
       this.pretext = pretext;
+      this.custom_class = custom_class;
     }
     var result = {
         "cabecalho": {
@@ -433,32 +434,278 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("dados_gerais")
     );
-
     //Áreas de atuação
+    function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, suggestions){
+      this.id = id;
+      this.label = label;
+      this.content = content;
+      this.fonte = fonte;
+      this.placeholder = placeholder;
+      this.type = type;
+      this.custom_class = custom_class;
+      this.suggestions = suggestions;
+    }
     var areas_atuacao = result.areas_atuacao;
+    var macro_area_suggestions = getSuggestions();
     headerPriority = '2';
     headerText = 'Áreas de Atuação';
+    formItens = [];
     dados_form =
     {
       "form_items": [
         {
           "id": "macro_area_1",
           "label": "Macro Área 1",
-          "content": dadosGerais.tx_nome_fantasia_osc,
-          "fonte": dadosGerais.ft_nome_fantasia_osc,
+          "content": areas_atuacao[0].tx_nome_macro_area_fasfil,
+          "fonte": areas_atuacao[0].ft_area_atuacao_fasfil,
           "placeholder": "Insira o nome como a OSC é conhecida",
-          "type": "select"
+          "type": "text",
+          "custom_class": "autocomplete"
+        },
+        {
+          "id": "macro_area_2",
+          "label": "Macro Área 2",
+          "content": areas_atuacao[1].tx_nome_macro_area_fasfil,
+          "fonte": areas_atuacao[1].ft_area_atuacao_fasfil,
+          "placeholder": "Insira o nome como a OSC é conhecida",
+          "type": "text",
+          "custom_class": "autocomplete"
         }
       ]
     };
+    items = dados_form.form_items;
+    for (var j=0; j<items.length; j++){
+      formItens.push(new AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("areas_de_atuacao")
+    );
+    /*
     AreaDeAtuacao = React.createFactory(AreaDeAtuacao);
     ReactDOM.render(
       AreaDeAtuacao(
         {header:{priority: headerPriority, text: headerText}, dados:areas_atuacao}
       ), document.getElementById("areas_de_atuacao")
-    );
+    );*/
+    require(["react", "jquery-ui"], function (React) {
+      //autocomplete macro_area_1 e macro_area_2
+      $("#areas_de_atuacao .autocomplete").autocomplete({
+        source: macro_area_suggestions,
+        change: function( event, ui ) {
+        },
+        select: function(event, ui){
+         //$('.response').val(ui.item.tx_nome_osc);
+         var targetElement = event.target;
+         var id = macro_area_suggestions.indexOf(ui.item);
+         $($(targetElement).siblings(".subareas")[0]).find("#"+id).toggleClass('hidden');
+         //renderizarSubareas(ui.item);
+       }
+     });
+    });
+    function renderizarSubareas(item){
+
+    }
   });
 });
+
+function getSuggestions(){
+  var suggestions = [
+    {
+      "label": "Habitação",
+      "value": "habitacao",
+      "subareas": [
+        {
+          "label":"Habitação",
+          "value": "habitacao"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Saúde",
+      "value": "saude",
+      "subareas": [
+        {
+          "label":"Hospitais",
+          "value": "hospitais"
+        },
+        {
+          "label":"Outros serviços de saúde",
+          "value": "outros_servicos"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Cultura e recreação",
+      "value": "cultura",
+      "subareas": [
+        {
+          "label":"Cultura e arte",
+          "value": "cultura_e_arte"
+        },
+        {
+          "label":"Esportes e recreação",
+          "value": "esportes"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Educação",
+      "value": "educacao",
+      "subareas": [
+        {
+          "label":"Educação infantil",
+          "value": "educacao_infantil"
+        },
+        {
+          "label":"Ensino fundamental",
+          "value": "ensino_fundamental"
+        },
+        {
+          "label":"Ensino médio",
+          "value": "ensino_medio"
+        },
+        {
+          "label":"Educação superior",
+          "value": "educacao_superior"
+        },
+        {
+          "label":"Estudos e pesquisas",
+          "value": "estudos_e_pesquisas"
+        },
+        {
+          "label":"Educação profissional",
+          "value": "educacao_profissional"
+        },
+        {
+          "label":"Outras formas de educação/ensino",
+          "value": "outras_formas"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Assistência social",
+      "value": "assistencia_social",
+      "subareas": [
+        {
+          "label":"Assitência social",
+          "value": "assistencia_social"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Religião",
+      "value": "religiao",
+      "subareas": [
+        {
+          "label":"Religião",
+          "value": "religiao"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Associações patronais, profissionais e de produtores rurais",
+      "value": "associacoes_patronais",
+      "subareas": [
+        {
+          "label":"Associações empresariais e patronais",
+          "value": "associacoes_empresariais"
+        },
+        {
+          "label":"Associações profissionais",
+          "value": "associacoes_profissionais"
+        },
+        {
+          "label":"Associações de produtores rurais",
+          "value": "associacoes_rurais"
+        },
+        {
+          "label":"Cooperativas sociais",
+          "value": "cooperativas"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Meio ambiente e proteção animal",
+      "value": "meio_ambiente_e_protecao_animal",
+      "subareas": [
+        {
+          "label":"Meio ambiente",
+          "value": "meio_ambiente"
+        },
+        {
+          "label":"Proteção animal",
+          "value": "protecao_animal"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    },
+    {
+      "label": "Desenvolvimento e defesa de direitos",
+      "value": "desenvolvimento",
+      "subareas": [
+        {
+          "label":"Associação de moradores",
+          "value": "associacao_de_moradores"
+        },
+        {
+          "label":"Centros e associações comunitárias",
+          "value": "centros_comunitarios"
+        },
+        {
+          "label":"Desenvolvimento rural",
+          "value": "desenvolvimento_rural"
+        },
+        {
+          "label":"Emprego e treinamento",
+          "value": "emprego"
+        },
+        {
+          "label":"Defesa de direitos de grupos e/ou minorias",
+          "value": "defesa_de_direitos"
+        },
+        {
+          "label":"Outros",
+          "value": "outros"
+        }
+      ]
+    }
+  ];
+  return suggestions;
+}
 
 function montarEnderecoImovel(dadosGerais){
   var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
@@ -467,7 +714,6 @@ function montarEnderecoImovel(dadosGerais){
     dadosGerais.nm_cep];
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
-    console.log(endereco[i]);
     if (endereco[i] !== null){
       tx_endereco_completo += (tx_endereco_completo === '' ? '' : ', ');
       tx_endereco_completo += endereco[i];
@@ -477,4 +723,8 @@ function montarEnderecoImovel(dadosGerais){
     }
   }
   return tx_endereco_completo;
+}
+function findAncestor (el, cls) {
+    while ((el = el.parentElement) && !el.classList.contains(cls));
+    return el;
 }
