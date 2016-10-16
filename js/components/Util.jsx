@@ -178,9 +178,7 @@ define('componenteCheckbox', ['react'], function (React) {
     renderListItems: function(){
       var areas = this.props.dados;
       var itensArea = [];
-      console.log(areas)
       for (var i = 0 ; i < areas.length; i++){
-        console.log(i);
         var itemsSubarea = [];
         var subareas = areas[i];
         for (var j = 0; j < subareas.length; j++) {

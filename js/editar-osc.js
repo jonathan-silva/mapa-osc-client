@@ -500,7 +500,22 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
          //$('.response').val(ui.item.tx_nome_osc);
          var targetElement = event.target;
          var id = macro_area_suggestions.indexOf(ui.item);
-         $($(targetElement).siblings(".subareas")[0]).find("#"+id).toggleClass('hidden');
+         var $container = $($(targetElement).siblings(".subareas")[0]);
+         $container.children().each(function( index ) {
+           if(!$(this).hasClass('hidden')){
+             $(this).toggleClass('hidden');
+             $(this).children().each(function(index){
+               var $input = $($(this).find('input')[0]);
+               if ($input.is(':checked')){
+                 $input.prop('checked', false);
+               }
+             });
+           }
+         });
+         var $element = $container.find("#"+id);
+         if($element.hasClass('hidden')){
+           $element.toggleClass('hidden');
+         }
          //renderizarSubareas(ui.item);
        }
      });
