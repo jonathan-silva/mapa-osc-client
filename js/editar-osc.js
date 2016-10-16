@@ -509,6 +509,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
                if ($input.is(':checked')){
                  $input.prop('checked', false);
                }
+               if ($input.prop('type') == "text"){
+                 $input.val("");
+               }
              });
            }
          });

@@ -183,14 +183,27 @@ define('componenteCheckbox', ['react'], function (React) {
         var subareas = areas[i];
         for (var j = 0; j < subareas.length; j++) {
           var item = subareas[j];
-          var checkboxElement =
-          <div className="input-box checkbox">
-            <label>
-              <input type="checkbox" value={item.value}>
-              </input>
-              {item.label}
-            </label>
-          </div>
+          var inputElement;
+          var checkboxElement;
+          if(item.value == "outros"){
+            inputElement = <input id={item.value} placeholder="Por favor, especifique" type="text" size="50"></input>
+            checkboxElement =
+            <div className="input-box checkbox">
+              <label>
+                {item.label+": "}
+                {inputElement}
+              </label>
+            </div>
+          } else {
+            checkboxElement =
+            <div className="input-box checkbox">
+              <label>
+                <input type="checkbox" value={item.value}>
+                </input>
+                {item.label}
+              </label>
+            </div>
+          }
           itemsSubarea.push(
             checkboxElement
           );
