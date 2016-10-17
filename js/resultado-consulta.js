@@ -1,5 +1,5 @@
 require(['jquery','datatables-responsive', 'google'], function (React) {
-  var isCacheEnabled = false;
+  var isCacheEnabled = true;
   var tipoRequisicao;
   var parametros='';
   var newData;
