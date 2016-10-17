@@ -104,6 +104,7 @@ define(['react'], function(React) {
                 <div className="row">
                   <div className="col-md-4">
                     <h5>{tituloLogo} © {ano}</h5>
+                    <a type="button" className="btn btn-info btn-xs" href="colabore.html">Colabore com o Mapa</a>
                   </div>
                   <div id="carousel"  className="col-md-4">
                     {<Carousel images={imgList}/>}
