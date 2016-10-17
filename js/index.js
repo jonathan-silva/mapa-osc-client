@@ -85,7 +85,7 @@ require(["jquery-ui"], function (React) {
     minLength: 3,
     source: function (request, response) {
        $.ajax({
-           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/municipio/"+request.term,//4204251
+           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/municipio/"+request.term,//4204251
            type: 'GET',
            dataType: "json",
            success: function (data) {
@@ -114,7 +114,7 @@ require(["jquery-ui"], function (React) {
    minLength: 3,
    source: function (request, response) {
       $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/estado/"+request.term,//4204251
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/estado/"+request.term,//4204251
           type: 'GET',
           dataType: "json",
           success: function (data) {
@@ -143,7 +143,7 @@ $("#regiao .form-control").autocomplete({
   minLength: 3,
   source: function (request, response) {
      $.ajax({
-         url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/regiao/"+request.term,//4204251
+         url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/regiao/"+request.term,//4204251
          type: 'GET',
          dataType: "json",
          success: function (data) {
