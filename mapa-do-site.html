@@ -4,7 +4,10 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Mapa do Site</title>
+      <link rel="icon" href="img/fav.png"/>
+      <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
       <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
       <link href="css/base.css" rel="stylesheet" type="text/css">
       <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -46,9 +49,14 @@
               </ul>
             </li>
             <li class="mapaDoSite"><a href="resultado-consulta.html">Mapa</a></li>
-            <li class="mapaDoSite"><a href="dados.html">Dados</a></li>
+            <li class="mapaDoSite">Dados
+              <ul>
+                <li class="mapaDoSite"><a href="base-dados.html">Base de Dados</a></li>
+                <li class="mapaDoSite"><a href="dados-indicadores.html">Dados e Indicadores</a></li>
+              </ul>
+            </li>
             <li class="mapaDoSite"><a href="contato.html">Contato</a></li>
-            <li class="mapaDoSite">Login
+            <li class="mapaDoSite">Entrar
               <ul>
                 <li class="mapaDoSite"><a href="cadastro-representante.html">Cadastro de Representante</a></li>
                 <li class="mapaDoSite"><a href="recuperar-senha.html">Recuperar a Senha</a></li>
@@ -56,6 +64,7 @@
             </li>
             <li class="mapaDoSite"><a href="acessibilidade.html">Acessibilidade</a></li>
             <li class="mapaDoSite"><a href="termos-uso.html">Termos de Uso</a></li>
+            <li class="mapaDoSite"><a href="colabore.html">Colabore com o Mapa</a></li>
             <li class="mapaDoSite"><a href="editais-publicos.html">Editais Públicos</a>
               <ul class="mapaDoSite">
                 <li class="mapaDoSite"><a href="adicionar-edital.html">Adicionar Edital</a></li>
@@ -84,6 +93,7 @@
     <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
     <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
     <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/mapa-do-site.js"></script>
     <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
   </body>
