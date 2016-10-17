@@ -552,3 +552,7 @@ body.indisponivel {
 .dado-oficial {
   background-image: url('../img/base_dados.png');
 }
+
+.export{
+  font-size: 11px;
+}
