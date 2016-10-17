@@ -2,8 +2,8 @@
   error_reporting(E_ALL);
   ini_set("display_errors", 1);
   include_once( "../cache/mapa.php");
-  $chave = isset($_POST['chave']) ? md5($_POST['chave']) : '';
-  $rota = isset($_POST['rota']) ? $_POST['rota'] : '';
+  $chave = isset($_GET['chave']) ? md5($_GET['chave']) : '';
+  $rota = isset($_GET['rota']) ? $_GET['rota'] : '';
   $valor="";
 
   $cache = new Cache();

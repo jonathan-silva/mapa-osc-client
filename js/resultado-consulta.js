@@ -96,7 +96,7 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   }
 
   if(isCacheEnabled){
-    tipoRequisicao = 'POST';
+    tipoRequisicao = 'GET';
     parametros={chave: urlRota, rota: urlRota};
     urlRota = "js/cacheConsulta.php";//sobrescreve rota do ajax para chamar php responsável pelo cache
   }
@@ -105,7 +105,7 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   }
   $.ajax({
     url: urlRota,
-    type: tipoRequisicao,
+    type: 'GET',
     dataType: 'json',
     data: parametros,
     error: function(){
