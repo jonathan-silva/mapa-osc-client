@@ -50,8 +50,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "ft_fundacao_osc": null,
           "tx_nome_responsavel_legal": null,
           "ft_nome_responsavel_legal": null,
-          "tx_link_estatuto_osc": null,
-          "ft_link_estatuto_osc": null,
           "tx_resumo_osc": null,
           "ft_resumo_osc": null,
           "tx_endereco_eletronico_sugerido": "endereço sugerido",
@@ -88,7 +86,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "tx_visao_osc": "visao teste",
           "ft_visao_osc": null,
           "tx_finalidades_estatutarias": null,
-          "ft_finalidades_estatutarias": null
+          "ft_finalidades_estatutarias": null,
+          "tx_link_estatuto_osc": null,
+          "ft_link_estatuto_osc": null
         },
         "areas_atuacao": [
           {
@@ -409,15 +409,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "fonte": dadosGerais.ft_telefone,
           "placeholder": "Insira o telefone da OSC",
           "type": "text"
-        },
-        {
-          "id": "tx_link_estatuto_osc",
-          "label": "Link para o Estatuto da OSC",
-          "content": dadosGerais.tx_link_estatuto_osc,
-          "fonte": dadosGerais.ft_link_estatuto_osc,
-          "placeholder": "Insira o link que leve ao estatuto da OSC, se houver",
-          "type": "text"
-        },
+        }
       ]
     };
     var items = dados_form.form_items;
@@ -483,13 +475,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("areas_de_atuacao")
     );
-    /*
-    AreaDeAtuacao = React.createFactory(AreaDeAtuacao);
-    ReactDOM.render(
-      AreaDeAtuacao(
-        {header:{priority: headerPriority, text: headerText}, dados:areas_atuacao}
-      ), document.getElementById("areas_de_atuacao")
-    );*/
+
     require(["react", "jquery-ui"], function (React) {
       //autocomplete macro_area_1 e macro_area_2
       $("#areas_de_atuacao .autocomplete").autocomplete({
@@ -523,6 +509,67 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
        }
      });
     });
+
+    //Descrição
+    var descricao = result.descricao;
+    headerPriority = '2';
+    headerText = 'Descrição da OSC';
+    formItens = [];
+    dados_form =
+    {
+      "form_items": [
+        {
+          "id": "tx_como_surgiu",
+          "label": "Histórico",
+          "content": descricao.tx_como_surgiu,
+          "fonte": descricao.ft_como_surgiu,
+          "placeholder": "De modo resumido e objetivo, diga como surgiu a OSC, quando, onde, por que e por quem foi fundada",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_missao_osc",
+          "label": "Missão",
+          "content": descricao.tx_missao_osc,
+          "fonte": descricao.ft_missao_osc,
+          "placeholder": "Se houver, apresente qual a missão da OSC",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_visao_osc",
+          "label": "Visão",
+          "content": descricao.tx_visao_osc,
+          "fonte": descricao.ft_visao_osc,
+          "placeholder": "se houver, apresente a visão da OSC",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_finalidades_estatutarias",
+          "label": "Finalidades Estatutárias da OSC",
+          "content": descricao.tx_finalidades_estatutarias,
+          "fonte": descricao.ft_finalidades_estatutarias,
+          "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_link_estatuto_osc",
+          "label": "Link para o Estatuto da OSC",
+          "content": descricao.tx_link_estatuto_osc,
+          "fonte": descricao.ft_link_estatuto_osc,
+          "placeholder": "Se houver, insira o link que leva ao estatuto da OSC",
+          "type": "text"
+        }
+      ]
+    };
+    items = dados_form.form_items;
+    for (j=0; j<items.length; j++){
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("descricao")
+    );
   });
 });
 
@@ -730,7 +777,6 @@ function getSuggestions(){
   ];
   return suggestions;
 }
-
 function montarEnderecoImovel(dadosGerais){
   var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
     dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
