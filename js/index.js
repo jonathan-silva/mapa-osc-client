@@ -75,8 +75,8 @@ require(["jquery-ui"], function (React) {
        });
    },
    select: function(event, ui){
-     //$('.response').val(ui.item.tx_nome_osc);
-     //console.log(ui);
+     link = "./resultado-consulta.html?"+'organizacao'+"="+ui.item.value.replace(/ /g, '+');
+     location.href=link;
    }
  });
 

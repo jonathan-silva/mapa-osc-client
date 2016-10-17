@@ -20,14 +20,13 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
     urlRota+="search/osc/"+stringBuscada;
   }
   else if(tipoConsulta=="municipio"){
-    urlRota+="geo/osc/municipio/"+stringBuscada;
+    urlRota+="search/municipio/"+stringBuscada;
   }
   else if(tipoConsulta=="estado"){
-    urlRota+="geo/osc/estado/"+stringBuscada;
+    urlRota+="search/estado/"+stringBuscada;
   }
   else if(tipoConsulta=="regiao"){
-    urlRota+="geo/osc/regiao/"+stringBuscada;
-    console.log(urlRota);
+    urlRota+="search/regiao/"+stringBuscada;
   }
   else{
     console.log("ERRO!");
