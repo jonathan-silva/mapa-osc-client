@@ -176,51 +176,42 @@ define('componenteDropdown', ['react'], function (React) {
 define('componenteCheckbox', ['react'], function (React) {
   var Checkbox = React.createClass({
     renderListItems: function(){
-      var areas = this.props.dados;
-      var itensArea = [];
-      for (var i = 0 ; i < areas.length; i++){
-        var itemsSubarea = [];
-        var subareas = areas[i];
-        for (var j = 0; j < subareas.length; j++) {
-          var item = subareas[j];
-          var inputElement;
-          var checkboxElement;
-          if(item.value == "outros"){
-            inputElement = <input id={item.value} placeholder="Por favor, especifique" type="text" size="50"></input>
-            checkboxElement =
-            <div className="input-box checkbox">
-              <label>
-                {item.label+": "}
-                {inputElement}
-              </label>
-            </div>
-          } else {
-            checkboxElement =
-            <div className="input-box checkbox">
-              <label>
-                <input type="checkbox" value={item.value}>
-                </input>
-                {item.label}
-              </label>
-            </div>
-          }
-          itemsSubarea.push(
-            checkboxElement
-          );
+      var dados = this.props.dados;
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var inputElement;
+        var checkboxElement;
+        if(item.value == "outros"){
+          inputElement = <input id={item.value} placeholder="Por favor, especifique" type="text" size="50"></input>
+          checkboxElement =
+          <div className="input-box checkbox">
+            <label>
+              {item.label+": "}
+              {inputElement}
+            </label>
+          </div>
+        } else {
+          checkboxElement =
+          <div className="input-box checkbox">
+            <label>
+              <input type="checkbox" value={item.value}>
+              </input>
+              {item.label}
+            </label>
+          </div>
         }
-        var containerElement =
-        <div id = {i} className="hidden">{itemsSubarea}</div>
-        itensArea.push(
-          containerElement
+        itens.push(
+          checkboxElement
         );
       }
-      return itensArea;
+      return itens;
     },
 
 
       render: function() {
           return (
-            <div className="subareas">{this.renderListItems()}</div>
+            <div className="checkbox">{this.renderListItems()}</div>
           );
       }
   });
@@ -278,17 +269,23 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             {SpanFonte}
           </div>
         } else if(item.suggestions){
+
           var areas = item.suggestions;
           var subareas = [];
           for (var j = 0; j < areas.length; j++) {
              subareas.push(areas[j].subareas);
           }
           var className = "form-control"+custom_class;
+          var itensCheckBox = [];
+          for (var k = 0; k < subareas.length; k++) {
+            itensCheckBox.push(<div id = {k} className="hidden"><Checkbox dados={subareas[k]}></Checkbox></div>)
+          }
+
           ContentElement =
           <div className="input-box">
             <input className={className}  id={item.id} placeholder={placeholder} type={item.type}></input>
             {SpanFonte}
-            <Checkbox dados={subareas}></Checkbox>
+            <div className="checkboxList">{itensCheckBox}</div>
           </div>
         } else {
           var className = "form-control"+custom_class;
@@ -298,9 +295,13 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             {SpanFonte}
           </div>
         }
+        var labelElement;
+        if(item.label){
+          labelElement = <label className="control-label" for={item.id}>{item.label}:</label>
+        }
         items.push(
           <div className="form-group">
-            <label className="control-label" for={item.id}>{item.label}:</label>
+            {labelElement}
             {ContentElement}
           </div>
         );

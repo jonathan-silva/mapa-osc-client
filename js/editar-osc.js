@@ -1,6 +1,6 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteHeaderAreaDeAtuacao'], function(FormItem, AreaDeAtuacao){
+  require(['componenteFormItem', 'componenteCheckbox'], function(FormItem, Checkbox){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class){
       this.id = id;
       this.label = label;
@@ -487,7 +487,8 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
          console.log(ui.item);
          var targetElement = event.target;
          var id = macro_area_suggestions.indexOf(ui.item);
-         var $container = $($(targetElement).siblings(".subareas")[0]);
+         var $container = $($(targetElement).siblings(".checkboxList")[0]);
+         console.log($container.children());
          $container.children().each(function( index ) {
            if(!$(this).hasClass('hidden')){
              $(this).toggleClass('hidden');
@@ -572,6 +573,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     );
 
     //Títulos e certificações
+    var tx_sem_titulos = "Não há registros de títulos ou certificações";
     var certificacoes = result.certificacoes;
     headerPriority = '2';
     headerText = 'Títulos e certificações';
@@ -610,20 +612,35 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ]
     };
     items = certificacoes;
-    for (j=0; j<items.length; j++){
-      var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
-      formItens.push(new FormItens(items[j].id_osc, items[j].nm_certificado, dataValidadeText, items[j].ft_certificado, items[j].placeholder, "p"));
+    if(items.length > 0){
+      for (j=0; j<items.length; j++){
+        var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
+        formItens.push(new FormItens(items[j].id_osc, items[j].nm_certificado, dataValidadeText, items[j].ft_certificado, items[j].placeholder, "p"));
+      }
+    } else {
+      formItens.push(new FormItens(null, null, tx_sem_titulos, "base", null, "p"));
     }
     items = dados_form.form_items;
-    for (j=0; j<items.length; j++){
+    /*for (j=0; j<items.length; j++){
       formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options));
-    }
+    }*/
     console.log(formItens);
+    var autoElement = React.createElement('div', { id: 'auto' });
+    var manualElement = React.createElement('div', { id: 'manual' });
+    var root = React.createElement('div', { id: 'root' }, autoElement, manualElement);
+    ReactDOM.render(root, document.getElementById('certificacoes'));
+
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
-      ), document.getElementById("certificacoes")
+      ), document.getElementById("auto")
+    );
+    Checkbox = React.createFactory(Checkbox);
+    ReactDOM.render(
+      Checkbox(
+        {dados:items[0].options}
+      ), document.getElementById("manual")
     );
   });
 });
