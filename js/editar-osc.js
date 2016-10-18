@@ -151,7 +151,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             "nm_certificado": "cert2",
             "dt_inicio_certificado": "05/02/2006",
             "dt_fim_certificado": "12/04/2020",
-            "ft_certificado": "Não Possui"
+            "ft_certificado": "Possui"
           }
         ],
         "relacoes_trabalho": {
@@ -569,6 +569,68 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       FormItem(
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("descricao")
+    );
+
+    //Títulos e certificações
+    var certificacoes = result.certificacoes;
+    headerPriority = '2';
+    headerText = 'Títulos e certificações';
+    formItens = [];
+    dados_form =
+    {
+      "form_items": [
+        {
+          "id": "tx_como_surgiu",
+          "label": "Histórico",
+          "content": descricao.tx_como_surgiu,
+          "fonte": descricao.ft_como_surgiu,
+          "placeholder": "De modo resumido e objetivo, diga como surgiu a OSC, quando, onde, por que e por quem foi fundada",
+          "type": "p"
+        },
+        {
+          "id": "tx_missao_osc",
+          "label": "Missão",
+          "content": descricao.tx_missao_osc,
+          "fonte": descricao.ft_missao_osc,
+          "placeholder": "Se houver, apresente qual a missão da OSC",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_visao_osc",
+          "label": "Visão",
+          "content": descricao.tx_visao_osc,
+          "fonte": descricao.ft_visao_osc,
+          "placeholder": "se houver, apresente a visão da OSC",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_finalidades_estatutarias",
+          "label": "Finalidades Estatutárias da OSC",
+          "content": descricao.tx_finalidades_estatutarias,
+          "fonte": descricao.ft_finalidades_estatutarias,
+          "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
+          "type": "textarea"
+        },
+        {
+          "id": "tx_link_estatuto_osc",
+          "label": "Link para o Estatuto da OSC",
+          "content": descricao.tx_link_estatuto_osc,
+          "fonte": descricao.ft_link_estatuto_osc,
+          "placeholder": "Se houver, insira o link que leva ao estatuto da OSC",
+          "type": "text"
+        }
+      ]
+    };
+    items = certificacoes;
+    for (j=0; j<items.length; j++){
+      var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
+      formItens.push(new FormItens(items[j].id_osc, items[j].nm_certificado, dataValidadeText, items[j].ft_certificado, items[j].placeholder, "p"));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("certificacoes")
     );
   });
 });
