@@ -1,12 +1,15 @@
 require(['jquery','datatables-responsive', 'google'], function (React) {
   var isCacheEnabled = true;
-  var tipoRequisicao;
+  var geojson;
+  //dummy data para a quantidade de OSCs
+  var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
+
   var parametros='';
   var newData;
   var valoresURL = window.location.href.split('?')[1].split('=');
   var tipoConsulta = valoresURL[0];
   var stringBuscada = valoresURL[1];
-  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";//pra teste apenas a busca por organização está habilitada no momento
+  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";
 
   var last_response_len = false;
   var lat=-16.55555555; var lng= -60.55555555;
@@ -29,7 +32,7 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
     urlRota+="search/regiao/"+stringBuscada;
   }
   else{
-    console.log("ERRO!");
+    console.log("ERRO de URl!");
   }
 
   function tabela (newData){
@@ -126,115 +129,129 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
         tabela(newData);
         //console.log(data);
         carregaMapa(data);
-        console.log("OK");
       }
     }
   });
-});
 
 
-/*
-require(['jquery', 'rotas'], function(){
-  //carrega pontos em pedaços
-  (function addXhrProgressEvent($) {
-      var originalXhr = $.ajaxSettings.xhr;
-      $.ajaxSetup({
-          progress: function() { //console.log("standard progress callback");
-          },
-          xhr: function() {
-              var req = originalXhr(), that = this;
-              if (req) {
-                  if (typeof req.addEventListener == "function") {
-                      req.addEventListener("progress", function(evt) {
-                          that.progress(evt);
-                      },false);
-                  }
-              }
-              return req;
-          }
+
+  function heatMap(pdfs){
+    var arrayPDF = pdfs;
+
+      $.each(statesData.features , function(i){
+          nomeEstado = statesData.features[i].properties.Name;
+          statesData.features[i].properties.density = arrayPDF[nomeEstado];
+          //console.log(statesData.features[i].properties.density);
       });
-  })(jQuery);
 
-
-    var last_response_len = false;
-    var lat=-16.55555555; var lng= -60.55555555;
-    var map = new L.Map('map', {center: new L.LatLng(lat, lng), zoom: 4});
-    var leafletView = new PruneClusterForLeaflet();
-
-    $.ajax({
-        url: "js/cacheConsulta.php",//trocar pela rota correta
-        data: { chave:'consultaTudo', rota: 'http://mapaosc-desenv:8383/api/geo/osc/regiao/1' },
-        type: "POST",
-        dataType: "json",
-        beforeSend: function() {
-          //var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-          //var ggl = new L.Google();
-          var ggl2 = new L.Google('RODMAP');
-          map.addLayer(ggl2);
-          //map.addControl(new L.Control.Layers( {'OSM':osm, 'Google':ggl, 'Google Terrain':ggl2}, {}));
-          map.addControl(new L.Control.Layers({'Google':ggl2}, {}));
-        },
-        complete: function(dados) {
-          //var pontos = '[{"2":["-15.7783899","-47.9286308"],"3":["-15.7993202","-47.8981781"]},{"4":["-15.7958345","-47.8923149"],"5":["-15.8199205","-47.9239616"]},{"6":["-15.7980804","-47.8906555"],"7":["-15.7952542779082","-47.9394622544892"]},{"11":["-15.8751554","-47.9755211"],"15":["-15.8104582","-47.8541069"]},{"16":["-15.793664","-47.8509483"]}]';
-          pontos = dados.responseJSON;
-          //pontos = JSON.parse('[{"id_osc":22365,"lat":"-1.74820834599956","lng":"-47.0633436779996"},{"id_osc":22390,"lat":"-1.89886019799957","lng":"-49.3907389839996"},{"id_osc":22410,"lat":"-1.76024734199956","lng":"-55.8584121719996"},{"id_osc":22451,"lat":"-1.90143278399955","lng":"-55.5212850339996"},{"id_osc":22487,"lat":"-2.43663717199956","lng":"-54.7298703269996"},{"id_osc":22490,"lat":"-1.28689238999959","lng":"-47.9512049799996"},{"id_osc":22547,"lat":"-7.94180843999959","lng":"-55.1663152319996"},{"id_osc":22579,"lat":"-1.39623169999959","lng":"-48.8664998849996"},{"id_osc":22602,"lat":"-2.43885314899956","lng":"-54.7000788909996"}]');
-          //console.log(pontos);
-          //for(var k in pontos)
-            //map.addLayer(loadPoint(k, pontos[k][0], pontos[k][1]));
-          for(var i=0; i<pontos.length; i++)
-            map.addLayer(loadPoint(pontos[i].id_osc, pontos[i].lat, pontos[i].lng));
-
-          leafletView.ProcessView();
-          //console.log(leafletView);
-        },
-        progress: function(dados) {
-          var this_response, response = dados.currentTarget.response;
-          if(last_response_len === false)
-          {
-              this_response = response;
-              last_response_len = response.length;
-          }
-          else
-          {
-              this_response = response.substring(last_response_len);
-              last_response_len = response.length;
-          }
-
-          console.log("Loading...");
-        }
-    });
-
-    function loadPoint(id, latFinal, lngFinal){
-      if(latFinal !="" || lngFinal != ""){
-        var marker = new PruneCluster.Marker(latFinal, lngFinal);
-        marker.data.ID = id;
-
-        leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
-            leafletMarker.on('click', function(){
-              carregaOSC(data.ID, leafletMarker);
-            });
-        };
-
-        leafletView.RegisterMarker(marker);
-        return leafletView;
+      function style(feature) {
+          return {
+              fillColor: getColor(feature.properties.density),
+              weight: 2,
+              opacity: 1,
+              color: 'white',
+              dashArray: '3',
+              fillOpacity: 0.6
+          };
       }
-    }
 
-  function carregaOSC(id, leafletMarker){
-    var rotas = new Rotas();
-      $.ajax({
-          url: rotas.OSCByID(id),
-          type: "GET",
-          dataType: "json",
-          complete: function(data){
-            //console.log(data);
-            for(var i=0; i<data.length; i++){
-              var response = data.responseJSON === undefined ? undefined : data.responseJSON.cabecalho;
-              var idOSC = response === undefined ? "" : response.cd_identificador_osc;
-              leafletMarker.bindPopup('Codigo identificador da OSC= '+idOSC).openPopup();
-            }
+      function onEachFeature(feature, layer) {
+          layer.on({
+              mouseover: highlightFeature,
+              mouseout: resetHighlight,
+              click: zoomToFeature
+          });
+      }
+
+      var info = L.control();
+
+      info.onAdd = function (map) {
+          this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+          this.update();
+          return this._div;
+      };
+
+      // method that we will use to update the control based on feature properties passed
+      info.update = function (props) {
+          this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
+              '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
+              : 'Passe o mouse sobre um estado');
+      };
+
+      info.addTo(map);
+
+      function highlightFeature(e) {
+          var layer = e.target;
+
+          layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+              fillOpacity: 0.7
+          });
+
+          if (!L.Browser.ie && !L.Browser.opera) {
+              layer.bringToFront();
           }
-    });
+          info.update(layer.feature.properties);
+      }
+
+      function resetHighlight(e) {
+          geojson.resetStyle(e.target);
+          info.update();
+      }
+
+      function zoomToFeature(e) {
+          map.fitBounds(e.target.getBounds());
+      }
+
+      var legend = L.control({position: 'bottomright'});
+
+      legend.onAdd = function (map) {
+
+          var div = L.DomUtil.create('div', 'info legend'),
+              grades = [0, 2, 3, 4, 5, 6, 7, 8],
+              labels = [];
+
+          div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
+          // loop through our density intervals and generate a label with a colored square for each interval
+          for (var i = 0; i < grades.length; i++) {
+              div.innerHTML +=
+                  '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                  grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+          }
+
+          return div;
+      };
+
+      legend.addTo(map);
+
+      geojson = L.geoJson(statesData, {
+          style: function (statesData) {
+                return {
+                    fillColor: getColor(statesData.properties.density),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.6
+                };
+            },
+          onEachFeature: onEachFeature
+      }).addTo(map);
   }
+
+  function getColor(d) {
+      return d > 8 ? '#800026' :
+             d > 7  ? '#BD0026' :
+             d > 6  ? '#E31A1C' :
+             d > 5  ? '#FC4E2A' :
+             d > 4   ? '#FD8D3C' :
+             d > 3   ? '#FEB24C' :
+             d > 2   ? '#FED976' :
+                        '#FFEDA0';
+  }
+
+  //Coloração do mapa
+  heatMap(pdfs);
 });
-*/
