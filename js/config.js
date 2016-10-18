@@ -32,7 +32,7 @@ require.config({
       'tablesaw-init':['tablesaw'],
       'datatables.net':['jquery'],
       'datatables-responsive': ['datatables.net'],
-      'leaflet': ['https://maps.googleapis.com/maps/api/js?key=AIzaSyCb7xfXqVa7ip6KP-62zZmZbiwYjX7mL-0'],
+      //'leaflet': ['https://maps.googleapis.com/maps/api/js?key=AIzaSyCb7xfXqVa7ip6KP-62zZmZbiwYjX7mL-0'],
       'leafletCluster': ['leaflet'],
       'google': ['leafletCluster']
   },

@@ -1,4 +1,5 @@
-require(['jquery','datatables-responsive', 'google'], function (React) {
+//require(['jquery','datatables-responsive', 'google'], function (React) {
+require(['jquery','datatables-responsive', 'leafletCluster'], function (React) {
   var isCacheEnabled = true;
   var geojson;
   //dummy data para a quantidade de OSCs
@@ -14,10 +15,22 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   var last_response_len = false;
   var lat=-16.55555555; var lng= -60.55555555;
   var map = new L.Map('map', {center: new L.LatLng(lat, lng), zoom: 4});
-  var leafletView = new PruneClusterForLeaflet();
-  var ggl2 = new L.Google('RODMAP');
-  map.addLayer(ggl2);
-  map.addControl(new L.Control.Layers({'Google':ggl2}, {}));
+  var leafletView = new PruneClusterForLeaflet();//Prune Cluster library version
+  //var leafletView = L.markerClusterGroup();//Marker Cluster library version
+
+  //var ggl2 = new L.Google('ROADMAP');
+  var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+    });
+  //map.addLayer(ggl2);
+  map.addLayer(tiles);
+  map.addControl(new L.Control.Layers({/*'Google':ggl2*/}, {'OpenStreetMap': tiles}));
+
+
+
+
+
 
   if(tipoConsulta=="organizacao"){
     urlRota+="search/osc/"+stringBuscada;
@@ -76,26 +89,38 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   }
 
   function loadPoint(id, latFinal, lngFinal){
-    if(latFinal !=="" || lngFinal !== ""){
-      var marker = new PruneCluster.Marker(latFinal, lngFinal);
-      marker.data.ID = id;
+    if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+      //console.log(lngFinal);
+      var marker = new PruneCluster.Marker(latFinal, lngFinal);//Prune Cluster library version
+      marker.data.ID = id;//Prune Cluster library version
+
+
+      //leafletMarker = L.marker(new L.LatLng(latFinal, lngFinal), { id: id });//Marker Cluster library version
 
       leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
           leafletMarker.on('click', function(){
-            carregaOSC(data.ID, leafletMarker);
+            carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
+            //carregaOSC(data.id, leafletMarker);//Marker Cluster library version
           });
       };
 
-      leafletView.RegisterMarker(marker);
-      return leafletView;
+      leafletView.RegisterMarker(marker);//Prune Cluster library version
+      return leafletView;//Prune Cluster library version
+      //return leafletMarker;//Marker Cluster library version
     }
+    return null;
   }
 
   function carregaMapa(dados){
-    for(var i=0; i<dados.length; i++)
-      map.addLayer(loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng));
+    for(var i=0; i<dados.length; i++){
+      var point = loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng);
+      if(point!==null)
+        map.addLayer(point);//Prune Cluster library version
+        //leafletView.addLayer(point);//Marker Cluster library version
+    }
 
-    leafletView.ProcessView();
+    leafletView.ProcessView();//Prune Cluster library version
+    //map.addLayer(leafletView);//Marker Cluster library version
   }
 
   if(isCacheEnabled){
@@ -129,7 +154,7 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
         carregaMapa(data);
         //tabela(newData);//precisa de ajustes pois está causando travamento no navegador quando a consulta traz muitos registros
         //console.log(data);
-        
+
       }
     }
   });
