@@ -488,7 +488,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
          var targetElement = event.target;
          var id = macro_area_suggestions.indexOf(ui.item);
          var $container = $($(targetElement).siblings(".checkboxList")[0]);
-         console.log($container.children());
          $container.children().each(function( index ) {
            if(!$(this).hasClass('hidden')){
              $(this).toggleClass('hidden');
@@ -587,10 +586,18 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "content": findCertificateContent(certificacoes, "tx_utilidade_publica"),
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
-          "type": "select",
+          "type": "text",
           "options": [
-            "Utilidade pública estadual",
-            "Utilidade pública municipal"
+            {
+              "label":"Utilidade pública estadual",
+              "value": "estadual",
+              "checked": true
+            },
+            {
+              "label":"Utilidade pública municipal",
+              "value": "municipal",
+              "checked": false
+            }
           ]
         },
         {
@@ -626,8 +633,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     }*/
     console.log(formItens);
     var autoElement = React.createElement('div', { id: 'auto' });
+    var manualLabel = React.createElement('label', null, 'Utilidade pública');
     var manualElement = React.createElement('div', { id: 'manual' });
-    var root = React.createElement('div', { id: 'root' }, autoElement, manualElement);
+    var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
     ReactDOM.render(root, document.getElementById('certificacoes'));
 
     FormItem = React.createFactory(FormItem);
