@@ -1,5 +1,5 @@
 require(['jquery','datatables-responsive', 'google'], function (React) {
-  var isCacheEnabled = false;
+  var isCacheEnabled = true;
   var tipoRequisicao;
   var parametros='';
   var newData;
@@ -20,14 +20,13 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
     urlRota+="search/osc/"+stringBuscada;
   }
   else if(tipoConsulta=="municipio"){
-    urlRota+="geo/osc/municipio/"+stringBuscada;
+    urlRota+="search/municipio/"+stringBuscada;
   }
   else if(tipoConsulta=="estado"){
-    urlRota+="geo/osc/estado/"+stringBuscada;
+    urlRota+="search/estado/"+stringBuscada;
   }
   else if(tipoConsulta=="regiao"){
-    urlRota+="geo/osc/regiao/"+stringBuscada;
-    console.log(urlRota);
+    urlRota+="search/regiao/"+stringBuscada;
   }
   else{
     console.log("ERRO!");
@@ -97,7 +96,7 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   }
 
   if(isCacheEnabled){
-    tipoRequisicao = 'POST';
+    tipoRequisicao = 'GET';
     parametros={chave: urlRota, rota: urlRota};
     urlRota = "js/cacheConsulta.php";//sobrescreve rota do ajax para chamar php responsável pelo cache
   }
@@ -106,11 +105,32 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
   }
   $.ajax({
     url: urlRota,
-    type: tipoRequisicao,
+    type: 'GET',
     dataType: 'json',
     data: parametros,
-    error: function(){
-      console.log("Erro no AJAX");
+    error: function(e){
+      var d = JSON.parse(e.responseText);
+      if(d!==undefined){
+        var sizeOfData = d.length;
+        var columns = 6;
+
+        newData = new Array(sizeOfData);
+
+        for (var i=0; i < sizeOfData; i++){
+          newData[i] = new Array(columns);
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][1] = d[i].tx_nome_osc;
+          newData[i][2] = d[i].cd_identificador_osc;
+          newData[i][3] = d[i].tx_natureza_juridica_osc;
+          newData[i][4] = d[i].tx_endereco_osc;
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+d[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+        }
+        tabela(newData);
+        //console.log(data);
+        carregaMapa(d);
+        console.log("ERRO no AJAX :P");
+      }
+
     },
     success: function(data){
       if(data!==undefined){

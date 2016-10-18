@@ -552,3 +552,36 @@ body.indisponivel {
 .dado-oficial {
   background-image: url('../img/base_dados.png');
 }
+
+.export{
+  font-size: 11px;
+}
+
+/*Página base de dados.html*/
+.baseDados{
+  margin-top: 30px;
+  min-height:0px;
+}
+
+.texto-margem{
+  margin-left: 50px;
+      display: inline-table;
+}
+
+.format-label{
+  display: inline-block;
+  vertical-align: text-bottom;
+  position: absolute;
+  background: url(../img/sprite-resource-icons.png) no-repeat 0 0;
+}
+.zip{
+  margin-left: 10px;
+  width: 32px;
+  height: 35px;
+  background-position: -128px -62px;
+}
+
+.format-label:hover{
+  -webkit-filter: opacity(80%);
+  filter: opacity(80%);
+}

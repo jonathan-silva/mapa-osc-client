@@ -2,6 +2,7 @@
 define(['react'], function(React) {
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
   var tituloPortal = "O Portal";
+  var tituloDados = "Dados";
   var usuarioLogado = "";
 
   //Componentes individuais
@@ -53,11 +54,15 @@ define(['react'], function(React) {
       var items = [];
 
       for (var i = 0; i < this.props.headerObject.menuList.length; i++) {
-        if(i==1){//posição em que o dropdown do mapa deve aparecer
+        if(i==1){//posição em que o dropdown do Portal deve aparecer
           items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.dropdown} titulo={tituloPortal}/></li>);
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
-        else if(i == this.props.headerObject.menuList.length-1){
+        else if(i==2){//posição em que o dropdown do Dados deve aparecer
+          items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.menuDados} titulo={tituloDados}/></li>);
+          items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        }
+        else if(i == this.props.headerObject.menuList.length-1){//posição em que o dropdown do Usuario Logado deve aparecer
           items.push(<li><a className="btn-link" data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
           items.push(<li id="dropdown-menu-header" className="dropdown logado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
         }

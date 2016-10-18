@@ -5,10 +5,11 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
     this.text = text;
     this.link = link;
   }
-  function Menu(dropdown, menuList, menuLogado){
+  function Menu(dropdown, menuList, menuLogado, menuDados){
     this.dropdown = dropdown;
     this.menuList = menuList;
     this.menuLogado = menuLogado;
+    this.menuDados = menuDados;
   }
 
   function MenuListObject(text='', link=''){
@@ -19,7 +20,6 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   var menuList = [];
   menuList.push(new MenuListObject("Home", "index.html"));
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
-  menuList.push(new MenuListObject("Dados", "dados.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
   menuList.push(new MenuListObject("Entrar", "#"));
 
@@ -34,6 +34,10 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
   linksSubmenu.push(new MenuDropDownObject("Links", "links-uteis.html"));
 
+  var linksSubmenuDados = [];
+  linksSubmenuDados.push(new MenuDropDownObject("Base de Dados", "base-dados.html"));
+  linksSubmenuDados.push(new MenuDropDownObject("Dados e Indicadores", "dados-indicadores.html"));
+
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
   linksUsuarioLogado.push(new MenuDropDownObject());
@@ -43,7 +47,7 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   linksUsuarioLogado.push(new MenuDropDownObject("Sair", "#"));
 
   Header = React.createFactory(Header);
-  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado)}), document.getElementById("header"));
+  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
 });
 
 
@@ -60,7 +64,7 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   var blocks = [];
   blocks.push(new BlockFooterObject("Portal das OCSs", ["metodologia.html", "termos-uso.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"]));
   blocks.push(new BlockFooterObject("Ajuda", ["glossario.html", "perguntas-frequentes.html", "tutoriais.html", "mapa-do-site.html"], ["Glossário", "Perguntas Frequentes", "Tutoriais", "Mapa do Site"]));
-  blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do Desenvolvimento Humano no Brasil", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"],"_blank"));
+  blocks.push(new BlockFooterObject("IPEA", ["http://atlasbrasil.org.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/"], ["Atlas do IDH Municipal", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea"],"_blank"));
 
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];

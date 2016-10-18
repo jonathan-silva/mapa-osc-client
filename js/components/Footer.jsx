@@ -61,8 +61,14 @@ define(['react'], function(React) {
   var MenuInferior = React.createClass({
     geraLinks: function (block){
       var arr = [];
-      for(var i=0; i< block.urls.length; i++) arr.push(<dd><a href={block.urls[i]} target={block.target[i]}>{block.texts[i]}</a></dd>);
+      for(var i=0; i< block.urls.length; i++){
+        if(block.target == "_blank"){
+          arr.push(<dd><a href={block.urls[i]} target={block.target}>{block.texts[i]}</a><img src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></dd>);
+        }else{
+          arr.push(<dd><a href={block.urls[i]} target={block.target}>{block.texts[i]}</a></dd>);
+        }
 
+      }
       return arr;
     },
     renderListBlocks: function(){
@@ -98,6 +104,7 @@ define(['react'], function(React) {
                 <div className="row">
                   <div className="col-md-4">
                     <h5>{tituloLogo} © {ano}</h5>
+                    <a type="button" className="btn btn-info btn-xs" href="colabore.html">Colabore com o Mapa</a>
                   </div>
                   <div id="carousel"  className="col-md-4">
                     {<Carousel images={imgList}/>}
