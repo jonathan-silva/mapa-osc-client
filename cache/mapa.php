@@ -13,7 +13,7 @@
     }
 
     public function getCoordenadas($hash){
-      print_r ($this->redis->get($hash));
+      return ($this->redis->get($hash));
     }
   }
 ?>
