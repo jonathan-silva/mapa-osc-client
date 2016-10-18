@@ -126,9 +126,10 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
           newData[i][4] = data[i].tx_endereco_osc;
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
-        tabela(newData);
-        //console.log(data);
         carregaMapa(data);
+        //tabela(newData);//precisa de ajustes pois está causando travamento no navegador quando a consulta traz muitos registros
+        //console.log(data);
+        
       }
     }
   });
