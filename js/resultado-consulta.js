@@ -106,8 +106,6 @@ require(['jquery','datatables-responsive', 'google'], function (React) {
     data: parametros,
     error: function(e){
         console.log("ERRO no AJAX :" + e);
-      }
-
     },
     success: function(data){
       if(data!==undefined){
