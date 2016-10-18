@@ -580,43 +580,31 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     {
       "form_items": [
         {
-          "id": "tx_como_surgiu",
-          "label": "Histórico",
-          "content": descricao.tx_como_surgiu,
-          "fonte": descricao.ft_como_surgiu,
-          "placeholder": "De modo resumido e objetivo, diga como surgiu a OSC, quando, onde, por que e por quem foi fundada",
-          "type": "p"
+          "id": "tx_utilidade_publica",
+          "label": "Utilidade pública",
+          "content": findCertificateContent(certificacoes, "tx_utilidade_publica"),
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "select",
+          "options": [
+            "Utilidade pública estadual",
+            "Utilidade pública municipal"
+          ]
         },
         {
-          "id": "tx_missao_osc",
-          "label": "Missão",
-          "content": descricao.tx_missao_osc,
-          "fonte": descricao.ft_missao_osc,
-          "placeholder": "Se houver, apresente qual a missão da OSC",
-          "type": "textarea"
+          "id": "data_validade_estadual",
+          "label": "Insira data de validade",
+          "content": findCertificateDate(certificacoes, "data_validade_estadual"),
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "text"
         },
         {
-          "id": "tx_visao_osc",
-          "label": "Visão",
-          "content": descricao.tx_visao_osc,
-          "fonte": descricao.ft_visao_osc,
-          "placeholder": "se houver, apresente a visão da OSC",
-          "type": "textarea"
-        },
-        {
-          "id": "tx_finalidades_estatutarias",
-          "label": "Finalidades Estatutárias da OSC",
-          "content": descricao.tx_finalidades_estatutarias,
-          "fonte": descricao.ft_finalidades_estatutarias,
-          "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
-          "type": "textarea"
-        },
-        {
-          "id": "tx_link_estatuto_osc",
-          "label": "Link para o Estatuto da OSC",
-          "content": descricao.tx_link_estatuto_osc,
-          "fonte": descricao.ft_link_estatuto_osc,
-          "placeholder": "Se houver, insira o link que leva ao estatuto da OSC",
+          "id": "data_validade_municipal",
+          "label": "Insira data de validade",
+          "content": findCertificateDate(certificacoes, "data_validade_municipal"),
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "text"
         }
       ]
@@ -626,6 +614,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
       formItens.push(new FormItens(items[j].id_osc, items[j].nm_certificado, dataValidadeText, items[j].ft_certificado, items[j].placeholder, "p"));
     }
+    items = dados_form.form_items;
+    for (j=0; j<items.length; j++){
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options));
+    }
+    console.log(formItens);
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
@@ -635,6 +628,12 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
   });
 });
 
+function findCertificateDate(certificacoes, id){
+
+}
+function findCertificateContent(certificacoes, id){
+
+}
 function getSuggestions(){
   var suggestions = [
     {
