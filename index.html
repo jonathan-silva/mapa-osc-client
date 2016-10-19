@@ -190,7 +190,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="chart-container" id="graficoMain-1"><svg></svg></div>
-            <h5>Fonte:(2013). <a class="btn-item" data-toggle="modal" data-target="#modalGraficoTabela" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+            <h5>Fonte:(2013). <a id="tabelaMain-1" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
       </div>
@@ -209,7 +209,7 @@
         <div class="row">
           <div class="col-md-12">
               <div class="chart-container" id="graficoMain-2"><svg></svg></div>
-              <h5>Fonte:(2013). <a class="btn-item" data-toggle="modal" data-target="#modalGraficoTabela" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+              <h5>Fonte:(2013). <a id="tabelaMain-2"  class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
       </div>
@@ -228,22 +228,21 @@
         <div class="row">
           <div class="col-md-12">
             <div class="chart-container" id="graficoMain-3"><svg></svg></div>
-            <h5>Fonte:(2013). <a class="btn-item" data-toggle="modal" data-target="#modalGraficoTabela" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+            <h5>Fonte:(2013). <a id="tabelaMain-3" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modalGraficoTabela" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal-->
+    <div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modalTitulo" style="display: none;">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"></h4>
+            <h4 class="modal-title bold" id="modalTitulo"></h4>
           </div>
-          <div class="modal-body">
-            <div id="bloco_texto_formato_dados"></div>
+          <div id="corpoModal" class="modal-body">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -251,6 +250,7 @@
         </div>
       </div>
     </div>
+
 
     <!-- footer -->
     <div id="rodape"></div>

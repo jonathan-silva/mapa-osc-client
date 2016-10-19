@@ -1,4 +1,4 @@
-require(["nv.d3.lib"], function (React) {
+require(["nv.d3.lib","graficoParaTabela"], function (React) {
   var jsonGrafico1 = [{key: "GraficoMain 1", values: [{"label" : "FINEP", "value" : 5 }, {"label" : "SALIC", "value" : 515 } , { "label" : "SLIE" , "value" : 656 } , {"label" : "SICONV", "value" : 1921} , { "label" : "Tituladas ou Certificadas" , "value" : 8693 }, { "label" : "SIAFI" , "value" : 68021 } ]}];
   var jsonGrafico2 = [{"label": "Fundação Privada", "value" : 8123 } ,  {"label": "Organização Religiosa", "value" : 41587 } , { "label": "Associação Privado", "value" : 391582} ];
   var jsonGrafico3 = [{key: "Privada", values: [{"label" : "FINEP", "value" : 3355 }, {"label" : "CEBAS Educação", "value" : 4144 }, {"label" : "CEBAS Assistência Social", "value" : 1194 }]},
@@ -8,6 +8,20 @@ require(["nv.d3.lib"], function (React) {
   createBarChart('#graficoMain-1',jsonGrafico1);
   createDonutChart('#graficoMain-2',jsonGrafico2);
   createMultiBarChart('#graficoMain-3',jsonGrafico3);
+
+  $("#tabelaMain-1").click(function(){
+      createTabela_Bar(jsonGrafico1, ["prime", "segundo"], "Transferência de Recursos para OSC nos últimos 12 meses", "fonte");
+  });
+
+  $("#tabelaMain-2").click(function(){
+      createTabela_Donut(jsonGrafico2, ["prime", "segundo"], "OSCs que realizam parcerias com o Estado", "fonte 2015");
+  });
+
+  $("#tabelaMain-3").click(function(){
+      createTabela_MultBar(jsonGrafico3, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
+
 } );
 
 require(["jquery-ui"], function (React) {

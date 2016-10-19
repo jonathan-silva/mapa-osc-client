@@ -751,5 +751,8 @@ body.indisponivel {
   text-indent:0px;
 }
 .text-colabore li{
-  margin-top: 10px;  
+  margin-top: 10px;
+}
+.bold{
+  font-weight: bold;
 }
