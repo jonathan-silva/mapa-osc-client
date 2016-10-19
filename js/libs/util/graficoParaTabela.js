@@ -56,6 +56,37 @@ function createTabela_Bar(json, headerCol, titulo, fonte) {
   tabela += '<div>' + fonte + '</div>';
   acionarModalTabela(titulo, tabela);
 }
+
+function createTabela_Line(json, headerCol, titulo, fonte) {
+  tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
+
+  cabecalho = '<thead><tr>';
+  for(var i in headerCol)
+  {
+    cabecalho += '<th>' + headerCol[i] + '</th>';
+  }
+  cabecalho += '</tr></thead>';
+  tabela += cabecalho;
+
+  corpo = '<tbody>';
+  for(i = 0; i < json.length; i++)
+  {
+      for(var j in json[i].values)
+      {
+      corpo += '<tr><td>' + json[i].key + '</td>';
+      corpo += '<td>' + json[i].values[j].x + '</td>';
+      corpo += '<td>' + json[i].values[j].y + '</td></tr>';
+    }
+  }
+  corpo += '</tbody>';
+  tabela += corpo;
+
+  tabela += '</table>';
+  tabela += '<div>' + fonte + '</div>';
+  acionarModalTabela(titulo, tabela);
+}
+
+// GRÁFICOS QUE PODEM SER UTILIZADOS: createMultiBarChart - LinePlusBarChart - StackedAreaChart - MultiBarHorizontalChart
 function createTabela_MultBar(json, headerCol, titulo, fonte) {
   tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
@@ -70,7 +101,7 @@ function createTabela_MultBar(json, headerCol, titulo, fonte) {
   corpo = '<tbody>';
   for(i = 0; i < json.length; i++)
   {
-      for(var j in json)
+      for(var j in json[i].values)
       {
       corpo += '<tr><td>' + json[i].key + '</td>';
       corpo += '<td>' + json[i].values[j].label + '</td>';

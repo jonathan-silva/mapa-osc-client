@@ -4,9 +4,9 @@ require(['jquery-ui'], function (React) {
 } );
 
 
-require(["nv.d3.lib"], function (React) {
+require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico3 = [{key: "Grafico 3", values: [{"label" : "CEBAS Educação", "value" : 4 }, {"label" : "CEBAS Saúde", "value" : 200 } ,{ "label" : "CEBAS Assistência Social" , "value" : 498 } , {"label" : "OSCIP", "value" : 7991}]}];
+  var jsonGrafico3 = [{key: "Grafico 3", values: [{"label" : "CEBAS Educação", "value" : 4 }, {"label" : "CEBAS Saúde", "value" : 200 } ,{ "label" : "CEBAS Assistência Social" , "value" : 498 }, {"label" : "OSCIP", "value" : 7991}]}];
   var jsonGrafico4 = [{key: "Grafico 4", values: [{"label" : "FINEP", "value" : 5 }, {"label" : "SALIC", "value" : 515 } , { "label" : "SLIE" , "value" : 656 } , {"label" : "SICONV", "value" : 1921} , { "label" : "Tituladas ou Certificadas" , "value" : 8693 }, { "label" : "SIAFI" , "value" : 68021 } ]}];
   var jsonGrafico1 = [{"label": "Fundação Privada", "value" : 8123 } ,  {"label": "Organização Religiosa", "value" : 41587 } , { "label": "Associação Privado", "value" : 391582} ];
   var jsonGrafico2 = [{"label": "Fundação Privada", "value" : 330521 } ,  {"label": "Organização Religiosa", "value" : 35621 } , { "label": "Associação Privado", "value" : 1837907} ];
@@ -113,6 +113,43 @@ require(["nv.d3.lib"], function (React) {
   createLinePlusBarChart('#grafico-7',jsonGrafico7);
   createStackedAreaChart('#grafico-8',jsonGrafico8);
   createMultiBarHorizontalChart('#grafico-9',jsonGrafico9);
+
+  $("#tabela-1").click(function(){
+      createTabela_Donut(jsonGrafico1, ["prime", "segundo"], "OSCs que realizam parcerias com o Estado", "fonte 2015");
+  });
+
+  $("#tabela-2").click(function(){
+      createTabela_Donut(jsonGrafico2, ["prime", "segundo"], "OSCs que realizam parcerias com o Estado", "fonte 2015");
+  });
+
+  $("#tabela-3").click(function(){
+      createTabela_Bar(jsonGrafico3, ["prime", "segundo"], "Transferência de Recursos para OSC nos últimos 12 meses", "fonte");
+  });
+
+  $("#tabela-4").click(function(){
+      createTabela_Bar(jsonGrafico4, ["prime", "segundo"], "Transferência de Recursos para OSC nos últimos 12 meses", "fonte");
+  });
+
+  $("#tabela-5").click(function(){
+      createTabela_MultBar(jsonGrafico5, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
+  $("#tabela-6").click(function(){
+      createTabela_Line(jsonGrafico6, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
+  $("#tabela-7").click(function(){
+      createTabela_MultBar(jsonGrafico7, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
+  $("#tabela-8").click(function(){
+      createTabela_MultBar(jsonGrafico8, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
+  $("#tabela-9").click(function(){
+      createTabela_MultBar(jsonGrafico9, ["prime", "segundo","terceiro"], "Distribuição de OSCs por região", "fonte 2014");
+  });
+
 
   jQuery('#tabGrafico a').click(function (e) {
       e.preventDefault()
