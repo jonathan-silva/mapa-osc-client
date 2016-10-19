@@ -746,3 +746,10 @@ body.indisponivel {
 .marker-cluster span {
 	line-height: 30px;
 }
+
+.text-colabore{
+  text-indent:0px;
+}
+.text-colabore li{
+  margin-top: 10px;  
+}
