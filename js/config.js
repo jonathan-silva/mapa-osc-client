@@ -20,7 +20,8 @@ require.config({
     "leaflet": "libs/leaflet-0.7.7/leaflet",
     "leafletCluster": "libs/leaflet-0.7.7/cluster.min",
     "google": "libs/google",
-    "rotas":"rotas"
+    "rotas":"rotas",
+    "graficoParaTabela":"libs/util/graficoParaTabela"
   },
   shim: {
       'jquery-ui': ['jquery'],
@@ -34,7 +35,8 @@ require.config({
       'datatables-responsive': ['datatables.net'],
       //'leaflet': ['https://maps.googleapis.com/maps/api/js?key=AIzaSyCb7xfXqVa7ip6KP-62zZmZbiwYjX7mL-0'],
       'leafletCluster': ['leaflet'],
-      'google': ['leafletCluster']
+      'google': ['leafletCluster'],
+      'graficoParaTabela': ['bootstrap'],
   },
   jsx: {
     fileExtension: '.jsx',
