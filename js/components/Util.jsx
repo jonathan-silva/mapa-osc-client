@@ -223,8 +223,10 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
   var FormItem = React.createClass({
     renderListItems: function(){
       var items=[];
-      var HeaderElement = `h${this.props.header.priority}`;
-      items.push(<HeaderElement>{this.props.header.text}</HeaderElement>);
+      if(this.props.header){
+        var HeaderElement = `h${this.props.header.priority}`;
+        items.push(<HeaderElement>{this.props.header.text}</HeaderElement>);
+      }
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
         var placeholder = item.content;
@@ -268,8 +270,9 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             <span className="pre-text">{item.pretext}</span>
             {SpanFonte}
           </div>
+        } else if(item.type == "checkbox"){
+          ContentElement = <Checkbox dados={item.options}></Checkbox>
         } else if(item.suggestions){
-
           var areas = item.suggestions;
           var subareas = [];
           for (var j = 0; j < areas.length; j++) {
@@ -299,8 +302,12 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         if(item.label){
           labelElement = <label className="control-label" for={item.id}>{item.label}:</label>
         }
+        var className = "form-group";
+        if (item.hide){
+          className += " hidden";
+        }
         items.push(
-          <div className="form-group">
+          <div className={className}>
             {labelElement}
             {ContentElement}
           </div>

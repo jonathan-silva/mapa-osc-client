@@ -1,7 +1,7 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(['componenteFormItem', 'componenteCheckbox'], function(FormItem, Checkbox){
-    function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class){
+    function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide){
       this.id = id;
       this.label = label;
       this.content = content;
@@ -11,6 +11,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.options = options;
       this.pretext = pretext;
       this.custom_class = custom_class;
+      this.hide = hide;
     }
     var result = {
         "cabecalho": {
@@ -582,11 +583,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       "form_items": [
         {
           "id": "tx_utilidade_publica",
-          "label": "Utilidade pública",
+          "label": null,
           "content": findCertificateContent(certificacoes, "tx_utilidade_publica"),
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
-          "type": "text",
+          "type": "checkbox",
           "options": [
             {
               "label":"Utilidade pública estadual",
@@ -602,19 +603,21 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         },
         {
           "id": "data_validade_estadual",
-          "label": "Insira data de validade",
+          "label": "Insira data de validade para Utilidade pública estadual",
           "content": findCertificateDate(certificacoes, "data_validade_estadual"),
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
-          "type": "text"
+          "type": "text",
+          "hide": true
         },
         {
           "id": "data_validade_municipal",
-          "label": "Insira data de validade",
+          "label": "Insira data de validade para Utilidade pública municipal",
           "content": findCertificateDate(certificacoes, "data_validade_municipal"),
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
-          "type": "text"
+          "type": "text",
+          "hide": true
         }
       ]
     };
@@ -628,10 +631,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       formItens.push(new FormItens(null, null, tx_sem_titulos, "base", null, "p"));
     }
     items = dados_form.form_items;
-    /*for (j=0; j<items.length; j++){
-      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options));
-    }*/
-    console.log(formItens);
     var autoElement = React.createElement('div', { id: 'auto' });
     var manualLabel = React.createElement('label', null, 'Utilidade pública');
     var manualElement = React.createElement('div', { id: 'manual' });
@@ -644,12 +643,27 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("auto")
     );
-    Checkbox = React.createFactory(Checkbox);
+    formItens = [];
+    for (j=0; j<items.length; j++){
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, null, items[j].hide));
+    }
+    console.log(formItens);
+    FormItem = React.createFactory(FormItem);
     ReactDOM.render(
-      Checkbox(
-        {dados:items[0].options}
+      FormItem(
+        {header:null, dados:formItens}
       ), document.getElementById("manual")
     );
+
+    //interações seção títulos e certificações
+    $("#certificacoes :checkbox").change(function() {
+      var $inputContainer = $(this).closest(".form-group").siblings().find("#data_validade_"+this.value).closest(".form-group");
+      $inputContainer.toggleClass('hidden');
+      if($inputContainer.hasClass('hidden')){
+        var $input = $inputContainer.find('input');
+        $input.val("");
+      }
+    });
   });
 });
 
