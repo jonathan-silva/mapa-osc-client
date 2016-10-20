@@ -1,6 +1,6 @@
 //require(['jquery','datatables-responsive', 'google'], function (React) {
-require(['jquery','datatables-responsive', 'leafletCluster'], function (React) {
-  var isCacheEnabled = true;
+require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
+  var isCacheEnabled = false;
   var geojson;
   //dummy data para a quantidade de OSCs
   var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
@@ -51,8 +51,9 @@ require(['jquery','datatables-responsive', 'leafletCluster'], function (React) {
   function tabela (newData){
     $('#resultadoconsulta_formato_dados').DataTable({
       responsive: true,
-       processing: true,
-       data: newData,
+      deferLoading: 1000,
+      deferRender: true,
+      data: newData,
        columns: [
                {title: "", width: 50},
                {title: "Nome da OSC"},
@@ -69,6 +70,7 @@ require(['jquery','datatables-responsive', 'leafletCluster'], function (React) {
        ],
        autoWidth: true
      });
+     $('#loading').addClass('hide');
   }
 
   function carregaOSC(id, leafletMarker){
@@ -151,10 +153,8 @@ require(['jquery','datatables-responsive', 'leafletCluster'], function (React) {
           newData[i][4] = data[i].tx_endereco_osc;
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
-        carregaMapa(data);
-        //tabela(newData);//precisa de ajustes pois está causando travamento no navegador quando a consulta traz muitos registros
-        //console.log(data);
-
+        var workerTable = new Worker(tabela(newData));
+        var workerMap = new Worker(carregaMapa(data));
       }
     }
   });
