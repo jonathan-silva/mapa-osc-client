@@ -1,6 +1,6 @@
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
-  var isCacheEnabled = false;
+  var isCacheEnabled = true;
   var geojson;
   //dummy data para a quantidade de OSCs
   var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
