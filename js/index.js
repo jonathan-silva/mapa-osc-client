@@ -49,21 +49,21 @@ require(["jquery-ui"], function (React) {
     var val = tabAtiva.find(".form-control").val();
     val = val.replace(/ /g, '+');//troca espaços por '+'
     var link;
-    if (id == 'organizacao'){
+    if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?"+id+"="+val;
+      location.href=link;
     }
     else {
       val = $('.response').val();
+      console.log(val);
       if (val !== ''){
         link = "./resultado-consulta.html?"+id+"="+val;
+        location.href=link;
       }
       else{
-
+        $('#errorLabel').removeClass('hide');
       }
-
     }
-    location.href=link;
-    //console.log(link);
   });
 
   //autocomplete organizacao
@@ -178,6 +178,6 @@ $("#regiao .form-control").autocomplete({
    $('.response').val(ui.item.id);
    link = "./resultado-consulta.html?"+'regiao'+"="+ui.item.id;
    location.href=link;
- }
-});
+  }
+ });
 });
