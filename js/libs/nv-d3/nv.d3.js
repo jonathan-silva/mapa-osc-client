@@ -8159,8 +8159,8 @@ nv.models.multiBarChart = function() {
 
       if (showControls) {
         var controlsData = [
-          { key: 'Grouped', disabled: multibar.stacked() },
-          { key: 'Stacked', disabled: !multibar.stacked() }
+          { key: 'Agrupar', disabled: multibar.stacked() },//alt 2
+          { key: 'Empilhar', disabled: !multibar.stacked() }//alt 2
         ];
 
         controls.width(controlWidth()).color(['#444', '#444', '#444']);
@@ -8293,10 +8293,10 @@ nv.models.multiBarChart = function() {
         d.disabled = false;
 
         switch (d.key) {
-          case 'Grouped':
+          case 'Agrupar'://alte 2
             multibar.stacked(false);
             break;
-          case 'Stacked':
+          case 'Empilhar'://alt 2
             multibar.stacked(true);
             break;
         }
@@ -9105,8 +9105,8 @@ nv.models.multiBarHorizontalChart = function() {
 
       if (showControls) {
         var controlsData = [
-          { key: 'Grouped', disabled: multibar.stacked() },
-          { key: 'Stacked', disabled: !multibar.stacked() }
+          { key: 'Agrupar', disabled: multibar.stacked() },//alt 2
+          { key: 'Empilhar', disabled: !multibar.stacked() }//alt2
         ];
 
         controls.width(controlWidth()).color(['#444', '#444', '#444']);
@@ -9193,10 +9193,10 @@ nv.models.multiBarHorizontalChart = function() {
         d.disabled = false;
 
         switch (d.key) {
-          case 'Grouped':
+          case 'Agrupar'://alt 2
             multibar.stacked(false);
             break;
-          case 'Stacked':
+          case 'Empilhar'://alt 2
             multibar.stacked(true);
             break;
         }
@@ -13675,7 +13675,7 @@ nv.models.stackedAreaChart = function() {
     , noData = 'No Data Available.'
     , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
     , controlWidth = 250
-    , cData = ['Stacked','Stream','Expanded']
+    , cData = ['Empilhar','Corrente','Expandir']//alt 2
     , transitionDuration = 250
     ;
 
@@ -13814,9 +13814,9 @@ nv.models.stackedAreaChart = function() {
 
       if (showControls) {
         var controlsData = [
-          { key: 'Stacked', disabled: stacked.offset() != 'zero' },
-          { key: 'Stream', disabled: stacked.offset() != 'wiggle' },
-          { key: 'Expanded', disabled: stacked.offset() != 'expand' }
+          { key: 'Empilhar', disabled: stacked.offset() != 'zero' },//alt 2
+          { key: 'Corrente', disabled: stacked.offset() != 'wiggle' },//alt 2
+          { key: 'Expandir', disabled: stacked.offset() != 'expand' }//alt 2
         ];
 
         controlWidth = (cData.length/3) * 260;
@@ -13952,13 +13952,13 @@ nv.models.stackedAreaChart = function() {
         d.disabled = false;
 
         switch (d.key) {
-          case 'Stacked':
+          case 'Empilhar'://alt 2
             stacked.style('stack');
             break;
-          case 'Stream':
+          case 'Corrente'://alt 2
             stacked.style('stream');
             break;
-          case 'Expanded':
+          case 'Expandir'://alt 2
             stacked.style('expand');
             break;
         }

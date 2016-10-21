@@ -12,7 +12,7 @@ function createDonutChart(grafico, valores){
 	      .height(430);
 
 	    d3.select(grafico + " svg")
-	        .datum(valores)
+	        .datum(valores[0].values)
 	        .transition().duration(350)
 	        .call(chart);
 
@@ -59,7 +59,7 @@ function createMultiBarChart(grafico, valores)
 				.height(430);
 
 	    d3.select(grafico + " svg")
-	        .datum(valores)
+	        .datum(valores[0].series)
 	        .call(chart);
 
 		 nv.utils.windowResize(chart.update);
@@ -77,16 +77,12 @@ function createLineChart(grafico, valores)
                 .showXAxis(true)        //Show the x-axis
 								.height(430);
 
-  chart.xAxis     //Chart x-axis settings
-      .axisLabel('Time (ms)')
-      .tickFormat(d3.format(',r'));
 
   chart.yAxis     //Chart y-axis settings
-      .axisLabel('Voltage (v)')
-      .tickFormat(d3.format('.f'));
+      .tickFormat(d3.format(',f'));
 
   d3.select(grafico + " svg")    //Select the <svg> element you want to render the chart in.
-      .datum(valores)         //Populate the <svg> element with chart data...
+      .datum(valores[0].series)         //Populate the <svg> element with chart data...
       .call(chart);          //Finally, render the chart!
 
   //Update the chart when window resizes.
@@ -119,7 +115,7 @@ function createLinePlusBarChart(grafico, valores)
 	chart.bars.forceY([0]);
 
 	d3.select(grafico + " svg")
-		.datum(valores)
+		.datum(valores[0].series)
 		.transition()
 		.duration(0)
 		.call(chart);
@@ -153,7 +149,7 @@ function createStackedAreaChart(grafico, valores)
 			 .tickFormat(d3.format(',.2f'));
 
 	 d3.select(grafico + " svg")
-		 .datum(valores)
+		 .datum(valores[0].series)
 		 .call(chart);
 
 	 nv.utils.windowResize(chart.update);
@@ -176,7 +172,7 @@ function createStackedAreaChart(grafico, valores)
 				.tickFormat(d3.format(',.2f'));
 
 		d3.select(grafico + " svg")
-				.datum(valores)
+				.datum(valores[0].series)
 				.call(chart);
 
 		nv.utils.windowResize(chart.update);
