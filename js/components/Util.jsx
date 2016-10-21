@@ -82,7 +82,9 @@ define('componenteLinksUteis', ['react'], function (React) {
               <div className="media-body">
                   <h4 className="media-heading">
                    <a className="btn-link" href={this.props.dados[i].elo} target="_blank">
-                    {this.props.dados[i].titulo}</a></h4>
+                    {this.props.dados[i].titulo}</a>
+                    <img src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></img>
+                    </h4>
                   <p>{this.props.dados[i].desc}</p>
               </div>
           </li>
