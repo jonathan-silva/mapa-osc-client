@@ -25,15 +25,5 @@ require(['react', 'jsx!components/Util'], function (React) {
   });
 
 
-  require(['componenteDropdown'], function(Dropdown){
-    //var arquivosRetornados, arquivosEnviados;
-    //arquivosRetornados = arquivosEnviados = ["XML", "JSON", "CSV"];
-    var prox = ["."];
 
-    Dropdown = React.createFactory(Dropdown);
-
-    //ReactDOM.render(Dropdown({list: arquivosRetornados}), document.getElementById("arquivo_retornado_dropdown"));
-    ReactDOM.render(Dropdown({list:prox}), document.getElementById("prox_dropdown"));
-    //ReactDOM.render(Dropdown({list:arquivosEnviados}), document.getElementById("tipo_arquivo_dropdown"));
-   });
 });

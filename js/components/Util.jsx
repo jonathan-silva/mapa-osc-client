@@ -129,7 +129,6 @@ define('componenteGlossario', ['react'], function (React) {
         <div className="col-md-12">
           <ul className="media-list">{this.renderListItems()}
          </ul>
-         <a href="#header" class="topo">Voltar para o topo</a>
         </div>
        );
     }
