@@ -29,7 +29,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
         ]}];
 
-      var jsonGrafico3 = [{"tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"fonte...","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação",
+      var jsonGrafico3 = [{"tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"fonte...","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
       series:[
         {
           values: [{"x" : 2009, "y" : 757928340.377431 }, {"x" : 2010, "y" : 708639328.866454 }, {"x" : 2011, "y" : 1740354298.16759 },
