@@ -1,6 +1,6 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox'], function(FormItem, Checkbox){
+  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection'], function(FormItem, Checkbox, Section){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide){
       this.id = id;
       this.label = label;
@@ -163,7 +163,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         	"nr_trabalhadores_deficiencia": 1,
         	"ft_trabalhadores_deficiencia": null,
         	"nr_trabalhadores_voluntarios": 15,
-        	"ft_trabalhadores_voluntarios": null
+        	"ft_trabalhadores_voluntarios": null,
+          "nr_trabalhadores_outros": null,
+          "ft_trabalhadores_outros": null,
         },
         "dirigentes": [
           {
@@ -484,8 +486,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         change: function( event, ui ) {
         },
         select: function(event, ui){
-         //$('.response').val(ui.item.tx_nome_osc);
-         console.log(ui.item);
          var targetElement = event.target;
          var id = macro_area_suggestions.indexOf(ui.item);
          var $container = $($(targetElement).siblings(".checkboxList")[0]);
@@ -647,7 +647,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     for (j=0; j<items.length; j++){
       formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, null, items[j].hide));
     }
-    console.log(formItens);
+
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
@@ -664,6 +664,67 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         $input.val("");
       }
     });
+
+    //Relações de trabalho e governança
+    var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
+    var relacoes_trabalho = result.relacoes_trabalho;
+    // console.log(relacoes_trabalho);
+    var sections = {
+      "items": [
+        {
+            "id": "relacoes_trabalho",
+            "priority": "2",
+            "text": "Relações de trabalho e governança",
+            "subsections": [
+              {
+                "id": "governanca",
+                "priority": "3",
+                "text": "Governança da OSC",
+                "subsections": [
+                  {
+                    "id": "dirigentes",
+                    "priority": "4",
+                    "text": "Quadro de dirigentes",
+                    "subsections": []
+                  },
+                  {
+                    "id": "conselheiros",
+                    "priority": "4",
+                    "text": "Quantidade de conselheiros",
+                    "subsections": []
+                  },
+                  {
+                    "id": "conselho_fiscal",
+                    "priority": "4",
+                    "text": "Conselho fiscal",
+                    "subsections": []
+                  },
+                ]
+              },
+              {
+                "id": "colaboradores",
+                "priority": "3",
+                "text": "Colaboradores",
+                "subsections": []
+              }
+            ]
+        }
+      ]
+  };
+    items = sections.items;
+    console.log(items);
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById("relacoes_trabalho_e_governanca")
+    );
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items[0].subsections}
+      ), document.getElementById("relacoes_trabalho")
+    );
   });
 });
 
@@ -893,8 +954,4 @@ function montarEnderecoImovel(dadosGerais){
     }
   }
   return tx_endereco_completo;
-}
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
-    return el;
 }

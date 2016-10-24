@@ -328,6 +328,37 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
   return FormItem;
 });
 
+define('componenteSection', ['react'], function (React) {
+  var Section = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      console.log(dados);
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        console.log(item);
+        var HeaderElement = `h${item.priority}`;
+        itens.push(
+          <div>
+            <HeaderElement>{item.text}</HeaderElement>
+            <div id={item.id}></div>
+          </div>
+        );
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div className="sections">{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return Section;
+});
 
 /*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
