@@ -360,6 +360,53 @@ define('componenteSection', ['react'], function (React) {
   return Section;
 });
 
+define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, FormItem) {
+  var Agrupador = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var group = [];
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var num = i+1;
+        group.push(item);
+        if(num == dados.length){
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-primary btn">Adicionar</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        } else if((num % 2 == 0)){
+          console.log(num)
+          console.log(group);
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-danger btn">Remover</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        }
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return Agrupador;
+});
+
 /*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
     var items = [];

@@ -1,6 +1,6 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection'], function(FormItem, Checkbox, Section){
+  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador'], function(FormItem, Checkbox, Section, Agrupador){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide){
       this.id = id;
       this.label = label;
@@ -668,7 +668,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     //Relações de trabalho e governança
     var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
     var relacoes_trabalho = result.relacoes_trabalho;
-    // console.log(relacoes_trabalho);
+    var dirigentes = result.dirigentes;
     var sections = {
       "items": [
         {
@@ -709,13 +709,39 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "subsections": []
         }
       ]
-  };
+    };
     items = sections.items;
     Section = React.createFactory(Section);
     ReactDOM.render(
       Section(
         {dados:items}
       ), document.getElementById(items[0].target)
+    );
+    function DadosForm(label, content) {
+      this.nome = label;
+      this.cargo = content;
+    }
+
+    formItens = [];
+    for (j=0; j<dirigentes.length; j++){
+      for (var property in dirigentes[j]) {
+        if (dirigentes[j].hasOwnProperty(property)) {
+          if(property == "tx_nome_dirigente"){
+            formItens.push(new FormItens(dirigentes[j].id, "Nome", dirigentes[j].tx_nome_dirigente, dirigentes[j].ft_nome_dirigente, null, "text"));
+          }
+          if(property == "tx_cargo_dirigente"){
+            formItens.push(new FormItens(dirigentes[j].id, "Cargo", dirigentes[j].tx_cargo_dirigente, dirigentes[j].ft_cargo_dirigente, null, "text"));
+          }
+        }
+      }
+    }
+    formItens.push(new FormItens(dirigentes[0].id, "Nome", "Insira o nome aqui", null, null, "text"));
+    formItens.push(new FormItens(dirigentes[0].id, "Cargo", "Insira o cargo aqui", null, null, "text"));
+    Agrupador = React.createFactory(Agrupador);
+    ReactDOM.render(
+      Agrupador(
+        {dados:formItens}
+      ), document.getElementById("dirigentes")
     );
   });
 });
