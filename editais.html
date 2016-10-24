@@ -50,7 +50,7 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="andamento">
 
-                  <div class="row">
+                  <!--div class="row">
                     <div class="col-md-12">
                       <nav aria-label="Page navigation">
                           <ul class="pagination">
@@ -72,9 +72,14 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
                           </ul>
                       </nav>
                     </div>
+                  </div-->
+                  <div role="tabpanel" class="tab-pane fade" id="lista">
+                    <table id="editais_formato_dados" class="display compact row-border tablesaw" width="100%">
+                      <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
+                    </table>
                   </div>
 
-                  <table class="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
+                  <!--table class="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
                     <thead>
                       <tr>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Orgão</th>
@@ -124,7 +129,7 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
                         </td>
                       </tr>
                     </tbody>
-                </table>
+                </table-->
 
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="encerrado">
@@ -158,8 +163,9 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
               				<tr>
                         <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Orgão</th>
               					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Nome do Programa</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Nº da chamada</th>
+              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Área de Interesse</th>
               					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" data-tablesaw-sortable-default-col>Data</th>
+                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Nº da chamada</th>
               					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Edital</th>
                     	</tr>
               			</thead>
@@ -167,7 +173,7 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
               			<tbody>
 
                       <tr>
-                        <td class="title">Ministerio da edu</td>
+                        <td>Ministerio da edu</td>
                         <td>programa blabla...</td>
                         <td>05.451.822/0001-02</td>
                         <td>25/12/2016</td>
@@ -210,7 +216,7 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
         <div id="footer-brasil"></div>
       </div>
     </footer>
-    <!--Fim footer-->
+    <--Fim footer-->
 
     <!--SCRIPTS-->
     <script src="js/libs/tablesaw-3.0/tablesaw.js"></script>
