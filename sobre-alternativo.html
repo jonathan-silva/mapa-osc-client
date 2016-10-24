@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Sobre o Mapa</title>
+      <link rel="icon" href="img/fav.png"/>
+      <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
+      <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+      <link href="css/base.css" rel="stylesheet" type="text/css">
+      <link href="css/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <style>
+      #conteudo{
+        background-image: url(img/back.png);
+      }
+      .folha{
+      background-color: white;
+      box-shadow: 1px 2px 10px grey;
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-bottom: 30px;
+      border-radius: 10px;
+    }
+    </style>
+    <!-- header -->
+    <div id="barra-brasil"></div>
+    <div id="header"></div>
+    <!--Fim header-->
+
+    <div id="conteudo" class="section">
+      <div class="container folha">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-primary">Sobre o Mapa</h1>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-justify txtBloco">
+              <p>O Mapa das Organizações da Sociedade Civil - MOSC -  é um portal de dados sobre as organizações da sociedade civil (OSCs) que atuam no país. Os objetivos do portal são:</p>
+              <ul class="text-list">
+                <li>promover maior transparência sobre a atuação das OSCs, em especial às ações realizadas em parcerias com a administração pública;</li>
+                <li>permitir maior conhecimento sobre as práticas dessas organizações na sociedade;</li>
+                <li>fomentar estudos sobre o tema;</li>
+                <li>e, auxiliar gestores do Estado e das OSCs a aprimorarem os projetos de políticas públicas e ações conjuntas.</li>
+              </ul>
+              <p>O portal também apoia o processo de implementação da Lei 13.019/2014, conhecida como Marco Regulatório das OSCs (MROSC). Para alcançar esses objetivos, integrou-se por meio do Mapa um amplo volume de informações atualizadas sobre as OSCs provenientes de <a href="./metodologia.html" title="Link para Metodologia.">dezenas de bases de dados públicas</a>.</p>
+              <p>O Mapa está aberto também para receber informações fornecidas pelas próprias organizações. Para o êxito deste portal, contamos com o engajamento das OSCs para atualizar as informações de suas páginas individuais e relatórios de atividades e com a cooperação de órgãos da administração pública de todos os níveis da federação, que podem enviar suas bases de parcerias realizadas com OSCs para que sejam disponibilizadas no Mapa (<a href="./pdf/Tutorial_para_Entes_Federados_Enviarem_Bases_de_Dados_das_Parcerias_com_OSCs.pdf" title="Link para baixar o Tutorial para formatação dos Dados.">tutorial para formatar os dados.<img src="img/botao_pdf.png" height="18" width="18"></a><span class="export">(PDF 221KB)</span>). Essas parcerias são fundamentais para que se conheça mais a fundo o papel das OSCs no país e a diversidade de suas ações de interesse público.</p>
+              </div>
+            <a href="#header" class="topo">Voltar para o topo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="rodape"></div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div id="footer-brasil"></div>
+      </div>
+    </footer>
+    <!--Fim footer-->
+
+    <!--SCRIPTS-->
+    <script src="js/libs/react-15.3.1/react.min.js"></script>
+    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+    <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/sobre.js"></script>
+    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+
+  </body>
+</html>
