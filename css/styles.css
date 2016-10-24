@@ -760,3 +760,11 @@ body.indisponivel {
 #tabGrafico a{
   font-size: 14px;
 }
+.colabore{
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+.newsletter a, .colabore a{
+  width: 140px;
+}
