@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Recuperação de Senha</title>
+    <title>Cadastro para receber Notícias sobre o Portal</title>
     <link rel="icon" href="img/fav.png"/>
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -22,18 +22,22 @@
       <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <h1 class="text-primary">Recuperar Senha</h1>
+              <h1 class="text-primary">Cadastro para receber notícias sobre o Portal</h1>
               <hr>
             </div>
           </div>
 		    <form role="form">
           <div class="row">
             <div class="col-md-12">
-              <h3>Esqueceu a senha?</h3>
+              <h3>Fique por dentro do Portal.</h3>
               <ul>
-                <li>Informe seu e-mail e enviaremos instruções para você criar sua senha.</li>
+                <li>Informe seu nome e e-mail e enviaremos as últimas novidades do portal.</li>
               </ul>
               <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" for="nome">Nome:</label>
+                    <input class="form-control" id="nome" placeholder="nome" type="nome">
+                </div>
                 <div class="form-group">
                     <label class="control-label" for="email">Email:</label>
                     <input class="form-control" id="email" placeholder="E-mail" type="email">
@@ -79,7 +83,7 @@
     <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
     <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
     <script src="js/config.js"></script>
-    <script type="text/javascript" src="js/recuperar-senha.js"></script>
+    <script type="text/javascript" src="js/cadastro-receber-noticia.js"></script>
     <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
   </body>
