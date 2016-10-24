@@ -179,3 +179,27 @@ function createStackedAreaChart(grafico, valores)
 
 		return chart;
 }
+
+
+function createLineWithFocusChart(grafico, valores)
+{
+	  var chart = nv.models.lineWithFocusChart()
+								.margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+								.showLegend(true)
+								.height(430);
+
+	  chart.yAxis
+	      .tickFormat(d3.format(',f'));
+
+	  chart.y2Axis
+	      .tickFormat(d3.format(',f'));
+
+	  d3.select(grafico + " svg")
+	      .datum(valores[0].series)
+	      .transition().duration(500)
+	      .call(chart);
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+}
