@@ -337,7 +337,6 @@ define('componenteSection', ['react'], function (React) {
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
-        console.log(item);
         var HeaderElement = `h${item.priority}`;
         itens.push(
           <div>

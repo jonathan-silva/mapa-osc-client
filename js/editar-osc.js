@@ -675,55 +675,47 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             "id": "relacoes_trabalho",
             "priority": "2",
             "text": "Relações de trabalho e governança",
-            "subsections": [
-              {
-                "id": "governanca",
-                "priority": "3",
-                "text": "Governança da OSC",
-                "subsections": [
-                  {
-                    "id": "dirigentes",
-                    "priority": "4",
-                    "text": "Quadro de dirigentes",
-                    "subsections": []
-                  },
-                  {
-                    "id": "conselheiros",
-                    "priority": "4",
-                    "text": "Quantidade de conselheiros",
-                    "subsections": []
-                  },
-                  {
-                    "id": "conselho_fiscal",
-                    "priority": "4",
-                    "text": "Conselho fiscal",
-                    "subsections": []
-                  },
-                ]
-              },
-              {
-                "id": "colaboradores",
-                "priority": "3",
-                "text": "Colaboradores",
-                "subsections": []
-              }
-            ]
+            "target": "relacoes_trabalho_e_governanca"
+        },
+        {
+          "id": "governanca",
+          "priority": "3",
+          "text": "Governança da OSC",
+          "target": "relacoes_trabalho"
+        },
+        {
+          "id": "dirigentes",
+          "priority": "4",
+          "text": "Quadro de dirigentes",
+          "subsections": []
+        },
+        {
+          "id": "conselheiros",
+          "priority": "4",
+          "text": "Quantidade de conselheiros",
+          "subsections": []
+        },
+        {
+          "id": "conselho_fiscal",
+          "priority": "4",
+          "text": "Conselho fiscal",
+          "subsections": []
+        },
+        {
+          "id": "colaboradores",
+          "priority": "3",
+          "text": "Colaboradores",
+          "target": "relacoes_trabalho",
+          "subsections": []
         }
       ]
   };
     items = sections.items;
-    console.log(items);
     Section = React.createFactory(Section);
     ReactDOM.render(
       Section(
         {dados:items}
-      ), document.getElementById("relacoes_trabalho_e_governanca")
-    );
-    Section = React.createFactory(Section);
-    ReactDOM.render(
-      Section(
-        {dados:items[0].subsections}
-      ), document.getElementById("relacoes_trabalho")
+      ), document.getElementById(items[0].target)
     );
   });
 });
