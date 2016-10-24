@@ -9,37 +9,13 @@ function acionarModalTabela(titulo, corpo) {
   $("#modalTabela").modal('show');
 }
 
-function createTabela_Donut(json, headerCol, titulo, fonte) {
+function createTabela_Bar_Donut(json) {
   tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
   cabecalho = '<thead><tr>';
-  for(var i in headerCol)
+  for(var i in json[0].tituloColuna)
   {
-    cabecalho += '<th>' + headerCol[i] + '</th>';
-  }
-  cabecalho += '</tr></thead>';
-  tabela += cabecalho;
-
-  corpo = '<tbody>';
-  for(var j in json){
-    corpo += '<tr><td>' + json[j].label + '</td>';
-    corpo += '<td>' + json[j].value + '</td></tr>';
-  }
-  corpo += '</tbody>';
-  tabela += corpo;
-
-  tabela += '</table>';
-  tabela += '<div>' + fonte + '</div>';
-  acionarModalTabela(titulo, tabela);
-}
-
-function createTabela_Bar(json, headerCol, titulo, fonte) {
-  tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
-
-  cabecalho = '<thead><tr>';
-  for(var i in headerCol)
-  {
-    cabecalho += '<th>' + headerCol[i] + '</th>';
+    cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
   }
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
@@ -53,65 +29,44 @@ function createTabela_Bar(json, headerCol, titulo, fonte) {
   tabela += corpo;
 
   tabela += '</table>';
-  tabela += '<div>' + fonte + '</div>';
-  acionarModalTabela(titulo, tabela);
+  tabela += '<div>' + json[0].legenda + '</div>';
+  acionarModalTabela(json[0].titulo, tabela);
 }
 
-function createTabela_Line(json, headerCol, titulo, fonte) {
+// GRÁFICOS QUE PODEM SER UTILIZADOS:
+// Line = false ->  createMultiBarChart - LinePlusBarChart - StackedAreaChart - MultiBarHorizontalChart
+// Line = true -> lineChart
+function createTabela_MultBar_Line(json, line=false) {
   tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
   cabecalho = '<thead><tr>';
-  for(var i in headerCol)
+  for(var i in json[0].tituloColuna)
   {
-    cabecalho += '<th>' + headerCol[i] + '</th>';
+    cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
   }
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
 
   corpo = '<tbody>';
-  for(i = 0; i < json.length; i++)
+  for(i = 0; i < json[0].series.length; i++)
   {
-      for(var j in json[i].values)
-      {
-      corpo += '<tr><td>' + json[i].key + '</td>';
-      corpo += '<td>' + json[i].values[j].x + '</td>';
-      corpo += '<td>' + json[i].values[j].y + '</td></tr>';
+    for(var j in json[0].series[i].values)
+    {
+      corpo += '<tr><td>' + json[0].series[i].key + '</td>';
+      if(!line){
+        corpo += '<td>' + json[0].series[i].values[j].label + '</td>';
+        corpo += '<td>' + json[0].series[i].values[j].value + '</td></tr>';
+      }
+      else{
+        corpo += '<td>' + json[0].series[i].values[j].x + '</td>';
+        corpo += '<td>' + json[0].series[i].values[j].y + '</td></tr>';
+      }
     }
   }
   corpo += '</tbody>';
   tabela += corpo;
 
   tabela += '</table>';
-  tabela += '<div>' + fonte + '</div>';
-  acionarModalTabela(titulo, tabela);
-}
-
-// GRÁFICOS QUE PODEM SER UTILIZADOS: createMultiBarChart - LinePlusBarChart - StackedAreaChart - MultiBarHorizontalChart
-function createTabela_MultBar(json, headerCol, titulo, fonte) {
-  tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
-
-  cabecalho = '<thead><tr>';
-  for(var i in headerCol)
-  {
-    cabecalho += '<th>' + headerCol[i] + '</th>';
-  }
-  cabecalho += '</tr></thead>';
-  tabela += cabecalho;
-
-  corpo = '<tbody>';
-  for(i = 0; i < json.length; i++)
-  {
-      for(var j in json[i].values)
-      {
-      corpo += '<tr><td>' + json[i].key + '</td>';
-      corpo += '<td>' + json[i].values[j].label + '</td>';
-      corpo += '<td>' + json[i].values[j].value + '</td></tr>';
-    }
-  }
-  corpo += '</tbody>';
-  tabela += corpo;
-
-  tabela += '</table>';
-  tabela += '<div>' + fonte + '</div>';
-  acionarModalTabela(titulo, tabela);
+  tabela += '<div>' + json[0].legenda + '</div>';
+  acionarModalTabela(json[0].titulo, tabela);
 }

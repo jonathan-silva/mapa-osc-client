@@ -1,12 +1,30 @@
+require(["jquery-ui"], function (React) {
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+          .addClass( "arrow" )
+          .addClass( feedback.vertical )
+          .addClass( feedback.horizontal )
+          .appendTo( this );
+      }
+    }
+  });
+});
+
 require(['react', 'jsx!components/Util'], function (React) {
 
   require(['componenteLinksUteis'], function(LinksUteis){
-    function LinkUtil(titulo, desc,imagem,elo){
+    function LinkUtil(titulo, desc, imagem, elo, linkExterno=true){
       this.titulo = titulo;
       this.desc = desc;
       this.imagem = imagem;
       this.elo = elo;
-
+      this.linkExterno = linkExterno;
     }
 //var titulo = ["Título do Site"]
 //var desc = ["Descrição do Site"]
