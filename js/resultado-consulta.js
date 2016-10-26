@@ -18,17 +18,18 @@ require(["jquery-ui"], function (React) {
 
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
-  var isCacheEnabled = true;
+  var isCacheEnabled = false;
   var geojson;
   //dummy data para a quantidade de OSCs
   var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
 
   var parametros='';
   var newData;
+  var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1].split('=');
   var tipoConsulta = valoresURL[0];
   var stringBuscada = valoresURL[1];
-  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";
+  //var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/";
 
   var last_response_len = false;
   var lat=-16.55555555; var lng= -60.55555555;
@@ -51,19 +52,23 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
 
   if(tipoConsulta=="organizacao"){
-    urlRota+="search/osc/"+stringBuscada;
+    //urlRota+="search/osc/"+stringBuscada;
+    urlRota = rotas.OSCByName(stringBuscada);
   }
   else if(tipoConsulta=="municipio"){
-    urlRota+="search/municipio/"+stringBuscada;
+    //urlRota+="search/municipio/"+stringBuscada;
+    urlRota=rotas.OSCByCounty(stringBuscada);
   }
   else if(tipoConsulta=="estado"){
-    urlRota+="search/estado/"+stringBuscada;
+    //urlRota+="search/estado/"+stringBuscada;
+    urlRota=rotas.OSCByState(stringBuscada);
   }
   else if(tipoConsulta=="regiao"){
-    urlRota+="search/regiao/"+stringBuscada;
+    //urlRota+="search/regiao/"+stringBuscada;
+    urlRota=rotas.OSCByRegion(stringBuscada);
   }
   else{
-    console.log("ERRO de URl!");
+    console.log("ERRO de URL!");
   }
 
   function tabela (newData){

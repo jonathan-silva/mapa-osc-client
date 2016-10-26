@@ -94,7 +94,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
 } );
 
-require(["jquery-ui"], function (React) {
+require(["jquery-ui", "rotas"], function (React) {
 
   $(document).tooltip({
     position: {
@@ -110,6 +110,10 @@ require(["jquery-ui"], function (React) {
       }
     }
   });
+
+  var rotas = new Rotas();
+  var limiteAutocomplete = 5;
+  var controller = "js/controller.php";
 
   //botao de consulta
   var div = $(".tab-content");
@@ -141,9 +145,10 @@ require(["jquery-ui"], function (React) {
     minLength: 3,
     source: function (request, response) {
        $.ajax({
-           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/"+request.term,
+           url: controller,
            type: 'GET',
            dataType: "json",
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(request.term.replace(/ /g, '+'), limiteAutocomplete)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -153,7 +158,8 @@ require(["jquery-ui"], function (React) {
                 };
             }));
            },
-           error: function () {
+           error: function (e) {
+             //console.log(e);
                response([]);
            }
        });
@@ -169,9 +175,10 @@ require(["jquery-ui"], function (React) {
     minLength: 3,
     source: function (request, response) {
        $.ajax({
-           url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/municipio/"+request.term,//4204251
+           url: controller,//4204251
            type: 'GET',
            dataType: "json",
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(request.term.replace(/ /g, '+'), limiteAutocomplete)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -181,7 +188,7 @@ require(["jquery-ui"], function (React) {
                 };
             }));
            },
-           error: function () {
+           error: function (e) {
                response([]);
            }
        });
@@ -198,9 +205,10 @@ require(["jquery-ui"], function (React) {
    minLength: 3,
    source: function (request, response) {
       $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/estado/"+request.term,//4204251
+          url: controller,//4204251
           type: 'GET',
           dataType: "json",
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(request.term.replace(/ /g, '+'), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -227,9 +235,10 @@ $("#regiao .form-control").autocomplete({
   minLength: 3,
   source: function (request, response) {
      $.ajax({
-         url: "http://mapaosc-desenv.ipea.gov.br:8383/api/dictionary/geo/regiao/"+request.term,//4204251
+         url: controller,//4204251
          type: 'GET',
          dataType: "json",
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(request.term.replace(/ /g, '+'), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
