@@ -14,6 +14,10 @@
     }
     else if($flag == 'consulta'){
       if($isCacheEnabled){
+        $valor="";
+        $chave = md5($rota);
+        $cache = new Cache();
+        $valor = $cache->getCoordenadas($chave);
         if($valor!=""){
           print_r($valor);
         }
