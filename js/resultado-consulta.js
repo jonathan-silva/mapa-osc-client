@@ -97,7 +97,6 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   }
 
   function carregaOSC(id, leafletMarker){
-    var rotas = new Rotas();
       $.ajax({
           url: rotas.OSCByID(id),
           type: "GET",
@@ -148,15 +147,11 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
     //map.addLayer(leafletView);//Marker Cluster library version
   }
 
-  if(isCacheEnabled){
-    parametros={chave: urlRota, rota: urlRota};
-    urlRota = "js/cacheConsulta.php";//sobrescreve rota do ajax para chamar php responsável pelo cache
-  }
   $.ajax({
-    url: urlRota,
+    url: 'js/controller.php',
     type: 'GET',
     dataType: 'json',
-    data: parametros,
+    data: {flag: 'consulta', rota: urlRota},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
@@ -176,8 +171,8 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
           newData[i][4] = data[i].tx_endereco_osc;
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
-        tabela(newData);
         carregaMapa(data);
+        tabela(newData);
       }
     }
   });
