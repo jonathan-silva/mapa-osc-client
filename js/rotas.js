@@ -28,13 +28,13 @@ class Rotas{
   OSCByName(term){
     return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/osc/lista/"+term;
   }
-  OSCByCounty(term, limit){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/municipio/lista/"+term+"/"+limit;
+  OSCByCounty(term){
+    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/municipio/lista/"+term;
   }
-  OSCByState(term, limit){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/estado/lista/"+term+"/"+limit;
+  OSCByState(term){
+    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/estado/lista/"+term;
   }
-  OSCByRegion(term, limit){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/regiao/lista/"+term+"/"+limit;
+  OSCByRegion(term){
+    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/regiao/lista/"+term;
   }
 }
