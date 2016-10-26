@@ -1,7 +1,23 @@
 require(['jquery-ui'], function (React) {
   $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-} );
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+          .addClass( "arrow" )
+          .addClass( feedback.vertical )
+          .addClass( feedback.horizontal )
+          .appendTo( this );
+      }
+    }
+  });
+  
+});
 
 
 require(["nv.d3.lib","graficoParaTabela"], function (React) {

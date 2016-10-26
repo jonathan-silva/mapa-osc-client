@@ -1412,6 +1412,7 @@ ul,
 ol {
   margin-top: 0;
   margin-bottom: 10px;
+  text-indent: 0px;
 }
 ul ul,
 ol ul,
@@ -3044,6 +3045,7 @@ fieldset[disabled] .btn {
   color: #000000;
   background-color: #ffffff;
   border-color: #cccccc;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -3089,6 +3091,7 @@ fieldset[disabled] .btn-default.active {
   color: #ffffff;
   background-color: #337cbb;
   border-color: #2e6fa7;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -3134,6 +3137,7 @@ fieldset[disabled] .btn-primary.active {
   color: #ffffff;
   background-color: #5cb85c;
   border-color: #4cae4c;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -3179,6 +3183,7 @@ fieldset[disabled] .btn-success.active {
   color: #ffffff;
   background-color: #5bc0de;
   border-color: #46b8da;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-info:hover,
 .btn-info:focus,
@@ -3224,6 +3229,7 @@ fieldset[disabled] .btn-info.active {
   color: #ffffff;
   background-color: #f0ad4e;
   border-color: #eea236;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-warning:hover,
 .btn-warning:focus,
@@ -3269,6 +3275,7 @@ fieldset[disabled] .btn-warning.active {
   color: #ffffff;
   background-color: #d9534f;
   border-color: #d43f3a;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-danger:hover,
 .btn-danger:focus,
@@ -3367,6 +3374,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-block {
   display: block;
   width: 100%;
+  box-shadow: 0px 1px 5px grey;
 }
 .btn-block + .btn-block {
   margin-top: 5px;

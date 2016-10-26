@@ -774,3 +774,6 @@ body.indisponivel {
   text-transform: uppercase;
   color: #2c66ce;
 }
+.cor{
+  color: #337cbb !important;
+}
