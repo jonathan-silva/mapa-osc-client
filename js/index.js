@@ -1,6 +1,6 @@
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"tituloColuna":["Natureza Jurídica", "Região", "Quantidade"],"legenda":"fonte...","titulo":"Natureza jurídica das OSCs, por região",
+  var jsonGrafico1 = [{"tituloColuna":["Natureza Jurídica", "Região", "Quantidade"],"legenda":"Ministério do Trabalho (2014).","titulo":"Natureza jurídica das OSCs, por região",
   series:[
     {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 139613 }, {"label" : "SUL", "value" : 81134 }, {"label" : "NORDESTE", "value" : 78358 }, {"label" : "CENTRO-OESTE", "value" : 20869 }, {"label" : "NORTE", "value" : 16331 }]},
     {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 27133 }, {"label" : "SUL", "value" : 6780 }, {"label" : "NORDESTE", "value" : 6704 }, {"label" : "CENTRO-OESTE", "value" : 2930 }, {"label" : "NORTE", "value" : 2437 }]},
@@ -8,7 +8,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 414 }, {"label" : "SUL", "value" : 172 }, {"label" : "NORDESTE", "value" : 214 }, {"label" : "CENTRO-OESTE", "value" : 75 }, {"label" : "NORTE", "value" : 29 }]}
     ]}];
 
-  var jsonGrafico2 = [{"tituloColuna":["", "Ano", "Valores"],"legenda":"fonte...","titulo":"Evolução anual dos repasses federais para as OSCs",
+  var jsonGrafico2 = [{"tituloColuna":["", "Ano", "Valores"],"legenda":"Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs",
   series:[
         {
           "key" : "Número OSC Parcerias" ,
@@ -29,7 +29,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
         ]}];
 
-      var jsonGrafico3 = [{"tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"fonte...","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
+      var jsonGrafico3 = [{"tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
       series:[
         {
           values: [{"x" : 2009, "y" : 757928340.377431 }, {"x" : 2010, "y" : 708639328.866454 }, {"x" : 2011, "y" : 1740354298.16759 },
@@ -69,7 +69,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-  var jsonGrafico4 = [{"tituloColuna":["Certificados", "Número de OSC"],"legenda":"fonte ...","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4", values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } , { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
+  var jsonGrafico4 = [{"tituloColuna":["Certificados", "Número de OSC"],"legenda":"Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4", values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } , { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
 
   createMultiBarChart('#graficoMain-1',jsonGrafico1);
   createLinePlusBarChart('#graficoMain-2',jsonGrafico2);
