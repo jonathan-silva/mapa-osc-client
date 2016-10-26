@@ -176,8 +176,8 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
           newData[i][4] = data[i].tx_endereco_osc;
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
-        var workerTable = new Worker(tabela(newData));
-        var workerMap = new Worker(carregaMapa(data));
+        tabela(newData);
+        carregaMapa(data);
       }
     }
   });
