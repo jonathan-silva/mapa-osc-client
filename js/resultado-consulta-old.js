@@ -105,7 +105,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
               //var response = data.responseJSON === undefined ? undefined : data.responseJSON.cabecalho;
               //var idOSC = response === undefined ? "" : response.cd_identificador_osc;
               var idOSC = data[i].id_osc === undefined ? "" : data[i].id_osc;
-              //console.log(data[i]);
+              console.log(data[i]);
               leafletMarker.bindPopup('Codigo identificador da OSC= '+idOSC).openPopup();
             }
           },
@@ -165,16 +165,11 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
     success: function(data){
       if(data!==undefined){
         var sizeOfData = data.length;
-        //console.log("Size: "+sizeOfData);
         var columns = 6;
-        var temparray, j;
-        var chunk = 10000;
-        //if(sizeOfData>20000) chunk = sizeOfData/10;
-        //else if(sizeOfData>100000) chunk = sizeOfData/20;
+
         newData = new Array(sizeOfData);
 
         for (var i=0; i < sizeOfData; i++){
-
           newData[i] = new Array(columns);
           newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
           newData[i][1] = data[i].tx_nome_osc;
@@ -184,17 +179,13 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
           newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
 
-        for (var i=0,j=sizeOfData; i<j; i+=chunk) {
-            temparray = data.slice(i,i+chunk);
-            //console.log(i);
-            carregaMapa(temparray);
-        }
-        //carregaMapa(data);
+        carregaMapa(data);
         tabela(newData);
       }
     },
     error: function (e) {
       console.log(e);
+
     }
   });
 

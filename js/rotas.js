@@ -23,7 +23,7 @@ class Rotas{
 
   //resultado-consulta.js
   OSCByID(id){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"api/osc/"+id;
+    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/osc/"+id;
   }
   OSCByName(term){
     return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/osc/lista/"+term;
