@@ -1,7 +1,7 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador'], function(FormItem, Checkbox, Section, Agrupador){
-    function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide){
+  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
+    function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
       this.content = content;
@@ -12,6 +12,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.pretext = pretext;
       this.custom_class = custom_class;
       this.hide = hide;
+      this.default = defaultFormItem;
     }
     var result = {
         "cabecalho": {
@@ -181,6 +182,35 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             "ft_cargo_dirigente": null,
             "tx_nome_dirigente": "nome 2",
             "ft_nome_dirigente": null
+          }
+        ],
+        "conselheiros": [
+          {
+            "id_osc": 1,
+            "tx_quantidade": 30
+          }
+        ],
+        "conselho_fiscal": [
+          {
+            "id_conselheiro": 1,
+            "tx_nome_conselheiro": "nome 1",
+            "ft_nome_conselheiro": null,
+            "tx_cargo_conselheiro": "cargo 1",
+            "ft_cargo_conselheiro": null
+          },
+          {
+            "id_conselheiro": 2,
+            "tx_nome_conselheiro": "nome 2",
+            "ft_nome_conselheiro": null,
+            "tx_cargo_conselheiro": "cargo 2",
+            "ft_cargo_conselheiro": null
+          },
+          {
+            "id_conselheiro": 3,
+            "tx_nome_conselheiro": "nome 3",
+            "ft_nome_conselheiro": null,
+            "tx_cargo_conselheiro": "cargo 3",
+            "ft_cargo_conselheiro": null
           }
         ],
         "projetos": [
@@ -667,8 +697,8 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
 
     //Relações de trabalho e governança
     var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-    var relacoes_trabalho = result.relacoes_trabalho;
     var dirigentes = result.dirigentes;
+    var conselheiros = result.conselheiros[0];
     var sections = {
       "items": [
         {
@@ -692,19 +722,19 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {
           "id": "conselheiros",
           "priority": "4",
-          "text": "Quantidade de conselheiros",
+          "text": "Conselheiros",
           "subsections": []
         },
         {
           "id": "conselho_fiscal",
           "priority": "4",
-          "text": "Conselho fiscal",
+          "text": "Membros do conselho fiscal",
           "subsections": []
         },
         {
-          "id": "colaboradores",
+          "id": "trabalhadores",
           "priority": "3",
-          "text": "Colaboradores",
+          "text": "Trabalhadores",
           "target": "relacoes_trabalho",
           "subsections": []
         }
@@ -742,6 +772,89 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       Agrupador(
         {dados:formItens}
       ), document.getElementById("dirigentes")
+    );
+    formItens = [];
+    formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselheiros")
+    );
+
+    //Conselho fiscal
+    var conselho_fiscal = result.conselho_fiscal;
+
+    formItens = [];
+    for (var i = 0; i < conselho_fiscal.length; i++) {
+      var conselheiro = conselho_fiscal[i];
+      formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira aqui o nome do conselheiro", "text"));
+    }
+    formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+    FormItemButtons = React.createFactory(FormItemButtons);
+    ReactDOM.render(
+      FormItemButtons(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselho_fiscal")
+    );
+
+    //Trabalhadores
+    var relacoes_trabalho = result.relacoes_trabalho;
+    dados_form =
+    {
+      "form_items": [
+        {
+          "id": "trabalhadores",
+          "label": "Total de trabalhadores",
+          "content": relacoes_trabalho.nr_trabalhadores,
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "p"
+        },
+        {
+          "id": "empregados",
+          "label": "Empregados",
+          "content": relacoes_trabalho.nr_trabalhadores_vinculo,
+          "fonte": relacoes_trabalho.ft_trabalhadores_vinculo,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "p"
+        },
+        {
+          "id": "deficiencia",
+          "label": "Trabalhadores com deficiência",
+          "content": relacoes_trabalho.nr_trabalhadores_deficiencia,
+          "fonte": relacoes_trabalho.ft_trabalhadores_deficiencia,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "p"
+        },
+        {
+          "id": "voluntarios",
+          "label": "Trabalhadores voluntários",
+          "content": relacoes_trabalho.nr_trabalhadores_voluntarios,
+          "fonte": relacoes_trabalho.ft_trabalhadores_voluntarios,
+          "placeholder": "Insira o número de voluntários",
+          "type": "text"
+        },
+        {
+          "id": "outros",
+          "label": "Outros trabalhadores",
+          "content": relacoes_trabalho.nr_trabalhadores_outros,
+          "fonte": relacoes_trabalho.ft_trabalhadores_outros,
+          "placeholder": "Insira o total de trabalhadores com outros tipos de vínculo",
+          "type": "text"
+        }
+      ]
+    };
+    formItens = [];
+    for (var i = 0; i < dados_form.form_items.length; i++) {
+      var campo = dados_form.form_items[i];
+      formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("trabalhadores")
     );
   });
 });

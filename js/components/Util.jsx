@@ -333,7 +333,6 @@ define('componenteSection', ['react'], function (React) {
   var Section = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
@@ -380,8 +379,6 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
           )
           group = [];
         } else if((num % 2 == 0)){
-          console.log(num)
-          console.log(group);
           itens.push(
             <div>
               <FormItem dados={group}></FormItem>
@@ -406,6 +403,45 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
 
   return Agrupador;
 });
+
+define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (React, FormItem) {
+  var FormItemButtons = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      console.log(dados);
+      var ButtonElement;
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        if(item.default){
+          ButtonElement = <button className="btn-primary btn">Adicionar</button>
+        } else {
+          ButtonElement = <button className="btn-danger btn">Remover</button>
+        }
+        itens.push(
+          <div>
+            <FormItem dados={[item]}></FormItem>
+            {ButtonElement}
+            <hr/>
+          </div>
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return FormItemButtons;
+});
+
 
 /*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
