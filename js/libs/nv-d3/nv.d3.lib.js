@@ -32,6 +32,9 @@ function createBarChart(grafico, valores)
 	      .showValues(true)
 	      .height(430);
 
+		chart.yAxis
+				.tickFormat(d3.format(',f'));
+
 	  d3.select(grafico + " svg")
 	      .datum(valores)
 	      .transition().duration(1200)
@@ -58,6 +61,9 @@ function createMultiBarChart(grafico, valores)
 	      .groupSpacing(0.1)    //Distance between each group of bars.
 				.height(430);
 
+		chart.yAxis
+						.tickFormat(d3.format(',f'));
+
 	    d3.select(grafico + " svg")
 	        .datum(valores[0].series)
 	        .call(chart);
@@ -66,7 +72,7 @@ function createMultiBarChart(grafico, valores)
 	return chart;
 }
 
-function createLineChart(grafico, valores)
+function createLineChart(grafico, valores, label_Y="")
 {
 	var chart = nv.models.lineChart()
                 .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
@@ -77,9 +83,16 @@ function createLineChart(grafico, valores)
                 .showXAxis(true)        //Show the x-axis
 								.height(430);
 
+	if(label_Y !== ""){
+		 chart.yAxis     //Chart y-axis settings
+				.axisLabel(label_Y)
+				.tickFormat(function(d) { return d3.format(',f')(d/1000000) + " M" });
+	}
+	else{
+			chart.yAxis     //Chart y-axis settings
+					.tickFormat(d3.format(',f'));
+		}
 
-  chart.yAxis     //Chart y-axis settings
-      .tickFormat(d3.format(',f'));
 
   d3.select(grafico + " svg")    //Select the <svg> element you want to render the chart in.
       .datum(valores[0].series)         //Populate the <svg> element with chart data...
@@ -110,7 +123,8 @@ function createLinePlusBarChart(grafico, valores)
 			.tickFormat(d3.format(',f'));
 
 	chart.y2Axis
-			.tickFormat(function(d) { return 'R$' + d3.format(',f')(d) });
+			.tickFormat(function(d) { return d3.format(',f')(d/1000000) + " M" });
+
 
 	chart.bars.forceY([0]);
 

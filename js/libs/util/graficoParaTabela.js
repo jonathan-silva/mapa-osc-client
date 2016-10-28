@@ -9,6 +9,10 @@ function acionarModalTabela(titulo, corpo) {
   $("#modalTabela").modal('show');
 }
 
+function formatarDinheiro(numero) {
+  return numero.toLocaleString("pt-BR", { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' });
+}
+
 function createTabela_Bar_Donut(json) {
   tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
@@ -23,7 +27,12 @@ function createTabela_Bar_Donut(json) {
   corpo = '<tbody>';
   for(var j in json[0].values){
     corpo += '<tr><td>' + json[0].values[j].label + '</td>';
-    corpo += '<td>' + json[0].values[j].value + '</td></tr>';
+
+    var valor = json[0].values[j].value;
+    if(json[0].tipo_valor == "$"){
+      valor = formatarDinheiro(valor);
+    }
+    corpo += '<td>' + valor + '</td></tr>';
   }
   corpo += '</tbody>';
   tabela += corpo;
@@ -55,11 +64,19 @@ function createTabela_MultBar_Line(json, line=false) {
       corpo += '<tr><td>' + json[0].series[i].key + '</td>';
       if(!line){
         corpo += '<td>' + json[0].series[i].values[j].label + '</td>';
-        corpo += '<td>' + json[0].series[i].values[j].value + '</td></tr>';
+        var valor = json[0].series[i].values[j].value;
+        if(json[0].series[i].tipo_valor == "$"){
+          valor = formatarDinheiro(valor);
+        }
+        corpo += '<td>' + valor + '</td></tr>';
       }
       else{
         corpo += '<td>' + json[0].series[i].values[j].x + '</td>';
-        corpo += '<td>' + json[0].series[i].values[j].y + '</td></tr>';
+        var valor_line = json[0].series[i].values[j].y;
+        if(json[0].series[i].tipo_valor == "$"){
+          valor_line = formatarDinheiro(valor_line);
+        }
+        corpo += '<td>' + valor_line + '</td></tr>';
       }
     }
   }
