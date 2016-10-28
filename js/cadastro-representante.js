@@ -62,7 +62,6 @@ require(['react', 'jsx!components/Util'], function (React) {
       $("#nomeEntidade.form-control").autocomplete({
         minLength: 3,
         source: function (request, response) {
-           console.log('teste');
            $.ajax({
                url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/"+request.term,
                type: 'GET',
@@ -88,9 +87,165 @@ require(['react', 'jsx!components/Util'], function (React) {
        }
       });
 
+
+
+    //Validacao dos campos
+    $("#nome.form-control").blur(function (event, ui) {
+      var nome = this.value;
+      if(validaNome(nome)){
+        var id_attr = "#" + $("#nome.form-control").attr("id") + "1";
+        $("#nome.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+        $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+      }else{
+        var id_attr = "#" + $("#nome.form-control").attr("id") + "1";
+        $("#nome.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+        $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+      }
+    });
+
+    $("#email.form-control").blur(function (event, ui) {
+      var email = this.value;
+      if(validaEmail(email)){
+          var id_attr = "#" + $("#email.form-control").attr("id") + "1";
+          $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+      }else{
+        var id_attr = "#" + $("#email.form-control").attr("id") + "1";
+        $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+        $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+      }
+    });
+
+
   $("#cpf.form-control").blur(function (event, ui) {
-    console.log(this.value);
+    var cpf = this.value;
+    if (validaCPF(cpf)){
+      var id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
+      $("#cpf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+      $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+    }else{
+      var id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
+      $("#cpf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+      $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+    }
   });
+
+
+  //inicio btn.btn-success.click
+  var div = $(".form-group");
+  div.find(".btn.btn-success").on("click", function(){
+        var nome =  $('#nome').val();
+        var email =  $('#email').val();
+        var cpf =  $('#cpf').val();
+        var senha =  $('#senha').val();
+        var confirmarSenha =  $('#confirmarSenha').val();
+        if ($('#termoUso').is(":checked")){ var termoUso = true ; } else {var termoUso = false;}
+        if ($('#newsletter').is(":checked")){ var newsletter = true ; } else {var newsletter = false;}
+
+       /*
+        nome =  "";
+        email =  "";
+        cpf =  "";
+        senha =  "senha";
+        confirmarSenha =  "senha";
+        termoUso = true ;
+        newsletter = true ;
+*/
+
+        if (!termoUso){
+          console.log("termouso errado");
+          var id_attr = "#" + $("#termoUso.form-control").attr("id") + "1";
+          $("#termoUso.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+          return false;
+        };
+
+        if (!validaNome(nome)){
+          console.log("nome errado");
+          var id_attr = "#" + $("#nome.form-control").attr("id") + "1";
+          $("#nome.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+          return false;
+        };
+
+        if (!validaEmail(email)){
+          console.log("email errado");
+          var id_attr = "#" + $("#email.form-control").attr("id") + "1";
+          $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+          return false;
+        };
+
+        if (!validaCPF(cpf)){
+          console.log("cpf errado");
+          var id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
+          $("#cpf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+          return false;
+        };
+
+        if ((senha == "")||(senha!=confirmarSenha)){
+          console.log("senha errado");
+          var id_attr = "#" + $("#senha.form-control").attr("id") + "1";
+          $("#senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+          var id_attr = "#" + $("#confirmarSenha.form-control").attr("id") + "1";
+          $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+          return false;
+        };
+
+        //FALTA CAPTCHA
+
+        console.log("passou");
+
+        var json = '{'+
+              '	"tx_email_usuario": "'+email+'", ' +
+              '	"tx_senha_usuario": "'+senha+'",' +
+              '	"tx_nome_usuario": "'+nome+'",' +
+              '	"nr_cpf_usuario": "'+cpf+'",' +
+              ' "bo_lista_email": '+newsletter+',' +
+              '	"representacao":[ ' +
+              '		{"id_osc": 1},' +
+              '		{"id_osc": 2}'+
+              ' ]}';
+
+        json =   JSON.parse(json);
+        console.log(json);
+
+        $.ajax({
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/",
+          type: 'POST',
+          dataType: 'json',
+          data: json,
+          success: function (data, textStatus, jqXHR ) {
+            console.log(data);
+            console.log(textStatus);
+            console.log(jqXHR);
+          },
+          fail:function(data){
+            console.log("fail"+data);
+          },
+          error: function (e) {
+            console.log("erro"+ e);
+            alert("error1");
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              alert(xhr.status);
+              console.log("erro"+ajaxOptions);
+              console.log(xhr.status);
+              console.log(thrownError);
+          },
+          done: function (data){
+              console.log("done"+data);
+          }
+       });
+       console.log("fim");
+
+
+
+    });
+    //final  btn.btn-success.click
 
 
   console.log("chegou no final");
@@ -100,53 +255,63 @@ require(['react', 'jsx!components/Util'], function (React) {
 });
 
 
+//FUNCOES DE VALIDACAO
 
+function isJson(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
 
+function validaNome(nome){
+  if(nome.length < 5){
+    return false;
+  }else{
+    return true;
+  }
+}
 
+function validaEmail(email){
+  usuario = email.substring(0, email.indexOf("@"));
+  dominio = email.substring(email.indexOf("@")+ 1, email.length);
 
+  if ((usuario.length >=1) &&
+  (dominio.length >=3) &&
+  (usuario.search("@")==-1) &&
+  (dominio.search("@")==-1) &&
+  (usuario.search(" ")==-1) &&
+  (dominio.search(" ")==-1) &&
+  (dominio.search(".")!=-1) &&
+  (dominio.indexOf(".") >=1)&&
+  (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    return true;
+  }else{
+    return false;
+  }
+}
 
+function validaCPF(cpf){
+  exp = /\.|\-/g
+  cpf = cpf.toString().replace( exp, "" );
+  var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
+  var soma1=0, soma2=0;
+  var vlr =11;
 
+  for(i=0;i<9;i++){
+          soma1+=eval(cpf.charAt(i)*(vlr-1));
+          soma2+=eval(cpf.charAt(i)*vlr);
+          vlr--;
+  }
+  soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
+  soma2=(((soma2+(2*soma1))*10)%11);
+  var digitoGerado=(soma1*10)+soma2;
 
-
-jQuery.validator.addMethod("cpf", function(value, element) {
-   value = jQuery.trim(value);
-    value = value.replace('.','');
-    value = value.replace('.','');
-    cpf = value.replace('-','');
-    while(cpf.length < 11) cpf = "0"+ cpf;
-    var expReg = /^0+$|^1+$|^2+$|^3+$|^4+$|^5+$|^6+$|^7+$|^8+$|^9+$/;
-    var a = [];
-    var b = new Number;
-    var c = 11;
-    for (i=0; i<11; i++){
-        a[i] = cpf.charAt(i);
-        if (i < 9) b += (a[i] * --c);
-    }
-    if ((x = b % 11) < 2) { a[9] = 0 } else { a[9] = 11-x }
-    b = 0;
-    c = 11;
-    for (y=0; y<10; y++) b += (a[y] * c--);
-    if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11-x; }
-
-    var retorno = true;
-    if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) retorno = false;
-
-    return this.optional(element) || retorno;
-
-}, "Informe um CPF válido");
-
-
-$(document).ready(function(){
-
-   $("#form-dados").validate({
-      rules: {
-          cpf: {cpf: true, required: true}
-      },
-      messages: {
-         cpf: { cpf: 'CPF inválido'}
-      }
-      ,submitHandler:function(form) {
-         alert('ok');
-      }
-   });
-});
+  if(digitoGerado!=digitoDigitado){
+    return false;
+  }else{
+    return true;
+  }
+}
