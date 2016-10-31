@@ -259,7 +259,7 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 
 /*Página Dados e Indicadores*/
 .col-3-dados{
-  width: 25%
+  width: 25%;
 }
 .col-9-dados{
   width: 75%
@@ -267,6 +267,12 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 .col-6-dados{
   width: 100%
 }
+#tabGrafico{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 530px;
+}
+
 #grafico-1 svg, #grafico-2 svg, #grafico-3 svg, #grafico-4 svg, #grafico-5 svg,
 #grafico-6 svg, #grafico-7 svg, #grafico-8 svg, #grafico-9 svg, #grafico-10 svg,
 #grafico-11 svg, #grafico-12 svg, #grafico-13 svg,
