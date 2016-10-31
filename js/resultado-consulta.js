@@ -23,14 +23,20 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
 
   var parametros='';
-  var newData;
+  var newData, urlRotaMapa, urlRota;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1].split('=');
   var tipoConsulta = valoresURL[0];
   var stringBuscada = valoresURL[1];
+  stringBuscada = stringBuscada.replace(/\./g, "");
 
-  var lat=-16.55555555; var lng= -60.55555555;
-  var map = new L.Map('map', {center: new L.LatLng(lat, lng), zoom: 4});
+  var mapOptions = {
+    center: new L.LatLng(-16.55555555, -60.55555555),
+    zoom: 4,
+    minZoom: 4 //18 niveis de zoom
+  };
+  var map = new L.Map('map', mapOptions);
+
   var leafletView = new PruneClusterForLeaflet();//Prune Cluster library version
   //var leafletView = L.markerClusterGroup();//Marker Cluster library version
 
@@ -44,69 +50,101 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   map.addControl(new L.Control.Layers({/*'Google':ggl2*/}, {'OpenStreetMap': tiles}));
 
   if(tipoConsulta=="organizacao"){
-    //urlRota+="search/osc/"+stringBuscada;
     urlRota = rotas.OSCByName(stringBuscada);
+    urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
   }
   else if(tipoConsulta=="municipio"){
-    //urlRota+="search/municipio/"+stringBuscada;
-    urlRota=rotas.OSCByCounty(stringBuscada);
+    urlRota = rotas.OSCByCounty(stringBuscada);
+    urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
   }
   else if(tipoConsulta=="estado"){
-    //urlRota+="search/estado/"+stringBuscada;
-    urlRota=rotas.OSCByState(stringBuscada);
+    urlRota = rotas.OSCByState(stringBuscada);
+    urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
   }
   else if(tipoConsulta=="regiao"){
-    //urlRota+="search/regiao/"+stringBuscada;
-    urlRota=rotas.OSCByRegion(stringBuscada);
+    urlRota = rotas.OSCByRegion(stringBuscada);
+    urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
   }
   else{
     console.log("ERRO de URL!");
   }
 
-  function tabela (newData){
-    $('#resultadoconsulta_formato_dados').DataTable({
-      responsive: true,
-      deferLoading: 1000,
-      deferRender: true,
-      data: newData,
-       columns: [
-               {title: "", width: 50},
-               {title: "Nome da OSC"},
-               {title: "CNPJ"},
-               {title: "Natureza Jurídica"},
-               {title: "Endereço"},
-               {title: "Detalhar"}
+  function tabela (){
+    $.ajax({
+      url: urlRota,
+      type: 'GET',
+      dataType: 'json',
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        var columns = 6;
+        var sizeOfData = data.length;
+        newData = new Array(sizeOfData);
+
+        for (var i=0; i < sizeOfData; i++){
+          newData[i] = new Array(columns);
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][1] = data[i].tx_nome_osc;
+          newData[i][2] = data[i].cd_identificador_osc;
+          newData[i][3] = data[i].tx_natureza_juridica_osc;
+          newData[i][4] = data[i].tx_endereco_osc;
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+        }
+        $('#resultadoconsulta_formato_dados').DataTable({
+          responsive: true,
+          deferLoading: 1000,
+          deferRender: true,
+          data: newData,
+           columns: [
+                   {title: "", width: 50},
+                   {title: "Nome da OSC"},
+                   {title: "CNPJ"},
+                   {title: "Natureza Jurídica"},
+                   {title: "Endereço"},
+                   {title: "Detalhar"}
+               ],
+           order: [],
+           aoColumnDefs: [
+             {bSortable :false, aTargets: [0]},
+             {bSortable :false, aTargets: [5]},
+             {bSortable :false, aTargets: [4]}
            ],
-       order: [],
-       aoColumnDefs: [
-         {bSortable :false, aTargets: [0]},
-         {bSortable :false, aTargets: [5]},
-         {bSortable :false, aTargets: [4]}
-       ],
-       autoWidth: true
+           autoWidth: true
+         });
+         $('#loading').addClass('hide');
+       }
      });
-     $('#loading').addClass('hide');
   }
 
   function carregaOSC(id, leafletMarker){
-      $.ajax({
-          url: rotas.OSCByID(id),
-          type: "GET",
-          dataType: "json",
-          success: function(data){
-            //console.log(data);
-            for(var i=0; i<data.length; i++){
-              //var response = data.responseJSON === undefined ? undefined : data.responseJSON.cabecalho;
-              //var idOSC = response === undefined ? "" : response.cd_identificador_osc;
-              var idOSC = data[i].id_osc === undefined ? "" : data[i].id_osc;
-              //console.log(idOSC);
-              //leafletMarker.bindPopup('Codigo identificador da OSC= '+idOSC).openPopup();
-            }
-          },
-          error: function (e) {
-            console.log(e);
+    $.ajax({
+      url: rotas.OSCByID(id),
+      type: 'GET',
+      dataType: 'json',
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        var razao_social = data.cabecalho.tx_razao_social_osc;
+        var logradouro = data.dados_gerais.tx_endereco + ' ' +data.dados_gerais.nr_localizacao + ', '+data.dados_gerais.tx_bairro+ ', '+data.dados_gerais.tx_municipio+', '+data.dados_gerais.tx_uf+', '+data.dados_gerais.nr_cep;
+        var area_atuacao = data.dados_gerais.tx_atividade_economica_osc;
+        var natureza_juridica = data.dados_gerais.tx_natureza_juridica_osc;
 
-          }
+        var div = '<div class="mapa_organizacao clearfix">' +
+                  '<span id="spantitle" class="magneticTooltip">'+
+                  '<a id="title" title="">'+
+                  '<h2>'+ razao_social+'</h2></a><h3> </h3></span>'+
+                  '<div class="coluna1"><strong></strong><strong>Endereço:</strong>'+ logradouro +'<br>'+
+                  '<strong>Área(s) de Atuação:</strong>'+area_atuacao+'<br>'+
+                  '<strong>Natureza Jurídica:</strong>'+natureza_juridica+'<br>'+
+                  '<div align="left"><button type = button class=details onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
+                  '</div></div></div>';
+        leafletMarker.bindPopup(div).openPopup();
+        //console.log(data);
+      }
     });
   }
 
@@ -120,33 +158,6 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
       leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
           leafletMarker.on('click', function(){
             carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
-            var oscId = data.ID;
-            $.ajax({
-              url: rotas.OSCByID(data.ID),
-              type: 'GET',
-              dataType: 'json',
-              error:function(e){
-                console.log(e);
-              },
-              success: function(data){
-                var razao_social = data.cabecalho.tx_razao_social_osc;
-                var logradouro = data.dados_gerais.tx_endereco + ' ' +data.dados_gerais.nr_localizacao + ', '+data.dados_gerais.tx_bairro+ ', '+data.dados_gerais.tx_municipio+', '+data.dados_gerais.tx_uf+', '+data.dados_gerais.nr_cep;
-                var area_atuacao = data.dados_gerais.tx_atividade_economica_osc;
-                var natureza_juridica = data.dados_gerais.tx_natureza_juridica_osc;
-                var button ;
-                var div = '<div class="mapa_organizacao clearfix">' +
-                          '<span id="spantitle" class="magneticTooltip">'+
-                          '<a id="title" title="">'+
-                          '<h2>'+ razao_social+'</h2></a><h3> </h3></span>'+
-                          '<div class="coluna1"><strong></strong><strong>Endereço:</strong>'+ logradouro +'<br>'+
-                          '<strong>Área(s) de Atuação:</strong>'+area_atuacao+'<br>'+
-                          '<strong>Natureza Jurídica:</strong>'+natureza_juridica+'<br>'+
-                          '<div align="left"><button type = button class=details onclick=location.href="visualizar-osc.html#'+oscId +'">Detalhes</button>'+
-                          '</div></div></div>';
-                leafletMarker.bindPopup(div).openPopup();
-                console.log(data);
-              }
-            });
             //carregaOSC(data.id, leafletMarker);//Marker Cluster library version
           });
       };
@@ -157,61 +168,42 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
     }
     return null;
   }
-  var offset = 1000;
+
   function carregaMapa(dados){
-    var cont=0;
-    for(var i=0; i<dados.length; i++){
-      //elapsedTime = new Date().getMilliseconds() - elapsedTime;
-      var point = loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng);
+    var points = [];
+    var i = 0;
+    for(k in dados){
+      points.push(loadPoint(k, dados[k][0], dados[k][1]));
       if(point!==null){
         map.addLayer(point);//Prune Cluster library version
-        //leafletView.addLayer(point);//Marker Cluster library version
-
       }
     }
-
     leafletView.ProcessView();//Prune Cluster library version
-    //map.addLayer(leafletView);//Marker Cluster library version
   }
-  var offset = 1000;
+
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: urlRota},
+    data: {flag: 'consulta', rota: urlRotaMapa},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
       if(data!==undefined){
-        var sizeOfData = data.length;
-        //console.log("Size: "+sizeOfData);
-        var columns = 6;
+        carregaMapa(data);
+        /*
         var temparray, j;
         var chunk = 10000;
         //if(sizeOfData>20000) chunk = sizeOfData/10;
         //else if(sizeOfData>100000) chunk = sizeOfData/20;
-        newData = new Array(sizeOfData);
-
-        for (var i=0; i < sizeOfData; i++){
-
-          newData[i] = new Array(columns);
-          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
-          newData[i][1] = data[i].tx_nome_osc;
-          newData[i][2] = data[i].cd_identificador_osc;
-          newData[i][3] = data[i].tx_natureza_juridica_osc;
-          newData[i][4] = data[i].tx_endereco_osc;
-          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
-        }
-
-        for (var i=0,j=sizeOfData; i<j; i+=chunk) {
+        for (var i=0,j=data.length; i<j; i+=chunk) {
             temparray = data.slice(i,i+chunk);
-            //console.log(i);
             carregaMapa(temparray);
         }
-        //carregaMapa(data);
-        tabela(newData);
+        */
       }
+      tabela ();
     },
     error: function (e) {
       console.log(e);
