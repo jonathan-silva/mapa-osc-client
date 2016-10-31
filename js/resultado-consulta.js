@@ -110,44 +110,31 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
     });
   }
 
-  function loadPoint(id, latFinal, lngFinal){
+  function loadPoint(id, latFinal, lngFinal, nome, endereco, natureza, atividade){
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
       //console.log(lngFinal);
       var marker = new PruneCluster.Marker(latFinal, lngFinal);//Prune Cluster library version
       marker.data.ID = id;//Prune Cluster library version
+      marker.data.nome_osc = nome;
+      marker.data.endereco_osc = endereco;
+      marker.data.area_atuacao_osc = atividade;
+      marker.data.natureza_juridica_osc = natureza;
       //leafletMarker = L.marker(new L.LatLng(latFinal, lngFinal), { id: id });//Marker Cluster library version
 
       leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
           leafletMarker.on('click', function(){
             carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
-            var oscId = data.ID;
-            $.ajax({
-              url: rotas.OSCByID(data.ID),
-              type: 'GET',
-              dataType: 'json',
-              error:function(e){
-                console.log(e);
-              },
-              success: function(data){
-                var razao_social = data.cabecalho.tx_razao_social_osc;
-                var logradouro = data.dados_gerais.tx_endereco + ' ' +data.dados_gerais.nr_localizacao + ', '+data.dados_gerais.tx_bairro+ ', '+data.dados_gerais.tx_municipio+', '+data.dados_gerais.tx_uf+', '+data.dados_gerais.nr_cep;
-                var area_atuacao = data.dados_gerais.tx_atividade_economica_osc;
-                var natureza_juridica = data.dados_gerais.tx_natureza_juridica_osc;
-                var button ;
-                var div = '<div class="mapa_organizacao clearfix">' +
-                          '<span id="spantitle" class="magneticTooltip">'+
-                          '<a id="title" title="">'+
-                          '<h2>'+ razao_social+'</h2></a><h3> </h3></span>'+
-                          '<div class="coluna1"><strong></strong><strong>Endereço:</strong>'+ logradouro +'<br>'+
-                          '<strong>Área(s) de Atuação:</strong>'+area_atuacao+'<br>'+
-                          '<strong>Natureza Jurídica:</strong>'+natureza_juridica+'<br>'+
-                          '<div align="left"><button type = button class=details onclick=location.href="visualizar-osc.html#'+oscId +'">Detalhes</button>'+
-                          '</div></div></div>';
-                leafletMarker.bindPopup(div).openPopup();
-                console.log(data);
-              }
-            });
-            //carregaOSC(data.id, leafletMarker);//Marker Cluster library version
+            var button ;
+            var div = '<div class="mapa_organizacao clearfix">' +
+                      '<span id="spantitle" class="magneticTooltip">'+
+                      '<a id="title" title="">'+
+                      '<h2>'+ data.nome_osc+'</h2></a><h3> </h3></span>'+
+                      '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ data.endereco_osc +'<br>'+
+                      '<strong>Área de Atuação: </strong>'+data.area_atuacao_osc+'<br>'+
+                      '<strong>Natureza Jurídica: </strong>'+data.natureza_juridica_osc+'<br>'+
+                      '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+data.ID +'">Detalhes</button>'+
+                      '</div></div></div>';
+            leafletMarker.bindPopup(div).openPopup();
           });
       };
 
@@ -162,7 +149,9 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
     var cont=0;
     for(var i=0; i<dados.length; i++){
       //elapsedTime = new Date().getMilliseconds() - elapsedTime;
-      var point = loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng);
+      var point = loadPoint(dados[i].id_osc, dados[i].geo_lat, dados[i].geo_lng,
+        dados[i].tx_nome_osc, dados[i].tx_endereco_osc, dados[i].tx_natureza_juridica_osc,
+        dados[i].tx_nome_atividade_economica);
       if(point!==null){
         map.addLayer(point);//Prune Cluster library version
         //leafletView.addLayer(point);//Marker Cluster library version
