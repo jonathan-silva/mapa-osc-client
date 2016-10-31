@@ -266,4 +266,16 @@ $("#regiao .form-control").autocomplete({
    location.href=link;
   }
  });
+
+ $(document).ready(function() {
+   $('.ui-autocomplete-input').keypress(function(e) {
+     var key = e.which;
+     if(key == 13){
+       $('.btn-primary').click();
+       $('.ui-menu-item').hide();
+       return false;
+     }
+   });
+ });
+
 });

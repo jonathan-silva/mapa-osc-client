@@ -88,7 +88,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
      $('#loading').addClass('hide');
   }
 
-  function carregaOSC(id, leafletMarker){
+  /*function carregaOSC(id, leafletMarker){
       $.ajax({
           url: rotas.OSCByID(id),
           type: "GET",
@@ -108,7 +108,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
           }
     });
-  }
+  }*/
 
   function loadPoint(id, latFinal, lngFinal, nome, endereco, natureza, atividade){
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
@@ -123,7 +123,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
       leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
           leafletMarker.on('click', function(){
-            carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
+          //  carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
             var button ;
             var div = '<div class="mapa_organizacao clearfix">' +
                       '<span id="spantitle" class="magneticTooltip">'+
