@@ -257,9 +257,9 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createBarChart('#grafico-2',jsonGrafico2);
   createDonutChart('#grafico-3',jsonGrafico3);
   createBarChart('#grafico-4',jsonGrafico4);
-  createLineChart('#grafico-5',jsonGrafico5);
+  createLineChart('#grafico-5',jsonGrafico5,"");
   createLineChart('#grafico-6',jsonGrafico6, "(em R$)");
-  createLineChart('#grafico-7',jsonGrafico7);
+  createLineChart('#grafico-7',jsonGrafico7,"");
   createLineChart('#grafico-8',jsonGrafico8, "(em R$)");
   createDonutChart('#grafico-9',jsonGrafico9);
   createBarChart('#grafico-10',jsonGrafico10);
@@ -268,7 +268,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createMultiBarChart('#grafico-13',jsonGrafico13);
 
   $("#tabela-1").click(function(){
-      createTabela_MultBar_Line(jsonGrafico1);
+      createTabela_MultBar_Line(jsonGrafico1,false);
   });
 
   $("#tabela-2").click(function(){
@@ -308,15 +308,15 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   });
 
   $("#tabela-11").click(function(){
-      createTabela_MultBar_Line(jsonGrafico11);
+      createTabela_MultBar_Line(jsonGrafico11,false);
   });
 
   $("#tabela-12").click(function(){
-      createTabela_MultBar_Line(jsonGrafico12);
+      createTabela_MultBar_Line(jsonGrafico12,false);
   });
 
   $("#tabela-13").click(function(){
-      createTabela_MultBar_Line(jsonGrafico13);
+      createTabela_MultBar_Line(jsonGrafico13,false);
   });
 
 

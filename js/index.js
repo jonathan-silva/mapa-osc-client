@@ -84,11 +84,11 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createBarChart('#graficoMain-4',jsonGrafico4);
 
   $("#tabelaMain-1").click(function(){
-      createTabela_MultBar_Line(jsonGrafico1);
+      createTabela_MultBar_Line(jsonGrafico1,false);
   });
 
   $("#tabelaMain-2").click(function(){
-      createTabela_MultBar_Line(jsonGrafico2);
+      createTabela_MultBar_Line(jsonGrafico2,false);
   });
 
   $("#tabelaMain-3").click(function(){

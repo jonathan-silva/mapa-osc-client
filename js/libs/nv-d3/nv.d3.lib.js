@@ -72,7 +72,7 @@ function createMultiBarChart(grafico, valores)
 	return chart;
 }
 
-function createLineChart(grafico, valores, label_Y="")
+function createLineChart(grafico, valores, label_Y)
 {
 	var chart = nv.models.lineChart()
                 .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
