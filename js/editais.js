@@ -14,14 +14,17 @@ require(["jquery-ui"], function (React) {
       }
     }
   });
-  var isCacheEnabled = true;
+});
+  require(['jquery','datatables-responsive'], function (React) {
+
+  var isCacheEnabled = false;
   var tipoRequisicao;
   var parametros='';
   var newData;
   //var valoresURL = window.location.href.split('?')[1].split('=');
   //var tipoConsulta = valoresURL[0];
   //var stringBuscada = valoresURL[1];
-  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/user/editais";/* /
+  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/edital";/* /
 
   if(tipoConsulta=="organizacao"){
     urlRota+="search/osc/"+stringBuscada;
@@ -46,8 +49,8 @@ require(["jquery-ui"], function (React) {
        processing: true,
        data: newData,
        columns: [
-               {title: "", width: 100},
-               {title: "Orgão"},
+               //{title: "", width: 100},
+               {title: "Orgão", width: 100},
                {title: "Nome do Programa"},
                {title: "Area de Interesse"},
                {title: "Data de Vencimento"},
@@ -62,6 +65,29 @@ require(["jquery-ui"], function (React) {
        ],
        autoWidth: true
      });
+   };
+function tabela2 (newData2){
+     $('#encerrados_formato_dados').DataTable({
+       responsive: true,
+        processing: true,
+        data: newData2,
+        columns: [
+                //{title: "", width: 100},
+                {title: "Orgão", width: 100},
+                {title: "Nome do Programa"},
+                {title: "Area de Interesse"},
+                {title: "Data de Vencimento"},
+                {title: "Número da Chamada"},
+                {title: "Edital"}
+            ],
+        order: [],
+        aoColumnDefs: [
+          {bSortable :false, aTargets: [0]},
+          {bSortable :false, aTargets: [5]},
+          {bSortable :false, aTargets: [4]}
+        ],
+        autoWidth: true
+      });
   }
 /*
   function carregaOSC(id, leafletMarker){
@@ -112,6 +138,7 @@ require(["jquery-ui"], function (React) {
   else{
     tipoRequisicao = 'GET';
   }
+  console.log(tipoRequisicao);
   $.ajax({
     url: urlRota,
     type: tipoRequisicao,
@@ -122,28 +149,46 @@ require(["jquery-ui"], function (React) {
     },
     success: function(data){
       if(data!==undefined){
-        var sizeOfData = data.length;
+        var sizeOfData = data.ativos.length;
+        var sizeOfData2 = data.encerrados.length;
         var columns = 6;
 
         newData = new Array(sizeOfData);
+        newData2 = new Array(sizeOfData2);
 
         for (var i=0; i < sizeOfData; i++){
           newData[i] = new Array(columns);
           //newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
-          newData[i][0] = data[i].tx_orgao;
-          newData[i][1] = data[i].tx_programa;
-          newData[i][2] = data[i].tx_area_interesse_edital;
-          newData[i][3] = data[i].dt_vencimento;
-          newData[i][4] = data[i].tx_numero_chamada;
-          newData[i][5] = data[i].tx_link_edital;
+          newData[i][0] = data.ativos[i].tx_orgao;
+          newData[i][1] = data.ativos[i].tx_programa;
+          newData[i][2] = data.ativos[i].tx_area_interesse_edital;
+          newData[i][3] = data.ativos[i].dt_vencimento;
+          newData[i][4] = data.ativos[i].tx_numero_chamada;
+          newData[i][5] = "<a href="+data.ativos[i].tx_link_edital+" target=_blank>"+data.ativos[i].tx_link_edital+"<img src=img/site-ext.gif alt=\"Site Externo.\" title=\"Site Externo.\"></a>";
+
           //newData[i][9] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
+        for (var i=0; i < sizeOfData2; i++){
+          newData2[i] = new Array(columns);
+          //newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData2[i][0] = data.encerrados[i].tx_orgao;
+          newData2[i][1] = data.encerrados[i].tx_programa;
+          newData2[i][2] = data.encerrados[i].tx_area_interesse_edital;
+          newData2[i][3] = data.encerrados[i].dt_vencimento;
+          newData2[i][4] = data.encerrados[i].tx_numero_chamada;
+          newData2[i][5] = "<a href="+data.encerrados[i].tx_link_edital+" target=_blank>"+data.encerrados[i].tx_link_edital+"<img src=img/site-ext.gif alt=\"Site Externo.\" title=\"Site Externo.\"></a>";
+
+          //newData[i][9] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+        }
+
         tabela(newData);
-        //console.log(data);
+        tabela2(newData2);
+        console.log(newData2);
         //carregaMapa(data);
         console.log("OK");
       }
     }
+
   });
 });
 
