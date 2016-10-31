@@ -44,8 +44,8 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
   linksUsuarioLogado.push(new MenuDropDownObject());
-  linksUsuarioLogado.push(new MenuDropDownObject("Gerenciar Editais", "consultar-editais.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
   linksUsuarioLogado.push(new MenuDropDownObject());
   linksUsuarioLogado.push(new MenuDropDownObject("Sair", "#"));
 
@@ -72,7 +72,7 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
   //Carrossel do rodapé
-  var imgList = ["img\\logo_secretaria.png", "img\\logo-mj.png", /*"img\\logo_fgv.png",*/ "img\\logo_pnud.png"];
+  var imgList = ["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_pnud.png"];
 
   function FooterObject(blocks, imgsAltRealizacao, imgList){
     this.blocks =blocks;
