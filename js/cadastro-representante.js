@@ -62,6 +62,7 @@ require(['react', 'jsx!components/Util'], function (React) {
       $("#nomeEntidade.form-control").autocomplete({
         minLength: 3,
         source: function (request, response) {
+           console.log('teste');
            $.ajax({
                url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/"+request.term,
                type: 'GET',
@@ -142,15 +143,15 @@ require(['react', 'jsx!components/Util'], function (React) {
         if ($('#termoUso').is(":checked")){ var termoUso = true ; } else {var termoUso = false;}
         if ($('#newsletter').is(":checked")){ var newsletter = true ; } else {var newsletter = false;}
 
-       /*
-        nome =  "";
-        email =  "";
-        cpf =  "";
+
+        nome =  "Heraldo";
+        email =  "heraldoborges@gmail.com";
+        cpf =  "11118969766";
         senha =  "senha";
         confirmarSenha =  "senha";
         termoUso = true ;
         newsletter = true ;
-*/
+
 
         if (!termoUso){
           console.log("termouso errado");
@@ -210,42 +211,52 @@ require(['react', 'jsx!components/Util'], function (React) {
               '		{"id_osc": 2}'+
               ' ]}';
 
-        json =   JSON.parse(json);
         console.log(json);
 
+        var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/user/";
+        tipoRequisicao = 'POST';
+        //data: JSON.stringify({ "userName": userName, "password" : password })
+
         $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/",
-          type: 'POST',
+          url: urlRota,
+          type: tipoRequisicao,
           dataType: 'json',
           data: json,
-          success: function (data, textStatus, jqXHR ) {
-            console.log(data);
-            console.log(textStatus);
-            console.log(jqXHR);
+          error: function(){
+            console.log("Erro no AJAX");
           },
-          fail:function(data){
-            console.log("fail"+data);
-          },
-          error: function (e) {
-            console.log("erro"+ e);
-            alert("error1");
-          },
-          error: function (xhr, ajaxOptions, thrownError) {
-              alert(xhr.status);
-              console.log("erro"+ajaxOptions);
-              console.log(xhr.status);
-              console.log(thrownError);
-          },
-          done: function (data){
-              console.log("done"+data);
-          }
-       });
-       console.log("fim");
+          success: function(data){
+            if(data!==undefined){
+              var sizeOfData = data.length;
+              var columns = 6;
+
+              newData = new Array(sizeOfData);
+
+              for (var i=0; i < sizeOfData; i++){
+                newData[i] = new Array(columns);
+                //newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+                newData[i][0] = data[i].tx_orgao;
+                newData[i][1] = data[i].tx_programa;
+                newData[i][2] = data[i].tx_area_interesse_edital;
+                newData[i][3] = data[i].dt_vencimento;
+                newData[i][4] = data[i].tx_numero_chamada;
+                newData[i][5] = data[i].tx_link_edital;
+                //newData[i][9] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+              }
+              tabela(newData);
+              //console.log(data);
+              //carregaMapa(data);
+              console.log("OK");
+            }
+            }
+    });
 
 
 
     });
     //final  btn.btn-success.click
+
+
 
 
   console.log("chegou no final");
@@ -256,15 +267,6 @@ require(['react', 'jsx!components/Util'], function (React) {
 
 
 //FUNCOES DE VALIDACAO
-
-function isJson(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
 
 function validaNome(nome){
   if(nome.length < 5){
