@@ -1,6 +1,6 @@
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
+  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons', 'componenteProjectsTable'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, ProjectsTable){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -216,6 +216,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         "projetos": [
           {
             "id_osc": 1,
+            "id_projeto": 1,
+            "tx_identificador_projeto_externo": null,
+            "ft_identificador_projeto_externo": null,
             "tx_nome_projeto": "test1",
             "ft_nome_projeto": null,
             "tx_nome_status_projeto": "status 2",
@@ -229,7 +232,53 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             "nr_total_beneficiarios": null,
             "ft_total_beneficiarios": null,
             "nr_valor_total_projeto": null,
-            "ft_valor_total_projeto": null
+            "ft_valor_total_projeto": null,
+            "tx_valor_captado_projeto": 50,
+            "ft_valor_captado_projeto": null,
+            "tx_metodologia_monitoramento": null,
+            "ft_metodologia_monitoramento": null,
+            "tx_descricao_projeto": null,
+            "ft_descricao_projeto": null,
+            "tx_nome_abrangencia_projeto": null,
+            "ft_nome_abrangencia_projeto": null,
+            "tx_nome_zona_atuacao": null,
+            "ft_nome_zona_atuacao": null,
+            "localizacao_projeto": [
+              {
+                "id_regiao_localizacao_projeto": 1,
+                "tx_nome_regiao_localizacao_projeto": "rio",
+                "ft_nome_regiao_localizacao_projeto": null
+              }
+            ],
+            "publico_beneficiado": [
+              {
+                "id_publico_beneficiado": 1,
+                "tx_nome_publico_beneficiado": "rio",
+                "ft_nome_publico_beneficiado": null
+              }
+            ],
+            "financiadores": [
+              {
+                "id_financiador_projeto": 1,
+                "tx_nome_financiador": "João",
+                "ft_nome_financiador": null
+              }
+            ],
+            "autodeclaradas": [
+              {
+                "id_financiador_projeto": 1,
+                "tx_nome_financiador": "João",
+                "ft_nome_financiador": null
+              }
+            ],
+            "parceiras": [
+              {
+                "id_osc": 2,
+                "tx_nome_osc_parceira_projeto": "Nome da osc",
+                "id_projeto": 1,
+                "ft_osc_parceira_projeto": null
+              }
+            ]
           },
           {
             "id_osc": 1,
@@ -856,6 +905,45 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:null, dados:formItens}
       ), document.getElementById("trabalhadores")
     );
+
+    //Projetos
+    var labelMap = {
+      "tx_nome_projeto": "Nome do projeto, atividade ou programa",
+      "tx_nome_status_projeto": "Status",
+      "dt_data_inicio_projeto": "Data de Início",
+      "dt_data_fim_projeto": "Data de Fim",
+      "tx_link_projeto": "Link",
+      "nr_total_beneficiarios": "Total de Beneficiários",
+      "nr_valor_total_projeto": "Valor Total",
+      "tx_valor_captado_projeto": "Valor Captado",
+      "tx_metodologia_monitoramento": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
+      "tx_descricao_projeto": "Descrição do Projeto, atividade e/ou programa",
+      "tx_nome_abrangencia_projeto": "Abrangência",
+      "tx_nome_zona_atuacao": "Zona de Atuação",
+      "localizacao_projeto": "Local de execução do projeto, atividade ou programa",
+      "publico_beneficiado": "Público Beneficiado",
+      "autodeclaradas": "Área Auto-declarada do projeto",
+      "parceiras": "OSCs Parceiras",
+      "financiadores": "Financiadores do Projeto"
+    };
+    formItens = [];
+    var projetos = result.projetos;
+    for (var i = 0; i < projetos.length; i++) {
+      for (var property in projetos[i]) {
+        if (projetos[i].hasOwnProperty(property)) {
+          var campo = dados_form.form_items[i];
+          formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
+        }
+      }
+
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("projetos")
+    );
+
   });
 });
 
