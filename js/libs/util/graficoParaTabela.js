@@ -45,7 +45,7 @@ function createTabela_Bar_Donut(json) {
 // GRÁFICOS QUE PODEM SER UTILIZADOS:
 // Line = false ->  createMultiBarChart - LinePlusBarChart - StackedAreaChart - MultiBarHorizontalChart
 // Line = true -> lineChart
-function createTabela_MultBar_Line(json, line=false) {
+function createTabela_MultBar_Line(json, line) {
   tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
   cabecalho = '<thead><tr>';

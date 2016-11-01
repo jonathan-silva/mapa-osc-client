@@ -875,8 +875,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ), document.getElementById("trabalhadores")
     );
 
-    var participacao_social = result.participacao_social;
+
+  //  var participacao_social = result.participacao_social;
     var tx_sem_participacao_social = "Não há registros de participacao social";
+    var conselhos = result.conselhos;
+    var conferencias = result.conferencias;
     var participacao_social_form =
     {
     "items_participacao_social": [
@@ -896,12 +899,20 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "id": "data_vigencia",
           "priority": "4",
           "text": "Data de Vigência",
-          "subsections": []
+          "options": []
         },
         {
           "id": "nome_representante",
           "priority": "4",
           "text": "Nome de representante",
+          "subsections": []
+        },
+        {
+          "id": "titularidade",
+          "priority": "4",
+          "text": "Titularidade",
+          "type": "select",
+          "options": [],
           "subsections": []
         },
         {
@@ -917,42 +928,61 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "subsections": []
         },
         {
-          "id": "titularidade",
+          "id": "participacao_conferencia",
           "priority": "4",
-          "text": "Titularidade",
+          "text": "Forma de participação na conferência",
           "type": "select",
           "options": [],
           "subsections": []
-        },/*
-        {
-          "id": "nome_conferencia",
-          "label": "Conferências de Políticas Públicas",
-          "content": participacao_social.tx_nome_conferencia,
-          "fonte": participacao_social.ft_nome_conferencia ,
-          "placeholder": "Insira o nome da conferência" ,
-          "type": "text"
         },
         {
-          "id": "ano_conferencia",
-          "label": "Ano de realização da Conferência",
-          "ano_conferencia": participacao_social.ano_conferencia ,
-          "fonte_ano_conferencia": participacao_social.ft_ano_conferencia ,
-          "placeholder": "Insira o nome da conferência" ,
-          "type": "text"
-
-        }
+          "id": "outros",
+          "priority": "3",
+          "text": "Outros espaços de participação social",
+          "target": "participacao_social"
+        },
         {
-          "content_nome_forma_participacao": participacao_social.tx_nome_forma_participacao_conferencia ,
-          "fonte_nome_forma_participacao": participacao_social.ft_forma_participacao_conferencia ,
-          "placeholder": "Insira o nome da conferência" ,
+          "id": "atuacao",
+          "priority": "4",
+          "text": "Atuação  em Fóruns, Articulações, Coletivos e Redes de OSCs",
           "type": "text"
-        }*/
-      ],
+        }
+      ]
+    };
+
+    formItens = [];
+    for (j=0; j<conselhos.length; j++){
+      for (var property in conselhos[j]) {
+        if (conselhos[j].hasOwnProperty(property)) {
+          if(property == "tx_nome_conselho"){
+            formItensPartSocial.push(new FormItens(conselhos[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
+          }
+          if(property == "nr_numero_assentos"){
+            formItensPartSocial.push(new FormItens(conselhos[j].id, "Numero Assentos", conselhos[j].nr_numero_assentos, conselhos[j].ft_numero_assentos, null, "text"));
+          }
+       }
+      }
     }
+    formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
+    formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
+    Agrupador = React.createFactory(Agrupador);
+    ReactDOM.render(
+      AgrupadorPartSocial(
+        {dados:formItens}
+      ), document.getElementById("conselhos")
+    );
+    formItens = [];
+    formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselheiros")
+    );
+
 
   });
 });
-
 
 
 function findCertificateDate(certificacoes, id){

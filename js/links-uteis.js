@@ -19,7 +19,7 @@ require(["jquery-ui"], function (React) {
 require(['react', 'jsx!components/Util'], function (React) {
 
   require(['componenteLinksUteis'], function(LinksUteis){
-    function LinkUtil(titulo, desc, imagem, elo, linkExterno=true){
+    function LinkUtil(titulo, desc, imagem, elo, linkExterno){
       this.titulo = titulo;
       this.desc = desc;
       this.imagem = imagem;
@@ -47,7 +47,7 @@ require(['react', 'jsx!components/Util'], function (React) {
 
     var linksuteis = [];
     for (var i=0; i<titulo.length; i++){
-      linksuteis.push(new LinkUtil(titulo[i], desc[i],imagem[i],elo[i]));
+      linksuteis.push(new LinkUtil(titulo[i], desc[i],imagem[i],elo[i],true));
     }
 
     LinksUteis = React.createFactory(LinksUteis);

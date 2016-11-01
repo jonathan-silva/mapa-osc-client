@@ -10412,7 +10412,7 @@ nv.models.pie = function() {
                   };
                   return (d.value && percent > labelThreshold) ? labelTypes[labelType] : '';
                 });
-
+/*
             var textBox = slice.select('text').node().getBBox();
             slice.select(".nv-label rect")
               .attr("width", textBox.width + 10)
@@ -10420,6 +10420,7 @@ nv.models.pie = function() {
               .attr("transform", function() {
                 return "translate(" + [textBox.x - 5, textBox.y - 5] + ")";
               });
+              */
           });
         }
 

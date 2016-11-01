@@ -32,7 +32,11 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     ]}];
 
     var jsonGrafico2 = [{"tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Empregos formais nas OSCs, por natureza jurídica e região", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
-    var jsonGrafico3 = [{"tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Atividade econômica das OSCs", key: "Grafico 3", values: [{"label": "Outras atividades de serviços", "value" : 318663 } ,  {"label": "Artes, cultura, esporte e recreação", "value" : 27842 } , { "label": "Saúde humana e serviços sociais", "value" : 18774}, { "label": "Educação", "value" : 16682}, { "label": "Outras", "value" : 9410}]} ];
+    var jsonGrafico3 = [{"tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Atividade econômica das OSCs", key: "Grafico 3", values: [
+      {"label": "Outras atividades de serviços", "value" : 318663 }, {"label": "Artes, cultura, esporte e recreação", "value" : 27842 },
+      {"label": "Saúde humana e serviços sociais", "value" : 18774}, {"label": "Educação", "value" : 16682},
+      { "label": "Outras", "value" : 9410}
+    ]}];
     var jsonGrafico4 = [{"tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"OSCs com parcerias com o Governo Federal, por região", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8656 }, {"label" : "Nordeste", "value" : 5073 } ,{ "label" : "Sul" , "value" : 4407 }, {"label" : "Centro-Oeste", "value" : 1439}, {"label" : "Norte", "value" : 1257}]}];
 
     var jsonGrafico5 = [{"tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual de OSCs com parcerias com o Governo Federal, por instrumento de parceria",
@@ -220,14 +224,17 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-    var jsonGrafico9 = [{"tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013).","titulo":"OSCs de Assistência Social, por serviço prestado", key: "Grafico 9", values: [{"label" : "Proteção Básica", "value" : 7906 }, {"label" : "Proteção Especial - Alta Complexidade", "value" : 1975 } ,{ "label" : "Assessoramento, Defesa e Garantia de Direitos" , "value" : 1652 }, {"label" : "Proteção Especial - Média Complexidade", "value" : 1147}, {"label" : "Outras Ofertas", "value" : 975}, {"label" : "Benefícios Eventuais", "value" : 206}]}];
+    var jsonGrafico9 = [{"tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013).","titulo":"OSCs de Assistência Social, por serviço prestado", key: "Grafico 9", values: [
+    {"label" : "Proteção Básica", "value" : 7906 }, {"label" : "Proteção Especial - Alta Complexidade", "value" : 1975 },
+    { "label" : "Assessoramento, Defesa e Garantia de Direitos" , "value" : 1652 }, {"label" : "Proteção Especial - Média Complexidade", "value" : 1147},
+    {"label" : "Outras Ofertas", "value" : 975}, {"label" : "Benefícios Eventuais", "value" : 206}
+    ]}];
 
     var jsonGrafico10 = [{"tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"OSCs de Saúde, por tipo de estabelecimento de Saúde", key: "Grafico 10", values: [
-    {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 } , { "label": "Consultorio Isolado", "value" : 440},
-    {"label": "Unidade De Apoio Diagnose E Terapia (Sadt Isolado)", "value" : 350 } ,  {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188},
-    {"label": "Outras", "value" : 284 }
-
-    ]} ];
+    {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 },
+    { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia (Sadt Isolado)", "value" : 350 },
+    {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188}, {"label": "Outras", "value" : 284 }
+    ]}];
 
   var jsonGrafico11 = [{"tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"OSCs de Saúde, por região e tipo de gestão do estabelecimento de Saúde",
   series:[
@@ -257,18 +264,18 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createBarChart('#grafico-2',jsonGrafico2);
   createDonutChart('#grafico-3',jsonGrafico3);
   createBarChart('#grafico-4',jsonGrafico4);
-  createLineChart('#grafico-5',jsonGrafico5);
+  createLineChart('#grafico-5',jsonGrafico5,"");
   createLineChart('#grafico-6',jsonGrafico6, "(em R$)");
-  createLineChart('#grafico-7',jsonGrafico7);
+  createLineChart('#grafico-7',jsonGrafico7,"");
   createLineChart('#grafico-8',jsonGrafico8, "(em R$)");
   createDonutChart('#grafico-9',jsonGrafico9);
-  createBarChart('#grafico-10',jsonGrafico10);
+  createDonutChart('#grafico-10',jsonGrafico10);
   createMultiBarChart('#grafico-11',jsonGrafico11);
   createMultiBarChart('#grafico-12',jsonGrafico12);
   createMultiBarChart('#grafico-13',jsonGrafico13);
 
   $("#tabela-1").click(function(){
-      createTabela_MultBar_Line(jsonGrafico1);
+      createTabela_MultBar_Line(jsonGrafico1,false);
   });
 
   $("#tabela-2").click(function(){
@@ -308,15 +315,15 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   });
 
   $("#tabela-11").click(function(){
-      createTabela_MultBar_Line(jsonGrafico11);
+      createTabela_MultBar_Line(jsonGrafico11,false);
   });
 
   $("#tabela-12").click(function(){
-      createTabela_MultBar_Line(jsonGrafico12);
+      createTabela_MultBar_Line(jsonGrafico12,false);
   });
 
   $("#tabela-13").click(function(){
-      createTabela_MultBar_Line(jsonGrafico13);
+      createTabela_MultBar_Line(jsonGrafico13,false);
   });
 
 
@@ -325,6 +332,5 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
       jQuery(this).tab('show')
       jQuery(window).trigger('resize'); // Added this line to force NVD3 to redraw the chart
   })
-
 
 } );

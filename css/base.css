@@ -6835,7 +6835,7 @@ body {
   float: left;
 }
 .brand-text-style {
-  display: table-cell;
+  display: inline-flex;
   padding-top: 15px;
   padding-left: 10px;
   font-weight: 500;
