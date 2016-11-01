@@ -130,6 +130,17 @@ require(['react', 'jsx!components/Util'], function (React) {
     }
   });
 
+  $("#confirmarSenha.form-control").blur(function (event, ui) {
+    var confirmarSenha = this.value;
+    var senha =  $('#senha').val();
+    if ( confirmarSenha == senha){
+      $("#senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+      $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+    }else{
+      $("#senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+      $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+    }
+  });
 
   //inicio btn.btn-success.click
   var div = $(".form-group");
@@ -139,38 +150,26 @@ require(['react', 'jsx!components/Util'], function (React) {
         var cpf =  $('#cpf').val();
         var senha =  $('#senha').val();
         var confirmarSenha =  $('#confirmarSenha').val();
+        var $modal = $('#modalMensagem');
+        var id_attr = '';
         if ($('#termoUso').is(":checked")){ var termoUso = true ; } else {var termoUso = false;}
         if ($('#newsletter').is(":checked")){ var newsletter = true ; } else {var newsletter = false;}
 
 
-        nome =  "Heraldo";
-        email =  "heraldoborges@gmail.com";
-        cpf =  "11118969766";
-        senha =  "senha";
-        confirmarSenha =  "senha";
-        termoUso = true ;
-        newsletter = true ;
 
 
-        if (!termoUso){
-          console.log("termouso errado");
-          var id_attr = "#" + $("#termoUso.form-control").attr("id") + "1";
-          $("#termoUso.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-          $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
-          return false;
-        };
-
+      
         if (!validaNome(nome)){
           console.log("nome errado");
-          var id_attr = "#" + $("#nome.form-control").attr("id") + "1";
-          $("#nome.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          id_attr = "#" + $("#nome.form-control").attr("id") + "1";
+          $("#nome.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
           $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
           return false;
         };
 
         if (!validaEmail(email)){
           console.log("email errado");
-          var id_attr = "#" + $("#email.form-control").attr("id") + "1";
+          id_attr = "#" + $("#email.form-control").attr("id") + "1";
           $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
           $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
           return false;
@@ -178,7 +177,7 @@ require(['react', 'jsx!components/Util'], function (React) {
 
         if (!validaCPF(cpf)){
           console.log("cpf errado");
-          var id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
+          id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
           $("#cpf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
           $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
           return false;
@@ -186,18 +185,32 @@ require(['react', 'jsx!components/Util'], function (React) {
 
         if ((senha == "")||(senha!=confirmarSenha)){
           console.log("senha errado");
-          var id_attr = "#" + $("#senha.form-control").attr("id") + "1";
+          id_attr = "#" + $("#senha.form-control").attr("id") + "1";
           $("#senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
           $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
-          var id_attr = "#" + $("#confirmarSenha.form-control").attr("id") + "1";
+
+          id_attr = "#" + $("#confirmarSenha.form-control").attr("id") + "1";
           $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
           $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+
+          jQuery("#modalTitle").text("Problema no cadastro!");
+          jQuery("#modalConteudo").text("Os valores da senha e da confirmação são diferentes.");
+          $modal.modal('show');
           return false;
         };
 
-        //FALTA CAPTCHA
+        if (!termoUso){
+          console.log("termouso errado");
+          id_attr = "#" + $("#termoUso.form-control").attr("id") + "1";
+          $("#termoUso.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+          jQuery("#modalTitle").text("Problema no cadastro!");
+          jQuery("#modalConteudo").text("É necessário concordar com os termos de uso.");
+          $modal.modal('show');
+          return false;
+        };
 
-        console.log("passou");
+        //HB TODO: testar data: JSON.stringify({ "userName": userName, "password" : password })
 
         var json = '{'+
               '	"tx_email_usuario": "'+email+'", ' +
@@ -212,55 +225,30 @@ require(['react', 'jsx!components/Util'], function (React) {
 
         console.log(json);
 
-        var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/user/";
-        tipoRequisicao = 'POST';
-        //data: JSON.stringify({ "userName": userName, "password" : password })
-
         $.ajax({
-          url: urlRota,
-          type: tipoRequisicao,
-          dataType: 'json',
-          data: json,
-          error: function(){
-            console.log("Erro no AJAX");
-          },
-          success: function(data){
-            if(data!==undefined){
-              var sizeOfData = data.length;
-              var columns = 6;
-
-              newData = new Array(sizeOfData);
-
-              for (var i=0; i < sizeOfData; i++){
-                newData[i] = new Array(columns);
-                //newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
-                newData[i][0] = data[i].tx_orgao;
-                newData[i][1] = data[i].tx_programa;
-                newData[i][2] = data[i].tx_area_interesse_edital;
-                newData[i][3] = data[i].dt_vencimento;
-                newData[i][4] = data[i].tx_numero_chamada;
-                newData[i][5] = data[i].tx_link_edital;
-                //newData[i][9] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
-              }
-              tabela(newData);
-              //console.log(data);
-              //carregaMapa(data);
-              console.log("OK");
-            }
-            }
-    });
-
-
-
+        url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/",
+        type: 'POST',
+        dataType: 'json',
+        data: json,
+        success: function (data, textStatus, jqXHR ) {
+          console.log(data);
+          console.log(textStatus);
+          console.log(jqXHR);
+          var $modal = $('#modalMensagem');
+          $modal.modal('show');
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(ajaxOptions);
+            console.log(xhr.status);
+            console.log(thrownError);
+            var $modal = $('#modalMensagem');
+            jQuery("#modalTitle").text("Problema no cadastro!");
+            jQuery("#modalConteudo").text(thrownError);
+            $modal.modal('show');
+        }
+     });
     });
     //final  btn.btn-success.click
-
-
-
-
-  console.log("chegou no final");
-
-
     });
 });
 
