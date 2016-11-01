@@ -18,7 +18,6 @@ require(["jquery-ui"], function (React) {
 
 require(['react', 'jsx!components/Util'], function (React) {
 
-
   require(['componenteFormItem'], function(FormItem){
     function FormItens(id, label, type){
       this.id = id;
