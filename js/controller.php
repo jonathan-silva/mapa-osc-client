@@ -5,7 +5,7 @@
 
   $flag = isset($_GET['flag']) ? $_GET['flag'] : '';
   $rota = isset($_GET['rota']) ? $_GET['rota'] : '';
-  $isCacheEnabled = true;
+  $isCacheEnabled = false;
 
   if($flag!='' && $rota!=''){
     if($flag == 'autocomplete'){

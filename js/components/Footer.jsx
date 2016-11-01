@@ -50,7 +50,7 @@ define(['react'], function(React) {
   var Realizacao = React.createClass({
     render: function(){
       return (<div><span>Realização:</span>
-          <a className="logoIpea" target="_blank" href="http://www.ipea.gov.br">
+          <a className="logoIpea" target="_blank" href="http://www.ipea.gov.br" title="Link Externo para o IPEA.">
             <img alt={this.props.items[1]} src={this.props.items[0]} className="normal" />
             <img style={{display: 'none'}} alt={this.props.items[3]} src={this.props.items[2]} className="contraste" />
           </a></div>);
