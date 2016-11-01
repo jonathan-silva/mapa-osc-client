@@ -20,7 +20,6 @@ require(["jquery-ui"], function (React) {
 require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
   //dummy data para a quantidade de OSCs
-  var pdfs = {"AC" : "1", "AM" : "2", "RR" : "3","RO" : "4","AP" : "5","PA" : "6","MT" : "7","MS" : "8","MA" : "9","TO" : "1","GO" : "2","DF" : "3","PI" : "4","CE" : "5","RN" : "6","PB" : "7","PE" : "8","AL" : "9","SE" : "1","BA" : "2","MG" : "3","ES" : "4","RJ" : "5","SP" : "6","PR" : "7","SC" : "8", "RS" : "9"};
 
   var parametros='';
   var newData, urlRotaMapa, urlRota;
@@ -215,8 +214,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
 
 
-  function heatMap(pdfs){
-    var arrayPDF = pdfs;
+  function heatMap(arrayPDF){
 
       $.each(statesData.features , function(i){
           nomeEstado = statesData.features[i].properties.Name;
@@ -290,7 +288,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
       legend.onAdd = function (map) {
 
           var div = L.DomUtil.create('div', 'info legend'),
-              grades = [0, 2, 3, 4, 5, 6, 7, 8],
+              grades = [0, 1000, 10000, 20000, 30000, 40000, 50000, 60000],
               labels = [];
 
           div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
@@ -322,16 +320,36 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   }
 
   function getColor(d) {
-      return d > 8 ? '#800026' :
-             d > 7  ? '#BD0026' :
-             d > 6  ? '#E31A1C' :
-             d > 5  ? '#FC4E2A' :
-             d > 4   ? '#FD8D3C' :
-             d > 3   ? '#FEB24C' :
-             d > 2   ? '#FED976' :
+    //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 8 níveis,
+    //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
+      return d > 60000 ? '#800026' :
+             d > 50000  ? '#BD0026' :
+             d > 40000  ? '#E31A1C' :
+             d > 30000  ? '#FC4E2A' :
+             d > 20000   ? '#FD8D3C' :
+             d > 10000   ? '#FEB24C' :
+             d > 1000  ? '#FED976' :
                         '#FFEDA0';
   }
 
   //Coloração do mapa
-  heatMap(pdfs);
+  $.ajax({
+    url: 'js/controller.php',
+    type: 'GET',
+    dataType: 'json',
+    data: {flag: 'consulta', rota: rotas.ClusterEstado()},
+    error: function(e){
+        console.log("ERRO no AJAX :" + e);
+    },
+    success: function(data){
+      if(data!==undefined){
+        var pdfs={};
+        for(k in data){
+          pdfs[data[k].tx_sigla_estado]=data[k].nr_quantidade_osc;
+        }
+        heatMap(pdfs);
+      }
+    }
+  });
+
 });

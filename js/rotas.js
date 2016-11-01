@@ -50,4 +50,8 @@ class Rotas{
   OSCByRegion(term){
     return "http://localhost:8383"+"/api/search/regiao/lista/"+term;
   }
+
+  ClusterEstado(){
+    return "http://localhost:8383"+"/api/geo/cluster/estado";
+  }
 }
