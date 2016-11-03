@@ -1,4 +1,4 @@
-require(["jquery-ui"], function (React) {
+require(["jquery-ui", "datatables-responsive"], function (React) {
 
   $(document).tooltip({
     position: {
@@ -18,7 +18,7 @@ require(["jquery-ui"], function (React) {
 
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons', 'componenteProjectsTable'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, ProjectsTable){
+  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -284,9 +284,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             ],
             "autodeclaradas": [
               {
-                "id_financiador_projeto": 1,
-                "tx_nome_financiador": "João",
-                "ft_nome_financiador": null
+                "vw_osc_area_atuacao_outra": 1,
+                "tx_nome_area_atuacao_outra": "Joaquim",
+                "ft_area_atuacao_outra": null
               }
             ],
             "parceiras": [
@@ -300,20 +300,79 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           },
           {
             "id_osc": 1,
-            "tx_nome_projeto": "test3",
+            "id_projeto": 2,
+            "tx_identificador_projeto_externo": null,
+            "ft_identificador_projeto_externo": null,
+            "tx_nome_projeto": "test2",
             "ft_nome_projeto": null,
-            "tx_nome_status_projeto": "status 1",
+            "tx_nome_status_projeto": "status 3",
             "ft_status_projeto": null,
-            "dt_data_inicio_projeto": "10/02/2003",
+            "dt_data_inicio_projeto": "19/06/2010",
             "ft_data_inicio_projeto": null,
-            "dt_data_fim_projeto": "02/03/2004",
+            "dt_data_fim_projeto": "19/06/2015",
             "ft_data_fim_projeto": null,
             "tx_link_projeto": null,
             "ft_link_projeto": null,
             "nr_total_beneficiarios": null,
             "ft_total_beneficiarios": null,
-            "nr_valor_total_projeto": null,
-            "ft_valor_total_projeto": null
+            "nr_valor_total_projeto": 1000,
+            "ft_valor_total_projeto": null,
+            "tx_valor_captado_projeto": 800,
+            "ft_valor_captado_projeto": null,
+            "tx_metodologia_monitoramento": null,
+            "ft_metodologia_monitoramento": null,
+            "tx_descricao_projeto": null,
+            "ft_descricao_projeto": null,
+            "tx_nome_abrangencia_projeto": null,
+            "ft_nome_abrangencia_projeto": null,
+            "tx_nome_zona_atuacao": null,
+            "ft_nome_zona_atuacao": null,
+            "localizacao_projeto": [
+              {
+                "id_regiao_localizacao_projeto": 2,
+                "tx_nome_regiao_localizacao_projeto": "sp",
+                "ft_nome_regiao_localizacao_projeto": null
+              }
+            ],
+            "publico_beneficiado": [
+              {
+                "id_publico_beneficiado": 1,
+                "tx_nome_publico_beneficiado": "sp",
+                "ft_nome_publico_beneficiado": null
+              }
+            ],
+            "financiadores": [
+              {
+                "id_financiador_projeto": 1,
+                "tx_nome_financiador": "João",
+                "ft_nome_financiador": null
+              }
+            ],
+            "autodeclaradas": [
+              {
+                "vw_osc_area_atuacao_outra": 1,
+                "tx_nome_area_atuacao_outra": "João",
+                "ft_area_atuacao_outra": null
+              }
+            ],
+            "parceiras": [
+              {
+                "id_osc": 2,
+                "tx_nome_osc_parceira_projeto": "Nome da osc parceira 2",
+                "id_projeto": 1,
+                "ft_osc_parceira_projeto": null
+              }
+            ]
+          }
+        ],
+        "lista_projetos":[
+          {
+            "id": 1,
+            "nome": "test1"
+          },
+          {
+            "id": 2,
+            "nome": "test2"
           }
         ],
         "recursos": {
@@ -944,6 +1003,45 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       "parceiras": "OSCs Parceiras",
       "financiadores": "Financiadores do Projeto"
     };
+    var headerObject = {
+      "text": "Projetos, atividade e/ou programas",
+      "id": "lista_projetos",
+      "add_element": true,
+      "priority": 2,
+      "container_class":"project-header"
+    };
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:[headerObject]}
+      ), document.getElementById("projetos")
+    );
+    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+
+    var projects_list = result.lista_projetos;
+    var columns = 1;
+    var sizeOfData = projects_list.length;
+    newData = new Array(sizeOfData);
+
+    for (var i=0; i < projects_list.length; i++){
+      newData[i] = new Array(columns);
+      newData[i][0] = projects_list[i].nome;
+    }
+    $('#table_lista_projetos').DataTable({
+      responsive: true,
+      deferLoading: 1000,
+      deferRender: true,
+      data: newData,
+       columns: [
+               {title: "Nome do Projeto"}
+           ],
+       order: [],
+       aoColumnDefs: [
+         {bSortable :false, aTargets: [0]}
+       ],
+       autoWidth: true
+     });
+    /*
     formItens = [];
     var projetos = result.projetos;
     for (var i = 0; i < projetos.length; i++) {
@@ -960,7 +1058,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       FormItem(
         {header:null, dados:formItens}
       ), document.getElementById("projetos")
-    );
+    );*/
 
   });
 });

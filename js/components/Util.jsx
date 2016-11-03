@@ -337,12 +337,24 @@ define('componenteSection', ['react'], function (React) {
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
+      console.log(dados);
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var HeaderElement = `h${item.priority}`;
+        var ButtonElement;
+        var containerClass = "";
+        if(item.add_element){
+          ButtonElement = <button className="btn-primary btn">Adicionar Projeto</button>
+        }
+        if(item.container_class){
+          containerClass = item.container_class;
+        }
         itens.push(
           <div>
-            <HeaderElement>{item.text}</HeaderElement>
+            <div className={containerClass}>
+              <HeaderElement>{item.text}</HeaderElement>
+              {ButtonElement}
+            </div>
             <div id={item.id}></div>
           </div>
         );
@@ -411,7 +423,6 @@ define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (R
   var FormItemButtons = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
       var ButtonElement;
       var itens = [];
 
