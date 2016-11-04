@@ -147,36 +147,6 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         }
       }
     });
-
-/*
-
-      marker.data.ID = id;//Prune Cluster library version
-      marker.data.nome_osc = nome;
-      marker.data.endereco_osc = endereco;
-      marker.data.area_atuacao_osc = atividade;
-      marker.data.natureza_juridica_osc = natureza;
-      //leafletMarker = L.marker(new L.LatLng(latFinal, lngFinal), { id: id });//Marker Cluster library version
-
-      leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
-          leafletMarker.on('click', function(){
-          //  carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
-            var button ;
-            var div = '<div class="mapa_organizacao clearfix">' +
-                      '<span id="spantitle" class="magneticTooltip">'+
-                      '<a id="title" title="">'+
-                      '<h2>'+ data.nome_osc+'</h2></a><h3> </h3></span>'+
-                      '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ data.endereco_osc +'<br>'+
-                      '<strong>Área de Atuação: </strong>'+data.area_atuacao_osc+'<br>'+
-                      '<strong>Natureza Jurídica: </strong>'+data.natureza_juridica_osc+'<br>'+
-                      '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+data.ID +'">Detalhes</button>'+
-                      '</div></div></div>';
-            leafletMarker.bindPopup(div).openPopup();
-          });
-      };
-
-      leafletView.RegisterMarker(marker);//Prune Cluster library version
-      return leafletView;//Prune Cluster library version
-      */
   }
 
   function loadPoint(id, latFinal, lngFinal){
@@ -216,6 +186,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
+      tabela ();
       if(data!==undefined){
         carregaMapa(data);
         /*
@@ -229,7 +200,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         }
         */
       }
-      tabela ();
+
     },
     error: function (e) {
       console.log(e);
