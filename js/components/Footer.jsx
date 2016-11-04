@@ -76,7 +76,7 @@ define(['react'], function(React) {
 
       for (var i = 0; i < this.props.blockObject.length; i++) {
         var block = this.props.blockObject[i];
-        elem.push(<div className="col-md-4"><dl className="capacho"><dt>{block.title}</dt>{this.geraLinks(block)}</dl></div>);
+        elem.push(<div className="col-xs-6 col-sm-4"><dl className="capacho"><dt>{block.title}</dt>{this.geraLinks(block)}</dl></div>);
       }
       return elem;
     },

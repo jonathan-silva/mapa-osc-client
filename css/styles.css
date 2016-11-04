@@ -784,3 +784,7 @@ body.indisponivel {
 .cor{
   color: #337cbb !important;
 }
+
+#divcarousel .carousel-inner{
+  height: 50px;
+}
