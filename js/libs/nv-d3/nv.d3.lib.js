@@ -86,6 +86,9 @@ function createLineChart(grafico, valores, label_Y)
                 .showXAxis(true)        //Show the x-axis
 								.height(430);
 
+		chart.xAxis
+				.axisLabel("Ano");
+
 	if(label_Y !== ""){
 		 chart.yAxis     //Chart y-axis settings
 				.axisLabel(label_Y)
@@ -106,7 +109,10 @@ function createLineChart(grafico, valores, label_Y)
   return chart;
 }
 
-function createLinePlusBarChart(grafico, valores)
+//config[0] -> formataçao (http://bl.ocks.org/zanarmstrong/raw/05c1e95bf7aa16c4768e/)
+//config[1] -> escala (1000000)
+//config[2] -> texto(M B T)
+function createLinePlusBarChart(grafico, valores, config)
 {
 	var chart = nv.models.linePlusBarChart()
 			.margin({top: 30, right: 60, bottom: 50, left: 70})
@@ -116,17 +122,20 @@ function createLinePlusBarChart(grafico, valores)
 			.x(function(d) { return d.label })
 			.y(function(d) { return d.value })
 			;
-/*
-			chart.xAxis.tickFormat(function(d) {
-				var dx = valores[0].values[d] && valores[0].values[d][0] || 0;
-				return d3.time.format('%x')(new Date(dx))
-   });
-*/
+
+	chart.xAxis
+			.axisLabel("Ano")
+			.tickFormat(function(d) {
+			 	if(!(d % 1 != 0 && !isNaN(d % 1))){
+					return d;
+				}
+			});
+
 	chart.y1Axis
 			.tickFormat(d3.format(',f'));
 
 	chart.y2Axis
-			.tickFormat(function(d) { return d3.format(',f')(d/1000000) + " M" });
+			.tickFormat(function(d) { return d3.format(config[0])(d/config[1]) + config[2] });
 
 
 	chart.bars.forceY([0]);
