@@ -16,6 +16,29 @@ require(["jquery-ui"], function (React) {
   });
 });
 
+/*var controller = angular.module('oscApp', []);
+
+controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
+	var self = this;
+
+	self.carregarDadosGerais = function(){
+		var idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
+		var url = 'http://mapaosc-desenv.ipea.gov.br:8383/api/osc/'+ idOsc; //rotas.OSCByID(id)'
+
+		$http.get(url).then(function(response) {
+      console.log(response);
+			if(response.data.msg == undefined){
+				self.osc = response.data;
+	    	self.msg = '';
+        console.log(self.osc);
+			}else{
+				self.msg = response.data.msg;
+        console.log(self.msg);
+			}
+		});
+	};
+}]);*/
+
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
@@ -32,7 +55,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    var result = {
+
+
+        var result =  {
         "cabecalho": {
           "id_osc": 1,
           "cd_identificador_osc": "1234567891234",
@@ -297,16 +322,17 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         	]
         },
         "participacao_social": {
-        	"id_osc": 1,
+        	"id_osc": 94,
         	"conferencia": [
         		{
-        			"tx_nome_conferencia": "conferencia teste 1",
-        			"ft_nome_conferencia": null,
-        			"dt_data_inicio_conferencia": "05/05/2005",
-        			"ft_data_inicio_conferencia": null,
-        			"dt_data_fim_conferencia": "10/05/2005",
-        			"ft_data_fim_conferencia": null
-        		},
+              "id_conferencia":"1",
+              "tx_nome_conferencia":"Confer\u00eancia das Organiza\u00e7\u00f5es Sociais do Brasil",
+              "ft_nome_conferencia":"RAIS",
+              "dt_ano_realizacao":"null",
+              "ft_ano_realizacao":"null",
+              "tx_nome_forma_participacao_conferencia":"null",
+              "ft_forma_participacao_conferencia":"null"
+            },
             {
         			"tx_nome_conferencia": "conferencia teste 2",
         			"ft_nome_conferencia": null,
@@ -356,7 +382,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       };
 
     //Dados Gerais
-
+console.log(result);
     var dadosGerais = result.dados_gerais;
     var dados_form =
     {
@@ -878,11 +904,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
 
   //  var participacao_social = result.participacao_social;
     var tx_sem_participacao_social = "Não há registros de participacao social";
-    var conselhos = result.conselhos;
-    var conferencias = result.conferencias;
+    var conselhos = result.participacao_social.conselho;
+    var conferencias = result.participacao_social.conferencia;
     var participacao_social_form =
     {
-    "items_participacao_social": [
+    "items": [
         {
           "id": "participacao_social",
           "priority": "2",
@@ -950,27 +976,35 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ]
     };
 
-    formItens = [];
-    for (j=0; j<conselhos.length; j++){
-      for (var property in conselhos[j]) {
-        if (conselhos[j].hasOwnProperty(property)) {
-          if(property == "tx_nome_conselho"){
-            formItensPartSocial.push(new FormItens(conselhos[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
-          }
-          if(property == "nr_numero_assentos"){
-            formItensPartSocial.push(new FormItens(conselhos[j].id, "Numero Assentos", conselhos[j].nr_numero_assentos, conselhos[j].ft_numero_assentos, null, "text"));
-          }
-       }
+    formItens = [];//React.createFactory(participacao_social_form);
+    if (conselhos.length) {
+      var conselho = participacao_social_form.items;
+      console.log(conselhos);
+      for (j=0; j<conselhos.length; j++){
+        for (var property in conselhos[j]) {
+          if (conselhos[j].hasOwnProperty(property)) {
+            if(property == "nm_conselho"){
+            //  console.log(conselhos);
+              formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].nm_conselho, conselhos[j].ft_conselho, null, "text"));
+            }
+            if(property == "nr_numero_assentos"){
+              formItens.push(new FormItens(conselho[j].id, "Numero Assentos", conselhos[j].nr_numero_assentos, conselhos[j].ft_numero_assentos, null, "text"));
+            }
+            if(property == "tx_periodicidade_reuniao"){
+              formItens.push(new FormItens(conselho[j].id, "Periodicidade de Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
+            }
+         }
+        }
       }
-    }
-    formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
-    formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
-    Agrupador = React.createFactory(Agrupador);
-    ReactDOM.render(
-      AgrupadorPartSocial(
-        {dados:formItens}
-      ), document.getElementById("conselhos")
-    );
+      //formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
+      //formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
+      //console.log(formItens);
+      Agrupador = React.createFactory(Agrupador);
+      ReactDOM.render(
+        Agrupador(
+          {dados:formItens}
+        ), document.getElementById("conselhos")
+      );/*
     formItens = [];
     formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
     FormItem = React.createFactory(FormItem);
@@ -979,7 +1013,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:null, dados:formItens}
       ), document.getElementById("conselheiros")
     );
-
+*/
+    }
+    else {
+    formItens.push(new FormItens(null, null, tx_sem_participacao_social, "base", null, "p"));
+    }
 
   });
 });
