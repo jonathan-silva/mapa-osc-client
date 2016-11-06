@@ -117,70 +117,64 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
      });
   }
 
-  function loadPoint(id, latFinal, lngFinal, nome, endereco, natureza, atividade){
-    if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
-      //console.log(lngFinal);
-      var marker = new PruneCluster.Marker(latFinal, lngFinal);//Prune Cluster library version
-      marker.data.ID = id;//Prune Cluster library version
-      marker.data.nome_osc = nome;
-      marker.data.endereco_osc = endereco;
-      marker.data.area_atuacao_osc = atividade;
-      marker.data.natureza_juridica_osc = natureza;
-      //leafletMarker = L.marker(new L.LatLng(latFinal, lngFinal), { id: id });//Marker Cluster library version
+  function loadPopUp(id, leafletMarker){
+    var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
+    leafletMarker.bindPopup(loading).openPopup();
+    $.ajax({
+      url: 'js/controller.php',
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.OSCByID(id)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        if(data!==undefined){
+          //console.log(data);
+          var cabecalho = data.cabecalho;
+          var dadosGerais = data.dados_gerais;
 
-      leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
-          leafletMarker.on('click', function(){
-          //  carregaOSC(data.ID, leafletMarker);//Prune Cluster library version
-            var button ;
-            var div = '<div class="mapa_organizacao clearfix">' +
-                      '<span id="spantitle" class="magneticTooltip">'+
-                      '<a id="title" title="">'+
-                      '<h2>'+ data.nome_osc+'</h2></a><h3> </h3></span>'+
-                      '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ data.endereco_osc +'<br>'+
-                      '<strong>Área de Atuação: </strong>'+data.area_atuacao_osc+'<br>'+
-                      '<strong>Natureza Jurídica: </strong>'+data.natureza_juridica_osc+'<br>'+
-                      '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+data.ID +'">Detalhes</button>'+
-                      '</div></div></div>';
-            leafletMarker.bindPopup(div).openPopup();
-          });
-      };
-
-      leafletView.RegisterMarker(marker);//Prune Cluster library version
-      return leafletView;//Prune Cluster library version
-      //return leafletMarker;//Marker Cluster library version
-    }
-    return null;
+          var div = '<div class="mapa_organizacao clearfix">' +
+                    '<span id="spantitle" class="magneticTooltip">'+
+                    '<a id="title" title="">'+
+                    '<h2>'+ (cabecalho!=null ? cabecalho.tx_razao_social_osc : '')+'</h2></a><h3> </h3></span>'+
+                    '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ (dadosGerais!=null ? dadosGerais.tx_endereco + ", " + dadosGerais.tx_bairro: '') +'<br>'+
+                    //'<strong>Área de Atuação: </strong>'+data.area_atuacao_osc+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(dadosGerais!=null ? dadosGerais.tx_natureza_juridica_osc : '')+'<br>'+
+                    '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
+                    '</div></div></div>';
+          leafletMarker.bindPopup(div).openPopup();
+        }
+      }
+    });
   }
 
-  function pinPoint(id, latFinal, lngFinal){
+  function loadPoint(id, latFinal, lngFinal){
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
-      //console.log(lngFinal);
-      var marker = new PruneCluster.Marker(latFinal, lngFinal);//Prune Cluster library version
-      marker.data.ID = id;//Prune Cluster library version
+      var marker = new PruneCluster.Marker(latFinal, lngFinal);
+      marker.data.ID = id;
 
       leafletView.PrepareLeafletMarker = function(leafletMarker, data) {
           leafletMarker.on('click', function(){
-            //loadPoint(data.ID, leafletMarker);//Prune Cluster library version
-            console.log("chama ajax pra trazer info do ponto");
+            loadPopUp(data.ID, leafletMarker);
           });
       };
 
-      leafletView.RegisterMarker(marker);//Prune Cluster library version
-      return leafletView;//Prune Cluster library version
-      //return leafletMarker;//Marker Cluster library version
+      leafletView.RegisterMarker(marker);
+      return leafletView;
     }
     return null;
   }
 
   function carregaMapa(dados){
     for(k in dados){
-      var point = pinPoint(k, dados[k][0], dados[k][1]);
+      var point = loadPoint(k, dados[k][0], dados[k][1]);
       if(point!==null){
-        map.addLayer(point);//Prune Cluster library version
+        map.addLayer(point);
       }
     }
 
-    leafletView.ProcessView();//Prune Cluster library version
+    leafletView.ProcessView();
   }
 
   $.ajax({
@@ -192,6 +186,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
+      tabela ();
       if(data!==undefined){
         carregaMapa(data);
         /*
@@ -205,7 +200,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         }
         */
       }
-      tabela ();
+
     },
     error: function (e) {
       console.log(e);

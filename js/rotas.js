@@ -23,7 +23,7 @@ class Rotas{
 
   //resultado-consulta.js
   OSCByID(id){
-    return "http://http://mapaosc-desenv.ipea.gov.br:8383"+"/api/osc/"+id;
+    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/osc/"+id;
   }
   OSCByNameInMap(term){
     return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/osc/geo/"+term;
@@ -39,16 +39,16 @@ class Rotas{
   }
 
   OSCByName(term){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/osc/lista/"+term;
+    return "http://mapaosc-desenv.ipea.gov.br:8484"+"/api/search/osc/lista/"+term;
   }
   OSCByCounty(term){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/municipio/lista/"+term;
+    return "http://mapaosc-desenv.ipea.gov.br:8484"+"/api/search/municipio/lista/"+term;
   }
   OSCByState(term){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/estado/lista/"+term;
+    return "http://mapaosc-desenv.ipea.gov.br:8484"+"/api/search/estado/lista/"+term;
   }
   OSCByRegion(term){
-    return "http://mapaosc-desenv.ipea.gov.br:8383"+"/api/search/regiao/lista/"+term;
+    return "http://mapaosc-desenv.ipea.gov.br:8484"+"/api/search/regiao/lista/"+term;
   }
 
   ClusterEstado(){
