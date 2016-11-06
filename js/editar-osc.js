@@ -18,7 +18,8 @@ require(["jquery-ui", "datatables-responsive"], function (React) {
 
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
+  require(
+    ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteLinhaProjeto'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, LinhaProjeto){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -1019,28 +1020,104 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
 
     var projects_list = result.lista_projetos;
-    var columns = 1;
+    var projects = result.projetos;
+    console.log(projects);
+    var columns = 2;
     var sizeOfData = projects_list.length;
     newData = new Array(sizeOfData);
 
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = projects_list[i].nome;
+      newData[i][0] = projects_list[i].id;
+      newData[i][1] = projects_list[i].nome;
     }
-    $('#table_lista_projetos').DataTable({
+    var table_lista_projetos = $('#table_lista_projetos').DataTable({
       responsive: true,
       deferLoading: 1000,
       deferRender: true,
       data: newData,
-       columns: [
-               {title: "Nome do Projeto"}
-           ],
-       order: [],
-       aoColumnDefs: [
-         {bSortable :false, aTargets: [0]}
-       ],
-       autoWidth: true
+      columns: [
+        {DT_RowId: "Id"},
+        {title: "Nome do Projeto"}
+      ],
+      order: [],
+      aoColumnDefs: [
+        {bSortable :false, aTargets: [0]},
+        {
+          "targets": [ 0 ],
+          "visible": false,
+          "searchable": false
+        },
+      ],
+      autoWidth: true
      });
+     $("#table_lista_projetos tr").click(function(){
+       var rowId = $(this)[0]._DT_RowIndex;
+       var divId = "projeto-" + rowId;
+       if($(this).find("td").children().length < 1){
+         $(this).find("td").append('<div id="' + divId + '" class="col-md-12">');
+       }
+     });
+
+     var button = {
+       "type": "remove",
+       "value": "Remover"
+     };
+
+     var buttonAdd = {
+       "type": "add",
+       "value": "Adicionar"
+     };
+
+     var input = {
+       "type": "removable",
+       "value": "AA BB CCC",
+       "buttons": [button],
+       "buttonsInLine": true
+     };
+     var input2 = {
+       "type": "removable",
+       "value": "AA BB CCC",
+       "buttons": [button],
+       "buttonsInLine": false
+     };
+     var input3 = {
+       "type": null,
+       "value": "AA BB CCC",
+       "buttons": [],
+       "buttonsInLine": false
+     };
+
+     var agrupadorInput1 = {
+       "value": "Cabeçalho",
+       "inputs": [input, input2, input3],
+       "buttons": [buttonAdd]
+     };
+     var agrupadorInput2 = {
+       "value": "Cabeçalho 2",
+       "inputs": [input, input2, input3]
+     };
+
+     var coluna1 = {
+       "containerClass": "col-md-3",
+       "agrupadores": [agrupadorInput1]
+     };
+     var coluna2 = {
+       "containerClass": "col-md-6",
+       "agrupadores": [agrupadorInput1, agrupadorInput2]
+     };
+     var linha1 = {
+       "colunas": [coluna1, coluna2]
+     };
+     var linha2 = {
+       "colunas": [coluna1]
+     };
+     LinhaProjeto = React.createFactory(LinhaProjeto);
+     ReactDOM.render(
+       LinhaProjeto(
+         {dados:[linha1, linha2]}
+       ), document.getElementById("projetos")
+     );
     /*
     formItens = [];
     var projetos = result.projetos;
@@ -1062,6 +1139,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
 
   });
 });
+
 
 function findCertificateDate(certificacoes, id){
 
