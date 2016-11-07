@@ -28,6 +28,7 @@ function createDonutChart(grafico, valores){
 function createBarChart(grafico, valores)
 {
 	var chart = nv.models.discreteBarChart()
+				.margin({top: 30, right: 50, bottom: 70, left: 70})
 	      .x(function(d) { return d.label })
 	      .y(function(d) { return d.value })
 	      .staggerLabels(false)
@@ -43,11 +44,12 @@ function createBarChart(grafico, valores)
 	      .transition().duration(1200)
 	      .call(chart);
 
-	var xTicks = d3.selectAll('.nv-x.nv-axis > g')
-	  .selectAll('text').attr('text-anchor','end')
-	  .attr('transform', function(d,i,j) { return 'translate (5, 5) rotate(0 0,0)' });
+		nv.utils.windowResize(function(){
+			chart.update();
+			rotateLabelGrafico(grafico);
+		});
 
-	  nv.utils.windowResize(chart.update);
+		rotateLabelGrafico(grafico);
 
 	  return chart;
 }
@@ -55,6 +57,7 @@ function createBarChart(grafico, valores)
 function createMultiBarChart(grafico, valores)
 {
 	var chart = nv.models.multiBarChart()
+				.margin({bottom: 70})
 				.x(function(d) { return d.label })
 				.y(function(d) { return d.value })
 	      .transitionDuration(350)
@@ -71,14 +74,28 @@ function createMultiBarChart(grafico, valores)
 	        .datum(valores[0].series)
 	        .call(chart);
 
-		 nv.utils.windowResize(chart.update);
+		function stackControls(){
+		  d3.select(grafico + ' .nv-controlsWrap .nv-series:nth-child(1)').attr('transform', 'translate(-85, 0)');
+			d3.select(grafico + ' .nv-controlsWrap .nv-series:nth-child(2)').attr('transform', 'translate(-20, 0)');
+		}
+		 nv.utils.windowResize(function(){
+			 chart.update();
+			 stackControls();
+			 rotateLabelGrafico(grafico);
+		 });
+
+		d3.select(grafico + ' .nv-controlsWrap').on('click', stackControls);
+		d3.select(grafico + ' .nv-legendWrap').on('click', stackControls);
+		stackControls();
+		rotateLabelGrafico(grafico);
+
 	return chart;
 }
 
 function createLineChart(grafico, valores, label_Y)
 {
 	var chart = nv.models.lineChart()
-                .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+								.margin({top: 30, right: 50, bottom: 70, left: 100}) //Adjust chart margins to give the x-axis some breathing room.
                 .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
                 .transitionDuration(350)  //how fast do you want the lines to transition?
                 .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
@@ -105,7 +122,13 @@ function createLineChart(grafico, valores, label_Y)
       .call(chart);          //Finally, render the chart!
 
   //Update the chart when window resizes.
-	nv.utils.windowResize(chart.update);
+	nv.utils.windowResize(function(){
+		chart.update();
+		rotateLabelGrafico(grafico);
+	});
+
+	rotateLabelGrafico(grafico);
+
   return chart;
 }
 
@@ -115,7 +138,7 @@ function createLineChart(grafico, valores, label_Y)
 function createLinePlusBarChart(grafico, valores, config)
 {
 	var chart = nv.models.linePlusBarChart()
-			.margin({top: 30, right: 60, bottom: 50, left: 70})
+			.margin({top: 30, right: 60, bottom: 70, left: 70})
 			//We can set x data accessor to use index. Reason? So the bars all appear evenly spaced.
 		//	.x(function(d,i) { return i })
 		//	.y(function(d,i) {return d[1] })
@@ -147,15 +170,20 @@ function createLinePlusBarChart(grafico, valores, config)
 		.call(chart);
 
 	//Update the chart when window resizes.
-	nv.utils.windowResize(chart.update);
+	nv.utils.windowResize(function(){
+		chart.update();
+		rotateLabelGrafico(grafico);
+	});
+
+	rotateLabelGrafico(grafico);
 	return chart;
 }
 
 function createStackedAreaChart(grafico, valores)
 {
 		var chart = nv.models.stackedAreaChart()
-							 .margin({right: 100})
-					//		 .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+							 .margin({top: 30, right: 100, bottom: 70, left: 50})
+					//     .x(function(d) { return d[0] })   //We can modify the data accessor functions...
 					//		 .y(function(d) { return d[1] })   //...in case your data is formatted differently.
 							 .x(function(d) { return d.label })
 							 .y(function(d) { return d.value })
@@ -178,7 +206,12 @@ function createStackedAreaChart(grafico, valores)
 		 .datum(valores[0].series)
 		 .call(chart);
 
-	 nv.utils.windowResize(chart.update);
+	 nv.utils.windowResize(function(){
+		 chart.update();
+		 rotateLabelGrafico(grafico);
+	 });
+
+	 rotateLabelGrafico(grafico);
 
 	 return chart;
  }
@@ -188,7 +221,7 @@ function createStackedAreaChart(grafico, valores)
 		 var chart = nv.models.multiBarHorizontalChart()
 								.x(function(d) { return d.label })
 								.y(function(d) { return d.value })
-								.margin({top: 30, right: 20, bottom: 50, left: 175})
+								.margin({top: 30, right: 20, bottom: 70, left: 175})
 								.showValues(true)           //Show bar value next to each bar.
 								.tooltips(true)             //Show tooltips on hover.
 								.transitionDuration(350)
@@ -201,7 +234,10 @@ function createStackedAreaChart(grafico, valores)
 				.datum(valores[0].series)
 				.call(chart);
 
-		nv.utils.windowResize(chart.update);
+		nv.utils.windowResize(function(){
+			chart.update();
+			rotateLabelGrafico(grafico);
+		});
 
 		return chart;
 }
@@ -210,7 +246,7 @@ function createStackedAreaChart(grafico, valores)
 function createLineWithFocusChart(grafico, valores)
 {
 	  var chart = nv.models.lineWithFocusChart()
-								.margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+								.margin({top: 30, right: 50, bottom: 70, left: 50}) //Adjust chart margins to give the x-axis some breathing room.
 								.showLegend(true)
 								.height(430);
 
@@ -225,7 +261,29 @@ function createLineWithFocusChart(grafico, valores)
 	      .transition().duration(500)
 	      .call(chart);
 
-	  nv.utils.windowResize(chart.update);
+		nv.utils.windowResize(function(){
+
+		chart.update();
+			rotateLabelGrafico(grafico);
+		});
+
+		rotateLabelGrafico(grafico);
 
 	  return chart;
+}
+
+function rotateLabelGrafico(grafico){
+
+	if(window.innerWidth < 550){
+		var xTicks1 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
+			.selectAll('text').style('text-anchor','end').style('opacity',1).style('font-size',9)
+			.attr('transform', function(d,i,j) { return 'translate (-10, 5) rotate(-90 0,0)' });
+		var xleg1 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
+				.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
+		}
+		else{
+			var xTicks2 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
+				.selectAll("text").style('text-anchor','middle').style('opacity',1).style('font-size',12)
+				.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
+		}
 }

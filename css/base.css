@@ -6441,6 +6441,18 @@ button.close {
       font-size: 14px!important;
       font-weight: bold !important;
     }
+
+    #tabGrafico a {
+      padding: 3px 3px !important;
+    }
+
+    #tabGrafico{
+        height: 110px !important;
+    }
+
+    .col-3-dados, .col-9-dados {
+        width: 100% !important;
+    }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .visible-sm {

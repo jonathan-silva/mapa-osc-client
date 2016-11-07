@@ -232,7 +232,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
     var jsonGrafico10 = [{"tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"OSCs de Saúde, por tipo de estabelecimento de Saúde", key: "Grafico 10", values: [
     {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 },
-    { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia (Sadt Isolado)", "value" : 350 },
+    { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia", "value" : 350 },
     {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188}, {"label": "Outras", "value" : 284 }
     ]}];
 
