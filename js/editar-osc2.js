@@ -16,6 +16,29 @@ require(["jquery-ui"], function (React) {
   });
 });
 
+/*var controller = angular.module('oscApp', []);
+
+controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
+	var self = this;
+
+	self.carregarDadosGerais = function(){
+		var idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
+		var url = 'http://mapaosc-desenv.ipea.gov.br:8383/api/osc/'+ idOsc; //rotas.OSCByID(id)'
+
+		$http.get(url).then(function(response) {
+      console.log(response);
+			if(response.data.msg == undefined){
+				self.osc = response.data;
+	    	self.msg = '';
+        console.log(self.osc);
+			}else{
+				self.msg = response.data.msg;
+        console.log(self.msg);
+			}
+		});
+	};
+}]);*/
+
 require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
@@ -32,7 +55,9 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    var result = {
+
+
+        var result =  {
         "cabecalho": {
           "id_osc": 1,
           "cd_identificador_osc": "1234567891234",
@@ -297,66 +322,99 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         	]
         },
         "participacao_social": {
-        	"id_osc": 1,
+        	"id_osc": 94,
         	"conferencia": [
         		{
-        			"tx_nome_conferencia": "conferencia teste 1",
-        			"ft_nome_conferencia": null,
-        			"dt_data_inicio_conferencia": "05/05/2005",
-        			"ft_data_inicio_conferencia": null,
-        			"dt_data_fim_conferencia": "10/05/2005",
-        			"ft_data_fim_conferencia": null
-        		},
+              "id_conferencia":1,
+              "cd_conferencia":1,
+              "tx_nome_conferencia":"Conferência das Organizações Sociais do Brasil",
+              "ft_conferencia":"RAIS",
+              "dt_ano_realizacao":null,
+              "ft_ano_realizacao":null,
+              "cd_forma_participacao_conferencia":11 ,
+              "tx_nome_forma_participacao_conferencia":"null",
+              "ft_forma_participacao_conferencia": null
+            },
             {
-        			"tx_nome_conferencia": "conferencia teste 2",
-        			"ft_nome_conferencia": null,
-        			"dt_data_inicio_conferencia": "15/01/2008",
-        			"ft_data_inicio_conferencia": null,
-        			"dt_data_fim_conferencia": "25/01/2008",
-        			"ft_data_fim_conferencia": null
+              "id_conferencia":2,
+              "cd_conferencia":2,
+              "tx_nome_conferencia":"Simpósio das Organizações Sociais do Brasil",
+              "ft_conferencia":"SBC",
+              "dt_ano_realizacao":"2010",
+              "ft_ano_realizacao":"null",
+              "cd_forma_participacao_conferencia":22 ,
+              "tx_nome_forma_participacao_conferencia":"null",
+              "ft_forma_participacao_conferencia":"null"
         		}
         	],
+          "conferencia_outra": [
+        		{
+              "id_conferencia_outra":1,
+              "id_conferencia_declarada":2,
+              "tx_nome_conferencia_declarada":"nome",
+              "ft_conferencia_declarada":"ft_nome",
+              "dt_ano_realizacao":"2003",
+              "ft_ano_realizacao":"2013",
+              "cd_forma_participacao_conferencia":11,
+              "tx_nome_forma_participacao_conferencia":"nome_forma",
+              "ft_forma_participacao_conferencial":"ft_forma1"
+        		}
+          ],
         	"conselho": [
         		{
-        			"nm_conselho": "nome conselho 1",
-        			"ft_conselho": null,
-        			"nr_numero_assentos": 30,
-        			"ft_numero_assentos": null,
-        			"tx_periodicidade_reuniao": "Mensal",
-        			"ft_periodicidade_reuniao": null
+              "id_conselho":1,
+              "cd_conselho":1,
+              "tx_nome_conselho":"Conselho1",
+              "ft_conselho":"fonte1",
+              "cd_tipo_participacao":11,
+              "tx_nome_tipo_participacao":"tipo1",
+              "ft_tipo_participacao":"fonte_tipo1",
+              "tx_periodicidade_reuniao":"mensal",
+              "ft_periodicidade_reuniao":"ft_peri",
+              "dt_data_inicio_conselho":"1/1/2001",
+              "ft_data_inicio_conselho":"ft_inicio1",
+              "dt_data_fim_conselho":"1/1/2010",
+              "ft_data_fim_conselho":"ft_fim1"
         		},
             {
-        			"nm_conselho": "nome conselho 2",
-        			"ft_conselho": null,
-        			"nr_numero_assentos": 50,
-        			"ft_numero_assentos": null,
-        			"tx_periodicidade_reuniao": "Semestral",
-        			"ft_periodicidade_reuniao": null
+              "id_conselho":2,
+              "cd_conselho":2,
+              "tx_nome_conselho":"Conselho2",
+              "ft_conselho":"fonte1",
+              "cd_tipo_participacao":22,
+              "tx_nome_tipo_participacao":"tipo2",
+              "ft_tipo_participacao":"fonte_tipo2",
+              "tx_periodicidade_reuniao":"bimestral",
+              "ft_periodicidade_reuniao":"ft_peri",
+              "dt_data_inicio_conselho":"2/2/2002",
+              "ft_data_inicio_conselho":"ft_inicio2",
+              "dt_data_fim_conselho":"2/2/2012",
+              "ft_data_fim_conselho":"ft_fim2"
+        		}
+        	],
+          "declarada": [
+            {
+              "id_participacao_social_declarada": 1,
+              "tx_nome_participacao_social_declarada": "nome declarada",
+        			"ft_nome_participacao_social_declarada": "null",
+        			"tx_tipo_participacao_social_declarada": "tipo declarada",
+              "ft_tipo_participacao_social_declarada": "ft_tipo",
+        			"dt_data_ingresso_participacao_social_declarada": "1/1/2005",
+              "ft_data_ingresso_participacao_social_declarada": "ft_data"
         		}
         	],
         	"outra": [
-        		{
-        			"tx_nome_outra_participacao_social": "nome outra 1",
-        			"ft_nome_outra_participacao_social": null,
-        			"tx_tipo_outra_participacao_social": "tipo outra 1",
-        			"ft_tipo_outra_participacao_social": null,
-        			"dt_data_ingresso_outra_participacao_social": "02/03/2015",
-        			"ft_data_ingresso_outra_participacao_social": null
-        		},
             {
-        			"tx_nome_outra_participacao_social": "nome outra 2",
-        			"ft_nome_outra_participacao_social": null,
-        			"tx_tipo_outra_participacao_social": "tipo outra 2",
-        			"ft_tipo_outra_participacao_social": null,
-        			"dt_data_ingresso_outra_participacao_social": "07/10/2016",
-        			"ft_data_ingresso_outra_participacao_social": null
+        			"id_participacao_social_outra": 2,
+        			"tx_nome_participacao_social_outra": "nome outra ",
+        			"ft_participacao_social_outra": null
         		}
         	]
         }
       };
 
     //Dados Gerais
-
+console.log(result);
     var dadosGerais = result.dados_gerais;
     var dados_form =
     {
@@ -877,12 +935,13 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
 
 
   //  var participacao_social = result.participacao_social;
-    var tx_sem_participacao_social = "Não há registros de participacao social";
-    var conselhos = result.conselhos;
-    var conferencias = result.conferencias;
+    var tx_sem_participacao_social = "Não há registros de participação social";
+    var conselhos = result.participacao_social.conselho;
+    var conferencias = result.participacao_social.conferencia;
+    var outra = result.participacao_social.outra;
     var participacao_social_form =
     {
-    "items_participacao_social": [
+    "items": [
         {
           "id": "participacao_social",
           "priority": "2",
@@ -950,27 +1009,58 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ]
     };
 
-    formItens = [];
-    for (j=0; j<conselhos.length; j++){
-      for (var property in conselhos[j]) {
-        if (conselhos[j].hasOwnProperty(property)) {
-          if(property == "tx_nome_conselho"){
-            formItensPartSocial.push(new FormItens(conselhos[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
-          }
-          if(property == "nr_numero_assentos"){
-            formItensPartSocial.push(new FormItens(conselhos[j].id, "Numero Assentos", conselhos[j].nr_numero_assentos, conselhos[j].ft_numero_assentos, null, "text"));
-          }
-       }
+    formItens = [];//React.createFactory(participacao_social_form);
+    if (conselhos.length) {
+      var conselho = participacao_social_form.items;
+      /*Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:conselho}
+        ), document.getElementById(conselho[0].target)
+      );
+      function DadosForm(label, content) {
+        this.nome = id;
+        this.cargo = text;
+      }*/
+      //console.log(conselhos);
+      //console.log(conselho);
+      for (j=0; j<conselhos.length; j++){
+        for (var property in conselhos[j]) {
+          if (conselhos[j].hasOwnProperty(property)) {
+            //console.log(property);
+            if(property == "tx_nome_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
+            }
+            if(property == "tx_nome_tipo_participacao"){
+              formItens.push(new FormItens(conselho[j].id, "Tipo da Participação", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
+            }
+            if(property == "tx_periodicidade_reuniao"){
+              formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
+            }
+            if(property == "dt_data_inicio_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Data de início", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
+            }
+         }
+        }
       }
-    }
-    formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
-    formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
-    Agrupador = React.createFactory(Agrupador);
-    ReactDOM.render(
-      AgrupadorPartSocial(
-        {dados:formItens}
-      ), document.getElementById("conselhos")
-    );
+      console.log(formItens);
+      //formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
+      //formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
+      //console.log(formItens);
+      Agrupador = React.createFactory(Agrupador);
+      ReactDOM.render(
+        Agrupador(
+          {dados:formItens}
+        ), document.getElementById("participacao_social")
+      );
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("participacao_social")
+      );
+      console.log(FormItem);
+     /*
     formItens = [];
     formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
     FormItem = React.createFactory(FormItem);
@@ -979,7 +1069,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         {header:null, dados:formItens}
       ), document.getElementById("conselheiros")
     );
-
+*/
+    }
+    else {
+    formItens.push(new FormItens(null, null, tx_sem_participacao_social, "base", null, "p"));
+    }
 
   });
 });
