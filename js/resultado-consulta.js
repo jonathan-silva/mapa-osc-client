@@ -124,23 +124,23 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
       url: 'js/controller.php',
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCByID(id)},
+      data: {flag: 'consulta', rota: rotas.OSCPopUpByID(id)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
         if(data!==undefined){
           //console.log(data);
-          var cabecalho = data.cabecalho;
-          var dadosGerais = data.dados_gerais;
-
+          var endereco = data.tx_endereco!=null ? data.tx_endereco : '';
+          var bairro = data.tx_bairro!=null? data.tx_bairro : '';
+          var enderecoCompleto = endereco+' - '+bairro;
           var div = '<div class="mapa_organizacao clearfix">' +
                     '<span id="spantitle" class="magneticTooltip">'+
                     '<a id="title" title="">'+
-                    '<h2>'+ (cabecalho!=null ? cabecalho.tx_razao_social_osc : '')+'</h2></a><h3> </h3></span>'+
-                    '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ (dadosGerais!=null ? dadosGerais.tx_endereco + ", " + dadosGerais.tx_bairro: '') +'<br>'+
-                    //'<strong>Área de Atuação: </strong>'+data.area_atuacao_osc+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(dadosGerais!=null ? dadosGerais.tx_natureza_juridica_osc : '')+'<br>'+
+                    '<h2>'+ (data.tx_nome_osc!=null ? data.tx_nome_osc : '')+'</h2></a><h3> </h3></span>'+
+                    '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
+                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica!=null ? data.tx_nome_atividade_economica : '')+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(data.tx_natureza_juridica_osc!=null ? data.tx_natureza_juridica_osc : '')+'<br>'+
                     '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
