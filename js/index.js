@@ -13,7 +13,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         {
           "key" : "Número OSC Parcerias" ,
           "bar": true,
-          "color": "#ccf",
+          "color": "#8ed5ff",
           "values" : [ {"label" : 2009, "value" : 1184} , {"label" : 2010, "value" : 1035} ,
                       {"label" : 2011, "value" : 16289} , {"label" : 2012, "value" : 16681},
                       {"label" : 2013, "value" : 16803} , {"label" : 2014, "value" : 17039},
@@ -78,10 +78,29 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
   var jsonGrafico4 = [{"tituloColuna":["Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4", values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } , { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
 
+  var jsonGrafico5 = [{"tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Evolução do número de OSCs em atuação no país",
+  series:[
+        {
+          "key" : "Número de OSCs" ,
+          "bar": true,
+          "color": "#ccf",
+          "values" : [ {"label" : 2009, "value" : 365566} , {"label" : 2010, "value" : 367317} ,
+                      {"label" : 2011, "value" : 381680} , {"label" : 2012, "value" : 388934},
+                      {"label" : 2013, "value" : 385424} , {"label" : 2014, "value" : 391371} ]
+        } ,
+        {
+          "key" : "Taxa de Crescimento Acumulado" ,
+          "color" : "#ff7f0e",
+          "values" : [ {"label" : 2009, "value" : 0} , {"label" : 2010, "value" : 0.00478983275249889} ,
+                      {"label" : 2011, "value" : 0.03892297381144} , {"label" : 2012, "value" : 0.0628977469724246},
+                      {"label" : 2013, "value" : 0.0538730795481315} , {"label" : 2014, "value" : 0.069302840019716} ]
+        }
+        ]}];
   createMultiBarChart('#graficoMain-1',jsonGrafico1);
-  createLinePlusBarChart('#graficoMain-2',jsonGrafico2);
+  createLinePlusBarChart('#graficoMain-2',jsonGrafico2,[",f",1000000," M"]);
   createLineChart('#graficoMain-3',jsonGrafico3,"(em R$)");
   createBarChart('#graficoMain-4',jsonGrafico4);
+  createLinePlusBarChart('#graficoMain-5',jsonGrafico5,[",.1%",1,""]);
 
   $("#tabelaMain-1").click(function(){
       createTabela_MultBar_Line(jsonGrafico1,false);
@@ -97,6 +116,10 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
   $("#tabelaMain-4").click(function(){
       createTabela_Bar_Donut(jsonGrafico4);
+  });
+
+  $("#tabelaMain-5").click(function(){
+      createTabela_MultBar_Line(jsonGrafico5,false);
   });
 
 } );

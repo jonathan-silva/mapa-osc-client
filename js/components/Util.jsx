@@ -337,7 +337,6 @@ define('componenteSection', ['react'], function (React) {
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
-      console.log(dados);
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var HeaderElement = `h${item.priority}`;
@@ -456,6 +455,262 @@ define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (R
   return FormItemButtons;
 });
 
+define('componenteFormItemProjeto', ['react', 'componenteFormItemButtons'], function (React, FormItemButtons) {
+  var FormItemProjeto = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+
+      var ButtonElement;
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var className = item.className;
+        var label = item.label;
+        var inputType = item.type;
+        var value = item.value;
+        var buttonValue = item.buttonValue;
+        var buttonType = item.buttonType;
+
+        if(buttonType == "add"){
+          ButtonElement = <button className="btn-primary btn">Adicionar</button>
+        }
+        if(buttonType == "remove") {
+          ButtonElement = <button className="btn-danger btn">Remover</button>
+        }
+        itens.push(
+          <div>
+            <div className="header">{label}</div>
+            <div className="form-group">
+              <FormItemButtons dados={[item]}></FormItemButtons>
+              {ButtonElement}
+            </div>
+          </div>
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return FormItemProjeto;
+});
+
+define('componenteFormButtonProjeto', ['react'], function (React) {
+  var FormButtonProjeto = React.createClass({
+    getContainerClass: function(){
+      if(this.props.inline){
+        return "input-group-btn";
+      }
+      return "";
+    },
+    renderListItems: function(){
+      var dados = this.props.dados;
+      console.log(dados);
+      var ButtonElement;
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var type = item.type;
+        var value = item.value;
+
+        if(type == "add"){
+          if(value === undefined){
+            value = "Adicionar";
+          }
+          ButtonElement = <button className="btn-primary btn">{value}</button>
+        }
+        if(type == "remove") {
+          if(value === undefined){
+            value = "Remover";
+          }
+          ButtonElement = <button className="btn-danger btn">{value}</button>
+        }
+        itens.push(
+          ButtonElement
+        )
+      }
+
+      return itens;
+    },
+
+      render: function() {
+          return (
+            <span className={this.getContainerClass()}>{this.renderListItems()}</span>
+          );
+      }
+  });
+
+  return FormButtonProjeto;
+});
+
+define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto'], function (React, FormButtonProjeto) {
+  var FormInputProjeto = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var type = item.type;
+        var value = item.value;
+        var buttons = item.buttons;
+        var inline = item.buttonsInLine;
+
+        if(value === undefined){
+          value = "";
+        }
+
+        var InputElement = <input className="form-control" value={value}></input>
+
+        if(type == "removable"){
+          InputElement =
+            <div className="input-group">
+              {InputElement}
+              <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
+            </div>
+        }
+        itens.push(
+          InputElement
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div className="form-group">{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return FormInputProjeto;
+});
+
+define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto', 'componenteFormButtonProjeto'], function (React, FormInputProjeto, FormButtonProjeto) {
+  var AgrupadorInputProjeto = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var ButtonElement;
+        var value = item.value;
+        var inputs = item.inputs;
+        var buttons = item.buttons;
+        console.log(value);
+        if(buttons !== undefined){
+          ButtonElement =
+            <FormButtonProjeto dados={buttons}></FormButtonProjeto>
+        } else {
+          ButtonElement = null;
+        }
+        if(value === undefined){
+          value = "";
+        }
+        var ContainerElement =
+          <div>
+            <div className="header">{value}</div>
+            <FormInputProjeto dados={inputs}></FormInputProjeto>
+            {ButtonElement}
+          </div>
+
+        itens.push(
+          ContainerElement
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return AgrupadorInputProjeto;
+});
+
+define('componenteColunaProjeto', ['react', 'componenteAgrupadorInputProjeto'], function (React, AgrupadorInputProjeto) {
+  var ColunaProjeto = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var containerClass = dados[i].containerClass;
+        var agrupadores = item.agrupadores;
+        var ContainerElement =
+          <div className={containerClass}>
+            <AgrupadorInputProjeto dados={agrupadores}></AgrupadorInputProjeto>
+          </div>
+
+        itens.push(
+          ContainerElement
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return ColunaProjeto;
+});
+
+define('componenteLinhaProjeto', ['react', 'componenteColunaProjeto'], function (React, ColunaProjeto) {
+  var LinhaProjeto = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var itens = [];
+
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var colunas = item.colunas;
+        var LinhaElement =
+            <div className="row no-gutter-bordered">
+              <ColunaProjeto dados={colunas}></ColunaProjeto>
+            </div>
+
+        itens.push(
+          LinhaElement
+        )
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return LinhaProjeto;
+});
 
 /*define('componenteLink', ['react'], function (React) {
   var Link = React.createClass({
