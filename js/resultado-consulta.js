@@ -19,16 +19,6 @@ require(["jquery-ui"], function (React) {
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
-  //dummy data para a quantidade de OSCs
-
-  var parametros='';
-  var newData, urlRotaMapa, urlRota;
-  var rotas = new Rotas();
-  var valoresURL = window.location.href.split('?')[1].split('=');
-  var tipoConsulta = valoresURL[0];
-  var stringBuscada = valoresURL[1];
-  stringBuscada = stringBuscada.replace(/\./g, "");
-
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -48,24 +38,39 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   map.addLayer(tiles);
   map.addControl(new L.Control.Layers({/*'Google':ggl2*/}, {'OpenStreetMap': tiles}));
 
-  if(tipoConsulta=="organizacao"){
-    urlRota = rotas.OSCByName(stringBuscada);
-    urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="municipio"){
-    urlRota = rotas.OSCByCounty(stringBuscada);
-    urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="estado"){
-    urlRota = rotas.OSCByState(stringBuscada);
-    urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="regiao"){
-    urlRota = rotas.OSCByRegion(stringBuscada);
-    urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+  var parametros='';
+  var newData, urlRotaMapa, urlRota;
+  var rotas = new Rotas();
+  var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+
+  if(valoresURL!=null){
+    //consulta baseado na escolha da tela anterior
+    var tipoConsulta = valoresURL[0];
+    var stringBuscada = valoresURL[1];
+    stringBuscada = stringBuscada.replace(/\./g, "");
+
+    if(tipoConsulta=="organizacao"){
+      urlRota = rotas.OSCByName(stringBuscada);
+      urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="municipio"){
+      urlRota = rotas.OSCByCounty(stringBuscada);
+      urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="estado"){
+      urlRota = rotas.OSCByState(stringBuscada);
+      urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="regiao"){
+      urlRota = rotas.OSCByRegion(stringBuscada);
+      urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+    }
+    else{
+      console.log("ERRO de URL!");
+    }
   }
   else{
-    console.log("ERRO de URL!");
+    //consulta tudo
   }
 
   function tabela (){
