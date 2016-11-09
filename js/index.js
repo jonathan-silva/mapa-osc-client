@@ -1,6 +1,6 @@
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"tituloColuna":["Natureza Jurídica", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Natureza jurídica das OSCs, por região",
+  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Natureza jurídica das OSCs, por região",
   series:[
     {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 139613 }, {"label" : "SUL", "value" : 81134 }, {"label" : "NORDESTE", "value" : 78358 }, {"label" : "CENTRO-OESTE", "value" : 20869 }, {"label" : "NORTE", "value" : 16331 }]},
     {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 27133 }, {"label" : "SUL", "value" : 6780 }, {"label" : "NORDESTE", "value" : 6704 }, {"label" : "CENTRO-OESTE", "value" : 2930 }, {"label" : "NORTE", "value" : 2437 }]},
@@ -8,7 +8,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 414 }, {"label" : "SUL", "value" : 172 }, {"label" : "NORDESTE", "value" : 214 }, {"label" : "CENTRO-OESTE", "value" : 75 }, {"label" : "NORTE", "value" : 29 }]}
     ]}];
 
-  var jsonGrafico2 = [{"tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs",
+  var jsonGrafico2 = [{"config":[",f",1000000," M",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs",
   series:[
         {
           "key" : "Número OSC Parcerias" ,
@@ -30,7 +30,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
         ]}];
 
-      var jsonGrafico3 = [{"tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
+      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
       series:[
         {
           "tipo_valor":"$",
@@ -76,9 +76,11 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-  var jsonGrafico4 = [{"tituloColuna":["Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4", values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } , { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
+  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4",
+  values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } ,
+            { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
 
-  var jsonGrafico5 = [{"tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Evolução do número de OSCs em atuação no país",
+  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Evolução do número de OSCs em atuação no país",
   series:[
         {
           "key" : "Número de OSCs" ,
@@ -91,16 +93,17 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         {
           "key" : "Taxa de Crescimento Acumulado" ,
           "color" : "#ff7f0e",
-          "values" : [ {"label" : 2009, "value" : 0} , {"label" : 2010, "value" : 0.00478983275249889} ,
-                      {"label" : 2011, "value" : 0.03892297381144} , {"label" : 2012, "value" : 0.0628977469724246},
-                      {"label" : 2013, "value" : 0.0538730795481315} , {"label" : 2014, "value" : 0.069302840019716} ]
+          "values" : [ {"label" : 2009, "value" : 0} , {"label" : 2010, "value" : 0.004789} ,
+                      {"label" : 2011, "value" : 0.038922} , {"label" : 2012, "value" : 0.062897},
+                      {"label" : 2013, "value" : 0.053873} , {"label" : 2014, "value" : 0.069302} ]
         }
         ]}];
+
   createMultiBarChart('#graficoMain-1',jsonGrafico1);
-  createLinePlusBarChart('#graficoMain-2',jsonGrafico2,[",f",1000000," M"]);
-  createLineChart('#graficoMain-3',jsonGrafico3,"(em R$)");
+  createLinePlusBarChart('#graficoMain-2',jsonGrafico2);
+  createLineChart('#graficoMain-3',jsonGrafico3);
   createBarChart('#graficoMain-4',jsonGrafico4);
-  createLinePlusBarChart('#graficoMain-5',jsonGrafico5,[",.1%",1,""]);
+  createLinePlusBarChart('#graficoMain-5',jsonGrafico5);
 
   $("#tabelaMain-1").click(function(){
       createTabela_MultBar_Line(jsonGrafico1,false);

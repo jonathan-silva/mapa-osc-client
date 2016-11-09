@@ -89,7 +89,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
         for (var i=0; i < sizeOfData; i++){
           newData[i] = new Array(columns);
-          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
           newData[i][1] = data[i].tx_nome_osc;
           newData[i][2] = data[i].cd_identificador_osc;
           newData[i][3] = data[i].tx_natureza_juridica_osc;
