@@ -71,6 +71,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   }
   else{
     //consulta tudo
+    urlRotaMapa = rotas.AllOSCInMap();
   }
 
   function tabela (){
