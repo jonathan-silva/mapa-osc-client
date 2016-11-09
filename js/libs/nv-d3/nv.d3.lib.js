@@ -28,7 +28,7 @@ function createDonutChart(grafico, valores){
 function createBarChart(grafico, valores)
 {
 	var chart = nv.models.discreteBarChart()
-				.margin({top: 30, right: 50, bottom: 70, left: 70})
+				.margin({top: 30, right: 50, bottom: 70, left: 80})
 	      .x(function(d) { return d.label })
 	      .y(function(d) { return d.value })
 	      .staggerLabels(false)
@@ -36,8 +36,12 @@ function createBarChart(grafico, valores)
 	      .showValues(true)
 	      .height(430);
 
-		chart.yAxis
-				.tickFormat(d3.format(',f'));
+		chart.xAxis
+				.axisLabel(valores[0].leg_X);
+
+		chart.yAxis     //Chart y-axis settings
+					.axisLabel(valores[0].leg_Y)
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
 	  d3.select(grafico + " svg")
 	      .datum(valores)
@@ -57,7 +61,7 @@ function createBarChart(grafico, valores)
 function createMultiBarChart(grafico, valores)
 {
 	var chart = nv.models.multiBarChart()
-				.margin({bottom: 70})
+				.margin({bottom: 70, left: 80})
 				.x(function(d) { return d.label })
 				.y(function(d) { return d.value })
 	      .transitionDuration(350)
@@ -67,8 +71,12 @@ function createMultiBarChart(grafico, valores)
 	      .groupSpacing(0.1)    //Distance between each group of bars.
 				.height(430);
 
-		chart.yAxis
-						.tickFormat(d3.format(',f'));
+		chart.xAxis
+				.axisLabel(valores[0].leg_X);
+
+		chart.yAxis     //Chart y-axis settings
+					.axisLabel(valores[0].leg_Y)
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
 	    d3.select(grafico + " svg")
 	        .datum(valores[0].series)
@@ -92,7 +100,10 @@ function createMultiBarChart(grafico, valores)
 	return chart;
 }
 
-function createLineChart(grafico, valores, label_Y)
+//config[0] -> formataçao (http://bl.ocks.org/zanarmstrong/raw/05c1e95bf7aa16c4768e/)
+//config[1] -> escala (1000000)
+//config[2] -> texto(M B T)
+function createLineChart(grafico, valores)
 {
 	var chart = nv.models.lineChart()
 								.margin({top: 30, right: 50, bottom: 70, left: 100}) //Adjust chart margins to give the x-axis some breathing room.
@@ -103,19 +114,12 @@ function createLineChart(grafico, valores, label_Y)
                 .showXAxis(true)        //Show the x-axis
 								.height(430);
 
-		chart.xAxis
-				.axisLabel("Ano");
+	chart.xAxis
+			.axisLabel(valores[0].leg_X);
 
-	if(label_Y !== ""){
-		 chart.yAxis     //Chart y-axis settings
-				.axisLabel(label_Y)
-				.tickFormat(function(d) { return d3.format(',f')(d/1000000) + " M" });
-	}
-	else{
-			chart.yAxis     //Chart y-axis settings
-					.tickFormat(d3.format(',f'));
-		}
-
+	chart.yAxis     //Chart y-axis settings
+				.axisLabel(valores[0].leg_Y)
+				.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
   d3.select(grafico + " svg")    //Select the <svg> element you want to render the chart in.
       .datum(valores[0].series)         //Populate the <svg> element with chart data...
@@ -135,10 +139,10 @@ function createLineChart(grafico, valores, label_Y)
 //config[0] -> formataçao (http://bl.ocks.org/zanarmstrong/raw/05c1e95bf7aa16c4768e/)
 //config[1] -> escala (1000000)
 //config[2] -> texto(M B T)
-function createLinePlusBarChart(grafico, valores, config)
+function createLinePlusBarChart(grafico, valores)
 {
 	var chart = nv.models.linePlusBarChart()
-			.margin({top: 30, right: 60, bottom: 70, left: 70})
+			.margin({top: 30, right: 60, bottom: 70, left: 80})
 			//We can set x data accessor to use index. Reason? So the bars all appear evenly spaced.
 		//	.x(function(d,i) { return i })
 		//	.y(function(d,i) {return d[1] })
@@ -147,7 +151,7 @@ function createLinePlusBarChart(grafico, valores, config)
 			;
 
 	chart.xAxis
-			.axisLabel("Ano")
+			.axisLabel(valores[0].leg_X)
 			.tickFormat(function(d) {
 			 	if(!(d % 1 != 0 && !isNaN(d % 1))){
 					return d;
@@ -155,10 +159,11 @@ function createLinePlusBarChart(grafico, valores, config)
 			});
 
 	chart.y1Axis
-			.tickFormat(d3.format(',f'));
+			.axisLabel(valores[0].leg_Y)
+			.tickFormat(d3.format(valores[0].config[3]));
 
 	chart.y2Axis
-			.tickFormat(function(d) { return d3.format(config[0])(d/config[1]) + config[2] });
+			.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
 
 	chart.bars.forceY([0]);
@@ -227,8 +232,12 @@ function createStackedAreaChart(grafico, valores)
 								.transitionDuration(350)
 								.showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
 
-		chart.yAxis
-				.tickFormat(d3.format(',.2f'));
+		chart.xAxis
+				.axisLabel(valores[0].leg_X);
+
+		chart.yAxis     //Chart y-axis settings
+					.axisLabel(valores[0].leg_Y)
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
 		d3.select(grafico + " svg")
 				.datum(valores[0].series)
@@ -250,11 +259,16 @@ function createLineWithFocusChart(grafico, valores)
 								.showLegend(true)
 								.height(430);
 
-	  chart.yAxis
-	      .tickFormat(d3.format(',f'));
 
-	  chart.y2Axis
-	      .tickFormat(d3.format(',f'));
+		chart.xAxis
+				.axisLabel(valores[0].leg_X);
+
+	  chart.yAxis
+	      .tickFormat(d3.format(valores[0].config[3]));
+
+		chart.y2Axis     //Chart y-axis settings
+					.axisLabel(valores[0].leg_Y)
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
 	  d3.select(grafico + " svg")
 	      .datum(valores[0].series)
@@ -279,11 +293,13 @@ function rotateLabelGrafico(grafico){
 			.selectAll('text').style('text-anchor','end').style('opacity',1).style('font-size',9)
 			.attr('transform', function(d,i,j) { return 'translate (-10, 5) rotate(-90 0,0)' });
 		var xleg1 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
-				.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
+				.attr('transform', function(d,i,j) { return 'translate (0, 40) rotate(0 0,0)' }) ;
 		}
 		else{
 			var xTicks2 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
 				.selectAll("text").style('text-anchor','middle').style('opacity',1).style('font-size',12)
 				.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
+			var xleg2 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
+					.attr('transform', function(d,i,j) { return 'translate (0, 20) rotate(0 0,0)' }) ;
 		}
 }
