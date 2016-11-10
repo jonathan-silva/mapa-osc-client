@@ -513,31 +513,31 @@ define('componenteFormButtonProjeto', ['react'], function (React) {
     },
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
       var ButtonElement;
       var itens = [];
-      for (var i = 0; i < dados.length; i++) {
-        var item = dados[i];
-        var type = item.type;
-        var value = item.value;
+      if(dados){
+        for (var i = 0; i < dados.length; i++) {
+          var item = dados[i];
+          var type = item.type;
+          var value = item.value;
 
-        if(type == "add"){
-          if(value === undefined){
-            value = "Adicionar";
+          if(type == "add"){
+            if(value === undefined){
+              value = "Adicionar";
+            }
+            ButtonElement = <button className="btn-primary btn">{value}</button>
           }
-          ButtonElement = <button className="btn-primary btn">{value}</button>
-        }
-        if(type == "remove") {
-          if(value === undefined){
-            value = "Remover";
+          if(type == "remove") {
+            if(value === undefined){
+              value = "Remover";
+            }
+            ButtonElement = <button className="btn-danger btn">{value}</button>
           }
-          ButtonElement = <button className="btn-danger btn">{value}</button>
+          itens.push(
+            ButtonElement
+          )
         }
-        itens.push(
-          ButtonElement
-        )
       }
-
       return itens;
     },
 
@@ -555,23 +555,23 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto'], f
   var FormInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-
+      console.log(dados);
       var itens = [];
 
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
-        var type = item.type;
-        var value = item.value;
+        var removable = item.removable;
+        var content = item.content;
         var buttons = item.buttons;
         var inline = item.buttonsInLine;
 
-        if(value === undefined){
-          value = "";
+        if(content === undefined){
+          content = "";
         }
 
-        var InputElement = <input className="form-control" value={value}></input>
+        var InputElement = <input className="form-control" value={content}></input>
 
-        if(type == "removable"){
+        if(removable){
           InputElement =
             <div className="input-group">
               {InputElement}
@@ -602,26 +602,25 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
-
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var ButtonElement;
-        var value = item.value;
+        var header = item.header;
         var inputs = item.inputs;
+        var containerClass = dados[i].containerClass;
         var buttons = item.buttons;
-        console.log(value);
-        if(buttons !== undefined){
+        if(buttons !== undefined || null){
           ButtonElement =
             <FormButtonProjeto dados={buttons}></FormButtonProjeto>
         } else {
           ButtonElement = null;
         }
-        if(value === undefined){
-          value = "";
+        if(header === undefined){
+          header = "";
         }
         var ContainerElement =
-          <div>
-            <div className="header">{value}</div>
+          <div className={containerClass}>
+            <div className="header">{header}</div>
             <FormInputProjeto dados={inputs}></FormInputProjeto>
             {ButtonElement}
           </div>
