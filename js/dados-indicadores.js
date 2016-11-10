@@ -22,7 +22,7 @@ require(['jquery-ui'], function (React) {
 
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"tituloColuna":["Tamanho", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Tamanho das OSCs, por região",
+  var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"1- Distribuição das OSCs por número de Empregados e Região",
   series:[
     {key: "0", values: [{"label" : "Sudeste", "value" : 127866 }, {"label" : "Sul", "value" : 73278 }, {"label" : "Nordeste", "value" : 75689 }, {"label" : "Centro-Oeste", "value" : 17885 }, {"label" : "Norte", "value" : 15844 }]},
     {key: "1 a 4", values: [{"label" : "Sudeste", "value" : 22644 }, {"label" : "Sul", "value" : 9100 }, {"label" : "Nordeste", "value" : 6798 }, {"label" : "Centro-Oeste", "value" : 3943 }, {"label" : "Norte", "value" : 1943 }]},
@@ -31,15 +31,15 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "100 ou mais", values: [{"label" : "Sudeste", "value" : 2210 }, {"label" : "Sul", "value" : 661 }, {"label" : "Nordeste", "value" : 488 }, {"label" : "Centro-Oeste", "value" : 241 }, {"label" : "Norte", "value" : 126 }]}
     ]}];
 
-    var jsonGrafico2 = [{"tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Empregos formais nas OSCs, por natureza jurídica e região", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
-    var jsonGrafico3 = [{"tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Atividade econômica das OSCs", key: "Grafico 3", values: [
+    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Empregos formais nas OSCs, por natureza jurídica e região", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
+    var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"3- Atividade econômica das OSCs", key: "Grafico 3", values: [
       {"label": "Outras atividades de serviços", "value" : 318663 }, {"label": "Artes, cultura, esporte e recreação", "value" : 27842 },
       {"label": "Saúde humana e serviços sociais", "value" : 18774}, {"label": "Educação", "value" : 16682},
       { "label": "Outras", "value" : 9410}
     ]}];
-    var jsonGrafico4 = [{"tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"OSCs com parcerias com o Governo Federal, por região", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8656 }, {"label" : "Nordeste", "value" : 5073 } ,{ "label" : "Sul" , "value" : 4407 }, {"label" : "Centro-Oeste", "value" : 1439}, {"label" : "Norte", "value" : 1257}]}];
+    var jsonGrafico4 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"4- OSCs com parcerias com o Governo Federal, por região", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8656 }, {"label" : "Nordeste", "value" : 5073 } ,{ "label" : "Sul" , "value" : 4407 }, {"label" : "Centro-Oeste", "value" : 1439}, {"label" : "Norte", "value" : 1257}]}];
 
-    var jsonGrafico5 = [{"tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual de OSCs com parcerias com o Governo Federal, por instrumento de parceria",
+    var jsonGrafico5 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"5- Evolução anual de OSCs com parcerias com o Governo Federal, por instrumento de parceria",
       series:[
         {
           values: [{"x" : 2009, "y" : 124 }, {"x" : 2010, "y" : 118 }, {"x" : 2011, "y" : 38 },
@@ -91,7 +91,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-      var jsonGrafico6 = [{"tipo_valor":"$","tituloColuna":["Tipo", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para OSCs, por instrumento de parceria",
+      var jsonGrafico6 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tipo_valor":"$","tituloColuna":["Tipo", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"6- Evolução anual dos repasses federais para OSCs, por instrumento de parceria",
       series:[
         {
           "tipo_valor":"$",
@@ -151,7 +151,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-      var jsonGrafico7 = [{"tituloColuna":["Divisão", "Ano da Parceria", "Total OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual de OSCs com parcerias com o Governo Federal, por tamanho da OSC",
+      var jsonGrafico7 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Divisão", "Ano da Parceria", "Total OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"7- Evolução anual de OSCs com parcerias com o Governo Federal, por tamanho da OSC",
         series:[
           {
             values: [{"x" : 2009, "y" : 397 }, {"x" : 2010, "y" : 365 }, {"x" : 2011, "y" : 13237 },
@@ -185,7 +185,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-        var jsonGrafico8 = [{"tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
+        var jsonGrafico8 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"8- Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
         series:[
           {
             "tipo_valor":"$",
@@ -224,19 +224,19 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-    var jsonGrafico9 = [{"tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013).","titulo":"OSCs de Assistência Social, por serviço prestado", key: "Grafico 9", values: [
+    var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013).","titulo":"9- OSCs de Assistência Social, por serviço prestado", key: "Grafico 9", values: [
     {"label" : "Proteção Básica", "value" : 7906 }, {"label" : "Proteção Especial - Alta Complexidade", "value" : 1975 },
     { "label" : "Assessoramento, Defesa e Garantia de Direitos" , "value" : 1652 }, {"label" : "Proteção Especial - Média Complexidade", "value" : 1147},
     {"label" : "Outras Ofertas", "value" : 975}, {"label" : "Benefícios Eventuais", "value" : 206}
     ]}];
 
-    var jsonGrafico10 = [{"tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"OSCs de Saúde, por tipo de estabelecimento de Saúde", key: "Grafico 10", values: [
+    var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"10- OSCs de Saúde, por tipo de estabelecimento de Saúde", key: "Grafico 10", values: [
     {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 },
     { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia", "value" : 350 },
     {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188}, {"label": "Outras", "value" : 284 }
     ]}];
 
-  var jsonGrafico11 = [{"tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"OSCs de Saúde, por região e tipo de gestão do estabelecimento de Saúde",
+  var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"11- OSCs de Saúde, por região e tipo de gestão do estabelecimento de Saúde",
   series:[
     {key: "Municipal", values: [{"label" : "Sudeste", "value" : 1932 }, {"label" : "Sul", "value" : 726 }, {"label" : "Nordeste", "value" : 497 }, {"label" : "Centro-Oeste", "value" : 180 }, {"label" : "Norte", "value" : 86 }]},
     {key: "Estadual", values: [{"label" : "Sudeste", "value" : 240 }, {"label" : "Sul", "value" : 403 }, {"label" : "Nordeste", "value" : 58 }, {"label" : "Centro-Oeste", "value" : 75 }, {"label" : "Norte", "value" : 22 }]},
@@ -244,7 +244,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     ]}];
 
 
-  var jsonGrafico12 = [{"tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"OSCs de Economia Solidária, por região e tipo de vínculo com outras entidades",
+  var jsonGrafico12 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"12- OSCs de Economia Solidária, por região e tipo de vínculo com outras entidades",
   series:[
     {key: "Não possui vínculo", values: [{"label" : "Sudeste", "value" : 19 }, {"label" : "Sul", "value" : 15 }, {"label" : "Nordeste", "value" : 17 }, {"label" : "Centro-Oeste", "value" : 1 }, {"label" : "Norte", "value" : 7 }]},
     {key: "Federação de órgãos sociais", values: [{"label" : "Sudeste", "value" : 0 }, {"label" : "Sul", "value" : 0 }, {"label" : "Nordeste", "value" : 11 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 3 }]},
@@ -253,7 +253,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Instituição de ensino e/ou pesquisa", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 7 }, {"label" : "Nordeste", "value" : 0 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 0 }]}
     ]}];
 
-  var jsonGrafico13 = [{"tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"OSCs de Economia Solidária, por região e abrangência da atuação",
+  var jsonGrafico13 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"13- OSCs de Economia Solidária, por região e abrangência da atuação",
   series:[
     {key: "Estadual e/ou inter-estadual", values: [{"label" : "Sudeste", "value" : 26 }, {"label" : "Sul", "value" : 28 }, {"label" : "Nordeste", "value" : 30 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 50 }]},
     {key: "Nacional", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 11 }, {"label" : "Nordeste", "value" : 15 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 7 }]},
@@ -264,10 +264,10 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createBarChart('#grafico-2',jsonGrafico2);
   createDonutChart('#grafico-3',jsonGrafico3);
   createBarChart('#grafico-4',jsonGrafico4);
-  createLineChart('#grafico-5',jsonGrafico5,"");
-  createLineChart('#grafico-6',jsonGrafico6, "(em R$)");
-  createLineChart('#grafico-7',jsonGrafico7,"");
-  createLineChart('#grafico-8',jsonGrafico8, "(em R$)");
+  createLineChart('#grafico-5',jsonGrafico5);
+  createLineChart('#grafico-6',jsonGrafico6);
+  createLineChart('#grafico-7',jsonGrafico7);
+  createLineChart('#grafico-8',jsonGrafico8);
   createDonutChart('#grafico-9',jsonGrafico9);
   createDonutChart('#grafico-10',jsonGrafico10);
   createMultiBarChart('#grafico-11',jsonGrafico11);

@@ -19,16 +19,6 @@ require(["jquery-ui"], function (React) {
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
-  //dummy data para a quantidade de OSCs
-
-  var parametros='';
-  var newData, urlRotaMapa, urlRota;
-  var rotas = new Rotas();
-  var valoresURL = window.location.href.split('?')[1].split('=');
-  var tipoConsulta = valoresURL[0];
-  var stringBuscada = valoresURL[1];
-  stringBuscada = stringBuscada.replace(/\./g, "");
-
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -48,24 +38,40 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   map.addLayer(tiles);
   map.addControl(new L.Control.Layers({/*'Google':ggl2*/}, {'OpenStreetMap': tiles}));
 
-  if(tipoConsulta=="organizacao"){
-    urlRota = rotas.OSCByName(stringBuscada);
-    urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="municipio"){
-    urlRota = rotas.OSCByCounty(stringBuscada);
-    urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="estado"){
-    urlRota = rotas.OSCByState(stringBuscada);
-    urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
-  }
-  else if(tipoConsulta=="regiao"){
-    urlRota = rotas.OSCByRegion(stringBuscada);
-    urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+  var parametros='';
+  var newData, urlRotaMapa, urlRota;
+  var rotas = new Rotas();
+  var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+
+  if(valoresURL!=null){
+    //consulta baseado na escolha da tela anterior
+    var tipoConsulta = valoresURL[0];
+    var stringBuscada = valoresURL[1];
+    stringBuscada = stringBuscada.replace(/\./g, "");
+
+    if(tipoConsulta=="organizacao"){
+      urlRota = rotas.OSCByName(stringBuscada);
+      urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="municipio"){
+      urlRota = rotas.OSCByCounty(stringBuscada);
+      urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="estado"){
+      urlRota = rotas.OSCByState(stringBuscada);
+      urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
+    }
+    else if(tipoConsulta=="regiao"){
+      urlRota = rotas.OSCByRegion(stringBuscada);
+      urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+    }
+    else{
+      console.log("ERRO de URL!");
+    }
   }
   else{
-    console.log("ERRO de URL!");
+    //consulta tudo
+    urlRotaMapa = rotas.AllOSCInMap();
   }
 
   function tabela (){
@@ -84,7 +90,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
         for (var i=0; i < sizeOfData; i++){
           newData[i] = new Array(columns);
-          newData[i][0] = "<img class='img-circle media-object' src='img/camera.png' height='64' width='64'>";
+          newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
           newData[i][1] = data[i].tx_nome_osc;
           newData[i][2] = data[i].cd_identificador_osc;
           newData[i][3] = data[i].tx_natureza_juridica_osc;
@@ -140,7 +146,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
                     '<h2>'+ (data.tx_nome_osc!=null ? data.tx_nome_osc : '')+'</h2></a><h3> </h3></span>'+
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
                     '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica!=null ? data.tx_nome_atividade_economica : '')+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(data.tx_natureza_juridica_osc!=null ? data.tx_natureza_juridica_osc : '')+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica!=null ? data.tx_nome_natureza_juridica : '')+'<br>'+
                     '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();

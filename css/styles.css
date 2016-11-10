@@ -259,6 +259,8 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 
 /*Página Dados e Indicadores*/
 .col-3-dados{
+  padding-left: 0px;
+  padding-right: 0px;
   width: 25%;
 }
 .col-9-dados{
@@ -271,6 +273,10 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   overflow-y: scroll;
   overflow-x: hidden;
   height: 530px;
+  box-shadow: 0px 1px 5px gray;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #grafico-1 svg, #grafico-2 svg, #grafico-3 svg, #grafico-4 svg, #grafico-5 svg,

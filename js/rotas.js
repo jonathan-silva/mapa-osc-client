@@ -40,6 +40,9 @@ class Rotas{
   OSCByRegionInMap(term){
     return this.getBaseUrl()+":8383/api/search/regiao/geo/"+term;
   }
+  AllOSCInMap(){
+    return this.getBaseUrl()+":8383/api/geo/osc/";
+  }
 
   OSCByName(term){
     return this.getBaseUrl()+":8484/api/search/osc/lista/"+term;
@@ -52,6 +55,9 @@ class Rotas{
   }
   OSCByRegion(term){
     return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
+  }
+  AllOSC(term){
+    //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
   }
 
   ClusterEstado(){
