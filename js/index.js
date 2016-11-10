@@ -173,6 +173,23 @@ require(["jquery-ui", "rotas"], function (React) {
     }
   });
 
+  function replaceSpecialChars(str){
+    str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
+    str = str.replace(/[àáâãäå]/,"a");
+    str = str.replace(/[ÉÈÊË]/,"E");
+    str = str.replace(/[éèêë]/,"e");
+    str = str.replace(/[ÍÌÎÏ]/,"I");
+    str = str.replace(/[íìîï]/,"i");
+    str = str.replace(/[ÓÒÔÕ]/,"O");
+    str = str.replace(/[óòôõ]/,"o");
+    str = str.replace(/[ÚÙÛÜ]/,"U");
+    str = str.replace(/[úùûü]/,"u");
+    str = str.replace(/[Ç]/,"C");
+    str = str.replace(/[ç]/,"c");
+    console.log(str);
+    return str;
+  }
+
   //autocomplete organizacao
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
@@ -181,7 +198,7 @@ require(["jquery-ui", "rotas"], function (React) {
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(request.term.replace(/ /g, '+'), limiteAutocomplete)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -211,7 +228,7 @@ require(["jquery-ui", "rotas"], function (React) {
            url: controller,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(request.term.replace(/ /g, '+'), limiteAutocomplete)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -241,7 +258,7 @@ require(["jquery-ui", "rotas"], function (React) {
           url: controller,//4204251
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(request.term.replace(/ /g, '+'), limiteAutocomplete)},
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -271,7 +288,7 @@ $("#regiao .form-control").autocomplete({
          url: controller,//4204251
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(request.term.replace(/ /g, '+'), limiteAutocomplete)},
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
