@@ -146,7 +146,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
                     '<h2>'+ (data.tx_nome_osc!=null ? data.tx_nome_osc : '')+'</h2></a><h3> </h3></span>'+
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
                     '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica!=null ? data.tx_nome_atividade_economica : '')+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(data.tx_natureza_juridica_osc!=null ? data.tx_natureza_juridica_osc : '')+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica!=null ? data.tx_nome_natureza_juridica : '')+'<br>'+
                     '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
