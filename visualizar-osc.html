@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Página da OSC</title>
+    <title>Visualizar OSC</title>
     <link rel="icon" href="img/fav.png"/>
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -18,15 +18,14 @@
     <div id="conteudo" class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-            <img src="img/camera.png" class="center-block img-responsive img-rounded">
+          <div class="divImg">
+            <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
-          <div class="col-md-9">
+          <div>
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}</h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}</h3>
             <h3>Atividade Econômica: {{ctrl.osc.cabecalho.ft_atividade_economica_osc}}</h3>
             <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_natureza_juridica}}</h3>
-            <a class="btn btn-primary">Como Colaborar</a>
           </div>
         </div>
       </div>
@@ -35,85 +34,91 @@
       <div class="container">
         <ul class="nav nav-pills">
           <li>
-            <a href="#menu1">Dados Gerais</a>
+            <a href="#dados_gerais" name="dados_gerais" class="scroll">Dados Gerais</a>
           </li>
           <li>
-            <a href="#menu2">Titulações e Certificações</a>
+            <a href="#menu2" name="menu2" class="scroll">Titulações e Certificações</a>
           </li>
           <li>
-            <a href="#menu3">Relações de Trabalho</a>
+            <a href="#menu3" name="menu3" class="scroll">Relações de Trabalho</a>
           </li>
           <li>
-            <a href="#menu5">Recursos</a>
+            <a href="#menu4" name="menu4" class="scroll">Recursos</a>
           </li>
           <li>
-            <a href="#menu4">Projetos</a>
+            <a href="#menu5" name="menu5" class="scroll">Projetos</a>
           </li>
           <li>
             <a href="javascript:if(window.print)window.print()">Imprimir</a>
+          </li>
+          <li>
+            <div class="btnColabore">
+              <a type="button" class="btn btn-primary btn-sm">Como Colaborar</a>
+            </div>
           </li>
         </ul>
         <hr>
         <div class="row">
           <div class="col-md-12" id="dados_gerais">
             <h2>Dados Gerais</h2>
-            <div class="col-md-6 ">
+            <div class="col-md-12 ">
               <div class="form-group">
                 <label>Nome Fantasia:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_fantasia_osc}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_fantasia_osc}}</span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_sigla_osc}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_sigla_osc}}</span>
               </div>
               <div class="form-group">
                 <label>Atalho:</label>
-                <p class="form-control-static"></p>
+                <span class="form-control-static"></span>
               </div>
               <div class="form-group">
                 <label>Endereço do Imóvel:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}} {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}} {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_responsavel_legal}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_responsavel_legal}}</span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_natureza_juridica}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_natureza_juridica}}</span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_email}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_email}}</span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_site}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_site}}</span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_telefone}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_telefone}}</span>
               </div>
               <div class="form-group">
                 <label>Resumo da OSC:</label>
-                <textarea class="form-control" disabled="disabled">{{ctrl.osc.dados_gerais.tx_resumo_osc}}</textarea>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_resumo_osc}}</span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_natureza_juridica}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_natureza_juridica}}</span>
               </div>
               <div class="form-group">
                 <label>Link do Estatuto:</label>
-                <p class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</p>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</span>
               </div>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
           <div class="col-md-12">
             <hr>
           </div>
           <div class="col-md-12">
             <h2>Áreas de Atuação</h2>
-            <div class="col-md-7 " ng-repeat="area in ctrl.osc.areas_atuacao">
+            <div class="col-md-12 " ng-repeat="area in ctrl.osc.areas_atuacao">
               <div class="form-group">
                 <label>{{area.tx_nome_macro_area_fasfil}}</label>
                 <div>
@@ -124,7 +129,7 @@
                 <label>Áreas autodeclaradas</label>
                 <div class="form-group" ng-repeat="autodeclarada in area.areas_autodeclaradas">
                   <div class="">
-                    <p class="form-control-static">{{autodeclarada.tx_nome_area_atuacao_declarada}}</p>
+                    <span class="form-control-static">{{autodeclarada.tx_nome_area_atuacao_declarada}}</span>
                   </div>
                 </div>
               </div>
@@ -135,29 +140,29 @@
           </div>
           <div class="col-md-12">
             <h2>Descrição da OSC</h2>
-            <div class="col-md-7 ">
+            <div class="col-md-12 ">
               <div class="form-group">
                 <label>Como surgiu a OSC:</label>
                 <div>
-                  <textarea class="form-control" disabled="disabled">{{ctrl.osc.descricao.tx_como_surgiu}}</textarea>
+                  <span class="form-control-static">{{ctrl.osc.descricao.tx_como_surgiu}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                 <div>
-                  <textarea class="form-control" disabled="disabled">{{ctrl.osc.descricao.tx_missao_osc}}</textarea>
+                  <span class="form-control-static">{{ctrl.osc.descricao.tx_missao_osc}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                 <div>
-                  <textarea class="form-control" disabled="disabled">{{ctrl.osc.descricao.tx_visao_osc}}</textarea>
+                  <span class="form-control-static">{{ctrl.osc.descricao.tx_visao_osc}}</span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                 <div>
-                  <textarea class="form-control" disabled="disabled">{{ctrl.osc.descricao.tx_finalidades_estatutarias}}</textarea>
+                  <span class="form-control-static">{{ctrl.osc.descricao.tx_finalidades_estatutarias}}</span>
                 </div>
               </div>
             </div>
@@ -165,55 +170,65 @@
           <div class="col-md-12 ">
             <hr>
           </div>
-          <div class="col-md-8 " id="menu2 ">
+          <div class="col-md-12 " id="menu2">
             <h2>Titulações e Certificações</h2>
             <div ng-repeat="certificacao in ctrl.osc.certificacoes">
               <label>{{certificacao.nm_certificado}}</label>
-              <span>{{certificacao.ft_certificado}}</span>
-              <span>(Emitido em {{certificacao.dt_inicio_certificado}} - Válido até {{certificacao.dt_fim_certificado}})</span>
+              <span class="form-control-static">{{certificacao.ft_certificado}}</span>
+              <span class="form-control-static">(Emitido em {{certificacao.dt_inicio_certificado}} - Válido até {{certificacao.dt_fim_certificado}})</span>
             </div>
+
           </div>
           <div class="col-md-12 ">
             <hr>
           </div>
-          <div class="col-md-12 " id="menu3 ">
+          <div class="col-md-12 " id="menu3">
             <h2>Relações de Trabalho</h2>
             <div class="col-md-5 form-inline">
               <h3>Colaboradores</h3>
-              <div>
-                <label>Total de Colaboradores</label>
-                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores}}</p>
-              </div>
-              <div>
-                <label>Trabalhadores com vínculo</label>
-                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_vinculo}}</p>
-              </div>
-              <div>
-                <label>Trabalhadores com deficiência</label>
-                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_deficiencia}}</p>
+              <div class="form-group">
+                <label>Total de Colaboradores:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores}}</span>
+                </div>
               </div>
               <div class="form-group">
-                <label>Voluntários</label>
-                <p class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_voluntarios}}</p>
+                <label>Trabalhadores com vínculo:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_vinculo}}</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Trabalhadores com deficiência:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_deficiencia}}</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Voluntários:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
+                </div>
               </div>
             </div>
             <div class="col-md-7 form-inline">
               <h3>Quadro de Dirigentes</h3>
               <div class="edit-toggle " ng-repeat="dirigente in ctrl.osc.dirigentes">
                 <div class="form-group">
-                  <p class="form-control-static">{{dirigente.tx_cargo_dirigente}}</p>
+                  <span class="form-control-static">{{dirigente.tx_cargo_dirigente}}</span>
                 </div>
                 <span>:</span>
                 <div class="form-group">
-                  <p class="form-control-static">{{dirigente.tx_nome_dirigente}}</p>
+                  <span class="form-control-static">{{dirigente.tx_nome_dirigente}}</span>
                 </div>
               </div>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
-          <div class="col-md-12 ">
+          <div class="col-md-12">
             <hr>
           </div>
-          <div class="col-md-12 " id="menu ">
+          <div class="col-md-12">
             <h2>Espaços de Participação Social</h2>
             <div class="">
               <div> <span class="h3">Conselhos</span></div>
@@ -228,13 +243,13 @@
                 <tbody>
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
-                      <p class="form-control-static">{{conselho.nm_conselho}}</p>
+                      <span class="form-control-static">{{conselho.nm_conselho}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{conselho.nr_numero_assentos}}</p>
+                      <span class="form-control-static">{{conselho.nr_numero_assentos}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</p>
+                      <span class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</span>
                     </td>
                   </tr>
                 </tbody>
@@ -254,13 +269,13 @@
                 <tbody>
                   <tr ng-repeat="conferencia in ctrl.osc.participacao_social.conferencia">
                     <td>
-                      <p class="form-control-static">{{conferencia.tx_nome_conferencia}}</p>
+                      <span class="form-control-static">{{conferencia.tx_nome_conferencia}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{conferencia.dt_data_inicio_conferencia}}</p>
+                      <span class="form-control-static">{{conferencia.dt_data_inicio_conferencia}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{conferencia.dt_data_fim_conferencia}}</p>
+                      <span class="form-control-static">{{conferencia.dt_data_fim_conferencia}}</span>
                     </td>
                   </tr>
                 </tbody>
@@ -279,13 +294,13 @@
                 <tbody>
                   <tr ng-repeat="outra in ctrl.osc.participacao_social.outra">
                     <td>
-                      <p class="form-control-static">{{outra.tx_nome_outra_participacao_social}}</p>
+                      <span class="form-control-static">{{outra.tx_nome_outra_participacao_social}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{outra.tx_tipo_outra_participacao_social}}</p>
+                      <span class="form-control-static">{{outra.tx_tipo_outra_participacao_social}}</span>
                     </td>
                     <td>
-                      <p class="form-control-static">{{outra.dt_data_ingresso_outra_participacao_social}}</p>
+                      <span class="form-control-static">{{outra.dt_data_ingresso_outra_participacao_social}}</span>
                     </td>
                   </tr>
                 </tbody>
@@ -295,53 +310,55 @@
           <div class="col-md-12 ">
             <hr>
           </div>
-          <div class="col-md-12 " id="menu4 ">
+          <div class="col-md-12 " id="menu4">
             <h2>Recursos</h2>
             <div class="col-md-5 ">
               <div class="form-group">
                 <label>Valor total dos recursos:</label>
-                <span>{{ctrl.osc.recursos.nr_valor_total}}</span>
+                <span class="form-control-static">{{ctrl.osc.recursos.nr_valor_total}}</span>
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias federais:</label>
-                <span>{{ctrl.osc.recursos.nr_valor_federal}}</span>
+                <span class="form-control-static">{{ctrl.osc.recursos.nr_valor_federal}}</span>
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias estaduais:</label>
-                <span>{{ctrl.osc.recursos.nr_valor_estadual}}</span>
+                <span class="form-control-static">{{ctrl.osc.recursos.nr_valor_estadual}}</span>
               </div>
               <div class="form-group">
                 <label>Valor das Parcerias municipais:</label>
-                <span>{{ctrl.osc.recursos.nr_valor_municipal}}</span>
+                <span class="form-control-static">{{ctrl.osc.recursos.nr_valor_municipal}}</span>
               </div>
               <div class="form-group">
                 <label>Valor dos recursos privados:</label>
-                <span>{{ctrl.osc.recursos.nr_valor_privado}}</span>
+                <span class="form-control-static">{{ctrl.osc.recursos.nr_valor_privado}}</span>
               </div>
               <div class="form-group">
-                <p class="form-control-static"><a href="{{ctrl.osc.recursos.ft_link_demonstracao_contabil}}">{{ctrl.osc.recursos.tx_link_demonstracao_contabil}}</a></p>
+                <span class="form-control-static"><a href="{{ctrl.osc.recursos.ft_link_demonstracao_contabil}}">{{ctrl.osc.recursos.tx_link_demonstracao_contabil}}</a></span>
               </div>
               <div class="form-group">
-                <p class="form-control-static"><a href="{{ctrl.osc.recursos.ft_link_relatorio_auditoria}}">{{ctrl.osc.recursos.tx_link_relatorio_auditoria}}</a></p>
+                <span class="form-control-static"><a href="{{ctrl.osc.recursos.ft_link_relatorio_auditoria}}">{{ctrl.osc.recursos.tx_link_relatorio_auditoria}}</a></span>
               </div>
             </div>
             <div class="col-md-7 form-inline">
               <h3>Conselho Contábil</h3>
               <div class="edit-toggle " ng-repeat="conselheiro in ctrl.osc.recursos.conselho_contabil">
                 <div class="form-group">
-                  <p class="form-control-static">{{conselheiro.tx_cargo_conselheiro}}</p>
+                  <span class="form-control-static">{{conselheiro.tx_cargo_conselheiro}}</span>
                 </div>
                 <span>:</span>
                 <div class="form-group">
-                  <p class="form-control-static">{{conselheiro.tx_nome_conselheiro}}</p>
+                  <span class="form-control-static">{{conselheiro.tx_nome_conselheiro}}</span>
                 </div>
               </div>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
+
           <div class="col-md-12 ">
             <hr>
           </div>
-          <div class="col-md-12 " id="menu5 ">
+          <div class="col-md-12 " id="menu5">
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas</h2>
             </div>
@@ -359,7 +376,7 @@
                         Nome
                       </div>
                       <div class="form-group">
-                        <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                        <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                       </div>
                     </div>
                   </div>
@@ -367,25 +384,25 @@
                     <div class="col-md-3">
                       <div class="header ">Status</div>
                       <div class="form-group">
-                        <p class="form-control-static">{{proj.tx_nome_status_projeto}}</p>
+                        <span class="form-control-static">{{proj.tx_nome_status_projeto}}</span>
                       </div>
                     </div>
                     <div class="col-md-3 ">
                       <div class="header ">Data de Início</div>
                       <div class="form-group">
-                        <p class="form-control-static">{{proj.dt_data_inicio_projeto}}</p>
+                        <span class="form-control-static">{{proj.dt_data_inicio_projeto}}</span>
                       </div>
                     </div>
                     <div class="col-md-3 ">
                       <div class="header ">Data de Fim</div>
                       <div class="form-group">
-                        <p class="form-control-static">{{proj.dt_data_fim_projeto}}</p>
+                        <span class="form-control-static">{{proj.dt_data_fim_projeto}}</span>
                       </div>
                     </div>
                     <div class="col-md-3 ">
                       <div class="header ">Link</div>
                       <div class="form-group">
-                        <p class="form-control-static">{{proj.tx_link_projeto}}</p>
+                        <span class="form-control-static">{{proj.tx_link_projeto}}</span>
                       </div>
                     </div>
                   </div>
@@ -395,7 +412,7 @@
                         <div class="header ">Total de Beneficiários</div>
                         <div class="form-group">
                           <div class="form-group">
-                            <p class="form-control-static">{{proj.nr_total_beneficiarios}}</p>
+                            <span class="form-control-static">{{proj.nr_total_beneficiarios}}</span>
                           </div>
                         </div>
                       </div>
@@ -403,17 +420,17 @@
                         <div class="header ">Público Beneficiado</div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                       </div>
@@ -422,13 +439,13 @@
                       <div>
                         <div class="header ">Valor Total</div>
                         <div class="form-group">
-                          <p class="form-control-static">{{proj.nr_valor_total_projeto}}</p>
+                          <span class="form-control-static">{{proj.nr_valor_total_projeto}}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Valor Captado</div>
                         <div class="form-group">
-                          <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
                       </div>
                     </div>
@@ -436,12 +453,12 @@
                       <div>
                         <div class="header ">Tipo da Fonte de Recursos</div>
                         <div class="form-group">
-                          <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
                         <div>
                           <div class="header ">Financiadores do Projeto</div>
                           <div class="form-group">
-                            <textarea class="form-control" disabled="disabled">{{proj.tx_nome_projeto}}</textarea>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                       </div>
@@ -451,22 +468,22 @@
                         <div class="header ">Área Auto-declarada do projeto</div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                       </div>
@@ -477,13 +494,13 @@
                       <div>
                         <div class="header ">Abrangência</div>
                         <div class="form-group">
-                          <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Zona de Atuação</div>
                         <div class="form-group">
-                          <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
                       </div>
                     </div>
@@ -492,7 +509,7 @@
                       <div class="form-group">
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                       </div>
@@ -502,7 +519,7 @@
                       <div class="form-group">
                         <div class="form-group">
                           <div class="">
-                            <p class="form-control-static">{{proj.tx_nome_projeto}}</p>
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                           </div>
                         </div>
                       </div>
@@ -512,7 +529,7 @@
                     <div class="col-md-12 ">
                       <div class="header">Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa</div>
                       <div class="form-group">
-                        <textarea class="form-control" disabled="disabled">{{proj.tx_nome_projeto}}</textarea>
+                        <span class="form-control-static" >{{proj.tx_nome_projeto}}</span>
                       </div>
                     </div>
                   </div>
@@ -520,13 +537,14 @@
                     <div class="col-md-12 ">
                       <div class="header">Descrição do Projeto, atividade e/ou programa</div>
                       <div class="form-group">
-                        <textarea class="form-control" disabled="disabled">{{proj.tx_nome_projeto}}</textarea>
+                        <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
         </div>
       </div>

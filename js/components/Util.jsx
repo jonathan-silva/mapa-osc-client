@@ -471,6 +471,7 @@ define('componenteFormItemProjeto', ['react', 'componenteFormItemButtons'], func
         var value = item.value;
         var buttonValue = item.buttonValue;
         var buttonType = item.buttonType;
+        var type = item.type;
 
         if(buttonType == "add"){
           ButtonElement = <button className="btn-primary btn">Adicionar</button>
@@ -551,29 +552,43 @@ define('componenteFormButtonProjeto', ['react'], function (React) {
   return FormButtonProjeto;
 });
 
-define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto'], function (React, FormButtonProjeto) {
+define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'componenteDropdown'], function (React, FormButtonProjeto, Dropdown) {
   var FormInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
       var itens = [];
 
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
+        console.log(item);
+        var id = item.id;
+        console.log(id);
         var removable = item.removable;
         var content = item.content;
         var buttons = item.buttons;
         var inline = item.buttonsInLine;
+        var type = item.type;
+        var options = item.options;
 
         if(content === undefined){
           content = "";
         }
 
-        var InputElement = <input className="form-control" value={content}></input>
+        if(type == 'select'){
+          var InputElement =
+            <div id={id}>
+              <Dropdown list={options} selected={content}></Dropdown>
+            </div>
+        } else {
+          var InputElement =
+            <div id={id}>
+              <input className="form-control" value={content}></input>
+            </div>
+        }
 
         if(removable){
           InputElement =
-            <div className="input-group">
+            <div id={id} className="input-group">
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
@@ -604,6 +619,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
+        console.log(item);
         var ButtonElement;
         var header = item.header;
         var inputs = item.inputs;
