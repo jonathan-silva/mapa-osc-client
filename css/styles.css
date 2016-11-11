@@ -794,3 +794,16 @@ body.indisponivel {
 #divcarousel .carousel-inner{
   height: 50px;
 }
+.logoOSC{
+  max-width: 150px;
+}
+.divImg{
+  padding-bottom: 15px;
+  width: 180px;
+  float: left;
+  padding-left: 5px;
+}
+.btnColabore{
+  padding-top: 10px;
+  padding-bottom: 5px;
+}

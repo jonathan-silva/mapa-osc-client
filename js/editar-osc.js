@@ -370,59 +370,96 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         	]
         },
         "participacao_social": {
-        	"id_osc": 1,
+        	"id_osc": 94,
         	"conferencia": [
         		{
-        			"tx_nome_conferencia": "conferencia teste 1",
-        			"ft_nome_conferencia": null,
-        			"dt_data_inicio_conferencia": "05/05/2005",
-        			"ft_data_inicio_conferencia": null,
-        			"dt_data_fim_conferencia": "10/05/2005",
-        			"ft_data_fim_conferencia": null
-        		},
+              "id_conferencia":1,
+              "cd_conferencia":1,
+              "tx_nome_conferencia":"Conferência das Organizações Sociais do Brasil",
+              "ft_conferencia":"RAIS",
+              "dt_ano_realizacao":null,
+              "ft_ano_realizacao":null,
+              "cd_forma_participacao_conferencia":11 ,
+              "tx_nome_forma_participacao_conferencia":"null",
+              "ft_forma_participacao_conferencia": null
+            },
             {
-        			"tx_nome_conferencia": "conferencia teste 2",
-        			"ft_nome_conferencia": null,
-        			"dt_data_inicio_conferencia": "15/01/2008",
-        			"ft_data_inicio_conferencia": null,
-        			"dt_data_fim_conferencia": "25/01/2008",
-        			"ft_data_fim_conferencia": null
+              "id_conferencia":2,
+              "cd_conferencia":2,
+              "tx_nome_conferencia":"Simpósio das Organizações Sociais do Brasil",
+              "ft_conferencia":"SBC",
+              "dt_ano_realizacao":"2010",
+              "ft_ano_realizacao":"null",
+              "cd_forma_participacao_conferencia":22 ,
+              "tx_nome_forma_participacao_conferencia":"null",
+              "ft_forma_participacao_conferencia":"null"
         		}
         	],
+          "conferencia_outra": [
+        		{
+              "id_conferencia_outra":1,
+              "id_conferencia_declarada":2,
+              "tx_nome_conferencia_declarada":"nome",
+              "ft_conferencia_declarada":"ft_nome",
+              "dt_ano_realizacao":"2003",
+              "ft_ano_realizacao":"2013",
+              "cd_forma_participacao_conferencia":11,
+              "tx_nome_forma_participacao_conferencia":"nome_forma",
+              "ft_forma_participacao_conferencial":"ft_forma1"
+        		}
+          ],
         	"conselho": [
         		{
-        			"nm_conselho": "nome conselho 1",
-        			"ft_conselho": null,
-        			"nr_numero_assentos": 30,
-        			"ft_numero_assentos": null,
-        			"tx_periodicidade_reuniao": "Mensal",
-        			"ft_periodicidade_reuniao": null
+              "id_conselho":1,
+              "cd_conselho":1,
+              "tx_nome_conselho":"Conselho1",
+              "ft_conselho":"fonte1",
+              "cd_tipo_participacao":11,
+              "tx_nome_tipo_participacao":"Suplente",
+              "ft_tipo_participacao":"fonte_tipo1",
+              "tx_periodicidade_reuniao":"mensal",
+              "ft_periodicidade_reuniao":"ft_peri",
+              "dt_data_inicio_conselho":"1/1/2001",
+              "ft_data_inicio_conselho":"ft_inicio1",
+              "dt_data_fim_conselho":"1/1/2010",
+              "ft_data_fim_conselho":"ft_fim1",
+              "id_representante_conselho" :1,
+              "id_participacao_social_conselho":1,
+              "tx_nome_representante_conselho":"TEXT",
+              "ft_nome_representante_conselho":"TEXT"
         		},
             {
-        			"nm_conselho": "nome conselho 2",
-        			"ft_conselho": null,
-        			"nr_numero_assentos": 50,
-        			"ft_numero_assentos": null,
-        			"tx_periodicidade_reuniao": "Semestral",
-        			"ft_periodicidade_reuniao": null
+              "id_conselho":2,
+              "cd_conselho":2,
+              "tx_nome_conselho":"Conselho2",
+              "ft_conselho":"fonte1",
+              "cd_tipo_participacao":22,
+              "tx_nome_tipo_participacao":"Titular",
+              "ft_tipo_participacao":"fonte_tipo2",
+              "tx_periodicidade_reuniao":"bimestral",
+              "ft_periodicidade_reuniao":"ft_peri",
+              "dt_data_inicio_conselho":"2/2/2002",
+              "ft_data_inicio_conselho":"ft_inicio2",
+              "dt_data_fim_conselho":"2/2/2012",
+              "ft_data_fim_conselho":"ft_fim2"
+        		}
+        	],
+          "declarada": [
+            {
+              "id_participacao_social_declarada": 1,
+              "tx_nome_participacao_social_declarada": "nome declarada",
+        			"ft_nome_participacao_social_declarada": "null",
+        			"tx_tipo_participacao_social_declarada": "tipo declarada",
+              "ft_tipo_participacao_social_declarada": "ft_tipo",
+        			"dt_data_ingresso_participacao_social_declarada": "1/1/2005",
+              "ft_data_ingresso_participacao_social_declarada": "ft_data"
         		}
         	],
         	"outra": [
-        		{
-        			"tx_nome_outra_participacao_social": "nome outra 1",
-        			"ft_nome_outra_participacao_social": null,
-        			"tx_tipo_outra_participacao_social": "tipo outra 1",
-        			"ft_tipo_outra_participacao_social": null,
-        			"dt_data_ingresso_outra_participacao_social": "02/03/2015",
-        			"ft_data_ingresso_outra_participacao_social": null
-        		},
             {
-        			"tx_nome_outra_participacao_social": "nome outra 2",
-        			"ft_nome_outra_participacao_social": null,
-        			"tx_tipo_outra_participacao_social": "tipo outra 2",
-        			"ft_tipo_outra_participacao_social": null,
-        			"dt_data_ingresso_outra_participacao_social": "07/10/2016",
-        			"ft_data_ingresso_outra_participacao_social": null
+        			"id_participacao_social_outra": 2,
+        			"tx_nome_participacao_social_outra": "nome outra ",
+        			"ft_participacao_social_outra": null
         		}
         	]
         }
@@ -948,261 +985,424 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ), document.getElementById("trabalhadores")
     );
 
-    //Projetos
-    var labelMap = {
-      "tx_nome_projeto": {
-        "header": "Nome do projeto, atividade ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_status_projeto": {
-        "header": "Status",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": ["ABC", "BCA"]
-      },
-      "dt_data_inicio_projeto": {
-        "header": "Data de Início",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "dt_data_fim_projeto": {
-        "header": "Data de Fim",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_link_projeto": {
-        "header": "Link",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "nr_total_beneficiarios": {
-        "header": "Total de Beneficiários",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "nr_valor_total_projeto": {
-        "header": "Valor Total",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_valor_captado_projeto": {
-        "header": "Valor Captado",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "financiadores": {
-        "header": "Financiadores do Projeto",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "textarea",
-        "options": null
-      },
-      "autodeclaradas": {
-        "header": "Área Auto-declarada do projeto",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "publico_beneficiado": {
-        "header": "Público Beneficiado",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_abrangencia_projeto": {
-        "header": "Abrangência",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": null
-      },
-      "localizacao_projeto": {
-        "header": "Local de execução do projeto, atividade ou programa",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "parceiras": {
-        "header": "OSCs Parceiras",
-        "containerClass": "col-md-6",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_zona_atuacao": {
-        "header": "Zona de Atuação",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": null
-      },
-      "tx_metodologia_monitoramento": {
-        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null
-      },
-      "tx_descricao_projeto": {
-        "header": "Descrição do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null
-      }
+
+    // Participacao Social
+    var tx_sem_participacao_social = "Não há registros de participação social";
+    var conselhos = result.participacao_social.conselho;
+    var conferencias = result.participacao_social.conferencia;
+    var outras = result.participacao_social.outra;
+    var participacao_social_form =
+    {
+    "items": [
+        {
+          "id": "participacao_social",
+          "priority": "2",
+          "text": "Espaços de Participação Social",
+          "target": "participacao_social"
+        },
+        {
+          "id": "conselhos",
+          "priority": "3",
+          "text": "Conselhos de Políticas Públicas",
+          "target": "participacao_social"
+        },
+        {
+          "id": "conferencias",
+          "priority": "3",
+          "text": "Conferências de Políticas Públicas",
+          "target": "participacao_social"
+        },
+        {
+          "id": "outros_part",
+          "priority": "3",
+          "text": "Outros espaços de participação social",
+          "target": "participacao_social"
+        }
+      ]
     };
-    var headerObject = {
-      "text": "Projetos, atividade e/ou programas",
-      "id": "lista_projetos",
-      "add_element": true,
-      "priority": 2,
-      "container_class":"project-header"
-    };
+
+    items = participacao_social_form.items;
     Section = React.createFactory(Section);
     ReactDOM.render(
       Section(
-        {dados:[headerObject]}
-      ), document.getElementById("projetos")
+        {dados:items}
+      ), document.getElementById(items[0].target)
     );
-    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
 
-    var buttonRemove = {
-      "type": "remove",
-      "value": "Remover"
-    };
-
-    var buttonAdd = {
-      "type": "add",
-      "value": "Adicionar"
-    };
-
-    function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine){
-      this.id = id;
-      this.content = content;
-      this.type = type;
-      this.options = options;
-      this.removable = removable;
-      this.buttons = buttons;
-      this.buttonsInLine = buttonsInLine;
-    }
-
-    function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
-      this.id = id;
-      this.containerClass = containerClass;
-      this.header = header;
-      this.inputs = inputs;
-      this.buttons = buttons;
-    }
-
-    var projects_list = result.lista_projetos;
-    var projects = [result.projetos[0]];
-    var agrupadores = [];
-    for (var i = 0; i < projects.length; i++) {
-      var projectId = projects[i].id_projeto;
-      for (var property in projects[i]) {
-        if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-          var sectionId = property;
-          var value = projects[i][property];
-          var header = labelMap[property].header;
-          var containerClass = labelMap[property].containerClass;
-          var removable = labelMap[property].removable;
-          var type = labelMap[property].type;
-          var options = labelMap[property].options;
-          var buttons = null;
-          var buttonsInLine = false;
-
-          var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
-
-          var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-
-          agrupadores.push(agrupadorInputProjeto);
+    formItens = [];
+    if (conselhos.length) {
+      var conselho = participacao_social_form.items;
+      for (j=0; j<conselhos.length; j++){
+        for (var property in conselhos[j]) {
+          if (conselhos[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
+            }
+            if(property == "tx_nome_tipo_participacao"){
+              formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
+            }
+            if(property == "tx_nome_representante_conselho "){
+              formItens.push(new FormItens(conselho[j].id, "Nome de representante", conselhos[j].tx_nome_representante_conselho , conselhos[j].ft_nome_representante_conselho, null, "text"));
+            }
+            if(property == "tx_periodicidade_reuniao"){
+              formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
+            }
+            if(property == "dt_data_inicio_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
+            }
+            if(property == "dt_data_fim_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text"));
+            }
+         }
         }
       }
-      var localizacao = getLocalizacaoProjeto(projectId);
-      var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
-      var financiadores = getFinanciadoresProjeto(projectId);
-      var autodeclaradas = getAutodeclaradasProjeto(projectId);
-      var parceiras = getParceirasProjeto(projectId);
-      var multipleInputs = [
-        localizacao, publicoBeneficiado, financiadores,
-        autodeclaradas, parceiras
-      ];
-      console.log(agrupadores);
-      for (var j = 0; j < multipleInputs.length; j++) {
-        var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
-        agrupadores.push(agrupador);
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselhos")
+      );
+    }
+  formItens = [];
+    if (conferencias.length) {
+      var conferencia = participacao_social_form.items;
+      for (j=0; j<conferencias.length; j++){
+        for (var property in conferencias[j]) {
+          if (conferencias[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+            }
+            if(property == "tx_nome_forma_participacao_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+            }
+            if(property == "dt_ano_realizacao"){
+              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+            }
+         }
+        }
       }
-
-      console.log(agrupadores);
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
     }
 
-    AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
-    ReactDOM.render(
-      AgrupadorInputProjeto(
-        {dados:agrupadores}
-      ), document.getElementById("projetos")
-    );
+    formItens = [];
+    if (outras.length) {
+      console.log(outras);
+      var outra = participacao_social_form.items;
+      for (j=0; j<outras.length; j++){
+        for (var property in outras[j]) {
+          if (outras[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_participacao_social_outra"){
+              formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
+            }
+         }
+        }
+      }
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("outros_part")
+      );
+    }
 
 
-    function createAgrupadorMultipleInputs(object){
-      var sectionId = object.id
-      var element = labelMap[object.id];
-      var inputs = [];
-      var value = "";
-      var removable = element.removable;
-      var type = element.type;
-      var options = element.options;
-      var buttonsInput = null;
-      var buttonsInLine = false;
-      if(removable){
-        buttonsInput = [buttonRemove];
-        buttonsAgrupador = [buttonAdd];
-        buttonsInLine = true;
+    //Projetos
+    function carregaProjeto(id){
+      var labelMap = {
+        "tx_nome_projeto": {
+          "header": "Nome do projeto, atividade ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_status_projeto": {
+          "header": "Status",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": ["ABC", "BCA"]
+        },
+        "dt_data_inicio_projeto": {
+          "header": "Data de Início",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "dt_data_fim_projeto": {
+          "header": "Data de Fim",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_link_projeto": {
+          "header": "Link",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "nr_total_beneficiarios": {
+          "header": "Total de Beneficiários",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "nr_valor_total_projeto": {
+          "header": "Valor Total",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_valor_captado_projeto": {
+          "header": "Valor Captado",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "fonte_de_recursos": {
+          "header": "Fonte de Recursos",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Público", "Privado", "Próprio"
+          ]
+        },
+        "fonte_de_recursos_publico": {
+          "header": "Fonte de Recursos Públicos",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Municipal", "Federal", "Estadual"
+          ]
+        },
+        "financiadores": {
+          "header": "Financiadores do Projeto",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        },
+        "autodeclaradas": {
+          "header": "Área de atuação do projeto, atividade ou programa",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "publico_beneficiado": {
+          "header": "Público Beneficiado",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_abrangencia_projeto": {
+          "header": "Abrangência de atuação",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Municipal", "Estadual", "Regional", "Nacional"
+          ]
+        },
+        "localizacao_projeto": {
+          "header": "Local de execução do projeto, atividade ou programa",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "parceiras": {
+          "header": "OSCs Parceiras",
+          "containerClass": "col-md-6",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_zona_atuacao": {
+          "header": "Zona de Atuação",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Rural", "Urbana"
+          ]
+        },
+        "tx_metodologia_monitoramento": {
+          "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        },
+        "tx_descricao_projeto": {
+          "header": "Descrição do Projeto, atividade e/ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        }
+      };
+
+      var buttonRemove = {
+        "type": "remove",
+        "value": "Remover"
+      };
+
+      var buttonAdd = {
+        "type": "add",
+        "value": "Adicionar"
+      };
+
+      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine){
+        this.id = id;
+        this.content = content;
+        this.type = type;
+        this.options = options;
+        this.removable = removable;
+        this.buttons = buttons;
+        this.buttonsInLine = buttonsInLine;
       }
 
-      for (var i = 0; i < object.dados.length; i++) {
-        var inputId = sectionId + "-" + i;
-        for (var property in object.dados[i]) {
-          if (object.dados[i].hasOwnProperty(property)) {
-            if(property.slice(0,2) === "tx"){
-              value = object.dados[i][property];
+      function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+        this.id = id;
+        this.containerClass = containerClass;
+        this.header = header;
+        this.inputs = inputs;
+        this.buttons = buttons;
+      }
+
+      var projects = [result.projetos[id]];
+      var agrupadores = [];
+      for (var i = 0; i < projects.length; i++) {
+        var projectId = projects[i].id_projeto;
+        for (var property in projects[i]) {
+          if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
+            var sectionId = property;
+            var value = projects[i][property];
+            var header = labelMap[property].header;
+            var containerClass = labelMap[property].containerClass;
+            var removable = labelMap[property].removable;
+            var type = labelMap[property].type;
+            var options = labelMap[property].options;
+            var buttons = null;
+            var buttonsInLine = false;
+
+            var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
+
+            var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+
+            agrupadores.push(agrupadorInputProjeto);
+          }
+        }
+        var localizacao = getLocalizacaoProjeto(projectId);
+        var fonte = getFonteDeRecursosProjeto(projectId);
+        var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
+        var financiadores = getFinanciadoresProjeto(projectId);
+        var autodeclaradas = getAutodeclaradasProjeto(projectId);
+        var parceiras = getParceirasProjeto(projectId);
+        var multipleInputs = [
+          localizacao, publicoBeneficiado, financiadores,
+          autodeclaradas, parceiras, fonte
+        ];
+        for (var j = 0; j < multipleInputs.length; j++) {
+          var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
+          agrupadores.push(agrupador);
+        }
+      }
+
+      function createAgrupadorMultipleInputs(object){
+        var sectionId = object.id
+        var element = labelMap[object.id];
+        var inputs = [];
+        var value = "";
+        var removable = element.removable;
+        var type = element.type;
+        var options = element.options;
+        var suboptions = null;
+        var buttonsInput = null;
+        var buttonsInLine = false;
+        if(removable){
+          buttonsInput = [buttonRemove];
+          buttonsAgrupador = [buttonAdd];
+          buttonsInLine = true;
+        }
+        for (var i = 0; i < object.dados.length; i++) {
+          var inputId = sectionId + "-" + i;
+          for (var property in object.dados[i]) {
+            if (object.dados[i].hasOwnProperty(property)) {
+              if(sectionId == "fonte_de_recursos"){
+                if(property === "tx_nome_origem_fonte_recursos_projeto"){
+                  value = object.dados[i][property];
+                  options = labelMap[object.id].options;
+                  console.log(options);
+                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  inputs.push(inputProjeto);
+                  // for (var j = 0; j < element.options.length; j++) {
+                  //   console.log(element.options[j]);
+                  // }
+                  // console.log(element.options);
+                } else if (property === "tx_nome_fonte_recursos_projeto"){
+                  options = labelMap[object.id+"_publico"].options;
+                  console.log(options);
+                  var inputId = "sub-" + sectionId + "-" + i;
+                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  inputs.push(inputProjeto);
+                }
+              } else if(property.slice(0,2) === "tx"){
+                value = object.dados[i][property];
+                var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                inputs.push(inputProjeto);
+              }
             }
           }
         }
-        var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-        inputs.push(inputProjeto);
+
+        var header = element.header;
+        var containerClass = element.containerClass;
+        var buttonsAgrupador = null;
+        if(removable){
+          buttonsInput = [buttonRemove];
+          buttonsAgrupador = [buttonAdd];
+        }
+        var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
+        return agrupadorInputProjeto;
       }
 
-      var header = element.header;
-      var containerClass = element.containerClass;
-      var buttonsAgrupador = null;
-      if(removable){
-        buttonsInput = [buttonRemove];
-        buttonsAgrupador = [buttonAdd];
-      }
-      var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
-      return agrupadorInputProjeto;
+      AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
+      ReactDOM.render(
+        AgrupadorInputProjeto(
+          {dados:agrupadores}
+        ), document.getElementById("projeto-"+id)
+      );
     }
+    var projects_list = result.lista_projetos;
+    var headerProjeto = {
+      "id": "lista_projetos",
+      "priority": "2",
+      "text": "Projetos, atividade e/ou programas"
+    };
 
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:[headerProjeto]}
+      ), document.getElementById("projetos")
+    );
+    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
     var columns = 2;
     var sizeOfData = projects_list.length;
     newData = new Array(sizeOfData);
@@ -1235,92 +1435,40 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
      $("#table_lista_projetos tr").click(function(){
        var rowId = $(this)[0]._DT_RowIndex;
        var divId = "projeto-" + rowId;
-       if($(this).find("td").children().length < 1){
-         $(this).find("td").append('<div id="' + divId + '" class="col-md-12">');
+       var projetos = $(this).next(".projeto");
+       console.log(projetos);
+       if(projetos.length < 1){
+         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+         carregaProjeto(rowId);
+       } else {
+         var $divDadosProjeto = $(projetos[0]);
+         console.log($divDadosProjeto);
+         $divDadosProjeto.toggleClass("hidden");
        }
      });
-
-     var buttonRemove = {
-       "type": "remove",
-       "value": "Remover"
-     };
-
-     var buttonAdd = {
-       "type": "add",
-       "value": "Adicionar"
-     };
-
-     var input = {
-       "type": "removable",
-       "value": "AA BB CCC",
-       "buttons": [button],
-       "buttonsInLine": true
-     };
-     var input2 = {
-       "type": "removable",
-       "value": "AA BB CCC",
-       "buttons": [button],
-       "buttonsInLine": false
-     };
-     var input3 = {
-       "type": null,
-       "value": "AA BB CCC",
-       "buttons": [],
-       "buttonsInLine": false
-     };
-
-     var agrupadorInput1 = {
-       "value": "Cabeçalho",
-       "inputs": [input, input2, input3],
-       "buttons": [buttonAdd]
-     };
-     var agrupadorInput2 = {
-       "value": "Cabeçalho 2",
-       "inputs": [input, input2, input3]
-     };
-
-     var coluna1 = {
-       "containerClass": "col-md-3",
-       "agrupadores": [agrupadorInput1]
-     };
-     var coluna2 = {
-       "containerClass": "col-md-6",
-       "agrupadores": [agrupadorInput1, agrupadorInput2]
-     };
-     var linha1 = {
-       "colunas": [coluna1, coluna2]
-     };
-     var linha2 = {
-       "colunas": [coluna1]
-     };
-     /*LinhaProjeto = React.createFactory(LinhaProjeto);
-     ReactDOM.render(
-       LinhaProjeto(
-         {dados:[linha1, linha2]}
-       ), document.getElementById("projetos")
-     );*/
-    /*
-    formItens = [];
-    var projetos = result.projetos;
-    for (var i = 0; i < projetos.length; i++) {
-      for (var property in projetos[i]) {
-        if (projetos[i].hasOwnProperty(property)) {
-          var campo = dados_form.form_items[i];
-          formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
-        }
-      }
-
-    }
-    FormItem = React.createFactory(FormItem);
-    ReactDOM.render(
-      FormItem(
-        {header:null, dados:formItens}
-      ), document.getElementById("projetos")
-    );*/
-
   });
 });
 
+function getFonteDeRecursosProjeto(id){
+  var fonte = {
+    "fonte_de_recursos": [
+      {
+        "id_fonte_recursos_projeto": 1,
+        "cd_origem_fonte_recursos_projeto": 1092,
+        "tx_nome_origem_fonte_recursos_projeto": "Público",
+        "cd_fonte_recursos_projeto": null,
+        "tx_nome_fonte_recursos_projeto": "Federal",
+        "ft_fonte_recursos_projeto": null
+      }
+    ]
+  };
+  var key = Object.keys(fonte)[0];
+  var objFonte = {
+    "id": key,
+    "dados": fonte[key]
+  };
+  return objFonte;
+}
 
 function getLocalizacaoProjeto(id){
   var localizacao = {

@@ -140,12 +140,12 @@ function tabela2 (newData2){
   }
   console.log(tipoRequisicao);
   $.ajax({
-    url: urlRota,
-    type: tipoRequisicao,
+    url: 'js/controller.php',
+    type: 'GET',
     dataType: 'json',
-    data: parametros,
-    error: function(){
-      console.log("Erro no AJAX");
+    data: {flag: 'consulta', rota: urlRota},
+    error: function(e){
+        console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
       if(data!==undefined){

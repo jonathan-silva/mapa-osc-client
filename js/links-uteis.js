@@ -14,6 +14,14 @@ require(["jquery-ui"], function (React) {
       }
     }
   });
+
+  jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){
+          event.preventDefault();
+          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+     });
+  });
+  
 });
 
 require(['react', 'jsx!components/Util'], function (React) {

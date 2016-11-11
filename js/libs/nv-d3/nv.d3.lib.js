@@ -142,7 +142,7 @@ function createLineChart(grafico, valores)
 function createLinePlusBarChart(grafico, valores)
 {
 	var chart = nv.models.linePlusBarChart()
-			.margin({top: 30, right: 60, bottom: 70, left: 80})
+			.margin({top: 30, right: 60, bottom: 80, left: 80})
 			//We can set x data accessor to use index. Reason? So the bars all appear evenly spaced.
 		//	.x(function(d,i) { return i })
 		//	.y(function(d,i) {return d[1] })
