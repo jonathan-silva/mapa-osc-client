@@ -17,7 +17,7 @@ require(["jquery-ui"], function (React) {
 });
   require(['jquery','datatables-responsive'], function (React) {
 
-  var isCacheEnabled = false;
+  var isCacheEnabled = true;
   var tipoRequisicao;
   var parametros='';
   var newData;
