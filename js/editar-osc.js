@@ -949,260 +949,297 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
     );
 
     //Projetos
-    var labelMap = {
-      "tx_nome_projeto": {
-        "header": "Nome do projeto, atividade ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_status_projeto": {
-        "header": "Status",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": ["ABC", "BCA"]
-      },
-      "dt_data_inicio_projeto": {
-        "header": "Data de Início",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "dt_data_fim_projeto": {
-        "header": "Data de Fim",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_link_projeto": {
-        "header": "Link",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "nr_total_beneficiarios": {
-        "header": "Total de Beneficiários",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "nr_valor_total_projeto": {
-        "header": "Valor Total",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "tx_valor_captado_projeto": {
-        "header": "Valor Captado",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "text",
-        "options": null
-      },
-      "financiadores": {
-        "header": "Financiadores do Projeto",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "textarea",
-        "options": null
-      },
-      "autodeclaradas": {
-        "header": "Área Auto-declarada do projeto",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "publico_beneficiado": {
-        "header": "Público Beneficiado",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_abrangencia_projeto": {
-        "header": "Abrangência",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": null
-      },
-      "localizacao_projeto": {
-        "header": "Local de execução do projeto, atividade ou programa",
-        "containerClass": "col-md-3",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "parceiras": {
-        "header": "OSCs Parceiras",
-        "containerClass": "col-md-6",
-        "removable": true,
-        "type": "text",
-        "options": null
-      },
-      "tx_nome_zona_atuacao": {
-        "header": "Zona de Atuação",
-        "containerClass": "col-md-3",
-        "removable": false,
-        "type": "select",
-        "options": null
-      },
-      "tx_metodologia_monitoramento": {
-        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null
-      },
-      "tx_descricao_projeto": {
-        "header": "Descrição do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null
+    function carregaProjeto(id){
+      var labelMap = {
+        "tx_nome_projeto": {
+          "header": "Nome do projeto, atividade ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_status_projeto": {
+          "header": "Status",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": ["ABC", "BCA"]
+        },
+        "dt_data_inicio_projeto": {
+          "header": "Data de Início",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "dt_data_fim_projeto": {
+          "header": "Data de Fim",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_link_projeto": {
+          "header": "Link",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "nr_total_beneficiarios": {
+          "header": "Total de Beneficiários",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "nr_valor_total_projeto": {
+          "header": "Valor Total",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "tx_valor_captado_projeto": {
+          "header": "Valor Captado",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "text",
+          "options": null
+        },
+        "fonte_de_recursos": {
+          "header": "Fonte de Recursos",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Público", "Privado", "Próprio"
+          ]
+        },
+        "fonte_de_recursos_publico": {
+          "header": "Fonte de Recursos Públicos",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Municipal", "Federal", "Estadual"
+          ]
+        },
+        "financiadores": {
+          "header": "Financiadores do Projeto",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        },
+        "autodeclaradas": {
+          "header": "Área de atuação do projeto, atividade ou programa",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "publico_beneficiado": {
+          "header": "Público Beneficiado",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_abrangencia_projeto": {
+          "header": "Abrangência de atuação",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Municipal", "Estadual", "Regional", "Nacional"
+          ]
+        },
+        "localizacao_projeto": {
+          "header": "Local de execução do projeto, atividade ou programa",
+          "containerClass": "col-md-3",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "parceiras": {
+          "header": "OSCs Parceiras",
+          "containerClass": "col-md-6",
+          "removable": true,
+          "type": "text",
+          "options": null
+        },
+        "tx_nome_zona_atuacao": {
+          "header": "Zona de Atuação",
+          "containerClass": "col-md-3",
+          "removable": false,
+          "type": "select",
+          "options": [
+            "Rural", "Urbana"
+          ]
+        },
+        "tx_metodologia_monitoramento": {
+          "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        },
+        "tx_descricao_projeto": {
+          "header": "Descrição do Projeto, atividade e/ou programa",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "textarea",
+          "options": null
+        }
+      };
+
+      var buttonRemove = {
+        "type": "remove",
+        "value": "Remover"
+      };
+
+      var buttonAdd = {
+        "type": "add",
+        "value": "Adicionar"
+      };
+
+      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine){
+        this.id = id;
+        this.content = content;
+        this.type = type;
+        this.options = options;
+        this.removable = removable;
+        this.buttons = buttons;
+        this.buttonsInLine = buttonsInLine;
       }
-    };
-    var headerObject = {
-      "text": "Projetos, atividade e/ou programas",
-      "id": "lista_projetos",
-      "add_element": true,
-      "priority": 2,
-      "container_class":"project-header"
-    };
-    Section = React.createFactory(Section);
-    ReactDOM.render(
-      Section(
-        {dados:[headerObject]}
-      ), document.getElementById("projetos")
-    );
-    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
 
-    var buttonRemove = {
-      "type": "remove",
-      "value": "Remover"
-    };
+      function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+        this.id = id;
+        this.containerClass = containerClass;
+        this.header = header;
+        this.inputs = inputs;
+        this.buttons = buttons;
+      }
 
-    var buttonAdd = {
-      "type": "add",
-      "value": "Adicionar"
-    };
+      var projects = [result.projetos[id]];
+      var agrupadores = [];
+      for (var i = 0; i < projects.length; i++) {
+        var projectId = projects[i].id_projeto;
+        for (var property in projects[i]) {
+          if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
+            var sectionId = property;
+            var value = projects[i][property];
+            var header = labelMap[property].header;
+            var containerClass = labelMap[property].containerClass;
+            var removable = labelMap[property].removable;
+            var type = labelMap[property].type;
+            var options = labelMap[property].options;
+            var buttons = null;
+            var buttonsInLine = false;
 
-    function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine){
-      this.id = id;
-      this.content = content;
-      this.type = type;
-      this.options = options;
-      this.removable = removable;
-      this.buttons = buttons;
-      this.buttonsInLine = buttonsInLine;
-    }
+            var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
 
-    function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
-      this.id = id;
-      this.containerClass = containerClass;
-      this.header = header;
-      this.inputs = inputs;
-      this.buttons = buttons;
-    }
+            var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
 
-    var projects_list = result.lista_projetos;
-    var projects = [result.projetos[0]];
-    var agrupadores = [];
-    for (var i = 0; i < projects.length; i++) {
-      var projectId = projects[i].id_projeto;
-      for (var property in projects[i]) {
-        if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-          var sectionId = property;
-          var value = projects[i][property];
-          var header = labelMap[property].header;
-          var containerClass = labelMap[property].containerClass;
-          var removable = labelMap[property].removable;
-          var type = labelMap[property].type;
-          var options = labelMap[property].options;
-          var buttons = null;
-          var buttonsInLine = false;
-
-          var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
-
-          var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-
-          agrupadores.push(agrupadorInputProjeto);
+            agrupadores.push(agrupadorInputProjeto);
+          }
+        }
+        var localizacao = getLocalizacaoProjeto(projectId);
+        var fonte = getFonteDeRecursosProjeto(projectId);
+        var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
+        var financiadores = getFinanciadoresProjeto(projectId);
+        var autodeclaradas = getAutodeclaradasProjeto(projectId);
+        var parceiras = getParceirasProjeto(projectId);
+        var multipleInputs = [
+          localizacao, publicoBeneficiado, financiadores,
+          autodeclaradas, parceiras, fonte
+        ];
+        for (var j = 0; j < multipleInputs.length; j++) {
+          var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
+          agrupadores.push(agrupador);
         }
       }
-      var localizacao = getLocalizacaoProjeto(projectId);
-      var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
-      var financiadores = getFinanciadoresProjeto(projectId);
-      var autodeclaradas = getAutodeclaradasProjeto(projectId);
-      var parceiras = getParceirasProjeto(projectId);
-      var multipleInputs = [
-        localizacao, publicoBeneficiado, financiadores,
-        autodeclaradas, parceiras
-      ];
-      console.log(agrupadores);
-      for (var j = 0; j < multipleInputs.length; j++) {
-        var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
-        agrupadores.push(agrupador);
-      }
 
-      console.log(agrupadores);
-    }
-
-    AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
-    ReactDOM.render(
-      AgrupadorInputProjeto(
-        {dados:agrupadores}
-      ), document.getElementById("projetos")
-    );
-
-
-    function createAgrupadorMultipleInputs(object){
-      var sectionId = object.id
-      var element = labelMap[object.id];
-      var inputs = [];
-      var value = "";
-      var removable = element.removable;
-      var type = element.type;
-      var options = element.options;
-      var buttonsInput = null;
-      var buttonsInLine = false;
-      if(removable){
-        buttonsInput = [buttonRemove];
-        buttonsAgrupador = [buttonAdd];
-        buttonsInLine = true;
-      }
-
-      for (var i = 0; i < object.dados.length; i++) {
-        var inputId = sectionId + "-" + i;
-        for (var property in object.dados[i]) {
-          if (object.dados[i].hasOwnProperty(property)) {
-            if(property.slice(0,2) === "tx"){
-              value = object.dados[i][property];
+      function createAgrupadorMultipleInputs(object){
+        var sectionId = object.id
+        var element = labelMap[object.id];
+        var inputs = [];
+        var value = "";
+        var removable = element.removable;
+        var type = element.type;
+        var options = element.options;
+        var suboptions = null;
+        var buttonsInput = null;
+        var buttonsInLine = false;
+        if(removable){
+          buttonsInput = [buttonRemove];
+          buttonsAgrupador = [buttonAdd];
+          buttonsInLine = true;
+        }
+        for (var i = 0; i < object.dados.length; i++) {
+          var inputId = sectionId + "-" + i;
+          for (var property in object.dados[i]) {
+            if (object.dados[i].hasOwnProperty(property)) {
+              if(sectionId == "fonte_de_recursos"){
+                if(property === "tx_nome_origem_fonte_recursos_projeto"){
+                  value = object.dados[i][property];
+                  options = labelMap[object.id].options;
+                  console.log(options);
+                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  inputs.push(inputProjeto);
+                  // for (var j = 0; j < element.options.length; j++) {
+                  //   console.log(element.options[j]);
+                  // }
+                  // console.log(element.options);
+                } else if (property === "tx_nome_fonte_recursos_projeto"){
+                  options = labelMap[object.id+"_publico"].options;
+                  console.log(options);
+                  var inputId = "sub-" + sectionId + "-" + i;
+                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  inputs.push(inputProjeto);
+                }
+              } else if(property.slice(0,2) === "tx"){
+                value = object.dados[i][property];
+                var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                inputs.push(inputProjeto);
+              }
             }
           }
         }
-        var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-        inputs.push(inputProjeto);
+
+        var header = element.header;
+        var containerClass = element.containerClass;
+        var buttonsAgrupador = null;
+        if(removable){
+          buttonsInput = [buttonRemove];
+          buttonsAgrupador = [buttonAdd];
+        }
+        var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
+        return agrupadorInputProjeto;
       }
 
-      var header = element.header;
-      var containerClass = element.containerClass;
-      var buttonsAgrupador = null;
-      if(removable){
-        buttonsInput = [buttonRemove];
-        buttonsAgrupador = [buttonAdd];
-      }
-      var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
-      return agrupadorInputProjeto;
+      AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
+      ReactDOM.render(
+        AgrupadorInputProjeto(
+          {dados:agrupadores}
+        ), document.getElementById("projeto-"+id)
+      );
     }
+    var projects_list = result.lista_projetos;
+    var headerProjeto = {
+      "id": "lista_projetos",
+      "priority": "2",
+      "text": "Projetos, atividade e/ou programas"
+    };
 
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:[headerProjeto]}
+      ), document.getElementById("projetos")
+    );
+    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
     var columns = 2;
     var sizeOfData = projects_list.length;
     newData = new Array(sizeOfData);
@@ -1237,90 +1274,32 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
        var divId = "projeto-" + rowId;
        if($(this).find("td").children().length < 1){
          $(this).find("td").append('<div id="' + divId + '" class="col-md-12">');
+         carregaProjeto(rowId);
        }
      });
-
-     var buttonRemove = {
-       "type": "remove",
-       "value": "Remover"
-     };
-
-     var buttonAdd = {
-       "type": "add",
-       "value": "Adicionar"
-     };
-
-     var input = {
-       "type": "removable",
-       "value": "AA BB CCC",
-       "buttons": [button],
-       "buttonsInLine": true
-     };
-     var input2 = {
-       "type": "removable",
-       "value": "AA BB CCC",
-       "buttons": [button],
-       "buttonsInLine": false
-     };
-     var input3 = {
-       "type": null,
-       "value": "AA BB CCC",
-       "buttons": [],
-       "buttonsInLine": false
-     };
-
-     var agrupadorInput1 = {
-       "value": "Cabeçalho",
-       "inputs": [input, input2, input3],
-       "buttons": [buttonAdd]
-     };
-     var agrupadorInput2 = {
-       "value": "Cabeçalho 2",
-       "inputs": [input, input2, input3]
-     };
-
-     var coluna1 = {
-       "containerClass": "col-md-3",
-       "agrupadores": [agrupadorInput1]
-     };
-     var coluna2 = {
-       "containerClass": "col-md-6",
-       "agrupadores": [agrupadorInput1, agrupadorInput2]
-     };
-     var linha1 = {
-       "colunas": [coluna1, coluna2]
-     };
-     var linha2 = {
-       "colunas": [coluna1]
-     };
-     /*LinhaProjeto = React.createFactory(LinhaProjeto);
-     ReactDOM.render(
-       LinhaProjeto(
-         {dados:[linha1, linha2]}
-       ), document.getElementById("projetos")
-     );*/
-    /*
-    formItens = [];
-    var projetos = result.projetos;
-    for (var i = 0; i < projetos.length; i++) {
-      for (var property in projetos[i]) {
-        if (projetos[i].hasOwnProperty(property)) {
-          var campo = dados_form.form_items[i];
-          formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
-        }
-      }
-
-    }
-    FormItem = React.createFactory(FormItem);
-    ReactDOM.render(
-      FormItem(
-        {header:null, dados:formItens}
-      ), document.getElementById("projetos")
-    );*/
-
   });
 });
 
+function getFonteDeRecursosProjeto(id){
+  var fonte = {
+    "fonte_de_recursos": [
+      {
+        "id_fonte_recursos_projeto": 1,
+        "cd_origem_fonte_recursos_projeto": 1092,
+        "tx_nome_origem_fonte_recursos_projeto": "Público",
+        "cd_fonte_recursos_projeto": null,
+        "tx_nome_fonte_recursos_projeto": "Federal",
+        "ft_fonte_recursos_projeto": null
+      }
+    ]
+  };
+  var key = Object.keys(fonte)[0];
+  var objFonte = {
+    "id": key,
+    "dados": fonte[key]
+  };
+  return objFonte;
+}
 
 function getLocalizacaoProjeto(id){
   var localizacao = {
