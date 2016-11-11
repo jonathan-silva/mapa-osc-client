@@ -1272,12 +1272,13 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
      $("#table_lista_projetos tr").click(function(){
        var rowId = $(this)[0]._DT_RowIndex;
        var divId = "projeto-" + rowId;
-       var children = $(this).find("td").children();
-       if(children.length < 1){
-         $(this).find("td").append('<div id="' + divId + '" class="col-md-12">');
+       var projetos = $(this).next(".projeto");
+       console.log(projetos);
+       if(projetos.length < 1){
+         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
          carregaProjeto(rowId);
        } else {
-         var $divDadosProjeto = $(children[0]);
+         var $divDadosProjeto = $(projetos[0]);
          console.log($divDadosProjeto);
          $divDadosProjeto.toggleClass("hidden");
        }
