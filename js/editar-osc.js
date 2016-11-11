@@ -948,6 +948,133 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       ), document.getElementById("trabalhadores")
     );
 
+
+    // Participacao Social
+    var tx_sem_participacao_social = "Não há registros de participação social";
+    var conselhos = result.participacao_social.conselho;
+    var conferencias = result.participacao_social.conferencia;
+    var outras = result.participacao_social.outra;
+    var participacao_social_form =
+    {
+    "items": [
+        {
+          "id": "participacao_social",
+          "priority": "2",
+          "text": "Espaços de Participação Social",
+          "target": "participacao_social"
+        },
+        {
+          "id": "conselhos",
+          "priority": "3",
+          "text": "Conselhos de Políticas Públicas",
+          "target": "participacao_social"
+        },
+        {
+          "id": "conferencias",
+          "priority": "3",
+          "text": "Conferências de Políticas Públicas",
+          "target": "participacao_social"
+        },
+        {
+          "id": "outros_part",
+          "priority": "3",
+          "text": "Outros espaços de participação social",
+          "target": "participacao_social"
+        }
+      ]
+    };
+
+    items = participacao_social_form.items;
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );
+
+    formItens = [];
+    if (conselhos.length) {
+      var conselho = participacao_social_form.items;
+      for (j=0; j<conselhos.length; j++){
+        for (var property in conselhos[j]) {
+          if (conselhos[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
+            }
+            if(property == "tx_nome_tipo_participacao"){
+              formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
+            }
+            if(property == "tx_nome_representante_conselho "){
+              formItens.push(new FormItens(conselho[j].id, "Nome de representante", conselhos[j].tx_nome_representante_conselho , conselhos[j].ft_nome_representante_conselho, null, "text"));
+            }
+            if(property == "tx_periodicidade_reuniao"){
+              formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
+            }
+            if(property == "dt_data_inicio_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
+            }
+            if(property == "dt_data_fim_conselho"){
+              formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text"));
+            }
+         }
+        }
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselhos")
+      );
+    }
+  formItens = [];
+    if (conferencias.length) {
+      var conferencia = participacao_social_form.items;
+      for (j=0; j<conferencias.length; j++){
+        for (var property in conferencias[j]) {
+          if (conferencias[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+            }
+            if(property == "tx_nome_forma_participacao_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+            }
+            if(property == "dt_ano_realizacao"){
+              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+            }
+         }
+        }
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
+    }
+
+    formItens = [];
+    if (outras.length) {
+      console.log(outras);
+      var outra = participacao_social_form.items;
+      for (j=0; j<outras.length; j++){
+        for (var property in outras[j]) {
+          if (outras[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_participacao_social_outra"){
+              formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
+            }
+         }
+        }
+      }
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("outros_part")
+      );
+    }
+  });
+});
+
     //Projetos
     function carregaProjeto(id){
       var labelMap = {
