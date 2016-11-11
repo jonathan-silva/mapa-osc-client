@@ -1268,6 +1268,18 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
        $('#objetivos-0').find('select').on('change', function(){
          $(this).find('option:selected').each(function(){
            console.log($(this).text());
+           $("#metas").append('<div class="header">Metas</div>');
+           $("#metas").append('<ol id="selectable"></ol>');
+
+           var options = getMetasOptions(idObjetivo);
+           for (var i = 0; i < options.length; i++) {
+             if(options[i] == valorMeta){
+               $('#selectable').append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+             } else {
+               $('#selectable').append('<li class="ui-widget-content">' + options[i] + '</li>');
+             }
+           }
+            $( "#selectable" ).selectable();
          });
        });
     }

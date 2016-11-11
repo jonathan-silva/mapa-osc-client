@@ -374,7 +374,11 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
               "dt_data_inicio_conselho":"1/1/2001",
               "ft_data_inicio_conselho":"ft_inicio1",
               "dt_data_fim_conselho":"1/1/2010",
-              "ft_data_fim_conselho":"ft_fim1"
+              "ft_data_fim_conselho":"ft_fim1",
+              "id_representante_conselho" :1,
+              "id_participacao_social_conselho":1,
+              "tx_nome_representante_conselho":"TEXT",
+              "ft_nome_representante_conselho":"TEXT"
         		},
             {
               "id_conselho":2,
@@ -946,20 +950,20 @@ console.log(result);
           "id": "participacao_social",
           "priority": "2",
           "text": "Espaços de Participação Social",
-          "target": "espacos_participacao_social"
+          "target": "participacao_social"
         },
         {
           "id": "conselhos",
           "priority": "3",
           "text": "Conselhos de Políticas Públicas",
           "target": "participacao_social"
-        },
+        },/*
         {
           "id": "data_vigencia",
           "priority": "4",
           "text": "Data de Vigência",
           "options": []
-        },
+        },/*
         {
           "id": "nome_representante",
           "priority": "4",
@@ -973,13 +977,13 @@ console.log(result);
           "type": "select",
           "options": [],
           "subsections": []
-        },
+        },*/
         {
           "id": "conferencias",
           "priority": "3",
           "text": "Conferências de Políticas Públicas",
           "target": "participacao_social"
-        },
+        },/*
         {
           "id": "ano_conferencia",
           "priority": "4",
@@ -993,42 +997,34 @@ console.log(result);
           "type": "select",
           "options": [],
           "subsections": []
-        },
+        },*/
         {
-          "id": "outros",
+          "id": "outros_part",
           "priority": "3",
           "text": "Outros espaços de participação social",
           "target": "participacao_social"
-        },
+        }/*,
         {
           "id": "atuacao",
           "priority": "4",
           "text": "Atuação  em Fóruns, Articulações, Coletivos e Redes de OSCs",
           "type": "text"
-        }
+        }*/
       ]
     };
-/*
-    items = sections.items;
+
+    items = participacao_social_form.items;
     Section = React.createFactory(Section);
     ReactDOM.render(
       Section(
         {dados:items}
       ), document.getElementById(items[0].target)
-    );*/
-
-    items=participacao_social_form.items;
-    //console.log(items_part);
-    Section = React.createFactory(Section);
-    ReactDOM.render(
-      Section(
-        {dados:items}
-      ), document.getElementById(items[0].id)
     );/*
     function DadosForm(label, content) {
-      this.nome = id;
-      this.cargo = text;
+      this.nome = label;
+      this.cargo = content;
     }*/
+
 
     formItens = [];//React.createFactory(participacao_social_form);
     if (conselhos.length) {
@@ -1047,34 +1043,29 @@ console.log(result);
             if(property == "tx_nome_tipo_participacao"){
               formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
             }
+            if(property == "tx_nome_representante_conselho "){
+              formItens.push(new FormItens(conselho[j].id, "Nome de representante", conselhos[j].tx_nome_representante_conselho , conselhos[j].ft_nome_representante_conselho, null, "text"));
+            }
             if(property == "tx_periodicidade_reuniao"){
               formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
             }
             if(property == "dt_data_inicio_conselho"){
-              formItens.push(new FormItens(conselho[j].id, "Data de início", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
+              formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
             }
             if(property == "dt_data_fim_conselho"){
-              formItens.push(new FormItens(conselho[j].id, "Data de fim", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text"));
+              formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text"));
             }
          }
         }
       }
-
-     /*
-    formItens = [];
-    formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
-    FormItem = React.createFactory(FormItem);
-    ReactDOM.render(
-      FormItem(
-        {header:null, dados:formItens}
-      ), document.getElementById("conselheiros")
-    );
-*/
-    }/*
-    else {
-    formItens.push(new FormItens(null, null, tx_sem_participacao_social, "base", null, "p"));
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselhos")
+      );
     }
-  */
+  formItens = [];//
     if (conferencias.length) {
       //console.log(conferencias);
       var conferencia = participacao_social_form.items;
@@ -1087,55 +1078,44 @@ console.log(result);
               formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
             }
             if(property == "tx_nome_forma_participacao_conferencia"){
-              formItens.push(new FormItens(conferencia[j].id, "Forma de Participação", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+              formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
             }
             if(property == "dt_ano_realizacao"){
-              formItens.push(new FormItens(conferencia[j].id, "Data de início", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
             }
          }
         }
       }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
     }
 
+    formItens = [];//
     if (outras.length) {
       console.log(outras);
       var outra = participacao_social_form.items;
-      for (j=0; j<conferencias.length; j++){
+      for (j=0; j<outras.length; j++){
         for (var property in outras[j]) {
-          console.log(property);
+          //console.log(property);
           if (outras[j].hasOwnProperty(property)) {
           //  console.log(property);
             if(property == "tx_nome_participacao_social_outra"){
-              formItens.push(new FormItens(outra[j].id, "Outra Participação", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
+              formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
             }
          }
         }
       }
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("outros_part")
+      );
     }
-
-    var headerText_part = "Espaços de Participação Social";
-    //var
-
-
-    //console.log(formItens);
-    //formItens.push(new FormItens(conselhos[0].id, "Nome do Conselho", "Insira o nome aqui", null, null, "text"));
-    //formItens.push(new FormItens(conselhos[0].id, "Numero Assentos", "Insira o assento aqui", null, null, "text"));
-    //console.log(formItens);
-    FormItem = React.createFactory(FormItem);
-    ReactDOM.render(
-      FormItem(
-        {header:{priority: headerPriority, text: headerText_part}, dados:formItens}
-      ), document.getElementById("participacao_social")
-    );/*
-    Agrupador = React.createFactory(Agrupador);
-    ReactDOM.render(
-      Agrupador(
-        {dados:formItens}
-      ), document.getElementById("participacao_social")
-    );*/
-
-
-
   });
 });
 

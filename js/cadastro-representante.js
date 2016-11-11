@@ -158,7 +158,7 @@ require(['react', 'jsx!components/Util'], function (React) {
 
 
 
-      
+
         if (!validaNome(nome)){
           console.log("nome errado");
           id_attr = "#" + $("#nome.form-control").attr("id") + "1";

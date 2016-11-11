@@ -190,23 +190,43 @@ define(['react'], function(React) {
         }
       }else if (index == 6) {
 
+          alert ('entrou');
+
           var email =  $('#emailLogin').val();
           var senha =  $('#senhaLogin').val();
 
+          email = "joao@gmail.com";
+          senha = "123456";
+
           if (!validaEmail(email)){
-            $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            $("#emailLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
             return false;
-          };
+          }else{
+            $("#emailLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          }
+
+          if (senha.length < 5){
+            $("#senhaLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            return false;
+          }else{
+            $("#senhaLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+          }
 
           var json = '{"tx_email_usuario": "'+email+'","tx_senha_usuario": "'+senha+'"}';
           console.log(json);
 
           $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/",
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: json,
-          success: function (data) {
+          sucess: function (data, textStatus, jqXHR ) {
+            console.log('sucess');
+            console.log(data);
+            console.log(textStatus);
+            console.log(jqXHR);
+            window.localStorage.setItem('email', email);
+            window.localStorage.setItem('chave', data);
             response($.map( data, function( item ) {
                return {
                    label: item.eduf_nm_uf,
@@ -296,3 +316,23 @@ define(['react'], function(React) {
   //ReactDOM.render(<Header/>, document.getElementById("header"));
   return Header;
 });
+
+function validaEmail(email){
+
+  var usuario = email.substring(0, email.indexOf("@"));
+  var dominio = email.substring(email.indexOf("@")+ 1, email.length);
+
+  if ((usuario.length >=1) &&
+  (dominio.length >=3) &&
+  (usuario.search("@")==-1) &&
+  (dominio.search("@")==-1) &&
+  (usuario.search(" ")==-1) &&
+  (dominio.search(" ")==-1) &&
+  (dominio.search(".")!=-1) &&
+  (dominio.indexOf(".") >=1)&&
+  (dominio.lastIndexOf(".") < dominio.length - 1)) {
+    return true;
+  }else{
+    return false;
+  }
+}
