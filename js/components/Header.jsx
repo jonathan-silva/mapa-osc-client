@@ -43,7 +43,7 @@ define(['react'], function(React) {
     },
     render: function () {
       return (<div>
-              <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{this.props.titulo}<i className="fa fa-caret-down"></i></a>
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{this.props.titulo}<i className="fa fa-caret-down"></i></a>
               <ul className="dropdown-menu" role="menu">{this.renderList()}</ul>
               </div>);
     }
@@ -188,6 +188,38 @@ define(['react'], function(React) {
             'font-size' : size + 'px'
           });
         }
+      }else if (index == 6) {
+
+          var email =  $('#emailLogin').val();
+          var senha =  $('#senhaLogin').val();
+
+          if (!validaEmail(email)){
+            $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            return false;
+          };
+
+          var json = '{"tx_email_usuario": "'+email+'","tx_senha_usuario": "'+senha+'"}';
+          console.log(json);
+
+          $.ajax({
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/",
+          type: 'POST',
+          dataType: 'json',
+          data: json,
+          success: function (data) {
+            response($.map( data, function( item ) {
+               return {
+                   label: item.eduf_nm_uf,
+                   value: item.eduf_nm_uf,
+                   id: item.eduf_cd_uf
+               };
+           }));
+          },
+          error: function () { //TODO VER A MELHOR FORMA PRA PEGAR O ERRO
+              response([]);
+          }
+      });
+
       }
       else if (index == 0) {
       }
