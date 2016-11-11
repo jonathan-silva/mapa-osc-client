@@ -1091,6 +1091,20 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           "removable": false,
           "type": "textarea",
           "options": null
+        },
+        "objetivos": {
+          "header": "Objetivos de desenvolvimento do milênio",
+          "containerClass": "col-md-12",
+          "removable": false,
+          "type": "select",
+          "options": getObjetivosOptions()
+        },
+        "objetivos_metas": {
+          "header": null,
+          "containerClass": null,
+          "removable": false,
+          "type": "select",
+          "options": getMetasOptions()
         }
       };
 
@@ -1151,9 +1165,12 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
         var financiadores = getFinanciadoresProjeto(projectId);
         var autodeclaradas = getAutodeclaradasProjeto(projectId);
         var parceiras = getParceirasProjeto(projectId);
+        var objetivos = getObjetivos(projectId);
+        var valorMeta = "";
+        var idObjetivo = "";
         var multipleInputs = [
           localizacao, publicoBeneficiado, financiadores,
-          autodeclaradas, parceiras, fonte
+          autodeclaradas, parceiras, fonte, objetivos
         ];
         for (var j = 0; j < multipleInputs.length; j++) {
           var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
@@ -1181,24 +1198,33 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           var inputId = sectionId + "-" + i;
           for (var property in object.dados[i]) {
             if (object.dados[i].hasOwnProperty(property)) {
+              console.log(sectionId);
               if(sectionId == "fonte_de_recursos"){
                 if(property === "tx_nome_origem_fonte_recursos_projeto"){
                   value = object.dados[i][property];
                   options = labelMap[object.id].options;
-                  console.log(options);
                   var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
                   inputs.push(inputProjeto);
-                  // for (var j = 0; j < element.options.length; j++) {
-                  //   console.log(element.options[j]);
-                  // }
-                  // console.log(element.options);
                 } else if (property === "tx_nome_fonte_recursos_projeto"){
                   options = labelMap[object.id+"_publico"].options;
-                  console.log(options);
                   var inputId = "sub-" + sectionId + "-" + i;
                   var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
                   inputs.push(inputProjeto);
                 }
+              } else if (sectionId == "objetivos"){
+                idObjetivo = object.dados[i]["id_objetivo_projeto"];
+                if(property === "tx_nome_objetivo_projeto"){
+                  value = object.dados[i][property];
+                  options = labelMap[object.id].options;
+                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  inputs.push(inputProjeto);
+                } else if(property === "tx_nome_meta_projeto"){
+                  valorMeta = object.dados[i][property];
+                  // options = getMetasOptions(idObjetivo);
+                  // var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+                  // inputs.push(inputProjeto);
+                }
+
               } else if(property.slice(0,2) === "tx"){
                 value = object.dados[i][property];
                 var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
@@ -1225,6 +1251,25 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           {dados:agrupadores}
         ), document.getElementById("projeto-"+id)
       );
+      $("#objetivos-0").append('<div id="metas"></div>');
+      $("#metas").append('<div class="header">Metas</div>');
+      $("#metas").append('<ol id="selectable"></ol>');
+
+      var options = getMetasOptions(idObjetivo);
+      for (var i = 0; i < options.length; i++) {
+        if(options[i] == valorMeta){
+          $('#selectable').append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+        } else {
+          $('#selectable').append('<li class="ui-widget-content">' + options[i] + '</li>');
+        }
+      }
+       $( "#selectable" ).selectable();
+
+       $('#objetivos-0').find('select').on('change', function(){
+         $(this).find('option:selected').each(function(){
+           console.log($(this).text());
+         });
+       });
     }
     var projects_list = result.lista_projetos;
     var headerProjeto = {
@@ -1273,18 +1318,55 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
        var rowId = $(this)[0]._DT_RowIndex;
        var divId = "projeto-" + rowId;
        var projetos = $(this).next(".projeto");
-       console.log(projetos);
        if(projetos.length < 1){
          $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
          carregaProjeto(rowId);
        } else {
          var $divDadosProjeto = $(projetos[0]);
-         console.log($divDadosProjeto);
          $divDadosProjeto.toggleClass("hidden");
        }
      });
   });
 });
+
+function getMetasOptions(id){
+  var metas = [
+    "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
+    "Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais",
+    "Implementar, em nível nacional, medidas e sistemas de proteção social adequados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis",
+    "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças"
+  ];
+  return metas;
+}
+
+function getObjetivos(id){
+  var objetivos = {
+    "objetivos": [
+      {
+        "id_objetivo_projeto": 1,
+        "cd_objetivo_projeto": null,
+        "tx_nome_objetivo_projeto": "Assegurar padrões de produção e de consumo sustentáveis",
+        "cd_meta_projeto": null,
+        "tx_nome_meta_projeto": "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças",
+        "ft_objetivo_projeto": null,
+      }
+    ]
+  };
+  var key = Object.keys(objetivos)[0];
+  var objObjetivos = {
+    "id": key,
+    "dados": objetivos[key]
+  };
+  return objObjetivos;
+}
+
+function getObjetivosOptions(){
+  var objetivosOptions = [
+    "Acabar com a pobreza em todas as suas formas, em todos os lugares",
+    "Assegurar padrões de produção e de consumo sustentáveis"
+  ];
+  return objetivosOptions;
+}
 
 function getFonteDeRecursosProjeto(id){
   var fonte = {

@@ -560,9 +560,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
-        console.log(item);
         var id = item.id;
-        console.log(id);
         var removable = item.removable;
         var content = item.content;
         var buttons = item.buttons;
@@ -619,7 +617,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
-        console.log(item);
         var ButtonElement;
         var header = item.header;
         var inputs = item.inputs;
