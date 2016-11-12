@@ -16,7 +16,7 @@ require(["jquery-ui", "datatables-responsive"], function (React) {
   });
 });
 
-require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(
     ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto){
@@ -33,6 +33,15 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.hide = hide;
       this.default = defaultFormItem;
     }
+    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    var rotas = new Rotas();
+    var urlRota = "";
+    console.log(rotas);
+    if(valoresURL !== null){
+      var idOsc = valoresURL[1];
+      urlRota = rotas.OSCByID(idOsc);
+    }
+    console.log(urlRota);
     var result = {
         "cabecalho": {
           "id_osc": 1,
