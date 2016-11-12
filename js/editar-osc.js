@@ -950,6 +950,7 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
 
     //Projetos
     function carregaProjeto(id){
+      console.log(id);
       var labelMap = {
         "tx_nome_projeto": {
           "header": "Nome do projeto, atividade ou programa",
@@ -1198,7 +1199,6 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           var inputId = sectionId + "-" + i;
           for (var property in object.dados[i]) {
             if (object.dados[i].hasOwnProperty(property)) {
-              console.log(sectionId);
               if(sectionId == "fonte_de_recursos"){
                 if(property === "tx_nome_origem_fonte_recursos_projeto"){
                   value = object.dados[i][property];
@@ -1251,35 +1251,37 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
           {dados:agrupadores}
         ), document.getElementById("projeto-"+id)
       );
-      $("#objetivos-0").append('<div id="metas"></div>');
-      $("#metas").append('<div class="header">Metas</div>');
-      $("#metas").append('<ol id="selectable"></ol>');
+      var $divProjeto = $('#projeto-'+id);
+      var $divObjetivosProjeto = $divProjeto.find('#objetivos-0');
+      $divObjetivosProjeto.append('<div id="metas-'+id+'"></div>');
+      var $divObjetivosMetasProjeto = $divObjetivosProjeto.find("#metas-"+id);
+      $divObjetivosMetasProjeto.append('<div class="header">Metas</div>');
+      $divObjetivosMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
 
       var options = getMetasOptions(idObjetivo);
       for (var i = 0; i < options.length; i++) {
         if(options[i] == valorMeta){
-          $('#selectable').append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+          $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
         } else {
-          $('#selectable').append('<li class="ui-widget-content">' + options[i] + '</li>');
+          $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
         }
       }
-       $( "#selectable" ).selectable();
+       $( '#selectable-'+id ).selectable();
 
-       $('#objetivos-0').find('select').on('change', function(){
+       $('#objetivos-'+id).find('select').on('change', function(){
          $(this).find('option:selected').each(function(){
            console.log($(this).text());
-           $("#metas").append('<div class="header">Metas</div>');
-           $("#metas").append('<ol id="selectable"></ol>');
+           $(this).removeClass("ui-selected");
 
            var options = getMetasOptions(idObjetivo);
            for (var i = 0; i < options.length; i++) {
              if(options[i] == valorMeta){
-               $('#selectable').append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+               $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
              } else {
-               $('#selectable').append('<li class="ui-widget-content">' + options[i] + '</li>');
+               $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
              }
            }
-            $( "#selectable" ).selectable();
+            $( '#selectable-'+id ).selectable();
          });
        });
     }
