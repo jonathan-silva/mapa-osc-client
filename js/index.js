@@ -143,6 +143,13 @@ require(["jquery-ui", "rotas"], function (React) {
       }
     }
   });
+  
+  jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){
+          event.preventDefault();
+          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+     });
+  });
 
   var rotas = new Rotas();
   var limiteAutocomplete = 5;
