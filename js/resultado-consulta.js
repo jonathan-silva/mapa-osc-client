@@ -87,15 +87,16 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         var columns = 6;
         var sizeOfData = data.length;
         newData = new Array(sizeOfData);
+        var txtVazioNulo = 'Dado não informado.';
 
         for (var i=0; i < sizeOfData; i++){
           newData[i] = new Array(columns);
           newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
-          newData[i][1] = data[i].tx_nome_osc;
-          newData[i][2] = data[i].cd_identificador_osc;
-          newData[i][3] = data[i].tx_natureza_juridica_osc;
-          newData[i][4] = data[i].tx_endereco_osc;
-          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+          newData[i][1] = data[i].tx_nome_osc != null ? data[i].tx_nome_osc : txtVazioNulo;
+          newData[i][2] = data[i].cd_identificador_osc != null ? data[i].cd_identificador_osc : txtVazioNulo;
+          newData[i][3] = data[i].tx_natureza_juridica_osc != null ? data[i].tx_natureza_juridica_osc : txtVazioNulo;
+          newData[i][4] = data[i].tx_endereco_osc != null ? data[i].tx_endereco_osc : txtVazioNulo;
+          newData[i][5] = '<button type="button" title="Clique para Detalhar" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
         }
         $('#resultadoconsulta_formato_dados').DataTable({
           responsive: true,
@@ -137,17 +138,18 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
       success: function(data){
         if(data!==undefined){
           //console.log(data);
-          var endereco = data.tx_endereco!=null ? data.tx_endereco : '';
-          var bairro = data.tx_bairro!=null? data.tx_bairro : '';
+          var endereco = data.tx_endereco != null ? data.tx_endereco : '';
+          var bairro = data.tx_bairro != null? data.tx_bairro : '';
           var enderecoCompleto = endereco+' - '+bairro;
+          var txtVazioNulo = 'Dado não informado.';
           var div = '<div class="mapa_organizacao clearfix">' +
                     '<span id="spantitle" class="magneticTooltip">'+
-                    '<a id="title" title="">'+
-                    '<h2>'+ (data.tx_nome_osc!=null ? data.tx_nome_osc : '')+'</h2></a><h3> </h3></span>'+
+                    '<button id="title" class="btn-link" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">'+
+                    '<h4>'+ (data.tx_nome_osc != null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
-                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica!=null ? data.tx_nome_atividade_economica : '')+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica!=null ? data.tx_nome_natureza_juridica : '')+'<br>'+
-                    '<div align="left"><button type = button class=btn btn-info onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
+                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica != null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica != null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
+                    '<div align="center"><button type = button class="btn btn-info" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
         }
