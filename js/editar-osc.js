@@ -38,7 +38,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
     var urlRota = "";
     console.log(rotas);
     if(valoresURL !== null){
-      var idOsc = valoresURL[1];
+      var idOsc = valoresURL[0];
       urlRota = rotas.OSCByID(idOsc);
     }
     console.log(urlRota);
