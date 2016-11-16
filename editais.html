@@ -8,6 +8,10 @@
       <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
       <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
       <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/jquery.dataTables.min.css"/><!--js/libs/datatable/datatables.min.css-->
+      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Bootstrap-3.3.6/css/bootstrap.min.css"/>
+      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/dataTables.bootstrap.min.css"/>
+      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Responsive-2.1.0/css/responsive.bootstrap.min.css"/>
       <link href="css/base.css" rel="stylesheet" type="text/css">
       <link href="css/libs/tablesaw-3.0/tablesaw.css" rel="stylesheet">
       <link href="css/styles.css" rel="stylesheet" type="text/css">
@@ -33,158 +37,35 @@
             <hr>
           </div>
         </div>
-
         <div class="row">
           <div class="col-md-12">
             <div class="text-justify txtBloco">
               <p>Encontre aqui editais de seleção de projetos oriundos do setor público e do privado que preveem a contratação ou atuação de OSCs em ações e projetos. Interessados na divulgação de editais: encaminhem ao Portal (<a href="contato.html">contato</a>) os links de editais de interesse das OSCs.
-Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-vinda, seja na indicação de novos editais, seja na forma de oportunidades de melhorarias para esta funcionalidade</p>
+  Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-vinda, seja na indicação de novos editais, seja na forma de oportunidades de melhorarias para esta funcionalidade</p>
             </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-12">
-
-
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#andamento" aria-controls="home" role="tab" data-toggle="tab">Em Andamento</a></li>
-                <li role="presentation"><a href="#encerrado" aria-controls="profile" role="tab" data-toggle="tab">Encerrado</a></li>
-              </ul>
-
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="andamento">
-                    <table id="editais_formato_dados" class="display compact row-border tablesaw" width="100%"></table>
-                  </div>
-
-                  <!--table class="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
-                    <thead>
-                      <tr>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Orgão</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Nome do Programa</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Area de Interesse</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" data-tablesaw-sortable-default-col>Data de Vencimento</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Edital</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-
-                      <tr>
-                        <td class="title">Secretaria de Esportes do Estados de Minas GeraisEstado de Minas Gerais</td>
-                        <td>Edital Nº 01/2016 do Minas Esportiva Incentivo ao Esporte</td>
-                        <td>Esportes</td>
-                        <td>20/10/2016</td>
-                        <td>
-                          <a href="http://incentivo.esportes.mg.gov.br/seesp-publica-edital-no-012016-do-minas-esportiva-incentivo-ao-esporte/" class="btn" title="Página do edital" target="-_blank">SEESP-MG</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="title">AES Sul</td>
-                        <td>Prêmio Empreendedor Cultural 3º edição</td>
-                        <td>Cultura</td>
-                        <td>21/10/2016</td>
-                        <td>
-                          <a href="http://empreendedorcultural.com.br/"  class="btn" title="Página do edital" target="-_blank">Empreendedor Cultural</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="title">Secretaria de Cultura do Ceará</td>
-                        <td>EDITAL ESCOLAS DA CULTURA - 2016 /  Escolas Livres de Formação Artística e Cultural</td>
-                        <td>Educação</td>
-                        <td>27/10/2016</td>
-                        <td>
-                          <a href="http://editais.cultura.ce.gov.br/2016/09/30/edital-escolas-da-cultura/"  class="btn" title="Página do edital" target="-_blank">Editais Culturais</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="title">Conferência Nacional dos Bispos do Brasil</td>
-                        <td>Fundo Ecumênico Nacional de Solidariedade – FES</td>
-                        <td>Assistência Social,Defesa de Direitos, Desenvolvimento comunitário, Empreendedorismo / Geração de Emprego e Renda</td>
-                        <td>30/10/2016</td>
-                        <td>
-                          <a href="http://fns.cnbb.org.br/fundo/informativo/index"  class="btn" title="Página do edital" target="-_blank">Fundo Nacional de Solidariedade – FNS</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table-->
-
-                <div role="tabpanel" class="tab-pane fade" id="encerrado">
-                  <table id="encerrados_formato_dados" class="display compact row-border tablesaw" width="100%"></table>
-                  <!--
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <nav aria-label="Page navigation">
-                          <ul class="pagination">
-                            <li class="disabled">
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo; Anterior</span>
-                              </a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">Próxima &raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                      </nav>
-                    </div>
-                  </div>
-
-                  <table class="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
-              			<thead>
-              				<tr>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist">Orgão</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1">Nome do Programa</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Área de Interesse</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" data-tablesaw-sortable-default-col>Data</th>
-                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Nº da chamada</th>
-              					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Edital</th>
-                    	</tr>
-              			</thead>
-
-              			<tbody>
-
-                      <tr>
-                        <td>Ministerio da edu</td>
-                        <td>programa blabla...</td>
-                        <td>05.451.822/0001-02</td>
-                        <td>25/12/2016</td>
-                        <td>
-                          <a href="#" class="btn" title="Baixar o edital"><img src="img/botao_pdf.png" height="30" width="30"><span class="export">PDF (124KB)</span></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="title">Pesquisa e exten</td>
-                        <td>Programa de desenv blabla...</td>
-                        <td>08.451.822/0001-02</td>
-                        <td>02/02/2016</td>
-                        <td>
-                          <a href="#" class="btn" title="Baixar o edital"><img src="img/botao_pdf.png" height="30" width="30"><span class="export">PDF (84KB)</span></a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="title">Orgao de mmaads</td>
-                        <td>Associação de tor...</td>
-                        <td>07.451.822/0001-02</td>
-                        <td>24/10/2016</td>
-                        <td>
-                          <a href="#" class="btn" title="Baixar o edital"><img src="img/botao_pdf.png" height="30" width="30"><span class="export">PDF (54KB)</span></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table>
-
-              </div-->
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#andamento" aria-controls="home" role="tab" data-toggle="tab">Em Andamento</a></li>
+              <li role="presentation"><a href="#encerrado" aria-controls="profile" role="tab" data-toggle="tab">Encerrado</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane fade in active" id="andamento">
+                  <table id="editais_formato_dados" class="display compact row-border tablesaw" width="100%">
+                   <img class="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
+                  </table>
               </div>
+              <div role="tabpanel" class="tab-pane fade" id="encerrado">
+                <table id="encerrados_formato_dados" class="display compact row-border tablesaw" width="100%">
+                  <img class="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -197,11 +78,9 @@ Ambiente em fase de aprimoramento. Também aqui, a colaboração é sempre bem-v
         <div id="footer-brasil"></div>
       </div>
     </footer>
-    <--Fim footer-->
+    <!--Fim footer-->
 
     <!--SCRIPTS-->
-    <script src="js/libs/tablesaw-3.0/tablesaw.js"></script>
-	  <script src="js/libs/tablesaw-3.0/tablesaw-init.js"></script>
     <script src="js/libs/react-15.3.1/react.min.js"></script>
     <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
     <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
