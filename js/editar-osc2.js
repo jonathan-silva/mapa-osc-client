@@ -42,7 +42,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
   require(
-    ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto){
+    ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -379,6 +379,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
               "cd_tipo_participacao":11,
               "tx_nome_tipo_participacao":"Suplente",
               "ft_tipo_participacao":"fonte_tipo1",
+              "tx_nome_representante_conselho":"TEXT",
+              "ft_nome_representante_conselho":"TEXT",
               "tx_periodicidade_reuniao":"mensal",
               "ft_periodicidade_reuniao":"ft_peri",
               "dt_data_inicio_conselho":"1/1/2001",
@@ -386,9 +388,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
               "dt_data_fim_conselho":"1/1/2010",
               "ft_data_fim_conselho":"ft_fim1",
               "id_representante_conselho" :1,
-              "id_participacao_social_conselho":1,
-              "tx_nome_representante_conselho":"TEXT",
-              "ft_nome_representante_conselho":"TEXT"
+              "id_participacao_social_conselho":1
         		},
             {
               "id_conselho":2,
@@ -398,12 +398,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
               "cd_tipo_participacao":22,
               "tx_nome_tipo_participacao":"Titular",
               "ft_tipo_participacao":"fonte_tipo2",
+              "tx_nome_representante_conselho":"Nome Repre",
+              "ft_nome_representante_conselho":"fonte repre",
               "tx_periodicidade_reuniao":"bimestral",
               "ft_periodicidade_reuniao":"ft_peri",
               "dt_data_inicio_conselho":"2/2/2002",
               "ft_data_inicio_conselho":"ft_inicio2",
               "dt_data_fim_conselho":"2/2/2012",
-              "ft_data_fim_conselho":"ft_fim2"
+              "ft_data_fim_conselho":"ft_fim2",
+              "id_representante_conselho" :2,
+              "id_participacao_social_conselho":2
         		}
         	],
           "declarada": [
@@ -439,7 +443,7 @@ function httpGet(theUrl)
 }
 //console.log(httpGet(urlRota));
 var result1 = httpGet(urlRota);
-console.log(result1.idOsc);
+console.log(result1);
     var dadosGerais = result.dados_gerais;
     var dados_form =
     {
@@ -1064,7 +1068,7 @@ console.log(result1.idOsc);
             if(property == "tx_nome_tipo_participacao"){
               formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
             }
-            if(property == "tx_nome_representante_conselho "){
+            if(property == "tx_nome_representante_conselho"){
               formItens.push(new FormItens(conselho[j].id, "Nome de representante", conselhos[j].tx_nome_representante_conselho , conselhos[j].ft_nome_representante_conselho, null, "text"));
             }
             if(property == "tx_periodicidade_reuniao"){
@@ -1079,13 +1083,20 @@ console.log(result1.idOsc);
          }
         }
       }
-      FormItem = React.createFactory(FormItem);
+      formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", null,null, null, "text"));
+      formItens.push(new FormItens(conselho[j].id, "Titularidade", null,null, null, "text"));
+      formItens.push(new FormItens(conselho[j].id, "Nome de representante", null,null, null, "text"));
+      formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", null,null, null, "text"));
+      formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", null,null, null, "text"));
+      formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", null,null, null, "text"));
+
+      Agrupador = React.createFactory(AgrupadorConselhos);
       ReactDOM.render(
-        FormItem(
+        Agrupador(
           {header:null, dados:formItens}
         ), document.getElementById("conselhos")
       );
-    }
+    };
   formItens = [];//
     if (conferencias.length) {
       //console.log(conferencias);
@@ -1094,22 +1105,26 @@ console.log(result1.idOsc);
         for (var property in conferencias[j]) {
           //console.log(property);
           if (conferencias[j].hasOwnProperty(property)) {
-          //  console.log(property);
+            console.log(conferencias[j]);
+            if(property == "dt_ano_realizacao"){
+              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+            }
             if(property == "tx_nome_conferencia"){
               formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
             }
             if(property == "tx_nome_forma_participacao_conferencia"){
               formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
             }
-            if(property == "dt_ano_realizacao"){
-              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
-            }
          }
         }
       }
-      FormItem = React.createFactory(FormItem);
+      /*formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", null,null, null, "text"));
+      formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", null,null, null, "text"));
+      formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", null,null, null, "text"));
+*/
+      Agrupador = React.createFactory(AgrupadorConferencia);
       ReactDOM.render(
-        FormItem(
+        Agrupador(
           {header:null, dados:formItens}
         ), document.getElementById("conferencias")
       );
@@ -1117,7 +1132,6 @@ console.log(result1.idOsc);
 
     formItens = [];//
     if (outras.length) {
-      console.log(outras);
       var outra = participacao_social_form.items;
       for (j=0; j<outras.length; j++){
         for (var property in outras[j]) {
@@ -1130,6 +1144,8 @@ console.log(result1.idOsc);
          }
         }
       }
+      //formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null,null, null, "text"));
+
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
