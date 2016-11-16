@@ -28,6 +28,13 @@
             padding: 0;
             font-family: sans-serif;
     }
+
+    #loadingMapModal{
+      position: absolute;
+      z-index: 10000;
+      padding-left: 85%;
+      padding-top: 20%;
+    }
     </style>
     <!-- header -->
     <div id="barra-brasil"></div>
@@ -51,6 +58,7 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="mapa">
+                  <img id="loadingMapModal" src="img/loading.gif" />
                   <div id="map"><!-- Mapa --></div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="lista">

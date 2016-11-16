@@ -76,9 +76,10 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
   function tabela (){
     $.ajax({
-      url: urlRota,
+      url: "js/controller.php",
       type: 'GET',
       dataType: 'json',
+      data:{flag: "consulta", rota: urlRota},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -87,17 +88,30 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         var columns = 6;
         var sizeOfData = data.length;
         newData = new Array(sizeOfData);
-        var txtVazioNulo = 'Dado não informado.';
-
-        for (var i=0; i < sizeOfData; i++){
+        var i = 0;
+        /*for (var i=0; i < sizeOfData; i++){
           newData[i] = new Array(columns);
           newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
-          newData[i][1] = data[i].tx_nome_osc != null ? data[i].tx_nome_osc : txtVazioNulo;
-          newData[i][2] = data[i].cd_identificador_osc != null ? data[i].cd_identificador_osc : txtVazioNulo;
-          newData[i][3] = data[i].tx_natureza_juridica_osc != null ? data[i].tx_natureza_juridica_osc : txtVazioNulo;
-          newData[i][4] = data[i].tx_endereco_osc != null ? data[i].tx_endereco_osc : txtVazioNulo;
-          newData[i][5] = '<button type="button" title="Clique para Detalhar" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+          newData[i][1] = data[i].tx_nome_osc;
+          newData[i][2] = data[i].cd_identificador_osc;
+          newData[i][3] = data[i].tx_natureza_juridica_osc;
+          newData[i][4] = data[i].tx_endereco_osc;
+          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+        }*/
+        for (var k in data){
+          if(k=="0") continue;
+          else{
+            newData[i] = new Array(columns);
+            newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
+            newData[i][1] = data[k][0];//tx_nome_osc;
+            newData[i][2] = data[k][1];//cd_identificador_osc;
+            newData[i][3] = data[k][2];//tx_natureza_juridica_osc;
+            newData[i][4] = data[k][3];//tx_endereco_osc;
+            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+k+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+            i++;
+          }
         }
+        
         $('#resultadoconsulta_formato_dados').DataTable({
           responsive: true,
           deferLoading: 1000,
@@ -181,10 +195,11 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         map.addLayer(point);
       }
     }
-
+    $("#loadingMapModal").hide();
     leafletView.ProcessView();
   }
 
+  $("#loadingMapModal").show();
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
