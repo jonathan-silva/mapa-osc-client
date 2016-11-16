@@ -248,22 +248,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
             "id_conselheiro": 1,
             "tx_nome_conselheiro": "nome 1",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 1",
-            "ft_cargo_conselheiro": null
+            //"tx_cargo_conselheiro": "cargo 1",
+            //"ft_cargo_conselheiro": null
           },
           {
             "id_conselheiro": 2,
             "tx_nome_conselheiro": "nome 2",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 2",
-            "ft_cargo_conselheiro": null
+          //  "tx_cargo_conselheiro": "cargo 2",
+          //  "ft_cargo_conselheiro": null
           },
           {
             "id_conselheiro": 3,
             "tx_nome_conselheiro": "nome 3",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 3",
-            "ft_cargo_conselheiro": null
+        //    "tx_cargo_conselheiro": "cargo 3",
+        //    "ft_cargo_conselheiro": null
           }
         ],
         "projetos": [
