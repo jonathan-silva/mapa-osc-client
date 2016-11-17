@@ -324,7 +324,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
 
       render: function() {
           return (
-            <div className="{this.props.container.className}">{this.renderListItems()}</div>
+            <div>{this.renderListItems()}</div>
           );
       }
   });
