@@ -444,7 +444,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
             "cd_area_atuacao": 1,
             "tx_nome_area_atuacao": "Educação",
             "cd_subarea_atuacao": 1,
-            "tx_nome_subarea_atuacao": "Educação Básica",
+            "tx_nome_subarea_atuacao": "Educação básica",
             "ft_area_atuacao": "Usuário"
           }
         ],
@@ -779,7 +779,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
       this.custom_class = custom_class;
       this.suggestions = suggestions;
     }
-    var areas_atuacao = result.areas_atuacao;
+    var areas_atuacao = json.area_atuacao.area_atuacao;
+    var area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
+    areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
     var macro_area_suggestions = getSuggestions();
     headerPriority = '2';
     headerText = 'Áreas de Atuação';
@@ -790,8 +792,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
         {
           "id": "macro_area_1",
           "label": "Macro Área 1",
-          "content": areas_atuacao[0].tx_nome_macro_area_fasfil,
-          "fonte": areas_atuacao[0].ft_area_atuacao_fasfil,
+          "content": null,
+          "fonte": null,
           "placeholder": "Insira o nome como a OSC é conhecida",
           "type": "text",
           "custom_class": "autocomplete"
@@ -799,8 +801,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
         {
           "id": "macro_area_2",
           "label": "Macro Área 2",
-          "content": areas_atuacao[1].tx_nome_macro_area_fasfil,
-          "fonte": areas_atuacao[1].ft_area_atuacao_fasfil,
+          "content": null,
+          "fonte": null,
           "placeholder": "Insira o nome como a OSC é conhecida",
           "type": "text",
           "custom_class": "autocomplete"
@@ -809,7 +811,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
     };
     items = dados_form.form_items;
     for (var j=0; j<items.length; j++){
-      formItens.push(new AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions));
+      var content = null;
+      var fonte = null;
+      if(areas_atuacao.length > j){
+        content = areas_atuacao[j].tx_nome_area_atuacao;
+        fonte = areas_atuacao[j].ft_nome_area_atuacao;
+
+      }
+      formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions));
     }
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
@@ -821,6 +830,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
     require(["react", "jquery-ui"], function (React) {
       //autocomplete macro_area_1 e macro_area_2
       $("#areas_de_atuacao .autocomplete").autocomplete({
+        create: function(event, ui) {
+          var value = $(this).attr("placeholder");
+          for (var i = 0; i < macro_area_suggestions.length; i++) {
+            var suggestion = macro_area_suggestions[i].label;
+            if (suggestion === value){
+              var $container = $(this).siblings(".checkboxList");
+              var $element = $container.find("#"+i);
+              if($element.hasClass('hidden')){
+                $element.toggleClass('hidden');
+              }
+              for (var j = 0; j < areas_atuacao.length; j++) {
+                if((value === areas_atuacao[j].tx_nome_area_atuacao) && (areas_atuacao[j].tx_nome_subarea_atuacao)){
+                  var subarea_exists = false;
+                  $element.find("label").each(function(){
+                    if(areas_atuacao[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                      subarea_exists = $(this);
+                    }
+                  });
+                  if(subarea_exists){
+                    subarea_exists.find("input").prop('checked', true);
+                  } else {
+                    $element.find("#outros").val(areas_atuacao[j].tx_nome_subarea_atuacao);
+                  }
+                }
+              }
+            }
+          }
+        },
         source: macro_area_suggestions,
         change: function( event, ui ) {
         },
@@ -1168,7 +1205,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
 
     //Projetos
     function carregaProjeto(id){
-      console.log(id);
       var labelMap = {
         "tx_nome_projeto": {
           "header": "Nome do projeto, atividade ou programa",
@@ -1488,7 +1524,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
 
        $('#objetivos-'+id).find('select').on('change', function(){
          $(this).find('option:selected').each(function(){
-           console.log($(this).text());
            $(this).removeClass("ui-selected");
 
            var options = getMetasOptions(idObjetivo);
@@ -1927,13 +1962,11 @@ function montarEnderecoImovel(dadosGerais){
     dadosGerais.nr_cep];
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
-    console.log(endereco[i]);
     if (endereco[i] !== null){
       tx_endereco_completo += (tx_endereco_completo === '' ? '' : ', ');
       tx_endereco_completo += endereco[i];
     }
   }
-  console.log(tx_endereco_completo);
   if (tx_endereco_completo === '') {
     tx_endereco_completo = 'Endereço não registrado.';
   }
