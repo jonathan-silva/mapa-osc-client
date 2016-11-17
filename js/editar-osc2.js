@@ -1,4 +1,4 @@
-require(["jquery-ui"], function (React) {
+require(["jquery-ui", "datatables-responsive"], function (React) {
 
   $(document).tooltip({
     position: {
@@ -39,9 +39,10 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	};
 }]);*/
 
-require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
 
-  require(['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons){
+  require(
+    ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -55,6 +56,15 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       this.hide = hide;
       this.default = defaultFormItem;
     }
+    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    var rotas = new Rotas();
+    var urlRota = "";
+    console.log(rotas);
+    if(valoresURL !== null){
+      var idOsc = valoresURL[0];
+      urlRota = rotas.OSCByID(idOsc);
+    }
+    //console.log(urlRota);
 
 
         var result =  {
@@ -238,22 +248,22 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
             "id_conselheiro": 1,
             "tx_nome_conselheiro": "nome 1",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 1",
-            "ft_cargo_conselheiro": null
+            //"tx_cargo_conselheiro": "cargo 1",
+            //"ft_cargo_conselheiro": null
           },
           {
             "id_conselheiro": 2,
             "tx_nome_conselheiro": "nome 2",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 2",
-            "ft_cargo_conselheiro": null
+          //  "tx_cargo_conselheiro": "cargo 2",
+          //  "ft_cargo_conselheiro": null
           },
           {
             "id_conselheiro": 3,
             "tx_nome_conselheiro": "nome 3",
             "ft_nome_conselheiro": null,
-            "tx_cargo_conselheiro": "cargo 3",
-            "ft_cargo_conselheiro": null
+        //    "tx_cargo_conselheiro": "cargo 3",
+        //    "ft_cargo_conselheiro": null
           }
         ],
         "projetos": [
@@ -418,7 +428,18 @@ require(['react', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (
       };
 
     //Dados Gerais
-console.log(result);
+console.log(urlRota);
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+//console.log(httpGet(urlRota));
+var result1 = httpGet(urlRota);
+console.log(result1.idOsc);
     var dadosGerais = result.dados_gerais;
     var dados_form =
     {
