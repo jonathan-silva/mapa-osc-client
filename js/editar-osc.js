@@ -437,9 +437,217 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
         }
       };
 
+    var json = {
+      "area_atuacao": {
+        "area_atuacao": [
+          {
+            "cd_area_atuacao": 1,
+            "tx_nome_area_atuacao": "Educação",
+            "cd_subarea_atuacao": 1,
+            "tx_nome_subarea_atuacao": "Educação Básica",
+            "ft_area_atuacao": "Usuário"
+          }
+        ],
+        "area_atuacao_outra": [
+          {
+            "id_area_atuacao_outra": 1,
+            "tx_nome_area_atuacao": "Apoio a jovens infratores",
+            "ft_area_atuacao_outra": "Usuário"
+          }
+        ]
+      },
+      "cabecalho": {
+        "cd_identificador_osc": "12345678901234",
+        "ft_identificador_osc": "RAIS",
+        "tx_razao_social_osc": "Associação de Assistência Social Terra dos Homens",
+        "ft_razao_social_osc": "RAIS",
+        "cd_natureza_juridica_osc": "1",
+        "tx_nome_natureza_juridica_osc": "Entidade privada sem fins lucrativos",
+        "ft_natureza_juridica_osc": "RAIS",
+        "im_logo": null,
+        "ft_logo": null
+      },
+      "dados_gerais": {
+        "cd_identificador_osc": "12345678901234",
+        "ft_identificador_osc": "RAIS",
+        "tx_razao_social_osc": "Associação de Assistência Social Terra dos Homens",
+        "ft_razao_social_osc": "RAIS",
+        "tx_nome_fantasia_osc": "Associação Terra dos Homens",
+        "ft_nome_fantasia_osc": "Usuario",
+        "im_logo": null,
+        "ft_logo": null,
+        "cd_atividade_economica_osc": "1",
+        "tx_nome_atividade_economica_osc": "Educação Básica",
+        "ft_atividade_economica_osc": "RAIS",
+        "cd_natureza_juridica_osc": "1",
+        "tx_nome_natureza_juridica_osc": "Entidade privada sem fins lucrativos",
+        "ft_natureza_juridica_osc": "RAIS",
+        "tx_sigla_osc": null,
+        "ft_sigla_osc": null,
+        "tx_apelido_osc": "terra_homens",
+        "ft_apelido_osc": "Usuario",
+        "dt_fundacao_osc": null,
+        "ft_fundacao_osc": null,
+        "dt_ano_cadastro_cnpj": null,
+        "ft_ano_cadastro_cnpj": null,
+        "tx_nome_responsavel_legal": null,
+        "ft_nome_responsavel_legal": null,
+        "tx_link_estatuto_osc": null,
+        "ft_link_estatuto_osc": null,
+        "tx_resumo_osc": null,
+        "ft_resumo_osc": null,
+        "cd_situacao_imovel_osc": null,
+        "tx_nome_situacao_imovel_osc": null,
+        "ft_situacao_imovel_osc": null,
+        "tx_endereco": null,
+        "ft_endereco": null,
+        "nr_localizacao": null,
+        "ft_localizacao": null,
+        "tx_endereco_complemento": null,
+        "ft_endereco_complemento": null,
+        "tx_bairro": null,
+        "ft_bairro": null,
+        "cd_municipio": null,
+        "tx_nome_municipio": null,
+        "ft_municipio": null,
+        "cd_uf": null,
+        "tx_sigla_uf": null,
+        "tx_nome_uf": null,
+        "ft_uf": null,
+        "nr_cep": null,
+        "ft_cep": null,
+        "geo_lat": null,
+        "geo_lng": null,
+        "tx_email": null,
+        "ft_email": "Usuario",
+        "tx_site": null,
+        "ft_site": null,
+        "tx_telefone": null,
+        "ft_telefone": null
+      },
+      "projeto": {
+        "projeto": [
+          {
+            "id_projeto": 2,
+            "tx_identificador_projeto_externo": null,
+            "ft_identificador_projeto_externo": null,
+            "tx_nome_projeto": "Projeto de Teste",
+            "ft_nome_projeto": "Siconv",
+            "cd_status_projeto": null,
+            "tx_nome_status_projeto": null,
+            "ft_status_projeto": null,
+            "dt_data_inicio_projeto": null,
+            "ft_data_inicio_projeto": null,
+            "dt_data_fim_projeto": null,
+            "ft_data_fim_projeto": null,
+            "tx_link_projeto": null,
+            "ft_link_projeto": null,
+            "nr_total_beneficiarios": null,
+            "ft_total_beneficiarios": null,
+            "nr_valor_total_projeto": "100000",
+            "ft_valor_total_projeto": null,
+            "nr_valor_captado_projeto": null,
+            "ft_valor_captado_projeto": null,
+            "tx_metodologia_monitoramento": null,
+            "ft_metodologia_monitoramento": null,
+            "tx_descricao_projeto": null,
+            "ft_descricao_projeto": null,
+            "cd_abrangencia_projeto": null,
+            "tx_nome_abrangencia_projeto": null,
+            "ft_abrangencia_projeto": null,
+            "cd_zona_atuacao_projeto": null,
+            "tx_nome_zona_atuacao": null,
+            "ft_zona_atuacao_projeto": null
+          },
+          {
+            "id_projeto": 1,
+            "tx_identificador_projeto_externo": null,
+            "ft_identificador_projeto_externo": null,
+            "tx_nome_projeto": "Projeto de Amparo aos Jovens",
+            "ft_nome_projeto": "Siconv",
+            "cd_status_projeto": null,
+            "tx_nome_status_projeto": null,
+            "ft_status_projeto": null,
+            "dt_data_inicio_projeto": null,
+            "ft_data_inicio_projeto": null,
+            "dt_data_fim_projeto": null,
+            "ft_data_fim_projeto": null,
+            "tx_link_projeto": null,
+            "ft_link_projeto": null,
+            "nr_total_beneficiarios": null,
+            "ft_total_beneficiarios": null,
+            "nr_valor_total_projeto": null,
+            "ft_valor_total_projeto": null,
+            "nr_valor_captado_projeto": null,
+            "ft_valor_captado_projeto": null,
+            "tx_metodologia_monitoramento": null,
+            "ft_metodologia_monitoramento": null,
+            "tx_descricao_projeto": null,
+            "ft_descricao_projeto": null,
+            "cd_abrangencia_projeto": null,
+            "tx_nome_abrangencia_projeto": null,
+            "ft_abrangencia_projeto": null,
+            "cd_zona_atuacao_projeto": null,
+            "tx_nome_zona_atuacao": null,
+            "ft_zona_atuacao_projeto": null,
+            "fonte_recursos": [
+              {
+                "id_fonte_recursos_projeto": 1,
+                "cd_origem_fonte_recursos_projeto": 1,
+                "tx_nome_origem_fonte_recursos_projeto": "Público",
+                "cd_fonte_recursos_projeto": 1,
+                "tx_nome_fonte_recursos_projeto": "Federal",
+                "ft_fonte_recursos_projeto": "Usuario"
+              },
+              {
+                "id_fonte_recursos_projeto": 2,
+                "cd_origem_fonte_recursos_projeto": 1,
+                "tx_nome_origem_fonte_recursos_projeto": "Público",
+                "cd_fonte_recursos_projeto": 2,
+                "tx_nome_fonte_recursos_projeto": "Estadual",
+                "ft_fonte_recursos_projeto": "Usuario"
+              }
+            ],
+            "publico_beneficiado": [
+              {
+                "id_publico_beneficiado": 1,
+                "tx_nome_publico_beneficiado": "Crianças",
+                "nr_estimativa_pessoas_atendidas": 1000,
+                "ft_publico_beneficiado_projeto": "Usuário"
+              }
+            ]
+          }
+        ],
+        "recursos": {
+          "nr_valor_total": "100000",
+          "nr_valor_federal": null,
+          "nr_valor_estadual": null,
+          "nr_valor_municipal": null,
+          "nr_valor_privado": null,
+          "nr_valor_proprio": null,
+          "tx_link_relatorio_auditoria": null,
+          "ft_link_relatorio_auditoria": null,
+          "tx_link_demonstracao_contabil": null,
+          "ft_link_demonstracao_contabil": null
+        }
+      },
+      "recursos": {
+        "recursos": {
+          "id_recursos_osc": 13,
+          "cd_fonte_recursos_osc": 1,
+          "tx_nome_origem_fonte_recursos_osc": "Próprio",
+          "tx_nome_fonte_recursos_osc": "Recursos próprio da organização",
+          "ft_fonte_recursos_osc": "Usuario",
+          "dt_ano_recursos_osc": "2016-01-01",
+          "ft_ano_recursos_osc": "Usuario",
+          "nr_valor_recursos_osc": "5000000",
+          "ft_valor_recursos_osc": "Usuario"
+        }
+      }
+    };
     //Dados Gerais
 
-    var dadosGerais = result.dados_gerais;
+    var dadosGerais = json.dados_gerais;
     var dados_form =
     {
       "form_items": [
@@ -559,6 +767,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("dados_gerais")
     );
+
     //Áreas de atuação
     function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, suggestions){
       this.id = id;
@@ -1506,6 +1715,7 @@ function findCertificateDate(certificacoes, id){
 function findCertificateContent(certificacoes, id){
 
 }
+
 function getSuggestions(){
   var suggestions = [
     {
@@ -1713,17 +1923,19 @@ function getSuggestions(){
 function montarEnderecoImovel(dadosGerais){
   var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
     dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
-    dadosGerais.tx_municipio, dadosGerais.tx_uf,
-    dadosGerais.nm_cep];
+    dadosGerais.tx_nome_municipio, dadosGerais.tx_nome_uf, dadosGerais.tx_sigla_uf,
+    dadosGerais.nr_cep];
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
+    console.log(endereco[i]);
     if (endereco[i] !== null){
       tx_endereco_completo += (tx_endereco_completo === '' ? '' : ', ');
       tx_endereco_completo += endereco[i];
     }
-    if (tx_endereco_completo === '') {
-      tx_endereco_completo = 'Endereço não registrado.';
-    }
+  }
+  console.log(tx_endereco_completo);
+  if (tx_endereco_completo === '') {
+    tx_endereco_completo = 'Endereço não registrado.';
   }
   return tx_endereco_completo;
 }
