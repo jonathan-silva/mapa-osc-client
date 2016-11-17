@@ -42,27 +42,26 @@
                             };
                             break;
                       case "consultaPost":
-                              //if($isCacheEnabled){
-                              if(true){
+                             if($isCacheEnabled){
                                     //POST PELO PHP
                                     $opts = array(
                                          'http' => array(
                                               'method'  => 'POST',
-                                              'header'=> "Content-Type: application/json \r\n"
-                                                    ."Authorization:  ".$authorization." \r\n"
-                                                    ."User:  ".$user." \r\n",
-                                              'content' => $parametros . " \r\n"
+                                              'header'=> array("Content-Type: application/json",
+                                                    "Authorization: $authorization" ,
+                                                    "User: $user"),
+                                              'content' => "$parametros" . " \r\n"
                                       ));
 
                                     $context  = stream_context_create($opts);
-                                    $result = file_get_contents($rota, false, $context);
+                                    $result = file_get_contents($rota, null, $context);
                                     print_r('$result');
                                     print_r($result);
                               }else{
                                     $dadosJSON = file_get_contents($rota);
                                     print_r($dadosJSON);
                             };
-                            break;                    
+                            break;
                       default:
                             print_r("Tipo de consulta inexistente.");
                   } //fim switch
