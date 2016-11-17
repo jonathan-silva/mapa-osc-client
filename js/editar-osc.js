@@ -1,5 +1,4 @@
 require(["jquery-ui", "datatables-responsive"], function (React) {
-
   $(document).tooltip({
     position: {
       my: "center bottom-20",
@@ -16,8 +15,7 @@ require(["jquery-ui", "datatables-responsive"], function (React) {
   });
 });
 
-require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], function (React) {
-
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {
   require(
     ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
@@ -36,12 +34,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
     var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
-    console.log(rotas);
+    //console.log(rotas);
     if(valoresURL !== null){
       var idOsc = valoresURL[0];
       urlRota = rotas.OSCByID(idOsc);
     }
-    console.log(urlRota);
+    //console.log(urlRota);
     var result = {
         "cabecalho": {
           "id_osc": 1,
@@ -197,7 +195,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
           "ft_trabalhadores_outros": null,
         },
         "dirigentes": [
-          {
+          {/*
             "id_osc": 1,
             "tx_cargo_dirigente": "cargo 1",
             "ft_cargo_dirigente": null,
@@ -209,7 +207,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
             "tx_cargo_dirigente": "cargo 2",
             "ft_cargo_dirigente": null,
             "tx_nome_dirigente": "nome 2",
-            "ft_nome_dirigente": null
+            "ft_nome_dirigente": null*/
           }
         ],
         "conselheiros": [
@@ -842,7 +840,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
       ), document.getElementById("areas_de_atuacao")
     );
 
-    require(["react", "jquery-ui"], function (React) {
+    require(["react", "jquery-ui", "jquery"], function (React) {
       //autocomplete macro_area_1 e macro_area_2
       $("#areas_de_atuacao .autocomplete").autocomplete({
         create: function(event, ui) {
@@ -1158,6 +1156,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC'], f
         {header:null, dados:formItens}
       ), document.getElementById("conselheiros")
     );
+
+    function addItem(){
+      $('#dirigentes button').click(function(){
+           if(this.className == 'btn-primary btn'){
+             var $div = ($(this).closest('.dirigente'));
+             $($div).clone().appendTo('#dirigentes');
+             $($div).find('button').attr('class','btn-danger btn');
+             $($div).find('button').text('Remover');
+             $('#dirigentes .dirigente:last-child').find('button').click(addItem());
+             $($div).find('button').click(removeItem());//attr('onclick', 'removeItem()');
+             $('.dirigente').last().find('input[type=text]').val('');
+             console.log('add');
+           }
+         });
+    }
+
+    function removeItem(){
+      $('#dirigentes button').click(function(){
+        console.log($(this));
+           if(this.className == 'btn-danger btn'){
+              $(this).parent().remove();
+              console.log('remove');
+           }
+         });
+    }
+
+    addItem();
+    //removeItem();
 
     //Conselho fiscal
     var conselho_fiscal = result.conselho_fiscal;

@@ -385,7 +385,7 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
         group.push(item);
         if(num == dados.length){
           itens.push(
-            <div>
+            <div className="dirigente">
               <FormItem dados={group}></FormItem>
               <button className="btn-primary btn">Adicionar</button>
               <hr/>
@@ -394,7 +394,7 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
           group = [];
         } else if((num % 2 == 0)){
           itens.push(
-            <div>
+            <div className="dirigente">
               <FormItem dados={group}></FormItem>
               <button className="btn-danger btn">Remover</button>
               <hr/>
