@@ -1,9 +1,7 @@
 require(['react'], function(React) {
 
     require(['jquery-ui'], function(React) {
-
         $(".captcha input").checkboxradio();
-
     });
 
 });
@@ -42,14 +40,18 @@ require(["jquery-ui"], function(React) {
     //inicio btn.btn-success.click
     var div = $(".form-group");
     div.find(".btn.btn-success").on("click", function() {
-        console.log('entrou no clique');
+
         //Captcha
-        //TODO if(grecaptcha.getResponse().length == 0) {return false;}
+        if(grecaptcha.getResponse().length == 0) {
+          jQuery("#labelCaptcha").text("Resolver o Captcha.");
+          return false;
+        }else{
+          jQuery("#labelCaptcha").text("");
+        }
 
         var $email = $('#email').val();
         var $modal = $('#modalMensagem');
-        //HB TODO apagar teste
-        $email = "heraldoborges@gmail.com";
+
 
         if (!validaEmail($email)) {
             $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -59,39 +61,38 @@ require(["jquery-ui"], function(React) {
         }
 
         var $json = '{"tx_email_usuario": "' + $email + '"}';
-        $json = JSON.parse($json);
 
-        console.log($json);
 
-        $.ajax({
-            //url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/",
-            url: 'js/controller.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                flag: 'consultaPost',
-                rota: 'http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/',
-                parametros: $json
-            },
-            success: function(data) {
-                console.log('sucesso');
-                console.log(data);
-                console.log(data.responseText);
-                $modal.modal('show');
-            },
-            error: function(e) {
-                console.log('error');
-                console.log(e);
-                //e = JSON.parse(e.responseText);
-                //console.log(e.msg);
-                //alert(e.msg);
-                jQuery("#modalTitle").text("Problema na solicitação!");
-                jQuery("#modalConteudo").text(e.msg);
-                $modal.modal('show');
-                return false
-            }
-        }); //final envio ajax
-
+                $.ajax({
+                    url: 'js/controller.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        flag: 'consultaPost',
+                        rota: 'http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/',
+                        parametros: $json
+                    },
+                    success: function(data) {
+                        console.log(data.responseText);
+                        $modal.modal('show');
+                    },
+                    error: function(e) {
+                       console.log(e);
+                        jQuery("#modalTitle").text("Problema na solicitação!");
+                        if (e.status==500){
+                          jQuery("#modalConteudo").text("Sistema indisponível no momento. Por favor, tente mais tarde.");
+                        }else{
+                          try{
+                              $msg = JSON.parse(e.responseText).msg;
+                           }catch(e){
+                              $msg = "Sistema indisponível no momento. Por favor, tente mais tarde.";
+                           }
+                          jQuery("#modalConteudo").text($msg);
+                        }
+                        $modal.modal('show');
+                        return false
+                    }
+                }); //final envio ajax
     }); //Final btn click
 }); //Final jquery-ui
 
