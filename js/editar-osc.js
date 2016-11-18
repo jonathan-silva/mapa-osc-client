@@ -1072,8 +1072,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     //Relações de trabalho e governança
     var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-    var dirigentes = result.dirigentes;
-    var conselheiros = result.conselheiros[0];
+    var dirigentes = json.relacoes_trabalho_governanca.governanca;
+    var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
     var sections = {
       "items": [
         {
@@ -1140,8 +1140,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
       }
     }
-    formItens.push(new FormItens(dirigentes[0].id, "Nome", "Insira o nome aqui", null, null, "text"));
-    formItens.push(new FormItens(dirigentes[0].id, "Cargo", "Insira o cargo aqui", null, null, "text"));
+    formItens.push(new FormItens(null, "Nome", "Insira o nome aqui", null, null, "text"));
+    formItens.push(new FormItens(null, "Cargo", "Insira o cargo aqui", null, null, "text"));
     Agrupador = React.createFactory(Agrupador);
     ReactDOM.render(
       Agrupador(
@@ -1149,7 +1149,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       ), document.getElementById("dirigentes")
     );
     formItens = [];
-    formItens.push(new FormItens(conselheiros.id_osc, "Quantidade de conselheiros", conselheiros.tx_quantidade, null, null, "p"));
+    formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros.length, null, null, "p"));
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
@@ -1186,7 +1186,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     //removeItem();
 
     //Conselho fiscal
-    var conselho_fiscal = result.conselho_fiscal;
+    var conselho_fiscal = json.relacoes_trabalho_governanca.conselho_fiscal;
 
     formItens = [];
     for (var i = 0; i < conselho_fiscal.length; i++) {
@@ -1202,7 +1202,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     );
 
     //Trabalhadores
-    var relacoes_trabalho = result.relacoes_trabalho;
+    var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
+    var relacoes_trabalho_outra = json.relacoes_trabalho_governanca.relacoes_trabalho_outra[0];
     dados_form =
     {
       "form_items": [
@@ -1241,8 +1242,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {
           "id": "outros",
           "label": "Outros trabalhadores",
-          "content": relacoes_trabalho.nr_trabalhadores_outros,
-          "fonte": relacoes_trabalho.ft_trabalhadores_outros,
+          "content": relacoes_trabalho_outra.nr_trabalhadores,
+          "fonte": relacoes_trabalho_outra.ft_trabalhadores,
           "placeholder": "Insira o total de trabalhadores com outros tipos de vínculo",
           "type": "text"
         }
