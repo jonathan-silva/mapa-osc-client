@@ -17,7 +17,7 @@ require(["jquery-ui"], function (React) {
 });
 
 //require(['jquery','datatables-responsive', 'google'], function (React) {
-require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (React) {
+require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
@@ -89,43 +89,40 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
         var sizeOfData = data.length;
         newData = new Array(sizeOfData);
         var i = 0;
-        /*for (var i=0; i < sizeOfData; i++){
-          newData[i] = new Array(columns);
-          newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
-          newData[i][1] = data[i].tx_nome_osc;
-          newData[i][2] = data[i].cd_identificador_osc;
-          newData[i][3] = data[i].tx_natureza_juridica_osc;
-          newData[i][4] = data[i].tx_endereco_osc;
-          newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
-        }*/
-        for (var k in data){
-          if(k=="0") continue;
+        var txtVazioNulo = 'Dado não informado.';
+
+        for (var j in data){
+          if(j=="0") continue;
           else{
             newData[i] = new Array(columns);
             newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
-            newData[i][1] = data[k][0];//tx_nome_osc;
-            newData[i][2] = data[k][1];//cd_identificador_osc;
-            newData[i][3] = data[k][2];//tx_natureza_juridica_osc;
-            newData[i][4] = data[k][3];//tx_endereco_osc;
-            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+k+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+            newData[i][1] = data[j][0] != null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
+            newData[i][2] = data[j][1] != null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
+            newData[i][3] = data[j][2] != null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
+            newData[i][4] = data[j][3] != null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
+            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
             i++;
           }
         }
-        
+
         $('#resultadoconsulta_formato_dados').DataTable({
           responsive: true,
+          processing: true,
           deferLoading: 1000,
           deferRender: true,
+          searching: false,
           data: newData,
+          dom: 'Bfrtip',
+          "bSort": true,
+          "aaSorting": [[ 1, 'asc' ]],
            columns: [
                    {title: "", width: 50},
-                   {title: "Nome da OSC"},
+                   {title: "Nome da OSC", width: 200},
                    {title: "CNPJ"},
                    {title: "Natureza Jurídica"},
                    {title: "Endereço"},
                    {title: "Detalhar"}
                ],
-           order: [],
            aoColumnDefs: [
              {bSortable :false, aTargets: [0]},
              {bSortable :false, aTargets: [5]},
@@ -189,7 +186,7 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
   }
 
   function carregaMapa(dados){
-    for(k in dados){
+    for(var k in dados){
       var point = loadPoint(k, dados[k][0], dados[k][1]);
       if(point!==null){
         map.addLayer(point);

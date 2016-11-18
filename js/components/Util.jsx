@@ -418,6 +418,96 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
   return Agrupador;
 });
 
+define('componenteAgrupadorConferencia', ['react', 'componenteFormItem'], function (React, FormItem) {
+  var AgrupadorConferencia = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var group = [];
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var num = i+1;
+        group.push(item);
+        if(num == dados.length){
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-primary btn">Adicionar</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        } else if((num % 3 == 0)){
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-danger btn">Remover</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        }
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return AgrupadorConferencia;
+});
+
+define('componenteAgrupadorConselhos', ['react', 'componenteFormItem'], function (React, FormItem) {
+  var Agrupador = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var group = [];
+      var itens = [];
+      for (var i = 0; i < dados.length; i++) {
+        var item = dados[i];
+        var num = i+1;
+        group.push(item);
+        if(num == dados.length){
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-primary btn">Adicionar</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        } else if((num % 6 == 0)){
+          itens.push(
+            <div>
+              <FormItem dados={group}></FormItem>
+              <button className="btn-danger btn">Remover</button>
+              <hr/>
+            </div>
+          )
+          group = [];
+        }
+      }
+
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div>{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return Agrupador;
+});
+
 define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (React, FormItem) {
   var FormItemButtons = React.createClass({
     renderListItems: function(){
