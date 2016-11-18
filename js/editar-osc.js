@@ -610,117 +610,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         ]
       },
-      "projeto": {
-        "projeto": [
-          {
-            "id_projeto": 1,
-            "tx_identificador_projeto_externo": null,
-            "ft_identificador_projeto_externo": null,
-            "tx_nome_projeto": "Projeto Teste",
-            "ft_nome_projeto": "Usuário",
-            "cd_status_projeto": 2,
-            "tx_nome_status_projeto": "Em Execução",
-            "ft_status_projeto": "Usuário",
-            "dt_data_inicio_projeto": "2016-11-11",
-            "ft_data_inicio_projeto": "Usuário",
-            "dt_data_fim_projeto": "2017-11-11",
-            "ft_data_fim_projeto": "Usuário",
-            "tx_link_projeto": "www.orgteste.com/projeto/teste",
-            "ft_link_projeto": "Usuário",
-            "nr_total_beneficiarios": 1000,
-            "ft_total_beneficiarios": "Usuário",
-            "nr_valor_total_projeto": "100000",
-            "ft_valor_total_projeto": "MINC/SALICWEB",
-            "nr_valor_captado_projeto": "100000",
-            "ft_valor_captado_projeto": "Usuário",
-            "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
-            "ft_metodologia_monitoramento": "Usuário",
-            "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
-            "ft_descricao_projeto": "Usuário",
-            "cd_abrangencia_projeto": 2,
-            "tx_nome_abrangencia_projeto": "Estadual",
-            "ft_abrangencia_projeto": "Usuário",
-            "cd_zona_atuacao_projeto": 1,
-            "tx_nome_zona_atuacao": "Urbana",
-            "ft_zona_atuacao_projeto": "Usuário",
-            "publico_beneficiado": [
-              {
-                "id_publico_beneficiado": 1,
-                "tx_nome_publico_beneficiado": "Crianças",
-                "nr_estimativa_pessoas_atendidas": 1000,
-                "ft_publico_beneficiado_projeto": "Usuário"
-              }
-            ],
-            "area_atuacao": [
-              {
-                "cd_area_atuacao_projeto": 1,
-                "tx_nome_area_atuacao_projeto": "Educação Básica",
-                "ft_area_atuacao_projeto": "Usuário"
-              }
-            ],
-            "area_atuacao_outra": [
-              {
-                "id_area_atuacao_outra_projeto": 1,
-                "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
-                "ft_area_atuacao_outra_projeto": "Usuário"
-              }
-            ],
-            "localizacao": [
-              {
-                "id_regiao_localizacao_projeto": 1,
-                "tx_nome_regiao_localizacao_projeto": "São Paulo",
-                "ft_nome_regiao_localizacao_projeto": null,
-                "bo_localizacao_prioritaria": false,
-                "ft_localizacao_prioritaria": null
-              }
-            ],
-            "parceira": [
-              {
-                "id_osc": 2,
-                "tx_nome_osc_parceira_projeto": "Nome da osc",
-                "ft_osc_parceira_projeto": null
-              },
-              {
-                "id_osc": 3,
-                "tx_nome_osc_parceira_projeto": "Nome da osc X",
-                "ft_osc_parceira_projeto": null
-              }
-            ],
-            "financiador": [
-              {
-                "id_financiador_projeto": 1,
-                "tx_nome_financiador": "João",
-                "ft_nome_financiador": null
-              },
-              {
-                "id_financiador_projeto": 2,
-                "tx_nome_financiador": "José",
-                "ft_nome_financiador": null
-              }
-            ],
-            "objetivo_meta": {
-              "id_objetivo_projeto": 1,
-              "cd_objetivo_projeto": 1,
-              "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
-              "cd_meta_projeto": 1,
-              "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
-              "ft_objetivo_projeto": "Usuário"
-            }
-          }
-        ],
-        "recursos": {
-          "nr_valor_total": "150000",
-          "nr_valor_federal": null,
-          "nr_valor_estadual": null,
-          "nr_valor_municipal": null,
-          "nr_valor_privado": null,
-          "nr_valor_proprio": null,
-          "tx_link_relatorio_auditoria": null,
-          "ft_link_relatorio_auditoria": null,
-          "tx_link_demonstracao_contabil": null,
-          "ft_link_demonstracao_contabil": null
+      "projeto": [
+        {
+          "id_projeto": 1,
+          "tx_nome_projeto": "Projeto Teste 1"
+        },
+        {
+          "id_projeto": 2,
+          "tx_nome_projeto": "Projeto Teste 2"
         }
-    },
+      ],
+      "recursos": {
+        "nr_valor_total": "150000",
+        "nr_valor_federal": null,
+        "nr_valor_estadual": null,
+        "nr_valor_municipal": null,
+        "nr_valor_privado": null,
+        "nr_valor_proprio": null,
+        "tx_link_relatorio_auditoria": null,
+        "ft_link_relatorio_auditoria": null,
+        "tx_link_demonstracao_contabil": null,
+        "ft_link_demonstracao_contabil": null
+      },
       "relacoes_trabalho_governanca": {
         "relacoes_trabalho": {
           "nr_trabalhadores": 13,
@@ -1708,14 +1619,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "containerClass": "col-md-12",
           "removable": false,
           "type": "select",
-          "options": getObjetivosOptions()
+          "options": null
         },
         "objetivos_metas": {
           "header": null,
           "containerClass": null,
           "removable": false,
           "type": "select",
-          "options": getMetasOptions()
+          "options": null
         }
       };
 
@@ -1747,8 +1658,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.buttons = buttons;
       }
 
-      // var projects = [result.projetos[id]];
-      var project = json.projeto.projeto[0];
+      var project = getProject(id);
       var agrupadores = [];
       var projectId = project.id_projeto;
       for (var property in project) {
@@ -1914,7 +1824,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          });
        });
     }
-    var projects_list = result.lista_projetos;
+    var projects_list = json.projeto;
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
@@ -1934,8 +1844,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = projects_list[i].id;
-      newData[i][1] = projects_list[i].nome;
+      newData[i][0] = projects_list[i].id_projeto;
+      newData[i][1] = projects_list[i].tx_nome_projeto;
     }
     var table_lista_projetos = $('#table_lista_projetos').DataTable({
       responsive: true,
@@ -1958,12 +1868,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       autoWidth: true
      });
      $("#table_lista_projetos tr").click(function(){
-       var rowId = $(this)[0]._DT_RowIndex;
-       var divId = "projeto-" + rowId;
+       var id_projeto = table_lista_projetos.row(this).data()[0];
+       var divId = "projeto-" + id_projeto;
        var projetos = $(this).next(".projeto");
        if(projetos.length < 1){
          $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-         carregaProjeto(rowId);
+         carregaProjeto(id_projeto);
        } else {
          var $divDadosProjeto = $(projetos[0]);
          $divDadosProjeto.toggleClass("hidden");
@@ -1972,8 +1882,115 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   });
 });
 
-function getMetasOptions(id){
+function getProject(id){
   console.log(id);
+  var project = {
+    "id_projeto": 1,
+    "tx_identificador_projeto_externo": null,
+    "ft_identificador_projeto_externo": null,
+    "tx_nome_projeto": "Projeto Teste",
+    "ft_nome_projeto": "Usuário",
+    "cd_status_projeto": 2,
+    "tx_nome_status_projeto": "Em Execução",
+    "ft_status_projeto": "Usuário",
+    "dt_data_inicio_projeto": "2016-11-11",
+    "ft_data_inicio_projeto": "Usuário",
+    "dt_data_fim_projeto": "2017-11-11",
+    "ft_data_fim_projeto": "Usuário",
+    "tx_link_projeto": "www.orgteste.com/projeto/teste",
+    "ft_link_projeto": "Usuário",
+    "nr_total_beneficiarios": 1000,
+    "ft_total_beneficiarios": "Usuário",
+    "nr_valor_total_projeto": "100000",
+    "ft_valor_total_projeto": "MINC/SALICWEB",
+    "nr_valor_captado_projeto": "100000",
+    "ft_valor_captado_projeto": "Usuário",
+    "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
+    "ft_metodologia_monitoramento": "Usuário",
+    "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
+    "ft_descricao_projeto": "Usuário",
+    "cd_abrangencia_projeto": 2,
+    "tx_nome_abrangencia_projeto": "Estadual",
+    "ft_abrangencia_projeto": "Usuário",
+    "cd_zona_atuacao_projeto": 1,
+    "tx_nome_zona_atuacao": "Urbana",
+    "ft_zona_atuacao_projeto": "Usuário",
+    "publico_beneficiado": [
+      {
+        "id_publico_beneficiado": 1,
+        "tx_nome_publico_beneficiado": "Crianças",
+        "nr_estimativa_pessoas_atendidas": 1000,
+        "ft_publico_beneficiado_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao": [
+      {
+        "cd_area_atuacao_projeto": 1,
+        "tx_nome_area_atuacao_projeto": "Educação Básica",
+        "ft_area_atuacao_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao_outra": [
+      {
+        "id_area_atuacao_outra_projeto": 1,
+        "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
+        "ft_area_atuacao_outra_projeto": "Usuário"
+      }
+    ],
+    "localizacao": [
+      {
+        "id_regiao_localizacao_projeto": 1,
+        "tx_nome_regiao_localizacao_projeto": "São Paulo",
+        "ft_nome_regiao_localizacao_projeto": null,
+        "bo_localizacao_prioritaria": false,
+        "ft_localizacao_prioritaria": null
+      }
+    ],
+    "parceira": [
+      {
+        "id_osc": 2,
+        "tx_nome_osc_parceira_projeto": "Nome da osc",
+        "ft_osc_parceira_projeto": null
+      },
+      {
+        "id_osc": 3,
+        "tx_nome_osc_parceira_projeto": "Nome da osc X",
+        "ft_osc_parceira_projeto": null
+      }
+    ],
+    "financiador": [
+      {
+        "id_financiador_projeto": 1,
+        "tx_nome_financiador": "João",
+        "ft_nome_financiador": null
+      },
+      {
+        "id_financiador_projeto": 2,
+        "tx_nome_financiador": "José",
+        "ft_nome_financiador": null
+      }
+    ],
+    "objetivo_meta": {
+      "id_objetivo_projeto": 1,
+      "cd_objetivo_projeto": 1,
+      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
+      "cd_meta_projeto": 1,
+      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
+      "ft_objetivo_projeto": "Usuário"
+    },
+    "recursos": {
+      "id_fonte_recursos_projeto": 1,
+      "cd_origem_fonte_recursos_projeto": 2,
+      "tx_nome_origem_fonte_recursos_projeto": "Público",
+      "cd_fonte_recursos_projeto": "",
+      "tx_nome_fonte_recursos_projeto": "Estadual",
+      "ft_fonte_recursos_projeto": ""
+    }
+  };
+  return project;
+}
+
+function getMetasOptions(id){
   var metas = [
     {
       "cd_meta_projeto": 1,
