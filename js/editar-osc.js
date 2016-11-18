@@ -697,7 +697,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 "tx_nome_financiador": "José",
                 "ft_nome_financiador": null
               }
-            ]
+            ],
+            "objetivo_meta": {
+              "id_objetivo_projeto": 1,
+              "cd_objetivo_projeto": 1,
+              "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
+              "cd_meta_projeto": 1,
+              "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
+              "ft_objetivo_projeto": "Usuário"
+            }
           }
         ],
         "recursos": {
@@ -1771,12 +1779,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var financiadores = getFinanciadoresProjeto(projectId, project.financiador);
       var autodeclaradas = getAutodeclaradasProjeto(projectId, autodeclaradas);
       var parceiras = getParceirasProjeto(projectId, project.parceira);
-      var objetivos = getObjetivos(projectId);
       var valorMeta = "";
       var idObjetivo = "";
       var multipleInputs = [
         localizacao, publicoBeneficiado, financiadores,
-        autodeclaradas, parceiras, fonte, objetivos
+        autodeclaradas, parceiras, fonte
       ];
       for (var j = 0; j < multipleInputs.length; j++) {
         var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
@@ -1784,7 +1791,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       function createAgrupadorMultipleInputs(object){
-        console.log(object);
         var sectionId = object.id
         var element = labelMap[object.id];
         var inputs = [];
@@ -1816,20 +1822,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
                   inputs.push(inputProjeto);
                 }
-              } else if (sectionId == "objetivos"){
-                idObjetivo = object.dados[i]["id_objetivo_projeto"];
-                if(property === "tx_nome_objetivo_projeto"){
-                  value = object.dados[i][property];
-                  options = labelMap[object.id].options;
-                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-                  inputs.push(inputProjeto);
-                } else if(property === "tx_nome_meta_projeto"){
-                  valorMeta = object.dados[i][property];
-                  // options = getMetasOptions(idObjetivo);
-                  // var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-                  // inputs.push(inputProjeto);
-                }
-
               } else if(property.slice(0,2) === "tx"){
                 value = object.dados[i][property];
                 var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
@@ -1855,36 +1847,70 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:agrupadores}
         ), document.getElementById("projeto-"+id)
       );
-      var $divProjeto = $('#projeto-'+id);
-      var $divObjetivosProjeto = $divProjeto.find('#objetivos-0');
-      $divObjetivosProjeto.append('<div id="metas-'+id+'"></div>');
-      var $divObjetivosMetasProjeto = $divObjetivosProjeto.find("#metas-"+id);
-      $divObjetivosMetasProjeto.append('<div class="header">Metas</div>');
-      $divObjetivosMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
 
-      var options = getMetasOptions(idObjetivo);
+      //metas e objetivos
+      var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
+      var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
+      var meta = project.objetivo_meta.tx_nome_meta_projeto;
+      var cd_meta = project.objetivo_meta.cd_meta_projeto;
+
+      var $divProjeto = $('#projeto-'+id);
+      $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
+      var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
+      $divObjetivosMetasProjeto.append('<div id="objetivos"></div>');
+      $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
+      $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
+      $divObjetivosProjeto.append('<div class="form-group"><select class="form-control"></select></div>');
+      $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
+      $divMetasProjeto.append('<div class="header">Metas</div>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+
+      var options = getObjetivosOptions()
+      var $selectObjetivos = $divObjetivosProjeto.find("select");
       for (var i = 0; i < options.length; i++) {
-        if(options[i] == valorMeta){
-          $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+        if(options[i].cd_objetivo_projeto === cd_objetivo){
+          $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         } else {
-          $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
+          $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         }
       }
-       $( '#selectable-'+id ).selectable();
 
-       $('#objetivos-'+id).find('select').on('change', function(){
+      var options = getMetasOptions(cd_objetivo);
+      for (var i = 0; i < options.length; i++) {
+        if(options[i].cd_meta_projeto == cd_meta){
+          $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+        } else {
+          $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+        }
+      }
+      $('#selectable-'+cd_objetivo).selectable();
+
+       $('#objetivos').find('select').on('change', function(){
          $(this).find('option:selected').each(function(){
+           $(".metas").each(function(){
+             if(!$(this).hasClass('hidden')){
+               $(this).toggleClass('hidden');
+             }
+           });
+           var cd_objetivo = $(this).attr('id');
            $(this).removeClass("ui-selected");
+           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+           $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
+           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+           if($('#metas-'+cd_objetivo).hasClass('hidden')){
+             $('#metas-'+cd_objetivo).toggleClass('hidden');
+           }
 
            var options = getMetasOptions(idObjetivo);
            for (var i = 0; i < options.length; i++) {
-             if(options[i] == valorMeta){
-               $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+             if(options[i].cd_meta_projeto == cd_meta){
+               $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
              } else {
-               $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
+               $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
              }
            }
-            $( '#selectable-'+id ).selectable();
+            $('#selectable-'+cd_objetivo).selectable();
          });
        });
     }
@@ -1947,42 +1973,48 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 });
 
 function getMetasOptions(id){
+  console.log(id);
   var metas = [
-    "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
-    "Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais",
-    "Implementar, em nível nacional, medidas e sistemas de proteção social adequados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis",
-    "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças"
+    {
+      "cd_meta_projeto": 1,
+      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia"
+    },
+    {
+      "cd_meta_projeto": 2,
+      "tx_nome_meta_projeto": "Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais"
+    },
+    {
+      "cd_meta_projeto": 3,
+      "tx_nome_meta_projeto": "Implementar, em nível nacional, medidas e sistemas de proteção social adequados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis"
+    }
   ];
   return metas;
 }
 
-function getObjetivos(id){
-  var objetivos = {
-    "objetivos": [
-      {
-        "id_objetivo_projeto": 1,
-        "cd_objetivo_projeto": null,
-        "tx_nome_objetivo_projeto": "Assegurar padrões de produção e de consumo sustentáveis",
-        "cd_meta_projeto": null,
-        "tx_nome_meta_projeto": "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças",
-        "ft_objetivo_projeto": null,
-      }
-    ]
-  };
-  var key = Object.keys(objetivos)[0];
-  var objObjetivos = {
-    "id": key,
-    "dados": objetivos[key]
-  };
-  return objObjetivos;
-}
-
 function getObjetivosOptions(){
-  var objetivosOptions = [
-    "Acabar com a pobreza em todas as suas formas, em todos os lugares",
-    "Assegurar padrões de produção e de consumo sustentáveis"
+  var objetivos = [
+    {
+      "cd_objetivo_projeto": 1,
+      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares"
+    },
+    {
+      "cd_objetivo_projeto": 2,
+      "tx_nome_objetivo_projeto": "Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição e promover a agricultura sustentável"
+    },
+    {
+      "cd_objetivo_projeto": 3,
+      "tx_nome_objetivo_projeto": "Assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades"
+    },
+    {
+      "cd_objetivo_projeto": 4,
+      "tx_nome_objetivo_projeto": "Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos"
+    },
+    {
+      "cd_objetivo_projeto": 5,
+      "tx_nome_objetivo_projeto": "Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas"
+    }
   ];
-  return objetivosOptions;
+  return objetivos;
 }
 
 function getFonteDeRecursosProjeto(id){
