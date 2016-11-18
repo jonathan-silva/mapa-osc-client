@@ -1051,6 +1051,39 @@ console.log(result1);
     }*/
 
 
+  formItens = [];//
+    if (conferencias.length) {
+      //console.log(conferencias);
+      var conferencia = participacao_social_form.items;
+      for (j=0; j<conferencias.length; j++){
+        for (var property in conferencias[j]) {
+          //console.log(property);
+          if (conferencias[j].hasOwnProperty(property)) {
+            console.log(conferencias[j]);
+            if(property == "dt_ano_realizacao"){
+              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+            }
+            if(property == "tx_nome_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+            }
+            if(property == "tx_nome_forma_participacao_conferencia"){
+              formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+            }
+         }
+        }
+      }
+      formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", null,null, null, "text"));
+      formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", null,null, null, "text"));
+      formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", null,null, null, "text"));
+
+      Agrupador = React.createFactory(AgrupadorConferencia);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
+    }
+
     formItens = [];//React.createFactory(participacao_social_form);
     if (conselhos.length) {
       var conselho = participacao_social_form.items;
@@ -1097,38 +1130,6 @@ console.log(result1);
         ), document.getElementById("conselhos")
       );
     };
-  formItens = [];//
-    if (conferencias.length) {
-      //console.log(conferencias);
-      var conferencia = participacao_social_form.items;
-      for (j=0; j<conferencias.length; j++){
-        for (var property in conferencias[j]) {
-          //console.log(property);
-          if (conferencias[j].hasOwnProperty(property)) {
-            console.log(conferencias[j]);
-            if(property == "dt_ano_realizacao"){
-              formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
-            }
-            if(property == "tx_nome_conferencia"){
-              formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
-            }
-            if(property == "tx_nome_forma_participacao_conferencia"){
-              formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
-            }
-         }
-        }
-      }
-      /*formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", null,null, null, "text"));
-      formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", null,null, null, "text"));
-      formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", null,null, null, "text"));
-*/
-      Agrupador = React.createFactory(AgrupadorConferencia);
-      ReactDOM.render(
-        Agrupador(
-          {header:null, dados:formItens}
-        ), document.getElementById("conferencias")
-      );
-    }
 
     formItens = [];//
     if (outras.length) {
@@ -1144,7 +1145,8 @@ console.log(result1);
          }
         }
       }
-      //formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null,null, null, "text"));
+      
+      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, null, "text", null, null, null, null, true));
 
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
