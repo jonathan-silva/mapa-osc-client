@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 require(["jquery-ui", "datatables-responsive"], function (React) {
   $(document).tooltip({
     position: {
@@ -574,30 +575,88 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "id_projeto": 1,
             "tx_identificador_projeto_externo": null,
             "ft_identificador_projeto_externo": null,
-            "tx_nome_projeto": "Projeto vida eh +",
-            "ft_nome_projeto": "Vagner",
-            "tx_nome_status_projeto": null,
-            "ft_status_projeto": null,
-            "dt_data_inicio_projeto": null,
-            "ft_data_inicio_projeto": null,
-            "dt_data_fim_projeto": null,
-            "ft_data_fim_projeto": null,
-            "tx_link_projeto": null,
-            "ft_link_projeto": null,
-            "nr_total_beneficiarios": null,
-            "ft_total_beneficiarios": null,
-            "nr_valor_total_projeto": null,
-            "ft_valor_total_projeto": null,
-            "nr_valor_captado_projeto": null,
-            "ft_valor_captado_projeto": null,
-            "tx_metodologia_monitoramento": null,
-            "ft_metodologia_monitoramento": null,
-            "tx_descricao_projeto": null,
-            "ft_descricao_projeto": null,
-            "tx_nome_abrangencia_projeto": null,
-            "ft_abrangencia_projeto": null,
-            "tx_nome_zona_atuacao": null,
-            "ft_zona_atuacao_projeto": null
+            "tx_nome_projeto": "Projeto Teste",
+            "ft_nome_projeto": "Usuário",
+            "cd_status_projeto": 2,
+            "tx_nome_status_projeto": "Em Execução",
+            "ft_status_projeto": "Usuário",
+            "dt_data_inicio_projeto": "2016-11-11",
+            "ft_data_inicio_projeto": "Usuário",
+            "dt_data_fim_projeto": "2017-11-11",
+            "ft_data_fim_projeto": "Usuário",
+            "tx_link_projeto": "www.orgteste.com/projeto/teste",
+            "ft_link_projeto": "Usuário",
+            "nr_total_beneficiarios": 1000,
+            "ft_total_beneficiarios": "Usuário",
+            "nr_valor_total_projeto": "100000",
+            "ft_valor_total_projeto": "MINC/SALICWEB",
+            "nr_valor_captado_projeto": "100000",
+            "ft_valor_captado_projeto": "Usuário",
+            "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
+            "ft_metodologia_monitoramento": "Usuário",
+            "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
+            "ft_descricao_projeto": "Usuário",
+            "cd_abrangencia_projeto": 2,
+            "tx_nome_abrangencia_projeto": "Estadual",
+            "ft_abrangencia_projeto": "Usuário",
+            "cd_zona_atuacao_projeto": 1,
+            "tx_nome_zona_atuacao": "Urbana",
+            "ft_zona_atuacao_projeto": "Usuário",
+            "publico_beneficiado": [
+              {
+                "id_publico_beneficiado": 1,
+                "tx_nome_publico_beneficiado": "Crianças",
+                "nr_estimativa_pessoas_atendidas": 1000,
+                "ft_publico_beneficiado_projeto": "Usuário"
+              }
+            ],
+            "area_atuacao": [
+              {
+                "cd_area_atuacao_projeto": 1,
+                "tx_nome_area_atuacao_projeto": "Educação Básica",
+                "ft_area_atuacao_projeto": "Usuário"
+              }
+            ],
+            "area_atuacao_outra": [
+              {
+                "id_area_atuacao_outra_projeto": 1,
+                "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
+                "ft_area_atuacao_outra_projeto": "Usuário"
+              }
+            ],
+            "localizacao": [
+              {
+                "id_regiao_localizacao_projeto": 1,
+                "tx_nome_regiao_localizacao_projeto": "São Paulo",
+                "ft_nome_regiao_localizacao_projeto": null,
+                "bo_localizacao_prioritaria": false,
+                "ft_localizacao_prioritaria": null
+              }
+            ],
+            "parceira": [
+              {
+                "id_osc": 2,
+                "tx_nome_osc_parceira_projeto": "Nome da osc",
+                "ft_osc_parceira_projeto": null
+              },
+              {
+                "id_osc": 3,
+                "tx_nome_osc_parceira_projeto": "Nome da osc X",
+                "ft_osc_parceira_projeto": null
+              }
+            ],
+            "financiador": [
+              {
+                "id_financiador_projeto": 1,
+                "tx_nome_financiador": "João",
+                "ft_nome_financiador": null
+              },
+              {
+                "id_financiador_projeto": 2,
+                "tx_nome_financiador": "José",
+                "ft_nome_financiador": null
+              }
+            ]
           }
         ],
         "recursos": {
@@ -612,7 +671,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "tx_link_demonstracao_contabil": null,
           "ft_link_demonstracao_contabil": null
         }
-      },
+    },
       "relacoes_trabalho_governanca": {
         "relacoes_trabalho": {
           "nr_trabalhadores": 13,
@@ -1059,7 +1118,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#manual").find("input:text").each(function(){
       if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
         var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
-        console.log(utilidade_publica_id);
+
         $("#manual").find("input:checkbox").each(function(){
           if($(this).val() === utilidade_publica_id){
             $(this).prop('checked', true);
@@ -1341,8 +1400,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "financiadores": {
           "header": "Financiadores do Projeto",
           "containerClass": "col-md-3",
-          "removable": false,
-          "type": "textarea",
+          "removable": true,
+          "type": "text",
           "options": null
         },
         "autodeclaradas": {
@@ -1449,49 +1508,52 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.buttons = buttons;
       }
 
-      var projects = [result.projetos[id]];
+      // var projects = [result.projetos[id]];
+      var project = json.projeto.projeto[0];
       var agrupadores = [];
-      for (var i = 0; i < projects.length; i++) {
-        var projectId = projects[i].id_projeto;
-        for (var property in projects[i]) {
-          if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-            var sectionId = property;
-            var value = projects[i][property];
-            var header = labelMap[property].header;
-            var containerClass = labelMap[property].containerClass;
-            var removable = labelMap[property].removable;
-            var type = labelMap[property].type;
-            var options = labelMap[property].options;
-            var buttons = null;
-            var buttonsInLine = false;
+      var projectId = project.id_projeto;
+      for (var property in project) {
+        if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
+          var sectionId = property;
+          var value = project[property];
+          var header = labelMap[property].header;
+          var containerClass = labelMap[property].containerClass;
+          var removable = labelMap[property].removable;
+          var type = labelMap[property].type;
+          var options = labelMap[property].options;
+          var buttons = null;
+          var buttonsInLine = false;
 
+          if(value.constructor !== Array){
             var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
 
             var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-
             agrupadores.push(agrupadorInputProjeto);
           }
         }
-        var localizacao = getLocalizacaoProjeto(projectId);
-        var fonte = getFonteDeRecursosProjeto(projectId);
-        var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
-        var financiadores = getFinanciadoresProjeto(projectId);
-        var autodeclaradas = getAutodeclaradasProjeto(projectId);
-        var parceiras = getParceirasProjeto(projectId);
-        var objetivos = getObjetivos(projectId);
-        var valorMeta = "";
-        var idObjetivo = "";
-        var multipleInputs = [
-          localizacao, publicoBeneficiado, financiadores,
-          autodeclaradas, parceiras, fonte, objetivos
-        ];
-        for (var j = 0; j < multipleInputs.length; j++) {
-          var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
-          agrupadores.push(agrupador);
-        }
+      }
+      var autodeclaradas = project.area_atuacao.concat(project.area_atuacao_outra);
+
+      var localizacao = getLocalizacaoProjeto(projectId, project.localizacao);
+      var fonte = getFonteDeRecursosProjeto(projectId);
+      var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId, project.publico_beneficiado);
+      var financiadores = getFinanciadoresProjeto(projectId, project.financiador);
+      var autodeclaradas = getAutodeclaradasProjeto(projectId, autodeclaradas);
+      var parceiras = getParceirasProjeto(projectId, project.parceira);
+      var objetivos = getObjetivos(projectId);
+      var valorMeta = "";
+      var idObjetivo = "";
+      var multipleInputs = [
+        localizacao, publicoBeneficiado, financiadores,
+        autodeclaradas, parceiras, fonte, objetivos
+      ];
+      for (var j = 0; j < multipleInputs.length; j++) {
+        var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
+        agrupadores.push(agrupador);
       }
 
       function createAgrupadorMultipleInputs(object){
+        console.log(object);
         var sectionId = object.id
         var element = labelMap[object.id];
         var inputs = [];
@@ -1545,7 +1607,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         }
-
         var header = element.header;
         var containerClass = element.containerClass;
         var buttonsAgrupador = null;
@@ -1714,17 +1775,9 @@ function getFonteDeRecursosProjeto(id){
   return objFonte;
 }
 
-function getLocalizacaoProjeto(id){
+function getLocalizacaoProjeto(id, dados){
   var localizacao = {
-    "localizacao_projeto": [
-      {
-        "id_regiao_localizacao_projeto": 1,
-        "tx_nome_regiao_localizacao_projeto": "rio",
-        "ft_nome_regiao_localizacao_projeto": null,
-        "bo_localizacao_prioritaria": false,
-        "ft_localizacao_prioritaria": null
-      }
-    ]
+    "localizacao_projeto": dados
   };
   var key = Object.keys(localizacao)[0];
   var objLocalizacao = {
@@ -1733,16 +1786,9 @@ function getLocalizacaoProjeto(id){
   };
   return objLocalizacao;
 }
-function getPublicoBeneficiadoProjeto(id){
+function getPublicoBeneficiadoProjeto(id, dados){
   var publico_beneficiado = {
-    "publico_beneficiado": [
-      {
-        "id_publico_beneficiado": 1,
-        "tx_nome_publico_beneficiado": "rio",
-        "nr_estimativa_pessoas_atendidas": null,
-        "ft_publico_beneficiado_projeto": null
-      }
-    ]
+    "publico_beneficiado": dados
   };
   var key = Object.keys(publico_beneficiado)[0];
   var objBeneficiado = {
@@ -1751,15 +1797,9 @@ function getPublicoBeneficiadoProjeto(id){
   };
   return objBeneficiado;
 }
-function getFinanciadoresProjeto(id){
+function getFinanciadoresProjeto(id, dados){
   var financiadores = {
-    "financiadores": [
-      {
-        "id_financiador_projeto": 1,
-        "tx_nome_financiador": "João",
-        "ft_nome_financiador": null
-      }
-    ]
+    "financiadores": dados
   };
   var key = Object.keys(financiadores)[0];
   var objFinanciadores = {
@@ -1768,15 +1808,9 @@ function getFinanciadoresProjeto(id){
   };
   return objFinanciadores;
 }
-function getAutodeclaradasProjeto(id){
+function getAutodeclaradasProjeto(id, dados){
   var autodeclaradas = {
-    "autodeclaradas": [
-      {
-        "cd_area_atuacao_projeto": 1,
-        "tx_nome_area_atuacao_projeto": "Joaquim",
-        "ft_area_atuacao_projeto": null
-      }
-    ]
+    "autodeclaradas": dados
   };
   var key = Object.keys(autodeclaradas)[0];
   var objAutodeclaradas = {
@@ -1785,15 +1819,9 @@ function getAutodeclaradasProjeto(id){
   };
   return objAutodeclaradas;
 }
-function getParceirasProjeto(id){
+function getParceirasProjeto(id, dados){
   var parceiras = {
-    "parceiras": [
-      {
-        "id_osc": 2,
-        "tx_nome_osc_parceira_projeto": "Nome da osc",
-        "ft_osc_parceira_projeto": null
-      }
-    ]
+    "parceiras": dados
   };
   var key = Object.keys(parceiras)[0];
   var objParceiras = {

@@ -577,6 +577,11 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <div id={id}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
+        } else if (type == 'textarea'){
+          InputElement =
+          <div id={id}>
+            <textarea className="form-control" value={content}></textarea>
+          </div>
         } else {
           var InputElement =
             <div id={id}>
