@@ -87,76 +87,10 @@ define(['react'], function(React) {
     getComponent: function(index) {
 
       if( index == 1){
-
-        $("body" ).css( "background-color", "#ffffff" );
-        $("body" ).css( "color", "#000000" );
-        $("a" ).css( "color", "#337cbb" );
-        $(".text-list").find("a").css("color", "#337cbb");
-        $(".topo").css("color", "black");
-        $(".btn-link").css( "color", "#337cbb" );
-        $("#buscarPerfil a").css( "color", "#337cbb" );
-        $(".btn-primary").css( "color", "#ffffff" );
-        $(".navbar-nav li a").css( "color", "#404040" );
-        $(".carousel-control").css( "color", "#ffffff" );
-        $("hr").css( "border-color", "#1659bf" );
-        $("legend" ).css( "color", "#333333" );
-        $("footer" ).css( "background-color", "#337cbb" );
-        $(".partners").css( "background-color", "#e0e0e0" );
-        $(".brand-master-style").css( "color", "#404040" );
-        $(".navbar-default").css( "background-color", "#ffffff" );
-        $(".navbar-default").css( "color", "#404040" );
-        $(".navbar-default").css( "border-bottom", "4px solid #1659bf" );
-        $(".capacho").css( "border-left", "1px dotted #1659bf" );
-        $(".capacho a").css( "color", "#000000" );
-        $(".dropdown-menu").css( "background-color", "#ffffff");
-        $(".dropdown-menu").css( "border", "1px solid rgba(0, 0, 0, 0.15)");
-        $(".modal-content").css( "background-color", "#ffffff");
-        $(".modal-content").css( "border", "1px solid rgba(0, 0, 0, 0.2)");
-        $(".subTitulo" ).css( "color", "#337cbb" );
-        $(".subTitulo" ).css( "background-color", "aliceblue" );
-        $(".pagination" ).find("a").css( "color", "#337cbb" );
-        $(".pagination .disabled" ).find("a").css( "color", "#777777" );
-        $(".pagination .active" ).find("a").css( "color", "#ffffff" );
-        $(".nav-tabs" ).find("a").css( "color", "#337cbb" );
-        $(".nav-tabs .active" ).find("a").css( "color", "#555555" );
-        $(".pagination" ).find("a").css( "background-color", "#ffffff" );
-        $(".pagination .active" ).find("a").css( "background-color", "#337cbb" );
-        $(".ui-widget-content").css( "background-color", "#ffffff" );
-        $(".ui-widget-content").css( "color", "#333333" );
-        $("#barra-brasil a").css( "color", "#606060" );
-        $("#barra-brasil" ).css( "background-color", "#f1f1f1" );
-        $("#topo_acessibilidade").css( "background-color", "rgba(255, 255, 255, 0.5)" );
-        $("#topo_acessibilidade a").css( "color", "#337cbb" );
-        $("#itemHome a").css( "color", "#337cbb" );
-        $("#buscarPerfil .active a").css( "color", "#ffffff" );
-
+          desativaContraste();
       }
       else if (index == 2) {
-
-        $("body" ).css( "background-color", "#000000" );
-        $("body" ).css( "color", "#ffffff" );
-        $("a").css( "color", "#FFF333" );
-        $("hr").css( "border-color", "#ffffff" );
-        $("legend" ).css( "color", "#ffffff" );
-        $("footer" ).css( "background-color", "#000000" );
-        $(".partners").css( "background-color", "#000000" );
-        $(".navbar-default").css( "background-color", "#000000" );
-        $(".navbar-default").css( "border-bottom", "4px solid #ffffff" );
-        $(".capacho").css( "border-left", "1px dotted #ffffff" );
-        $(".dropdown-menu").css( "background-color", "#000000");
-        $(".dropdown-menu").css( "border", "1px solid #ffffff");
-        $(".modal-content").css( "background-color", "#000000");
-        $(".modal-content").css( "border", "1px solid #ffffff");
-        $(".subTitulo" ).css( "background-color", "#000000" );
-        $(".pagination" ).find("a").css( "background-color", "#000000" );
-        $(".ui-widget-content").css( "background-color", "#000000" );
-        $(".ui-widget-content").css( "color", "#ffffff" );
-        $(".btn-link").css( "color", "#FFF333" );
-        $("#barra-brasil" ).css( "background-color", "#000000" );
-        $("#topo_acessibilidade").css( "background-color", "#000000" );
-
-        //$( ".dropdown-toggle" ).css( "background-color", "#555555" );
-
+          ativaContraste();
       }
       else if (index == 3) {
 
@@ -259,7 +193,7 @@ define(['react'], function(React) {
             </ul>
             <ul id="nav2">
               <li><a href="acessibilidade.html" target="_self">Acessibilidade</a></li>
-              <li id="contraste">Contraste <a id="contraste_normal" href="#" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 1)}><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" href="#" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 2)}><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
+              <li id="contraste">Contraste <a id="contraste_normal" href="" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 1)}><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" href="" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 2)}><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
               <li>Tamanho do texto
               <a href="#" data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font" onClick={this.getComponent.bind(this, 3)}> A+</a>
               <a href="#" data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font" onClick={this.getComponent.bind(this, 4)}> A</a>
