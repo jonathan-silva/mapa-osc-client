@@ -18,6 +18,8 @@ require(["jquery-ui"], function (React) {
 
 require(['react', 'jsx!components/Util'], function (React) {
 
+  $id_osc = '';
+
   require(['componenteFormItem'], function(FormItem){
     function FormItens(id, label, type){
       this.id = id;
@@ -61,13 +63,11 @@ require(['react', 'jsx!components/Util'], function (React) {
       $("#nomeEntidade.form-control").autocomplete({
         minLength: 3,
         source: function (request, response) {
-           console.log('teste');
            $.ajax({
-               url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/"+request.term,
+               url: "http://mapaosc-desenv.ipea.gov.br:8383/api/search/osc/autocomplete/"+request.term,
                type: 'GET',
                dataType: "json",
                success: function (data) {
-
                  response($.map( data, function( item ) {
                     return {
                         label: item.tx_nome_osc,
@@ -82,14 +82,14 @@ require(['react', 'jsx!components/Util'], function (React) {
            });
        },
        select: function(event, ui){
-         //$('.response').val(ui.item.tx_nome_osc);
-         //console.log(ui);
+         $id_osc = ui.item.id;
        }
       });
 
 
 
-    //Validacao dos campos
+
+
     $("#nome.form-control").blur(function (event, ui) {
       var nome = this.value;
       if(validaNome(nome)){
@@ -156,8 +156,20 @@ require(['react', 'jsx!components/Util'], function (React) {
         if ($('#newsletter').is(":checked")){ var newsletter = true ; } else {var newsletter = false;}
 
 
+        nome =  'heraldo';
+        email =  'heraldoborges@gmail.com';
+        cpf =  '11118969766';
+        senha =  '12345';
+        confirmarSenha =  '12345';
+        $id_osc = '2';
 
 
+
+        if (!isNaN($id_osc)){
+          $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+        }else{
+          $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+        };
 
         if (!validaNome(nome)){
           console.log("nome errado");
@@ -219,8 +231,7 @@ require(['react', 'jsx!components/Util'], function (React) {
               '	"nr_cpf_usuario": "'+cpf+'",' +
               ' "bo_lista_email": '+newsletter+',' +
               '	"representacao":[ ' +
-              '		{"id_osc": 1},' +
-              '		{"id_osc": 2}'+
+              '		{"id_osc": '+$id_osc+'}'+
               ' ]}';
 
         console.log(json);
@@ -230,23 +241,22 @@ require(['react', 'jsx!components/Util'], function (React) {
         type: 'POST',
         dataType: 'json',
         data: json,
-        success: function (data, textStatus, jqXHR ) {
+
+        success: function(data) {
           console.log(data);
           console.log(textStatus);
           console.log(jqXHR);
-          var $modal = $('#modalMensagem');
           $modal.modal('show');
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(ajaxOptions);
-            console.log(xhr.status);
-            console.log(thrownError);
-            var $modal = $('#modalMensagem');
-            jQuery("#modalTitle").text("Problema no cadastro!");
-            jQuery("#modalConteudo").text(thrownError);
-            $modal.modal('show');
+        error: function(e) {
+          console.log(JSON.parse(e.responseText).msg);
+          jQuery("#modalTitle").text("Problema no cadastro!");
+          jQuery("#modalConteudo").text('');
+          jQuery("#modalConteudo").text(JSON.parse(e.responseText).msg);
+          $modal.modal('show');
         }
-     });
+
+     }); //final ajax
     });
     //final  btn.btn-success.click
     });
