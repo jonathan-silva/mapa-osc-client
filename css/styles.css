@@ -820,3 +820,10 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
   line-height: 15px;
   text-indent: 0px;
 }
+.contrasteGrafico{
+  background-color: black !important;
+  border: 2px solid white !important;
+}
+.contrasteGrafico h3 {
+  background-color: black !important;
+}

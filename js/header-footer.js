@@ -82,6 +82,10 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
 
   Footer = React.createFactory(Footer);
   ReactDOM.render(Footer({footerObject: new FooterObject(blocks, imgsAltRealizacao, imgList)}), document.getElementById("rodape"));
+
+  $(document).ready(function(){
+    verificarContraste();
+  });
 });
 
 

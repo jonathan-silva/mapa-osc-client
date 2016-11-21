@@ -77,6 +77,14 @@ require(['jquery-ui','datatables-responsive'], function (React) {
     }
   });
 
+  $('#editais_formato_dados').on( 'draw.dt', function () {
+    verificarContraste();
+  });
+
+  $('#encerrados_formato_dados').on( 'draw.dt', function () {
+    verificarContraste();
+  });
+
   $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
       $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
   } );

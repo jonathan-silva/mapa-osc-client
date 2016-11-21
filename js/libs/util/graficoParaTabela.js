@@ -7,6 +7,7 @@ function acionarModalTabela(titulo, corpo) {
   $("#corpoModal").html("");
   $("#corpoModal").html(corpo);
   $("#modalTabela").modal('show');
+  verificarContraste();
 }
 
 function formatarDinheiro(numero) {

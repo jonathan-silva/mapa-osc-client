@@ -130,9 +130,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
            ],
            autoWidth: true
          });
-         $('#loading').addClass('hide');
+         $('#loading').addClass('hide');       
        }
      });
+
+    $('#resultadoconsulta_formato_dados').on( 'draw.dt', function () {
+      verificarContraste();
+    });
   }
 
   function loadPopUp(id, leafletMarker){
