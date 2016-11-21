@@ -430,7 +430,7 @@ define('componenteAgrupadorConferencia', ['react', 'componenteFormItem'], functi
         group.push(item);
         if(num == dados.length){
           itens.push(
-            <div>
+            <div className="conferencia">
               <FormItem dados={group}></FormItem>
               <button className="btn-primary btn">Adicionar</button>
               <hr/>
@@ -439,7 +439,7 @@ define('componenteAgrupadorConferencia', ['react', 'componenteFormItem'], functi
           group = [];
         } else if((num % 3 == 0)){
           itens.push(
-            <div>
+            <div className="conferencia">
               <FormItem dados={group}></FormItem>
               <button className="btn-danger btn">Remover</button>
               <hr/>
@@ -475,7 +475,7 @@ define('componenteAgrupadorConselhos', ['react', 'componenteFormItem'], function
         group.push(item);
         if(num == dados.length){
           itens.push(
-            <div>
+            <div className="conselho">
               <FormItem dados={group}></FormItem>
               <button className="btn-primary btn">Adicionar</button>
               <hr/>
@@ -484,7 +484,7 @@ define('componenteAgrupadorConselhos', ['react', 'componenteFormItem'], function
           group = [];
         } else if((num % 6 == 0)){
           itens.push(
-            <div>
+            <div className="conselho">
               <FormItem dados={group}></FormItem>
               <button className="btn-danger btn">Remover</button>
               <hr/>
