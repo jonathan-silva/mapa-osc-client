@@ -128,32 +128,34 @@
                 <label>Link do Estatuto:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</span>
               </div-->
-              <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
           <div class="col-md-12">
             <hr>
           </div>
           <div class="col-md-12" id="areas_de_atuacao">
             <h2>Áreas de Atuação</h2>
-            <div class="col-md-12 " ng-repeat="area in ctrl.osc.areas_atuacao">
+            <div class="col-md-12" ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
               <div class="form-group">
-                <label>{{area.tx_nome_macro_area_fasfil}}</label>
+                <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
+                <label>{{area_atuacao.tx_nome_area_atuacao}}</label>
                 <div>
-                  <strong>Área</strong> -&gt; <em>{{area.tx_nome_area_fasfil}}</em>
+                  <strong>Subárea</strong> -&gt; <em>{{area_atuacao.tx_nome_subarea_atuacao}}</em>
                 </div>
               </div>
               <div class="form-group">
                 <label>Áreas autodeclaradas</label>
-                <div class="form-group" ng-repeat="autodeclarada in area.areas_autodeclaradas">
-                  <div class="">
-                    <span class="form-control-static">{{autodeclarada.tx_nome_area_atuacao_declarada}}</span>
+                <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
+                  <div class="form-group">
+                    <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
                   </div>
                 </div>
-                <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
-              </div>
 
+              </div>
+              <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
             </div>
+
           </div>
           <div class="col-md-12">
             <hr>
@@ -164,7 +166,7 @@
               <div class="form-group">
                 <label>Como surgiu a OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.descricao.tx_como_surgiu}}</span>
+                  <span class="form-control-static">{{ctrl.osc.descricao.tx_historico}}</span>
                 </div>
               </div>
               <div class="form-group">
@@ -185,6 +187,12 @@
                   <span class="form-control-static">{{ctrl.osc.descricao.tx_finalidades_estatutarias}}</span>
                 </div>
               </div>
+              <div class="form-group">
+                <label>Link para o Estatuto da OSC:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</span>
+                </div>
+              </div>
               <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
             </div>
           </div>
@@ -193,12 +201,14 @@
           </div>
           <div class="col-md-12 " id="menu2">
             <h2>Titulações e Certificações</h2>
-            <div ng-repeat="certificacao in ctrl.osc.certificacoes">
-              <label>{{certificacao.nm_certificado}}</label>
-              <span class="form-control-static">{{certificacao.ft_certificado}}</span>
-              <span class="form-control-static">(Emitido em {{certificacao.dt_inicio_certificado}} - Válido até {{certificacao.dt_fim_certificado}})</span>
+            <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
+              <label>{{certificado.tx_nome_certificado}}</label>
+              <div>
+               <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span>
+              </div>
+              <span class="form-control-static">(Emitido em {{certificado.dt_inicio_certificado}} - Válido até {{certificado.dt_fim_certificado}})</span>
             </div>
-
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
           <div class="col-md-12 ">
             <hr>
@@ -206,41 +216,50 @@
           <div class="col-md-12 " id="menu3">
             <h2>Relações de Trabalho</h2>
             <div class="col-md-5 form-inline">
-              <h3>Colaboradores</h3>
-              <div class="form-group">
-                <label>Total de Colaboradores:</label>
-                <div>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores}}</span>
+              <div class="col-md-7 form-inline">
+                <h3>Quadro de Dirigentes</h3>
+                <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
+                  <div class="form-group">
+                    <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
+                  </div>
+                  <span>:</span>
+                  <div class="form-group">
+                    <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label>Trabalhadores com vínculo:</label>
-                <div>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_vinculo}}</span>
+              <div class="col-md-5 form-inline">
+                <div class="col-md-7 form-inline">
+                  <h3>Conselheiros</h3>
+                  <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
+                    <div class="form-group">
+                      <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              <h3>Trabalhadores</h3>
+              <div class="form-group">
+                <label>Total de Trabalhadores:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores}}</span>
+                </div>
+              </div><br>
+              <div class="form-group">
+                <label>Empregados:</label>
+                <div>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo}}</span>
+                </div>
+              </div><br>
               <div class="form-group">
                 <label>Trabalhadores com deficiência:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_deficiencia}}</span>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia}}</span>
                 </div>
-              </div>
+              </div><br>
               <div class="form-group">
-                <label>Voluntários:</label>
+                <label>Trabalhadores voluntários:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-7 form-inline">
-              <h3>Quadro de Dirigentes</h3>
-              <div class="edit-toggle " ng-repeat="dirigente in ctrl.osc.dirigentes">
-                <div class="form-group">
-                  <span class="form-control-static">{{dirigente.tx_cargo_dirigente}}</span>
-                </div>
-                <span>:</span>
-                <div class="form-group">
-                  <span class="form-control-static">{{dirigente.tx_nome_dirigente}}</span>
+                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
                 </div>
               </div>
             </div>
