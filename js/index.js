@@ -152,7 +152,8 @@ require(["jquery-ui", "rotas"], function (React) {
   });
 
   var rotas = new Rotas();
-  var limiteAutocomplete = 5;
+  var limiteAutocomplete = 10;
+  var limiteAutocompleteCidade = 25;
   var controller = "js/controller.php";
 
   //botao de consulta
@@ -235,7 +236,7 @@ require(["jquery-ui", "rotas"], function (React) {
            url: controller,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {

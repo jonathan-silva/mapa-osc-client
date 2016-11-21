@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 require(["jquery-ui", "datatables-responsive"], function (React) {
   $(document).tooltip({
     position: {
@@ -609,50 +610,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         ]
       },
-      "projeto": {
-        "projeto": [
-          {
-            "id_projeto": 1,
-            "tx_identificador_projeto_externo": null,
-            "ft_identificador_projeto_externo": null,
-            "tx_nome_projeto": "Projeto vida eh +",
-            "ft_nome_projeto": "Vagner",
-            "tx_nome_status_projeto": null,
-            "ft_status_projeto": null,
-            "dt_data_inicio_projeto": null,
-            "ft_data_inicio_projeto": null,
-            "dt_data_fim_projeto": null,
-            "ft_data_fim_projeto": null,
-            "tx_link_projeto": null,
-            "ft_link_projeto": null,
-            "nr_total_beneficiarios": null,
-            "ft_total_beneficiarios": null,
-            "nr_valor_total_projeto": null,
-            "ft_valor_total_projeto": null,
-            "nr_valor_captado_projeto": null,
-            "ft_valor_captado_projeto": null,
-            "tx_metodologia_monitoramento": null,
-            "ft_metodologia_monitoramento": null,
-            "tx_descricao_projeto": null,
-            "ft_descricao_projeto": null,
-            "tx_nome_abrangencia_projeto": null,
-            "ft_abrangencia_projeto": null,
-            "tx_nome_zona_atuacao": null,
-            "ft_zona_atuacao_projeto": null
-          }
-        ],
-        "recursos": {
-          "nr_valor_total": "150000",
-          "nr_valor_federal": null,
-          "nr_valor_estadual": null,
-          "nr_valor_municipal": null,
-          "nr_valor_privado": null,
-          "nr_valor_proprio": null,
-          "tx_link_relatorio_auditoria": null,
-          "ft_link_relatorio_auditoria": null,
-          "tx_link_demonstracao_contabil": null,
-          "ft_link_demonstracao_contabil": null
+      "projeto": [
+        {
+          "id_projeto": 1,
+          "tx_nome_projeto": "Projeto Teste 1"
+        },
+        {
+          "id_projeto": 2,
+          "tx_nome_projeto": "Projeto Teste 2"
         }
+      ],
+      "recursos": {
+        "nr_valor_total": "150000",
+        "nr_valor_federal": null,
+        "nr_valor_estadual": null,
+        "nr_valor_municipal": null,
+        "nr_valor_privado": null,
+        "nr_valor_proprio": null,
+        "tx_link_relatorio_auditoria": null,
+        "ft_link_relatorio_auditoria": null,
+        "tx_link_demonstracao_contabil": null,
+        "ft_link_demonstracao_contabil": null
       },
       "relacoes_trabalho_governanca": {
         "relacoes_trabalho": {
@@ -1100,7 +1078,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#manual").find("input:text").each(function(){
       if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
         var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
-        console.log(utilidade_publica_id);
+
         $("#manual").find("input:checkbox").each(function(){
           if($(this).val() === utilidade_publica_id){
             $(this).prop('checked', true);
@@ -1572,8 +1550,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "financiadores": {
           "header": "Financiadores do Projeto",
           "containerClass": "col-md-3",
-          "removable": false,
-          "type": "textarea",
+          "removable": true,
+          "type": "text",
           "options": null
         },
         "autodeclaradas": {
@@ -1641,14 +1619,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "containerClass": "col-md-12",
           "removable": false,
           "type": "select",
-          "options": getObjetivosOptions()
+          "options": null
         },
         "objetivos_metas": {
           "header": null,
           "containerClass": null,
           "removable": false,
           "type": "select",
-          "options": getMetasOptions()
+          "options": null
         }
       };
 
@@ -1680,46 +1658,46 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.buttons = buttons;
       }
 
-      var projects = [result.projetos[id]];
+      var project = getProject(id);
       var agrupadores = [];
-      for (var i = 0; i < projects.length; i++) {
-        var projectId = projects[i].id_projeto;
-        for (var property in projects[i]) {
-          if ((projects[i].hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-            var sectionId = property;
-            var value = projects[i][property];
-            var header = labelMap[property].header;
-            var containerClass = labelMap[property].containerClass;
-            var removable = labelMap[property].removable;
-            var type = labelMap[property].type;
-            var options = labelMap[property].options;
-            var buttons = null;
-            var buttonsInLine = false;
+      var projectId = project.id_projeto;
+      for (var property in project) {
+        if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
+          var sectionId = property;
+          var value = project[property];
+          var header = labelMap[property].header;
+          var containerClass = labelMap[property].containerClass;
+          var removable = labelMap[property].removable;
+          var type = labelMap[property].type;
+          var options = labelMap[property].options;
+          var buttons = null;
+          var buttonsInLine = false;
 
+          if(value.constructor !== Array){
             var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
 
             var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-
             agrupadores.push(agrupadorInputProjeto);
           }
         }
-        var localizacao = getLocalizacaoProjeto(projectId);
-        var fonte = getFonteDeRecursosProjeto(projectId);
-        var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId);
-        var financiadores = getFinanciadoresProjeto(projectId);
-        var autodeclaradas = getAutodeclaradasProjeto(projectId);
-        var parceiras = getParceirasProjeto(projectId);
-        var objetivos = getObjetivos(projectId);
-        var valorMeta = "";
-        var idObjetivo = "";
-        var multipleInputs = [
-          localizacao, publicoBeneficiado, financiadores,
-          autodeclaradas, parceiras, fonte, objetivos
-        ];
-        for (var j = 0; j < multipleInputs.length; j++) {
-          var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
-          agrupadores.push(agrupador);
-        }
+      }
+      var autodeclaradas = project.area_atuacao.concat(project.area_atuacao_outra);
+
+      var localizacao = getLocalizacaoProjeto(projectId, project.localizacao);
+      var fonte = getFonteDeRecursosProjeto(projectId);
+      var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId, project.publico_beneficiado);
+      var financiadores = getFinanciadoresProjeto(projectId, project.financiador);
+      var autodeclaradas = getAutodeclaradasProjeto(projectId, autodeclaradas);
+      var parceiras = getParceirasProjeto(projectId, project.parceira);
+      var valorMeta = "";
+      var idObjetivo = "";
+      var multipleInputs = [
+        localizacao, publicoBeneficiado, financiadores,
+        autodeclaradas, parceiras, fonte
+      ];
+      for (var j = 0; j < multipleInputs.length; j++) {
+        var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
+        agrupadores.push(agrupador);
       }
 
       function createAgrupadorMultipleInputs(object){
@@ -1754,20 +1732,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
                   inputs.push(inputProjeto);
                 }
-              } else if (sectionId == "objetivos"){
-                idObjetivo = object.dados[i]["id_objetivo_projeto"];
-                if(property === "tx_nome_objetivo_projeto"){
-                  value = object.dados[i][property];
-                  options = labelMap[object.id].options;
-                  var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-                  inputs.push(inputProjeto);
-                } else if(property === "tx_nome_meta_projeto"){
-                  valorMeta = object.dados[i][property];
-                  // options = getMetasOptions(idObjetivo);
-                  // var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-                  // inputs.push(inputProjeto);
-                }
-
               } else if(property.slice(0,2) === "tx"){
                 value = object.dados[i][property];
                 var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
@@ -1776,7 +1740,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         }
-
         var header = element.header;
         var containerClass = element.containerClass;
         var buttonsAgrupador = null;
@@ -1794,40 +1757,74 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:agrupadores}
         ), document.getElementById("projeto-"+id)
       );
-      var $divProjeto = $('#projeto-'+id);
-      var $divObjetivosProjeto = $divProjeto.find('#objetivos-0');
-      $divObjetivosProjeto.append('<div id="metas-'+id+'"></div>');
-      var $divObjetivosMetasProjeto = $divObjetivosProjeto.find("#metas-"+id);
-      $divObjetivosMetasProjeto.append('<div class="header">Metas</div>');
-      $divObjetivosMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
 
-      var options = getMetasOptions(idObjetivo);
+      //metas e objetivos
+      var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
+      var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
+      var meta = project.objetivo_meta.tx_nome_meta_projeto;
+      var cd_meta = project.objetivo_meta.cd_meta_projeto;
+
+      var $divProjeto = $('#projeto-'+id);
+      $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
+      var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
+      $divObjetivosMetasProjeto.append('<div id="objetivos"></div>');
+      $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
+      $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
+      $divObjetivosProjeto.append('<div class="form-group"><select class="form-control"></select></div>');
+      $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
+      $divMetasProjeto.append('<div class="header">Metas</div>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+
+      var options = getObjetivosOptions()
+      var $selectObjetivos = $divObjetivosProjeto.find("select");
       for (var i = 0; i < options.length; i++) {
-        if(options[i] == valorMeta){
-          $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+        if(options[i].cd_objetivo_projeto === cd_objetivo){
+          $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         } else {
-          $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
+          $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         }
       }
-       $( '#selectable-'+id ).selectable();
 
-       $('#objetivos-'+id).find('select').on('change', function(){
+      var options = getMetasOptions(cd_objetivo);
+      for (var i = 0; i < options.length; i++) {
+        if(options[i].cd_meta_projeto == cd_meta){
+          $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+        } else {
+          $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+        }
+      }
+      $('#selectable-'+cd_objetivo).selectable();
+
+       $('#objetivos').find('select').on('change', function(){
          $(this).find('option:selected').each(function(){
+           $(".metas").each(function(){
+             if(!$(this).hasClass('hidden')){
+               $(this).toggleClass('hidden');
+             }
+           });
+           var cd_objetivo = $(this).attr('id');
            $(this).removeClass("ui-selected");
+           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+           $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
+           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+           if($('#metas-'+cd_objetivo).hasClass('hidden')){
+             $('#metas-'+cd_objetivo).toggleClass('hidden');
+           }
 
            var options = getMetasOptions(idObjetivo);
            for (var i = 0; i < options.length; i++) {
-             if(options[i] == valorMeta){
-               $('#selectable-'+id).append('<li class="ui-widget-content ui-selected">' + options[i] + '</li>');
+             if(options[i].cd_meta_projeto == cd_meta){
+               $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
              } else {
-               $('#selectable-'+id).append('<li class="ui-widget-content">' + options[i] + '</li>');
+               $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
              }
            }
-            $( '#selectable-'+id ).selectable();
+            $('#selectable-'+cd_objetivo).selectable();
          });
        });
     }
-    var projects_list = result.lista_projetos;
+    var projects_list = json.projeto;
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
@@ -1847,8 +1844,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = projects_list[i].id;
-      newData[i][1] = projects_list[i].nome;
+      newData[i][0] = projects_list[i].id_projeto;
+      newData[i][1] = projects_list[i].tx_nome_projeto;
     }
     var table_lista_projetos = $('#table_lista_projetos').DataTable({
       responsive: true,
@@ -1871,12 +1868,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       autoWidth: true
      });
      $("#table_lista_projetos tr").click(function(){
-       var rowId = $(this)[0]._DT_RowIndex;
-       var divId = "projeto-" + rowId;
+       var id_projeto = table_lista_projetos.row(this).data()[0];
+       var divId = "projeto-" + id_projeto;
        var projetos = $(this).next(".projeto");
        if(projetos.length < 1){
          $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-         carregaProjeto(rowId);
+         carregaProjeto(id_projeto);
        } else {
          var $divDadosProjeto = $(projetos[0]);
          $divDadosProjeto.toggleClass("hidden");
@@ -1885,43 +1882,156 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   });
 });
 
+function getProject(id){
+  console.log(id);
+  var project = {
+    "id_projeto": 1,
+    "tx_identificador_projeto_externo": null,
+    "ft_identificador_projeto_externo": null,
+    "tx_nome_projeto": "Projeto Teste",
+    "ft_nome_projeto": "Usuário",
+    "cd_status_projeto": 2,
+    "tx_nome_status_projeto": "Em Execução",
+    "ft_status_projeto": "Usuário",
+    "dt_data_inicio_projeto": "2016-11-11",
+    "ft_data_inicio_projeto": "Usuário",
+    "dt_data_fim_projeto": "2017-11-11",
+    "ft_data_fim_projeto": "Usuário",
+    "tx_link_projeto": "www.orgteste.com/projeto/teste",
+    "ft_link_projeto": "Usuário",
+    "nr_total_beneficiarios": 1000,
+    "ft_total_beneficiarios": "Usuário",
+    "nr_valor_total_projeto": "100000",
+    "ft_valor_total_projeto": "MINC/SALICWEB",
+    "nr_valor_captado_projeto": "100000",
+    "ft_valor_captado_projeto": "Usuário",
+    "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
+    "ft_metodologia_monitoramento": "Usuário",
+    "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
+    "ft_descricao_projeto": "Usuário",
+    "cd_abrangencia_projeto": 2,
+    "tx_nome_abrangencia_projeto": "Estadual",
+    "ft_abrangencia_projeto": "Usuário",
+    "cd_zona_atuacao_projeto": 1,
+    "tx_nome_zona_atuacao": "Urbana",
+    "ft_zona_atuacao_projeto": "Usuário",
+    "publico_beneficiado": [
+      {
+        "id_publico_beneficiado": 1,
+        "tx_nome_publico_beneficiado": "Crianças",
+        "nr_estimativa_pessoas_atendidas": 1000,
+        "ft_publico_beneficiado_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao": [
+      {
+        "cd_area_atuacao_projeto": 1,
+        "tx_nome_area_atuacao_projeto": "Educação Básica",
+        "ft_area_atuacao_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao_outra": [
+      {
+        "id_area_atuacao_outra_projeto": 1,
+        "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
+        "ft_area_atuacao_outra_projeto": "Usuário"
+      }
+    ],
+    "localizacao": [
+      {
+        "id_regiao_localizacao_projeto": 1,
+        "tx_nome_regiao_localizacao_projeto": "São Paulo",
+        "ft_nome_regiao_localizacao_projeto": null,
+        "bo_localizacao_prioritaria": false,
+        "ft_localizacao_prioritaria": null
+      }
+    ],
+    "parceira": [
+      {
+        "id_osc": 2,
+        "tx_nome_osc_parceira_projeto": "Nome da osc",
+        "ft_osc_parceira_projeto": null
+      },
+      {
+        "id_osc": 3,
+        "tx_nome_osc_parceira_projeto": "Nome da osc X",
+        "ft_osc_parceira_projeto": null
+      }
+    ],
+    "financiador": [
+      {
+        "id_financiador_projeto": 1,
+        "tx_nome_financiador": "João",
+        "ft_nome_financiador": null
+      },
+      {
+        "id_financiador_projeto": 2,
+        "tx_nome_financiador": "José",
+        "ft_nome_financiador": null
+      }
+    ],
+    "objetivo_meta": {
+      "id_objetivo_projeto": 1,
+      "cd_objetivo_projeto": 1,
+      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
+      "cd_meta_projeto": 1,
+      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
+      "ft_objetivo_projeto": "Usuário"
+    },
+    "recursos": {
+      "id_fonte_recursos_projeto": 1,
+      "cd_origem_fonte_recursos_projeto": 2,
+      "tx_nome_origem_fonte_recursos_projeto": "Público",
+      "cd_fonte_recursos_projeto": "",
+      "tx_nome_fonte_recursos_projeto": "Estadual",
+      "ft_fonte_recursos_projeto": ""
+    }
+  };
+  return project;
+}
+
 function getMetasOptions(id){
   var metas = [
-    "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
-    "Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais",
-    "Implementar, em nível nacional, medidas e sistemas de proteção social adequados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis",
-    "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças"
+    {
+      "cd_meta_projeto": 1,
+      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia"
+    },
+    {
+      "cd_meta_projeto": 2,
+      "tx_nome_meta_projeto": "Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais"
+    },
+    {
+      "cd_meta_projeto": 3,
+      "tx_nome_meta_projeto": "Implementar, em nível nacional, medidas e sistemas de proteção social adequados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis"
+    }
   ];
   return metas;
 }
 
-function getObjetivos(id){
-  var objetivos = {
-    "objetivos": [
-      {
-        "id_objetivo_projeto": 1,
-        "cd_objetivo_projeto": null,
-        "tx_nome_objetivo_projeto": "Assegurar padrões de produção e de consumo sustentáveis",
-        "cd_meta_projeto": null,
-        "tx_nome_meta_projeto": "Até 2030, garantir que todos os homens e mulheres, particularmente os pobres e vulneráveis, tenham direitos iguais aos recursos econômicos, bem como o acesso a serviços básicos, propriedade e controle sobre a terra e outras formas de propriedade, herança, recursos naturais, novas tecnologias apropriadas e serviços financeiros, incluindo microfinanças",
-        "ft_objetivo_projeto": null,
-      }
-    ]
-  };
-  var key = Object.keys(objetivos)[0];
-  var objObjetivos = {
-    "id": key,
-    "dados": objetivos[key]
-  };
-  return objObjetivos;
-}
-
 function getObjetivosOptions(){
-  var objetivosOptions = [
-    "Acabar com a pobreza em todas as suas formas, em todos os lugares",
-    "Assegurar padrões de produção e de consumo sustentáveis"
+  var objetivos = [
+    {
+      "cd_objetivo_projeto": 1,
+      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares"
+    },
+    {
+      "cd_objetivo_projeto": 2,
+      "tx_nome_objetivo_projeto": "Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição e promover a agricultura sustentável"
+    },
+    {
+      "cd_objetivo_projeto": 3,
+      "tx_nome_objetivo_projeto": "Assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades"
+    },
+    {
+      "cd_objetivo_projeto": 4,
+      "tx_nome_objetivo_projeto": "Assegurar a educação inclusiva e equitativa e de qualidade, e promover oportunidades de aprendizagem ao longo da vida para todos"
+    },
+    {
+      "cd_objetivo_projeto": 5,
+      "tx_nome_objetivo_projeto": "Alcançar a igualdade de gênero e empoderar todas as mulheres e meninas"
+    }
   ];
-  return objetivosOptions;
+  return objetivos;
 }
 
 function getFonteDeRecursosProjeto(id){
@@ -1945,17 +2055,9 @@ function getFonteDeRecursosProjeto(id){
   return objFonte;
 }
 
-function getLocalizacaoProjeto(id){
+function getLocalizacaoProjeto(id, dados){
   var localizacao = {
-    "localizacao_projeto": [
-      {
-        "id_regiao_localizacao_projeto": 1,
-        "tx_nome_regiao_localizacao_projeto": "rio",
-        "ft_nome_regiao_localizacao_projeto": null,
-        "bo_localizacao_prioritaria": false,
-        "ft_localizacao_prioritaria": null
-      }
-    ]
+    "localizacao_projeto": dados
   };
   var key = Object.keys(localizacao)[0];
   var objLocalizacao = {
@@ -1964,16 +2066,9 @@ function getLocalizacaoProjeto(id){
   };
   return objLocalizacao;
 }
-function getPublicoBeneficiadoProjeto(id){
+function getPublicoBeneficiadoProjeto(id, dados){
   var publico_beneficiado = {
-    "publico_beneficiado": [
-      {
-        "id_publico_beneficiado": 1,
-        "tx_nome_publico_beneficiado": "rio",
-        "nr_estimativa_pessoas_atendidas": null,
-        "ft_publico_beneficiado_projeto": null
-      }
-    ]
+    "publico_beneficiado": dados
   };
   var key = Object.keys(publico_beneficiado)[0];
   var objBeneficiado = {
@@ -1982,15 +2077,9 @@ function getPublicoBeneficiadoProjeto(id){
   };
   return objBeneficiado;
 }
-function getFinanciadoresProjeto(id){
+function getFinanciadoresProjeto(id, dados){
   var financiadores = {
-    "financiadores": [
-      {
-        "id_financiador_projeto": 1,
-        "tx_nome_financiador": "João",
-        "ft_nome_financiador": null
-      }
-    ]
+    "financiadores": dados
   };
   var key = Object.keys(financiadores)[0];
   var objFinanciadores = {
@@ -1999,15 +2088,9 @@ function getFinanciadoresProjeto(id){
   };
   return objFinanciadores;
 }
-function getAutodeclaradasProjeto(id){
+function getAutodeclaradasProjeto(id, dados){
   var autodeclaradas = {
-    "autodeclaradas": [
-      {
-        "cd_area_atuacao_projeto": 1,
-        "tx_nome_area_atuacao_projeto": "Joaquim",
-        "ft_area_atuacao_projeto": null
-      }
-    ]
+    "autodeclaradas": dados
   };
   var key = Object.keys(autodeclaradas)[0];
   var objAutodeclaradas = {
@@ -2016,15 +2099,9 @@ function getAutodeclaradasProjeto(id){
   };
   return objAutodeclaradas;
 }
-function getParceirasProjeto(id){
+function getParceirasProjeto(id, dados){
   var parceiras = {
-    "parceiras": [
-      {
-        "id_osc": 2,
-        "tx_nome_osc_parceira_projeto": "Nome da osc",
-        "ft_osc_parceira_projeto": null
-      }
-    ]
+    "parceiras": dados
   };
   var key = Object.keys(parceiras)[0];
   var objParceiras = {
