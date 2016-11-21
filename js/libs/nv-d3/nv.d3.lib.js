@@ -1,4 +1,20 @@
 function createDonutChart(grafico, valores){
+
+	var total = 0;
+	valores[0].values.forEach(function (d) {
+	    total = total + d.value;
+	});
+
+	var tp = function(key, y, e, graph) {
+		if(readCookie("contraste") == "true"){
+			content = '<div class="nvtooltip contrasteGrafico"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+		}
+		else {
+			content = '<div class="nvtooltip"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+		}
+		return content;
+	};
+
 	//Donut chart example
 	nv.addGraph(function() {
 	  var chart = nv.models.pieChart()
@@ -9,8 +25,9 @@ function createDonutChart(grafico, valores){
 	      .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
 	      .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
 	      .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+				.tooltips(true)
+				.tooltipContent(tp)
 	      .height(430);
-
 
 	    d3.select(grafico + " svg")
 	        .datum(valores[0].values)
@@ -19,8 +36,10 @@ function createDonutChart(grafico, valores){
 
 			nv.utils.windowResize(function () {
 				chart.update();
+				verificarContrasteGrafico(grafico);
 			});
 
+			verificarContrasteGrafico(grafico);
 	  return chart;
 	});
 }
@@ -51,8 +70,10 @@ function createBarChart(grafico, valores)
 		nv.utils.windowResize(function(){
 			chart.update();
 			rotateLabelGrafico(grafico);
+			verificarContrasteGrafico(grafico);
 		});
 
+		verificarContrasteGrafico(grafico);
 		rotateLabelGrafico(grafico);
 
 	  return chart;
@@ -89,12 +110,14 @@ function createMultiBarChart(grafico, valores)
 		 nv.utils.windowResize(function(){
 			 chart.update();
 			 stackControls();
+			 verificarContrasteGrafico(grafico);
 			 rotateLabelGrafico(grafico);
 		 });
 
 		d3.select(grafico + ' .nv-controlsWrap').on('click', stackControls);
 		d3.select(grafico + ' .nv-legendWrap').on('click', stackControls);
 		stackControls();
+		verificarContrasteGrafico(grafico);
 		rotateLabelGrafico(grafico);
 
 	return chart;
@@ -128,9 +151,11 @@ function createLineChart(grafico, valores)
   //Update the chart when window resizes.
 	nv.utils.windowResize(function(){
 		chart.update();
+		verificarContrasteGrafico(grafico);
 		rotateLabelGrafico(grafico);
 	});
 
+	verificarContrasteGrafico(grafico);
 	rotateLabelGrafico(grafico);
 
   return chart;
@@ -165,7 +190,6 @@ function createLinePlusBarChart(grafico, valores)
 	chart.y2Axis
 			.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
 
-
 	chart.bars.forceY([0]);
 
 	d3.select(grafico + " svg")
@@ -177,9 +201,11 @@ function createLinePlusBarChart(grafico, valores)
 	//Update the chart when window resizes.
 	nv.utils.windowResize(function(){
 		chart.update();
+		verificarContrasteGrafico(grafico);
 		rotateLabelGrafico(grafico);
 	});
 
+	verificarContrasteGrafico(grafico);
 	rotateLabelGrafico(grafico);
 	return chart;
 }
@@ -213,9 +239,11 @@ function createStackedAreaChart(grafico, valores)
 
 	 nv.utils.windowResize(function(){
 		 chart.update();
+		 verificarContrasteGrafico(grafico);
 		 rotateLabelGrafico(grafico);
 	 });
 
+	 verificarContrasteGrafico(grafico);
 	 rotateLabelGrafico(grafico);
 
 	 return chart;
@@ -245,8 +273,12 @@ function createStackedAreaChart(grafico, valores)
 
 		nv.utils.windowResize(function(){
 			chart.update();
+			verificarContrasteGrafico(grafico);
 			rotateLabelGrafico(grafico);
 		});
+
+		verificarContrasteGrafico(grafico);
+		rotateLabelGrafico(grafico);
 
 		return chart;
 }
@@ -276,11 +308,12 @@ function createLineWithFocusChart(grafico, valores)
 	      .call(chart);
 
 		nv.utils.windowResize(function(){
-
-		chart.update();
+			chart.update();
+			verificarContrasteGrafico(grafico);
 			rotateLabelGrafico(grafico);
 		});
 
+		verificarContrasteGrafico(grafico);
 		rotateLabelGrafico(grafico);
 
 	  return chart;
@@ -302,4 +335,26 @@ function rotateLabelGrafico(grafico){
 			var xleg2 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
 					.attr('transform', function(d,i,j) { return 'translate (0, 20) rotate(0 0,0)' }) ;
 		}
+}
+
+function verificarContrasteGrafico(grafico){
+	if(readCookie("contraste") == "true"){
+		var xTicks = d3.select(grafico + ' svg').selectAll("text").style('fill','#ffffff');
+		d3.select( grafico + ' svg' ).selectAll(".nv-bars").on( 'mouseover', function( e ){
+					var textoTooltip = d3.select(grafico + ' .nvtooltip').attr("class",'nvtooltip xy-tooltip contrasteGrafico');
+		});
+		d3.select( grafico + ' svg' ).selectAll(".nv-point-paths").on( 'mouseover', function( e ){
+					var textoTooltip = d3.select(grafico + ' .nvtooltip').attr("class",'nvtooltip xy-tooltip contrasteGrafico');
+		});
+		d3.select( grafico + ' svg' ).selectAll(".nv-group").on( 'mouseover', function( e ){
+					var textoTooltip = d3.select(grafico + ' .nvtooltip').attr("class",'nvtooltip xy-tooltip contrasteGrafico');
+		});
+		d3.select( grafico + ' svg' ).selectAll(".nv-lineChart").on( 'mouseover', function( e ){
+					var textoTooltip = d3.select(grafico + ' .nvtooltip').attr("class",'nvtooltip xy-tooltip contrasteGrafico');
+		});
+	}
+	else{
+		var xTicks2 =  d3.select(grafico + ' svg').selectAll("text").style('fill','#000000');
+	}
+
 }

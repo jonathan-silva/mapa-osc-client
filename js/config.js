@@ -21,9 +21,13 @@ require.config({
     "leafletCluster": "libs/leaflet-0.7.7/cluster.min",
     "google": "libs/google",
     "rotas":"rotas",
-    "graficoParaTabela":"libs/util/graficoParaTabela"
+    "graficoParaTabela":"libs/util/graficoParaTabela",
+    "cookies":"libs/util/cookies",
+    "contraste":"libs/util/contraste"
   },
   shim: {
+      'contraste':['cookies'],
+      'react':['contraste'],
       'jquery-ui': ['jquery'],
       'bootstrap': ['jquery-ui'],
       'd3': ['bootstrap'],
