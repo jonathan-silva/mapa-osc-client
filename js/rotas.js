@@ -4,7 +4,7 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://localhost";//mapaosc-desenv.ipea.gov.br
+    return "http://mapaosc-desenv.ipea.gov.br";
   }
 
   //index.js
