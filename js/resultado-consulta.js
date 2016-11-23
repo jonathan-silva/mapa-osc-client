@@ -70,8 +70,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
   else{
     //consulta tudo
-    //urlRotaMapa = rotas.AllOSCInMap();
-    urlRotaMapa = rotas.ClusterRegiao();
+    urlRotaMapa = rotas.AllOSCInMap();
+    //urlRotaMapa = rotas.ClusterRegiao();
   }
 
   //*** Methods
@@ -131,7 +131,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
            ],
            autoWidth: true
          });
-         $('#loading').addClass('hide');       
+         $('#loading').addClass('hide');
        }
      });
 
