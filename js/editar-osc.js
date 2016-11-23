@@ -479,138 +479,171 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     var json = {
       "area_atuacao": {
-        "area_atuacao": [
-          {
-            "cd_area_atuacao": 1,
-            "tx_nome_area_atuacao": "Educação",
-            "cd_subarea_atuacao": 1,
-            "tx_nome_subarea_atuacao": "Educação Básica",
-            "ft_area_atuacao": "Usuário"
-          }
-        ],
         "area_atuacao_outra": [
           {
             "id_area_atuacao_outra": 1,
-            "tx_nome_area_atuacao": "Apoio a jovens infratores",
-            "ft_area_atuacao_outra": "Usuário"
+            "tx_nome_area_atuacao": "Educação Alternativa",
+            "ft_area_declarada": "Usuário"
           }
         ]
       },
       "cabecalho": {
         "cd_identificador_osc": "12345678901234",
-        "ft_identificador_osc": "RAIS",
-        "tx_razao_social_osc": "Terra dos Homens",
-        "ft_razao_social_osc": null,
-        "tx_natureza_juridica": "Educação",
-        "ft_natureza_juridica_osc": "RAIS",
+        "ft_identificador_osc": "MTE/RAIS",
+        "tx_razao_social_osc": "Organização de Teste",
+        "ft_razao_social_osc": "MTE/RAIS",
+        "cd_natureza_juridica_osc": "3999",
+        "tx_nome_natureza_juridica_osc": "Associação Privada",
+        "ft_natureza_juridica_osc": "MTE/RAIS",
         "im_logo": null,
         "ft_logo": null
       },
-      "certificacao": {
+      "certificado": {
         "certificado": [
           {
             "id_certificado": 1,
-            "tx_nome_certificado": "Bom Pagador",
-            "dt_inicio_certificado": "2016-10-20",
-            "dt_fim_certificado": "2017-10-20",
-            "ft_certificado": "Vagner"
-          },
-          {
-            "id_certificado": 2,
-            "tx_nome_certificado": "Idoneidade Aceite",
-            "dt_inicio_certificado": null,
-            "dt_fim_certificado": "2017-10-25",
-            "ft_certificado": null
-          }
-        ],
-        "utilidade_publica_estadual": {
-          "dt_data_validade": "2016-10-20",
-          "ft_utilidade_publica_estadual": "Vagner"
-        },
-        "utilidade_publica_municipal": {
-          "dt_data_validade": "2016-10-30",
-          "ft_utilidade_publica_municipal": "Vagner"
-        }
-      },
-      "dados_gerais": {
-        "cd_identificador_osc": "12345678901234",
-        "ft_identificador_osc": "RAIS",
-        "tx_razao_social_osc": "Terra dos Homens",
-        "ft_razao_social_osc": null,
-        "tx_nome_fantasia_osc": null,
-        "ft_nome_fantasia_osc": null,
-        "im_logo": null,
-        "ft_logo": null,
-        "tx_atividade_economica_osc": "Saúde Básica",
-        "ft_atividade_economica_osc": "RAIS",
-        "tx_natureza_juridica_osc": "Educação",
-        "ft_natureza_juridica_osc": "RAIS",
-        "tx_sigla_osc": null,
-        "ft_sigla_osc": null,
-        "tx_apelido_osc": "terra",
-        "ft_apelido_osc": "Vagner",
-        "dt_fundacao_osc": null,
-        "ft_fundacao_osc": null,
-        "dt_ano_cadastro_cnpj": null,
-        "ft_ano_cadastro_cnpj": null,
-        "tx_nome_responsavel_legal": null,
-        "ft_nome_responsavel_legal": null,
-        "tx_link_estatuto_osc": null,
-        "ft_link_estatuto_osc": null,
-        "tx_resumo_osc": null,
-        "ft_resumo_osc": null,
-        "tx_nome_situacao_imovel_osc": null,
-        "ft_situacao_imovel_osc": null,
-        "tx_endereco": null,
-        "ft_endereco": null,
-        "nr_localizacao": null,
-        "ft_localizacao": null,
-        "tx_endereco_complemento": null,
-        "ft_endereco_complemento": null,
-        "tx_bairro": null,
-        "ft_bairro": null,
-        "tx_municipio": null,
-        "ft_municipio": null,
-        "tx_uf": null,
-        "ft_uf": null,
-        "nr_cep": null,
-        "ft_cep": null,
-        "geo_lat": null,
-        "geo_lng": null,
-        "tx_email": null,
-        "ft_email": null,
-        "tx_site": null,
-        "ft_site": null,
-        "tx_telefone": null,
-        "ft_telefone": null
-      },
-      "descricao": {
-        "tx_historico": null,
-        "ft_historico": null,
-        "tx_missao_osc": null,
-        "ft_missao_osc": null,
-        "tx_visao_osc": null,
-        "ft_visao_osc": null,
-        "tx_finalidades_estatutarias": "Ajudar o próximo mais proximamente",
-        "ft_finalidades_estatutarias": "Vagner"
-      },
-      "participacao_social": {
-        "conselho": [
-          {
-            "id_conselho": 1,
-            "tx_nome_conselho": "Conselho Federal  das OSCs",
-            "ft_conselho": "Vagner",
-            "nr_numero_assentos": null,
-            "ft_numero_assentos": null,
-            "tx_periodicidade_reuniao": null,
-            "ft_periodicidade_reuniao": null,
-            "cd_tipo_participacao": 1,
-            "nm_tipo_participacao": "Titular",
-            "ft_tipo_participacao": "Vagner"
+            "tx_nome_certificado": "CEBAS - Educação",
+            "dt_inicio_certificado": "2016-11-11",
+            "dt_fim_certificado": "2017-11-11",
+            "ft_certificado": "Usuário"
           }
         ]
       },
-      "projeto": [
+      "dados_gerais": {
+        "cd_identificador_osc": "12345678901234",
+        "ft_identificador_osc": "MTE/RAIS",
+        "tx_razao_social_osc": "Organização de Teste",
+        "ft_razao_social_osc": "MTE/RAIS",
+        "tx_nome_fantasia_osc": "OrgTeste",
+        "ft_nome_fantasia_osc": "Usuário",
+        "im_logo": null,
+        "ft_logo": null,
+        "cd_atividade_economica_osc": "9411100",
+        "tx_nome_atividade_economica_osc": "Atividades de organizações associativas patronais e empresariais",
+        "ft_atividade_economica_osc": "MTE/RAIS",
+        "cd_natureza_juridica_osc": "3999",
+        "tx_nome_natureza_juridica_osc": "Associação Privada",
+        "ft_natureza_juridica_osc": "MTE/RAIS",
+        "tx_sigla_osc": "OT",
+        "ft_sigla_osc": "Usuário",
+        "tx_apelido_osc": "teste",
+        "ft_apelido_osc": "Usuário",
+        "dt_fundacao_osc": "2016-11-11",
+        "ft_fundacao_osc": "Usuário",
+        "dt_ano_cadastro_cnpj": "2016-11-10",
+        "ft_ano_cadastro_cnpj": "Usuário",
+        "tx_nome_responsavel_legal": "João da Silva",
+        "ft_nome_responsavel_legal": "Usuário",
+        "tx_link_estatuto_osc": "www.orgteste.com/estatuto",
+        "ft_link_estatuto_osc": "Usuário",
+        "tx_resumo_osc": "Access this white paper to explore effective and enduring approaches to patient matching. Discover how providers can take these approaches internally to ensure short- and long-term clinical successes. ",
+        "ft_resumo_osc": "Usuário",
+        "cd_situacao_imovel_osc": 1,
+        "tx_nome_situacao_imovel_osc": "Próprio",
+        "ft_situacao_imovel_osc": "Usuário",
+        "tx_endereco": "AVENIDA RIO BRANCO, 156",
+        "ft_endereco": "MTE/RAIS",
+        "nr_localizacao": 156,
+        "ft_localizacao": "MTE/RAIS",
+        "tx_endereco_complemento": "Edifício Central",
+        "ft_endereco_complemento": "Usuário",
+        "tx_bairro": "CENTRO",
+        "ft_bairro": "MTE/RAIS",
+        "cd_municipio": "3304557",
+        "tx_nome_municipio": "Rio de Janeiro",
+        "ft_municipio": "MTE/RAIS",
+        "cd_uf": "33",
+        "tx_sigla_uf": "RJ",
+        "tx_nome_uf": "Rio de Janeiro",
+        "ft_uf": "MTE/RAIS",
+        "nr_cep": "20040003",
+        "ft_cep": "MTE/RAIS",
+        "geo_lat": null,
+        "geo_lng": null,
+        "tx_email": "orgteste@gmail.com",
+        "ft_email": "MTE/RAIS",
+        "tx_site": "www.orgteste.com",
+        "ft_site": "Usuário",
+        "tx_telefone": "2136530000",
+        "ft_telefone": "MTE/RAIS"
+      },
+      "descricao": {
+        "tx_historico": "In this white paper, discover how you can utilize several industry-proven data visualization techniques to discern important relationships between your data with intelligent autocharting. Plus, get advice on addressing issues wrought by big data during visualization. \r\n",
+        "ft_historico": "Usuário",
+        "tx_missao_osc": "Testar o desenvolvimento da aplicação",
+        "ft_missao_osc": "Usuário",
+        "tx_visao_osc": "Aumentar a confiabilidade do desenvolvimento.",
+        "ft_visao_osc": "Usuário",
+        "tx_finalidades_estatutarias": "Collaboration is vital to improving security operations. Access this white paper and learn more about how a collaboration investment can help teams contribute to real-time visibility across events, data, and systems.",
+        "ft_finalidades_estatutarias": "Usuário"
+      },
+      "participacao_social": {
+        "conferencia": [
+          {
+            "id_conferencia": 1,
+            "tx_nome_conferencia": "Conferência das Organizações Sociais do Brasil",
+            "ft_nome_conferencia": "RAIS",
+            "dt_ano_realizacao": "2016-11-10",
+            "ft_ano_realizacao": "Usuário",
+            "tx_nome_forma_participacao_conferencia": "Titular",
+            "ft_forma_participacao_conferencia": "Usuário"
+          }
+        ],
+        "conferencia_outra": [
+          {
+            "id_conferencia_outra": 1,
+            "tx_nome_conferencia": "Conferência das Organizações Sociais do Brasil",
+            "ft_nome_conferencia": "Usuário",
+            "dt_ano_realizacao": "2016-11-11",
+            "ft_ano_realizacao": "Usuário",
+            "tx_nome_forma_participacao_conferencia": "Titular",
+            "ft_forma_participacao_conferencia": "Usuário"
+          }
+        ],
+        "conselho": {
+          "conselho": {
+            "id_conselho": 1,
+            "tx_nome_conselho": "Comissão Nacional para Erradicação do Trabalho Escravo",
+            "ft_nome_conselho": "Usuário",
+            "tx_nome_tipo_participacao": "Titular",
+            "ft_nome_tipo_participacao": "Usuário",
+            "tx_periodicidade_reuniao": "Anual",
+            "ft_periodicidade_reuniao": "Usuário",
+            "dt_data_inicio_conselho": "2016-11-01",
+            "ft_data_inicio_conselho": "Usuário",
+            "dt_data_fim_conselho": "2016-11-05",
+            "ft_data_fim_conselho": "Usuário"
+          },
+          "representante": [
+            {
+              "id_representante_conselho": 1,
+              "id_participacao_social_conselho": 1,
+              "tx_nome_representante_conselho": "João da Silva",
+              "ft_nome_representante_conselho": "Usuário"
+            },
+            {
+              "id_representante_conselho": 2,
+              "id_participacao_social_conselho": 1,
+              "tx_nome_representante_conselho": "Maria Oliveira",
+              "ft_nome_representante_conselho": "Usuário"
+            },
+            {
+              "id_representante_conselho": 3,
+              "id_participacao_social_conselho": 1,
+              "tx_nome_representante_conselho": "Laís Souza",
+              "ft_nome_representante_conselho": "Usuário"
+            }
+          ]
+        },
+        "outra": [
+          {
+            "id_participacao_social_outra": 1,
+            "tx_nome_participacao_social_outra": "Ferias das OSCs 2016",
+            "ft_participacao_social_outra": "Usuário"
+          }
+        ]
+      },
+      "projeto_abreviado": [
         {
           "id_projeto": 1,
           "tx_nome_projeto": "Projeto Teste 1"
@@ -621,58 +654,71 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
       ],
       "recursos": {
-        "nr_valor_total": "150000",
-        "nr_valor_federal": null,
-        "nr_valor_estadual": null,
-        "nr_valor_municipal": null,
-        "nr_valor_privado": null,
-        "nr_valor_proprio": null,
-        "tx_link_relatorio_auditoria": null,
-        "ft_link_relatorio_auditoria": null,
-        "tx_link_demonstracao_contabil": null,
-        "ft_link_demonstracao_contabil": null
+        "recursos": {
+          "tx_nome_origem_fonte_recursos_osc": "Público",
+          "tx_nome_fonte_recursos_osc": "1",
+          "dt_ano": "2016-01-01",
+          "nr_valor_recursos_osc": "500000"
+        },
+        "recursos_outro": {
+          "id_recursos_outro_osc": 1,
+          "tx_nome_fonte_recursos_outro_osc": "Doação dos empregados",
+          "ft_nome_fonte_recursos_outro_osc": "Usuário",
+          "dt_ano_recursos_outro_osc": "2016-01-01",
+          "ft_ano_recursos_outro_osc": "Usuário",
+          "nr_valor_recursos_outro_osc": "1000",
+          "ft_valor_recursos_outro_osc": "Usuário"
+        }
       },
       "relacoes_trabalho_governanca": {
         "relacoes_trabalho": {
-          "nr_trabalhadores": 13,
-          "nr_trabalhadores_vinculo": 3,
-          "ft_trabalhadores_vinculo": "RAIS",
-          "nr_trabalhadores_deficiencia": 0,
-          "ft_trabalhadores_deficiencia": "RAIS",
-          "nr_trabalhadores_voluntarios": 10,
-          "ft_trabalhadores_voluntarios": "Vagner"
+          "nr_trabalhadores": 16,
+          "nr_trabalhadores_vinculo": 10,
+          "ft_trabalhadores_vinculo": "MTE/RAIS",
+          "nr_trabalhadores_deficiencia": 1,
+          "ft_trabalhadores_deficiencia": "Usuário",
+          "nr_trabalhadores_voluntarios": 5,
+          "ft_trabalhadores_voluntarios": "Usuário"
         },
         "relacoes_trabalho_outra": [
           {
             "nr_trabalhadores": 10,
-            "ft_trabalhadores": "Vagner",
-            "tx_tipo_relacao_trabalho": "Pessoa Jurídica",
-            "ft_tipo_relacao_trabalho": "Vagner"
+            "ft_trabalhadores": "Usuário",
+            "tx_tipo_relacao_trabalho": "Emprestados por empresa",
+            "ft_tipo_relacao_trabalho": "Usuário"
           }
         ],
         "governanca": [
           {
             "id_dirigente": 1,
-            "tx_cargo_dirigente": "Diretor",
-            "ft_cargo_dirigente": "Vagner",
-            "tx_nome_dirigente": "Maria Silva",
-            "ft_nome_dirigente": "Vagner"
+            "tx_cargo_dirigente": "João da Silva",
+            "ft_cargo_dirigente": "Usuário",
+            "tx_nome_dirigente": "Presidente",
+            "ft_nome_dirigente": "Usuário"
           },
           {
-            "id_dirigente": 3,
-            "tx_cargo_dirigente": "Gerente",
-            "ft_cargo_dirigente": "Vagner",
-            "tx_nome_dirigente": "João Oliveira",
-            "ft_nome_dirigente": "Vagner"
+            "id_dirigente": 2,
+            "tx_cargo_dirigente": "Maria Oliveira",
+            "ft_cargo_dirigente": "Usuário",
+            "tx_nome_dirigente": "Diretora",
+            "ft_nome_dirigente": "Usuário"
           }
         ],
         "conselho_fiscal": [
           {
+            "id_conselheiro": 1,
+            "tx_nome_conselheiro": "Paulo Soares",
+            "ft_nome_conselheiro": "Usuário"
+          },
+          {
+            "id_conselheiro": 2,
+            "tx_nome_conselheiro": "João da Silva",
+            "ft_nome_conselheiro": "Usuário"
+          },
+          {
             "id_conselheiro": 3,
-            "tx_nome_conselheiro": "José Mendes",
-            "ft_nome_conselheiro": "RAIS",
-            "tx_cargo_conselheiro": "Conselheiro Financeiro",
-            "ft_cargo_conselheiro": "RAIS"
+            "tx_nome_conselheiro": "Maria Oliveira",
+            "ft_nome_conselheiro": "Usuário"
           }
         ]
       }
@@ -811,8 +857,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.custom_class = custom_class;
       this.suggestions = suggestions;
     }
-    var areas_atuacao = json.area_atuacao.area_atuacao;
-    var area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
+    var areas_atuacao;
+    var area_atuacao_outra;
+
+    if(json.area_atuacao){
+      areas_atuacao = json.area_atuacao.area_atuacao;
+      area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
+    }
+
+    if(areas_atuacao === undefined){
+      areas_atuacao = [];
+    }
+    if(area_atuacao_outra === undefined){
+      area_atuacao_outra = [];
+    }
     areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
     var macro_area_suggestions = getSuggestions();
     headerPriority = '2';
@@ -982,9 +1040,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     //Títulos e certificações
     var tx_sem_titulos = "Não há registros de títulos ou certificações";
-    var certificacoes = json.certificacao.certificado;
-    var utilidade_publica_estadual = json.certificacao.utilidade_publica_estadual;
-    var utilidade_publica_municipal = json.certificacao.utilidade_publica_municipal;
+    var certificacoes;
+    var utilidade_publica_estadual;
+    var utilidade_publica_municipal;
+
+    if(json.certificacao){
+      certificacoes = json.certificacao.certificado;
+      utilidade_publica_estadual = json.certificacao.utilidade_publica_estadual;
+      utilidade_publica_municipal = json.certificacao.utilidade_publica_municipal;
+    }
+
     headerPriority = '2';
     headerText = 'Títulos e certificações';
     formItens = [];
@@ -1014,8 +1079,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {
           "id": "data_validade_estadual",
           "label": "Insira data de validade para Utilidade pública estadual",
-          "content": utilidade_publica_estadual.dt_data_validade,
-          "fonte": utilidade_publica_estadual.ft_utilidade_publica_estadual,
+          "content": utilidade_publica_estadual ? utilidade_publica_estadual.dt_data_validade : null,
+          "fonte": utilidade_publica_estadual ? utilidade_publica_estadual.ft_utilidade_publica_estadual : null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "text",
           "hide": true
@@ -1023,15 +1088,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {
           "id": "data_validade_municipal",
           "label": "Insira data de validade para Utilidade pública municipal",
-          "content": utilidade_publica_municipal.dt_data_validade,
-          "fonte": utilidade_publica_municipal.ft_utilidade_publica_municipal,
+          "content": utilidade_publica_municipal ? utilidade_publica_municipal.dt_data_validade : null,
+          "fonte": utilidade_publica_municipal ? utilidade_publica_municipal.ft_utilidade_publica_municipal : null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "text",
           "hide": true
         }
       ]
     };
-    items = certificacoes;
+    if(certificacoes){
+      items = certificacoes;
+    } else {
+      items = [];
+    }
+
     if(items.length > 0){
       for (j=0; j<items.length; j++){
         var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
@@ -1929,7 +1999,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          });
        });
     }
-    var projects_list = json.projeto;
+    var projects_list = json.projeto_abreviado;
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
