@@ -63,4 +63,7 @@ class Rotas{
   ClusterEstado(){
     return this.getBaseUrl()+":8383/api/geo/cluster/estado";
   }
+  ClusterRegiao(){
+    return this.getBaseUrl()+":8383/api/geo/cluster/regiao";
+  }
 }

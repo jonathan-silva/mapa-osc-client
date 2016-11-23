@@ -1245,10 +1245,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {header:null, dados:formItens}
       ), document.getElementById("conselheiros")
     );
-  function quadroDirigenteItem(){
-      $('#dirigentes button').on('click', function(){
+
+    function isTrue(obj){
+      if(obj){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    function addItem(idDiv){
+      $('#'+idDiv+' button').on('click', function(){
         if($(this).hasClass('btn-primary')){
-          var $cloneDiv = ($(this).closest('.dirigente'));
+          var $cloneDiv = ($(this).parent());
           var $input = $cloneDiv.find('input[type=text]');
           var values = new Array();
           $input.parent().removeClass('has-error');
@@ -1262,13 +1271,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
             }
           });
-          if(values[0] && values[1]){
+          if(values.every(isTrue)){
             $input.parent().removeClass('has-error');
             $input.after().find('span').remove();
             var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-            $cloneDiv.clone().appendTo('#dirigentes');
-            $('.dirigente').last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(quadroDirigenteItem());
-            $('.dirigente').last().find('input[type=text]').val('');
+            $cloneChildren = $('#'+idDiv).children();
+            $cloneDiv.clone().appendTo($cloneChildren);
+            $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
+            $cloneDiv.parent().children().last().find('input[type=text]').val('');
           }
         }
         else {
@@ -1276,8 +1286,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
      });
     }
-    quadroDirigenteItem();
-
+    addItem('dirigentes');
     //Conselho fiscal
     var conselho_fiscal = json.relacoes_trabalho_governanca.conselho_fiscal;
 
@@ -1294,40 +1303,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       ), document.getElementById("conselho_fiscal")
     );
 
-    function conselhoFiscalItem(){
-        $('#conselho_fiscal button').on('click', function(){
-          if($(this).hasClass('btn-primary')){
-            var $conselho = $(this).parent();
-            var $cloneDiv = ($(this).closest($conselho));
-            var $input = $cloneDiv.find('input[type=text]');
-            var values = new Array();
-            $input.parent().removeClass('has-error');
-            $('.alert-danger').remove();
-            $input.each(function(i){
-              if($(this).val() !== "" ){
-                  values[i] = true;
-              }
-              else {
-                values[i] = false;
-                $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-              }
-            });
-            if(values[0]){
-              $input.parent().removeClass('has-error');
-              $input.after().find('span').remove();
-              var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-              var $conselhoChildren = $('#conselho_fiscal').children();
-              $cloneDiv.clone().appendTo($conselhoChildren);
-              $conselho.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(conselhoFiscalItem());
-              $conselho.parent().children().last().find('input[type=text]').val('');
-            }
-          }
-          else {
-            $(this).parent().remove();
-          }
-       });
-      }
-      conselhoFiscalItem();
+    addItem('conselho_fiscal');
 
     //Trabalhadores
     var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
@@ -1510,39 +1486,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         );
       }
 
-      function conferenciaItem(){
-          $('#conferencias button').on('click', function(){
-            if($(this).hasClass('btn-primary')){
-              var $cloneDiv = ($(this).closest('.conferencia'));
-              var $input = $cloneDiv.find('input[type=text]');
-              var values = new Array();
-              $input.parent().removeClass('has-error');
-              $('.alert-danger').remove();
-              $input.each(function(i){
-                if($(this).val() !== "" ){
-                    values[i] = true;
-                }
-                else {
-                  values[i] = false;
-                  $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-                }
-              });
-              if(values[0] && values[1] && values[2]){
-                $input.parent().removeClass('has-error');
-                $input.after().find('span').remove();
-                var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-                $cloneDiv.clone().appendTo('#conferencias');
-                $('.conferencia').last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(conferenciaItem());
-                $('.conferencia').last().find('input[type=text]').val('');
-              }
-            }
-            else {
-              $(this).parent().remove();
-            }
-         });
-        }
-        conferenciaItem();
-
       formItens = [];//React.createFactory(participacao_social_form);
       if (conselhos.length) {
         var conselho = participacao_social_form.items;
@@ -1572,12 +1515,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
           }
         }
-        formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", null,null, null, "text"));
-        formItens.push(new FormItens(conselho[j].id, "Titularidade", null,null, null, "text"));
-        formItens.push(new FormItens(conselho[j].id, "Nome de representante", null,null, null, "text"));
-        formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", null,null, null, "text"));
-        formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", null,null, null, "text"));
-        formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Nome do Conselho", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text"));
+        formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text"));
 
         Agrupador = React.createFactory(AgrupadorConselhos);
         ReactDOM.render(
@@ -1587,38 +1530,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         );
       };
 
-      function conselhoItem(){
-          $('#conselhos button').on('click', function(){
-            if($(this).hasClass('btn-primary')){
-              var $cloneDiv = ($(this).closest('.conselho'));
-              var $input = $cloneDiv.find('input[type=text]');
-              var values = new Array();
-              $input.parent().removeClass('has-error');
-              $('.alert-danger').remove();
-              $input.each(function(i){
-                if($(this).val() !== "" ){
-                    values[i] = true;
-                }
-                else {
-                  values[i] = false;
-                  $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-                }
-              });
-              if(values[0] && values[1] && values[2] && values[3] && values[4]){
-                $input.parent().removeClass('has-error');
-                $input.after().find('span').remove();
-                var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-                $cloneDiv.clone().appendTo('#conselhos');
-                $('.conselho').last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(conselhoItem());
-                $('.conselho').last().find('input[type=text]').val('');
-              }
-            }
-            else {
-              $(this).parent().remove();
-            }
-         });
-        }
-        conselhoItem();
+     addItem('conselhos');
+     addItem('conferencias');
 
       formItens = [];//
       if (outras.length) {
@@ -1644,6 +1557,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("outros_part")
         );
       }
+
+      addItem('outros_part');
 
     //Projetos
     function carregaProjeto(id){
