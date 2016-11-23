@@ -61,12 +61,12 @@
           </li>
           <li>
             <div class="btnColabore">
-              <a type="button" class="btn btn-primary btn-sm">Como Colaborar</a>
+              <a type="button" title="Clique para saber como colaborar" class="btn btn-primary btn-sm">Como Colaborar</a>
             </div>
           </li>
           <li>
             <div class="btnEditar">
-              <a type="button" class="btn btn-info btn-sm">Editar OSC</a>
+              <a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm">Editar OSC</a>
             </div>
           </li>
         </ul>
@@ -384,7 +384,7 @@
               <div class="panel panel-default" >
 
                 <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
-                  <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" href="{{'#collapse'+ $index }}" aria-controls="{{'collapse'+ $index }}">
+                  <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="vai(this);" aria-controls="{{'collapse'+ $index }}">
                     <h3 class="panel-title ">{{proj.tx_nome_projeto}}</h3>
                   </a>
                 </div>

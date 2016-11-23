@@ -1,4 +1,5 @@
 var controller = angular.module('oscApp', []);
+var idOsc;
 
 controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
 	var self = this;
@@ -6,7 +7,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	//createCookie('ppkcookie','2',7);
  //console.log(readCookie('cookieDetalhar'));
 	self.carregarDadosGerais = function(){
-		var idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
+		idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
 		var url = rotas.OSCByID(idOsc);
 
 		$http.get(url).then(function(response) {
@@ -23,7 +24,14 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	};
 }]);
 
+function vai(e) {
+	var id = $(e).attr("data");
+	$(id).toggle("slow");
+}
+
+
 require(["jquery-ui"], function (React) {
+
 
   $(document).tooltip({
     position: {
@@ -41,6 +49,7 @@ require(["jquery-ui"], function (React) {
   });
 
 	jQuery(document).ready(function($) {
+$("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
 	    $(".scroll").click(function(event){
 	        event.preventDefault();
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
