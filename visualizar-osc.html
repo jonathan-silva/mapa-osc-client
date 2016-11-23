@@ -215,7 +215,7 @@
           </div>
           <div class="col-md-12 " id="menu3">
             <h2>Relações de Trabalho</h2>
-            <div class="col-md-5 form-inline">
+            <!--div class="col-md-5 form-inline"-->
               <div class="col-md-7 form-inline">
                 <h3>Quadro de Dirigentes</h3>
                 <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
@@ -228,129 +228,125 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-5 form-inline">
-                <div class="col-md-7 form-inline">
+              <!--div class="col-md-5 form-inline"-->
+                <div class="form-group">
                   <h3>Conselheiros</h3>
                   <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
-                    <div class="form-group">
                       <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
                     </div>
                   </div>
-                </div>
-              <h3>Trabalhadores</h3>
+              <div class="col-md-12 ">
+                  <h3>Trabalhadores</h3>
               <div class="form-group">
                 <label>Total de Trabalhadores:</label>
-                <div>
                   <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores}}</span>
-                </div>
-              </div><br>
+              </div>
               <div class="form-group">
                 <label>Empregados:</label>
-                <div>
                   <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo}}</span>
-                </div>
-              </div><br>
+              </div>
               <div class="form-group">
                 <label>Trabalhadores com deficiência:</label>
-                <div>
                   <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia}}</span>
-                </div>
-              </div><br>
+              </div>
               <div class="form-group">
                 <label>Trabalhadores voluntários:</label>
-                <div>
                   <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
-                </div>
               </div>
-            </div>
+              </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
-          </div>
+            </div>
           <div class="col-md-12">
             <hr>
           </div>
           <div class="col-md-12" id=menu4>
             <h2>Espaços de Participação Social</h2>
             <div class="">
-              <div> <span class="h3">Conselhos</span></div>
+              <div> <span class="h3">Conselhos de Políticas Públicas</span></div>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Conselho</th>
-                    <th>Número de Assentos</th>
-                    <th>Periodicidade</th>
+                    <th>Nome do Conselho</th>
+                    <th>Titularidade</th>
+                    <th>Nome de representante</th>
+                    <th>Periodicidade da Reunião</th>
+                    <th>Data de início de vigência</th>
+                    <th>Data de fim de vigência</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
-                      <span class="form-control-static">{{conselho.nm_conselho}}</span>
+                      <span class="form-control-static">{{conselho.tx_nome_conselho}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.nr_numero_assentos}}</span>
+                      <span class="form-control-static">{{conselho.tx_nome_tipo_participacao}}</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">{{conselho.tx_nome_representante_conselho}}</span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">{{conselho.dt_data_inicio_conselho}}</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">{{conselho.dt_data_fim_conselho}}</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="">
-              <h3>Conferências</h3>
+              <h3>Conferências de Políticas Públicas</h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Conferência</th>
-                    <th>Data de Início da Conferência</th>
-                    <th>Data de Fim da Conferência</th>
+                    <th>Ano de realização da conferência</th>
+                    <th>Nome da Conferência</th>
+                    <th>Forma de participação na conferência</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="conferencia in ctrl.osc.participacao_social.conferencia">
                     <td>
+                      <span class="form-control-static">{{conferencia.dt_ano_realizacao}}</span>
+                    </td>
+                    <td>
                       <span class="form-control-static">{{conferencia.tx_nome_conferencia}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conferencia.dt_data_inicio_conferencia}}</span>
-                    </td>
-                    <td>
-                      <span class="form-control-static">{{conferencia.dt_data_fim_conferencia}}</span>
+                      <span class="form-control-static">{{conferencia.tx_nome_forma_participacao_conferencia}}</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="">
-              <h3>Outros</h3>
+              <h3>Outros espaços de participação social</h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>Data de Ingresso</th>
+                    <th>Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs:</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="outra in ctrl.osc.participacao_social.outra">
                     <td>
-                      <span class="form-control-static">{{outra.tx_nome_outra_participacao_social}}</span>
-                    </td>
-                    <td>
-                      <span class="form-control-static">{{outra.tx_tipo_outra_participacao_social}}</span>
-                    </td>
-                    <td>
-                      <span class="form-control-static">{{outra.dt_data_ingresso_outra_participacao_social}}</span>
+                      <span class="form-control-static">{{outra.tx_nome_participacao_social_outra}}</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
           <div class="col-md-12 ">
             <hr>
           </div>
-          <div class="col-md-12 " id="menu4">
+          <!--div class="col-md-12 " id="menu4">
             <h2>Recursos</h2>
             <div class="col-md-5 ">
               <div class="form-group">
@@ -397,12 +393,12 @@
 
           <div class="col-md-12 ">
             <hr>
-          </div>
+          </div-->
           <div class="col-md-12 " id="menu5">
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas</h2>
             </div>
-            <div class="panel panel-default " ng-repeat="proj in ctrl.osc.projetos">
+            <div class="panel panel-default " ng-repeat="proj in ctrl.osc.projeto.projeto">
               <div class="panel-heading ">
                 <h3 class="panel-title ">
                   <a data-toggle="collapse" href="{{'#collapse'+ $index }}">{{proj.tx_nome_projeto}}</a>
@@ -485,15 +481,15 @@
                       <div>
                         <div class="header ">Valor Captado</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-3 ">
                       <div>
                         <div class="header ">Tipo da Fonte de Recursos</div>
-                        <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                        <div class="form-group"  ng-repeat="fonte in proj.fonte_recursos">
+                          <span class="form-control-static">{{fonte.tx_nome_fonte_recursos_projeto}}</span>
                         </div>
                         <div>
                           <div class="header ">Financiadores do Projeto</div>
