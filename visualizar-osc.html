@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -51,9 +52,6 @@
           </li>
           <li>
             <a href="#participacao_social" name="participacao_social" class="scroll">Participação Social</a>
-          </li>
-          <li>
-            <a href="#recursos" name="recursos" class="scroll">Recursos</a>
           </li>
           <li>
             <a href="#projetos" name="projetos" class="scroll">Projetos</a>
@@ -131,18 +129,6 @@
                 <label>Telefone:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_telefone}}</span>
               </div>
-              <!--div class="form-group">
-                <label>Resumo da OSC:</label>
-                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_resumo_osc}}</span>
-              </div>
-              <div class="form-group">
-                <label>Situação do Imóvel:</label>
-                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_natureza_juridica}}</span>
-              </div>
-              <div class="form-group">
-                <label>Link do Estatuto:</label>
-                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</span>
-              </div-->
             </div>
 
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -244,7 +230,6 @@
 
       <div class="container">
         <div class="row">
-
           <div class="col-md-12 " id="relacao_trabalho">
             <h2>Relações de Trabalho</h2>
             <div class="row">
@@ -260,6 +245,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="col-sm-4">
                 <h3>Conselheiros</h3>
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
@@ -286,13 +272,14 @@
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
                   <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
+                </div>
               </div>
-              </div>
-            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
+          <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
         </div>
-        <hr>
       </div>
+      <hr>
+    </div>
 
       <div class="container">
         <div class="row">
@@ -301,7 +288,7 @@
             <h2>Espaços de Participação Social</h2>
 
             <div class="col-md-12">
-              <div> <span class="h3">Conselhos de Políticas Públicas</span></div>
+              <h3>Conselhos de Políticas Públicas</h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -386,175 +373,156 @@
         </div>
         <hr>
       </div>
-          <div class="container">
-            <div class="row">
+
+      <div class="container">
+        <div class="row">
           <div class="col-md-12 " id="projetos">
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas</h2>
             </div>
-            <div class="panel panel-default " ng-repeat="proj in ctrl.osc.projeto.projeto">
-              <div class="panel-heading ">
-                <h3 class="panel-title ">
-                  <a data-toggle="collapse" href="{{'#collapse'+ $index }}">{{proj.tx_nome_projeto}}</a>
-                </h3>
-              </div>
-              <div id="{{'collapse'+ $index }} " class="panel-collapse collapse in">
-                <div class="panel-body no-padding ">
-                  <div class="row no-gutter bordered">
-                    <div>
-                      <div class="header">
-                        Nome
-                      </div>
-                      <div class="form-group">
-                        <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                      </div>
-                    </div>
-                  </div>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
+              <div class="panel panel-default" >
+
+                <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
+                  <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" href="{{'#collapse'+ $index }}" aria-controls="{{'collapse'+ $index }}">
+                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}</h3>
+                  </a>
                 </div>
-                <div class="row no-gutter bordered ">
-                  <div class="col-md-3 ">
-                    <div>
+
+                <div id="{{'collapse'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'heading'+ $index }}">
+                  <div class="panel-body no-padding ">
+
+                    <div class="col-md-3 ">
                       <div class="header ">Total de Beneficiários</div>
                       <div class="form-group">
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_total_beneficiarios}}</span>
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <div class="header ">Público Beneficiado</div>
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                      <div>
+                        <div class="header ">Público Beneficiado</div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                    </div>
+
+                    <div class="col-md-3 ">
+                      <div>
+                        <div class="header ">Valor Total</div>
+                        <div class="form-group">
+                          <span class="form-control-static">{{proj.nr_valor_total_projeto}}</span>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div>
-                      <div class="header ">Valor Total</div>
-                      <div class="form-group">
-                        <span class="form-control-static">{{proj.nr_valor_total_projeto}}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="header ">Valor Captado</div>
-                      <div class="form-group">
-                        <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div>
-                      <div class="header ">Tipo da Fonte de Recursos</div>
-                      <div class="form-group"  ng-repeat="fonte in proj.fonte_recursos">
-                        <span class="form-control-static">{{fonte.tx_nome_fonte_recursos_projeto}}</span>
                       </div>
                       <div>
-                        <div class="header ">Financiadores do Projeto</div>
+                        <div class="header ">Valor Captado</div>
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div>
-                      <div class="header ">Área Auto-declarada do projeto</div>
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+
                     <div class="col-md-3 ">
-                      
-                      <div class="form-group">
-                        <div class="">
+                        <div class="header ">Tipo da Fonte de Recursos</div>
+                        <div class="form-group"  ng-repeat="fonte in proj.fonte_recursos">
+                          <span class="form-control-static">{{fonte.tx_nome_fonte_recursos_projeto}}</span>
+                        </div>
+                        <div>
+                          <div class="header ">Financiadores do Projeto</div>
+                          <div class="form-group">
+                            <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 ">
+                        <div class="header ">Área Auto-declarada do projeto</div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 ">
+                        <div class="header ">Abrangência</div>
+                        <div class="form-group">
                           <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="">
+                      <div>
+                        <div class="header ">Zona de Atuação</div>
+                        <div class="form-group">
                           <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="row no-gutter bordered ">
-                  <div class="col-md-3 ">
-                    <div>
-                      <div class="header ">Abrangência</div>
+
+                    <div class="col-md-3 ">
+                      <div class="header ">Localização do Projeto</div>
+                      <div class="form-group">
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6 ">
+                      <div class="header ">OSCs Parceiras</div>
+                      <div class="form-group">
+                        <div class="form-group">
+                          <div class="">
+                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+                      <div class="header">Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa</div>
+                      <div class="form-group">
+                        <span class="form-control-static" >{{proj.tx_nome_projeto}}</span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 ">
+                      <div class="header">Descrição do Projeto, atividade e/ou programa</div>
                       <div class="form-group">
                         <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                       </div>
-                    </div>
-                    <div>
-                      <div class="header ">Zona de Atuação</div>
-                      <div class="form-group">
-                        <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-3 ">
-                    <div class="header ">Localização do Projeto</div>
-                    <div class="form-group">
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 ">
-                    <div class="header ">OSCs Parceiras</div>
-                    <div class="form-group">
-                      <div class="form-group">
-                        <div class="">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row no-gutter bordered ">
-                  <div class="col-md-12 ">
-                    <div class="header">Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa</div>
-                    <div class="form-group">
-                      <span class="form-control-static" >{{proj.tx_nome_projeto}}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row no-gutter bordered ">
-                  <div class="col-md-12 ">
-                    <div class="header">Descrição do Projeto, atividade e/ou programa</div>
-                    <div class="form-group">
-                      <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
-          <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
         </div>
       </div>
-    </div>
   </div>
-
 
   <!-- footer -->
   <div id="rodape"></div>
