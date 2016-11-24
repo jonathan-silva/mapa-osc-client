@@ -66,4 +66,18 @@ class Rotas{
   ClusterRegiao(){
     return this.getBaseUrl()+":8383/api/geo/cluster/regiao";
   }
+
+  // editar-osc.js
+  OSCByID_no_project(id){
+    return this.getBaseUrl()+":8383/api/osc/"+id;
+  }
+  ProjectByID(id){
+    return this.getBaseUrl()+":8383/api/projeto/"+id;
+  }
+  Objetivos(){
+    return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";
+  }
+  MetasById(id){
+    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto"+id;
+  }
 }
