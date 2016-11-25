@@ -23,7 +23,8 @@ require.config({
     "rotas":"rotas",
     "graficoParaTabela":"util/graficoParaTabela",
     "cookies":"util/cookies",
-    "contraste":"util/contraste"
+    "contraste":"util/contraste",
+    "util" : "util/Util.js"
   },
   shim: {
       'contraste':['cookies'],
@@ -41,6 +42,7 @@ require.config({
       'leafletCluster': ['leaflet'],
       'google': ['leafletCluster'],
       'graficoParaTabela': ['bootstrap'],
+      'util':['jquery']
   },
   jsx: {
     fileExtension: '.jsx',
