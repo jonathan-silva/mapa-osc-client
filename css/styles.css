@@ -804,10 +804,9 @@ body.indisponivel {
   float: left;
   padding-left: 5px;
 }
-.btnColabore,.btnEditar{
+.btnColabore{
   padding-top: 10px;
   padding-bottom: 5px;
-  padding-right: 10px;
 }
 
 /*projetos selectable*/
@@ -827,4 +826,8 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
 }
 .contrasteGrafico h3 {
   background-color: black !important;
+}
+
+.negrito{
+  font-weight: bold;
 }
