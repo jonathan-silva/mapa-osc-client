@@ -42,12 +42,14 @@ require(["jquery-ui"], function(React) {
     div.find(".btn.btn-success").on("click", function() {
 
         //Captcha
+
         if(grecaptcha.getResponse().length == 0) {
           jQuery("#labelCaptcha").text("Resolver o Captcha.");
           return false;
         }else{
           jQuery("#labelCaptcha").text("");
         }
+
 
         var $email = $('#email').val();
         var $modal = $('#modalMensagem');
@@ -60,21 +62,41 @@ require(["jquery-ui"], function(React) {
             $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
         }
 
-        var $json = '{"tx_email_usuario": "' + $email + '"}';
+        var $json = {"tx_email_usuario":$email};
 
 
+        $.ajax({
+             url: 'http://localhost:8080/api/user/esquecisenha/',
+             type: 'POST',
+             dataType: 'json',
+             data: $json,
+             error:function(e){
+               //console.log(e);
+               jQuery("#modalTitle").text("Problema na solicitação!");
+               jQuery("#modalConteudo").text(JSON.parse(e.responseText).msg);
+               $modal.modal('show');
+               return false
+             },
+             success: function(data){
+               jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
+               jQuery("#modalConteudo").text("Em breve você receberá um e-mail com o procedimento para alterar a senha.");
+               //console.log(data);
+               $modal.modal('show');
+             }
+         }); //final envio ajax
+
+
+
+
+/*TODO
                 $.ajax({
                     url: 'js/controller.php',
                     type: 'POST',
                     dataType: 'json',
                     data: {
                         flag: 'consultaPost',
-                        rota: 'http://mapaosc-desenv.ipea.gov.br:8383/api/user/esquecisenha/',
+                        rota: 'http://localhost:8080/api/user/esquecisenha/',
                         parametros: $json
-                    },
-                    success: function(data) {
-                        console.log(data.responseText);
-                        $modal.modal('show');
                     },
                     error: function(e) {
                        console.log(e);
@@ -91,8 +113,16 @@ require(["jquery-ui"], function(React) {
                         }
                         $modal.modal('show');
                         return false
+                    },
+                    success: function(data) {
+                        console.log(data.responseText);
+                        $modal.modal('show');
                     }
+
                 }); //final envio ajax
+
+            */
+
     }); //Final btn click
 }); //Final jquery-ui
 

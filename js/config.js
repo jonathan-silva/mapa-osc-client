@@ -21,9 +21,10 @@ require.config({
     "leafletCluster": "libs/leaflet-0.7.7/cluster.min",
     "google": "libs/google",
     "rotas":"rotas",
-    "graficoParaTabela":"libs/util/graficoParaTabela",
-    "cookies":"libs/util/cookies",
-    "contraste":"libs/util/contraste"
+    "graficoParaTabela":"util/graficoParaTabela",
+    "cookies":"util/cookies",
+    "contraste":"util/contraste",
+    "util" : "util/Util.js"
   },
   shim: {
       'contraste':['cookies'],
@@ -41,6 +42,7 @@ require.config({
       'leafletCluster': ['leaflet'],
       'google': ['leafletCluster'],
       'graficoParaTabela': ['bootstrap'],
+      'util':['jquery']
   },
   jsx: {
     fileExtension: '.jsx',

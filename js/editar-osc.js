@@ -1,5 +1,6 @@
 /* jshint ignore:start */
-require(["jquery-ui", "datatables-responsive"], function (React) {
+require(["jquery-ui"], function (React) {
+
   $(document).tooltip({
     position: {
       my: "center bottom-20",
@@ -14,6 +15,29 @@ require(["jquery-ui", "datatables-responsive"], function (React) {
       }
     }
   });
+
+  function readURL(input) {
+    if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $("#imagemLogo").attr('src', e.target.result)
+        };
+      reader.readAsDataURL(input.files[0]);
+    }
+    else {
+        $('#errorLabel').removeClass('hide');
+    }
+  }
+
+  $('.custom-file-upload').on("change", function(){
+    $('input[type=file]').each(function(index){
+        if ($('input[type=file]').eq(index).val() != ""){
+           readURL(this);
+        }
+      });
+  });
+
+
 });
 
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {

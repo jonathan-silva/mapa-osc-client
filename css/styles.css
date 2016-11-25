@@ -1,3 +1,10 @@
+#inserirLogo {
+    display: none;
+}
+.custom-file-upload {
+    margin-top: 10px;
+}
+
 #header{
   box-shadow: 0px 1px 10px gray;
 }
@@ -827,4 +834,8 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
 }
 .contrasteGrafico h3 {
   background-color: black !important;
+}
+
+.negrito{
+  font-weight: bold;
 }
