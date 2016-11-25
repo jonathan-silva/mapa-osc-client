@@ -1,3 +1,10 @@
+#inserirLogo {
+    display: none;
+}
+.custom-file-upload {
+    margin-top: 10px;
+}
+
 #header{
   box-shadow: 0px 1px 10px gray;
 }
@@ -804,9 +811,10 @@ body.indisponivel {
   float: left;
   padding-left: 5px;
 }
-.btnColabore{
+.btnColabore,.btnEditar{
   padding-top: 10px;
   padding-bottom: 5px;
+  padding-right: 10px;
 }
 
 /*projetos selectable*/

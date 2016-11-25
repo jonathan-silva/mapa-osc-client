@@ -163,7 +163,7 @@ define('componenteDropdown', ['react'], function (React) {
       render: function() {
           return (
             <div>
-             <select className="form-control">
+             <select id={this.props.id} className="form-control">
                 {this.renderListItems()}
               </select>
             </div>
@@ -231,8 +231,10 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
         var placeholder = item.content;
-        if((item.content == null) && (item.placeholder != undefined)){
+        var content = item.content;
+        if(((content == null) || (content === "")) && (item.placeholder != undefined)){
           placeholder = item.placeholder;
+          content = "";
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte =
@@ -249,25 +251,25 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         if(item.type == 'p'){
           ContentElement =
           <div className="input-box">
-            <p className="form-control-static" id={item.id}>{placeholder}</p>
+            <p className="form-control-static" id={item.id}>{content}</p>
             {SpanFonte}
           </div>
         } else if(item.type == 'textarea') {
           ContentElement =
           <div className="input-box">
-            <textarea className="form-control" id={item.id} placeholder={placeholder}></textarea>
+            <textarea className="form-control" id={item.id} placeholder={placeholder} defaultValue={content}></textarea>
             {SpanFonte}
           </div>
         } else if(item.type == 'select'){
           ContentElement =
           <div className="input-box">
-            <Dropdown list={item.options} selected={item.content}></Dropdown>
+            <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
             {SpanFonte}
           </div>
         } else if(item.id == "tx_endereco_eletronico_sugerido"){
           ContentElement =
           <div className="input-box">
-            <input className="form-control with-pretext" id={item.id} placeholder={placeholder} type={item.type}></input>
+            <input className="form-control with-pretext" id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             <span className="pre-text">{item.pretext}</span>
             {SpanFonte}
           </div>
@@ -295,7 +297,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           var className = "form-control"+custom_class;
           ContentElement =
           <div className="input-box">
-            <input className={className}  id={item.id} placeholder={placeholder} type={item.type}></input>
+            <input className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             {SpanFonte}
           </div>
         }

@@ -25,7 +25,7 @@
           <div>
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}</h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}</h3>
-            <h3>Atividade Econômica: {{ctrl.osc.cabecalho.ft_atividade_economica_osc}}</h3>
+            <!--h3>Atividade Econômica: {{ctrl.osc.cabecalho.ft_atividade_economica_osc}}</h3-->
             <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_natureza_juridica}}</h3>
           </div>
         </div>
@@ -55,6 +55,9 @@
           </li>
           <li>
             <a href="#projetos" name="projetos" class="scroll">Projetos</a>
+          </li>
+          <li>
+            <a href="#projetos" name="recursos" class="scroll">Fonte de recursos</a>
           </li>
           <li>
             <a href="javascript:if(window.print)window.print()">Imprimir</a>
@@ -144,14 +147,18 @@
             <h2>Áreas de Atuação</h2>
             <div class="col-md-12" ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
               <div class="form-group">
+                <label>Atividade Econômica:</label>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc}}</span>
+              </div>
+              <div class="form-group">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
-                <label>{{area_atuacao.tx_nome_area_atuacao}}</label>
+                <label>Área de atuação do projeto, atividade ou programa: </label> {{area_atuacao.tx_nome_area_atuacao}}
                 <div>
                   <strong>Subárea</strong> -&gt; <em>{{area_atuacao.tx_nome_subarea_atuacao}}</em>
                 </div>
               </div>
               <div class="form-group">
-                <label>Áreas autodeclaradas</label>
+                <label>Outras áreas de atuação do projeto, atividade ou programa</label>
                 <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
                   <div class="form-group">
                     <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
@@ -391,32 +398,41 @@
 
                 <div id="{{'collapse'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'heading'+ $index }}">
                   <div class="panel-body no-padding ">
-
+<br>
                     <div class="col-md-3 ">
+                      <div class="header">Descrição do Projeto, atividade e/ou programa</div>
+                        <div class="form-group">
+                          <span class="form-control-static">{{proj.objetivo_meta.tx_nome_meta_projeto}}</span>
+                      </div>
+                      </div>
+
+                      <div class="col-md-3 ">
+                      <div class="header ">Ano de início</div>
+                      <div class="form-group">
+                          <span class="form-control-static">{{proj.dt_data_inicio_projeto}}</span>
+                      </div>
+                      </div>
+
+                      <div class="col-md-3 ">
+                      <div class="header ">Ano de conclusão</div>
+                      <div class="form-group">
+                          <span class="form-control-static">{{proj.dt_data_fim_projeto}}</span>
+                      </div>
+                      </div>
+
+                      <div class="col-md-3 ">
                       <div class="header ">Total de Beneficiários</div>
                       <div class="form-group">
-                        <div class="form-group">
                           <span class="form-control-static">{{proj.nr_total_beneficiarios}}</span>
-                        </div>
                       </div>
-                      <div>
+                      </div>
+
+                      <div class="col-md-3 ">
                         <div class="header ">Público Beneficiado</div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
+                        <div class="form-group"  ng-repeat="pubben in proj.publico_beneficiado">
+                          <span class="form-control-static">{{pubben.tx_nome_publico_beneficiado}}:</span>
+                          <span class="form-control-static">{{pubben.nr_estimativa_pessoas_atendidas}} pessoas</span>
                         </div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
-                        </div>
-                      </div>
                     </div>
 
                     <div class="col-md-3 ">
@@ -449,71 +465,48 @@
 
                     <div class="col-md-3 ">
                         <div class="header ">Área Auto-declarada do projeto</div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
+                        <div class="form-group"  ng-repeat="area_atuacao in proj.area_atuacao">
+                            <span class="form-control-static">{{area_atuacao.tx_nome_area_atuacao_projeto}}</span>
                         </div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
+                        <div class="form-group"  ng-repeat="area_atuacao_outra in proj.area_atuacao_outra">
+                            <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra_projeto}}</span>
                         </div>
                     </div>
 
                     <div class="col-md-3 ">
-                        <div class="header ">Abrangência</div>
+                        <div class="header ">Abrangência de atuação</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          <span class="form-control-static">{{proj.tx_nome_abrangencia_projeto}}</span>
                         </div>
                       <div>
                         <div class="header ">Zona de Atuação</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
+                          <span class="form-control-static">{{proj.tx_nome_zona_atuacao}}</span>
                         </div>
                       </div>
                     </div>
 
                     <div class="col-md-3 ">
                       <div class="header ">Localização do Projeto</div>
-                      <div class="form-group">
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
-                        </div>
+                      <div class="form-group"  ng-repeat="localizacao in proj.localizacao">
+                        <span class="form-control-static">{{localizacao.tx_nome_regiao_localizacao_projeto}}</span>
                       </div>
                     </div>
 
                     <div class="col-md-6 ">
                       <div class="header ">OSCs Parceiras</div>
-                      <div class="form-group">
-                        <div class="form-group">
-                          <div class="">
-                            <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                          </div>
-                        </div>
+                      <div class="form-group"  ng-repeat="osc_parceira in proj.osc_parceira">
+                        <span class="form-control-static">{{osc_parceira.tx_nome_osc_parceira_projeto}}</span>
                       </div>
                     </div>
 
                     <div class="col-md-12 ">
-                      <div class="header">Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa</div>
+                      <div class="header">Objetivos de desenvolvimento do milênio</div>
                       <div class="form-group">
-                        <span class="form-control-static" >{{proj.tx_nome_projeto}}</span>
+                        <span class="form-control-static" >{{proj.objetivo_meta.tx_nome_objetivo_projeto}}</span>
                       </div>
                     </div>
 
-                    <div class="col-md-12 ">
-                      <div class="header">Descrição do Projeto, atividade e/ou programa</div>
-                      <div class="form-group">
-                        <span class="form-control-static">{{proj.tx_nome_projeto}}</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -521,7 +514,26 @@
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
         </div>
+        <hr>
       </div>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-12" id="recursos">
+            <h2>Fonte de recursos anual da OSC</h2>
+              <div class="col-md-12 ">
+
+              </div>
+
+            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+            </div>
+            </div>
+            </div>
+
+
+
+
   </div>
 
   <!-- footer -->

@@ -24,19 +24,24 @@
     <div id="conteudo" class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-            <img src="img/camera.png" class="center-block img-responsive img-rounded">
+          <div class="divImg">
+            <img id="imagemLogo" src="img/camera.jpg" class="img-rounded media-object logoOSC">
+            <label class="custom-file-upload btn btn-info" title="Inserir Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>
+            <div class="alert alert-danger fade in hide" id="errorLabel">
+                <a href="#" class="close" onclick="$('.alert').addClass('hide')">&times;</a>
+                <strong>Erro!</strong> Somente Imagem formato png, jpg ou gif.
+            </div>
           </div>
-          <div class="col-md-9">
-            <h2>Nome da OSC (Nome Receita/RAIS)</h2>
-            <h3>CNPJ: xxx.xxx.xxx/xxxx-xx - Filial</h3>
-            <h3>Atividade Econômica</h3>
-            <h3>Natureza Jurídica</h3>
-            <a class="btn btn-primary">Como Colaborar</a>
+          <div>
+            <h2>Nome:</h2>
+            <h3>CNPJ: </h3>
+            <h3>Atividade Econômica: </h3>
+            <h3>Natureza Jurídica:</h3>
           </div>
         </div>
       </div>
     </div>
+
     <div class="section">
       <div class="container">
         <div id="menu-osc"><!--Componente de menu--></div>
