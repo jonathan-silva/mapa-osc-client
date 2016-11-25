@@ -19,6 +19,8 @@ require(["jquery-ui"], function (React) {
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
+  var clustersRegiaoLayer = L.layerGroup();
+  var layerGroup = L.layerGroup();
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -70,8 +72,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
   else{
     //consulta tudo
-    urlRotaMapa = rotas.AllOSCInMap();
-    //urlRotaMapa = rotas.ClusterRegiao();
+    //urlRotaMapa = rotas.AllOSCInMap();
+    isClusterVersion=true;
+    urlRotaMapa = rotas.ClusterRegiao();
   }
 
   //*** Methods
@@ -190,6 +193,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     return null;
   }
 
+  function loadPointCluster(icone, id, latFinal, lngFinal){
+    if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+      var marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickCluster);
+      //marker.addTo(map);
+      return marker;
+    }
+  }
+
   function carregaMapa(dados){
     for(var k in dados){
       var point = loadPoint(k, dados[k][0], dados[k][1]);
@@ -201,11 +212,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     leafletView.ProcessView();
   }
 
-  function heatMap(arrayPDF){
-      var layerGroup = L.layerGroup();
+  function heatMap(arrayPDF, arrayID){
       $.each(statesData.features , function(i){
           nomeEstado = statesData.features[i].properties.Name;
           statesData.features[i].properties.density = arrayPDF[nomeEstado];
+          statesData.features[i].properties.id = arrayID[nomeEstado];
           //console.log(statesData.features[i].properties.density);
       });
 
@@ -268,7 +279,21 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       }
 
       function zoomToFeature(e) {
-          map.fitBounds(e.target.getBounds());
+        var layer = e.target;
+          map.fitBounds(layer.getBounds());
+          loadChunkData(layer.feature.properties.id);
+          layer.off();
+          layer.on({
+              mouseover: highlightFeature,
+              mouseout: resetHighlight,
+              click: zoomm
+          });
+          //console.log(e.target.feature.properties.id);
+      }
+
+      function zoomm(e){
+        var layer = e.target;
+          map.fitBounds(layer.getBounds());
       }
 
       var legend = L.control({position: 'bottomright'});
@@ -306,7 +331,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           onEachFeature: onEachFeature
       }).addTo(map);
 
-      map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));
+      //map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));
   }
 
   function getColor(d) {
@@ -322,114 +347,67 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
                         '#FFEDA0';
   }
 
-  function heatMapRegiao(dataCluster){
-      var regioes={};
-      regioes['norte'] = ['']
-      var layerGroup = L.layerGroup();
-      $.each(statesData.features , function(i){
-          nomeEstado = statesData.features[i].properties.Name;
-          //statesData.features[i].properties.density = arrayPDF[nomeEstado];
-          statesData.features[i].properties.density = arrayPDF[nomeEstado];
-      });
+  function carregaMapaCluster(dados){
+    for(var k in dados){
+      var markerGroup = []
+      var icone =  L.divIcon({
+                    id: dados[k].id_regiao,
+                    className: "labelClass",
+                    html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
+                  })
+      clustersRegiaoLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao));
+    }
 
-      function style(feature) {
-          return {
-              fillColor: getColor(feature.properties.density),
-              weight: 2,
-              opacity: 1,
-              color: 'white',
-              dashArray: '3',
-              fillOpacity: 0.6
-          };
+    map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup, "Clusters": clustersRegiaoLayer}));
+    $("#loadingMapModal").hide();
+    //leafletView.ProcessView();
+  }
+
+  function loadChunkData(idEstado){
+    $("#loadingMapModal").show();
+    $.ajax({
+      url: 'js/controller.php',
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        //tabela ();
+        if(data!==undefined){
+          carregaMapa(data);
+        }
+      },
+      error: function (e) {
+        console.log(e);
       }
+    });
+  }
 
-      function onEachFeature(feature, layer) {
-          layer.on({
-              mouseover: highlightFeature,
-              mouseout: resetHighlight,
-              click: zoomToFeature
-          });
-          layerGroup.addLayer(layer);
+  function clickCluster(e){
+    console.log(e);
+    var idRegiao = e.target.options.icon.options.id;
+    $("#loadingMapModal").show();
+    $.ajax({
+      url: 'js/controller.php',
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.OSCByRegionInMap(idRegiao)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        //tabela ();
+        if(data!==undefined){
+          map.removeLayer(e.target);
+          carregaMapa(data);
+        }
+      },
+      error: function (e) {
+        console.log(e);
       }
-
-      var info = L.control();
-
-      info.onAdd = function (map) {
-          this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-          this.update();
-          return this._div;
-      };
-
-      // method that we will use to update the control based on feature properties passed
-      info.update = function (props) {
-          this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
-              '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
-              : 'Passe o mouse sobre um estado');
-      };
-
-      info.addTo(map);
-
-      function highlightFeature(e) {
-          var layer = e.target;
-
-          layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-              fillOpacity: 0.7
-          });
-
-          if (!L.Browser.ie && !L.Browser.opera) {
-              layer.bringToFront();
-          }
-          info.update(layer.feature.properties);
-      }
-
-      function resetHighlight(e) {
-          geojson.resetStyle(e.target);
-          info.update();
-      }
-
-      function zoomToFeature(e) {
-          map.fitBounds(e.target.getBounds());
-      }
-
-      var legend = L.control({position: 'bottomright'});
-
-      legend.onAdd = function (map) {
-
-          var div = L.DomUtil.create('div', 'info legend'),
-              grades = [0, 1000, 10000, 20000, 30000, 40000, 50000, 60000],
-              labels = [];
-
-          div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
-          // loop through our density intervals and generate a label with a colored square for each interval
-          for (var i = 0; i < grades.length; i++) {
-              div.innerHTML +=
-                  '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                  grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-          }
-
-          return div;
-      };
-
-      legend.addTo(map);
-
-      geojson = L.geoJson(statesData, {
-          style: function (statesData) {
-                return {
-                    fillColor: getColor(statesData.properties.density),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.6
-                };
-            },
-          onEachFeature: onEachFeature
-      }).addTo(map);
-
-      map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));
+    });
   }
 
   //*** main
@@ -443,10 +421,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
-      tabela ();
+      //tabela ();
       if(data!==undefined){
         if(isClusterVersion){
-          heatMapRegiao(data);
+          carregaMapaCluster(data);
         }
         else{
           carregaMapa(data);
@@ -480,10 +458,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     success: function(data){
       if(data!==undefined){
         var pdfs={};
+        var ids={};
         for(k in data){
-          pdfs[data[k].tx_sigla_estado]=data[k].nr_quantidade_osc;
+          pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
+          ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
         }
-        heatMap(pdfs);
+        heatMap(pdfs, ids);
       }
     }
   });
