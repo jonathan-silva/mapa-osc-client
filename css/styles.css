@@ -1,3 +1,10 @@
+#inserirLogo {
+    display: none;
+}
+.custom-file-upload {
+    margin-top: 10px;
+}
+
 #header{
   box-shadow: 0px 1px 10px gray;
 }
