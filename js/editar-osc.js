@@ -184,6 +184,35 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("dados_gerais")
       );
+      var idOsc = 1;
+
+      //Salvar
+      $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = dadosGerais;
+      $("#dados_gerais").find("#salvar").click(function(){
+        $("#dados_gerais :input").each(function(){
+          console.log($(this));
+          console.log($(this).attr("id"));
+          var key = $(this).attr("id");
+          var value = $(this).val();
+          newJson[key] = value;
+        });
+
+        /*
+        $.ajax({
+        	url: "http://localhost:8080/api/osc/dadosgerais/"+idOsc,
+        	type: 'put',
+        	dataType: 'json',
+        	data: dadosGerais,
+
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });*/
+      });
     }
 
     //Áreas de atuação
@@ -315,6 +344,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              $element.toggleClass('hidden');
            }
          }
+       });
+
+       //Salvar
+       $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+       var newJson = areas_atuacao;
+       $("#areas_de_atuacao").find("#salvar").click(function(){
+         $("#areas_de_atuacao .autocomplete").each(function(){
+           console.log($(this));
+           console.log($(this).attr("id"));
+          //  var key = $(this).attr("id");
+          //  var value = $(this).val();
+          //  newJson[key] = value;
+         });
+         $("#areas_de_atuacao .checkboxList").each(function(){
+           console.log($(this));
+           console.log($(this).attr("id"));
+          //  var key = $(this).attr("id");
+          //  var value = $(this).val();
+          //  newJson[key] = value;
+         });
        });
       });
     }
@@ -938,6 +987,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }
        });
     }
+
     // Projetos
     function carregaProjeto(id){
       var labelMap = {
