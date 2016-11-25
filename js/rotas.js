@@ -4,12 +4,12 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://localhost";//mapaosc-desenv.ipea.gov.br
+    return "http://mapaosc-desenv.ipea.gov.br";//localhost
   }
 
   //index.js
   AutocompleteOSCByNameId(term){
-    return this.getBaseUrl()+":8383/api/search/oscid/autocomplete/"+term;    
+    return this.getBaseUrl()+":8383/api/search/oscid/autocomplete/"+term;
   }
   AutocompleteOSCByName(term, limit){
     return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit;
