@@ -59,6 +59,7 @@ require(['react'], function (React) {
 
       var $json = {"assunto": $assunto, "nome": $nome, "email": $email, "mensagem": $mensagem};
 
+      $('#loading').show();
 		  $.ajax({
   			type: 'POST',
   			url: 'http://localhost:8080/api/user/contato/',
@@ -83,6 +84,9 @@ require(['react'], function (React) {
             }
             $modal.modal('show');
             return false
+        },
+        complete: function(){
+          $('#loading').hide();
         }
 		  });
     }); //Final btn click
@@ -111,4 +115,3 @@ function validaEmail(email) {
         return false;
     }
 }
-
