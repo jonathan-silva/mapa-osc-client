@@ -40,7 +40,7 @@ require(["jquery-ui"], function (React) {
 
 });
 
-require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!components/EditarOSC', 'jquery'], function (React) {
   require(
     ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
@@ -388,6 +388,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //  var value = $(this).val();
           //  newJson[key] = value;
          });
+         console.log(newJson);
        });
       });
     }
