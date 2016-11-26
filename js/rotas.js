@@ -4,10 +4,13 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://mapaosc-desenv.ipea.gov.br";
+    return "http://mapaosc-desenv.ipea.gov.br";//localhost
   }
 
   //index.js
+  AutocompleteOSCByNameId(term){
+    return this.getBaseUrl()+":8383/api/search/oscid/autocomplete/"+term;
+  }
   AutocompleteOSCByName(term, limit){
     return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit;
   }
@@ -60,6 +63,9 @@ class Rotas{
     //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
   }
 
+  ClusterMunicipio(){
+    return this.getBaseUrl()+":8383/api/geo/cluster/municipio";
+  }
   ClusterEstado(){
     return this.getBaseUrl()+":8383/api/geo/cluster/estado";
   }

@@ -57,3 +57,13 @@ $("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
 	});
 
 });
+
+function validateObject(obj){
+  if(obj === null){
+    return false;
+  }
+  if(Object.keys(obj).length === 0 && obj.constructor === Object){
+    return false;
+  }
+  return true;
+}
