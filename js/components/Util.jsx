@@ -139,6 +139,51 @@ define('componenteGlossario', ['react'], function (React) {
   return Glossario;
 });
 
+define('componenteAccordion', ['react'], function (React) {
+
+  var accordion = React.createClass({
+      renderListParagrafo: function(i){
+        var paragrafos=[];
+        for (var j=0; j<this.props.dados[i].desc.length; j++){
+            paragrafos.push(
+              <p>{this.props.dados[i].desc[j]}</p>
+            );
+        }
+        return paragrafos;
+      },
+    renderListItems: function(){
+      var items=[];
+      for (var i=0; i<this.props.dados.length; i++){
+        var heading = "heading_"+i;
+        var idColapse= "collapse_"+i;
+        items.push(
+          <div className="panel panel-default">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href={"#"+idColapse} aria-expanded="true" aria-controls={"#"+idColapse}>
+              <div className="panel-heading" role="tab" id={heading}>
+                <h4 className="panel-title"><b>{this.props.dados[i].topico}</b></h4>
+              </div>
+            </a>
+            <div id={idColapse} className="panel-collapse collapse" role="tabpanel" aria-labelledby={heading}>
+              <div className="panel-body">{this.renderListParagrafo(i)}</div>
+            </div>
+          </div>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (
+        <div className="col-md-12">
+          <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">{this.renderListItems()}</div>
+        </div>
+       );
+    }
+  });
+
+  return accordion;
+});
+
+
 define('componenteDropdown', ['react'], function (React) {
   var Dropdown = React.createClass({
     getInitialState:function(){

@@ -38,5 +38,5 @@ require(['jquery-ui'], function (React) {
           $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
      });
   });
-  
+
 });
