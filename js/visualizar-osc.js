@@ -24,9 +24,10 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	};
 }]);
 
-function vai(e) {
+function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
+	$(e).find("span").toggleClass( "glyphicon-minus" );
 }
 
 
