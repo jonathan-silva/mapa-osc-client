@@ -62,7 +62,7 @@ require(['react'], function (React) {
       $('#loading').show();
 		  $.ajax({
   			type: 'POST',
-  			url: 'http://localhost:8080/api/user/contato/',
+  			url: 'http://localhost:8383/api/user/contato/',
   			data:$json,
   			dataType: 'json',
         success: function(data) {
