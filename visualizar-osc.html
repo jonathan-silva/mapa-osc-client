@@ -8,7 +8,6 @@
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
-    <link href="css/libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -33,7 +32,7 @@
     </div>
 
     <div class="section">
-      <div class="container">
+      <div class="container" id="selecao">
         <ul class="nav nav-pills">
           <li>
             <a href="#dados_gerais" name="dados_gerais" class="scroll">Dados Gerais</a>
@@ -390,11 +389,11 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
               <div class="panel panel-default" >
 
-                <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
-                  <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="vai(this);" aria-controls="{{'collapse'+ $index }}">
+                <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="vai(this);" aria-controls="{{'collapse'+ $index }}">
+                  <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
                     <h3 class="panel-title ">{{proj.tx_nome_projeto}}</h3>
-                  </a>
-                </div>
+                  </div>
+                </a>
 
                 <div id="{{'collapse'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'heading'+ $index }}">
                   <div class="panel-body no-padding ">
