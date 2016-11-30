@@ -8,14 +8,14 @@ define(['react'], function(React) {
     renderListItems: function(){
       var images = [];
       images.push( <div className="item active">
-                    <img src={this.props.images[0]}/>
-                    <div className="carousel-caption" />
+                    <a target="_blank" href={this.props.images[1][0]} title={this.props.images[2][0]}><img src={this.props.images[0][0]}/>
+                    <div className="carousel-caption"/></a>
                   </div>
                 );
-      for (var i = 1; i < this.props.images.length; i++) {
+      for (var i = 1; i < this.props.images[0].length; i++) {
         images.push( <div className="item">
-                      <img src={this.props.images[i]}/>
-                      <div className="carousel-caption" />
+                      <a target="_blank" href={this.props.images[1][i]} title={this.props.images[2][i]}><img src={this.props.images[0][i]}/>
+                      <div className="carousel-caption"/></a>
                     </div>
                   );
       }
