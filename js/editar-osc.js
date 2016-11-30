@@ -32,8 +32,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
-    //var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
+    //var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
     //console.log(rotas);
@@ -44,8 +44,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // console.log(urlRota);
     // api/osc/no_project/{id}
     $.ajax({
-      url: "http://localhost:8080/api/osc/no_project/"+idOsc,
-      //url:"http://mapaosc-desenv.ipea.gov.br:8383/api/osc/"+idOsc,
+      //url: "http://localhost:8080/api/osc/no_project/"+idOsc,
+      url:"http://localhost:8383/api/osc/"+idOsc,
       type: 'GET',
       dataType: 'json',
       data:{flag: "", rota: urlRota},
