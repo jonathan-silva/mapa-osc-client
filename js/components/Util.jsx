@@ -142,17 +142,19 @@ define('componenteGlossario', ['react'], function (React) {
 define('componenteAccordion', ['react'], function (React) {
 
   var accordion = React.createClass({
-      renderListParagrafo: function(i){
-        var paragrafos=[];
-        for (var j=0; j<this.props.dados[i].desc.length; j++){
-            paragrafos.push(
-              <p>{this.props.dados[i].desc[j]}</p>
-            );
-        }
-        return paragrafos;
-      },
+
+    renderListParagrafo: function(i){
+      var paragrafos=[];
+      for (var j=0; j<this.props.dados[i].desc.length; j++){
+          paragrafos.push(
+            <p>{this.props.dados[i].desc[j]}</p>
+          );
+      }
+      return paragrafos;
+    },
     renderListItems: function(){
       var items=[];
+      var style = {float: 'right'};
       for (var i=0; i<this.props.dados.length; i++){
         var heading = "heading_"+i;
         var idColapse= "collapse_"+i;
@@ -160,7 +162,7 @@ define('componenteAccordion', ['react'], function (React) {
           <div className="panel panel-default">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href={"#"+idColapse} aria-expanded="true" aria-controls={"#"+idColapse}>
               <div className="panel-heading" role="tab" id={heading}>
-                <h4 className="panel-title"><b>{this.props.dados[i].topico}</b></h4>
+                <h4 className="panel-title"><b>{this.props.dados[i].topico}</b><span className="glyphicon glyphicon-plus" style={style} aria-hidden="true"></span></h4>
               </div>
             </a>
             <div id={idColapse} className="panel-collapse collapse" role="tabpanel" aria-labelledby={heading}>

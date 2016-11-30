@@ -381,12 +381,12 @@
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas</h2>
             </div>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
+            <div class="panel-group" id="accordion" title="Clique para Detalhar o Projeto." role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
               <div class="panel panel-default" >
 
-                <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="vai(this);" aria-controls="{{'collapse'+ $index }}">
+                <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
                   <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
-                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}</h3>
+                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}<span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span></h3>
                   </div>
                 </a>
 
