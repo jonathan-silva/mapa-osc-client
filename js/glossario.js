@@ -34,16 +34,16 @@ require(['react', 'jsx!components/Util'], function (React) {
 
   var jsonDados = [
     {
-    "topico":"Acordo de cooperação",
+    "topico":"Acordo de Cooperação",
     "desc": ["O Marco Regulatório das Organizações da Sociedade Civil (MROSC) (Lei 13.019/2014) estabelece três instrumentos de parcerias que servirão à formalização das relações entre OSCs e administração pública, para a consecução de finalidades de interesse público, mas que também sejam pertinentes ao eixo de atuação da OSC. O Acordo de Cooperação, que consiste na parceria que não envolve repasse de recursos financeiros, é um dos três instrumentos criados no MROSC.",
              "Um exemplo de acordo de cooperação poderia ser firmado por uma OSC da área da infância e juventude com a Promotoria Especializada para utilização de sala para atendimento emergencial de casos pela equipe da OSC."],
     },
     {
-    "topico":"Administrador público",
+    "topico":"Administrador Público",
     "desc": ["É a pessoa física que responde pelo órgão da Administração Pública que está realizando a parceria com a OSC. Em outras palavras, é o agente público que tem a competência para assinar os instrumentos de pactuação com a OSC e que pode autorizar terceiros a assinarem em seu lugar, delegando sua competência. "],
     },
     {
-    "topico":"Administração pública",
+    "topico":"Administração Pública",
     "desc": ["O conceito de Administração Pública abrange dois sentidos: em sentido objetivo, material ou funcional, a Administração Pública pode ser definida como a atividade concreta e imediata que o Estado desenvolve, sob regime jurídico de direito público, para a consecução dos interesses coletivos. Em sentido subjetivo, formal ou orgânico, pode-se definir Administração Pública como sendo o conjunto de órgãos e de pessoas jurídicas ao qual a lei atribui o exercício da função administrativa do Estado. ",
              "O MROSC, por exemplo, adota o significado subjetivo de Administração Pública, ou seja, refere-se às pessoas jurídicas que exercem a função administrativa e que deverão ser contempladas pela lei. Assim, o texto da lei menciona todos os entes federativos da Administração Direta -- União, Estados e Municípios -- e também a Administração indireta, compreendendo as autarquias, fundações, empresas públicas e sociedades de economia mista respectivas aos entes. "],
     },
@@ -57,11 +57,11 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["As organizações da sociedade civil desenvolvem ações de caráter permanente e/ou se dedicam a processos mais breves e limitados no tempo. O MROSC chamou de “atividades” o conjunto de operações que a OSC realiza de forma contínua ou permanente, e do qual resulta um produto ou serviço que atenda aos interesses compartilhados pela administração pública e a OSC. "]
     },
     {
-    "topico":"Bens recebidos em direito de uso",
+    "topico":"Bens Recebidos em Direito de Uso",
     "desc": ["Bens cedidos por um doador a um donatário, de modo que este fica obrigado a manter e cuidar dos bens doados, sem que tenha, no entanto, direito pleno ao bem, mas apenas direito de uso em relação a ele. Assim, se o ato de doação não for renovado, o bem deve retornar ao seu proprietário de fato. Nesta categoria, estão compreendidas as cessões de comodato, que ocorrem quando, por exemplo, a administração pública cede em comodato um prédio público para uso por parte de entidade sem fins lucrativos."],
     },
     {
-    "topico":"Bens remanescentes",
+    "topico":"Bens Remanescentes",
     "desc": ["As parcerias entre OSCs e a Administração Pública podem prever a possibilidade de compra, com recursos financeiros transferidos para a OSC, de bens que tenham caráter permanente, ou seja, que tenham a durabilidade superior a dois anos (art. 14, § 2º, da lei 4320/64, que estabelece normas gerais de direito financeiro) e que precisam de um destino após o fim da parceria.",
              "Os bens remanescentes são aqueles bens de caráter permanente que poderão ser utilizados mesmo após o fim da parceria.",
              "Antes do MROSC, havia incertezas sobre a possibilidade de doação de bens remanescentes às OSCs, bem como a respeito dos benefícios de conservação desses bens pela Administração Pública.  A nova lei estabelece que a destinação dos bens remanescentes deve estar prevista de antemão e de forma justificada nos termos da parceria: deverão permanecer com o Poder Público, caso ainda lhe sejam úteis, ou poderão ser doados às OSCs parcerias ou a terceiras entidades, caso sejam relevantes para as ações de interesse social que desempenhem. "],
@@ -96,21 +96,21 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["Levantamento realizado anualmente, desde 2007, e que faz um retrato detalhado sobre a estrutura e os serviços prestados nos equipamentos de assistência social de todo o país, contribuindo para a qualificação do planejamento, acompanhamento e avaliação do Sistema Único de Assistência Social (SUAS). A iniciativa é fundamentada pela Lei Orgânica da Assistência Social (LOAS – Lei nº 8.742/1993) e regulamentada pela Resolução nº 145/2004."]
     },
     {
-    "topico":"Comissão de monitoramento e avaliação",
+    "topico":"Comissão de Monitoramento e Avaliação",
     "desc": ["A comissão de monitoramento e avaliação é o órgão colegiado destinado a monitorar e avaliar as parcerias celebradas com organizações da sociedade civil mediante termo de colaboração ou termo de fomento, constituído por ato publicado em meio oficial de comunicação, assegurada a participação de pelo menos um servidor ocupante de cargo efetivo ou emprego permanente do quadro de pessoal da administração pública;"],
     },
     {
-    "topico":"Comissão de seleção",
+    "topico":"Comissão de Seleção",
     "desc": ["A comissão de seleção é o órgão colegiado destinado a processar e julgar chamamentos públicos, constituído por ato publicado em meio oficial de comunicação, assegurada a participação de pelo menos um servidor ocupante de cargo efetivo ou emprego permanente do quadro de pessoal da administração pública."],
     },
     {
-    "topico":"Conferências de políticas públicas",
+    "topico":"Conferências de Políticas Públicas",
     "desc": ["As conferências de políticas públicas são amplos espaços de participação que ultrapassam o espaço dos conselhos gestores. Convocadas de maneira mais episódica que os conselhos, têm, normalmente, a função de construir subsídios ou mesmo determinar as linhas basilares de uma política, não se tratando de espaços meramente consultivos, mas determinantes nas suas decisões do rumo de uma política. ",
              "Algumas dessas conferências são previstas nas próprias leis que regulamentam as políticas públicas, como nas áreas da saúde e da assistência social e sua realização é uma obrigação governamental. Outras são de iniciativa dos governos, podendo ser regulamentadas por decreto ou não.",
              "De modo a evidenciar as diferentes nuances dos direitos em debate e inserir um caráter plural na definição de princípios e diretrizes, tenta garantir a representatividade de diversos grupos sociais para que falem por si próprios, bem como, ordinariamente, são garantidas etapas municipais e estaduais de modo a contemplar a diversidade da população brasileira. O IPEA tem alguns trabalhos já realizados em relação a esse assunto, tal como o relatório \"Ampliação da Participação na Gestão Pública um estudo sobre Conferências Nacionais realizadas entre 2003 e 2011.\" publicado em 2013."],
     },
     {
-    "topico":"Conselhos gestores de políticas públicas",
+    "topico":"Conselhos Gestores de Políticas Públicas",
     "desc": ["Os conselhos gestores de políticas públicas representaram uma das transformações decorrentes do processo de democratização vivido pelo Brasil no final da década de 80 e 90. Sua criação esteve ligada ao interesse de garantir canais de participação popular no Brasil para além da democracia representativa. Parte-se do pressuposto de que existe uma sociedade civil que deveria participar de forma institucionalizada dos processos de elaboração e gestão de políticas públicas com competências, inclusive, de exercer o controle acerca de sua efetivação.",
              "No contexto dos conselhos, há o detalhamento de políticas públicas com atividades cotidianas de controle, planejamento e implementação destas, tomando como base a legislação e os planos de políticas públicas que podem ser construídos em espaços ainda mais amplos de participação como as conferências (vide verbete abaixo):",
              "Temos como exemplos de conselhos gestores: Conselho de Alimentação Escolar; Conselho de Saúde, Educação e Assistência Social (que existem nas esferas municipal, estadual e federal), Conselho de Controle Social do Bolsa Família, Conselho do Fundeb, dentre outros.",
@@ -121,11 +121,11 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["É a pessoa que detenha poderes de administração, gestão ou controle da organização da sociedade civil, habilitada a assinar termo de colaboração, termo de fomento ou acordo de cooperação com a administração pública para a consecução de finalidades de interesse público e recíproco, ainda que delegue essa competência a terceiros."],
     },
     {
-    "topico":"Doações de terceiros",
+    "topico":"Doações de Terceiros",
     "desc": ["Doação pode ser definida como o contrato em que uma pessoa, por liberalidade, transfere do seu patrimônio bens ou vantagens para o de outra, conforme dispõe o artigo 538 do Código Civil (Lei no 10.406/2002). Além da doação simples ou pura, há a possibilidade de doação modal ou com encargo. Esse tipo de doação prevê que o recebedor da doação tenha responsabilidades de fato, ficando obrigado a cumprir determinando encargo ou contrapartida. As doações podem ser recebidas na forma de produtos e serviços, com ou sem Nota Fiscal. Neste último caso, o valor das doações pode apenas ser estimado pela organização que as recebem"],
     },
     {
-    "topico":"Empresas públicas e sociedades de economia mista",
+    "topico":"Empresas Públicas e Sociedades de Economia Mista",
     "desc": ["Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais. São exemplos de empresas públicas brasileiras: Caixa Econômica Federal (CEF), Banco Nacional de Desenvolvimento Econômico e Social (BNDES), Serviço Federal de Processamento de Dados (Serpro), a Empresa Brasileira de Correios e Telégrafos (ou Correios) e a Empresa Brasil de Comunicação (EBC). ",
              "Sociedade de economia mista é pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público. Somente poderá ser constituída na forma de sociedade anônima. O Banco do Brasil, a Petrobras, o Banco do Nordeste e a Eletrobras são exemplos de sociedades de economia mista brasileiras."],
     },
@@ -146,15 +146,15 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["Gestor é o agente público responsável pela gestão de parceria celebrada por meio de termo de colaboração ou termo de fomento, designado por ato publicado em meio oficial de comunicação, com poderes de controle e fiscalização."],
     },
     {
-    "topico":"Imunidade tributária",
+    "topico":"Imunidade Tributária",
     "desc": ["A imunidade é uma limitação constitucional ao poder de tributar, ou seja, nega ao Estado o poder de tributar pessoas ou organizações definidas como imunes. No âmbito das OSCs, a Constituição torna imune a impostos a renda, o patrimônio e os serviços das instituições de educação e de assistência social. Essa imunidade se aplica ainda quanto às contribuições para a seguridade social no caso de entidades que possuam a Certificação de Entidade Beneficente de Assistência Social (Cebas)."],
     },
     {
-    "topico":"Isenção fiscal",
+    "topico":"Isenção Fiscal",
     "desc": ["A isenção fiscal é a dispensa de tributo por meio de lei realizada pelo ente federativo competente para institui-lo. No caso das OSCs, é comum a isenção do imposto de renda e da contribuição social sobre o lucro, prevista na Lei nº 9.532/1997, e a isenção em alguns estados do Imposto sobre a Transmissão Causa Mortis e Doações (ITCMD) – imposto de competência estadual cobrado de quem recebe a doação"],
     },
     {
-    "topico":"LAI - Lei de Acesso à Informação",
+    "topico":"Lei de Acesso à Informação (LAI)",
     "desc": ["A Lei nº 12.527/2011 regulamenta o direito constitucional de acesso às informações públicas. Essa norma entrou em vigor em 16 de maio de 2012 e criou mecanismos que possibilitam, a qualquer pessoa, física ou jurídica, sem necessidade de apresentar motivo, o recebimento de informações públicas dos órgãos e entidades.",
              "A Lei vale para os três Poderes da União, Estados, Distrito Federal e Municípios, inclusive aos Tribunais de Conta e Ministério Público. Entidades privadas sem fins lucrativos também são obrigadas a dar publicidade a informações referentes ao recebimento e à destinação dos recursos públicos por elas recebidos.",
              "As entidades privadas sem fins lucrativos que receberem recursos públicos deverão apresentar em seu sítio na internet (que poderá ser dispensada caso a entidade não disponha de meio para realizá-la), além de arquivo físico na sua sede, três ordens de informações: 1 - cópia do estatuto social atualizado da entidade; 2- relação nominal atualizada dos dirigentes da entidade; e 3- cópia integral das parcerias realizadas com o Poder Executivo federal, respectivos aditivos, e relatórios finais de prestação de contas, na forma da legislação aplicável, desde a pactuação até 180 dias após a prestação de contas final."],
@@ -170,7 +170,7 @@ require(['react', 'jsx!components/Util'], function (React) {
              "A lei também define condições de impedimento para celebração de parcerias com a Administração Pública, como a impossibilidade de dirigente da entidade ser membro de Poder ou do Ministério Público, ou o caso em que a entidade esteja omissa no dever de prestar contas de parceria anteriormente celebrada."],
     },
     {
-    "topico":"Mensalidades ou contribuições de associados",
+    "topico":"Mensalidades ou Contribuições de Associados",
     "desc": ["As organizações da sociedade civil são constituídas por um grupo de pessoas ligadas por uma causa ou objetivo comum, com vistas à transformação social. Esse corpo associativo, além de ser responsável pelas diretrizes e estratégicas da organização, muitas vezes contribui financeiramente para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo."],
     },
     {
@@ -183,11 +183,6 @@ require(['react', 'jsx!components/Util'], function (React) {
     "topico":"Natureza Jurídica",
     "desc": ["A natureza jurídica diz respeito à identidade dos institutos no mundo do Direito. A partir da verificação dos elementos que o compõem e que o diferenciam em face de outros institutos que existem, estabelece-se sua existência com consequências no mundo jurídico, garantindo direitos e poderes, de um lado, e estabelecendo obrigações.",
              "No que diz respeito ao Mapa das OSCs, temos a presença de 4 naturezas jurídicas, todas com verbetes específicos no presente glossário: fundação privada, associação privada, organização religiosa e a organização social (OS), sendo essa última, na verdade, um título que as pessoas jurídicas podem receber, diante do preenchimento de alguns requisitos. Esse critério de classificação abrange as fundações privadas e associações, tal como já utilizado na pesquisa Fasfil/IBGE, e inclui ainda as Organizações Sociais presentes na Tabela de Natureza Jurídica de 2014."],
-    },
-    {
-    "topico":"Organização Religiosa",
-    "desc": ["As organizações religiosas são constituídas por pessoas físicas ou jurídicas que professam uma religião segundo seus ditames e sob a perspectiva de uma fé, que lhes forneça o fundamento para suas iniciativas religiosas, educacionais, assistenciais e outras.",
-             "As organizações religiosas podem ser consideradas organizações da sociedade civil, (OSC) desde que, tal como definidas no novo Marco Regulatório das Organizações da Sociedade Civil, se dediquem a atividades de interesse público e de cunho social distintas das destinadas a fins exclusivamente religiosos."],
     },
     {
     "topico":"Organização da Sociedade Civil (OSC)",
@@ -206,29 +201,30 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["A qualificação de OSCIP é titulação prevista em lei e é conferida somente “às pessoas jurídicas de direito privado, sem fins lucrativos, cujos objetivos sociais tenham pelo menos uma das finalidades (...) tais como, promoção da assistência social, promoção gratuita da educação, defesa, preservação e conservação do meio ambiente e promoção do desenvolvimento sustentável, entre outras” (Lei nº 9.790/1999)."],
     },
     {
-    "topico":"Organizações bilaterais e multilaterais",
+    "topico":"Organizações Bilaterais e Multilaterais",
     "desc": ["As organizações bilaterais existem na forma de grupos de apoio, organizações sem fins lucrativos e agências governamentais.  Essas organizações desempenham atividades de diversos tipos, desde a reconstrução de países atingidos por desastres naturais, até a distribuição ou estabelecimento de água potável e de serviços médicos emergenciais.",
              "As organizações bilaterais recebem financiamento do governo em seus países de origem e utilizam esses recursos no apoio a países em desenvolvimento. A United States Agency for International Development (USAID) é uma das organizações bilaterais mais antigas em atuação. Organizações multilaterais recebem financiamento de três ou mais governos (assim como de fontes não governamentais) e prestam serviços e desempenham projetos em vários países. Algumas das principais organizações multilaterais são parte das Nações Unidas, como a UNICEF e a UNDP. O Banco Mundial e a Organização Mundial da Saúde são exemplos adicionais de organizações multilaterais"],
+    },
+    {
+    "topico":"Organização Religiosa",
+    "desc": ["As organizações religiosas são constituídas por pessoas físicas ou jurídicas que professam uma religião segundo seus ditames e sob a perspectiva de uma fé, que lhes forneça o fundamento para suas iniciativas religiosas, educacionais, assistenciais e outras.",
+             "As organizações religiosas podem ser consideradas organizações da sociedade civil, (OSC) desde que, tal como definidas no novo Marco Regulatório das Organizações da Sociedade Civil, se dediquem a atividades de interesse público e de cunho social distintas das destinadas a fins exclusivamente religiosos."],
     },
     {
     "topico":"Órgãos de Controle",
     "desc": ["São os órgãos públicos responsáveis por fiscalizar a aplicação dos recursos.  Os órgãos de controle nos três poderes e Ministério Público são a Controladoria-Geral da União (CGU), Câmaras de Vereadores e Assembléias Legislativas, Ministério Público Estadual (MPE) e Ministério Público Federal (MPF), Poder Judiciário (Juízes e Tribunais de Justiça), Tribunais de Contas dos Estados (TCE), Tribunais de Contas dos Municípios (TCM), Tribunal de Contas da União (TCU). "],
     },
     {
-    "topico":"Parceria",
-    "desc": ["A parceria é conjunto de direitos, responsabilidades e obrigações decorrentes de relação jurídica estabelecida formalmente entre a administração pública e organizações da sociedade civil, em regime de mútua cooperação, para a consecução de finalidades de interesse público e recíproco, mediante a execução de atividade ou de projeto expressos em termos de colaboração, em termos de fomento ou em acordos de cooperação;"],
-    },
-    {
-    "topico":"Parceria com governo",
+    "topico":"Parceria com Governo",
     "desc": ["As parcerias voluntárias entre a administração pública dos níveis federal, estadual e municipal e as organizações civis compreendem as transferências voluntárias (auxílios, contribuições e subvenções), os instrumentos de parceria vigente previstos em lei (convênio, contrato de repasse, termo de parceria, contrato de gestão, termo de fomento, termo de colaboração) e os recursos provenientes de incentivos fiscais a empresas privadas e destinados a projetos realizados pelas organizações civis."],
     },
     {
-    "topico":"Prestação de contas",
+    "topico":"Prestação de Contas",
     "desc": ["A Lei 13.019/2014 traz um novo olhar sobre a prestação de contas, compartilhando a responsabilidade desta etapa entre as OSCs e a Administração Pública. Pode parecer óbvio, mas é uma importante mudança de abordagem. Afinal, se os recursos utilizados em uma parceria são públicos, é o público, a sociedade como um todo, que deverá saber como o seu dinheiro está sendo usado. O foco principal está nos resultados, ou seja, no cumprimento do objeto pactuado.",
              "Uma boa prestação de contas é o resultado de um bom planejamento e de uma execução cuidadosa, preocupadas em atender o que estava previsto no plano de trabalho. Ao se exigir que a prestação de contas e todos os atos que dela decorram sejam feitos em plataforma eletrônica, que permita que qualquer cidadão interessado acompanhe o andamento das atividades e os valores dispendidos, a lei também amplia o olhar do controle para além dos órgãos institucionalmente imbuídos da tarefa, trazendo ao cidadão também essa responsabilidade."],
     },
     {
-    "topico":"Prestação de serviços",
+    "topico":"Prestação de Serviços",
     "desc": ["As atividades realizadas por uma organização com o fim de atendimento do beneficiário de ações sociais pode retornar dividendos para a entidade. No entanto, as receitas auferidas em virtude de prestação de serviços, bem como de venda de produtos, devem ser revertidas aos projetos sociais desenvolvidos pela entidade sem fins lucrativos e devem guardar nexo causal com a sua missão institucional ou finalidade estatutária."],
     },
     {
@@ -240,16 +236,12 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["A Relação Anual de Informações Sociais (RAIS) consiste em um Registro Administrativo criado em 1975, com periodicidade anual, visando suprir necessidades da gestão governamental para o setor de trabalho e emprego, por meio de informações que auxiliam no (a) controle da atividade trabalhista no país, (b) provimento de dados para a elaboração de estatísticas de trabalho e (c) disponibilização de informações do mercado de trabalho às entidades governamentais. O universo de OSCs da versão atual do Mapa provém da base de dados da RAIS 2014."],
     },
     {
-    "topico":"Rendimentos de fundos patrimoniais",
+    "topico":"Rendimentos de Fundos Patrimoniais",
     "desc": ["Fundos patrimoniais são estruturas que oferecem sustentabilidade financeira a uma organização sem fins lucrativos. Os FPs nascem com frequência com o fim de preservarem o valor doado a uma organização (chamado de principal), utilizando para sua manutenção e atividades apenas os rendimentos resultantes do investimento desse fundo."],
     },
     {
-    "topico":"Rendimentos financeiros de reservas ou contas correntes próprias",
+    "topico":"Rendimentos Financeiros de Reservas ou Contas Correntes Próprias",
     "desc": ["A criação de fundos de reserva prevê a destinação periódica de parte dos recursos financeiros excedentes de uma organização para uma conta específica, que pode ser uma conta corrente, conta poupança ou outra com melhor rendimento. Os fundos de reserva são frequentemente usados pelas organizações no atendimento emergencial de despesas ordinárias do dia a dia da entidade."],
-    },
-    {
-    "topico":"Sistema Integrado de Administração Financeira (SIAFI)",
-    "desc": ["Trata-se do principal instrumento utilizado pelo Ministério da Fazenda/Tesouro Nacional para o registro, acompanhamento e controle da execução orçamentária, financeira e patrimonial do Governo Federal. Os repasses de recursos para entidades sem fins lucrativos podem ocorrer de forma direta ou indireta, por meio de órgão ou entidade da administração pública estadual, municipal ou distrital, com a condição de que as atividades desempenhadas estejam de acordo com o programa de governo ou impliquem na realização de projeto, serviço ou evento de interesse recíproco. Atualmente, os recursos destinados às OSCs provenientes do Siafi não são apresentados nos perfis individuais das OSCs no Mapa. O trabalho para viabilizar esta inserção está em andamento."],
     },
     {
     "topico":"Sistema da Lei de Incentivo ao Esporte (SLIE)",
@@ -264,24 +256,28 @@ require(['react', 'jsx!components/Util'], function (React) {
     "desc": ["Sistema que reúne e processa informações sobre as transferências de recursos do Governo Federal para órgãos públicos e privados sem fins lucrativos. O SICONV é administrado pela Secretaria de Logística e Tecnologia da Informação do MPOG. O repasse acontece por meio de termos de colaboração, de fomento e acordo de cooperação, que são destinados à execução de programas, projetos e ações que sejam de interesse comum. Todos os procedimentos referentes à seleção, formalização, execução, acompanhamento e prestação de contas dos contratos, convênios e parcerias são realizados diretamente no SICONV."],
     },
     {
-    "topico":"Termo de colaboração",
+    "topico":"Sistema Integrado de Administração Financeira (SIAFI)",
+    "desc": ["Trata-se do principal instrumento utilizado pelo Ministério da Fazenda/Tesouro Nacional para o registro, acompanhamento e controle da execução orçamentária, financeira e patrimonial do Governo Federal. Os repasses de recursos para entidades sem fins lucrativos podem ocorrer de forma direta ou indireta, por meio de órgão ou entidade da administração pública estadual, municipal ou distrital, com a condição de que as atividades desempenhadas estejam de acordo com o programa de governo ou impliquem na realização de projeto, serviço ou evento de interesse recíproco. Atualmente, os recursos destinados às OSCs provenientes do Siafi não são apresentados nos perfis individuais das OSCs no Mapa. O trabalho para viabilizar esta inserção está em andamento."],
+    },
+    {
+    "topico":"Termo de Colaboração",
     "desc": ["Termo de colaboração é o instrumento por meio do qual são formalizadas as parcerias estabelecidas pela administração pública com organizações da sociedade civil, para a consecução de finalidades de interesse público e recíproco propostas pela administração pública que envolvam a transferência de recursos financeiros."],
     },
     {
-    "topico":"Termo de fomento",
+    "topico":"Termo de Fomento",
     "desc": ["O termo de fomento é o instrumento por meio do qual são formalizadas as parcerias estabelecidas pela administração pública com organizações da sociedade civil, para a consecução de finalidades de interesse público e recíproco propostas pelas organizações da sociedade civil, que envolvam a transferência de recursos financeiros."],
     },
     {
-    "topico":"Títulos de Utilidade Pública",
+    "topico":"Utilidade Pública (Títulos)",
     "desc": ["O título de Utilidade Pública Federal (UPF) foi extinto por meio da Lei nº 13.204 de 2015, que alterou trechos do MROSC e revogou a Lei nº 91 de 1935. Essa medida visou estender a todas as organizações sem fins lucrativos os benefícios previstos em lei, independentemente da exigência de cumprir requisitos formais e burocráticos para certificação e titulação de UPF.",
              "Os títulos de Utilidade Pública estaduais e municipais, no entanto, continuam em vigor. Os benefícios concedidos para as organizações tituladas variam de acordo com as legislações locais, abrangendo desde a possibilidade de dedução discal de certos tributos à permissão de celebração de parcerias com o Poder Público."],
     },
     {
-    "topico":"Venda de bens e direitos",
+    "topico":"Venda de Bens e Direitos",
     "desc": ["Cessão onerosa da marca associada a uma organização civil para empresas privadas que, em troca, pagam royalties ou direitos autorais. Dessa forma, as empresas podem ter seus produtos associados à imagem de OSCs consideradas referência em determinadas áreas de atuação, que, por sua vez, garantem fontes alternativas de financiamento para suas atividades."],
     },
     {
-    "topico":"Venda de produtos",
+    "topico":"Venda de Produtos",
     "desc": ["Esta é uma das formas de captação mais utilizadas pelas organizações, já que os produtos podem ser confeccionados pela própria instituição. Os produtos confeccionados pelos membros da organização podem ser vendidos ou utilizados internamente, minimizando os custos internos da instituição."],
     }
     ];
