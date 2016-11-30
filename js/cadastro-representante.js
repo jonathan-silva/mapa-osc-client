@@ -263,7 +263,8 @@ require(['react', 'jsx!components/Util'], function(React) {
             //console.log(json);
 
             $.ajax({
-                url: 'http://localhost:8080/api/user/',
+                //url: 'http://localhost:8080/api/user/',
+                url: 'http://localhost:8383/api/user/',
                 type: 'POST',
                 dataType: 'json',
                 data: json,
