@@ -30,7 +30,9 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   linksSubmenu.push(new MenuDropDownObject("Equipe", "equipe.html"));
   linksSubmenu.push(new MenuDropDownObject("Versão", "versao.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
-  linksSubmenu.push(new MenuDropDownObject("Ajuda", "ajuda.html"));
+  linksSubmenu.push(new MenuDropDownObject("Glossário", "glossario.html"));
+  linksSubmenu.push(new MenuDropDownObject("Tutoriais", "tutoriais.html"));
+  linksSubmenu.push(new MenuDropDownObject("Perguntas frequentes", "perguntas-frequentes.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
   linksSubmenu.push(new MenuDropDownObject("Editais para OSCs", "editais.html"));
   linksSubmenu.push(new MenuDropDownObject("Colabore", "colabore.html"));

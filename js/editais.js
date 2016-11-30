@@ -48,7 +48,7 @@ require(['jquery-ui','datatables-responsive'], function (React) {
       "bSort": true,
       "aaSorting": [[ 3, 'asc' ]],
       columns: [
-               {title: "Orgão","width": "25%"},
+               {title: "Instituição responsável","width": "25%"},
                {title: "Nome do Programa"},
                {title: "Area de Interesse"},
                {title: "Data de Vencimento"},
