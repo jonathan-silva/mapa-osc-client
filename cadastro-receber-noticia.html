@@ -52,11 +52,12 @@
                 <div class="form-group">
                   <div class="captcha">
                     <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
+                    <span id="labelCaptcha" class="label label-danger"></span>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="col-sm-offset-0 text-center">
-                    <button type="submit" class="btn btn-success">Enviar</button>
+                    <button type="button" class="btn btn-success">Enviar</button>
                   </div>
                 </div>
               </div>
@@ -66,6 +67,24 @@
       </div>
     </div>
 
+      <!-- Modal -->
+    <div id="modalMensagem" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="modalTitle" class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Receber Notícias</h4>
+                </div>
+                <div id="modalConteudo" class="modal-body">
+                    <p align="center"><b>Cadastro realizado com sucesso!</b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK </button>
+                </div>
+            </div>
+        </div>
+    </div>
+	  
     <!-- footer -->
     <div id="rodape"></div>
     <footer class="section section-primary">
