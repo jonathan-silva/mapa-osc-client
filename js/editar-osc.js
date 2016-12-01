@@ -217,7 +217,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     //Áreas de atuação
     function montarAreasDeAtuacao(json){
-      function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, suggestions){
+      function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
         this.id = id;
         this.label = label;
         this.content = content;
@@ -225,7 +225,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.placeholder = placeholder;
         this.type = type;
         this.custom_class = custom_class;
-        this.suggestions = suggestions;
+        this.areas = areas;
+        this.subareas = subareas;
       }
       var areas_atuacao;
       var area_atuacao_outra;
@@ -243,134 +244,177 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
       areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
       var macro_area_suggestions = getSuggestions();
-      headerPriority = '2';
-      headerText = 'Áreas de Atuação';
-      formItens = [];
-      dados_form =
-      {
-        "form_items": [
-          {
-            "id": "macro_area_1",
-            "label": "Macro Área 1",
-            "content": null,
-            "fonte": null,
-            "placeholder": "Insira o nome como a OSC é conhecida",
-            "type": "text",
-            "custom_class": "autocomplete"
+      $.when(
+        $.ajax({
+          url: "http://localhost:8383/api/menu/osc/area_atuacao",
+          type: 'get',
+          dataType: 'json',
+          data: {},
+
+          success: function(data) {
+            return data;
           },
-          {
-            "id": "macro_area_2",
-            "label": "Macro Área 2",
-            "content": null,
-            "fonte": null,
-            "placeholder": "Insira o nome como a OSC é conhecida",
-            "type": "text",
-            "custom_class": "autocomplete"
+          error: function(e) {
+            console.log(e);
           }
-        ]
-      };
-      items = dados_form.form_items;
-      for (var j=0; j<items.length; j++){
-        var content = null;
-        var fonte = null;
-        if(areas_atuacao.length > j){
-          content = areas_atuacao[j].tx_nome_area_atuacao;
-          fonte = areas_atuacao[j].ft_nome_area_atuacao;
+        }),
+        $.ajax({
+          url: "http://localhost:8383/api/menu/osc/subarea_atuacao",
+          type: 'get',
+          dataType: 'json',
+          data: {},
 
+          success: function(data) {
+            return data;
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        })
+      ).then(function (macro_area_suggestions, subarea_suggestions) {
+        loadSuggestions(macro_area_suggestions[0], subarea_suggestions[0]);
+      });
+
+      function loadSuggestions(macro_area_suggestions, subarea_suggestions){
+        for (var i = 0; i < subarea_suggestions.length; i++) {
+          subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
+          subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         }
-        formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions));
-      }
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:{priority: headerPriority, text: headerText}, dados:formItens}
-        ), document.getElementById("areas_de_atuacao")
-      );
+        headerPriority = '2';
+        headerText = 'Áreas de Atuação';
+        formItens = [];
+        dados_form =
+        {
+          "form_items": [
+            {
+              "id": "macro_area_1",
+              "label": "Macro Área 1",
+              "content": null,
+              "fonte": null,
+              "placeholder": "Insira o nome como a OSC é conhecida",
+              "type": "text",
+              "custom_class": "autocomplete"
+            },
+            {
+              "id": "macro_area_2",
+              "label": "Macro Área 2",
+              "content": null,
+              "fonte": null,
+              "placeholder": "Insira o nome como a OSC é conhecida",
+              "type": "text",
+              "custom_class": "autocomplete"
+            }
+          ]
+        };
+        items = dados_form.form_items;
+        for (var j=0; j<items.length; j++){
+          var content = null;
+          var fonte = null;
+          if(areas_atuacao.length > j){
+            content = areas_atuacao[j].tx_nome_area_atuacao;
+            fonte = areas_atuacao[j].ft_nome_area_atuacao;
 
-      require(["react", "jquery-ui", "jquery"], function (React) {
-        //autocomplete macro_area_1 e macro_area_2
-        $("#areas_de_atuacao .autocomplete").autocomplete({
-          create: function(event, ui) {
-            var value = $(this).attr("placeholder");
-            for (var i = 0; i < macro_area_suggestions.length; i++) {
-              var suggestion = macro_area_suggestions[i].label;
-              if (suggestion === value){
-                var $container = $(this).siblings(".checkboxList");
-                var $element = $container.find("#"+i);
-                if($element.hasClass('hidden')){
-                  $element.toggleClass('hidden');
-                }
-                for (var j = 0; j < areas_atuacao.length; j++) {
-                  if((value === areas_atuacao[j].tx_nome_area_atuacao) && (areas_atuacao[j].tx_nome_subarea_atuacao)){
-                    var subarea_exists = false;
-                    $element.find("label").each(function(){
-                      if(areas_atuacao[j].tx_nome_subarea_atuacao === $(this).text().trim()){
-                        subarea_exists = $(this);
+          }
+          formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+        }
+        FormItem = React.createFactory(FormItem);
+        ReactDOM.render(
+          FormItem(
+            {header:{priority: headerPriority, text: headerText}, dados:formItens}
+          ), document.getElementById("areas_de_atuacao")
+        );
+
+        require(["react", "jquery-ui", "jquery"], function (React) {
+          //autocomplete macro_area_1 e macro_area_2
+          macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
+            newItem = {
+              label: item.tx_nome_area_atuacao,
+              value: item.tx_nome_area_atuacao,
+              id: item.cd_area_atuacao
+            };
+
+            return newItem;
+          });
+          $("#areas_de_atuacao .autocomplete").autocomplete({
+            create: function(event, ui) {
+              var value = $(this).attr("placeholder");
+              for (var i = 0; i < macro_area_suggestions.length; i++) {
+                var suggestion = macro_area_suggestions[i].value;
+                if (suggestion === value){
+                  var $container = $(this).siblings(".checkboxList");
+                  var $element = $container.find("#subareas-"+i);
+                  if($element.hasClass('hidden')){
+                    $element.toggleClass('hidden');
+                  }
+
+                  for (var j = 0; j < areas_atuacao.length; j++) {
+                    if((value === areas_atuacao[j].tx_nome_area_atuacao)){
+                      var subarea_exists = false;
+                      $element.find("label").each(function(){
+                        if(areas_atuacao[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                          subarea_exists = $(this);
+                        }
+                      });
+                      if(subarea_exists){
+                        subarea_exists.find("input").prop('checked', true);
+                      } else {
+                        $element.find("#outros").val(areas_atuacao[j].tx_nome_subarea_atuacao);
                       }
-                    });
-                    if(subarea_exists){
-                      subarea_exists.find("input").prop('checked', true);
-                    } else {
-                      $element.find("#outros").val(areas_atuacao[j].tx_nome_subarea_atuacao);
                     }
                   }
                 }
               }
-            }
-          },
-          source: macro_area_suggestions,
-          change: function( event, ui ) {
-          },
-          select: function(event, ui){
-           var targetElement = event.target;
-           var id = macro_area_suggestions.indexOf(ui.item);
-           var $container = $($(targetElement).siblings(".checkboxList")[0]);
-           $container.children().each(function( index ) {
-             if(!$(this).hasClass('hidden')){
-               $(this).toggleClass('hidden');
-               $(this).children().each(function(index){
-                 var $input = $($(this).find('input')[0]);
-                 if ($input.is(':checked')){
-                   $input.prop('checked', false);
-                 }
-                 if ($input.prop('type') == "text"){
-                   $input.val("");
-                 }
-               });
+            },
+            source: macro_area_suggestions,
+            change: function( event, ui ) {
+            },
+            select: function(event, ui){
+             var targetElement = event.target;
+             var id = macro_area_suggestions.indexOf(ui.item);
+             var $container = $($(targetElement).siblings(".checkboxList")[0]);
+             $container.children().each(function( index ) {
+               if(!$(this).hasClass('hidden')){
+                 $(this).toggleClass('hidden');
+                 $(this).children().each(function(index){
+                   var $input = $($(this).find('input')[0]);
+                   if ($input.is(':checked')){
+                     $input.prop('checked', false);
+                   }
+                   if ($input.prop('type') == "text"){
+                     $input.val("");
+                   }
+                 });
+               }
+             });
+             var $element = $container.find("#subareas-"+id);
+             if($element.hasClass('hidden')){
+               $element.toggleClass('hidden');
              }
-           });
-           var $element = $container.find("#"+id);
-           if($element.hasClass('hidden')){
-             $element.toggleClass('hidden');
            }
-         }
-       });
+         });
 
-       //Salvar
-       $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-       var newJson = [];
-       $("#areas_de_atuacao").find("#salvar").click(function(){
-         $("#areas_de_atuacao .autocomplete").each(function(){
-           newJson.push({
-             "ft_area_declarada": "Usuário",
-             "tx_nome_area_atuacao": $(this).val()
+         //Salvar
+         $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+         var newJson = [];
+         $("#areas_de_atuacao").find("#salvar").click(function(){
+           $("#areas_de_atuacao .autocomplete").each(function(){
+             newJson.push({
+               "ft_area_declarada": "Usuário",
+               "tx_nome_area_atuacao": $(this).val()
+             });
            });
-          //  var key = $(this).attr("id");
-          //  var value = $(this).val();
-          //  newJson[key] = value;
-         });
-         $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-           console.log($(this));
-           var subareas = [];
-           $(this).find("input:checked").each(function(){
-             subareas.push($(this).closest("label").text());
+           $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
+             var subareas = [];
+             $(this).find("input:checked").each(function(){
+               subareas.push($(this).closest("label").text());
+             });
+            var key = "tx_nome_subarea_atuacao";
+            newJson[index][key] = subareas;
            });
-          var key = "tx_nome_subarea_atuacao";
-          newJson[index][key] = subareas;
+           console.log(newJson);
          });
-         console.log(newJson);
-       });
-      });
+        });
+      }
     }
 
     //Descrição
@@ -1622,203 +1666,40 @@ function addItem(idDiv){
 function getSuggestions(){
   var suggestions = [
     {
-      "label": "Habitação",
-      "value": "Habitação",
-      "id": "habitacao",
-      "subareas": [
-        {
-          "label":"Habitação",
-          "value": "habitacao"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 1,
+      "tx_nome_area_atuacao": "Habitação"
     },
     {
-      "label": "Saúde",
-      "value": "Saúde",
-      "id": "saude",
-      "subareas": [
-        {
-          "label":"Hospitais",
-          "value": "hospitais"
-        },
-        {
-          "label":"Outros serviços de saúde",
-          "value": "outros_servicos"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 2,
+      "tx_nome_area_atuacao": "Saúde"
     },
     {
-      "label": "Cultura e recreação",
-      "value": "Cultura e recreação",
-      "id": "cultura",
-      "subareas": [
-        {
-          "label":"Cultura e arte",
-          "value": "cultura_e_arte"
-        },
-        {
-          "label":"Esportes e recreação",
-          "value": "esportes"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 3,
+      "tx_nome_area_atuacao": "Cultura e recreação"
     },
     {
-      "label": "Educação",
-      "value": "Educação",
-      "id": "educacao",
-      "subareas": [
-        {
-          "label":"Educação infantil",
-          "value": "educacao_infantil"
-        },
-        {
-          "label":"Ensino fundamental",
-          "value": "ensino_fundamental"
-        },
-        {
-          "label":"Ensino médio",
-          "value": "ensino_medio"
-        },
-        {
-          "label":"Educação superior",
-          "value": "educacao_superior"
-        },
-        {
-          "label":"Estudos e pesquisas",
-          "value": "estudos_e_pesquisas"
-        },
-        {
-          "label":"Educação profissional",
-          "value": "educacao_profissional"
-        },
-        {
-          "label":"Outras formas de educação/ensino",
-          "value": "outras_formas"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 4,
+      "tx_nome_area_atuacao": "Educação"
     },
     {
-      "label": "Assistência social",
-      "value": "Assistência social",
-      "id": "assistencia_social",
-      "subareas": [
-        {
-          "label":"Assitência social",
-          "value": "assistencia_social"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 5,
+      "tx_nome_area_atuacao": "Assistência social"
     },
     {
-      "label": "Religião",
-      "value": "Religião",
-      "id": "religiao",
-      "subareas": [
-        {
-          "label":"Religião",
-          "value": "religiao"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 6,
+      "tx_nome_area_atuacao": "Religião"
     },
     {
-      "label": "Associações patronais, profissionais e de produtores rurais",
-      "value": "Associações patronais, profissionais e de produtores rurais",
-      "id": "associacoes_patronais",
-      "subareas": [
-        {
-          "label":"Associações empresariais e patronais",
-          "value": "associacoes_empresariais"
-        },
-        {
-          "label":"Associações profissionais",
-          "value": "associacoes_profissionais"
-        },
-        {
-          "label":"Associações de produtores rurais",
-          "value": "associacoes_rurais"
-        },
-        {
-          "label":"Cooperativas sociais",
-          "value": "cooperativas"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 7,
+      "tx_nome_area_atuacao": "Associações patronais, profissionais e de produtores rurais"
     },
     {
-      "label": "Meio ambiente e proteção animal",
-      "value": "Meio ambiente e proteção animal",
-      "id": "meio_ambiente_e_protecao_animal",
-      "subareas": [
-        {
-          "label":"Meio ambiente",
-          "value": "meio_ambiente"
-        },
-        {
-          "label":"Proteção animal",
-          "value": "protecao_animal"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 8,
+      "tx_nome_area_atuacao": "Meio ambiente e proteção animal"
     },
     {
-      "label": "Desenvolvimento e defesa de direitos",
-      "value": "Desenvolvimento e defesa de direitos",
-      "id": "desenvolvimento",
-      "subareas": [
-        {
-          "label":"Associação de moradores",
-          "value": "associacao_de_moradores"
-        },
-        {
-          "label":"Centros e associações comunitárias",
-          "value": "centros_comunitarios"
-        },
-        {
-          "label":"Desenvolvimento rural",
-          "value": "desenvolvimento_rural"
-        },
-        {
-          "label":"Emprego e treinamento",
-          "value": "emprego"
-        },
-        {
-          "label":"Defesa de direitos de grupos e/ou minorias",
-          "value": "defesa_de_direitos"
-        },
-        {
-          "label":"Outros",
-          "value": "outros"
-        }
-      ]
+      "cd_area_atuacao": 9,
+      "tx_nome_area_atuacao": "Desenvolvimento e defesa de direitos"
     }
   ];
   return suggestions;

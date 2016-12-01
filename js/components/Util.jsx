@@ -322,16 +322,20 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           </div>
         } else if(item.type == "checkbox"){
           ContentElement = <Checkbox dados={item.options}></Checkbox>
-        } else if(item.suggestions){
-          var areas = item.suggestions;
-          var subareas = [];
-          for (var j = 0; j < areas.length; j++) {
-             subareas.push(areas[j].subareas);
-          }
+        } else if(item.areas){
+          var areas = item.areas;
+          var subareas = item.subareas;
           var className = "form-control"+custom_class;
           var itensCheckBox = [];
-          for (var k = 0; k < subareas.length; k++) {
-            itensCheckBox.push(<div id = {k} className="hidden"><Checkbox dados={subareas[k]}></Checkbox></div>)
+          for (var j = 0; j < areas.length; j++) {
+            var subset = [];
+            var cd_area = areas[j].cd_area_atuacao;
+            for (var k = 0; k < subareas.length; k++) {
+              if(cd_area == subareas[k].cd_area_atuacao){
+                subset.push(subareas[k]);
+              }
+            }
+            itensCheckBox.push(<div id = {"subareas-"+cd_area} className="hidden"><Checkbox dados={subset}></Checkbox></div>)
           }
 
           ContentElement =
