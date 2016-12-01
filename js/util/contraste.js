@@ -31,6 +31,46 @@ function ativarCSSContraste() {
   $(".tablesaw tr").css( "background-color", "#000000" );
   $(".sorting_1").css( "background-color", "#000000" );
   $(".table-responsive tr").css( "background-color", "#000000" );
+  $(".panel-heading").css("background-color", "#333333");
+  $(".panel-default").css("border-color","#ffffff");
+  $(".panel-body").css("background-color", "#000000");
+  $("#buscarPerfil li a").on({
+    click:function (){
+      $(".nav-pills a").css("background-color", "#000000");
+      $(this).css("background-color", "#337cbb");
+    }, mouseover: function(){
+        $(this).css("background-color", "#333333");
+    }, mouseout: function(){
+        $(this).css("background-color", "#000000");
+        $(".nav-pills .active a").css("background-color", "#337cbb");
+  }
+  });
+  $("#projetos .header").css("background-color", "#4682b4");
+  $(".table-striped tr").css("background-color", "#000000");
+  $("#selecao li > a").on({
+    mouseover: function(){
+      $(this).css("background-color", "#333333");
+    }, mouseout: function(){
+      $(this).css("background-color", "#000000");
+    }
+  });
+  $("#navbar-ex-collapse li > a").on({
+    mouseover: function(){
+      $(this).css("color", "#337cbb");
+    }, mouseout: function(){
+      $(this).css("color", "#fff331");
+    }
+  });
+  $(".dropdown-toggle").on({
+      click:function (){
+      $(this).css("color", "#337cbb");
+      $(this).css("background-color", "#000000");
+    }, mouseover: function(){
+      $(this).css("color", "#337cbb");
+    }, mouseout: function(){
+      $(this).css("color", "#fff331");
+    }
+  });
 
 }
 

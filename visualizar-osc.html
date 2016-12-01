@@ -8,7 +8,6 @@
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
-    <link href="css/libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -26,14 +25,14 @@
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}</h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}</h3>
             <!--h3>Atividade Econômica: {{ctrl.osc.cabecalho.ft_atividade_economica_osc}}</h3-->
-            <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_natureza_juridica}}</h3>
+            <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc}}</h3>
           </div>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <div class="container">
+      <div class="container" id="selecao">
         <ul class="nav nav-pills">
           <li>
             <a href="#dados_gerais" name="dados_gerais" class="scroll">Dados Gerais</a>
@@ -61,11 +60,6 @@
           </li>
           <li>
             <a href="javascript:if(window.print)window.print()">Imprimir</a>
-          </li>
-          <li>
-            <div class="btnColabore">
-              <a type="button" title="Clique para saber como colaborar" class="btn btn-primary btn-sm">Como Colaborar</a>
-            </div>
           </li>
           <li>
             <div class="btnEditar">
@@ -98,7 +92,7 @@
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
-                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}} {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
+                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
@@ -145,12 +139,12 @@
 
           <div class="col-md-12" id="areas_de_atuacao">
             <h2>Áreas de Atuação</h2>
-            <div class="col-md-12" ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
+            <div class="col-md-12">
               <div class="form-group">
                 <label>Atividade Econômica:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc}}</span>
               </div>
-              <div class="form-group">
+              <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
                 <label>Área de atuação do projeto, atividade ou programa: </label> {{area_atuacao.tx_nome_area_atuacao}}
                 <div>
@@ -387,14 +381,14 @@
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas</h2>
             </div>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
+            <div class="panel-group" id="accordion" title="Clique para Detalhar o Projeto." role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
               <div class="panel panel-default" >
 
-                <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
-                  <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="vai(this);" aria-controls="{{'collapse'+ $index }}">
-                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}</h3>
-                  </a>
-                </div>
+                <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
+                  <div class="panel-heading " role="tab" id="{{'heading'+ $index }}">
+                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}<span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span></h3>
+                  </div>
+                </a>
 
                 <div id="{{'collapse'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'heading'+ $index }}">
                   <div class="panel-body no-padding ">
@@ -439,13 +433,13 @@
                       <div>
                         <div class="header ">Valor Total</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.nr_valor_total_projeto}}</span>
+                          <span class="form-control-static">R${{proj.nr_valor_total_projeto}}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Valor Captado</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
+                          <span class="form-control-static">R${{proj.nr_valor_captado_projeto}}</span>
                         </div>
                       </div>
                     </div>
@@ -507,11 +501,21 @@
                       </div>
                     </div>
 
-                  </div>
+                    </div>
+
                 </div>
               </div>
             </div>
-            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+
+            <div class="project-header ">
+              <div class="col-md-12">
+                <h3>Total de recursos com projetos, atividades e/ou programas</h3>
+                <div class="form-group">
+                <span class="form-control-static" >R${{ctrl.osc.projeto.recursos.nr_valor_total}}</span>
+              </div>
+              </div>
+          </div>
+          <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
         </div>
         <hr>
@@ -522,7 +526,27 @@
 
           <div class="col-md-12" id="recursos">
             <h2>Fonte de recursos anual da OSC</h2>
-              <div class="col-md-12 ">
+
+              <div class="form-group">
+                <label>Recursos públicos:</label>
+                  <span class="form-control-static">R${{ctrl.osc.recursos.recursos.nr_valor_recursos_osc}}</span>
+                </div>
+
+                <div class="form-group">
+                  <label>Recursos privados:</label>
+                <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>
+              </div>
+
+              <div class="form-group">
+                <label>Recursos internacionais:</label>
+              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>
+            </div>
+
+            <div class="form-group">
+              <label>Recursos próprios:</label>
+              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span> -&gt;
+              <span class="form-control-static">R${{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc}}</span>
+            </div>
 
               </div>
 

@@ -839,3 +839,14 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
 .negrito{
   font-weight: bold;
 }
+.panel-default a{
+  color: #333333;
+  text-decoration: none;
+}
+.panel-default a :hover{
+  color: #337cbb;
+  background-color:#d7eefb;
+}
+.panel-heading{
+    background-color: #f5f5f5;
+}

@@ -1,6 +1,5 @@
 /* jshint ignore:start */
-require(["jquery-ui"], function (React) {
-
+require(["jquery-ui", "datatables-responsive"], function (React) {
   $(document).tooltip({
     position: {
       my: "center bottom-20",
@@ -15,32 +14,9 @@ require(["jquery-ui"], function (React) {
       }
     }
   });
-
-  function readURL(input) {
-    if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $("#imagemLogo").attr('src', e.target.result)
-        };
-      reader.readAsDataURL(input.files[0]);
-    }
-    else {
-        $('#errorLabel').removeClass('hide');
-    }
-  }
-
-  $('.custom-file-upload').on("change", function(){
-    $('input[type=file]').each(function(index){
-        if ($('input[type=file]').eq(index).val() != ""){
-           readURL(this);
-        }
-      });
-  });
-
-
 });
 
-require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!components/EditarOSC', 'jquery'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {
   require(
     ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
@@ -56,9 +32,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    //var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
+    console.lo
     //console.log(rotas);
     if(valoresURL !== null){
       var idOsc = valoresURL[0];
@@ -67,7 +45,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!
     // console.log(urlRota);
     // api/osc/no_project/{id}
     $.ajax({
-      url: "http://localhost:8080/api/osc/no_project/"+idOsc,
+      //url: "http://localhost:8080/api/osc/no_project/"+idOsc,
+      url:"http://localhost:8383/api/osc/no_project/"+idOsc,
       type: 'GET',
       dataType: 'json',
       data:{flag: "", rota: urlRota},
@@ -208,34 +187,31 @@ require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!
           {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("dados_gerais")
       );
-      var idOsc = 1;
-
       //Salvar
       $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = dadosGerais;
       $("#dados_gerais").find("#salvar").click(function(){
-        $("#dados_gerais :input").each(function(){
-          console.log($(this));
-          console.log($(this).attr("id"));
-          var key = $(this).attr("id");
-          var value = $(this).val();
-          newJson[key] = value;
-        });
+       $("#dados_gerais :input").each(function(){
+         var key = $(this).attr("id");
+         var value = $(this).val();
+         newJson[key] = value;
+       });
+       console.log(newJson);
+       var idOsc = newJson.cd_identificador_osc;
+       /*
+       $.ajax({
+       	url: "http://localhost:8080/api/osc/dadosgerais/"+idOsc,
+       	type: 'put',
+       	dataType: 'json',
+       	data: dadosGerais,
 
-        /*
-        $.ajax({
-        	url: "http://localhost:8080/api/osc/dadosgerais/"+idOsc,
-        	type: 'put',
-        	dataType: 'json',
-        	data: dadosGerais,
-
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });*/
+         success: function(data) {
+           console.log(data);
+         },
+         error: function(e) {
+           console.log(e);
+         }
+       });*/
       });
     }
 
@@ -1012,7 +988,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!
          }
        });
     }
-
     // Projetos
     function carregaProjeto(id){
       var labelMap = {

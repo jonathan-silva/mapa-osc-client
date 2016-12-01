@@ -66,7 +66,8 @@ require(["jquery-ui"], function(React) {
 
 
         $.ajax({
-             url: 'http://localhost:8080/api/user/esquecisenha/',
+             //url: 'http://localhost:8080/api/user/esquecisenha/',
+             url: 'http://localhost:8383/api/user/esquecisenha/',
              type: 'POST',
              dataType: 'json',
              data: $json,

@@ -30,7 +30,9 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   linksSubmenu.push(new MenuDropDownObject("Equipe", "equipe.html"));
   linksSubmenu.push(new MenuDropDownObject("Versão", "versao.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
-  linksSubmenu.push(new MenuDropDownObject("Ajuda", "ajuda.html"));
+  linksSubmenu.push(new MenuDropDownObject("Glossário", "glossario.html"));
+  linksSubmenu.push(new MenuDropDownObject("Tutoriais", "tutoriais.html"));
+  linksSubmenu.push(new MenuDropDownObject("Perguntas frequentes", "perguntas-frequentes.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
   linksSubmenu.push(new MenuDropDownObject("Editais para OSCs", "editais.html"));
   linksSubmenu.push(new MenuDropDownObject("Colabore", "colabore.html"));
@@ -72,7 +74,9 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
   //Carrossel do rodapé
-  var imgList = ["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_pnud.png"];
+  var imgList = [["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_pnud.png"],
+                 ["http://www.secretariadegoverno.gov.br/","http://www.justica.gov.br/","http://www.undp.org/"],
+                 ["Link externo para Secretaria de Governo","Link externo para Ministério da Justiça e Cidadania","Link externo para Programa das Nações Unidas para o Desenvolvimento"]];
 
   function FooterObject(blocks, imgsAltRealizacao, imgList){
     this.blocks =blocks;
