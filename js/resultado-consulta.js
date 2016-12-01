@@ -100,10 +100,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           else{
             newData[i] = new Array(columns);
             newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
-            newData[i][1] = data[j][0] != null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
-            newData[i][2] = data[j][1] != null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
-            newData[i][3] = data[j][2] != null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
-            newData[i][4] = data[j][3] != null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
+            newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
+            newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
+            newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
+            newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
             newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
             i++;
           }
@@ -374,7 +374,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        //tabela ();
+        tabela ();
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -421,7 +421,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
-      //tabela ();
+      tabela ();
       if(data!==undefined){
         if(isClusterVersion){
           carregaMapaCluster(data);

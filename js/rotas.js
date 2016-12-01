@@ -4,7 +4,7 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "localhost";
+    return "http://localhost";
   }
 
   //index.js
