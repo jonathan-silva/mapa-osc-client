@@ -200,7 +200,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        var idOsc = newJson.cd_identificador_osc;
        /*
        $.ajax({
-       	url: "http://localhost:8080/api/osc/dadosgerais/"+idOsc,
+       	url: "http://localhost:8383/api/osc/dadosgerais/"+idOsc,
        	type: 'put',
        	dataType: 'json',
        	data: dadosGerais,
@@ -348,21 +348,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
        //Salvar
        $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-       var newJson = areas_atuacao;
+       var newJson = [];
        $("#areas_de_atuacao").find("#salvar").click(function(){
          $("#areas_de_atuacao .autocomplete").each(function(){
-           console.log($(this));
-           console.log($(this).attr("id"));
+           newJson.push({
+             "ft_area_declarada": "Usuário",
+             "tx_nome_area_atuacao": $(this).val()
+           });
           //  var key = $(this).attr("id");
           //  var value = $(this).val();
           //  newJson[key] = value;
          });
-         $("#areas_de_atuacao .checkboxList").each(function(){
-           $(this).
-           console.log($(this).attr("id"));
-          //  var key = $(this).attr("id");
-          //  var value = $(this).val();
-          //  newJson[key] = value;
+         $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
+           console.log($(this));
+           var subareas = [];
+           $(this).find("input:checked").each(function(){
+             subareas.push($(this).closest("label").text());
+           });
+          var key = "tx_nome_subarea_atuacao";
+          newJson[index][key] = subareas;
          });
          console.log(newJson);
        });
