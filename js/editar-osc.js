@@ -382,7 +382,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'datatables-responsive', 'jsx!
           //  newJson[key] = value;
          });
          $("#areas_de_atuacao .checkboxList").each(function(){
-           console.log($(this));
+           $(this).
            console.log($(this).attr("id"));
           //  var key = $(this).attr("id");
           //  var value = $(this).val();
