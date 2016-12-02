@@ -307,7 +307,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       legend.onAdd = function (map) {
 
           var div = L.DomUtil.create('div', 'info legend'),
-              grades = [0, 1000, 10000, 20000, 30000, 40000, 50000, 60000],
+              grades = [0, 1000, 15000, 30000, 45000, 60000],
               labels = [];
 
           div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
@@ -315,7 +315,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           for (var i = 0; i < grades.length; i++) {
               div.innerHTML +=
                   '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                  grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                  grades[i] + 1 + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
           }
 
           return div;
@@ -344,11 +344,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 8 níveis,
     //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
       return d > 60000 ? '#800026' :
-             d > 50000  ? '#BD0026' :
-             d > 40000  ? '#E31A1C' :
+             d > 45000  ? '#E31A1C' :
              d > 30000  ? '#FC4E2A' :
-             d > 20000   ? '#FD8D3C' :
-             d > 10000   ? '#FEB24C' :
+             d > 15000   ? '#FEB24C' :
              d > 1000  ? '#FED976' :
                         '#FFEDA0';
   }
