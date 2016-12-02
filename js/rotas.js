@@ -75,6 +75,9 @@ class Rotas{
   ClusterRegiao(){
     return this.getBaseUrl()+":8383/api/geo/cluster/regiao";
   }
+  ClusterRegiao(id){
+    return this.getBaseUrl()+":8383/api/geo/cluster/regiao/"+id;
+  }
 
   // editar-osc.js
   OSCByID_no_project(id){

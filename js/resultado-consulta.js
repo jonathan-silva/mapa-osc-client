@@ -19,8 +19,9 @@ require(["jquery-ui"], function (React) {
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
-  var clustersRegiaoLayer = L.layerGroup();
+  var clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
+  var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -40,7 +41,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   map.addLayer(tiles);
 
   var parametros='';
-  var newData, urlRotaMapa, urlRota, isClusterVersion=false;
+  var newData, urlRotaMapa, urlRota, isClusterVersion=true;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
 
@@ -60,11 +61,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     }
     else if(tipoConsulta=="estado"){
       urlRota = rotas.OSCByState(stringBuscada);
-      urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
+      urlRotaMapa=rotas.ClusterEstadoPorRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
     }
     else if(tipoConsulta=="regiao"){
       urlRota = rotas.OSCByRegion(stringBuscada);
-      urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+      urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else{
       console.log("ERRO de URL!");
@@ -196,6 +197,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   function loadPointCluster(icone, id, latFinal, lngFinal, tipoCluster){
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
       var marker;
+
       if(tipoCluster=="regiao"){
         marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterRegiao);
       }
@@ -241,7 +243,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           layer.on({
               mouseover: highlightFeature,
               mouseout: resetHighlight,
-              click: zoomToFeature
+              click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
           });
           layerGroup.addLayer(layer);
       }
@@ -362,11 +364,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
                     className: classNameLevel,
                     html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
                   })
-      clustersRegiaoLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
+      clustersLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
     }
-    if(level=="regiao"){//Evitar adicionar controles repetidamente na tela
-        clustersRegiaoLayer.addTo(map);
-        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersRegiaoLayer
+    if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
+        clustersLayer.addTo(map);
+        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersLayer
     }
     $("#loadingMapModal").hide();
     //leafletView.ProcessView();
@@ -383,7 +385,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela ();
+        //tabela ();
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -428,7 +430,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       url: 'js/controller.php',
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
+      data: {flag: 'consulta', rota: //rotas.OSCByStateInMap(idEstado)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -437,7 +439,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
-          carregaMapa(data);
+          //carregaMapa(data);
         }
       },
       error: function (e) {
@@ -456,23 +458,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
-      tabela ();
+      //tabela ();
       if(data!==undefined){
         if(isClusterVersion){
-          carregaMapaCluster(data, "regiao");
+          carregaMapaCluster(data, tipoConsulta);
         }
         else{
           carregaMapa(data);
-          /*
-          var temparray, j;
-          var chunk = 10000;
-          //if(sizeOfData>20000) chunk = sizeOfData/10;
-          //else if(sizeOfData>100000) chunk = sizeOfData/20;
-          for (var i=0,j=data.length; i<j; i+=chunk) {
-              temparray = data.slice(i,i+chunk);
-              carregaMapa(temparray);
-          }
-          */
         }
       }
     },
