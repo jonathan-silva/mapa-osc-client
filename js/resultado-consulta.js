@@ -430,7 +430,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       url: 'js/controller.php',
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: //rotas.OSCByStateInMap(idEstado)},
+      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
