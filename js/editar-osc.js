@@ -36,10 +36,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
-    console.lo
+    var idOsc = "";
     //console.log(rotas);
     if(valoresURL !== null){
-      var idOsc = valoresURL[0];
+      idOsc = valoresURL[0];
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
     // console.log(urlRota);
@@ -196,8 +196,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          var value = $(this).val();
          newJson[key] = value;
        });
-       console.log(newJson);
-       var idOsc = newJson.cd_identificador_osc;
+       console.log(idOsc);
        /*
        $.ajax({
        	url: "http://localhost:8383/api/osc/dadosgerais/"+idOsc,
@@ -395,8 +394,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
          //Salvar
          $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-         var newJson = [];
          $("#areas_de_atuacao").find("#salvar").click(function(){
+           var newJson = [];
            $("#areas_de_atuacao .autocomplete").each(function(){
              newJson.push({
                "ft_area_declarada": "Usuário",
@@ -478,6 +477,32 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("descricao")
       );
+
+      //Salvar
+      $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = {};
+      $("#descricao").find("#salvar").click(function(){
+        $("#descricao .form-control").each(function(){
+          console.log($(this).val());
+          newJson[$(this).attr("id")] = $(this).val();
+        });
+        console.log(idOsc);
+        /*
+        $.ajax({
+         url: "http://localhost:8383/api/osc/descricao/"+idOsc,
+         type: 'put',
+         dataType: 'json',
+         data: newJson,
+
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });*/
+      });
+
     }
 
     //Títulos e certificações
