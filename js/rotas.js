@@ -4,7 +4,7 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://mapaosc-desenv.ipea.gov.br";//localhost
+    return "http://localhost";//mapaosc-desenv.ipea.gov.br
   }
 
   //index.js
@@ -72,7 +72,7 @@ class Rotas{
   ClusterEstadoPorRegiao(id){
     return this.getBaseUrl()+":8383/api/geo/cluster/estado/"+id;
   }
-  ClusterRegiao(){
+  ClusterPais(){
     return this.getBaseUrl()+":8383/api/geo/cluster/regiao";
   }
   ClusterRegiao(id){
