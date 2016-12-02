@@ -23,6 +23,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
+  var zoomMaximo = 18;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -35,7 +36,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
 
   //var ggl2 = new L.Google('ROADMAP');
   var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: zoomMaximo,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
     });
   //map.addLayer(ggl2);
@@ -220,6 +221,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         map.addLayer(point);
       }
     }
+    map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}, {collapsed: false}));
     $("#loadingMapModal").hide();
     leafletView.ProcessView();
   }
@@ -250,6 +252,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
               click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
           });
           layerGroup.addLayer(layer);
+          map.addLayer(layerGroup);
       }
 
       var info = L.control();
@@ -372,7 +375,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     }
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
         clustersLayer.addTo(map);
-        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersLayer
+        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}, {collapsed: false}));//, "Clusters": clustersLayer
         isControlLoaded=true;
     }
     $("#loadingMapModal").hide();
@@ -505,4 +508,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     }
   });
 
+  map.on('zoomend', apagaMapaDeCalor);
+  function apagaMapaDeCalor(e){
+    var zoomMap = map.getZoom();
+    if(zoomMap==zoomMaximo){
+      map.removeLayer(layerGroup);
+    }
+  }
 });
