@@ -4,7 +4,7 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://localhost";//mapaosc-desenv.ipea.gov.br
+    return "http://mapaosc-desenv.ipea.gov.br";//localhost
   }
 
   //index.js
@@ -88,5 +88,14 @@ class Rotas{
   }
   MetasById(id){
     return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto"+id;
+  }
+  AreaAtuacao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/area_atuacao";
+  }
+  SubAreaAtuacao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/subarea_atuacao";
+  }
+  MetaProjeto(id){
+    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
   }
 }

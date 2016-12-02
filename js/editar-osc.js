@@ -46,7 +46,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // api/osc/no_project/{id}
     $.ajax({
       //url: "http://localhost:8080/api/osc/no_project/"+idOsc,
-      url:"http://localhost:8383/api/osc/no_project/"+idOsc,
+      url: rotas.OSCByID_no_project(idOsc),
       type: 'GET',
       dataType: 'json',
       data:{flag: "", rota: urlRota},
@@ -245,7 +245,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var macro_area_suggestions = getSuggestions();
       $.when(
         $.ajax({
-          url: "http://localhost:8383/api/menu/osc/area_atuacao",
+          url: rotas.AreaAtuacao(),
           type: 'get',
           dataType: 'json',
           data: {},
@@ -258,7 +258,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }),
         $.ajax({
-          url: "http://localhost:8383/api/menu/osc/subarea_atuacao",
+          url: rotas.SubAreaAtuacao(),
           type: 'get',
           dataType: 'json',
           data: {},
@@ -1279,7 +1279,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       // rotas.ProjectByID(id)
       $.ajax({
-        url: "http://localhost:8080/api/projeto/"+id,
+        url: rotas.ProjectByID(id),
         type: 'GET',
         dataType: 'json',
         data:{},
@@ -1412,7 +1412,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // rotas.Objetivos()
         $.ajax({
-          url: "http://localhost:8080/api/menu/osc/objetivo_projeto/",
+          url: rotas.Objetivos(),
           type: 'GET',
           dataType: 'json',
           data:{},
@@ -1442,7 +1442,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           // rotas.Metas()
           $.ajax({
-            url: "http://localhost:8080/api/menu/osc/meta_projeto/"+cd_objetivo,
+            url: rotas.MetaProjeto(cd_objetivo),
             type: 'GET',
             dataType: 'json',
             data:{},
