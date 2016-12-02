@@ -24,6 +24,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
+  var zoomMaximo = 18;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -36,7 +37,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
 
   //var ggl2 = new L.Google('ROADMAP');
   var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: zoomMaximo,
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
     });
   //map.addLayer(ggl2);
@@ -231,6 +232,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         map.addLayer(point);
       }
     }
+
     $("#loadingMapModal").hide();
     leafletView.ProcessView();
   }
@@ -354,8 +356,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
             },
           onEachFeature: onEachFeature
       }).addTo(map);
-
-      //map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));
   }
 
   function getColor(d) {
@@ -385,7 +385,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
 
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
         clustersLayer.addTo(map);
-        map.addControl(new L.Control.Layers({ "Contraste": tilesGrayscale, 'Mapa': tiles }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
         isControlLoaded=true;
     }
     $("#loadingMapModal").hide();
@@ -513,10 +512,19 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
           ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
         }
+        map.addControl(new L.Control.Layers({ "Contraste": tilesGrayscale, 'Mapa': tiles }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
         heatMap(pdfs, ids);
       }
     }
   });
 
+
+  map.on('zoomend', apagaMapaDeCalor);
+  function apagaMapaDeCalor(e){
+    var zoomMap = map.getZoom();
+    if(zoomMap==zoomMaximo){
+      map.removeLayer(layerGroup);
+    }
+  }
 
 });
