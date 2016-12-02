@@ -193,9 +193,15 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     return null;
   }
 
-  function loadPointCluster(icone, id, latFinal, lngFinal){
+  function loadPointCluster(icone, id, latFinal, lngFinal, tipoCluster){
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
-      var marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickCluster);
+      var marker;
+      if(tipoCluster=="regiao"){
+        marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterRegiao);
+      }
+      else if(tipoCluster=="estado"){
+        marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterEstado);
+      }
       //marker.addTo(map);
       return marker;
     }
@@ -347,18 +353,23 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
                         '#FFEDA0';
   }
 
-  function carregaMapaCluster(dados){
+  function carregaMapaCluster(dados, level){
+    var classNameLevel;
+    if(level=="regiao") classNameLevel = "labelClassRegiao";
+    else if(level=="estado") classNameLevel = "labelClassEstado";
     for(var k in dados){
       var markerGroup = []
       var icone =  L.divIcon({
                     id: dados[k].id_regiao,
-                    className: "labelClass",
+                    className: classNameLevel,
                     html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
                   })
-      clustersRegiaoLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao));
+      clustersRegiaoLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
     }
-
-    map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup, "Clusters": clustersRegiaoLayer}));
+    if(level=="regiao"){//Evitar adicionar controles repetidamente na tela
+        clustersRegiaoLayer.addTo(map);
+        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersRegiaoLayer
+    }
     $("#loadingMapModal").hide();
     //leafletView.ProcessView();
   }
@@ -385,21 +396,48 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     });
   }
 
-  function clickCluster(e){
-    console.log(e);
+  function clickClusterRegiao(e){
+    //console.log(e.target);
     var idRegiao = e.target.options.icon.options.id;
     $("#loadingMapModal").show();
     $.ajax({
       url: 'js/controller.php',
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCByRegionInMap(idRegiao)},
+      data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
         //tabela ();
         if(data!==undefined){
+          map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
+          map.removeLayer(e.target);
+          carregaMapaCluster(data, "estado");
+        }
+      },
+      error: function (e) {
+        console.log(e);
+      }
+    });
+  }
+
+  function clickClusterEstado(e){
+    //console.log(e);
+    var idEstado = e.target.options.icon.options.id;
+    $("#loadingMapModal").show();
+    $.ajax({
+      url: 'js/controller.php',
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        //tabela ();
+        if(data!==undefined){
+          map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
           carregaMapa(data);
         }
@@ -409,7 +447,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       }
     });
   }
-
   //*** main
   $("#loadingMapModal").show();
   $.ajax({
@@ -424,7 +461,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       tabela ();
       if(data!==undefined){
         if(isClusterVersion){
-          carregaMapaCluster(data);
+          carregaMapaCluster(data, "regiao");
         }
         else{
           carregaMapa(data);
