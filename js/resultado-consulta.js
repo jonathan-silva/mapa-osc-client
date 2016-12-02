@@ -22,6 +22,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   var clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
+  var isClusterVersion = true;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
     zoom: 4,
@@ -41,7 +42,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   map.addLayer(tiles);
 
   var parametros='';
-  var newData, urlRotaMapa, urlRota, isClusterVersion=true;
+  var newData, urlRotaMapa, urlRota;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
 
@@ -54,10 +55,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     if(tipoConsulta=="organizacao"){
       urlRota = rotas.OSCByName(stringBuscada);
       urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
+      isClusterVersion=false;
     }
     else if(tipoConsulta=="municipio"){
       urlRota = rotas.OSCByCounty(stringBuscada);
       urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
+      isClusterVersion=false;
     }
     else if(tipoConsulta=="estado"){
       urlRota = rotas.OSCByState(stringBuscada);
@@ -73,9 +76,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
   else{
     //consulta tudo
-    //urlRotaMapa = rotas.AllOSCInMap();
-    isClusterVersion=true;
-    urlRotaMapa = rotas.ClusterRegiao();
+
+    tipoConsulta="regiao";
+    //console.log(tipoConsulta);
+    urlRotaMapa = rotas.ClusterPais();
   }
 
   //*** Methods
@@ -369,6 +373,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
         clustersLayer.addTo(map);
         map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersLayer
+        isControlLoaded=true;
     }
     $("#loadingMapModal").hide();
     //leafletView.ProcessView();
@@ -411,6 +416,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       success: function(data){
         //tabela ();
         if(data!==undefined){
+
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
           map.removeLayer(e.target);
           carregaMapaCluster(data, "estado");
@@ -439,7 +445,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
-          //carregaMapa(data);
+          carregaMapa(data);
         }
       },
       error: function (e) {
@@ -447,8 +453,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       }
     });
   }
+
+
+
   //*** main
   $("#loadingMapModal").show();
+
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
