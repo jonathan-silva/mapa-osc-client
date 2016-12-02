@@ -14,6 +14,7 @@ require(["jquery-ui"], function (React) {
       }
     }
   });
+
 });
 
 //require(['jquery','datatables-responsive', 'google'], function (React) {
@@ -39,6 +40,16 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
     });
   //map.addLayer(ggl2);
+
+  // Para mapa com contraste
+  var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw';
+
+	var tilesGrayscale = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
+
+  map.addLayer(tilesGrayscale);
   map.addLayer(tiles);
 
   var parametros='';
@@ -250,6 +261,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
               click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
           });
           layerGroup.addLayer(layer);
+          map.addLayer(layerGroup);
       }
 
       var info = L.control();
@@ -321,7 +333,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           for (var i = 0; i < grades.length; i++) {
               div.innerHTML +=
                   '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                  grades[i] + 1 + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                  parseInt(grades[i] + 1) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
           }
 
           return div;
@@ -370,9 +382,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
                   })
       clustersLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
     }
+
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
         clustersLayer.addTo(map);
-        map.addControl(new L.Control.Layers({'Mapa': tiles}, {'Mapa de calor':layerGroup}));//, "Clusters": clustersLayer
+        map.addControl(new L.Control.Layers({ "Contraste": tilesGrayscale, 'Mapa': tiles }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
         isControlLoaded=true;
     }
     $("#loadingMapModal").hide();
@@ -504,5 +517,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       }
     }
   });
+
 
 });
