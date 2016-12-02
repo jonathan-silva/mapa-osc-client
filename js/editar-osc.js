@@ -545,7 +545,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             ]
           },
           {
-            "id": "data_validade_estadual",
+            "id": "utilidade_publica_estadual",
             "label": "Insira data de validade para Utilidade pública estadual",
             "content": utilidade_publica_estadual ? utilidade_publica_estadual.dt_data_validade : null,
             "fonte": utilidade_publica_estadual ? utilidade_publica_estadual.ft_utilidade_publica_estadual : null,
@@ -554,7 +554,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "hide": true
           },
           {
-            "id": "data_validade_municipal",
+            "id": "utilidade_publica_municipal",
             "label": "Insira data de validade para Utilidade pública municipal",
             "content": utilidade_publica_municipal ? utilidade_publica_municipal.dt_data_validade : null,
             "fonte": utilidade_publica_municipal ? utilidade_publica_municipal.ft_utilidade_publica_municipal : null,
@@ -605,7 +605,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       //interações seção títulos e certificações
       $("#certificacoes :checkbox").change(function() {
-        var $inputContainer = $(this).closest(".form-group").siblings().find("#data_validade_"+this.value).closest(".form-group");
+        var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
         $inputContainer.toggleClass('hidden');
         if($inputContainer.hasClass('hidden')){
           var $input = $inputContainer.find('input');
@@ -625,6 +625,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           $(this).parents(".hidden").toggleClass('hidden');
         }
+      });
+
+      //Salvar
+      $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = [];
+      $("#certificacoes").find("#salvar").click(function(){
+        $("#certificacoes .form-control").each(function(){
+          console.log($(this).val());
+          var item = {};
+          item[$(this).attr("id")] = {};
+          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
+          newJson.push(item);
+        });
+        console.log(newJson);
+        /*
+        $.ajax({
+         url: "http://localhost:8383/api/osc/certificado/"+idOsc,
+         type: 'put',
+         dataType: 'json',
+         data: newJson,
+
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });*/
       });
     }
 
