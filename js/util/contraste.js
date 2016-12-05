@@ -34,6 +34,13 @@ function ativarCSSContraste() {
   $(".panel-heading").css("background-color", "#333333");
   $(".panel-default").css("border-color","#ffffff");
   $(".panel-body").css("background-color", "#000000");
+  $("#projetos .header").css("background-color", "#4682b4");
+  $(".table-striped tr").css("background-color", "#000000");
+  $(".nav-tabs .active a").css("background-color", "#337cbb");
+  $(".colabore a" ).css( "color", "#ffffff" );
+  $(".newsletter a" ).css( "color", "#ffffff" );
+
+
   $("#buscarPerfil li a").on({
     click:function (){
       $(".nav-pills a").css("background-color", "#000000");
@@ -45,8 +52,7 @@ function ativarCSSContraste() {
         $(".nav-pills .active a").css("background-color", "#337cbb");
   }
   });
-  $("#projetos .header").css("background-color", "#4682b4");
-  $(".table-striped tr").css("background-color", "#000000");
+
   $("#selecao li > a").on({
     mouseover: function(){
       $(this).css("background-color", "#333333");
@@ -54,6 +60,7 @@ function ativarCSSContraste() {
       $(this).css("background-color", "#000000");
     }
   });
+
   $("#navbar-ex-collapse li > a").on({
     mouseover: function(){
       $(this).css("color", "#337cbb");
@@ -61,6 +68,7 @@ function ativarCSSContraste() {
       $(this).css("color", "#fff331");
     }
   });
+
   $(".dropdown-toggle").on({
       click:function (){
       $(this).css("color", "#337cbb");
@@ -69,6 +77,18 @@ function ativarCSSContraste() {
       $(this).css("color", "#337cbb");
     }, mouseout: function(){
       $(this).css("color", "#fff331");
+    }
+  });
+
+  $(".nav-tabs li a").on({
+    click:function (){
+      $(".nav-tabs a").css("background-color", "#000000");
+      $(this).css("background-color", "#337cbb");
+    }, mouseover: function(){
+        $(this).css("background-color", "#333333");
+    }, mouseout: function(){
+        $(this).css("background-color", "#000000");
+        $(".nav-tabs .active a").css("background-color", "#337cbb");
     }
   });
 
