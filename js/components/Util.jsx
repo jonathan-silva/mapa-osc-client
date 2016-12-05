@@ -20,6 +20,29 @@ define('componenteBlocoDeTexto', ['react'], function (React) {
   return BlocoTexto;
 });
 
+define('componenteCabecalho', ['react'], function (React) {
+  var Cabecalho = React.createClass({
+    renderListItems: function(){
+      var items=[];
+      for (var i=0; i<this.props.dados.length; i++){
+        items.push(
+          <div className="cabeca">
+          <h2>Nome: {this.props.dados[i].Nome}</h2>
+          <h3>CNPJ: {this.props.dados[i].cd_nur}</h3>
+          <h3>Natureza Jurídica: {this.props.dados[i].NatJur}</h3>
+          </div>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (<div>{this.renderListItems()}</div>);
+    }
+  });
+
+  return Cabecalho;
+});
+
 define('componenteResultadoDaConsulta', ['react'], function (React) {
   var ResultadoConsulta = React.createClass({
     renderListItems: function(){

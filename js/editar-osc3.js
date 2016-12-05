@@ -1,4 +1,4 @@
-/* jshint ignore:start */
+
 require(["jquery-ui", "datatables-responsive"], function (React) {
   $(document).tooltip({
     position: {
@@ -18,7 +18,7 @@ require(["jquery-ui", "datatables-responsive"], function (React) {
 
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {
   require(
-    ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
+    ['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -55,6 +55,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
+        montarCabecalho(data);
         montarDadosGerais(data);
         montarAreasDeAtuacao(data);
         montarDescricao(data);
@@ -65,6 +66,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
     });
+
+
+    function montarCabecalho(json){
+      function fCabecalho(Nome, cd_nur,NatJur){
+        this.Nome = Nome;
+        this.cd_nur = cd_nur;
+        this.NatJur = NatJur;
+      }
+      if (validateObject(json.cabecalho)) {
+        var Nome= json.cabecalho.tx_razao_social_osc;
+        var cd_nur= json.cabecalho.cd_identificador_osc;
+        var NatJur= json.cabecalho.tx_nome_natureza_juridica_osc;
+
+        var cabecalho = [];
+        cabecalho.push(new fCabecalho(Nome, cd_nur, NatJur));
+        Cabecalho = React.createFactory(Cabecalho);
+        ReactDOM.render(Cabecalho({dados:cabecalho}), document.getElementById("cabecalho"));
+    }
+    else {
+      var Nome= "";
+      var cd_nur= "";
+      var NatJur= "";
+      var cabecalho = [];
+      cabecalho.push(new fCabecalho(Nome, cd_nur, NatJur));
+      Cabecalho = React.createFactory(Cabecalho);
+      ReactDOM.render(Cabecalho({dados:cabecalho}), document.getElementById("cabecalho"));
+    }
+  }
 
     // Dados Gerais
     function montarDadosGerais(json){
@@ -215,6 +244,127 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });*/
       });
     }
+    else {
+      var dados_form =
+      {
+        "form_items": [
+          {
+            "id": "tx_nome_fantasia_osc",
+            "label": "Nome Fantasia",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o nome como a OSC é conhecida",
+            "type": "text"
+          },
+          {
+            "id": "tx_sigla_osc",
+            "label": "Sigla da OSC",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira aqui a sigla da OSC, se houver",
+            "type": "text"
+          },
+          {
+            "id": "tx_endereco_eletronico_sugerido",
+            "label": "Endereço eletrônico sugerido para esta página",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira um nome que deve constar após o endereço mapaosc.ipea.gov.br/[nome da OSC]",
+            "pretext": "mapaosc.ipea.gov.br/",
+            "type": "text"
+          },
+          {
+            "id": "tx_endereco",
+            "label": "Endereço da OSC",
+            "content": "Dado não informado",
+            "fonte": null,
+            "type": "p"
+          },
+          {
+            "id": "tx_nome_situacao_imovel_osc",
+            "label": "Situação do Imóvel",
+            "content": null,
+            "fonte": null,
+            "type": "select",
+            "options": [
+              "Próprio",
+              "Alugado",
+              "Outro"
+            ]
+          },
+          {
+            "id": "tx_nome_responsavel_legal",
+            "label": "Responsável Legal",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o nome do responsável legal pela OSC",
+            "type": "text"
+          },
+          {
+            "id": "dt_inscricao_osc",
+            "label": "Ano de inscrição no Cadastro de CNPJ",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o ano em que a OSC foi legalmente criada",
+            "type": "text"
+          },
+          {
+            "id": "dt_fundacao_osc",
+            "label": "Ano de Fundação",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o ano de fundação da OSC",
+            "type": "text"
+          },
+          {
+            "id": "tx_email",
+            "label": "E-mail",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o endereço de e-mail da OSC",
+            "type": "text"
+          },
+          {
+            "id": "tx_resumo_osc",
+            "label": "O que a OSC faz",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Apresente ao público, resumida e objetivamente, o que a OSC faz. Insira os objetivos, as atividades, práticas ou o que achar mais adequado para retratar a OSC",
+            "type": "textarea"
+          },
+          {
+            "id": "tx_site",
+            "label": "Site",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o endereço da página da OSC na internet, se houver",
+            "type": "text"
+          },
+          {
+            "id": "tx_telefone",
+            "label": "Telefone",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o telefone da OSC",
+            "type": "text"
+          }
+        ]
+      };
+      var items = dados_form.form_items;
+      var headerPriority = '2';
+      var headerText = 'Dados Gerais';
+      var formItens = [];
+
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: headerText}, dados:formItens}
+        ), document.getElementById("dados_gerais")
+      );
+    }
   }
 
     //Áreas de atuação
@@ -247,7 +397,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
       areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
       var macro_area_suggestions = getSuggestions();
-      $.when(
+      /*$.when(
         $.ajax({
           url: rotas.AreaAtuacao(),
           type: 'get',
@@ -282,7 +432,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
           subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
-        }
+        }*/
         headerPriority = '2';
         headerText = 'Áreas de Atuação';
         formItens = [];
@@ -318,7 +468,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             fonte = areas_atuacao[j].ft_nome_area_atuacao;
 
           }
-          formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+          formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class));//, macro_area_suggestions, subarea_suggestions));
         }
         FormItem = React.createFactory(FormItem);
         ReactDOM.render(
@@ -417,7 +567,63 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            console.log(newJson);
          });
         });
+      //}
+    }
+    else {
+      function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
+        this.id = id;
+        this.label = label;
+        this.content = content;
+        this.fonte = fonte;
+        this.placeholder = placeholder;
+        this.type = type;
+        this.custom_class = custom_class;
+        this.areas = areas;
+        this.subareas = subareas;
+      };
+      headerPriority = '2';
+      headerText = 'Áreas de Atuação';
+      formItens = [];
+      dados_form =
+      {
+        "form_items": [
+          {
+            "id": "macro_area_1",
+            "label": "Macro Área 1",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o nome como a OSC é conhecida",
+            "type": "text",
+            "custom_class": "autocomplete"
+          },
+          {
+            "id": "macro_area_2",
+            "label": "Macro Área 2",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Insira o nome como a OSC é conhecida",
+            "type": "text",
+            "custom_class": "autocomplete"
+          }
+        ]
+      };
+      items = dados_form.form_items;
+      for (var j=0; j<items.length; j++){
+        var content = null;
+        var fonte = null;
+        /*if(areas_atuacao.length > j){
+          content = areas_atuacao[j].tx_nome_area_atuacao;
+          fonte = areas_atuacao[j].ft_nome_area_atuacao;
+
+        }*/
+        formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class));//, macro_area_suggestions, subarea_suggestions));
       }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: headerText}, dados:formItens}
+        ), document.getElementById("areas_de_atuacao")
+      );
     }
   }
 
@@ -738,8 +944,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
       }
-      formItens.push(new FormItens(null, "Nome", "Insira o nome aqui", null, null, "text"));
-      formItens.push(new FormItens(null, "Cargo", "Insira o cargo aqui", null, null, "text"));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1696,6 +1902,12 @@ function validateObject(obj){
   if(obj === null){
     return false;
   }
+  else if(obj===undefined){
+    return false;
+  }
+  /*else if(obj.trim()==""){
+    return false;
+  }*/
   if(Object.keys(obj).length === 0 && obj.constructor === Object){
     return false;
   }
