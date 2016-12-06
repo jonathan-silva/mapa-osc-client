@@ -20,7 +20,9 @@ require(["jquery-ui"], function (React) {
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
-  var clustersLayer = L.layerGroup();
+  var mapState = {};
+  var mapRegion = {};
+  clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
@@ -30,7 +32,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     zoom: 4,
     minZoom: 4 //18 niveis de zoom
   };
-  var map = new L.Map('map', mapOptions);
+  map = new L.Map('map', mapOptions);
 
   var leafletView = new PruneClusterForLeaflet();//Prune Cluster library version
   //var leafletView = L.markerClusterGroup();//Marker Cluster library version
@@ -260,7 +262,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           layer.on({
               mouseover: highlightFeature,
               mouseout: resetHighlight,
-              click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
+              //click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
+              click: zoomToFeature
           });
           layerGroup.addLayer(layer);
           map.addLayer(layerGroup);
@@ -379,7 +382,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
                     id: dados[k].id_regiao,
                     className: classNameLevel,
                     html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
-                  })
+                  });
+      mapRegion[dados[k].id_regiao] = dados[k].nr_quantidade_osc_regiao;
       clustersLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
     }
 
