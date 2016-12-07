@@ -850,3 +850,7 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
 .panel-heading{
     background-color: #f5f5f5;
 }
+.ajuda{
+  font-size: 18px;
+  padding-left: 5px;
+  }
