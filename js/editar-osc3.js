@@ -397,7 +397,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
       areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
       var macro_area_suggestions = getSuggestions();
-      /*$.when(
+      $.when(
         $.ajax({
           url: rotas.AreaAtuacao(),
           type: 'get',
@@ -432,7 +432,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
           subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
-        }*/
+        }
         headerPriority = '2';
         headerText = 'Áreas de Atuação';
         formItens = [];
@@ -444,7 +444,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 1",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira o nome como a OSC é conhecida",
+              "placeholder": "Insira área de atuação",
               "type": "text",
               "custom_class": "autocomplete"
             },
@@ -453,7 +453,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 2",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira o nome como a OSC é conhecida",
+              "placeholder": "Insira área de atuação",
               "type": "text",
               "custom_class": "autocomplete"
             }
@@ -567,7 +567,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            console.log(newJson);
          });
         });
-      //}
+      }
     }
     else {
       function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
@@ -698,8 +698,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log($(this).val());
           newJson[$(this).attr("id")] = $(this).val();
         });
-        console.log(idOsc);
-        /*
+        /*console.log(idOsc);
         $.ajax({
          url: "http://localhost:8383/api/osc/descricao/"+idOsc,
          type: 'put',
@@ -716,12 +715,80 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
     }
+    else {
+      headerPriority = '2';
+      headerText = 'Descrição da OSC';
+      formItens = [];
+      dados_form =
+      {
+        "form_items": [
+          {
+            "id": "tx_historico",
+            "label": "Histórico",
+            "content": null,
+            "fonte": null,
+            "placeholder": "De modo resumido e objetivo, diga como surgiu a OSC, quando, onde, por que e por quem foi fundada",
+            "type": "textarea"
+          },
+          {
+            "id": "tx_missao_osc",
+            "label": "Missão",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Se houver, apresente qual a missão da OSC",
+            "type": "textarea"
+          },
+          {
+            "id": "tx_visao_osc",
+            "label": "Visão",
+            "content": null,
+            "fonte": null,
+            "placeholder": "se houver, apresente a visão da OSC",
+            "type": "textarea"
+          },
+          {
+            "id": "tx_finalidades_estatutarias",
+            "label": "Finalidades Estatutárias da OSC",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
+            "type": "textarea"
+          },
+          {
+            "id": "tx_link_estatuto_osc",
+            "label": "Link para o Estatuto da OSC",
+            "content": null,
+            "fonte": null,
+            "placeholder": "Se houver, insira o link que leva ao estatuto da OSC",
+            "type": "text"
+          }
+    ]};
+    items = dados_form.form_items;
+    for (j=0; j<items.length; j++){
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("descricao")
+    );
+    //Salvar
+    $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+    var newJson = {};
+    $("#descricao").find("#salvar").click(function(){
+      $("#descricao .form-control").each(function(){
+        console.log($(this).val());
+        newJson[$(this).attr("id")] = $(this).val();
+      });
+    });
   }
+}
 
     //Títulos e certificações
     function montarTitulosCertificacoes(json){
-      if (validateObject(json.certificado)) {
       var tx_sem_titulos = "Não há registros de títulos ou certificações";
+      if (validateObject(json.certificado)) {
       var certificacoes;
       var utilidade_publica_estadual;
       var utilidade_publica_municipal;
@@ -869,15 +936,119 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });*/
       });
     }
+    else {
+      /*var certificacoes;
+      var utilidade_publica_estadual;
+      var utilidade_publica_municipal;
+
+        certificacoes = json.certificado.certificado;
+        utilidade_publica_estadual = json.certificado.utilidade_publica_estadual;
+        utilidade_publica_municipal = json.certificado.utilidade_publica_municipal;*/
+
+      headerPriority = '2';
+      headerText = 'Títulos e certificações';
+      formItens = [];
+      dados_form =
+      {
+        "form_items": [
+          {
+            "id": "tx_utilidade_publica",
+            "label": null,
+            "content": null,
+            "fonte": null,
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "checkbox",
+            "options": [
+              {
+                "label":"Utilidade pública estadual",
+                "value": "estadual",
+                "checked": true
+              },
+              {
+                "label":"Utilidade pública municipal",
+                "value": "municipal",
+                "checked": false
+              }
+            ]
+          },
+          {
+            "id": "utilidade_publica_estadual",
+            "label": "Insira data de validade para Utilidade pública estadual",
+            "content": utilidade_publica_estadual ? utilidade_publica_estadual.dt_data_validade : null,
+            "fonte": utilidade_publica_estadual ? utilidade_publica_estadual.ft_utilidade_publica_estadual : null,
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "text",
+            "hide": true
+          },
+          {
+            "id": "utilidade_publica_municipal",
+            "label": "Insira data de validade para Utilidade pública municipal",
+            "content": null,//utilidade_publica_municipal ? utilidade_publica_municipal.dt_data_validade : null,
+            "fonte": null,//utilidade_publica_municipal ? utilidade_publica_municipal.ft_utilidade_publica_municipal : null,
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "text",
+            "hide": true
+          }
+        ]
+      };
+
+      items = dados_form.form_items;
+      formItens.push(new FormItens(null, null, tx_sem_titulos, "base", null, "p"));
+
+      items = dados_form.form_items;
+      var autoElement = React.createElement('div', { id: 'auto' });
+      var manualLabel = React.createElement('label', null, 'Utilidade pública');
+      var manualElement = React.createElement('div', { id: 'manual' });
+      var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
+      ReactDOM.render(root, document.getElementById('certificacoes'));
+
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: headerText}, dados:formItens}
+        ), document.getElementById("auto")
+      );
+      formItens = [];
+      for (j=0; j<items.length; j++){
+        formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, null, items[j].hide));
+      }
+
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("manual")
+      );
+
+      //Salvar
+      $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = [];
+      $("#certificacoes").find("#salvar").click(function(){
+        $("#certificacoes .form-control").each(function(){
+          console.log($(this).val());
+          var item = {};
+          item[$(this).attr("id")] = {};
+          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
+          newJson.push(item);
+        });
+      });
+    }
   }
 
     //Relações de trabalho e governança
     function montarRelacoesGovernanca(json){
+      var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
+      var dirigentes='0';
+      var conselheiros=0;
       if (validateObject(json.relacoes_trabalho_governanca)) {
       // Governança: Dirigentes
-      var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-      var dirigentes = json.relacoes_trabalho_governanca.governanca;
-      var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
+      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
+        dirigentes = json.relacoes_trabalho_governanca.governanca
+      }
+      // Governança: Conselheiros
+      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
+        conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
+      }
       var sections = {
         "items": [
           {
@@ -972,7 +1143,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addItem('dirigentes');
 
       // Governança: Conselheiros
-      var conselho_fiscal = json.relacoes_trabalho_governanca.conselho_fiscal;
+      var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
 
       formItens = [];
       for (var i = 0; i < conselho_fiscal.length; i++) {
@@ -990,8 +1161,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addItem('conselho_fiscal');
 
       //Trabalhadores
-      var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
-      var relacoes_trabalho_outra = json.relacoes_trabalho_governanca.relacoes_trabalho_outra[0];
+      var relacoes_trabalho =0;
+      if (validateObject(json.relacoes_trabalho_governanca.relacoes_trabalho)) {
+          relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
+      }
+      //var relacoes_trabalho_outra = json.relacoes_trabalho_governanca.relacoes_trabalho_outra[0];
       dados_form =
       {
         "form_items": [
@@ -1027,14 +1201,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "placeholder": "Insira o número de voluntários",
             "type": "text"
           },
-          {
+          /*{
             "id": "outros",
             "label": "Outros trabalhadores",
             "content": relacoes_trabalho_outra.nr_trabalhadores,
             "fonte": relacoes_trabalho_outra.ft_trabalhadores,
             "placeholder": "Insira o total de trabalhadores com outros tipos de vínculo",
             "type": "text"
-          }
+          }*/
         ]
       };
       formItens = [];
@@ -1053,11 +1227,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Espaços participacao social;
     function montarEspacosParticipacaoSocial(json){
-      if (validateObject(json.participacao_social)) {
       var tx_sem_participacao_social = "Não há registros de participação social";
-      var conselhos = json.participacao_social.conselho;
-      var conferencias = json.participacao_social.conferencia;
-      var outras = json.participacao_social.outra;
+
+      if (validateObject(json.participacao_social)){
+
+      var conselhos='0';
+      if (validateObject(json.participacao_social.conselho)) {
+        conselhos = json.participacao_social.conselho;
+      }
+
+      var conferencias = '0';
+      if (validateObject(json.participacao_social.conferencia)) {
+         conferencias = json.participacao_social.conferencia;
+       }
+
+       var outras ='0';
+       if (validateObject(json.participacao_social.outra)) {
+         outras = json.participacao_social.outra;
+       }
+
       var participacao_social_form =
       {
       "items": [
@@ -1247,6 +1435,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       addItem('outros_part');
+      }
+    else {
+      console.log(tx_sem_participacao_social);
+
     }
   }
 
@@ -1308,6 +1500,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            $divDadosProjeto.toggleClass("hidden");
          }
        });
+    }
+    else {
+      console.log("Não há registros de projetos abreviado");
     }
   }
     // Projetos
