@@ -76,7 +76,7 @@
         <div class="row">
 
           <div class="col-md-12" id="dados_gerais">
-            <h2>Dados Gerais</h2>
+            <h2>Dados Gerais<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Dados Gerais." onclick="abrirModalAjuda('Dados Gerais');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12 ">
               <div class="form-group">
                 <label>Nome Fantasia:</label>
@@ -138,7 +138,7 @@
         <div class="row">
 
           <div class="col-md-12" id="areas_de_atuacao">
-            <h2>Áreas de Atuação</h2>
+            <h2>Áreas de Atuação<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Áreas de Atuação." onclick="abrirModalAjuda('Áreas de Atuação');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Atividade Econômica:</label>
@@ -171,7 +171,7 @@
         <div class="row">
 
           <div class="col-md-12" id="descricao">
-            <h2>Descrição da OSC</h2>
+            <h2>Descrição da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Descrição da OSC." onclick="abrirModalAjuda('Descrição da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12 ">
               <div class="form-group">
                 <label>Como surgiu a OSC:</label>
@@ -214,7 +214,7 @@
         <div class="row">
 
           <div class="col-md-12 " id="titulacao">
-            <h2>Titulações e Certificações</h2>
+            <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
               <label>{{certificado.tx_nome_certificado}}</label>
               <div>
@@ -232,7 +232,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 " id="relacao_trabalho">
-            <h2>Relações de Trabalho</h2>
+            <h2>Relações de Trabalho<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Relações de Trabalho." onclick="abrirModalAjuda('Relações de Trabalho');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="row">
               <div class="col-sm-4">
                 <h3>Quadro de Dirigentes</h3>
@@ -286,7 +286,7 @@
         <div class="row">
 
           <div class="col-md-12" id="participacao_social">
-            <h2>Espaços de Participação Social</h2>
+            <h2>Espaços de Participação Social<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Espaços de Participação Social." onclick="abrirModalAjuda('Espaços de Participação Social');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
 
             <div class="col-md-12">
               <h3>Conselhos de Políticas Públicas</h3>
@@ -379,7 +379,7 @@
         <div class="row">
           <div class="col-md-12 " id="projetos">
             <div class="project-header ">
-              <h2>Projetos, atividades e/ou programas</h2>
+              <h2>Projetos, atividades e/ou programas<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Projetos, atividades e/ou programas." onclick="abrirModalAjuda('Projetos, atividades e/ou programas');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             </div>
             <div class="panel-group" id="accordion" title="Clique para Detalhar o Projeto." role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
               <div class="panel panel-default" >
@@ -525,7 +525,7 @@
         <div class="row">
 
           <div class="col-md-12" id="recursos">
-            <h2>Fonte de recursos anual da OSC</h2>
+            <h2>Fonte de recursos anual da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fonte de recursos anual da OSC." onclick="abrirModalAjuda('Fonte de recursos anual da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
 
               <div class="form-group">
                 <label>Recursos públicos:</label>
@@ -558,6 +558,23 @@
 
 
 
+  </div>
+
+  <!-- Modal-->
+  <div class="modal fade" id="modalAjuda" tabindex="-1" role="dialog" aria-labelledby="modalTitulo" style="display: none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title bold" id="modalTitulo"></h4>
+        </div>
+        <div id="corpoModal" class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- footer -->

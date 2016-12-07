@@ -59,6 +59,33 @@ $("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
 
 });
 
+var jsonModalAjuda = {
+	"Dados Gerais":"textos de <b>ajuda</b>  1",
+ 	"Áreas de Atuação":"textos de ajuda  2",
+ 	"Descrição da OSC":"textos de ajuda  3",
+ 	"Titulações e Certificações":"textos de ajuda  4",
+ 	"Relações de Trabalho":"textos de ajuda  5",
+ 	"Espaços de Participação Social":"textos de <b>ajuda  6</b>",
+ 	"Projetos, atividades e/ou programas":"textos de ajuda  7",
+ 	"Fonte de recursos anual da OSC":"textos de ajuda  8"
+};
+
+function abrirModalAjuda(titulo) {
+
+	var	corpo = jsonModalAjuda[titulo];
+	var tituloCompleto = "Ajuda - Campos de "+titulo;
+	acionarModalAjuda(tituloCompleto, corpo);
+}
+
+function acionarModalAjuda(titulo, corpo) {
+  $("#modalTitulo").html("");
+  $("#modalTitulo").html(titulo);
+  $("#corpoModal").html("");
+  $("#corpoModal").html(corpo);
+  $("#modalAjuda").modal('show');
+  verificarContraste();
+}
+
 function validateObject(obj){
   if(obj === null){
     return false;
