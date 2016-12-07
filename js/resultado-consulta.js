@@ -16,7 +16,7 @@ require(["jquery-ui"], function (React) {
   });
 
 });
-
+var urlRota;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
   var geojson;
@@ -56,7 +56,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   map.addLayer(tiles);
 
   var parametros='';
-  var newData, urlRotaMapa, urlRota;
+  var newData, urlRotaMapa;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
 
@@ -64,24 +64,24 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     //consulta baseado na escolha da tela anterior
     var tipoConsulta = valoresURL[0];
     var stringBuscada = valoresURL[1];
-    stringBuscada = stringBuscada.replace(/\./g, "");
+    stringBuscada = stringBuscada.replace(/#|\./g, "");
 
     if(tipoConsulta=="organizacao"){
-      urlRota = rotas.OSCByName(stringBuscada);
+      urlRota = rotas.OSCByName(stringBuscada,0);
       urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
       isClusterVersion=false;
     }
     else if(tipoConsulta=="municipio"){
-      urlRota = rotas.OSCByCounty(stringBuscada);
+      urlRota = rotas.OSCByCounty(stringBuscada,0);
       urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
       isClusterVersion=false;
     }
     else if(tipoConsulta=="estado"){
-      urlRota = rotas.OSCByState(stringBuscada);
+      urlRota = rotas.OSCByState(stringBuscada,0);
       urlRotaMapa=rotas.ClusterEstadoPorRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
     }
     else if(tipoConsulta=="regiao"){
-      urlRota = rotas.OSCByRegion(stringBuscada);
+      urlRota = rotas.OSCByRegion(stringBuscada,0);
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else{
@@ -136,6 +136,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           searching: false,
           data: newData,
           dom: 'Bfrtip',
+          "bPaginate": false,
           "bSort": true,
           "aaSorting": [[ 1, 'asc' ]],
            columns: [
@@ -161,6 +162,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       verificarContraste();
     });
   }
+
+  var qtdPagination = 5;
+  paginar(qtdPagination);
+  paginarAction();
 
   function loadPopUp(id, leafletMarker){
     var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
@@ -406,13 +411,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        //tabela ();
+        tabela ();
         if(data!==undefined){
           carregaMapa(data);
         }
-      },
-      error: function (e) {
-        console.log(e);
       }
     });
   }
@@ -430,20 +432,40 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        //tabela ();
+        tabela ();
         if(data!==undefined){
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
           map.removeLayer(e.target);
           carregaMapaCluster(data, "estado");
         }
-      },
-      error: function (e) {
-        console.log(e);
       }
     });
   }
 
+  function paginar(qtdPagination){
+    for (var k = 0; k<qtdPagination; k++){
+      var count = k+1;
+      $('.pagination').append('<li id="'+ count +'"><a href="#">'+ count +'</a></li>');
+    }
+    $('#1').addClass('active');
+  }
+
+  function paginarAction(){
+    $('.pagination li').on('click',function(){
+      $('.pagination li').removeClass('active');
+      $(this).addClass('active');
+      var offset = parseInt(this.id) * 10 - 10;
+      var newUrlRota = urlRota.split('/');
+      var offsetField = newUrlRota.length;
+      newUrlRota[offsetField-1] = offset;
+      urlRota = '';
+      for(var i = 0; i < newUrlRota.length; i++){
+        urlRota += newUrlRota[i]+'/';
+      }
+        urlRota = urlRota.substring(0,urlRota.length-1);
+    });
+  }
   function clickClusterEstado(e){
     //console.log(e);
     var idEstado = e.target.options.icon.options.id;
@@ -457,20 +479,15 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        //tabela ();
+        tabela ();
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
           carregaMapa(data);
         }
-      },
-      error: function (e) {
-        console.log(e);
       }
     });
   }
-
-
 
   //*** main
   $("#loadingMapModal").show();
@@ -484,7 +501,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
-      //tabela ();
+      tabela ();
       if(data!==undefined){
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
@@ -493,9 +510,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           carregaMapa(data);
         }
       }
-    },
-    error: function (e) {
-      console.log(e);
     }
   });
 

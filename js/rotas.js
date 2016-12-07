@@ -47,17 +47,17 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/geo/osc/";
   }
 
-  OSCByName(term){
-    return this.getBaseUrl()+":8484/api/search/osc/lista/"+term;
+  OSCByName(term,offset){
+    return this.getBaseUrl()+":8484/api/search/osc/lista/"+term+"/10/"+offset;
   }
-  OSCByCounty(term){
-    return this.getBaseUrl()+":8484/api/search/municipio/lista/"+term;
+  OSCByCounty(term,offset){
+    return this.getBaseUrl()+":8484/api/search/municipio/lista/"+term+"/10/"+offset;
   }
-  OSCByState(term){
-    return this.getBaseUrl()+":8484/api/search/estado/lista/"+term;
+  OSCByState(term,offset){
+    return this.getBaseUrl()+":8484/api/search/estado/lista/"+term+"/10/"+offset;
   }
-  OSCByRegion(term){
-    return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
+  OSCByRegion(term,offset){
+    return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term+"/10/"+offset;
   }
   AllOSC(term){
     //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
