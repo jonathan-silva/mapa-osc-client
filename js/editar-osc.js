@@ -1520,10 +1520,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
 
       var newJson = [];
+      var idProjeto = "";
       $(".projeto").each(function(){
         var str = $(this).attr("id");
-        var idProjeto = str.substring(str.indexOf("-") + 1);
-        console.log(str);
+        idProjeto = str.substring(str.indexOf("-") + 1);
         $(this).find(".form-group").each(function(){
           if($(this).children().length <= 1){
             $child = $(this).children(':first');
@@ -1542,19 +1542,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
         newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
-        $.ajax({
-         url: rotas.ProjectByID(idProjeto),
-         type: 'put',
-         dataType: 'json',
-         data: dadosGerais,
-
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });
+        // $.ajax({
+        //  url: rotas.ProjectByID(idProjeto),
+        //  type: 'put',
+        //  dataType: 'json',
+        //  data: newJson,
+        //
+        //   success: function(data) {
+        //     console.log(data);
+        //   },
+        //   error: function(e) {
+        //     console.log(e);
+        //   }
+        // });
       });
       console.log(newJson);
     });
