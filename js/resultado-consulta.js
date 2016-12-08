@@ -97,7 +97,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
 
   //*** Methods
-  function tabela (){
+  function tabela (urlRota){
     $.ajax({
       url: "js/controller.php",
       type: 'GET',
@@ -128,7 +128,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           }
         }
 
-        $('#resultadoconsulta_formato_dados').DataTable({
+        var datatable = $('#resultadoconsulta_formato_dados').DataTable({
           responsive: true,
           processing: true,
           deferLoading: 1000,
@@ -154,6 +154,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
            ],
            autoWidth: true
          });
+         datatable.destroy();
+         datatable.draw();
          $('#loading').addClass('hide');
        }
      });
@@ -411,7 +413,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela ();
+        tabela (urlRota);
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -432,7 +434,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela ();
+        tabela (urlRota);
         if(data!==undefined){
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
@@ -464,6 +466,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         urlRota += newUrlRota[i]+'/';
       }
         urlRota = urlRota.substring(0,urlRota.length-1);
+        tabela(urlRota);
     });
   }
   function clickClusterEstado(e){
@@ -479,7 +482,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela ();
+        tabela (urlRota);
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
@@ -501,7 +504,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
-      tabela ();
+      tabela (urlRota);
       if(data!==undefined){
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
