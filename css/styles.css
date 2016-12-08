@@ -854,3 +854,7 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
   font-size: 18px;
   padding-left: 5px;
   }
+
+#salvar{
+  position: fixed; bottom: 50%; right: 5px;
+}

@@ -39,7 +39,7 @@ require(["jquery-ui"], function (React) {
 
 });
 
-require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'datatables-responsive'], function (React) {
   require(
     ['componenteFormItem', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
@@ -211,7 +211,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("dados_gerais")
       );
       //Salvar
-      $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      // $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = dadosGerais;
       $("#dados_gerais").find("#salvar").click(function(){
        $("#dados_gerais :input").each(function(){
@@ -502,7 +502,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       );
 
       //Salvar
-      $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      // $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = {};
       $("#descricao").find("#salvar").click(function(){
         $("#descricao .form-control").each(function(){
@@ -651,7 +651,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       //Salvar
-      $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      // $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = [];
       $("#certificacoes").find("#salvar").click(function(){
         $("#certificacoes .form-control").each(function(){
@@ -1112,6 +1112,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }
        });
     }
+
     // Projetos
     function carregaProjeto(id){
       var labelMap = {
