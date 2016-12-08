@@ -416,7 +416,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          });
 
          //Salvar
-         $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+        //  $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
          $("#areas_de_atuacao").find("#salvar").click(function(){
            var newJson = [];
            $("#areas_de_atuacao .autocomplete").each(function(){
@@ -1375,7 +1375,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             buttonsInLine = true;
           }
           for (var i = 0; i < object.dados.length; i++) {
-            var inputId = sectionId + "-" + i;
+            var inputId = sectionId;
             for (var property in object.dados[i]) {
               if (object.dados[i].hasOwnProperty(property)) {
                 if(sectionId == "fonte_de_recursos"){
@@ -1386,7 +1386,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                     inputs.push(inputProjeto);
                   } else if (property === "tx_nome_fonte_recursos_projeto"){
                     options = labelMap[object.id+"_publico"].options;
-                    var inputId = "sub-" + sectionId + "-" + i;
+                    var inputId = "sub-" + sectionId;
                     var inputProjeto = new InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
                     inputs.push(inputProjeto);
                   }
@@ -1428,7 +1428,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $divObjetivosMetasProjeto.append('<div id="objetivos"></div>');
         $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
         $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
-        $divObjetivosProjeto.append('<div class="form-group"><select class="form-control"></select></div>');
+        $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
         $divMetasProjeto.append('<div class="header">Metas</div>');
@@ -1515,6 +1515,49 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          });
       }
     }
+
+    // Salvar
+    $("#salvar").click(function(){
+
+      var newJson = [];
+      $(".projeto").each(function(){
+        var str = $(this).attr("id");
+        var idProjeto = str.substring(str.indexOf("-") + 1);
+        console.log(str);
+        $(this).find(".form-group").each(function(){
+          if($(this).children().length <= 1){
+            $child = $(this).children(':first');
+            var key = $child.attr("id");
+            var value = $child.find(".form-control").val();
+            if(key)
+            newJson[key] = value;
+          } else {
+            var children = $(this).children();
+            var key = $(children[0]).attr("id");
+            newJson[key] = [];
+            for (var i = 0; i < children.length; i++) {
+              var $child = $(children[i]);
+              newJson[key].push($child.find(":input").val());
+            }
+          }
+        });
+        newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
+        $.ajax({
+         url: rotas.ProjectByID(idProjeto),
+         type: 'put',
+         dataType: 'json',
+         data: dadosGerais,
+
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });
+      });
+      console.log(newJson);
+    });
   });
 });
 
