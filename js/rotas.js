@@ -13,16 +13,16 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/search/oscid/autocomplete/"+term;
   }
   AutocompleteOSCByName(term, limit){
-    return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit;
+    return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByCounty(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/municipio/"+term+"/"+limit;
+    return this.getBaseUrl()+":8383/api/menu/geo/municipio/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByState(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/estado/"+term+"/"+limit;
+    return this.getBaseUrl()+":8383/api/menu/geo/estado/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByRegion(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/regiao/"+term+"/"+limit;
+    return this.getBaseUrl()+":8383/api/menu/geo/regiao/"+term+"/"+limit+"/0";
   }
 
   //resultado-consulta.js

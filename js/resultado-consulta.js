@@ -59,10 +59,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   var newData, urlRotaMapa;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+  var tipoConsulta;
 
-  if(valoresURL!=null){
+  if(valoresURL!==null){
     //consulta baseado na escolha da tela anterior
-    var tipoConsulta = valoresURL[0];
+    tipoConsulta = valoresURL[0];
     var stringBuscada = valoresURL[1];
     stringBuscada = stringBuscada.replace(/#|\./g, "");
 
@@ -90,14 +91,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
   else{
     //consulta tudo
-
     tipoConsulta="regiao";
     //console.log(tipoConsulta);
     urlRotaMapa = rotas.ClusterPais();
   }
 
   //*** Methods
-  function tabela (urlRota){
+  function tabela(urlRota){
     $.ajax({
       url: "js/controller.php",
       type: 'GET',
@@ -183,17 +183,17 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       success: function(data){
         if(data!==undefined){
           //console.log(data);
-          var endereco = data.tx_endereco != null ? data.tx_endereco : '';
-          var bairro = data.tx_bairro != null? data.tx_bairro : '';
+          var endereco = data.tx_endereco !== null ? data.tx_endereco : '';
+          var bairro = data.tx_bairro !== null? data.tx_bairro : '';
           var enderecoCompleto = endereco+' - '+bairro;
           var txtVazioNulo = 'Dado não informado.';
           var div = '<div class="mapa_organizacao clearfix">' +
                     '<span id="spantitle" class="magneticTooltip">'+
                     '<button id="title" class="btn-link" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">'+
-                    '<h4>'+ (data.tx_nome_osc != null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
+                    '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
-                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica != null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica != null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
+                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
+                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
                     '<div align="center"><button type = button class="btn btn-info" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
@@ -384,7 +384,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     if(level=="regiao") classNameLevel = "labelClassRegiao";
     else if(level=="estado") classNameLevel = "labelClassEstado";
     for(var k in dados){
-      var markerGroup = []
+      var markerGroup = [];
       var icone =  L.divIcon({
                     id: dados[k].id_regiao,
                     className: classNameLevel,
@@ -413,7 +413,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela (urlRota);
+        tabela(urlRota);
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -434,7 +434,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela (urlRota);
+        tabela(urlRota);
         if(data!==undefined){
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
@@ -482,7 +482,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela (urlRota);
+        tabela(urlRota);
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
@@ -502,9 +502,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     data: {flag: 'consulta', rota: urlRotaMapa},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        console.log(urlRotaMapa);
     },
     success: function(data){
-      tabela (urlRota);
+      tabela(urlRota);
       if(data!==undefined){
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
@@ -529,7 +530,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       if(data!==undefined){
         var pdfs={};
         var ids={};
-        for(k in data){
+        for(var k in data){
           pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
           ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
         }

@@ -194,7 +194,6 @@ require(["jquery-ui", "rotas"], function (React) {
     str = str.replace(/[úùûü]/,"u");
     str = str.replace(/[Ç]/,"C");
     str = str.replace(/[ç]/,"c");
-    console.log(str);
     return str;
   }
 
