@@ -238,31 +238,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("dados_gerais")
       );
-      //Salvar
-      // $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = dadosGerais;
-      $("#dados_gerais").find("#salvar").click(function(){
-       $("#dados_gerais :input").each(function(){
-         var key = $(this).attr("id");
-         var value = $(this).val();
-         newJson[key] = value;
-       });
-       console.log(idOsc);
-       /*
-       $.ajax({
-       	url: "http://localhost:8383/api/osc/dadosgerais/"+idOsc,
-       	type: 'put',
-       	dataType: 'json',
-       	data: dadosGerais,
-
-         success: function(data) {
-           console.log(data);
-         },
-         error: function(e) {
-           console.log(e);
-         }
-       });*/
-      });
     }
     else {
       var dados_form =
@@ -566,27 +541,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
            }
          });
-
-         //Salvar
-        //  $("#areas_de_atuacao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-         $("#areas_de_atuacao").find("#salvar").click(function(){
-           var newJson = [];
-           $("#areas_de_atuacao .autocomplete").each(function(){
-             newJson.push({
-               "ft_area_declarada": "Usuário",
-               "tx_nome_area_atuacao": $(this).val()
-             });
-           });
-           $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-             var subareas = [];
-             $(this).find("input:checked").each(function(){
-               subareas.push($(this).closest("label").text());
-             });
-            var key = "tx_nome_subarea_atuacao";
-            newJson[index][key] = subareas;
-           });
-           console.log(newJson);
-         });
         });
       }
     }
@@ -710,32 +664,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("descricao")
       );
-
-      //Salvar
-      // $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = {};
-      $("#descricao").find("#salvar").click(function(){
-        $("#descricao .form-control").each(function(){
-          console.log($(this).val());
-          newJson[$(this).attr("id")] = $(this).val();
-        });
-        console.log(idOsc);
-        /*
-        $.ajax({
-         url: "http://localhost:8383/api/osc/descricao/"+idOsc,
-         type: 'put',
-         dataType: 'json',
-         data: newJson,
-
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });*/
-      });
-
     }
     else {
       headerPriority = '2';
@@ -928,34 +856,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           $(this).parents(".hidden").toggleClass('hidden');
         }
-      });
-
-      //Salvar
-      // $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = [];
-      $("#certificacoes").find("#salvar").click(function(){
-        $("#certificacoes .form-control").each(function(){
-          console.log($(this).val());
-          var item = {};
-          item[$(this).attr("id")] = {};
-          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
-          newJson.push(item);
-        });
-        console.log(newJson);
-        /*
-        $.ajax({
-         url: "http://localhost:8383/api/osc/certificado/"+idOsc,
-         type: 'put',
-         dataType: 'json',
-         data: newJson,
-
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });*/
       });
     }
     else {
@@ -1985,7 +1885,111 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Salvar
     $("#salvar").click(function(){
+      
+      //Dados Gerais
+      // $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = [];
+       $("#dados_gerais :input").each(function(){
+         var key = $(this).attr("id");
+         var value = $(this).val();
+         newJson[key] = value;
+       });
+       console.log(idOsc);
+       /*
+       $.ajax({
+        url: rotas.DadosGerais(idOsc),
+        type: 'put',
+        dataType: 'json',
+        data: dadosGerais,
 
+         success: function(data) {
+           console.log(data);
+         },
+         error: function(e) {
+           console.log(e);
+         }
+       });*/
+      console.log(newJson);
+
+     //Áreas de atuação
+     var newJson = [];
+     $("#areas_de_atuacao .autocomplete").each(function(){
+       newJson.push({
+         "ft_area_declarada": "Usuário",
+         "tx_nome_area_atuacao": $(this).val()
+       });
+     });
+     $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
+       var subareas = [];
+       $(this).find("input:checked").each(function(){
+         subareas.push($(this).closest("label").text());
+       });
+      var key = "tx_nome_subarea_atuacao";
+      newJson[index][key] = subareas;
+     });
+     console.log(newJson);
+     /*
+      $.ajax({
+       url: rotas.AreaAtuacao(idOsc),
+       type: 'put',
+       dataType: 'json',
+       data: newJson,
+
+        success: function(data) {
+          console.log(data);
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });*/
+
+     //Descricao
+      var newJson = {};
+      $("#descricao .form-control").each(function(){
+        newJson[$(this).attr("id")] = $(this).val();
+      });
+      console.log(idOsc);
+      /*
+      $.ajax({
+       url: rotas.Descricao(idOsc),
+       type: 'put',
+       dataType: 'json',
+       data: newJson,
+
+        success: function(data) {
+          console.log(data);
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });*/
+      console.log(newJson);
+
+      //Certificacoes
+      var newJson = [];
+      $("#certificacoes .form-control").each(function(){
+        var item = {};
+        item[$(this).attr("id")] = {};
+        item[$(this).attr("id")].dt_fim_certificado = $(this).val();
+        newJson.push(item);
+      });
+      console.log(newJson);
+      /*
+      $.ajax({
+       url: rotas.Titulos(idOsc),
+       type: 'put',
+       dataType: 'json',
+       data: newJson,
+
+        success: function(data) {
+          console.log(data);
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });*/
+
+      // Projetos
       var newJson = [];
       var idProjeto = "";
       $(".projeto").each(function(){

@@ -4,8 +4,8 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://mapaosc-desenv.ipea.gov.br";
-    //return "http://localhost";
+    //return "http://mapaosc-desenv.ipea.gov.br";
+    return "http://localhost";
   }
 
   //index.js
@@ -95,6 +95,9 @@ class Rotas{
   }
   AreaAtuacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/area_atuacao";
+  }
+  DadosGerais(){
+    return this.getBaseUrl()+":8383/api/menu/osc/dadosgerais"+id;
   }
   SubAreaAtuacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/subarea_atuacao";
