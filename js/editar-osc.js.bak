@@ -78,7 +78,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
-        montarCabecalho(data);
+		montarCabecalho(data);
         montarDadosGerais(data);
         montarAreasDeAtuacao(data);
         montarDescricao(data);
@@ -90,7 +90,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
 
 	function montarCabecalho(json){
-    function fCabecalho(Nome, cd_nur,NatJur){
+      function fCabecalho(Nome, cd_nur,NatJur){
         this.Nome = Nome;
         this.cd_nur = cd_nur;
         this.NatJur = NatJur;
@@ -117,7 +117,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
     // Dados Gerais
     function montarDadosGerais(json){
-      if (validateObject(json.dados_gerais)) {
+	  if (validateObject(json.dados_gerais)) {
       var dadosGerais = json.dados_gerais;
       var dados_form =
       {
@@ -264,7 +264,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });*/
       });
     }
-    else {
+else {
       var dados_form =
       {
         "form_items": [
@@ -590,7 +590,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
       }
     }
-    else {
+else {
       function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
         this.id = id;
         this.label = label;
@@ -737,7 +737,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
     }
-    else {
+else {
       headerPriority = '2';
       headerText = 'Descrição da OSC';
       formItens = [];
@@ -958,7 +958,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });*/
       });
     }
-    else {
+else {
       /*var certificacoes;
       var utilidade_publica_estadual;
       var utilidade_publica_municipal;
@@ -1257,7 +1257,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //var conselhos = json.participacao_social.conselho;
       //var conferencias = json.participacao_social.conferencia;
       //var outras = json.participacao_social.outra;
-      if (validateObject(json.participacao_social)){
+	  if (validateObject(json.participacao_social)){
 
       var conselhos='0';
       if (validateObject(json.participacao_social.conselho)) {
@@ -1471,7 +1471,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Lista de Projetos
     function montarProjetos(json){
-      if (validateObject(json.projeto_abreviado)) {
+	  if (validateObject(json.projeto_abreviado)) {
       var projects_list = json.projeto_abreviado;
       var headerProjeto = {
         "id": "lista_projetos",
@@ -1528,6 +1528,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }
        });
     }
+
     else {
       console.log("Não há registros de projetos abreviado");
     }
@@ -2163,9 +2164,6 @@ function getParceirasProjeto(id, dados){
 }
 function validateObject(obj){
   if(obj === null){
-    return false;
-  }
-  else if(obj===undefined){
     return false;
   }
   if(Object.keys(obj).length === 0 && obj.constructor === Object){

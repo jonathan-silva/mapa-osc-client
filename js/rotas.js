@@ -4,8 +4,8 @@ class Rotas{
   }
 
   getBaseUrl(){
-    //return "http://mapaosc-desenv.ipea.gov.br";
-    return "http://localhost";
+    return "http://mapaosc-desenv.ipea.gov.br";
+    //return "http://localhost";
   }
 
   //index.js
@@ -80,10 +80,10 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/geo/cluster/regiao/"+id;
   }
 
-  // editar-osc.js
+  /*/ editar-osc.js
   OSCByID_no_project(id){
     return this.getBaseUrl()+":8383/api/osc/no_project/"+id;
-  }
+  }*/
   ProjectByID(id){
     return this.getBaseUrl()+":8383/api/projeto/"+id;
   }
