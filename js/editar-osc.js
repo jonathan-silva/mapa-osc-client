@@ -1416,16 +1416,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("projeto-"+id)
         );
 
+        // interacoes
+
+        console.log("interações");
+        $('#projeto-'+id).find(".btn-danger").bind("click", function(){
+          console.log("click");
+        });
+
         //metas e objetivos
         var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
         var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
         var meta = project.objetivo_meta.tx_nome_meta_projeto;
         var cd_meta = project.objetivo_meta.cd_meta_projeto;
-
+        console.log(id);
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
         var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
-        $divObjetivosMetasProjeto.append('<div id="objetivos"></div>');
+        $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
         $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
         $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
@@ -1475,43 +1482,43 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               console.log(e);
             },
             success: function(data){
-              montarMetas(data);
+              montarMetas(data, cd_objetivo);
             }
           });
         }
         loadMetas(cd_objetivo);
-        function montarMetas(data){
-          console.log(data);
+        function montarMetas(data, cd_objetivo){
+          var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
           var options = data;
           for (var i = 0; i < options.length; i++) {
             if(options[i].cd_meta_projeto == cd_meta){
-              $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+              $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
             } else {
-              $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+              $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
             }
           }
         }
         $('#selectable-'+cd_objetivo).selectable();
 
-         $('#objetivos').find('select').on('change', function(){
-           $(this).find('option:selected').each(function(){
-             $(".metas").each(function(){
-               if(!$(this).hasClass('hidden')){
-                 $(this).toggleClass('hidden');
-               }
-             });
-             cd_objetivo = $(this).attr('id');
-             $(this).removeClass("ui-selected");
-             $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-             $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
-             $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
-             if($('#metas-'+cd_objetivo).hasClass('hidden')){
-               $('#metas-'+cd_objetivo).toggleClass('hidden');
-             }
-
-             loadMetas(cd_objetivo);
-              $('#selectable-'+cd_objetivo).selectable();
+         $('.objetivos').find('select').on('change', function(){
+          cd_objetivo = $(this).children(":selected").attr("id")
+           $(this).parents("#objetivos-metas").find(".metas").each(function(){
+            console.log($(this));
+            if(!$(this).hasClass('hidden')){
+             $(this).toggleClass('hidden');
+            }
            });
+           
+          console.log(cd_objetivo);
+          // $(this).removeClass("ui-selected");
+          $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+          $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
+          $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+          if($('#metas-'+cd_objetivo).hasClass('hidden')){
+           $('#metas-'+cd_objetivo).toggleClass('hidden');
+          }
+          loadMetas(cd_objetivo);
+          $('.selectable').selectable();
          });
       }
     }
