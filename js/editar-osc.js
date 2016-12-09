@@ -1418,9 +1418,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // interacoes
 
+
         console.log("interações");
         $('#projeto-'+id).find(".btn-danger").bind("click", function(){
-          console.log("click");
+          console.log($(this));
+          $(this).parents(".input-group").remove();
+        });
+
+        $('#projeto-'+id).find(".btn-primary").bind("click", function(){
+          console.log($(this).parent().siblings(".form-group"));
+          $(this).parent().siblings(".form-group").append(
+              '<div class="input-group">'+
+                '<div>'+
+                  '<input class="form-control" placeholder="Insira a informação"></input>'+
+                '</div>'+
+                '<span class="input-group-btn">'+
+                  '<button class="btn-danger btn">Remover</button>'+
+                '</span>'+
+              '</div>'
+            );
         });
 
         //metas e objetivos
@@ -1508,7 +1524,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              $(this).toggleClass('hidden');
             }
            });
-           
+
           console.log(cd_objetivo);
           // $(this).removeClass("ui-selected");
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
@@ -1534,13 +1550,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(this).find(".form-group").each(function(){
           if($(this).children().length <= 1){
             $child = $(this).children(':first');
-            var key = $child.attr("id");
+            var key = $(this).attr("id");
             var value = $child.find(".form-control").val();
             if(key)
             newJson[key] = value;
           } else {
             var children = $(this).children();
-            var key = $(children[0]).attr("id");
+            var key = $(this).attr("id");
             newJson[key] = [];
             for (var i = 0; i < children.length; i++) {
               var $child = $(children[i]);
