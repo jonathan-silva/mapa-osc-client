@@ -311,6 +311,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
+          console.log(layer.feature.properties.regiao);
+          console.log(layer.feature.properties.id);
           layer.off();
           layer.on({
               mouseover: highlightFeature,
