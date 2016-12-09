@@ -52,6 +52,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
 
 	var tilesGrayscale = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr});
 
+  var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+      maxZoom: 20,
+      subdomains:['mt0','mt1','mt2','mt3']
+  });
+
+  map.addLayer(googleHybrid);
   map.addLayer(tilesGrayscale);
   map.addLayer(tiles);
 
@@ -534,7 +540,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
           pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
           ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
         }
-        map.addControl(new L.Control.Layers({ "Contraste": tilesGrayscale, 'Mapa': tiles }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
+        map.addControl(new L.Control.Layers({
+          'Satélite':googleHybrid,
+          'Contraste': tilesGrayscale,
+          'Mapa': tiles
+          }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
         heatMap(pdfs, ids);
       }
     }
