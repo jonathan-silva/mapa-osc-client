@@ -856,5 +856,8 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
   }
 
 #salvar{
-  position: fixed; bottom: 50%; right: 5px;
+  z-index: 1000;
+  position: fixed;
+  bottom: 65%;
+  right: 10%;
 }

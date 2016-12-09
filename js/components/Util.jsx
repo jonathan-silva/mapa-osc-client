@@ -746,12 +746,12 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else if (type == 'textarea'){
           InputElement =
           <div id={id}>
-            <textarea className="form-control" value={content}></textarea>
+            <textarea className="form-control" defaultValue={content}></textarea>
           </div>
         } else {
           var InputElement =
             <div id={id}>
-              <input className="form-control" value={content}></input>
+              <input className="form-control" defaultValue={content}></input>
             </div>
         }
 
@@ -773,7 +773,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 
       render: function() {
           return (
-            <div className="form-group">{this.renderListItems()}</div>
+            <div id={this.props.dados[0].id} className="form-group">{this.renderListItems()}</div>
           );
       }
   });
