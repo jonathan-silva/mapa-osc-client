@@ -567,7 +567,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Macro Área 1",
             "content": null,
             "fonte": null,
-            "placeholder": "Insira o nome como a OSC é conhecida",
+            "placeholder": "Insira a Área de atuação",
             "type": "text",
             "custom_class": "autocomplete"
           },
@@ -576,7 +576,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Macro Área 2",
             "content": null,
             "fonte": null,
-            "placeholder": "Insira o nome como a OSC é conhecida",
+            "placeholder": "Insira a Área de atuação",
             "type": "text",
             "custom_class": "autocomplete"
           }
