@@ -1073,7 +1073,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var columns = 2;
       var sizeOfData = projects_list.length;
       newData = new Array(sizeOfData);
-
+      console.log(projects_list);
       for (var i=0; i < projects_list.length; i++){
         newData[i] = new Array(columns);
         newData[i][0] = projects_list[i].id_projeto;
@@ -1099,18 +1099,31 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ],
         autoWidth: true
        });
-       $("#table_lista_projetos tr").click(function(){
-         var id_projeto = table_lista_projetos.row(this).data()[0];
-         var divId = "projeto-" + id_projeto;
-         var projetos = $(this).next(".projeto");
-         if(projetos.length < 1){
-           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-           carregaProjeto(id_projeto);
-         } else {
-           var $divDadosProjeto = $(projetos[0]);
-           $divDadosProjeto.toggleClass("hidden");
-         }
+
+       $('#table_lista_projetos').append('<span class="input-group-btn">'+
+                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+                '</span>');
+       $('#add_projeto').click(function(){
+        console.log("add projeto");
+        table_lista_projetos.row.add([
+          "-1",
+          "Novo Projeto"
+        ]).draw();
        });
+
+       $("#table_lista_projetos").on('click', 'tr', function(){
+        var id_projeto = table_lista_projetos.row(this).data()[0];
+        var divId = "projeto-" + id_projeto;
+        var projetos = $(this).next(".projeto");
+        if(projetos.length < 1){
+         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+         carregaProjeto(id_projeto);
+        } else {
+         var $divDadosProjeto = $(projetos[0]);
+         $divDadosProjeto.toggleClass("hidden");
+        }
+       });
+       
     }
 
     // Projetos
@@ -1302,19 +1315,24 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       // rotas.ProjectByID(id)
-      $.ajax({
-        url: rotas.ProjectByID(id),
-        type: 'GET',
-        dataType: 'json',
-        data:{},
-        error:function(e){
-          console.log("Erro no ajax: ");
-          console.log(e);
-        },
-        success: function(data){
-          montarProjeto(data);
-        }
-      });
+      if(id === "-1"){
+        var empty_project = getEmptyProject();
+        montarProjeto(empty_project);
+      } else {
+        $.ajax({
+          url: rotas.ProjectByID(id),
+          type: 'GET',
+          dataType: 'json',
+          data:{},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            montarProjeto(data);
+          }
+        });
+      }
       function montarProjeto(json){
         var project = json;
         var agrupadores = [];
@@ -1331,7 +1349,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var buttons = null;
             var buttonsInLine = false;
 
-            if(value.constructor !== Array){
+            if((value === null) || (value.constructor !== Array)){
               var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
 
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
@@ -1440,10 +1458,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
         //metas e objetivos
-        var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
-        var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
-        var meta = project.objetivo_meta.tx_nome_meta_projeto;
-        var cd_meta = project.objetivo_meta.cd_meta_projeto;
+        if(project.objetivo_meta === null){
+          var objetivo = -1;
+          var cd_objetivo = -1;
+          var meta = -1;
+          var cd_meta = -1;
+        } else {
+          var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
+          var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
+          var meta = project.objetivo_meta.tx_nome_meta_projeto;
+          var cd_meta = project.objetivo_meta.cd_meta_projeto;
+        }
         console.log(id);
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
@@ -1584,109 +1609,46 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   });
 });
 
-function getProject(id){
+function getEmptyProject(){
   var project = {
-    "id_projeto": 1,
+    "id_projeto": null,
     "tx_identificador_projeto_externo": null,
     "ft_identificador_projeto_externo": null,
-    "tx_nome_projeto": "Projeto Teste",
+    "tx_nome_projeto": null,
     "ft_nome_projeto": "Usuário",
-    "cd_status_projeto": 2,
-    "tx_nome_status_projeto": "Em Execução",
+    "cd_status_projeto": null,
+    "tx_nome_status_projeto": null,
     "ft_status_projeto": "Usuário",
-    "dt_data_inicio_projeto": "2016-11-11",
+    "dt_data_inicio_projeto": null,
     "ft_data_inicio_projeto": "Usuário",
-    "dt_data_fim_projeto": "2017-11-11",
+    "dt_data_fim_projeto": null,
     "ft_data_fim_projeto": "Usuário",
-    "tx_link_projeto": "www.orgteste.com/projeto/teste",
+    "tx_link_projeto": null,
     "ft_link_projeto": "Usuário",
-    "nr_total_beneficiarios": 1000,
+    "nr_total_beneficiarios": null,
     "ft_total_beneficiarios": "Usuário",
-    "nr_valor_total_projeto": "100000",
-    "ft_valor_total_projeto": "MINC/SALICWEB",
-    "nr_valor_captado_projeto": "100000",
+    "nr_valor_total_projeto": null,
+    "ft_valor_total_projeto": "Usuário",
+    "nr_valor_captado_projeto": null,
     "ft_valor_captado_projeto": "Usuário",
-    "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
+    "tx_metodologia_monitoramento": null,
     "ft_metodologia_monitoramento": "Usuário",
-    "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
+    "tx_descricao_projeto": null,
     "ft_descricao_projeto": "Usuário",
-    "cd_abrangencia_projeto": 2,
-    "tx_nome_abrangencia_projeto": "Estadual",
+    "cd_abrangencia_projeto": null,
+    "tx_nome_abrangencia_projeto": null,
     "ft_abrangencia_projeto": "Usuário",
-    "cd_zona_atuacao_projeto": 1,
-    "tx_nome_zona_atuacao": "Urbana",
+    "cd_zona_atuacao_projeto": null,
+    "tx_nome_zona_atuacao": null,
     "ft_zona_atuacao_projeto": "Usuário",
-    "publico_beneficiado": [
-      {
-        "id_publico_beneficiado": 1,
-        "tx_nome_publico_beneficiado": "Crianças",
-        "nr_estimativa_pessoas_atendidas": 1000,
-        "ft_publico_beneficiado_projeto": "Usuário"
-      }
-    ],
-    "area_atuacao": [
-      {
-        "cd_area_atuacao_projeto": 1,
-        "tx_nome_area_atuacao_projeto": "Educação Básica",
-        "ft_area_atuacao_projeto": "Usuário"
-      }
-    ],
-    "area_atuacao_outra": [
-      {
-        "id_area_atuacao_outra_projeto": 1,
-        "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
-        "ft_area_atuacao_outra_projeto": "Usuário"
-      }
-    ],
-    "localizacao": [
-      {
-        "id_regiao_localizacao_projeto": 1,
-        "tx_nome_regiao_localizacao_projeto": "São Paulo",
-        "ft_nome_regiao_localizacao_projeto": null,
-        "bo_localizacao_prioritaria": false,
-        "ft_localizacao_prioritaria": null
-      }
-    ],
-    "parceira": [
-      {
-        "id_osc": 2,
-        "tx_nome_osc_parceira_projeto": "Nome da osc",
-        "ft_osc_parceira_projeto": null
-      },
-      {
-        "id_osc": 3,
-        "tx_nome_osc_parceira_projeto": "Nome da osc X",
-        "ft_osc_parceira_projeto": null
-      }
-    ],
-    "financiador": [
-      {
-        "id_financiador_projeto": 1,
-        "tx_nome_financiador": "João",
-        "ft_nome_financiador": null
-      },
-      {
-        "id_financiador_projeto": 2,
-        "tx_nome_financiador": "José",
-        "ft_nome_financiador": null
-      }
-    ],
-    "objetivo_meta": {
-      "id_objetivo_projeto": 1,
-      "cd_objetivo_projeto": 1,
-      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
-      "cd_meta_projeto": 1,
-      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
-      "ft_objetivo_projeto": "Usuário"
-    },
-    "recursos": {
-      "id_fonte_recursos_projeto": 1,
-      "cd_origem_fonte_recursos_projeto": 2,
-      "tx_nome_origem_fonte_recursos_projeto": "Público",
-      "cd_fonte_recursos_projeto": "",
-      "tx_nome_fonte_recursos_projeto": "Estadual",
-      "ft_fonte_recursos_projeto": ""
-    }
+    "publico_beneficiado": [],
+    "area_atuacao": [],
+    "area_atuacao_outra": [],
+    "localizacao": [],
+    "parceira": [],
+    "financiador": [],
+    "objetivo_meta": null,
+    "recursos": null
   };
   return project;
 }

@@ -773,7 +773,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 
       render: function() {
           return (
-            <div id={this.props.dados[0].id} className="form-group">{this.renderListItems()}</div>
+            <div id={this.props.dados[0] ? this.props.dados[0].id : "-1"} className="form-group">{this.renderListItems()}</div>
           );
       }
   });
