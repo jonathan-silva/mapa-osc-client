@@ -78,7 +78,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
-        montarCabecalho(data);
+		montarCabecalho(data);
         montarDadosGerais(data);
         montarAreasDeAtuacao(data);
         montarDescricao(data);
@@ -90,7 +90,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
 
 	function montarCabecalho(json){
-    function fCabecalho(Nome, cd_nur,NatJur){
+      function fCabecalho(Nome, cd_nur,NatJur){
         this.Nome = Nome;
         this.cd_nur = cd_nur;
         this.NatJur = NatJur;
@@ -117,7 +117,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
     // Dados Gerais
     function montarDadosGerais(json){
-      if (validateObject(json.dados_gerais)) {
+	  if (validateObject(json.dados_gerais)) {
       var dadosGerais = json.dados_gerais;
       var dados_form =
       {
@@ -264,7 +264,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });*/
       });
     }
-    else {
+else {
       var dados_form =
       {
         "form_items": [
@@ -590,7 +590,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
       }
     }
-    else {
+else {
       function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
         this.id = id;
         this.label = label;
@@ -737,7 +737,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
     }
-    else {
+else {
       headerPriority = '2';
       headerText = 'Descrição da OSC';
       formItens = [];
@@ -958,7 +958,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });*/
       });
     }
-    else {
+else {
       /*var certificacoes;
       var utilidade_publica_estadual;
       var utilidade_publica_municipal;
@@ -1257,7 +1257,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //var conselhos = json.participacao_social.conselho;
       //var conferencias = json.participacao_social.conferencia;
       //var outras = json.participacao_social.outra;
-      if (validateObject(json.participacao_social)){
+	  if (validateObject(json.participacao_social)){
 
       var conselhos='0';
       if (validateObject(json.participacao_social.conselho)) {
@@ -1471,7 +1471,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Lista de Projetos
     function montarProjetos(json){
-      if (validateObject(json.projeto_abreviado)) {
+	  if (validateObject(json.projeto_abreviado)) {
       var projects_list = json.projeto_abreviado;
       var headerProjeto = {
         "id": "lista_projetos",
@@ -1489,7 +1489,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var columns = 2;
       var sizeOfData = projects_list.length;
       newData = new Array(sizeOfData);
-      console.log(projects_list);
+
       for (var i=0; i < projects_list.length; i++){
         newData[i] = new Array(columns);
         newData[i][0] = projects_list[i].id_projeto;
@@ -1515,32 +1515,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ],
         autoWidth: true
        });
-
-       $('#table_lista_projetos').append('<span class="input-group-btn">'+
-                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
-                '</span>');
-       $('#add_projeto').click(function(){
-        console.log("add projeto");
-        table_lista_projetos.row.add([
-          "-1",
-          "Novo Projeto"
-        ]).draw();
+       $("#table_lista_projetos tr").click(function(){
+         var id_projeto = table_lista_projetos.row(this).data()[0];
+         var divId = "projeto-" + id_projeto;
+         var projetos = $(this).next(".projeto");
+         if(projetos.length < 1){
+           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+           carregaProjeto(id_projeto);
+         } else {
+           var $divDadosProjeto = $(projetos[0]);
+           $divDadosProjeto.toggleClass("hidden");
+         }
        });
-
-       $("#table_lista_projetos").on('click', 'tr', function(){
-        var id_projeto = table_lista_projetos.row(this).data()[0];
-        var divId = "projeto-" + id_projeto;
-        var projetos = $(this).next(".projeto");
-        if(projetos.length < 1){
-         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-         carregaProjeto(id_projeto);
-        } else {
-         var $divDadosProjeto = $(projetos[0]);
-         $divDadosProjeto.toggleClass("hidden");
-        }
-       });
-       
     }
+
     else {
       console.log("Não há registros de projetos abreviado");
     }
@@ -1734,24 +1722,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       // rotas.ProjectByID(id)
-      if(id === "-1"){
-        var empty_project = getEmptyProject();
-        montarProjeto(empty_project);
-      } else {
-        $.ajax({
-          url: rotas.ProjectByID(id),
-          type: 'GET',
-          dataType: 'json',
-          data:{},
-          error:function(e){
-            console.log("Erro no ajax: ");
-            console.log(e);
-          },
-          success: function(data){
-            montarProjeto(data);
-          }
-        });
-      }
+      $.ajax({
+        url: rotas.ProjectByID(id),
+        type: 'GET',
+        dataType: 'json',
+        data:{},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          montarProjeto(data);
+        }
+      });
       function montarProjeto(json){
         var project = json;
         var agrupadores = [];
@@ -1768,7 +1751,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var buttons = null;
             var buttonsInLine = false;
 
-            if((value === null) || (value.constructor !== Array)){
+            if(value.constructor !== Array){
               var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
 
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
@@ -1853,46 +1836,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("projeto-"+id)
         );
 
-        // interacoes
-
-
-        console.log("interações");
-        $('#projeto-'+id).find(".btn-danger").bind("click", function(){
-          console.log($(this));
-          $(this).parents(".input-group").remove();
-        });
-
-        $('#projeto-'+id).find(".btn-primary").bind("click", function(){
-          console.log($(this).parent().siblings(".form-group"));
-          $(this).parent().siblings(".form-group").append(
-              '<div class="input-group">'+
-                '<div>'+
-                  '<input class="form-control" placeholder="Insira a informação"></input>'+
-                '</div>'+
-                '<span class="input-group-btn">'+
-                  '<button class="btn-danger btn">Remover</button>'+
-                '</span>'+
-              '</div>'
-            );
-        });
-
         //metas e objetivos
-        if(project.objetivo_meta === null){
-          var objetivo = -1;
-          var cd_objetivo = -1;
-          var meta = -1;
-          var cd_meta = -1;
-        } else {
-          var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
-          var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
-          var meta = project.objetivo_meta.tx_nome_meta_projeto;
-          var cd_meta = project.objetivo_meta.cd_meta_projeto;
-        }
-        console.log(id);
+        var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
+        var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
+        var meta = project.objetivo_meta.tx_nome_meta_projeto;
+        var cd_meta = project.objetivo_meta.cd_meta_projeto;
+
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
         var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
-        $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
+        $divObjetivosMetasProjeto.append('<div id="objetivos"></div>');
         $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
         $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
@@ -1942,43 +1895,43 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               console.log(e);
             },
             success: function(data){
-              montarMetas(data, cd_objetivo);
+              montarMetas(data);
             }
           });
         }
         loadMetas(cd_objetivo);
-        function montarMetas(data, cd_objetivo){
-          var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
+        function montarMetas(data){
+          console.log(data);
           var options = data;
           for (var i = 0; i < options.length; i++) {
             if(options[i].cd_meta_projeto == cd_meta){
-              $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+              $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
             } else {
-              $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+              $('#selectable-'+cd_objetivo).append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
             }
           }
         }
         $('#selectable-'+cd_objetivo).selectable();
 
-         $('.objetivos').find('select').on('change', function(){
-          cd_objetivo = $(this).children(":selected").attr("id")
-           $(this).parents("#objetivos-metas").find(".metas").each(function(){
-            console.log($(this));
-            if(!$(this).hasClass('hidden')){
-             $(this).toggleClass('hidden');
-            }
-           });
+         $('#objetivos').find('select').on('change', function(){
+           $(this).find('option:selected').each(function(){
+             $(".metas").each(function(){
+               if(!$(this).hasClass('hidden')){
+                 $(this).toggleClass('hidden');
+               }
+             });
+             cd_objetivo = $(this).attr('id');
+             $(this).removeClass("ui-selected");
+             $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+             $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
+             $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+             if($('#metas-'+cd_objetivo).hasClass('hidden')){
+               $('#metas-'+cd_objetivo).toggleClass('hidden');
+             }
 
-          console.log(cd_objetivo);
-          // $(this).removeClass("ui-selected");
-          $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-          $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
-          $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
-          if($('#metas-'+cd_objetivo).hasClass('hidden')){
-           $('#metas-'+cd_objetivo).toggleClass('hidden');
-          }
-          loadMetas(cd_objetivo);
-          $('.selectable').selectable();
+             loadMetas(cd_objetivo);
+              $('#selectable-'+cd_objetivo).selectable();
+           });
          });
       }
     }
@@ -1994,13 +1947,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(this).find(".form-group").each(function(){
           if($(this).children().length <= 1){
             $child = $(this).children(':first');
-            var key = $(this).attr("id");
+            var key = $child.attr("id");
             var value = $child.find(".form-control").val();
             if(key)
             newJson[key] = value;
           } else {
             var children = $(this).children();
-            var key = $(this).attr("id");
+            var key = $(children[0]).attr("id");
             newJson[key] = [];
             for (var i = 0; i < children.length; i++) {
               var $child = $(children[i]);
@@ -2028,46 +1981,109 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   });
 });
 
-function getEmptyProject(){
+function getProject(id){
   var project = {
-    "id_projeto": null,
+    "id_projeto": 1,
     "tx_identificador_projeto_externo": null,
     "ft_identificador_projeto_externo": null,
-    "tx_nome_projeto": null,
+    "tx_nome_projeto": "Projeto Teste",
     "ft_nome_projeto": "Usuário",
-    "cd_status_projeto": null,
-    "tx_nome_status_projeto": null,
+    "cd_status_projeto": 2,
+    "tx_nome_status_projeto": "Em Execução",
     "ft_status_projeto": "Usuário",
-    "dt_data_inicio_projeto": null,
+    "dt_data_inicio_projeto": "2016-11-11",
     "ft_data_inicio_projeto": "Usuário",
-    "dt_data_fim_projeto": null,
+    "dt_data_fim_projeto": "2017-11-11",
     "ft_data_fim_projeto": "Usuário",
-    "tx_link_projeto": null,
+    "tx_link_projeto": "www.orgteste.com/projeto/teste",
     "ft_link_projeto": "Usuário",
-    "nr_total_beneficiarios": null,
+    "nr_total_beneficiarios": 1000,
     "ft_total_beneficiarios": "Usuário",
-    "nr_valor_total_projeto": null,
-    "ft_valor_total_projeto": "Usuário",
-    "nr_valor_captado_projeto": null,
+    "nr_valor_total_projeto": "100000",
+    "ft_valor_total_projeto": "MINC/SALICWEB",
+    "nr_valor_captado_projeto": "100000",
     "ft_valor_captado_projeto": "Usuário",
-    "tx_metodologia_monitoramento": null,
+    "tx_metodologia_monitoramento": "Networking giant Cisco’s latest Global Cloud Index shines a light on how the growth of off-premise services is affecting the datacentre market.",
     "ft_metodologia_monitoramento": "Usuário",
-    "tx_descricao_projeto": null,
+    "tx_descricao_projeto": "EDR can mitigate threats before they impact your organization. Discover 5 key factors to look for when researching EDR to best determine which solutions are most proactive in helping to prevent attacks. ",
     "ft_descricao_projeto": "Usuário",
-    "cd_abrangencia_projeto": null,
-    "tx_nome_abrangencia_projeto": null,
+    "cd_abrangencia_projeto": 2,
+    "tx_nome_abrangencia_projeto": "Estadual",
     "ft_abrangencia_projeto": "Usuário",
-    "cd_zona_atuacao_projeto": null,
-    "tx_nome_zona_atuacao": null,
+    "cd_zona_atuacao_projeto": 1,
+    "tx_nome_zona_atuacao": "Urbana",
     "ft_zona_atuacao_projeto": "Usuário",
-    "publico_beneficiado": [],
-    "area_atuacao": [],
-    "area_atuacao_outra": [],
-    "localizacao": [],
-    "parceira": [],
-    "financiador": [],
-    "objetivo_meta": null,
-    "recursos": null
+    "publico_beneficiado": [
+      {
+        "id_publico_beneficiado": 1,
+        "tx_nome_publico_beneficiado": "Crianças",
+        "nr_estimativa_pessoas_atendidas": 1000,
+        "ft_publico_beneficiado_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao": [
+      {
+        "cd_area_atuacao_projeto": 1,
+        "tx_nome_area_atuacao_projeto": "Educação Básica",
+        "ft_area_atuacao_projeto": "Usuário"
+      }
+    ],
+    "area_atuacao_outra": [
+      {
+        "id_area_atuacao_outra_projeto": 1,
+        "tx_nome_area_atuacao_outra_projeto": "Educação Alternativa",
+        "ft_area_atuacao_outra_projeto": "Usuário"
+      }
+    ],
+    "localizacao": [
+      {
+        "id_regiao_localizacao_projeto": 1,
+        "tx_nome_regiao_localizacao_projeto": "São Paulo",
+        "ft_nome_regiao_localizacao_projeto": null,
+        "bo_localizacao_prioritaria": false,
+        "ft_localizacao_prioritaria": null
+      }
+    ],
+    "parceira": [
+      {
+        "id_osc": 2,
+        "tx_nome_osc_parceira_projeto": "Nome da osc",
+        "ft_osc_parceira_projeto": null
+      },
+      {
+        "id_osc": 3,
+        "tx_nome_osc_parceira_projeto": "Nome da osc X",
+        "ft_osc_parceira_projeto": null
+      }
+    ],
+    "financiador": [
+      {
+        "id_financiador_projeto": 1,
+        "tx_nome_financiador": "João",
+        "ft_nome_financiador": null
+      },
+      {
+        "id_financiador_projeto": 2,
+        "tx_nome_financiador": "José",
+        "ft_nome_financiador": null
+      }
+    ],
+    "objetivo_meta": {
+      "id_objetivo_projeto": 1,
+      "cd_objetivo_projeto": 1,
+      "tx_nome_objetivo_projeto": "Acabar com a pobreza em todas as suas formas, em todos os lugares",
+      "cd_meta_projeto": 1,
+      "tx_nome_meta_projeto": "Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia",
+      "ft_objetivo_projeto": "Usuário"
+    },
+    "recursos": {
+      "id_fonte_recursos_projeto": 1,
+      "cd_origem_fonte_recursos_projeto": 2,
+      "tx_nome_origem_fonte_recursos_projeto": "Público",
+      "cd_fonte_recursos_projeto": "",
+      "tx_nome_fonte_recursos_projeto": "Estadual",
+      "ft_fonte_recursos_projeto": ""
+    }
   };
   return project;
 }
@@ -2148,9 +2164,6 @@ function getParceirasProjeto(id, dados){
 }
 function validateObject(obj){
   if(obj === null){
-    return false;
-  }
-  else if(obj===undefined){
     return false;
   }
   if(Object.keys(obj).length === 0 && obj.constructor === Object){
