@@ -1,5 +1,13 @@
 /* jshint ignore:start */
 require(["jquery-ui"], function (React) {
+  
+  var user = window.localStorage.getItem('User');
+  var auth  = window.localStorage.getItem('Authorization');
+
+  var authHeader = {
+    "User": user,
+    "Autentication": auth
+  }
 
   $(document).tooltip({
     position: {
@@ -1913,6 +1921,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        $.ajax({
         url: rotas.DadosGerais(idOsc),
         type: 'put',
+        headers: authHeader,
         dataType: 'json',
         data: dadosGerais,
 
@@ -1946,6 +1955,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $.ajax({
        url: rotas.AreaAtuacao(idOsc),
        type: 'put',
+       headers: authHeader,
        dataType: 'json',
        data: newJson,
 
@@ -1967,6 +1977,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $.ajax({
        url: rotas.Descricao(idOsc),
        type: 'put',
+       headers: authHeader,
        dataType: 'json',
        data: newJson,
 
@@ -1992,6 +2003,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $.ajax({
        url: rotas.Titulos(idOsc),
        type: 'put',
+       headers: authHeader,
        dataType: 'json',
        data: newJson,
 
@@ -2030,6 +2042,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // $.ajax({
         //  url: rotas.ProjectByID(idProjeto),
         //  type: 'put',
+        //  headers: authHeader,
         //  dataType: 'json',
         //  data: newJson,
         //
