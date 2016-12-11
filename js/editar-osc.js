@@ -379,6 +379,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var areas_atuacao;
       var area_atuacao_outra;
 
+      console.log(json);
+
       if(json.area_atuacao){
         areas_atuacao = json.area_atuacao.area_atuacao;
         area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
@@ -435,6 +437,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {
           "form_items": [
             {
+              "id": "atividade_economica",
+              "label": "Atividade econômica",
+              "content": null,
+              "fonte": null,
+              "placeholder": "Insira atividade econômica",
+              "type": "p",
+              "custom_class": null
+            },
+            {
               "id": "macro_area_1",
               "label": "Macro Área 1",
               "content": null,
@@ -458,10 +469,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         for (var j=0; j<items.length; j++){
           var content = null;
           var fonte = null;
-          if(areas_atuacao.length > j){
+          if (j === 0){
+            content = json.dados_gerais.tx_nome_atividade_economica_osc;
+            fonte = json.dados_gerais.ft_atividade_economica_osc;
+          }
+          else if(areas_atuacao.length > j){
             content = areas_atuacao[j].tx_nome_area_atuacao;
             fonte = areas_atuacao[j].ft_nome_area_atuacao;
-
           }
           //formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
 		  formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class));//, macro_area_suggestions, subarea_suggestions));
