@@ -1,6 +1,6 @@
 /* jshint ignore:start */
 require(["jquery-ui"], function (React) {
-  
+
   var user = window.localStorage.getItem('User');
   var auth  = window.localStorage.getItem('Authorization');
 
@@ -149,8 +149,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
             "id": "tx_endereco_eletronico_sugerido",
             "label": "Endereço eletrônico sugerido para esta página",
-            "content": dadosGerais.tx_endereco_eletronico_sugerido,
-            "fonte": dadosGerais.ft_endereco_eletronico_sugerido,
+            "content": dadosGerais.tx_apelido_osc,
+            "fonte": dadosGerais.ft_apelido,
             "placeholder": "Insira um nome que deve constar após o endereço mapaosc.ipea.gov.br/[nome da OSC]",
             "pretext": "mapaosc.ipea.gov.br/",
             "type": "text"
@@ -166,7 +166,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "id": "tx_nome_situacao_imovel_osc",
             "label": "Situação do Imóvel",
             "content": dadosGerais.tx_nome_situacao_imovel_osc,
-            "fonte": dadosGerais.ft_nome_situacao_imovel_osc,
+            "fonte": dadosGerais.ft_situacao_imovel_osc,
             "type": "select",
             "options": [
               "Próprio",
@@ -765,10 +765,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var utilidade_publica_estadual;
       var utilidade_publica_municipal;
 
-      if(json.certificacao){
-        certificacoes = json.certificacao.certificado;
-        utilidade_publica_estadual = json.certificacao.utilidade_publica_estadual;
-        utilidade_publica_municipal = json.certificacao.utilidade_publica_municipal;
+      if(json.certificado){
+        certificacoes = json.certificado.certificado;
+        utilidade_publica_estadual = json.certificado.utilidade_publica_estadual;
+        utilidade_publica_municipal = json.certificado.utilidade_publica_municipal;
       }
 
       headerPriority = '2';
@@ -1183,7 +1183,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       var conselhos='0';
       if (validateObject(json.participacao_social.conselho)) {
-        conselhos = json.participacao_social.conselho;
+        conselhos = json.participacao_social.conselho.conselho;
       }
 
       var conferencias = '0';
@@ -1280,7 +1280,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       formItens = [];//
         if (conferencias.length) {
-          //console.log(conferencias);
           var conferencia = participacao_social_form.items;
           for (j=0; j<conferencias.length; j++){
             for (var property in conferencias[j]) {
@@ -1312,13 +1311,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         formItens = [];
-        if (conselhos.length) {
+        if (conselhos) {
           var conselho = participacao_social_form.items;
+          console.log(conselhos.hasOwnProperty.length);
 
-          for (j=0; j<conselhos.length; j++){
+          for (j=0; j<conselhos.hasOwnProperty.length; j++){
             for (var property in conselhos[j]) {
               if (conselhos[j].hasOwnProperty(property)) {
-
+                console.log(conselhos[j].tx_nome_conselho);
                 if(property == "tx_nome_conselho"){
                   formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
                 }
@@ -1461,7 +1461,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $divDadosProjeto.toggleClass("hidden");
         }
        });
-       
+
     }
     else {
       console.log("Não há registros de projetos abreviado");
@@ -1907,7 +1907,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Salvar
     $("#salvar").click(function(){
-      
+
       //Dados Gerais
       // $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = [];
