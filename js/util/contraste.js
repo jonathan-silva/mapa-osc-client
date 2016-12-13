@@ -100,4 +100,27 @@ function verificarContraste(){
     }
 }
 
+
+function verificarLogado(){
+
+
+  var user = window.localStorage.getItem('User');
+  var aut  = window.localStorage.getItem('Authorization');
+  var nome  = window.localStorage.getItem('Nome');
+
+  if (user){
+    $(".menuLogado").removeClass("logado");
+    $("#btnEntrar").addClass("logado");
+    $(".menuLogado .dropdown-toggle").append(nome);
+    $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+  }else{
+    $(".menuLogado").addClass("logado");
+    $("#btnEntrar").removeClass("logado");
+  }
+}
+
+
+
+
+
 verificarContraste();

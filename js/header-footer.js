@@ -1,6 +1,12 @@
 //Header da página
 require(['react', 'jsx!components/Header'], function(React, Header) {
 
+
+  var nome = window.localStorage.getItem('Nome');
+  var hauser = window.localStorage.getItem('User');
+  var aut  = window.localStorage.getItem('Authorization');
+  console.log(nome+'-'+hauser+'-'+aut);
+
   function MenuDropDownObject(text, link){
     this.text = text;
     this.link = link;
@@ -16,6 +22,7 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
     this.text = text;
     this.link = link;
   }
+
 
   var menuList = [];
   menuList.push(new MenuListObject("Home", "index.html"));
@@ -87,7 +94,10 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   Footer = React.createFactory(Footer);
   ReactDOM.render(Footer({footerObject: new FooterObject(blocks, imgsAltRealizacao, imgList)}), document.getElementById("rodape"));
 
+
+
   $(document).ready(function(){
+    verificarLogado(); //
     verificarContraste();
   });
 });
