@@ -19,6 +19,7 @@ require(["jquery-ui"], function (React) {
 var urlRota;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
+  var qtdPagination = 5;
   var geojson;
   var mapState = {};
   var mapRegion = {};
@@ -171,7 +172,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     });
   }
 
-  var qtdPagination = 5;
+
   paginar(qtdPagination);
   paginarAction();
 
@@ -513,8 +514,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
         console.log(urlRotaMapa);
     },
     success: function(data){
-      tabela(urlRota);
+
       if(data!==undefined){
+        qtdPagination = Object.keys(lol).length-1;
+        tabela(urlRota);
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
