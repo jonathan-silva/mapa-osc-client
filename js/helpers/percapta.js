@@ -1,4 +1,4 @@
-var percapta = {
+var percapta =
   [{
   	"uf": "RO",
   	"num_pop_per_osc": 526,
@@ -107,5 +107,4 @@ var percapta = {
   	"uf": "DF",
   	"num_pop_per_osc": 627,
   	"cd_int_pop_per_osc": 2
-  }]
-};
+  }];
