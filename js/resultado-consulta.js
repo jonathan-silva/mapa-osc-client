@@ -452,7 +452,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   }
 
   function paginar(qtdPagination){
-    $('.pagination').pagination('destroy');
     $('.pagination').pagination({
       items: qtdPagination,
       itemsOnPage: 10,
