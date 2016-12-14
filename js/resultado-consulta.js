@@ -276,8 +276,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
               click: zoomToFeature
           });
           layerGroup.addLayer(layer);
-          map.addLayer(layerGroup);
       }
+      map.addLayer(layerGroup);
 
       var info = L.control();
 
@@ -295,7 +295,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       };
 
       info.addTo(map);
-
+      var lll;
       function highlightFeature(e) {
           var layer = e.target;
 
@@ -309,6 +309,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           if (!L.Browser.ie && !L.Browser.opera) {
               layer.bringToFront();
           }
+          if(layer.feature.properties.Name=="GO"){
+            //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
+            layer.bringToBack();
+          }
           info.update(layer.feature.properties);
       }
 
@@ -321,8 +325,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
-          console.log(layer.feature.properties.regiao);
-          console.log(layer.feature.properties.id);
+          //console.log(layer.feature.properties.regiao);
+          //console.log(layer.feature.properties.id);
           layer.off();
           layer.on({
               mouseover: highlightFeature,
@@ -374,7 +378,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   }
 
   function getColor(d) {
-    //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 8 níveis,
+    //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 5 níveis,
     //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
       return d > 60000 ? '#800026' :
              d > 45000  ? '#E31A1C' :
@@ -501,7 +505,15 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     });
   }
 
-  //*** main
+  function apagaMapaDeCalor(e){
+    var zoomMap = map.getZoom();
+    if(zoomMap==zoomMaximo){
+      map.removeLayer(layerGroup);
+    }
+  }
+
+
+  //*** MAIN ***\\
   $("#loadingMapModal").show();
 
   $.ajax({
@@ -527,8 +539,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       }
     }
   });
-  //inicializa paginacao da tabela
-
 
   //Coloração do mapa
   $.ajax({
@@ -557,13 +567,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
   });
 
-
   map.on('zoomend', apagaMapaDeCalor);
-  function apagaMapaDeCalor(e){
-    var zoomMap = map.getZoom();
-    if(zoomMap==zoomMaximo){
-      map.removeLayer(layerGroup);
-    }
-  }
 
 });
