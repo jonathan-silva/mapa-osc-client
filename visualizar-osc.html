@@ -81,62 +81,62 @@
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                  <img src=img/dado_representante.png>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-                  <img src=img/dado_representante.png>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Endereço eletrônico sugerido para esta página:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_apelido_osc)?ctrl.osc.dados_gerais.tx_apelido_osc:"Não informado"}}
-                    <img src=img/dado_representante.png>
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <img src=img/base_dados.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)ctrl.osc.dados_gerais.dt_inscricao_osc?:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_inscricao_osc)?ctrl.osc.dados_gerais.dt_inscricao_osc:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_inscricao_osc)?ctrl.osc.dados_gerais.dt_inscricao_osc:"Não informado"}}
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_fundacao_osc)ctrl.osc.dados_gerais.dt_fundacao_osc?:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_fundacao_osc)?ctrl.osc.dados_gerais.dt_fundacao_osc:"Não informado"}}</span>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_telefone)?ctrl.osc.dados_gerais.tx_telefone:"Não informado"}}</span>
-                <img src=img/dado_representante.png>
+                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
             </div>
 
@@ -154,14 +154,14 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Atividade Econômica:</label>
-                <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc?:"Não informado"}}</span>
-                <img src=img/base_dados.png>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
+                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
-                <label>Área de atuação do projeto, atividade ou programa: </label> {{area_atuacao.tx_nome_area_atuacao?:"Não informado"}}
+                <label>Área de atuação do projeto, atividade ou programa: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                 <div>
-                  <strong>Subárea</strong> -&gt; <em>{{area_atuacao.tx_nome_subarea_atuacao?:"Não informado"}}<img src=img/dado_representante.png></em>
+                  <strong>Subárea</strong> -&gt; <em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}<img src=img/dado_representante.png></em>
                 </div>
               </div>
               <div class="form-group">
@@ -189,36 +189,36 @@
               <div class="form-group">
                 <label>Como surgiu a OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.descricao.tx_historico}}</span>
-                  <img src=img/dado_representante.png>
+                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_historico)?ctrl.osc.descricao.tx_historico:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.descricao.tx_missao_osc}}</span>
-                  <img src=img/dado_representante.png>
+                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_missao_osc)?ctrl.osc.descricao.tx_missao_osc:"Não informada"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.descricao.tx_visao_osc}}</span>
-                  <img src=img/dado_representante.png>
+                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_visao_osc)?ctrl.osc.descricao.tx_visao_osc:"Não informada"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.descricao.tx_finalidades_estatutarias}}</span>
-                  <img src=img/dado_representante.png>
+                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_finalidades_estatutarias)?ctrl.osc.descricao.tx_finalidades_estatutarias:"Não informadas"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
                 <div>
-                  <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_link_estatuto_osc}}</span>
-                  <img src=img/dado_representante.png>
+                  <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_link_estatuto_osc)?ctrl.osc.dados_gerais.tx_link_estatuto_osc:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
             </div>
@@ -234,14 +234,14 @@
           <div class="col-md-12 " id="titulacao">
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
-              <label>{{certificado.tx_nome_certificado}}</label>
-              <img src=img/base_dados.png>
+              <label>{{(certificado.tx_nome_certificado)?certificado.tx_nome_certificado:"Não possui títulos ou certificações"}}</label>
+              <span clas="fonte-de-dados dado-oficial" title="Informação oficial"><img src=img/base_dados.png></span>
               <div>
                <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span>
-               <img src=img/base_dados.png>
+               <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <span class="form-control-static">(Emitido em {{certificado.dt_inicio_certificado}} - Válido até {{certificado.dt_fim_certificado}})</span>
-              <img src=img/base_dados.png>
+              <span clas="fonte-de-dados dado-oficial" title="Informação oficial"><img src=img/base_dados.png></span>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
