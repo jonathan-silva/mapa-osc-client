@@ -2,7 +2,6 @@
 define(['react'], function(React) {
 
 
-
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
   var tituloPortal = "O Portal";
   var tituloDados = "Dados";
