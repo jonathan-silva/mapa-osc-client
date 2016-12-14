@@ -155,21 +155,27 @@
               <div class="form-group">
                 <label>Atividade Econômica:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
+                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
                 <label>Área de atuação do projeto, atividade ou programa: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                 <div>
-                  <strong>Subárea</strong> -&gt; <em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}<img src=img/dado_representante.png></em>
+                  <strong>Subárea</strong> -&gt; <em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></em>
                 </div>
               </div>
               <div class="form-group">
                 <label>Outras áreas de atuação do projeto, atividade ou programa</label>
                 <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
                   <div class="form-group">
-                    <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}<img src=img/dado_representante.png></span>
+                    <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
+                </div>
+                <div class="form-group"  ng-if="(ctrl.osc.area_atuacao.area_atuacao == null)">
+                  <span class="form-control-static">Não informado</span>
+                  <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}<img src=img/dado_representante.png></span>
                 </div>
               </div>
             </div>
@@ -234,13 +240,16 @@
           <div class="col-md-12 " id="titulacao">
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
-              <label>{{(certificado.tx_nome_certificado)?certificado.tx_nome_certificado:"Não possui títulos ou certificações"}}</label>
-              <span clas="fonte-de-dados dado-oficial" title="Informação oficial"><img src=img/base_dados.png></span>
+              <label>{{certificado.tx_nome_certificado}}</label>
+              <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
               <div>
-               <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span>
-               <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+               <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img src=img/base_dados.png></span>
               </div>
               <span class="form-control-static">(Emitido em {{certificado.dt_inicio_certificado}} - Válido até {{certificado.dt_fim_certificado}})</span>
+              <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
+            </div>
+            <div ng-if="(ctrl.osc.certificado.certificado == null)">
+              <span class="form-control-static">Não possui Títulos ou Certificações</span>
               <span clas="fonte-de-dados dado-oficial" title="Informação oficial"><img src=img/base_dados.png></span>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -260,13 +269,17 @@
                 <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
-                    <img src=img/dado_representante.png>
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
                   <span>:</span>
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
-                    <img src=img/dado_representante.png>
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
+                </div>
+                <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.governanca == null)">
+                  <span class="form-control-static">Não informado</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
 
@@ -275,7 +288,12 @@
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
+                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
+                </div>
+                <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal == null)">
+                  <span class="form-control-static">Não informado</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
 
@@ -283,19 +301,23 @@
                 <h3>Trabalhadores</h3>
                 <div class="form-group">
                   <label>Total de Trabalhadores:</label>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
                 <div class="form-group">
                   <label>Empregados:</label>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
-                  <span class="form-control-static">{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>
+                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
           </div>
