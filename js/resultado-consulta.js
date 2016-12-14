@@ -19,7 +19,6 @@ require(["jquery-ui"], function (React) {
 var urlRota;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
-  var qtdPagination = 5;
   var geojson;
   var mapState = {};
   var mapRegion = {};
@@ -162,7 +161,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
          });
          datatable.destroy();
          datatable.draw();
-         paginar(qtdPagination);
+
          $('#loading').addClass('hide');
        }
      });
@@ -517,8 +516,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     success: function(data){
 
       if(data!==undefined){
-        qtdPagination = Object.keys(data).length-1;
         tabela(urlRota);
+        paginar(Object.keys(data).length-1);
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
@@ -528,6 +527,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       }
     }
   });
+  //inicializa paginacao da tabela
+
 
   //Coloração do mapa
   $.ajax({
