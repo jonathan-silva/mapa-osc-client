@@ -24,7 +24,7 @@ require.config({
     "graficoParaTabela":"util/graficoParaTabela",
     "cookies":"util/cookies",
     "contraste":"util/contraste",
-    "util" : "util/Util.js"
+    "util" : "util/Util"
   },
   shim: {
       'contraste':['cookies'],
