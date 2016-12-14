@@ -24,7 +24,8 @@ require.config({
     "graficoParaTabela":"util/graficoParaTabela",
     "cookies":"util/cookies",
     "contraste":"util/contraste",
-    "util" : "util/Util.js"
+    "util" : "util/Util.js",
+    "simplePagination" : "libs/simplePagination/simplePagination"
   },
   shim: {
       'contraste':['cookies'],
@@ -42,7 +43,8 @@ require.config({
       'leafletCluster': ['leaflet'],
       'google': ['leafletCluster'],
       'graficoParaTabela': ['bootstrap'],
-      'util':['jquery']
+      'util':['jquery'],
+      'simplePagination': ['jquery']
   },
   jsx: {
     fileExtension: '.jsx',

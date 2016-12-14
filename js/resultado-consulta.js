@@ -18,7 +18,7 @@ require(["jquery-ui"], function (React) {
 });
 var urlRota;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
-require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], function (React) {
+require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
   var geojson;
   var mapState = {};
   var mapRegion = {};
@@ -110,8 +110,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
       dataType: 'json',
       data:{flag: "consulta", rota: urlRota},
       error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
+        console.log("Erro no ajax: "+e);
       },
       success: function(data){
         var columns = 6;
@@ -171,9 +170,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
     });
   }
 
-  var qtdPagination = 5;
+  var qtdPagination = 100;
   paginar(qtdPagination);
-  paginarAction();
 
   function loadPopUp(id, leafletMarker){
     var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
@@ -452,29 +450,34 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster'], functio
   }
 
   function paginar(qtdPagination){
-    for (var k = 0; k<qtdPagination; k++){
-      var count = k+1;
-      $('.pagination').append('<li id="'+ count +'"><a href="#">'+ count +'</a></li>');
-    }
-    $('#1').addClass('active');
+    $('.pagination').pagination('destroy');
+    $('.pagination').pagination({
+      items: qtdPagination,
+      itemsOnPage: 10,
+      hrefTextPrefix: "#",
+      prevText: "Anterior",
+      nextText: "Próximo",
+      onPageClick: function(pageNumber){(paginarAction(pageNumber))}
+    });
+
   }
 
-  function paginarAction(){
-    $('.pagination li').on('click',function(){
-      $('.pagination li').removeClass('active');
-      $(this).addClass('active');
-      var offset = parseInt(this.id) * 10 - 10;
-      var newUrlRota = urlRota.split('/');
-      var offsetField = newUrlRota.length;
-      newUrlRota[offsetField-1] = offset;
-      urlRota = '';
-      for(var i = 0; i < newUrlRota.length; i++){
-        urlRota += newUrlRota[i]+'/';
-      }
-        urlRota = urlRota.substring(0,urlRota.length-1);
-        tabela(urlRota);
-    });
+  function paginarAction(pageNumber){
+    if(pageNumber === null){
+      pageNumber = 0;
+    }
+    var offset = parseInt(pageNumber) * 10 - 10;
+    var newUrlRota = urlRota.split('/');
+    var offsetField = newUrlRota.length;
+    newUrlRota[offsetField-1] = offset;
+    urlRota = '';
+    for(var i = 0; i < newUrlRota.length; i++){
+      urlRota += newUrlRota[i]+'/';
+    }
+      urlRota = urlRota.substring(0,urlRota.length-1);
+      tabela(urlRota);
   }
+
   function clickClusterEstado(e){
     //console.log(e);
     var idEstado = e.target.options.icon.options.id;
