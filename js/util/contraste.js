@@ -113,9 +113,11 @@ function verificarLogado(){
     $("#btnEntrar").addClass("logado");
     $(".menuLogado .dropdown-toggle").append(nome);
     $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+    return true;
   }else{
     $(".menuLogado").addClass("logado");
     $("#btnEntrar").removeClass("logado");
+    return false;
   }
 }
 

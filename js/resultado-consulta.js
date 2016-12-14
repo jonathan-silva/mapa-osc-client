@@ -19,6 +19,7 @@ require(["jquery-ui"], function (React) {
 var urlRota;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
+  var qtdPagination = 5;
   var geojson;
   var mapState = {};
   var mapRegion = {};
@@ -161,6 +162,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
          });
          datatable.destroy();
          datatable.draw();
+         paginar(qtdPagination);
          $('#loading').addClass('hide');
        }
      });
@@ -170,8 +172,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     });
   }
 
-  var qtdPagination = 100;
-  paginar(qtdPagination);
 
   function loadPopUp(id, leafletMarker){
     var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
@@ -322,6 +322,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
+          console.log(layer.feature.properties.regiao);
+          console.log(layer.feature.properties.id);
           layer.off();
           layer.on({
               mouseover: highlightFeature,
@@ -514,8 +516,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         console.log(urlRotaMapa);
     },
     success: function(data){
-      tabela(urlRota);
+
       if(data!==undefined){
+        qtdPagination = Object.keys(data).length-1;
+        tabela(urlRota);
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
