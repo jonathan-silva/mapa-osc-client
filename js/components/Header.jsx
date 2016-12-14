@@ -1,5 +1,7 @@
 /*** Componente responsável pela parte superior da página ***/
 define(['react'], function(React) {
+
+
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
   var tituloPortal = "O Portal";
   var tituloDados = "Dados";
@@ -63,8 +65,8 @@ define(['react'], function(React) {
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
         else if(i == this.props.headerObject.menuList.length-1){//posição em que o dropdown do Usuario Logado deve aparecer
-          items.push(<li><a className="btn-link" data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
-          items.push(<li id="dropdown-menu-header" className="dropdown logado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
+          items.push(<li><a id="btnEntrar" className="btn-link"  data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
+          items.push(<li id="dropdown-menu-header" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
         }
         else{
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
@@ -85,6 +87,8 @@ define(['react'], function(React) {
   var Header = React.createClass({
 
     getComponent: function(index) {
+
+
 
       if( index == 1){
           desativaContraste();
@@ -124,13 +128,9 @@ define(['react'], function(React) {
         }
       }else if (index == 6) {
 
-          alert ('entrou');
-
           var email =  $('#emailLogin').val();
           var senha =  $('#senhaLogin').val();
 
-          email = "joao@gmail.com";
-          senha = "123456";
 
           if (!validaEmail(email)){
             $("#emailLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -146,32 +146,40 @@ define(['react'], function(React) {
             $("#senhaLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
           }
 
-          var json = '{"tx_email_usuario": "'+email+'","tx_senha_usuario": "'+senha+'"}';
-          console.log(json);
+          var $json = {
+              "tx_email_usuario": email,
+              "tx_senha_usuario": senha
+          };
+
 
           $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          url: "http://localhost:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
-          data: json,
-          sucess: function (data, textStatus, jqXHR ) {
-            console.log('sucess');
-            console.log(data);
-            console.log(textStatus);
-            console.log(jqXHR);
-            window.localStorage.setItem('email', email);
-            window.localStorage.setItem('chave', data);
-            response($.map( data, function( item ) {
-               return {
-                   label: item.eduf_nm_uf,
-                   value: item.eduf_nm_uf,
-                   id: item.eduf_cd_uf
-               };
-           }));
+          data: $json,
+          error: function (e) {
+              console.log("Error chamada Json");
+              console.log(e.responseText);
           },
-          error: function () { //TODO VER A MELHOR FORMA PRA PEGAR O ERRO
-              response([]);
-          }
+           success: function (data) {
+            window.localStorage.setItem('User', data.id_usuario);
+            window.localStorage.setItem('Authorization', data.access_token);
+            window.localStorage.setItem('Nome', data.tx_nome_usuario);
+            $('#modalLogin').modal('hide');
+            verificarLogado();
+
+            /*
+            window.localStorage.removeItem('User');
+            window.localStorage.removeItem('Authorization');
+            window.localStorage.removeItem('Nome');
+            */
+
+
+
+
+
+         }
+
       });
 
       }
@@ -250,6 +258,7 @@ define(['react'], function(React) {
   //ReactDOM.render(<Header/>, document.getElementById("header"));
   return Header;
 });
+
 
 function validaEmail(email){
 
