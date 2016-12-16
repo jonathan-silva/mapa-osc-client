@@ -372,7 +372,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           </div>
         } else {
           if(item.id.toString().substring(0,2) === "dt"){
-            console.log(item.id);
+            //console.log(item.id);
             custom_class += " date";
           }
           var className = "form-control "+custom_class;

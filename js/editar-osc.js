@@ -63,8 +63,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
-    // var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
+    //var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
     var idOsc = "";
@@ -388,7 +388,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var areas_atuacao;
       var area_atuacao_outra;
 
-      console.log(json);
+      //console.log(json);
 
       if(json.area_atuacao){
         areas_atuacao = json.area_atuacao.area_atuacao;
@@ -1171,22 +1171,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //var conselhos = json.participacao_social.conselho;
       //var conferencias = json.participacao_social.conferencia;
       //var outras = json.participacao_social.outra;
-      if (validateObject(json.participacao_social)){
-
       var conselhos='0';
-      if (validateObject(json.participacao_social.conselho)) {
-        conselhos = json.participacao_social.conselho.conselho;
-      }
-
       var conferencias = '0';
-      if (validateObject(json.participacao_social.conferencia)) {
-         conferencias = json.participacao_social.conferencia;
-       }
+      var outras ='0';
 
-       var outras ='0';
-       if (validateObject(json.participacao_social.outra)) {
-         outras = json.participacao_social.outra;
-       }
       var participacao_social_form =
       {
       "items": [
@@ -1201,59 +1189,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "priority": "3",
             "text": "Conselhos de Políticas Públicas",
             "target": "participacao_social"
-          },/*
-          {
-            "id": "data_vigencia",
-            "priority": "4",
-            "text": "Data de Vigência",
-            "options": []
-          },/*
-          {
-            "id": "nome_representante",
-            "priority": "4",
-            "text": "Nome de representante",
-            "subsections": []
           },
-          {
-            "id": "titularidade",
-            "priority": "4",
-            "text": "Titularidade",
-            "type": "select",
-            "options": [],
-            "subsections": []
-          },*/
           {
             "id": "conferencias",
             "priority": "3",
             "text": "Conferências de Políticas Públicas",
             "target": "participacao_social"
-          },/*
-          {
-            "id": "ano_conferencia",
-            "priority": "4",
-            "text": "Ano de realização da conferência",
-            "subsections": []
           },
-          {
-            "id": "participacao_conferencia",
-            "priority": "4",
-            "text": "Forma de participação na conferência",
-            "type": "select",
-            "options": [],
-            "subsections": []
-          },*/
           {
             "id": "outros_part",
             "priority": "3",
             "text": "Outros espaços de participação social",
             "target": "participacao_social"
-          }/*,
-          {
-            "id": "atuacao",
-            "priority": "4",
-            "text": "Atuação  em Fóruns, Articulações, Coletivos e Redes de OSCs",
-            "type": "text"
-          }*/
+          }
         ]
       };
 
@@ -1269,10 +1217,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.cargo = content;
       }*/
 
+      if (validateObject(json.participacao_social)){
+
+      if (validateObject(json.participacao_social.conselho)) {
+        conselhos = json.participacao_social.conselho;
+      }
+
+      if (validateObject(json.participacao_social.conferencia)) {
+         conferencias = json.participacao_social.conferencia;
+       }
+
+       if (validateObject(json.participacao_social.outra)) {
+         outras = json.participacao_social.outra;
+       }
 
       formItens = [];//
         if (conferencias.length) {
-          console.log(conferencias);
+          //console.log(conferencias);
           var conferencia = participacao_social_form.items;
           for (j=0; j<conferencias.length; j++){
             for (var property in conferencias[j]) {
@@ -1304,17 +1265,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         formItens = [];
+
         if (conselhos) {
           var conselho = participacao_social_form.items;
-          console.log(conselhos.hasOwnProperty.length);
-
-          for (j=0; j<conselhos.hasOwnProperty.length; j++){
+          for (j=0; j<conselhos.length; j++){
             for (var property in conselhos[j]) {
               if (conselhos[j].hasOwnProperty(property)) {
-                console.log(conselhos[j].tx_nome_conselho);
+                if(property == "conselho"){
+                  formItens.push(new FormItens(conselhos[j].conselho.id, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "text"));
+                  formItens.push(new FormItens(2, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "text"));
+                  formItens.push(new FormItens(3, "Nome de representante", conselhos[j].conselho.tx_nome_representante_conselho , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
+                  formItens.push(new FormItens(4, "Periodicidade da Reunião", conselhos[j].conselho.tx_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "text"));
+                  formItens.push(new FormItens(5, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
+                  formItens.push(new FormItens(6, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
+                }
+                /*
                 if(property == "tx_nome_conselho"){
                   formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
                 }
+
                 if(property == "tx_nome_tipo_participacao"){
                   formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
                 }
@@ -1329,7 +1298,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 }
                 if(property == "dt_data_fim_conselho"){
                   formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text", null, null, "date"));
-                }
+                }*/
              }
             }
           }
@@ -1379,7 +1348,44 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addItem('outros_part');
 	  }
     else {
-      console.log(tx_sem_participacao_social);
+
+      formItens = [];
+      formItens.push(new FormItens(null, "Nome do Conselho", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text", null, null, "date"));
+      formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text", null, null, "date"));
+      Agrupador = React.createFactory(AgrupadorConselhos);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselhos")
+      );
+      addItem('conselhos');
+
+      formItens = [];
+      formItens.push(new FormItens(null, "Nome da Conferência", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Forma de participação na conferência", null,null, null, "text"));
+      formItens.push(new FormItens(null, "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+
+      Agrupador = React.createFactory(AgrupadorConferencia);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
+      addItem('conferencias');
+
+      formItens = [];
+      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, null, "text", null, null, null, null, true));
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("outros_part")
+      );
+      addItem('outros_part');
 
     }
   }
@@ -1387,7 +1393,77 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // Lista de Projetos
     function montarProjetos(json){
       if (validateObject(json.projeto_abreviado)) {
-      var projects_list = json.projeto_abreviado;
+            var projects_list = json.projeto_abreviado;
+            var headerProjeto = {
+              "id": "lista_projetos",
+              "priority": "2",
+              "text": "Projetos, atividade e/ou programas"
+            };
+
+            Section = React.createFactory(Section);
+            ReactDOM.render(
+              Section(
+                {dados:[headerProjeto]}
+              ), document.getElementById("projetos")
+            );
+            $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+            var columns = 2;
+            var sizeOfData = projects_list.length;
+            newData = new Array(sizeOfData);
+            console.log(projects_list);
+            for (var i=0; i < projects_list.length; i++){
+              newData[i] = new Array(columns);
+              newData[i][0] = projects_list[i].id_projeto;
+              newData[i][1] = projects_list[i].tx_nome_projeto;
+            }
+            var table_lista_projetos = $('#table_lista_projetos').DataTable({
+              responsive: true,
+              deferLoading: 1000,
+              deferRender: true,
+              data: newData,
+              columns: [
+                {DT_RowId: "Id"},
+                {title: "Nome do Projeto"}
+              ],
+              order: [],
+              aoColumnDefs: [
+                {bSortable :false, aTargets: [0]},
+                {
+                  "targets": [ 0 ],
+                  "visible": false,
+                  "searchable": false
+                },
+              ],
+              autoWidth: true
+             });
+
+             $('#table_lista_projetos').append('<span class="input-group-btn">'+
+                        '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+                      '</span>');
+             $('#add_projeto').click(function(){
+              console.log("add projeto");
+              table_lista_projetos.row.add([
+                "-1",
+                "Novo Projeto"
+              ]).draw();
+             });
+
+             $("#table_lista_projetos").on('click', 'tr', function(){
+              var id_projeto = table_lista_projetos.row(this).data()[0];
+              var divId = "projeto-" + id_projeto;
+              var projetos = $(this).next(".projeto");
+              if(projetos.length < 1){
+               $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+               carregaProjeto(id_projeto);
+              } else {
+               var $divDadosProjeto = $(projetos[0]);
+               $divDadosProjeto.toggleClass("hidden");
+              }
+             });
+
+    }
+    else {
+      var projects_list =  '0';
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
@@ -1400,16 +1476,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
+
       $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
       var columns = 2;
       var sizeOfData = projects_list.length;
       newData = new Array(sizeOfData);
-      console.log(projects_list);
       for (var i=0; i < projects_list.length; i++){
         newData[i] = new Array(columns);
-        newData[i][0] = projects_list[i].id_projeto;
-        newData[i][1] = projects_list[i].tx_nome_projeto;
+        newData[i][0] = 1;
+        newData[i][1] = "";
       }
+      console.log(newData);
       var table_lista_projetos = $('#table_lista_projetos').DataTable({
         responsive: true,
         deferLoading: 1000,
@@ -1430,34 +1507,29 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ],
         autoWidth: true
        });
+      $('#table_lista_projetos').append('<span class="input-group-btn">'+
+                 '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+               '</span>');
+      $('#add_projeto').click(function(){
+       console.log("add projeto");
+       table_lista_projetos.row.add([
+         "-1",
+         "Novo Projeto"
+       ]).draw();
+      });
 
-       $('#table_lista_projetos').append('<span class="input-group-btn">'+
-                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
-                '</span>');
-       $('#add_projeto').click(function(){
-        console.log("add projeto");
-        table_lista_projetos.row.add([
-          "-1",
-          "Novo Projeto"
-        ]).draw();
-       });
-
-       $("#table_lista_projetos").on('click', 'tr', function(){
-        var id_projeto = table_lista_projetos.row(this).data()[0];
-        var divId = "projeto-" + id_projeto;
-        var projetos = $(this).next(".projeto");
-        if(projetos.length < 1){
-         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-         carregaProjeto(id_projeto);
-        } else {
-         var $divDadosProjeto = $(projetos[0]);
-         $divDadosProjeto.toggleClass("hidden");
-        }
-       });
-
-    }
-    else {
-      console.log("Não há registros de projetos abreviado");
+      $("#table_lista_projetos").on('click', 'tr', function(){
+       var id_projeto = table_lista_projetos.row(this).data()[0];
+       var divId = "projeto-" + id_projeto;
+       var projetos = $(this).next(".projeto");
+       if(projetos.length < 1){
+        $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+        carregaProjeto(id_projeto);
+       } else {
+        var $divDadosProjeto = $(projetos[0]);
+        $divDadosProjeto.toggleClass("hidden");
+       }
+      });
     }
   }
     // Projetos
