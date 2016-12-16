@@ -81,62 +81,62 @@
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Endereço eletrônico sugerido para esta página:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_apelido_osc)?ctrl.osc.dados_gerais.tx_apelido_osc:"Não informado"}}
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, Fonte MTE/RAIS"><img src=img/base_dados.png></span>
+                <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_endereco}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_inscricao_osc)?ctrl.osc.dados_gerais.dt_inscricao_osc:"Não informado"}}
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.dt_fundacao_osc)?ctrl.osc.dados_gerais.dt_fundacao_osc:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_telefone)?ctrl.osc.dados_gerais.tx_telefone:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
             </div>
 
@@ -155,14 +155,14 @@
               <div class="form-group">
                 <label>Atividade Econômica:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img src=img/base_dados.png></span>
+                <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
                 <label>Área de atuação do projeto, atividade ou programa: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                 <div>
                   <strong>Subárea</strong> -&gt; <em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></em>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></em>
                 </div>
               </div>
               <div class="form-group">
@@ -170,12 +170,12 @@
                 <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
                   <div class="form-group">
                     <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
                 </div>
-                <div class="form-group"  ng-if="(ctrl.osc.area_atuacao.area_atuacao == null)">
+                <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao == null">
                   <span class="form-control-static">Não informado</span>
-                  <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}<img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
             </div>
@@ -196,35 +196,35 @@
                 <label>Como surgiu a OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_historico)?ctrl.osc.descricao.tx_historico:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_missao_osc)?ctrl.osc.descricao.tx_missao_osc:"Não informada"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_visao_osc)?ctrl.osc.descricao.tx_visao_osc:"Não informada"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_finalidades_estatutarias)?ctrl.osc.descricao.tx_finalidades_estatutarias:"Não informadas"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_link_estatuto_osc)?ctrl.osc.dados_gerais.tx_link_estatuto_osc:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
             </div>
@@ -241,16 +241,16 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
               <label>{{certificado.tx_nome_certificado}}</label>
-              <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
+              <span title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
               <div>
                <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img src=img/base_dados.png></span>
               </div>
               <span class="form-control-static">(Emitido em {{certificado.dt_inicio_certificado}} - Válido até {{certificado.dt_fim_certificado}})</span>
-              <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
+              <span title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
             </div>
             <div ng-if="(ctrl.osc.certificado.certificado == null)">
               <span class="form-control-static">Não possui Títulos ou Certificações</span>
-              <span clas="fonte-de-dados dado-oficial" title="Informação oficial"><img src=img/base_dados.png></span>
+              <span title="Informação oficial"><img src=img/base_dados.png></span>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
@@ -269,17 +269,17 @@
                 <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
                   <span>:</span>
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.governanca == null)">
                   <span class="form-control-static">Não informado</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
 
@@ -288,12 +288,12 @@
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
-                    <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                    <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal == null)">
                   <span class="form-control-static">Não informado</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
 
@@ -302,22 +302,22 @@
                 <div class="form-group">
                   <label>Total de Trabalhadores:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
                 <div class="form-group">
                   <label>Empregados:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>
-                  <span clas="fonte-de-dados dado-oficial" title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+                  <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
                 </div>
               </div>
           </div>
@@ -334,7 +334,7 @@
             <h2>Espaços de Participação Social<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Espaços de Participação Social." onclick="abrirModalAjuda('Espaços de Participação Social');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
 
             <div class="col-md-12">
-              <h3>Conselhos de Políticas Públicas</h3>
+              <h3>Conselhos de Políticas Públicas<span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -367,11 +367,31 @@
                       <span class="form-control-static">{{conselho.dt_data_fim_conselho}}</span>
                     </td>
                   </tr>
+                  <tr ng-if="ctrl.osc.participacao_social.conselho == null">
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
             <div class="col-md-12">
-              <h3>Conferências de Políticas Públicas</h3>
+              <h3>Conferências de Políticas Públicas<span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -393,11 +413,22 @@
                       <span class="form-control-static">{{conferencia.tx_nome_forma_participacao_conferencia}}</span>
                     </td>
                   </tr>
+                  <tr ng-if="ctrl.osc.participacao_social.conferencia == null">
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                    <td>
+                      <span class="form-control-static">Não informado</span>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
             <div class="col-md-12">
-              <h3>Outros espaços de participação social</h3>
+              <h3>Outros espaços de participação social<span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span></h3>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -408,6 +439,11 @@
                   <tr ng-repeat="outra in ctrl.osc.participacao_social.outra">
                     <td>
                       <span class="form-control-static">{{outra.tx_nome_participacao_social_outra}}</span>
+                    </td>
+                  </tr>
+                  <tr ng-if="ctrl.osc.participacao_social.outra == null">
+                    <td>
+                      <span class="form-control-static">Não informado</span>
                     </td>
                   </tr>
                 </tbody>
@@ -551,12 +587,18 @@
                 </div>
               </div>
             </div>
-
+            <div ng-if="ctrl.osc.projeto == null">
+              <div class="form-group">
+                <span class="form-control-static" >Não informado</span>
+                <span title="Informação oficial, "><img src=img/base_dados.png></span>
+              </div>
+            </div>
             <div class="project-header ">
               <div class="col-md-12">
                 <h3>Total de recursos com projetos, atividades e/ou programas</h3>
                 <div class="form-group">
-                <span class="form-control-static" >R${{ctrl.osc.projeto.recursos.nr_valor_total}}</span>
+                <span class="form-control-static" >{{(ctrl.osc.projeto.recursos.nr_valor_total)?"R$ "+ctrl.osc.projeto.recursos.nr_valor_total:"Não informado"}}</span>
+                <span title="Informação oficial,"><img src=img/base_dados.png></span>
               </div>
               </div>
           </div>
@@ -574,23 +616,32 @@
 
               <div class="form-group">
                 <label>Recursos públicos:</label>
-                  <span class="form-control-static">R${{ctrl.osc.recursos.recursos.nr_valor_recursos_osc}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.recursos.recursos.nr_valor_recursos_osc)?"R$ "+ctrl.osc.recursos.recursos.nr_valor_recursos_osc:"Não informado"}}</span>
+                  <span title="Informação oficial, {{ctrl.osc.recursos.recursos.tx_nome_fonte_recursos_osc}}"><img src=img/base_dados.png></span>
                 </div>
 
                 <div class="form-group">
                   <label>Recursos privados:</label>
-                <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>
+                <span class="form-control-static">{{(ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc)?ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc:"Não informado"}}</span>
+                <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
               </div>
 
               <div class="form-group">
                 <label>Recursos internacionais:</label>
-              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>
+              <span class="form-control-static">{{(ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc)?ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc:"Não informado"}}</span>
+              <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc != null">
               <label>Recursos próprios:</label>
-              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span> -&gt;
-              <span class="form-control-static">R${{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc}}</span>
+              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>-&gt;
+              <span class="form-control-static">R$ {{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc}}</span>
+              <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
+            </div>
+            <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc == null">
+              <label>Recursos próprios:</label>
+              <span class="form-control-static">Não informado</span>
+              <span title="Informação preenchida pela Organização"><img src=img/dado_representante.png></span>
             </div>
 
               </div>
