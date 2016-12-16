@@ -1770,7 +1770,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
 
         console.log("interações");
-        $('#projeto-'+id).find(".btn-danger").bind("click", function(){
+        $('#projeto-'+id).on("click", ".btn-danger", function(){
           console.log($(this));
           $(this).parents(".input-group").remove();
         });
