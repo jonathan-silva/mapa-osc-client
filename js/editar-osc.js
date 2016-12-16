@@ -1078,15 +1078,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("conselheiros")
       );
-
-      function isTrue(obj){
-        if(obj){
-          return true;
-        }
-        else {
-          return false;
-        }
-      }
       addItem('dirigentes');
 
       // Governança: Conselheiros
@@ -2278,4 +2269,12 @@ function montarEnderecoImovel(dadosGerais){
     tx_endereco_completo = 'Endereço não registrado.';
   }
   return tx_endereco_completo;
+}
+function isTrue(obj){
+  if(obj){
+    return true;
+  }
+  else {
+    return false;
+  }
 }
