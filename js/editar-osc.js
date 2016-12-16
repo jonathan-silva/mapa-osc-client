@@ -63,8 +63,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    //var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
-    var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
+    var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+    // var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
     var idOsc = "";
@@ -94,6 +94,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarRelacoesGovernanca(data);
         montarEspacosParticipacaoSocial(data);
         montarProjetos(data);
+        $(".date").datepicker();
       }
     });
 
@@ -1271,6 +1272,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       formItens = [];//
         if (conferencias.length) {
+          console.log(conferencias);
           var conferencia = participacao_social_form.items;
           for (j=0; j<conferencias.length; j++){
             for (var property in conferencias[j]) {
@@ -1278,20 +1280,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if (conferencias[j].hasOwnProperty(property)) {
 
                 if(property == "dt_ano_realizacao"){
-                  formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text"));
+                  formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
                 }
                 if(property == "tx_nome_conferencia"){
-                  formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+                  formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
                 }
                 if(property == "tx_nome_forma_participacao_conferencia"){
-                  formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+                  formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
                 }
              }
             }
           }
-          formItens.push(new FormItens(conferencia[j].id, "Nome da Conferência", null,null, null, "text"));
-          formItens.push(new FormItens(conferencia[j].id, "Forma de participação na conferência", null,null, null, "text"));
-          formItens.push(new FormItens(conferencia[j].id, "Ano de realização da conferência", null,null, null, "text"));
+          formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
+          formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
+          formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
 
           Agrupador = React.createFactory(AgrupadorConferencia);
           ReactDOM.render(
@@ -1323,10 +1325,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
                 }
                 if(property == "dt_data_inicio_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text"));
+                  formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text", null, null, "date"));
                 }
                 if(property == "dt_data_fim_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text"));
+                  formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text", null, null, "date"));
                 }
              }
             }
@@ -1335,8 +1337,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
           formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
           formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text"));
+          formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text", null, null, "date"));
+          formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text", null, null, "date"));
 
           Agrupador = React.createFactory(AgrupadorConselhos);
           ReactDOM.render(
@@ -1765,6 +1767,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             {dados:agrupadores}
           ), document.getElementById("projeto-"+id)
         );
+
+        $(".date").datepicker();
 
         // interacoes
 
@@ -2205,6 +2209,7 @@ function addItem(idDiv){
         $cloneDiv.clone().appendTo($cloneChildren);
         $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
         $cloneDiv.parent().children().last().find('input[type=text]').val('');
+        $(".date").datepicker();
       }
     }
     else {

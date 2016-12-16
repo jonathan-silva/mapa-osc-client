@@ -306,6 +306,9 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           placeholder = item.placeholder;
           content = "";
         }
+        if((item.id === undefined) || (item.id === null)){
+          item.id = "";
+        }
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte =
           <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}></span>
@@ -368,7 +371,11 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             <div className="checkboxList">{itensCheckBox}</div>
           </div>
         } else {
-          var className = "form-control"+custom_class;
+          if(item.id.toString().substring(0,2) === "dt"){
+            console.log(item.id);
+            custom_class += " date";
+          }
+          var className = "form-control "+custom_class;
           ContentElement =
           <div className="input-box">
             <input className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
@@ -749,9 +756,13 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea className="form-control" defaultValue={content}></textarea>
           </div>
         } else {
+          var class_string = "form-control ";
+          if(id.substring(0,2) === "dt"){
+            class_string += "date";
+          }
           var InputElement =
             <div id={id}>
-              <input className="form-control" defaultValue={content}></input>
+              <input className={class_string} defaultValue={content}></input>
             </div>
         }
 
