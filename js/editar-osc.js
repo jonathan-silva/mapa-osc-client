@@ -95,6 +95,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarEspacosParticipacaoSocial(data);
         montarProjetos(data);
         $(".date").datepicker();
+        montarFontedeRecursos(data);
       }
     });
 
@@ -761,12 +762,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     //Títulos e certificações
     function montarTitulosCertificacoes(json){
       var tx_sem_titulos = "Não há registros de títulos ou certificações";
-      if (validateObject(json.certificado)) {
       var certificacoes;
       var utilidade_publica_estadual;
       var utilidade_publica_municipal;
 
-      if(json.certificado){
+      if (validateObject(json.certificado)) {
+
+
+      if(json.certificado.certificado){
         certificacoes = json.certificado.certificado;
         utilidade_publica_estadual = json.certificado.utilidade_publica_estadual;
         utilidade_publica_municipal = json.certificado.utilidade_publica_municipal;
@@ -882,13 +885,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
     else {
-      /*var certificacoes;
-      var utilidade_publica_estadual;
-      var utilidade_publica_municipal;
 
-        certificacoes = json.certificado.certificado;
-        utilidade_publica_estadual = json.certificado.utilidade_publica_estadual;
-        utilidade_publica_municipal = json.certificado.utilidade_publica_municipal;*/
+        utilidade_publica_estadual = '0';
+        //json.certificado.utilidade_publica_estadual;
+        utilidade_publica_municipal = '0';//json.certificado.utilidade_publica_municipal;
 
       headerPriority = '2';
       headerText = 'Títulos e certificações';
@@ -919,8 +919,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
             "id": "utilidade_publica_estadual",
             "label": "Insira data de validade para Utilidade pública estadual",
-            "content": utilidade_publica_estadual ? utilidade_publica_estadual.dt_data_validade : null,
-            "fonte": utilidade_publica_estadual ? utilidade_publica_estadual.ft_utilidade_publica_estadual : null,
+            "content": null,//utilidade_publica_estadual ? utilidade_publica_estadual.dt_data_validade : null,
+            "fonte": null,//utilidade_publica_estadual ? utilidade_publica_estadual.ft_utilidade_publica_estadual : null,
             "placeholder": "Não constam informações nas bases de dados do Mapa.",
             "type": "text",
             "hide": true
@@ -965,17 +965,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("manual")
       );
 
-      //Salvar
-      $("#certificacoes").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = [];
-      $("#certificacoes").find("#salvar").click(function(){
-        $("#certificacoes .form-control").each(function(){
-          console.log($(this).val());
-          var item = {};
-          item[$(this).attr("id")] = {};
-          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
-          newJson.push(item);
-        });
+      //interações seção títulos e certificações
+      $("#certificacoes :checkbox").change(function() {
+        var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
+        $inputContainer.toggleClass('hidden');
+        if($inputContainer.hasClass('hidden')){
+          var $input = $inputContainer.find('input');
+          $input.val("");
+        }
+      });
+
+      $("#manual").find("input:text").each(function(){
+        if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
+          var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
+
+          $("#manual").find("input:checkbox").each(function(){
+            if($(this).val() === utilidade_publica_id){
+              $(this).prop('checked', true);
+            }
+          });
+
+          $(this).parents(".hidden").toggleClass('hidden');
+        }
       });
     }
   }
@@ -1390,6 +1401,203 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
   }
 
+  function montarFontedeRecursos(json){
+    console.log(json.recursos);
+
+    var publico='0';
+    var privado = '0';
+    var internacional ='0';
+    var proprio='0';
+
+    var fonte_recursos_form =
+    {
+    "items": [
+      {
+        "id": "publico",
+        "label": "Recursos públicos",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "select",
+        "options": [
+          "Federal",
+          "Estadual",
+          "Municipal"
+        ]
+      },
+      {
+        "id": "valor_publico",
+        "label": "Valor de recursos públicos",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "text"
+      },
+      {
+        "id": "privado",
+        "label": "Recursos privados",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "select",
+        "options": [
+          "Rendimento de fundo patrimonial (endowments)",
+          "Doação de pessoa física",
+          "Doação de pessoa jurídica"
+        ]
+      },
+      {
+        "id": "valor_privado",
+        "label": "Valor de recursos privados",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "text"
+      },
+      {
+        "id": "internacional",
+        "label": "Recursos internacionais",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "select",
+        "options": [
+          "Organismo internacional (OEA, ONU, etc)",
+          "Governos de outros países",
+          "Outros (inserir o nome)"
+        ]
+      },
+      {
+        "id": "valor_internacional",
+        "label": "Valor de recursos internacionais",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "text"
+      },
+      {
+        "id": "proprio",
+        "label": "Recursos próprios",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "select",
+        "options": [
+          "Venda de serviços e/ou produtos",
+          "Mensalidade dos associados",
+          "Outros (inserir o nome)"
+        ]
+      },
+      {
+        "id": "valor_proprios",
+        "label": "Valor de recursos próprios",
+        "content": null,
+        "fonte": null,
+        "placeholder":"",
+        "type": "text"
+      }
+     ]
+    };
+
+    items = fonte_recursos_form.items;
+  /*  Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );*/
+
+    headerPriority = '2';
+    headerText = 'Fonte de recursos anual da OSC';
+
+    formItens=[];
+    for (var i=0; i<items.length; i++){
+      formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options));//, items[i].pretext));
+    }
+
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("recursos")
+    );
+    addItem("recursos")/*
+
+    //interações seção títulos e certificações
+    $("#certificacoes :checkbox").change(function() {
+      var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
+      $inputContainer.toggleClass('hidden');
+      if($inputContainer.hasClass('hidden')){
+        var $input = $inputContainer.find('input');
+        $input.val("");
+      }
+    });
+
+    $("#manual").find("input:text").each(function(){
+      if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
+        var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
+
+        $("#manual").find("input:checkbox").each(function(){
+          if($(this).val() === utilidade_publica_id){
+            $(this).prop('checked', true);
+          }
+        });
+
+        $(this).parents(".hidden").toggleClass('hidden');
+      }
+    });
+
+    
+
+  console.log(json.recursos);
+    if (validateObject(json.recursos)){
+
+    if (validateObject(json.participacao_social.conselho)) {
+      conselhos = json.participacao_social.conselho;
+    }
+
+    if (validateObject(json.participacao_social.conferencia)) {
+       conferencias = json.participacao_social.conferencia;
+     }
+
+     if (validateObject(json.participacao_social.outra)) {
+       outras = json.participacao_social.outra;
+     }
+
+    formItens = [];//
+      if (conferencias.length) {
+        //console.log(conferencias);
+        var conferencia = participacao_social_form.items;
+        for (j=0; j<conferencias.length; j++){
+          for (var property in conferencias[j]) {
+            //console.log(property);
+            if (conferencias[j].hasOwnProperty(property)) {
+
+              if(property == "dt_ano_realizacao"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
+              }
+              if(property == "tx_nome_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+              }
+              if(property == "tx_nome_forma_participacao_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+              }
+           }
+          }
+        }
+        formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
+        formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
+        formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+
+        Agrupador = React.createFactory(AgrupadorConferencia);
+        ReactDOM.render(
+          Agrupador(
+            {header:null, dados:formItens}
+          ), document.getElementById("conferencias")
+        );
+      }
+    }*/
+  }
     // Lista de Projetos
     function montarProjetos(json){
       if (validateObject(json.projeto_abreviado)) {
@@ -1486,7 +1694,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newData[i][0] = 1;
         newData[i][1] = "";
       }
-      console.log(newData);
+      //console.log(newData);
       var table_lista_projetos = $('#table_lista_projetos').DataTable({
         responsive: true,
         deferLoading: 1000,
@@ -2347,6 +2555,8 @@ function montarEnderecoImovel(dadosGerais){
   }
   return tx_endereco_completo;
 }
+
+
 function isTrue(obj){
   if(obj){
     return true;

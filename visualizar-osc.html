@@ -349,22 +349,22 @@
                 <tbody>
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
-                      <span class="form-control-static">{{conselho.tx_nome_conselho}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_nome_conselho}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.tx_nome_tipo_participacao}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_nome_tipo_participacao}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.tx_nome_representante_conselho}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_nome_representante_conselho}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_periodicidade_reuniao}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.dt_data_inicio_conselho}}</span>
+                      <span class="form-control-static">{{conselho.conselho.dt_data_inicio_conselho}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.dt_data_fim_conselho}}</span>
+                      <span class="form-control-static">{{conselho.conselho.dt_data_fim_conselho}}</span>
                     </td>
                   </tr>
                   <tr ng-if="ctrl.osc.participacao_social.conselho == null">
