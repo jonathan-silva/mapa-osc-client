@@ -122,6 +122,16 @@ function verificarLogado(){
 }
 
 
+function deslogar(){
+  window.localStorage.removeItem('User');
+  window.localStorage.removeItem('Authorization');
+  window.localStorage.removeItem('Nome');
+  $(".menuLogado").addClass("logado");
+  $("#btnEntrar").removeClass("logado");
+  return true;
+}
+
+
 
 
 
