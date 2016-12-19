@@ -153,7 +153,7 @@ define(['react'], function(React) {
 
 
           $.ajax({
-          url: "http://localhost:8383/api/user/login/",
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: $json,
