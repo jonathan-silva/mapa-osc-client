@@ -423,6 +423,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
+        paginar(Object.keys(data).length-1);
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -444,6 +445,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
+        paginar(Object.keys(data).length-1);
         if(data!==undefined){
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
@@ -496,6 +498,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
+        paginar(Object.keys(data).length-1);
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
@@ -523,13 +526,20 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     data: {flag: 'consulta', rota: urlRotaMapa},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
-        console.log(urlRotaMapa);
+        //console.log(urlRotaMapa);
     },
     success: function(data){
 
       if(data!==undefined){
         tabela(urlRota);
-        paginar(Object.keys(data).length-1);
+
+        if(Object.keys(data).length-1 ===0){
+          paginar(data[0].nr_quantidade_osc_regiao);
+        }
+        else{
+          paginar(Object.keys(data).length-1);
+        }
+
         if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
