@@ -81,7 +81,7 @@
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                  <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
@@ -96,7 +96,7 @@
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_endereco}}"><img src=img/base_dados.png></span>
+                <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
@@ -155,7 +155,7 @@
               <div class="form-group">
                 <label>Atividade Econômica:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span title="Informação oficial, {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img src=img/base_dados.png></span>
+                <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img src=img/base_dados.png></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
@@ -241,12 +241,13 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
               <label>{{certificado.tx_nome_certificado}}</label>
-              <span title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
+              <span title="Informação oficial. {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
               <div>
-               <span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img src=img/base_dados.png></span>
-              </div>
-              <span class="form-control-static">(Emitido em {{certificado.dt_inicio_certificado}} - Válido até {{certificado.dt_fim_certificado}})</span>
-              <span title="Informação oficial, {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
+               <!--span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img src=img/base_dados.png></span-->
+             </div>
+              <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:""}}
+                {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:""}}</span>
+              <span title="Informação oficial. {{certificado.ft_certificado}}"><img src=img/base_dados.png></span>
             </div>
             <div ng-if="(ctrl.osc.certificado.certificado == null)">
               <span class="form-control-static">Não possui Títulos ou Certificações</span>
@@ -307,12 +308,12 @@
                 <div class="form-group">
                   <label>Empregados:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
-                  <span title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
-                  <span title="Informação oficial, {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img src=img/base_dados.png></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
@@ -590,7 +591,7 @@
             <div ng-if="ctrl.osc.projeto == null">
               <div class="form-group">
                 <span class="form-control-static" >Não informado</span>
-                <span title="Informação oficial, "><img src=img/base_dados.png></span>
+                <span title="Informação oficial. "><img src=img/base_dados.png></span>
               </div>
             </div>
             <div class="project-header ">
@@ -598,7 +599,7 @@
                 <h3>Total de recursos com projetos, atividades e/ou programas</h3>
                 <div class="form-group">
                 <span class="form-control-static" >{{(ctrl.osc.projeto.recursos.nr_valor_total)?"R$ "+ctrl.osc.projeto.recursos.nr_valor_total:"Não informado"}}</span>
-                <span title="Informação oficial,"><img src=img/base_dados.png></span>
+                <span title="Informação oficial."><img src=img/base_dados.png></span>
               </div>
               </div>
           </div>
@@ -617,7 +618,7 @@
               <div class="form-group">
                 <label>Recursos públicos:</label>
                   <span class="form-control-static">{{(ctrl.osc.recursos.recursos.nr_valor_recursos_osc)?"R$ "+ctrl.osc.recursos.recursos.nr_valor_recursos_osc:"Não informado"}}</span>
-                  <span title="Informação oficial, {{ctrl.osc.recursos.recursos.tx_nome_fonte_recursos_osc}}"><img src=img/base_dados.png></span>
+                  <span title="Informação oficial. {{ctrl.osc.recursos.recursos.tx_nome_fonte_recursos_osc}}"><img src=img/base_dados.png></span>
                 </div>
 
                 <div class="form-group">
