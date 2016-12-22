@@ -1,14 +1,6 @@
 /* jshint ignore:start */
 require(["jquery-ui"], function (React) {
 
-  var user = window.localStorage.getItem('User');
-  var auth  = window.localStorage.getItem('Authorization');
-
-  var authHeader = {
-    "User": user,
-    "Autentication": auth
-  }
-
   $(document).tooltip({
     position: {
       my: "center bottom-20",
@@ -73,6 +65,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       idOsc = valoresURL[0];
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
+    var user = window.localStorage.getItem('User');
+    var auth  = window.localStorage.getItem('Authorization');
+
+    var authHeader = {
+      "User": user,
+      "Authorization": auth
+    }
+
     // console.log(urlRota);
     // api/osc/no_project/{id}
     $.ajax({
@@ -1547,7 +1547,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     });
 
-    
+
 
   console.log(json.recursos);
     if (validateObject(json.recursos)){
@@ -2192,13 +2192,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          newJson[key] = value;
        });
        console.log(idOsc);
-       /*
+       console.log(authHeader);
+       console.log(newJson);
+
        $.ajax({
         url: rotas.DadosGerais(idOsc),
-        type: 'put',
+        type: 'PUT',
         headers: authHeader,
         dataType: 'json',
-        data: dadosGerais,
+        data: newJson,
 
          success: function(data) {
            console.log(data);
@@ -2206,7 +2208,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          error: function(e) {
            console.log(e);
          }
-       });*/
+       });
       console.log(newJson);
 
      //Áreas de atuação

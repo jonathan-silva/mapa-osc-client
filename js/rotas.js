@@ -96,8 +96,8 @@ class Rotas{
   AreaAtuacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/area_atuacao";
   }
-  DadosGerais(){
-    return this.getBaseUrl()+":8383/api/menu/osc/dadosgerais"+id;
+  DadosGerais(id){
+    return this.getBaseUrl()+":8383/api/osc/dadosgerais/"+id;
   }
   SubAreaAtuacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/subarea_atuacao";
