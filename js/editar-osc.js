@@ -947,8 +947,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
       //var dirigentes = json.relacoes_trabalho_governanca.governanca;
       //var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
-	  var dirigentes='0';
-      var conselheiros=0;
+	    var dirigentes = '0';
+      var conselheiros = 0;
       if (validateObject(json.relacoes_trabalho_governanca)) {
       // Governança: Dirigentes
       if (validateObject(json.relacoes_trabalho_governanca.governanca)){
@@ -1033,7 +1033,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("dirigentes")
       );
       formItens = [];
-      formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros.length, null, null, "p"));
+      formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
@@ -1044,7 +1044,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       // Governança: Conselheiros
       var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
-
+      console.log(conselho_fiscal);
       formItens = [];
       for (var i = 0; i < conselho_fiscal.length; i++) {
         var conselheiro = conselho_fiscal[i];
@@ -1089,7 +1089,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
             "id": "deficiencia",
             "label": "Trabalhadores com deficiência",
-            "content": relacoes_trabalho.nr_trabalhadores_deficiencia,
+            "content": relacoes_trabalho.nr_trabalhadores_deficiencia ? relacoes_trabalho.nr_trabalhadores_deficiencia : "Não constam informações nas bases de dados do Mapa.",
             "fonte": relacoes_trabalho.ft_trabalhadores_deficiencia,
             "placeholder": "Não constam informações nas bases de dados do Mapa.",
             "type": "p"
@@ -1363,6 +1363,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     {
     "items": [
       {
+        "id": "ano",
+        "label": "Ano",
+        "content": "2016",
+        "fonte": null,
+        "placeholder":"",
+        "type": "select",
+        "options": [
+          "2016",
+          "2015",
+          "2014"
+        ]
+      },
+      {
         "id": "publico",
         "label": "Recursos públicos",
         "content": null,
@@ -1555,7 +1568,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var headerProjeto = {
               "id": "lista_projetos",
               "priority": "2",
-              "text": "Projetos, atividade e/ou programas"
+              "text": "Projetos, atividade e programas"
             };
 
             Section = React.createFactory(Section);
@@ -1592,7 +1605,30 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   "searchable": false
                 },
               ],
-              autoWidth: true
+              autoWidth: true,
+              "oLanguage": {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+              }
              });
 
              $('#table_lista_projetos').append('<span class="input-group-btn">'+
@@ -1625,7 +1661,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
-        "text": "Projetos, atividade e/ou programas"
+        "text": "Projetos, atividade e programas"
       };
 
       Section = React.createFactory(Section);
@@ -1663,7 +1699,30 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "searchable": false
           },
         ],
-        autoWidth: true
+        autoWidth: true,
+        "oLanguage": {
+          "sEmptyTable": "Nenhum registro encontrado",
+          "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+          "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+          "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+          "sInfoPostFix": "",
+          "sInfoThousands": ".",
+          "sLengthMenu": "_MENU_ resultados por página",
+          "sLoadingRecords": "Carregando...",
+          "sProcessing": "Processando...",
+          "sZeroRecords": "Nenhum registro encontrado",
+          "sSearch": "Pesquisar",
+          "oPaginate": {
+              "sNext": "Próximo",
+              "sPrevious": "Anterior",
+              "sFirst": "Primeiro",
+              "sLast": "Último"
+          },
+          "oAria": {
+              "sSortAscending": ": Ordenar colunas de forma ascendente",
+              "sSortDescending": ": Ordenar colunas de forma descendente"
+          }
+        }
        });
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
@@ -1701,11 +1760,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "options": null
         },
         "tx_nome_status_projeto": {
-          "header": "Status",
+          "header": "Situação do projeto",
           "containerClass": "col-md-3",
           "removable": false,
           "type": "select",
-          "options": ["ABC", "BCA"]
+          "options": ["Em execução", "Finalizado", "Outros"]
         },
         "dt_data_inicio_projeto": {
           "header": "Data de Início",
@@ -1798,7 +1857,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ]
         },
         "localizacao_projeto": {
-          "header": "Local de execução do projeto, atividade ou programa",
+          "header": "Local de execução",
           "containerClass": "col-md-3",
           "removable": true,
           "type": "text",
@@ -2143,8 +2202,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });
        newJson["headers"] = authHeader;
        newJson["id_osc"] = idOsc;
-       console.log(idOsc);
-       console.log(authHeader);
        console.log(newJson);
 
        $.ajax({
@@ -2178,34 +2235,35 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var key = "tx_nome_subarea_atuacao";
       newJson[index][key] = subareas;
      });
+     newJson["headers"] = authHeader;
+     newJson["id_osc"] = idOsc;
      console.log(newJson);
-     /*
-      $.ajax({
-       url: rotas.AreaAtuacao(idOsc),
-       type: 'put',
-       headers: authHeader,
-       dataType: 'json',
-       data: newJson,
+    $.ajax({
+     url: rotas.AreaAtuacao(idOsc),
+     type: 'POST',
+     dataType: 'json',
+     data: newJson,
 
-        success: function(data) {
-          console.log(data);
-        },
-        error: function(e) {
-          console.log(e);
-        }
-      });*/
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    });
 
      //Descricao
       var newJson = {};
       $("#descricao .form-control").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
-      console.log(idOsc);
-      /*
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
+      console.log(newJson);
+
       $.ajax({
        url: rotas.Descricao(idOsc),
-       type: 'put',
-       headers: authHeader,
+       type: 'POST',
        dataType: 'json',
        data: newJson,
 
@@ -2215,8 +2273,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         error: function(e) {
           console.log(e);
         }
-      });*/
-      console.log(newJson);
+      });
 
       //Certificacoes
       var newJson = [];
@@ -2226,12 +2283,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         item[$(this).attr("id")].dt_fim_certificado = $(this).val();
         newJson.push(item);
       });
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
       console.log(newJson);
-      /*
+
       $.ajax({
        url: rotas.Titulos(idOsc),
-       type: 'put',
-       headers: authHeader,
+       type: 'POST',
        dataType: 'json',
        data: newJson,
 
@@ -2241,7 +2299,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         error: function(e) {
           console.log(e);
         }
-      });*/
+      });
 
       // Projetos
       var newJson = [];
@@ -2267,22 +2325,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
         newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
-        // $.ajax({
-        //  url: rotas.ProjectByID(idProjeto),
-        //  type: 'put',
-        //  headers: authHeader,
-        //  dataType: 'json',
-        //  data: newJson,
-        //
-        //   success: function(data) {
-        //     console.log(data);
-        //   },
-        //   error: function(e) {
-        //     console.log(e);
-        //   }
-        // });
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        console.log(newJson);
+        $.ajax({
+         url: rotas.ProjectByID(idProjeto),
+         type: 'POST',
+         dataType: 'json',
+         data: newJson,
+
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });
       });
-      console.log(newJson);
     });
   });
 });
