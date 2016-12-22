@@ -607,7 +607,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Visão",
             "content": descricao.tx_visao_osc,
             "fonte": descricao.ft_visao_osc,
-            "placeholder": "se houver, apresente a visão da OSC",
+            "placeholder": "Se houver, apresente a visão da OSC",
             "type": "textarea"
           },
           {
@@ -615,7 +615,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Finalidades Estatutárias da OSC",
             "content": descricao.tx_finalidades_estatutarias,
             "fonte": descricao.ft_finalidades_estatutarias,
-            "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
+            "placeholder": "Apresente as finalidades estatutárias da OSC. Se preferir, copie do estatuto da OSC",
             "type": "textarea"
           },
           {
@@ -667,7 +667,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Visão",
             "content": null,
             "fonte": null,
-            "placeholder": "se houver, apresente a visão da OSC",
+            "placeholder": "Se houver, apresente a visão da OSC",
             "type": "textarea"
           },
           {
@@ -675,7 +675,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "label": "Finalidades Estatutárias da OSC",
             "content": null,
             "fonte": null,
-            "placeholder": "Apresente aqui quais são as finalidades estatutárias da OSCs. Você poderá copiar do estatuto, se preferir.",
+            "placeholder": "Apresente as finalidades estatutárias da OSC. Se preferir, copie do estatuto da OSC",
             "type": "textarea"
           },
           {
