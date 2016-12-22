@@ -349,6 +349,8 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         } else if(item.type == "checkbox"){
           ContentElement = <Checkbox dados={item.options}></Checkbox>
         } else if(item.areas){
+          console.log(item.areas);
+          console.log(item.subareas);
           var areas = item.areas;
           var subareas = item.subareas;
           var className = "form-control"+custom_class;
@@ -370,7 +372,12 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             {SpanFonte}
             <div className="checkboxList">{itensCheckBox}</div>
           </div>
-        } else {
+        } else if (item.type == 'tel'){
+         ContentElement =
+         <div id={item.id}>
+           <input id={item.id} type="tel" className="form-control" defaultValue={content}></input>
+         </div>
+       } else {
           if(item.id.toString().substring(0,2) === "dt"){
             //console.log(item.id);
             custom_class += " date";
