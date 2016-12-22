@@ -94,7 +94,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarRelacoesGovernanca(data);
         montarEspacosParticipacaoSocial(data);
         montarProjetos(data);
-        $(".date").datepicker();
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
         montarFontedeRecursos(data);
       }
     });
@@ -147,7 +147,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "fonte": dadosGerais.ft_sigla_osc,
             "placeholder": "Insira aqui a sigla da OSC, se houver",
             "type": "text"
-          },
+          },/*
           {
             "id": "tx_endereco_eletronico_sugerido",
             "label": "Endereço eletrônico sugerido para esta página",
@@ -156,7 +156,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "placeholder": "Insira um nome que deve constar após o endereço mapaosc.ipea.gov.br/[nome da OSC]",
             "pretext": "mapaosc.ipea.gov.br/",
             "type": "text"
-          },
+          },*/
           {
             "id": "tx_endereco",
             "label": "Endereço da OSC",
@@ -202,7 +202,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           },
           {
             "id": "tx_email",
-            "label": "E-mail",
+            "label": "E-mail oficial da OSC",
             "content": dadosGerais.tx_email,
             "fonte": dadosGerais.ft_email,
             "placeholder": "Insira o endereço de e-mail da OSC",
@@ -234,6 +234,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         ]
       };
+      var substr = dadosGerais.tx_telefone.slice(2);
+      console.log(substr);
+      console.log(dadosGerais.tx_telefone);
       var items = dados_form.form_items;
       var headerPriority = '2';
       var headerText = 'Dados Gerais';
@@ -268,7 +271,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "fonte": null,
             "placeholder": "Insira aqui a sigla da OSC, se houver",
             "type": "text"
-          },
+          },/*
           {
             "id": "tx_endereco_eletronico_sugerido",
             "label": "Endereço eletrônico sugerido para esta página",
@@ -277,7 +280,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "placeholder": "Insira um nome que deve constar após o endereço mapaosc.ipea.gov.br/[nome da OSC]",
             "pretext": "mapaosc.ipea.gov.br/",
             "type": "text"
-          },
+          },*/
           {
             "id": "tx_endereco",
             "label": "Endereço da OSC",
@@ -323,7 +326,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           },
           {
             "id": "tx_email",
-            "label": "E-mail",
+            "label": "E-mail oficial da OSC",
             "content": null,
             "fonte": null,
             "placeholder": "Insira o endereço de e-mail da OSC",
@@ -2048,7 +2051,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("projeto-"+id)
         );
 
-        $(".date").datepicker();
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
 
         // interacoes
 
@@ -2184,21 +2187,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
 
       //Dados Gerais
-      // $("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = [];
+      //$("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = {};
        $("#dados_gerais :input").each(function(){
          var key = $(this).attr("id");
          var value = $(this).val();
          newJson[key] = value;
        });
+       newJson["headers"] = authHeader;
+       newJson["id_osc"] = idOsc;
        console.log(idOsc);
        console.log(authHeader);
        console.log(newJson);
 
        $.ajax({
         url: rotas.DadosGerais(idOsc),
-        type: 'PUT',
-        headers: authHeader,
+        type: 'POST',
         dataType: 'json',
         data: newJson,
 
@@ -2491,7 +2495,7 @@ function addItem(idDiv){
         $cloneDiv.clone().appendTo($cloneChildren);
         $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
         $cloneDiv.parent().children().last().find('input[type=text]').val('');
-        $(".date").datepicker();
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
       }
     }
     else {
@@ -2544,7 +2548,7 @@ function montarEnderecoImovel(dadosGerais){
   var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
     dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
     dadosGerais.tx_nome_municipio, dadosGerais.tx_nome_uf, dadosGerais.tx_sigla_uf,
-    dadosGerais.nr_cep];
+    "CEP: "+dadosGerais.nr_cep];
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
     if (endereco[i] !== null){
