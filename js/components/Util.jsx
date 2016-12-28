@@ -391,7 +391,11 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         }
         var labelElement;
         if(item.label){
-          labelElement = <label className="control-label" for={item.id}>{item.label}:</label>
+          var obrigatorio;
+          if(item.obrigatorio){
+            obrigatorio = <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span>;
+          }
+          labelElement = <label className="control-label" for={item.id}>{item.label}: {obrigatorio}</label>
           if(item.id=="tx_endereco_eletronico_sugerido"){
             labelElement = <label className="control-label" for={item.id} title="Defina um nome que vai constar como link para esta página da OSC , que poderá divulgá-lo como endereço oficial do Mapa">{item.label}:</label>
           }

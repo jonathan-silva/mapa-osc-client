@@ -861,3 +861,8 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
   bottom: 65%;
   right: 10%;
 }
+
+.obrigatorio{
+  font-size: 10px;
+  color: #e1474b;
+}

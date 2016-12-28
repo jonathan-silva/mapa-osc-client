@@ -20,20 +20,23 @@ require(['react', 'jsx!components/Util'], function(React) {
 
 
     require(['componenteFormItem'], function(FormItem) {
-        function FormItens(id, label, type) {
+        function FormItens(id, label, type, obrigatorio) {
             this.id = id;
             this.label = label;
             this.type = type;
+            this.obrigatorio = obrigatorio;
         }
         //formulario 1
         var hd = 'Verifique se a organização já está cadastrada no Mapa, informando o nome ou CNPJ.';
         var id = ['nomeEntidade'];
         var label = ['Nome ou CNPJ da Entidade'];
         var type = ['text'];
+        var obrigatorio = [true];
+
         var formItens = [];
 
         for (var i = 0; i < id.length; i++) {
-            formItens.push(new FormItens(id[i], label[i], type[i]));
+            formItens.push(new FormItens(id[i], label[i], type[i], obrigatorio[i]));
         }
 
         //formulario 2
@@ -41,10 +44,11 @@ require(['react', 'jsx!components/Util'], function(React) {
         var id2 = ['nome', 'email', 'cpf', 'senha', 'confirmarSenha'];
         var label2 = ['Nome', 'Email', 'CPF', 'Senha', 'Confirmar Senha'];
         var type2 = ['text', 'email', 'text', 'password', 'password'];
+        var obrigatorio2 = [true, true, true, true, true];
         var formItens2 = [];
 
         for (var j = 0; j < id2.length; j++) {
-            formItens2.push(new FormItens(id2[j], label2[j], type2[j]));
+            formItens2.push(new FormItens(id2[j], label2[j], type2[j], obrigatorio2[j]));
         }
 
         FormItem = React.createFactory(FormItem);
