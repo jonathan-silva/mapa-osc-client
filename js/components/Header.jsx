@@ -225,11 +225,11 @@ define(['react'], function(React) {
               <div className="modal-body">
                 <form className="form-login">
                   <div className="form-group">
-                    <label className="control-label">Email:</label>
+                    <label className="control-label">Email: <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
                     <input className="form-control" id="emailLogin" placeholder="Email" type="text"></input>
                   </div>
                   <div className="form-group">
-                    <label className="control-label">Senha:</label>
+                    <label className="control-label">Senha: <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
                     <input className="form-control" id="senhaLogin" placeholder="Senha" type="password"></input>
                   </div>
                   <div className="form-group">
