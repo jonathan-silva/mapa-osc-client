@@ -16,13 +16,16 @@ require(["jquery-ui"], function (React) {
   });
 });
 
-require(['jquery-ui','datatables-responsive'], function (React) {
+require(['rotas','jquery-ui','datatables-responsive'], function (React) {
+
+
 
   function popularDadosEdital(data){
     var sizeOfData = data.length;
     var columns = 6;
     var newData = new Array(sizeOfData);
     var txtVazioNulo = 'Dado não informado.';
+
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
@@ -58,21 +61,36 @@ require(['jquery-ui','datatables-responsive'], function (React) {
      });
    }
 
-   var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/edital";
-
+//  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/edital";
+    var rotas = new Rotas();
+    
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: urlRota},
+    data: {flag: 'consulta', rota: rotas.Edital()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
+      var txtVazioNulo = 'Dado não informado.';
       if(data!==undefined){
+        if (data.ativos){
         tabela('#editais_formato_dados', popularDadosEdital(data.ativos));
+        }
+        else {
+          console.log(txtVazioNulo);
+          tabela('#editais_formato_dados','','','','','','')
+        }
+        if (data.encerrados){
         tabela('#encerrados_formato_dados', popularDadosEdital(data.encerrados));
+        }
+        else {
+          console.log(txtVazioNulo);
+          tabela('#encerrados_formato_dados','','','','','','')
+        }
       }
+
       $('.loading').addClass('hide');
     }
   });

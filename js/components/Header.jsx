@@ -1,5 +1,5 @@
 /*** Componente responsável pela parte superior da página ***/
-define(['react'], function(React) {
+define(['react','rotas'], function(React) {
 
 
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
@@ -151,9 +151,10 @@ define(['react'], function(React) {
               "tx_senha_usuario": senha
           };
 
+          var rotas = new Rotas();
 
           $.ajax({
-          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: $json,

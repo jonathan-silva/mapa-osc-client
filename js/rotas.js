@@ -105,4 +105,15 @@ class Rotas{
   MetaProjeto(id){
     return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
   }
+
+  // editais.js
+  Edital(){
+  return this.getBaseUrl()+":8383/api/edital";
+  }
+
+  // Header.jsx
+  Login(){
+  return this.getBaseUrl()+":8383/api/user/login/";
+  }
+  
 }
