@@ -130,10 +130,12 @@ define(['react','rotas'], function(React) {
 
           var email =  $('#emailLogin').val();
           var senha =  $('#senhaLogin').val();
+          jQuery("#labelError").text("");
 
 
           if (!validaEmail(email)){
             $("#emailLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            jQuery("#labelError").text("Endereço de e-mail inválido.");
             return false;
           }else{
             $("#emailLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -141,6 +143,7 @@ define(['react','rotas'], function(React) {
 
           if (senha.length < 5){
             $("#senhaLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            jQuery("#labelError").text("Senha inválida.");
             return false;
           }else{
             $("#senhaLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -154,32 +157,23 @@ define(['react','rotas'], function(React) {
           var rotas = new Rotas();
 
           $.ajax({
-          url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          //url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          url: "http://localhost:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: $json,
           error: function (e) {
-              console.log("Error chamada Json");
+              jQuery("#labelError").text("Senha incorreta. Tente novamente.");
               console.log(e.responseText);
           },
            success: function (data) {
+            jQuery("#labelError").text("");
             window.localStorage.setItem('User', data.id_usuario);
             window.localStorage.setItem('Authorization', data.access_token);
             window.localStorage.setItem('Nome', data.tx_nome_usuario);
             $('#modalLogin').modal('hide');
             verificarLogado();
-
-            /*
-            window.localStorage.removeItem('User');
-            window.localStorage.removeItem('Authorization');
-            window.localStorage.removeItem('Nome');
-            */
-
-
-
-
-
-         }
+          }
 
       });
 
@@ -226,17 +220,15 @@ define(['react','rotas'], function(React) {
               <div className="modal-body">
                 <form className="form-login">
                   <div className="form-group">
-                    <label className="control-label">Email: <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+                    <label className="control-label">E-mail: <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
                     <input className="form-control" id="emailLogin" placeholder="Email" type="text"></input>
                   </div>
                   <div className="form-group">
                     <label className="control-label">Senha: <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
                     <input className="form-control" id="senhaLogin" placeholder="Senha" type="password"></input>
                   </div>
-                  <div className="form-group">
-                    <div className="checkbox">
-                      <input id="lembrarLogin" type="checkbox"></input><label>Lembrar de mim</label>
-                    </div>
+                  <div className="form-group row-centered">
+                       <span id="labelError" className="label label-danger centered"></span>
                   </div>
                 </form>
               </div>
