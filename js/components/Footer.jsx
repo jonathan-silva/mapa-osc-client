@@ -63,7 +63,7 @@ define(['react'], function(React) {
       var arr = [];
       for(var i=0; i< block.urls.length; i++){
         if(block.target == "_blank"){
-          arr.push(<dd><a href={block.urls[i]} target={block.target}>{block.texts[i]}</a><img src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></dd>);
+          arr.push(<dd><a href={block.urls[i]} target={block.target}>{block.texts[i]}</a><img className="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></dd>);
         }else{
           arr.push(<dd><a href={block.urls[i]} target={block.target}>{block.texts[i]}</a></dd>);
         }

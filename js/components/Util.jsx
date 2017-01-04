@@ -106,7 +106,7 @@ define('componenteLinksUteis', ['react'], function (React) {
                   <h4 className="media-heading">
                    <a className="btn-link" href={this.props.dados[i].elo} target="_blank">
                     {this.props.dados[i].titulo}</a>
-                    <img src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></img>
+                    <img className="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></img>
                     </h4>
                   <p>{this.props.dados[i].desc}</p>
               </div>
@@ -310,10 +310,10 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           item.id = "";
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
-        var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}></span>
+        var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
         if((item.fonte) && (item.type== 'p')){
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
-          SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}></span>
+          SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
         else if (item.fonte == false) {
             SpanFonte = "";

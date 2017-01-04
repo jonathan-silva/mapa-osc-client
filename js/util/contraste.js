@@ -39,7 +39,9 @@ function ativarCSSContraste() {
   $(".nav-tabs .active a").css("background-color", "#337cbb");
   $(".colabore a" ).css( "color", "#ffffff" );
   $(".newsletter a" ).css( "color", "#ffffff" );
-
+  $(".imgLinkExterno").attr("src","img/site-ext_inv.gif");
+  $(".imgDadoOficial").attr("src","img/base_dados_inv.png");
+  $(".imgDadoEditavel").attr("src","img/dado_representante_inv.png");
 
   $("#buscarPerfil li a").on({
     click:function (){

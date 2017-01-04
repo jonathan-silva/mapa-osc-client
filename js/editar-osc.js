@@ -97,6 +97,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarProjetos(data);
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
         montarFontedeRecursos(data);
+        verificarContraste();
       }
     });
 
