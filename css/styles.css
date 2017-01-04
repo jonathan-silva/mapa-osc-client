@@ -566,12 +566,6 @@ body.indisponivel {
   background-position: top;
   font-size: 0;
 }
-.dado-organizacao {
-  background-image: url('../img/dado_representante.png');
-}
-.dado-oficial {
-  background-image: url('../img/base_dados.png');
-}
 
 .export{
   font-size: 11px;
