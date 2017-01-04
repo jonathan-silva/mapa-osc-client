@@ -157,15 +157,11 @@ define(['react','rotas'], function(React) {
           var rotas = new Rotas();
 
           $.ajax({
-          url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
-          //url: "http://localhost:8383/api/user/login/",
+          // CORRETO url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: $json,
-          error: function (e) {
-              jQuery("#labelError").text("Senha incorreta. Tente novamente.");
-              console.log(e.responseText);
-          },
            success: function (data) {
             jQuery("#labelError").text("");
             window.localStorage.setItem('User', data.id_usuario);
@@ -173,8 +169,22 @@ define(['react','rotas'], function(React) {
             window.localStorage.setItem('Nome', data.tx_nome_usuario);
             $('#modalLogin').modal('hide');
             verificarLogado();
+          },
+          error: function (data) {
+              console.log(data);
+              if (data.status == 200){
+                console.log(data.responseText.tx_nome_usuario);   
+                jQuery("#labelError").text("");
+                window.localStorage.setItem('User', data.responseText.id_usuario);
+                window.localStorage.setItem('Authorization', data.responseText.access_token);
+                window.localStorage.setItem('Nome', data.responseText.tx_nome_usuario);
+                $('#modalLogin').modal('hide');
+                verificarLogado();
+              }else {
+                jQuery("#labelError").text("Senha incorreta. Tente novamente.");
+                console.log(data.responseText);
+              }
           }
-
       });
 
       }
