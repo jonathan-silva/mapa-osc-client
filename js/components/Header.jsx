@@ -157,8 +157,8 @@ define(['react','rotas'], function(React) {
           var rotas = new Rotas();
 
           $.ajax({
-          //url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
-          url: "http://localhost:8383/api/user/login/",
+          url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+          //url: "http://localhost:8383/api/user/login/",
           type: 'POST',
           dataType: 'json',
           data: $json,
