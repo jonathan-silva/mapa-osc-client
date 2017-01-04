@@ -43,7 +43,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         //formulario 2
         var hd2 = 'Informe seus dados de identificação.';
         var id2 = ['nome', 'email', 'cpf', 'senha', 'confirmarSenha'];
-        var label2 = ['Nome', 'Email', 'CPF', 'Senha', 'Confirmar Senha'];
+        var label2 = ['Nome', 'E-mail', 'CPF', 'Senha', 'Confirmar Senha'];
         var type2 = ['text', 'email', 'text', 'password', 'password'];
         var obrigatorio2 = [true, true, true, true, true];
         var formItens2 = [];
