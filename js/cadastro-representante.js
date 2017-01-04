@@ -25,6 +25,7 @@ require(['react', 'jsx!components/Util'], function(React) {
             this.label = label;
             this.type = type;
             this.obrigatorio = obrigatorio;
+            this.fonte = false;
         }
         //formulario 1
         var hd = 'Verifique se a organização já está cadastrada no Mapa, informando o nome ou CNPJ.';

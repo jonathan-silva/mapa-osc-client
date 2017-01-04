@@ -310,12 +310,15 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           item.id = "";
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
-        var SpanFonte =
-          <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}></span>
+        var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}></span>
         if((item.fonte) && (item.type== 'p')){
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}></span>
         }
+        else if (item.fonte == false) {
+            SpanFonte = "";
+        }
+
         var custom_class = "";
         if(item.custom_class){
           custom_class = " "+item.custom_class;
