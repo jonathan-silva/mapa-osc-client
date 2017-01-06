@@ -44,6 +44,9 @@ function ativarCSSContraste() {
   $(".imgDadoEditavel").attr("src","img/dado_representante_inv.png");
   $(".projeto .header").css("background-color", "#4682b4");
   $("#table_lista_projetos tr").css("background-color", "#333333");
+  $(".form-control").css("background-color", "#02174a");
+  $(".form-control").css("color", "#ffffff");
+  $(".ui-autocomplete-input").css("background-image", "url(../img/lupa_inv.png)");
 
 
   $("#buscarPerfil li a").on({
@@ -71,6 +74,16 @@ function ativarCSSContraste() {
       $(this).css("color", "#337cbb");
     }, mouseout: function(){
       $(this).css("color", "#fff331");
+    }
+  });
+
+  $(".panel-heading ").on({
+    mouseover: function(){
+      $(this).css("color", "#337cbb");
+      $(this).css("background-color", "#d7eefb");
+    }, mouseout: function(){
+      $(this).css("color", "#fff331");
+      $(this).css("background-color", "#333333");
     }
   });
 
