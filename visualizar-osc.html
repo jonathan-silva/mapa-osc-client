@@ -478,50 +478,54 @@
                     <div class="col-md-3 ">
                       <div class="header">Descrição do Projeto, atividade e/ou programa</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.objetivo_meta.tx_nome_meta_projeto}}</span>
+                          <span class="form-control-static">{{(proj.objetivo_meta.tx_nome_meta_projeto)?proj.objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
                       </div>
                       </div>
 
                       <div class="col-md-3 ">
                       <div class="header ">Ano de início</div>
                       <div class="form-group">
-                          <span class="form-control-static">{{proj.dt_data_inicio_projeto}}</span>
+                          <span class="form-control-static">{{(proj.dt_data_inicio_projeto)?proj.dt_data_inicio_projeto:"Não informado"}}</span>
                       </div>
                       </div>
 
                       <div class="col-md-3 ">
                       <div class="header ">Ano de conclusão</div>
                       <div class="form-group">
-                          <span class="form-control-static">{{proj.dt_data_fim_projeto}}</span>
+                          <span class="form-control-static">{{(proj.dt_data_fim_projeto)?proj.dt_data_fim_projeto:"Não informado"}}</span>
                       </div>
                       </div>
 
                       <div class="col-md-3 ">
                       <div class="header ">Total de Beneficiários</div>
                       <div class="form-group">
-                          <span class="form-control-static">{{proj.nr_total_beneficiarios}}</span>
+                          <span class="form-control-static">{{(proj.nr_total_beneficiarios)?proj.nr_total_beneficiarios:"Não informado"}}</span>
                       </div>
                       </div>
 
                       <div class="col-md-3 ">
                         <div class="header ">Público Beneficiado</div>
                         <div class="form-group"  ng-repeat="pubben in proj.publico_beneficiado">
-                          <span class="form-control-static">{{pubben.tx_nome_publico_beneficiado}}:</span>
-                          <span class="form-control-static">{{pubben.nr_estimativa_pessoas_atendidas}} pessoas</span>
+                          <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}:</span>
+                          <span class="form-control-static">{{(pubben.nr_estimativa_pessoas_atendidas)?pubben.nr_estimativa_pessoas_atendidas:"Não informado"}} pessoas</span>
                         </div>
+                        <div class="form-group"  ng-ifrepeat="pubben == null">
+                          <span class="form-control-static">Não informado</span>
+                        </div>
+
                     </div>
 
                     <div class="col-md-3 ">
                       <div>
                         <div class="header ">Valor Total</div>
                         <div class="form-group">
-                          <span class="form-control-static">R${{proj.nr_valor_total_projeto}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"R$"+proj.nr_valor_total_projeto:"Não informado"}}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Valor Captado</div>
                         <div class="form-group">
-                          <span class="form-control-static">R${{proj.nr_valor_captado_projeto}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"R$"+proj.nr_valor_captado_projeto:"Não informado"}}</span>
                         </div>
                       </div>
                     </div>
@@ -529,12 +533,12 @@
                     <div class="col-md-3 ">
                         <div class="header ">Tipo da Fonte de Recursos</div>
                         <div class="form-group"  ng-repeat="fonte in proj.fonte_recursos">
-                          <span class="form-control-static">{{fonte.tx_nome_fonte_recursos_projeto}}</span>
+                          <span class="form-control-static">{{(fonte.tx_nome_fonte_recursos_projeto)?fonte.tx_nome_fonte_recursos_projeto:"Não informado"}}</span>
                         </div>
                         <div>
                           <div class="header ">Financiadores do Projeto</div>
                           <div class="form-group">
-                            <span class="form-control-static">{{proj.nr_valor_captado_projeto}}</span>
+                            <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?proj.nr_valor_captado_projeto:"Não informado"}}</span>
                           </div>
                         </div>
                     </div>
@@ -542,22 +546,26 @@
                     <div class="col-md-3 ">
                         <div class="header ">Área Auto-declarada do projeto</div>
                         <div class="form-group"  ng-repeat="area_atuacao in proj.area_atuacao">
-                            <span class="form-control-static">{{area_atuacao.tx_nome_area_atuacao_projeto}}</span>
+                            <span class="form-control-static">{{(area_atuacao.tx_nome_area_atuacao_projeto)?area_atuacao.tx_nome_area_atuacao_projeto:"Não informado"}}</span>
                         </div>
                         <div class="form-group"  ng-repeat="area_atuacao_outra in proj.area_atuacao_outra">
-                            <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra_projeto}}</span>
+                            <span class="form-control-static">{{(area_atuacao_outra.tx_nome_area_atuacao_outra_projeto)?area_atuacao_outra.tx_nome_area_atuacao_outra_projeto:"Não informado"}}</span>
                         </div>
+                        <div class="form-group"  ng-if="area_atuacao == null">
+                            <span class="form-control-static">Não informado</span>
+                        </div>
+
                     </div>
 
                     <div class="col-md-3 ">
                         <div class="header ">Abrangência de atuação</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_abrangencia_projeto}}</span>
+                          <span class="form-control-static">{{(proj.tx_nome_abrangencia_projeto)?proj.tx_nome_abrangencia_projeto:"Não informado"}}</span>
                         </div>
                       <div>
                         <div class="header ">Zona de Atuação</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{proj.tx_nome_zona_atuacao}}</span>
+                          <span class="form-control-static">{{(proj.tx_nome_zona_atuacao)?proj.tx_nome_zona_atuacao:"Não informado"}}</span>
                         </div>
                       </div>
                     </div>
@@ -565,21 +573,24 @@
                     <div class="col-md-3 ">
                       <div class="header ">Localização do Projeto</div>
                       <div class="form-group"  ng-repeat="localizacao in proj.localizacao">
-                        <span class="form-control-static">{{localizacao.tx_nome_regiao_localizacao_projeto}}</span>
+                        <span class="form-control-static">{{(localizacao.tx_nome_regiao_localizacao_projeto)?localizacao.tx_nome_regiao_localizacao_projeto:"Não informado"}}</span>
                       </div>
                     </div>
 
                     <div class="col-md-6 ">
                       <div class="header ">OSCs Parceiras</div>
                       <div class="form-group"  ng-repeat="osc_parceira in proj.osc_parceira">
-                        <span class="form-control-static">{{osc_parceira.tx_nome_osc_parceira_projeto}}</span>
+                        <span class="form-control-static">{{(osc_parceira.tx_nome_osc_parceira_projeto)?osc_parceira.tx_nome_osc_parceira_projeto:"Não informado"}}</span>
+                      </div>
+                      <div class="form-group"  ng-if="osc_parceira == null">
+                        <span class="form-control-static">Não informado</span>
                       </div>
                     </div>
 
                     <div class="col-md-12 ">
                       <div class="header">Objetivos de desenvolvimento do milênio</div>
                       <div class="form-group">
-                        <span class="form-control-static" >{{proj.objetivo_meta.tx_nome_objetivo_projeto}}</span>
+                        <span class="form-control-static" >{{(proj.objetivo_meta.tx_nome_objetivo_projeto)?proj.objetivo_meta.tx_nome_objetivo_projeto:"Não informado"}}</span>
                       </div>
                     </div>
 

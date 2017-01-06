@@ -2289,7 +2289,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       console.log(newJson);
 
       $.ajax({
-       url: rotas.Titulos(idOsc),
+       url: rotas.Certificado(idOsc),
        type: 'POST',
        dataType: 'json',
        data: newJson,

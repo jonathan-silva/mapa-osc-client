@@ -106,6 +106,12 @@ class Rotas{
   MetaProjeto(id){
     return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
   }
+  Descricao(id){
+    return this.getBaseUrl()+":8383/api/osc/descricao/"+id;
+  }
+  Certificado(id){
+    return this.getBaseUrl()+":8383/api/osc/certificado/"+id;
+  }
 
   // editais.js
   Edital(){
