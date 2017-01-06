@@ -519,13 +519,15 @@
                       <div>
                         <div class="header ">Valor Total</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"R$"+proj.nr_valor_total_projeto:"Não informado"}}</span>
+                          <span class="form-control-static">{{proj.nr_valor_total_projeto | currency:"R$ "}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"":"Não informado" }}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Valor Captado</div>
-                        <div class="form-group">
-                          <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"R$"+proj.nr_valor_captado_projeto:"Não informado"}}</span>
+                        <div class="form-group">                          
+                          <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
                         </div>
                       </div>
                     </div>
@@ -630,7 +632,8 @@
 
               <div class="form-group">
                 <label>Recursos públicos:</label>
-                  <span class="form-control-static">{{(ctrl.osc.recursos.recursos.nr_valor_recursos_osc)?"R$ "+ctrl.osc.recursos.recursos.nr_valor_recursos_osc:"Não informado"}}</span>
+                  <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_recursos_osc | currency:"R$ "}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                   <span title="Informação oficial. {{ctrl.osc.recursos.recursos.tx_nome_fonte_recursos_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 </div>
 
@@ -649,7 +652,7 @@
             <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc != null">
               <label>Recursos próprios:</label>
               <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>-&gt;
-              <span class="form-control-static">R$ {{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc}}</span>
+              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc | currency "R$ "}}</span>
               <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </div>
             <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc == null">
