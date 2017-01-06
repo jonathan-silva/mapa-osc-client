@@ -811,6 +811,10 @@ body.indisponivel {
   padding-right: 10px;
 }
 
+.editar h2, .editar h3, .visualizar h2, .visualizar h3{
+  color: #337cbb;
+}
+
 /*projetos selectable*/
 .selectable .ui-selecting { background: #efefef; }
 .selectable .ui-selected { background: #dddddd; color: black; }
@@ -844,18 +848,30 @@ table.dataTable.dtr-inline.collapsed.compact>tbody>tr>th:first-child:before{
 .panel-heading{
     background-color: #f5f5f5;
 }
+.panel-heading h3{
+  color: #333333;
+}
 .ajuda{
   font-size: 18px;
   padding-left: 5px;
   }
 
+select{
+  background-image: url(../img/seta.png) !important;
+  background-position: 100% center !important;
+  background-repeat: repeat-y !important;
+}
+.ui-autocomplete-input{
+  background-image: url(../img/lupa.png);
+  background-position: 100% center;
+  background-repeat: no-repeat;
+}
 #salvar{
   z-index: 1000;
   position: fixed;
   bottom: 65%;
   right: 10%;
 }
-
 .obrigatorio{
   font-size: 10px;
   color: #e1474b;
