@@ -1268,8 +1268,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
           formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
           formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text", null, null, "date"));
-          formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text", null, null, "date"));
+          formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "date", null, null, "date"));
+          formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "date", null, null, "date"));
 
           Agrupador = React.createFactory(AgrupadorConselhos);
           ReactDOM.render(
@@ -1316,8 +1316,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
       formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
       formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "text", null, null, "date"));
-      formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "text", null, null, "date"));
+      formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "date", null, null, "date"));
+      formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "date", null, null, "date"));
       Agrupador = React.createFactory(AgrupadorConselhos);
       ReactDOM.render(
         Agrupador(
