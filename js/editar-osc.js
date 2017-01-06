@@ -1641,6 +1641,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 "-1",
                 "Novo Projeto"
               ]).draw();
+              verificarContraste();
              });
 
              $("#table_lista_projetos").on('click', 'tr', function(){
@@ -1650,6 +1651,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if(projetos.length < 1){
                $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
                carregaProjeto(id_projeto);
+               verificarContraste();
               } else {
                var $divDadosProjeto = $(projetos[0]);
                $divDadosProjeto.toggleClass("hidden");
@@ -1734,6 +1736,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          "-1",
          "Novo Projeto"
        ]).draw();
+       verificarContraste();
       });
 
       $("#table_lista_projetos").on('click', 'tr', function(){
@@ -1743,6 +1746,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        if(projetos.length < 1){
         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
         carregaProjeto(id_projeto);
+        verificarContraste();
        } else {
         var $divDadosProjeto = $(projetos[0]);
         $divDadosProjeto.toggleClass("hidden");

@@ -28,6 +28,7 @@ function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
 	$(e).find("span").toggleClass( "glyphicon-minus" );
+
 }
 
 
@@ -50,11 +51,14 @@ require(["jquery-ui"], function (React) {
   });
 
 	jQuery(document).ready(function($) {
-$("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
+			$("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
 	    $(".scroll").click(function(event){
 	        event.preventDefault();
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
+		 window.onload = function () {
+				 verificarContraste();
+		 };
 	});
 
 });

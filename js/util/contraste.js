@@ -42,6 +42,9 @@ function ativarCSSContraste() {
   $(".imgLinkExterno").attr("src","img/site-ext_inv.gif");
   $(".imgDadoOficial").attr("src","img/base_dados_inv.png");
   $(".imgDadoEditavel").attr("src","img/dado_representante_inv.png");
+  $(".projeto .header").css("background-color", "#4682b4");
+  $("#table_lista_projetos tr").css("background-color", "#333333");
+
 
   $("#buscarPerfil li a").on({
     click:function (){
@@ -79,6 +82,15 @@ function ativarCSSContraste() {
       $(this).css("color", "#337cbb");
     }, mouseout: function(){
       $(this).css("color", "#fff331");
+    }
+  });
+
+  $(".dropdown-menu li > a").on({
+    mouseover: function(){
+      $(this).css("color", "#ffffff");
+      $(this).css("background-color", "#63aceb");
+    }, mouseout: function(){
+      $(this).css("background-color", "#000000");
     }
   });
 

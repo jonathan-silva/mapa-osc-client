@@ -60,6 +60,8 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
 
   Header = React.createFactory(Header);
   ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
+
+  verificarContraste();
 });
 
 
