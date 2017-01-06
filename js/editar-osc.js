@@ -946,19 +946,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarRelacoesGovernanca(json){
       // Governança: Dirigentes
       var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-      //var dirigentes = json.relacoes_trabalho_governanca.governanca;
-      //var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
-	    var dirigentes = '0';
-      var conselheiros = 0;
-      if (validateObject(json.relacoes_trabalho_governanca)) {
-      // Governança: Dirigentes
-      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
-        dirigentes = json.relacoes_trabalho_governanca.governanca
-      }
-      // Governança: Conselheiros
-      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
-        conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
-      }
+
       var sections = {
         "items": [
           {
@@ -1010,6 +998,24 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       function DadosForm(label, content) {
         this.nome = label;
         this.cargo = content;
+      }
+
+      //var dirigentes = json.relacoes_trabalho_governanca.governanca;
+      //var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
+	    var dirigentes = '0';
+      var conselheiros = 0;
+
+      //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
+      var relacoes_trabalho =0;
+
+      if (validateObject(json.relacoes_trabalho_governanca)) {
+      // Governança: Dirigentes
+      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
+        dirigentes = json.relacoes_trabalho_governanca.governanca
+      }
+      // Governança: Conselheiros
+      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
+        conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
       }
 
       formItens = [];
@@ -1064,7 +1070,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //Trabalhadores
       //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
       //var relacoes_trabalho_outra = json.relacoes_trabalho_governanca.relacoes_trabalho_outra[0];
-	  var relacoes_trabalho =0;
+
       if (validateObject(json.relacoes_trabalho_governanca.relacoes_trabalho)) {
           relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
       }
@@ -1124,6 +1130,86 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("trabalhadores")
       );
+    }
+    else {
+      formItens = [];
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
+      Agrupador = React.createFactory(Agrupador);
+      ReactDOM.render(
+        Agrupador(
+          {dados:formItens}
+        ), document.getElementById("dirigentes")
+      );
+        addItem('dirigentes');
+
+      formItens = [];
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselho_fiscal")
+      );
+      addItem('conselho_fiscal');
+
+      formItens = [];
+      dados_form =
+      {
+        "form_items": [
+          {
+            "id": "trabalhadores",
+            "label": "Total de trabalhadores",
+            "content": "",
+            "fonte": null,
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "p"
+          },
+          {
+            "id": "empregados",
+            "label": "Empregados",
+            "content": "Não constam informações nas bases de dados do Mapa.",
+            "fonte": "",
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "p"
+          },
+          {
+            "id": "deficiencia",
+            "label": "Trabalhadores com deficiência",
+            "content": "Não constam informações nas bases de dados do Mapa.",
+            "fonte": "",
+            "placeholder": "Não constam informações nas bases de dados do Mapa.",
+            "type": "p"
+          },
+          {
+            "id": "voluntarios",
+            "label": "Trabalhadores voluntários",
+            "content": "",
+            "fonte": "",
+            "placeholder": "Insira o número de voluntários",
+            "type": "text"
+          },
+          /*{
+            "id": "outros",
+            "label": "Outros trabalhadores",
+            "content": relacoes_trabalho_outra.nr_trabalhadores,
+            "fonte": relacoes_trabalho_outra.ft_trabalhadores,
+            "placeholder": "Insira o total de trabalhadores com outros tipos de vínculo",
+            "type": "text"
+          }*/
+        ]
+      };
+      for (var i = 0; i < dados_form.form_items.length; i++) {
+        var campo = dados_form.form_items[i];
+        formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("trabalhadores")
+      );
+      addItem('trabalhadores');
     }
 }
 
@@ -1193,39 +1279,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          outras = json.participacao_social.outra;
        }
 
-      formItens = [];//
-        if (conferencias.length) {
-          //console.log(conferencias);
-          var conferencia = participacao_social_form.items;
-          for (j=0; j<conferencias.length; j++){
-            for (var property in conferencias[j]) {
-              //console.log(property);
-              if (conferencias[j].hasOwnProperty(property)) {
-
-                if(property == "dt_ano_realizacao"){
-                  formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
-                }
-                if(property == "tx_nome_conferencia"){
-                  formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
-                }
-                if(property == "tx_nome_forma_participacao_conferencia"){
-                  formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
-                }
-             }
-            }
-          }
-          formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
-          formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
-          formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
-
-          Agrupador = React.createFactory(AgrupadorConferencia);
-          ReactDOM.render(
-            Agrupador(
-              {header:null, dados:formItens}
-            ), document.getElementById("conferencias")
-          );
-        }
-
         formItens = [];
 
         if (conselhos) {
@@ -1264,12 +1317,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
             }
           }
-          formItens.push(new FormItens(null, "Nome do Conselho", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
-          formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "date", null, null, "date"));
-          formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "date", null, null, "date"));
+          formItens.push(new FormItens("tx_nome_conselho"+"-0", "Nome do Conselho", null,null, null, "text"));
+          formItens.push(new FormItens("tx_nome_tipo_participacao"+"-0", "Titularidade", null,null, null, "text"));
+          formItens.push(new FormItens("tx_nome_representante_conselho"+"-0", "Nome de representante", null,null, null, "text"));
+          formItens.push(new FormItens("tx_periodicidade_reuniao"+"-0", "Periodicidade da Reunião", null,null, null, "text"));
+          formItens.push(new FormItens("dt_data_inicio_conselho"+"-0", "Data de início de vigência", null,null, null, "text", null, null, "date"));
+          formItens.push(new FormItens("dt_data_fim_conselho"+"-0", "Data de fim de vigência", null,null, null, "text", null, null, "date"));
 
           Agrupador = React.createFactory(AgrupadorConselhos);
           ReactDOM.render(
@@ -1279,8 +1332,42 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           );
         };
 
-       addItem('conselhos');
-       addItem('conferencias');
+        addItem('conselhos');
+
+        formItens = [];//
+          if (conferencias.length) {
+            //console.log(conferencias);
+            var conferencia = participacao_social_form.items;
+            for (j=0; j<conferencias.length; j++){
+              for (var property in conferencias[j]) {
+                //console.log(property);
+                if (conferencias[j].hasOwnProperty(property)) {
+                  if(property == "tx_nome_conferencia"){
+                    formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+                  }
+                  if(property == "tx_nome_forma_participacao_conferencia"){
+                    formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+                  }
+                  if(property == "dt_ano_realizacao"){
+                    formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
+                  }
+               }
+              }
+            }
+            formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
+            formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
+            formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+
+            Agrupador = React.createFactory(AgrupadorConferencia);
+            ReactDOM.render(
+              Agrupador(
+                {header:null, dados:formItens}
+              ), document.getElementById("conferencias")
+            );
+          }
+
+
+          addItem('conferencias');
 
       formItens = [];//
       if (outras.length) {
