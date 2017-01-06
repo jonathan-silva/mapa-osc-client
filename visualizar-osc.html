@@ -56,7 +56,7 @@
             <a href="#projetos" name="projetos" class="scroll">Projetos</a>
           </li>
           <li>
-            <a href="#projetos" name="recursos" class="scroll">Fonte de recursos</a>
+            <a href="#recursos" name="recursos" class="scroll">Fonte de recursos</a>
           </li>
           <li>
             <a href="javascript:if(window.print)window.print()">Imprimir</a>
@@ -88,11 +88,11 @@
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
                   <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
-              <div class="form-group">
+              <!--div class="form-group">
                 <label>Endereço eletrônico sugerido para esta página:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_apelido_osc)?ctrl.osc.dados_gerais.tx_apelido_osc:"Não informado"}}
                     <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
-              </div>
+              </div-->
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
@@ -519,13 +519,15 @@
                       <div>
                         <div class="header ">Valor Total</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"R$"+proj.nr_valor_total_projeto:"Não informado"}}</span>
+                          <span class="form-control-static">{{proj.nr_valor_total_projeto | currency:"R$ "}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"":"Não informado" }}</span>
                         </div>
                       </div>
                       <div>
                         <div class="header ">Valor Captado</div>
-                        <div class="form-group">
-                          <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"R$"+proj.nr_valor_captado_projeto:"Não informado"}}</span>
+                        <div class="form-group">                          
+                          <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
+                          <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
                         </div>
                       </div>
                     </div>
@@ -609,7 +611,9 @@
               <div class="col-md-12">
                 <h3>Total de recursos com projetos, atividades e/ou programas</h3>
                 <div class="form-group">
-                <span class="form-control-static" >{{(ctrl.osc.projeto.recursos.nr_valor_total)?"R$ "+ctrl.osc.projeto.recursos.nr_valor_total:"Não informado"}}</span>
+                <!--span class="form-control-static" >{{(ctrl.osc.projeto.recursos.nr_valor_total)?"R$ "+ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$":"Não informado"}}</span-->
+                <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$ "}}</span>
+                <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_total)?"":"Não informado" }}</span>
                 <span title="Informação oficial."><img class="imgDadoOficial" src="img/base_dados.png"></span>
               </div>
               </div>
@@ -623,12 +627,13 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-md-12" id="recursos">
+          <div class="col-md-12" id="recursos" >
             <h2>Fonte de recursos anual da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fonte de recursos anual da OSC." onclick="abrirModalAjuda('Fonte de recursos anual da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
 
               <div class="form-group">
                 <label>Recursos públicos:</label>
-                  <span class="form-control-static">{{(ctrl.osc.recursos.recursos.nr_valor_recursos_osc)?"R$ "+ctrl.osc.recursos.recursos.nr_valor_recursos_osc:"Não informado"}}</span>
+                  <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_recursos_osc | currency:"R$ "}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                   <span title="Informação oficial. {{ctrl.osc.recursos.recursos.tx_nome_fonte_recursos_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 </div>
 
@@ -647,7 +652,7 @@
             <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc != null">
               <label>Recursos próprios:</label>
               <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc}}</span>-&gt;
-              <span class="form-control-static">R$ {{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc}}</span>
+              <span class="form-control-static">{{ctrl.osc.recursos.recursos_outro.nr_valor_recursos_outro_osc | currency "R$ "}}</span>
               <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </div>
             <div class="form-group" ng-if="ctrl.osc.recursos.recursos_outro.tx_nome_fonte_recursos_outro_osc == null">
@@ -700,6 +705,7 @@
   <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
   <script src="js/config.js"></script>
   <script type="text/javascript" src="js/libs/angular.min.js"></script>
+  <script type="text/javascript" src="js/libs/angular-locale_pt-br.js"></script>
   <script type="text/javascript" src="js/rotas.js"></script>
   <script type="text/javascript" src="js/visualizar-osc.js"></script>
   <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
