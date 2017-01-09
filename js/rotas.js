@@ -6,7 +6,7 @@ class Rotas{
   getBaseUrl(){
     return "http://mapaosc-desenv.ipea.gov.br";
    // return "http://10.1.4.205"
-   // return "http://localhost";
+  //  return "http://localhost";
   }
 
   //index.js
@@ -115,12 +115,32 @@ class Rotas{
 
   // editais.js
   Edital(){
-  return this.getBaseUrl()+":8383/api/edital";
+    return this.getBaseUrl()+":8383/api/edital";
   }
 
   // Header.jsx
   Login(){
-  return this.getBaseUrl()+":8383/api/user/login/";
+    return this.getBaseUrl()+":8383/api/user/login/";
+  }
+
+  //cadastro-receber-noticia.js
+  ReceberNoticia(){
+    return this.getBaseUrl()+":8383/api/user/newsletter/";
+  }
+
+  //cadastro-representante.js
+  CadastroRepresentante(){
+    return this.getBaseUrl()+":8383/api/user/";
+  }
+
+  //contato.js
+  Contato(){
+    return this.getBaseUrl()+":8383/api/user/contato/";
+  }
+
+  //recuperar-senha
+  RecuperSenha(){
+    return this.getBaseUrl()+":8383/api/user/esquecisenha/";
   }
 
 }

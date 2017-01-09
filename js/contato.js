@@ -1,6 +1,6 @@
 require(['react'], function (React) {
 
-  require(['jquery-ui'], function (React) {
+  require(['jquery-ui','rotas'], function (React) {
 
     $(".captcha input").checkboxradio();
 
@@ -58,12 +58,14 @@ require(['react'], function (React) {
       }
 
       var $json = {"assunto": $assunto, "nome": $nome, "email": $email, "mensagem": $mensagem};
+      var rotas = new Rotas();
 
       $('#loading').show();
+
 		  $.ajax({
   			type: 'POST',
-  			url: 'http://localhost:8383/api/user/contato/',
-  			data:$json,
+  			url: 'js/controller.php',//'http://localhost:8383/api/user/contato/',
+  			data:{flag: 'consultaPost', rota: rotas.Contato(), parametros: $json},
   			dataType: 'json',
         success: function(data) {
             console.log(data.responseText);
@@ -71,17 +73,17 @@ require(['react'], function (React) {
         },
         error: function(e) {
            console.log(e);
-            jQuery("#modalTitle").text("Problema na solicitação!");
             if (e.status==500){
+              jQuery("#modalTitle").text("Problema na solicitação!");
               jQuery("#modalConteudo").text("Sistema indisponível no momento. Por favor, tente mais tarde.");
-            }else{
+            }/*else{
               try{
-                  $msg = JSON.parse(e.responseText).msg;
+                  $msg = e.responseText.msg;
                }catch(e){
-                  $msg = "Sistema indisponível no momento. Por favor, tente mais tarde.";
+                  $msg = "Sistema indisponível no momento.";
                }
               jQuery("#modalConteudo").text($msg);
-            }
+            }*/
             $modal.modal('show');
             return false
         },

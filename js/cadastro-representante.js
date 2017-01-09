@@ -269,10 +269,11 @@ require(['react', 'jsx!components/Util'], function(React) {
 
             $.ajax({
                 //url: 'http://localhost:8080/api/user/',
-                url: 'http://localhost:8383/api/user/',
+
+                url: 'js/controller.php',//'http://localhost:8383/api/user/',
                 type: 'POST',
                 dataType: 'json',
-                data: json,
+                data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
                 error: function(e) {
                     jQuery("#modalTitle").text("Problema no cadastro!");
                     jQuery("#modalConteudo").text('');

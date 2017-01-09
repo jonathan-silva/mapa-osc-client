@@ -1,4 +1,4 @@
-require(["jquery-ui"], function (React) {
+require(["jquery-ui","rotas"], function (React) {
 
   $(document).tooltip({
     position: {
@@ -52,12 +52,13 @@ require(["jquery-ui"], function (React) {
     }
 
     var $json = {"tx_nome_assinante": $nome, "tx_email_assinante": $email};
+    var rotas = new Rotas();
 
     $('#loading').show();
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:8383/api/user/newsletter/',
-      data:$json,
+      url: "js/controller.php",
+      data: {flag: 'consultaPost', rota: rotas.ReceberNoticia(), parametros: $json},
       dataType: 'json',
       success: function(data) {
           console.log(data.responseText);

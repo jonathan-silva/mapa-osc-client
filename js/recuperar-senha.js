@@ -67,10 +67,11 @@ require(["jquery-ui"], function(React) {
 
         $.ajax({
              //url: 'http://localhost:8080/api/user/esquecisenha/',
-             url: 'http://localhost:8383/api/user/esquecisenha/',
+
+             url: 'js/controller.php',//'http://localhost:8383/api/user/esquecisenha/',
              type: 'POST',
              dataType: 'json',
-             data: $json,
+             data: {flag: 'consultaPost', rota: rotas.RecuperSenha(), parametros: $json},
              error:function(e){
                //console.log(e);
                jQuery("#modalTitle").text("Problema na solicitação!");
