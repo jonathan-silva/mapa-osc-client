@@ -26,6 +26,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
+  var urlController = 'js/controller.php';
   var zoomMaximo = 18;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
@@ -176,7 +177,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
     leafletMarker.bindPopup(loading).openPopup();
     $.ajax({
-      url: 'js/controller.php',
+      url: urlController,
       type: 'GET',
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCPopUpByID(id)},
@@ -414,7 +415,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   function loadChunkData(idEstado){
     $("#loadingMapModal").show();
     $.ajax({
-      url: 'js/controller.php',
+      url: urlController,
       type: 'GET',
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
@@ -436,7 +437,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var idRegiao = e.target.options.icon.options.id;
     $("#loadingMapModal").show();
     $.ajax({
-      url: 'js/controller.php',
+      url: urlController,
       type: 'GET',
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
@@ -489,7 +490,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var idEstado = e.target.options.icon.options.id;
     $("#loadingMapModal").show();
     $.ajax({
-      url: 'js/controller.php',
+      url: urlController,
       type: 'GET',
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
@@ -520,7 +521,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   $("#loadingMapModal").show();
 
   $.ajax({
-    url: 'js/controller.php',
+    url: urlController,
     type: 'GET',
     dataType: 'json',
     data: {flag: 'consulta', rota: urlRotaMapa},
@@ -552,7 +553,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
   //Coloração do mapa
   $.ajax({
-    url: 'js/controller.php',
+    url: urlController,
     type: 'GET',
     dataType: 'json',
     data: {flag: 'consulta', rota: rotas.ClusterEstado()},
