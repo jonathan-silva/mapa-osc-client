@@ -901,3 +901,9 @@ select{
   -webkit-justify-content: center;
   justify-content: center;
 }
+
+@media print{
+  #header, #rodape, #barra-brasil, .selecao, .topo, footer{
+    display: none !important;
+  }
+}
