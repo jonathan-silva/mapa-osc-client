@@ -540,7 +540,7 @@
                       <div class="header ">Tipo da Fonte de Recursos</div>
                       <div class="form-group"  ng-repeat="fonte_recursos in proj.fonte_recursos">
                         <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span><br>
-                        <span class="form-control-static">{{(fonte_recursos.tx_nome_fonte_recursos_projeto)}}</span> -&gt;
+                        <span class="form-control-static">{{(fonte_recursos.tx_nome_fonte_recursos_projeto)}}:</span>
                         <span class="form-control-static">{{(fonte_recursos.ft_fonte_recursos_projeto)}}</span>
                       </div>
                       <div class="form-group"  ng-if="proj.fonte_recursos == null">
@@ -549,7 +549,7 @@
                         <div>
                           <div class="header ">Financiadores do Projeto</div>
                           <div class="form-group">
-                            <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?proj.nr_valor_captado_projeto:"Não informado"}}</span>
+                            <span class="form-control-static">{{(proj.financiador)?proj.financiador:"Não informado"}}</span>
                           </div>
                         </div>
                     </div>
