@@ -72,8 +72,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     //consulta baseado na escolha da tela anterior
     tipoConsulta = valoresURL[0];
     var stringBuscada = valoresURL[1];
-    stringBuscada = stringBuscada.replace(/#|\./g, "");
-
+    stringBuscada = stringBuscada.replace(/\./g, "");
+    stringBuscada = stringBuscada.split('#')[0];
     if(tipoConsulta=="organizacao"){
       urlRota = rotas.OSCByName(stringBuscada,0);
       urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
@@ -101,6 +101,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     tipoConsulta="regiao";
     //console.log(tipoConsulta);
     urlRotaMapa = rotas.ClusterPais();
+    urlRota = rotas.AllOSC();
   }
 
   //*** Methods

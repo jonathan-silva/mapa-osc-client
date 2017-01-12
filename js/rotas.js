@@ -58,7 +58,7 @@ class Rotas{
   OSCByRegion(term,offset){
     return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term+"/10/"+offset;
   }
-  AllOSC(term){
+  AllOSC(offset){
     //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
   }
 
