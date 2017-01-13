@@ -10,9 +10,6 @@ class Rotas{
   }
 
   //index.js
-  AutocompleteOSCByNameId(term){
-    return this.getBaseUrl()+":8383/api/search/oscid/autocomplete/"+term;
-  }
   AutocompleteOSCByName(term, limit){
     return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0";
   }
@@ -61,7 +58,7 @@ class Rotas{
   OSCByRegion(term,offset){
     return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term+"/10/"+offset;
   }
-  AllOSC(term){
+  AllOSC(offset){
     //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
   }
 

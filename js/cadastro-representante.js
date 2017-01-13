@@ -69,15 +69,15 @@ require(['react', 'jsx!components/Util'], function(React) {
     require(["jquery-ui", "rotas"], function(React) {
 
         var $id_osc = '';
-
         var rotas = new Rotas();
+        var $modal = $('#modalMensagem');
         var limiteAutocomplete = 10;
         var limiteAutocompleteCidade = 25;
         var controller = "js/controller.php";
 
 
         $("#nomeEntidade.form-control").autocomplete({
-            minLength: 3,
+            minLength: 14,
             source: function(request, response) {
                 $.ajax({
                     url: controller,
@@ -88,13 +88,22 @@ require(['react', 'jsx!components/Util'], function(React) {
                         rota: rotas.AutocompleteOSCByNameId(replaceSpecialChars(request.term).replace(/ /g, '+'))
                     },
                     success: function(data) {
-                        response($.map(data, function(item) {
-                            return {
-                                label: item.tx_nome_osc,
-                                value: item.tx_nome_osc,
-                                id: item.id_osc
-                            };
-                        }));
+                      if (data == null){
+                          $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                          jQuery("#modalTitle").text("Erro");
+                          jQuery("#modalConteudo").text('');
+                          jQuery("#modalConteudo").text("Entidade não existe! ");
+                          $modal.modal('show');
+                      }else{
+                        $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+                      }
+                      response($.map(data, function(item) {
+                          return {
+                              label: item.tx_nome_osc,
+                              value: item.tx_nome_osc,
+                              id: item.id_osc
+                          };
+                      }));
                     },
                     error: function(e) {
                         response([]);
@@ -107,6 +116,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         });
 
 
+        /*
         $("#nomeEntidade.form-control").blur(function(event, ui) {
             var nomeEntidade = this.value;
             if (nomeEntidade) {
@@ -115,6 +125,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
             }
         });
+        */
 
 
         $("#nome.form-control").blur(function(event, ui) {
@@ -187,7 +198,6 @@ require(['react', 'jsx!components/Util'], function(React) {
             var cpf = $('#cpf').val();
             var senha = $('#senha').val();
             var confirmarSenha = $('#confirmarSenha').val();
-            var $modal = $('#modalMensagem');
             var id_attr = '';
             if ($('#termoUso').is(":checked")) {
                 var termoUso = true;
