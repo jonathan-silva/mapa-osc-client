@@ -152,7 +152,7 @@
         <div class="row">
 
           <div class="col-md-12" id="areas_de_atuacao">
-            <h2>Áreas de Atuação<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Áreas de Atuação." onclick="abrirModalAjuda('Áreas de Atuação');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
+            <h2>Áreas e Subáreas de Atuação da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Áreas e Subáreas de Atuação da OSC" onclick="abrirModalAjuda('Áreas e Subáreas de Atuação da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Atividade Econômica:</label>
@@ -247,8 +247,8 @@
               <div>
                <!--span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img class="imgDadoOficial" src="img/base_dados.png"></span-->
              </div>
-              <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:""}}
-                {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:""}}</span>
+              <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
+                {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
               <span title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
             </div>
             <div ng-if="(ctrl.osc.certificado.certificado == null)">
@@ -287,7 +287,7 @@
               </div>
 
               <div class="col-sm-4">
-                <h3>Conselheiros</h3>
+                <h3>Conselho Fiscal</h3>
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>

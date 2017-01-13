@@ -402,6 +402,9 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           if(item.id=="tx_endereco_eletronico_sugerido"){
             labelElement = <label className="control-label" for={item.id} title="Defina um nome que vai constar como link para esta página da OSC , que poderá divulgá-lo como endereço oficial do Mapa">{item.label}:</label>
           }
+          if(item.id=="area_atuacao"){
+            labelElement = <label className="control-label" for={item.id} title="Essa seção tem por objetivo especificar as principais áreas de atuação da OSC">{item.label}:</label>
+          }
         }
         var className = "form-group";
         if (item.hide){

@@ -439,13 +439,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-        console.log(subarea_suggestions);
+        console.log(rotas.AreaAtuacao());
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
           subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         }
         headerPriority = '2';
-        headerText = 'Áreas de Atuação';
+        headerText = 'Áreas e Subáreas de Atuação da OSC';
         formItens = [];
         dados_form =
         {
@@ -464,7 +464,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 1",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira área de atuação",
+              "placeholder": "Selecione a área de atuação da OSC",
               "type": "text",
               "custom_class": "autocomplete"
             },
@@ -473,7 +473,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 2",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira área de atuação",
+              "placeholder": "Selecione uma segunda área de atuação da OSC, se houver.",
               "type": "text",
               "custom_class": "autocomplete"
             }
@@ -780,7 +780,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       if(items.length > 0){
         for (j=0; j<items.length; j++){
-          var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
+          var dataValidadeText = "Data de Validade: " + (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informada");
           formItens.push(new FormItens(items[j].id_certificado, items[j].tx_nome_certificado, dataValidadeText, items[j].ft_certificado, null, "p"));
         }
       } else {
@@ -970,7 +970,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
             "id": "conselheiros",
             "priority": "4",
-            "text": "Conselheiros",
+            "text": "Conselho Fiscal",
             "subsections": []
           },
           {
@@ -1031,8 +1031,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
       }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1040,7 +1040,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("dirigentes")
       );
       formItens = [];
-      formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
+      //formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
@@ -1055,9 +1055,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       formItens = [];
       for (var i = 0; i < conselho_fiscal.length; i++) {
         var conselheiro = conselho_fiscal[i];
-        formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira aqui o nome do conselheiro", "text"));
+        formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira o nome do conselheiro fiscal", "text"));
       }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
@@ -1133,8 +1133,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
     else {
       formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1144,7 +1144,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         addItem('dirigentes');
 
       formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
@@ -1569,10 +1569,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
-        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+        {header:{priority: headerPriority, text: headerText, title:"Teste"}, dados:formItens}
       ), document.getElementById("recursos")
     );
-    addItem("recursos")/*
+    /*addItem("recursos")/*
 
     //interações seção títulos e certificações
     $("#certificacoes :checkbox").change(function() {
@@ -2617,7 +2617,7 @@ function getSuggestions(){
     },
     {
       "cd_area_atuacao": 4,
-      "tx_nome_area_atuacao": "Educação"
+      "tx_nome_area_atuacao": "Educação e Pesquisa"
     },
     {
       "cd_area_atuacao": 5,
@@ -2638,6 +2638,10 @@ function getSuggestions(){
     {
       "cd_area_atuacao": 9,
       "tx_nome_area_atuacao": "Desenvolvimento e defesa de direitos"
+    },
+    {
+      "cd_area_atuacao": 10,
+      "tx_nome_area_atuacao": "Outros"
     }
   ];
   return suggestions;
