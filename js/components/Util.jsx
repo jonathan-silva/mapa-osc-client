@@ -352,8 +352,6 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         } else if(item.type == "checkbox"){
           ContentElement = <Checkbox dados={item.options}></Checkbox>
         } else if(item.areas){
-          console.log(item.areas);
-          console.log(item.subareas);
           var areas = item.areas;
           var subareas = item.subareas;
           var className = "form-control"+custom_class;
@@ -432,6 +430,13 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
 define('componenteSection', ['react'], function (React) {
   var Section = React.createClass({
     renderListItems: function(){
+      var ano = this.props.ano;
+      if(ano === undefined){
+        ano = "";
+      } else {
+        ano = "-"+ano;
+      }
+      console.log(ano);
       var dados = this.props.dados;
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
@@ -451,7 +456,7 @@ define('componenteSection', ['react'], function (React) {
               <HeaderElement>{item.text}</HeaderElement>
               {ButtonElement}
             </div>
-            <div id={item.id}></div>
+            <div id={item.id+ano}></div>
           </div>
         );
       }

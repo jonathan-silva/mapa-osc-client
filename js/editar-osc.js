@@ -393,7 +393,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var areas_atuacao;
       var area_atuacao_outra;
 
-      console.log(json);
       if(json.area_atuacao){
         areas_atuacao = json.area_atuacao.area_atuacao;
         area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
@@ -439,7 +438,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-        console.log(subarea_suggestions);
+        
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
           subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
@@ -703,7 +702,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var newJson = {};
     $("#descricao").find("#salvar").click(function(){
       $("#descricao .form-control").each(function(){
-        console.log($(this).val());
+        
         newJson[$(this).attr("id")] = $(this).val();
       });
     });
@@ -1051,7 +1050,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       // Governança: Conselheiros
       var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
-      console.log(conselho_fiscal);
       formItens = [];
       for (var i = 0; i < conselho_fiscal.length; i++) {
         var conselheiro = conselho_fiscal[i];
@@ -1336,11 +1334,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         formItens = [];//
           if (conferencias.length) {
-            //console.log(conferencias);
             var conferencia = participacao_social_form.items;
             for (j=0; j<conferencias.length; j++){
               for (var property in conferencias[j]) {
-                //console.log(property);
                 if (conferencias[j].hasOwnProperty(property)) {
                   if(property == "tx_nome_conferencia"){
                     formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
@@ -1442,121 +1438,344 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   function montarFontedeRecursos(json){
     console.log(json.recursos);
 
+    var sections = {
+      "items": [
+        {
+            "id": "recursos_geral",
+            "priority": "2",
+            "text": "Fonte de recursos anual da OSC"
+        },
+        {
+            "id": "recursos_proprios",
+            "priority": "3",
+            "text": "Recursos próprios"
+        },
+        {
+          "id": "recursos_publicos",
+          "priority": "3",
+          "text": "Recursos públicos"
+        },
+        {
+          "id": "recursos_privados",
+          "priority": "3",
+          "text": "Recursos privados",
+          "subsections": []
+        },
+        {
+          "id": "recursos_nao_financeiros",
+          "priority": "3",
+          "text": "Recursos não financeiros",
+          "subsections": []
+        }
+      ]
+    };
+
+    recursos_form = {
+      "recursos_proprios": [
+        {
+          "id": "patrimoniais",
+          "label": "Rendimentos de fundos patrimoniais"
+        },
+        {
+          "id": "reservas",
+          "label": "Rendimentos financeiros de reservas ou contas correntes  próprias"
+        },
+        {
+          "id": "mensalidades",
+          "label": "Mensalidades ou contribuições de associados"
+        },
+        {
+          "id": "premios",
+          "label": "Prêmios recebidos"
+        },
+        {
+          "id": "venda",
+          "label": "Venda de produtos"
+        },
+        {
+          "id": "servicos",
+          "label": "Prestação de serviços"
+        },
+        {
+          "id": "bens",
+          "label": "Venda de bens e direitos"
+        }
+      ],
+
+      "recursos_publicos": [
+        {
+          "id": "federal",
+          "label": "Parceria com o governo federal"
+        },
+        {
+          "id": "estadual",
+          "label": "Parceria com o governo estadual"
+        },
+        {
+          "id": "municipal",
+          "label": "Parceria com o governo municipal"
+        },
+        {
+          "id": "multilaterais",
+          "label": "Acordo com organismos multilaterais "
+        },
+        {
+          "id": "estrangeiros",
+          "label": "Acordo com governos estrangeiros"
+        },
+        {
+          "id": "empresas_publicas",
+          "label": "Empresas públicas ou sociedades de economia mista"
+        }
+      ],
+
+      "recursos_privados": [
+        {
+          "id": "oscs_brasileiras",
+          "label": "Parceria com OSCs brasileiras"
+        },
+        {
+          "id": "oscs_estrangeiras",
+          "label": "Parcerias com OSCs estrangeiras"
+        },
+        {
+          "id": "religiosas_brasileiras",
+          "label": "Parcerias com organizações religiosas brasileiras"
+        },
+        {
+          "id": "religiosas estrangeiras",
+          "label": "Parcerias com organizações religiosas estrangeiras"
+        },
+        {
+          "id": "empresas_brasileiras",
+          "label": "Empresas privadas brasileiras"
+        },
+        {
+          "id": "empresas_estrangeiras",
+          "label": "Empresas privadas brasileiras"
+        },
+        {
+          "id": "doacoes_pj",
+          "label": "Doações de pessoa jurídica"
+        },
+        {
+          "id": "doacoes_pf",
+          "label": "Doações de pessoa física"
+        },
+        {
+          "id": "doacoes_servicos",
+          "label": "Doações recebidas na forma de produtos e serviços (com Nota Fiscal)"
+        }
+      ],
+
+      "recursos_nao_financeiros": [
+        {
+          "id": "voluntariado",
+          "label": "Voluntariado"
+        },
+        {
+          "id": "isencoes",
+          "label": "Isenções"
+        },
+        {
+          "id": "imunidades",
+          "label": "Imunidades"
+        },
+        {
+          "id": "bens_recebidos",
+          "label": "Bens recebidos em direito de uso"
+        },
+        {
+          "id": "doacoes_recebidas",
+          "label": "Doações recebidas na forma de produtos e serviços (sem Nota Fiscal)"
+        }
+      ]
+    };
+
+    var anos = ["2016", "2015", "2014"];
+    for (var j = 0; j < anos.length; j++) {
+      montarPorAno(anos[j], j);
+    }
+    function montarPorAno(ano, index) {
+      console.log(ano);
+      $("#recursos").append('<div id='+ano+'></div>');
+      if(index !== 0){
+        $('#'+ano).toggleClass("hidden");
+      }
+      items = sections.items;
+      console.log(items);
+      Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:items, ano: ano}
+        ), document.getElementById(ano)
+      );
+    
+      //proprios
+      items = recursos_form.recursos_proprios;
+      formItens = [];
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("recursos_proprios-"+ano)
+      );
+
+      //publicos
+      items = recursos_form.recursos_publicos;
+      formItens = [];
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("recursos_publicos-"+ano)
+      );
+
+      //privados
+      items = recursos_form.recursos_privados;
+      formItens = [];
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("recursos_privados-"+ano)
+      );
+
+      //nao financeiros
+      items = recursos_form.recursos_nao_financeiros;
+      formItens = [];
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("recursos_nao_financeiros-"+ano)
+      );
+    }
+    
+
+    
+    /*
     var publico='0';
     var privado = '0';
     var internacional ='0';
     var proprio='0';
 
     var fonte_recursos_form =
-    {
-    "items": [
       {
-        "id": "ano",
-        "label": "Ano",
-        "content": "2016",
-        "fonte": null,
-        "placeholder":"",
-        "type": "select",
-        "options": [
-          "2016",
-          "2015",
-          "2014"
-        ]
-      },
-      {
-        "id": "publico",
-        "label": "Recursos públicos",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "select",
-        "options": [
-          "Federal",
-          "Estadual",
-          "Municipal"
-        ]
-      },
-      {
-        "id": "valor_publico",
-        "label": "Valor de recursos públicos",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "text"
-      },
-      {
-        "id": "privado",
-        "label": "Recursos privados",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "select",
-        "options": [
-          "Rendimento de fundo patrimonial (endowments)",
-          "Doação de pessoa física",
-          "Doação de pessoa jurídica"
-        ]
-      },
-      {
-        "id": "valor_privado",
-        "label": "Valor de recursos privados",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "text"
-      },
-      {
-        "id": "internacional",
-        "label": "Recursos internacionais",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "select",
-        "options": [
-          "Organismo internacional (OEA, ONU, etc)",
-          "Governos de outros países",
-          "Outros (inserir o nome)"
-        ]
-      },
-      {
-        "id": "valor_internacional",
-        "label": "Valor de recursos internacionais",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "text"
-      },
-      {
-        "id": "proprio",
-        "label": "Recursos próprios",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "select",
-        "options": [
-          "Venda de serviços e/ou produtos",
-          "Mensalidade dos associados",
-          "Outros (inserir o nome)"
-        ]
-      },
-      {
-        "id": "valor_proprios",
-        "label": "Valor de recursos próprios",
-        "content": null,
-        "fonte": null,
-        "placeholder":"",
-        "type": "text"
-      }
-     ]
-    };
+        "items": [
+        {
+          "id": "ano",
+          "label": "Ano",
+          "content": "2016",
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "2016",
+            "2015",
+            "2014"
+          ]
+        },
+        {
+          "id": "publico",
+          "label": "Recursos públicos",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "Federal",
+            "Estadual",
+            "Municipal"
+          ]
+        },
+        {
+          "id": "valor_publico",
+          "label": "Valor de recursos públicos",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "text"
+        },
+        {
+          "id": "privado",
+          "label": "Recursos privados",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "Rendimento de fundo patrimonial (endowments)",
+            "Doação de pessoa física",
+            "Doação de pessoa jurídica"
+          ]
+        },
+        {
+          "id": "valor_privado",
+          "label": "Valor de recursos privados",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "text"
+        },
+        {
+          "id": "internacional",
+          "label": "Recursos internacionais",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "Organismo internacional (OEA, ONU, etc)",
+            "Governos de outros países",
+            "Outros (inserir o nome)"
+          ]
+        },
+        {
+          "id": "valor_internacional",
+          "label": "Valor de recursos internacionais",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "text"
+        },
+        {
+          "id": "proprio",
+          "label": "Recursos próprios",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "Venda de serviços e/ou produtos",
+            "Mensalidade dos associados",
+            "Outros (inserir o nome)"
+          ]
+        },
+        {
+          "id": "valor_proprios",
+          "label": "Valor de recursos próprios",
+          "content": null,
+          "fonte": null,
+          "placeholder":"",
+          "type": "text"
+        }
+       ]
+      };
 
     items = fonte_recursos_form.items;
-  /*  Section = React.createFactory(Section);
-    ReactDOM.render(
-      Section(
-        {dados:items}
-      ), document.getElementById(items[0].target)
-    );*/
 
     headerPriority = '2';
     headerText = 'Fonte de recursos anual da OSC';
@@ -1572,82 +1791,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("recursos")
     );
-    addItem("recursos")/*
-
-    //interações seção títulos e certificações
-    $("#certificacoes :checkbox").change(function() {
-      var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
-      $inputContainer.toggleClass('hidden');
-      if($inputContainer.hasClass('hidden')){
-        var $input = $inputContainer.find('input');
-        $input.val("");
-      }
-    });
-
-    $("#manual").find("input:text").each(function(){
-      if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
-        var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
-
-        $("#manual").find("input:checkbox").each(function(){
-          if($(this).val() === utilidade_publica_id){
-            $(this).prop('checked', true);
-          }
-        });
-
-        $(this).parents(".hidden").toggleClass('hidden');
-      }
-    });
-
-
-
-  console.log(json.recursos);
-    if (validateObject(json.recursos)){
-
-    if (validateObject(json.participacao_social.conselho)) {
-      conselhos = json.participacao_social.conselho;
-    }
-
-    if (validateObject(json.participacao_social.conferencia)) {
-       conferencias = json.participacao_social.conferencia;
-     }
-
-     if (validateObject(json.participacao_social.outra)) {
-       outras = json.participacao_social.outra;
-     }
-
-    formItens = [];//
-      if (conferencias.length) {
-        //console.log(conferencias);
-        var conferencia = participacao_social_form.items;
-        for (j=0; j<conferencias.length; j++){
-          for (var property in conferencias[j]) {
-            //console.log(property);
-            if (conferencias[j].hasOwnProperty(property)) {
-
-              if(property == "dt_ano_realizacao"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
-              }
-              if(property == "tx_nome_conferencia"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
-              }
-              if(property == "tx_nome_forma_participacao_conferencia"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
-              }
-           }
-          }
-        }
-        formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
-        formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
-        formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
-
-        Agrupador = React.createFactory(AgrupadorConferencia);
-        ReactDOM.render(
-          Agrupador(
-            {header:null, dados:formItens}
-          ), document.getElementById("conferencias")
-        );
-      }
-    }*/
+    addItem("recursos");
+    */
   }
     // Lista de Projetos
     function montarProjetos(json){
@@ -1669,7 +1814,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var columns = 2;
             var sizeOfData = projects_list.length;
             newData = new Array(sizeOfData);
-            console.log(projects_list);
             for (var i=0; i < projects_list.length; i++){
               newData[i] = new Array(columns);
               newData[i][0] = projects_list[i].id_projeto;
@@ -1723,7 +1867,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                         '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
                       '</span>');
              $('#add_projeto').click(function(){
-              console.log("add projeto");
               table_lista_projetos.row.add([
                 "-1",
                 "Novo Projeto"
@@ -1818,7 +1961,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
                '</span>');
       $('#add_projeto').click(function(){
-       console.log("add projeto");
        table_lista_projetos.row.add([
          "-1",
          "Novo Projeto"
@@ -2153,15 +2295,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // interacoes
 
-
-        console.log("interações");
         $('#projeto-'+id).on("click", ".btn-danger", function(){
-          console.log($(this));
           $(this).parents(".input-group").remove();
         });
 
         $('#projeto-'+id).find(".btn-primary").bind("click", function(){
-          console.log($(this).parent().siblings(".form-group"));
           $(this).parent().siblings(".form-group").append(
               '<div class="input-group">'+
                 '<div>'+
@@ -2186,7 +2324,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var meta = project.objetivo_meta.tx_nome_meta_projeto;
           var cd_meta = project.objetivo_meta.cd_meta_projeto;
         }
-        console.log(id);
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
         var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
@@ -2261,13 +2398,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $('.objetivos').find('select').on('change', function(){
           cd_objetivo = $(this).children(":selected").attr("id")
            $(this).parents("#objetivos-metas").find(".metas").each(function(){
-            console.log($(this));
             if(!$(this).hasClass('hidden')){
              $(this).toggleClass('hidden');
             }
            });
 
-          console.log(cd_objetivo);
           // $(this).removeClass("ui-selected");
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
           $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
