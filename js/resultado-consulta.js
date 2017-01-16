@@ -101,11 +101,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     tipoConsulta="regiao";
     //console.log(tipoConsulta);
     urlRotaMapa = rotas.ClusterPais();
-    urlRota = rotas.AllOSC();
+    urlRota = rotas.AllOSC(0);
   }
 
   //*** Methods
   function tabela(urlRota){
+    $('#loading').removeClass('hide');
     $.ajax({
       url: "js/controller.php",
       type: 'GET',
@@ -535,8 +536,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       if(data!==undefined){
         tabela(urlRota);
 
-        if(Object.keys(data).length-1 ===0){
-          paginar(data[0].nr_quantidade_osc_regiao);
+        if(typeof data.length !== 'undefined'){
+          var count = 0;
+          for(var i = 0; i < data.length; i++){
+            count += data[i].nr_quantidade_osc_regiao;
+          }
+          paginar(count);
         }
         else{
           paginar(Object.keys(data).length-1);

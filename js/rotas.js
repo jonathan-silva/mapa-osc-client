@@ -59,7 +59,7 @@ class Rotas{
     return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term+"/10/"+offset;
   }
   AllOSC(offset){
-    //return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term;
+    return this.getBaseUrl()+":8484/api/search/all/lista/10/"+offset;
   }
 
   ClusterMunicipio(){
