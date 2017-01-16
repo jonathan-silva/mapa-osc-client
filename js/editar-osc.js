@@ -438,13 +438,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-        
+        //console.log(rotas.AreaAtuacao());
+
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
           subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         }
         headerPriority = '2';
-        headerText = 'Áreas de Atuação';
+        headerText = 'Áreas e Subáreas de Atuação da OSC';
         formItens = [];
         dados_form =
         {
@@ -463,7 +464,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 1",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira área de atuação",
+              "placeholder": "Selecione a área de atuação da OSC",
               "type": "text",
               "custom_class": "autocomplete"
             },
@@ -472,7 +473,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "label": "Macro Área 2",
               "content": null,
               "fonte": null,
-              "placeholder": "Insira área de atuação",
+              "placeholder": "Selecione uma segunda área de atuação da OSC, se houver.",
               "type": "text",
               "custom_class": "autocomplete"
             }
@@ -702,7 +703,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var newJson = {};
     $("#descricao").find("#salvar").click(function(){
       $("#descricao .form-control").each(function(){
-        
+
         newJson[$(this).attr("id")] = $(this).val();
       });
     });
@@ -779,7 +780,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       if(items.length > 0){
         for (j=0; j<items.length; j++){
-          var dataValidadeText = "Data de Validade: " + items[j].dt_fim_certificado;
+          var dataValidadeText = "Data de Validade: " + (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informada");
           formItens.push(new FormItens(items[j].id_certificado, items[j].tx_nome_certificado, dataValidadeText, items[j].ft_certificado, null, "p"));
         }
       } else {
@@ -969,7 +970,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
             "id": "conselheiros",
             "priority": "4",
-            "text": "Conselheiros",
+            "text": "Conselho Fiscal",
             "subsections": []
           },
           {
@@ -1030,8 +1031,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
       }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1039,7 +1040,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("dirigentes")
       );
       formItens = [];
-      formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
+      //formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
@@ -1053,9 +1054,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       formItens = [];
       for (var i = 0; i < conselho_fiscal.length; i++) {
         var conselheiro = conselho_fiscal[i];
-        formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira aqui o nome do conselheiro", "text"));
+        formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira o nome do conselheiro fiscal", "text"));
       }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
@@ -1131,8 +1132,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
     else {
       formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome aqui", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo aqui", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1142,7 +1143,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         addItem('dirigentes');
 
       formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira aqui o nome do conselheiro", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
@@ -1610,7 +1611,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:items, ano: ano}
         ), document.getElementById(ano)
       );
-    
+
       //proprios
       items = recursos_form.recursos_proprios;
       formItens = [];
@@ -1663,9 +1664,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("recursos_nao_financeiros-"+ano)
       );
     }
-    
 
-    
+
+
     /*
     var publico='0';
     var privado = '0';
@@ -1788,11 +1789,90 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
-        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+        {header:{priority: headerPriority, text: headerText, title:"Teste"}, dados:formItens}
       ), document.getElementById("recursos")
     );
+
     addItem("recursos");
     */
+
+    /*addItem("recursos")/*
+
+    //interações seção títulos e certificações
+    $("#certificacoes :checkbox").change(function() {
+      var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
+      $inputContainer.toggleClass('hidden');
+      if($inputContainer.hasClass('hidden')){
+        var $input = $inputContainer.find('input');
+        $input.val("");
+      }
+    });
+
+    $("#manual").find("input:text").each(function(){
+      if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
+        var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
+
+        $("#manual").find("input:checkbox").each(function(){
+          if($(this).val() === utilidade_publica_id){
+            $(this).prop('checked', true);
+          }
+        });
+
+        $(this).parents(".hidden").toggleClass('hidden');
+      }
+    });
+
+
+
+  console.log(json.recursos);
+    if (validateObject(json.recursos)){
+
+    if (validateObject(json.participacao_social.conselho)) {
+      conselhos = json.participacao_social.conselho;
+    }
+
+    if (validateObject(json.participacao_social.conferencia)) {
+       conferencias = json.participacao_social.conferencia;
+     }
+
+     if (validateObject(json.participacao_social.outra)) {
+       outras = json.participacao_social.outra;
+     }
+
+    formItens = [];//
+      if (conferencias.length) {
+        //console.log(conferencias);
+        var conferencia = participacao_social_form.items;
+        for (j=0; j<conferencias.length; j++){
+          for (var property in conferencias[j]) {
+            //console.log(property);
+            if (conferencias[j].hasOwnProperty(property)) {
+
+              if(property == "dt_ano_realizacao"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
+              }
+              if(property == "tx_nome_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+              }
+              if(property == "tx_nome_forma_participacao_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+              }
+           }
+          }
+        }
+        formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
+        formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
+        formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+
+        Agrupador = React.createFactory(AgrupadorConferencia);
+        ReactDOM.render(
+          Agrupador(
+            {header:null, dados:formItens}
+          ), document.getElementById("conferencias")
+        );
+      }
+    }*/
+>>>>>>> MOSC-881
   }
     // Lista de Projetos
     function montarProjetos(json){
@@ -2752,7 +2832,7 @@ function getSuggestions(){
     },
     {
       "cd_area_atuacao": 4,
-      "tx_nome_area_atuacao": "Educação"
+      "tx_nome_area_atuacao": "Educação e Pesquisa"
     },
     {
       "cd_area_atuacao": 5,
@@ -2773,7 +2853,7 @@ function getSuggestions(){
     {
       "cd_area_atuacao": 9,
       "tx_nome_area_atuacao": "Desenvolvimento e defesa de direitos"
-    }
+    },
   ];
   return suggestions;
 }
