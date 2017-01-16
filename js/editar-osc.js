@@ -1872,7 +1872,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         );
       }
     }*/
->>>>>>> MOSC-881
+
   }
     // Lista de Projetos
     function montarProjetos(json){
