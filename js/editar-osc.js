@@ -1544,7 +1544,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "label": "Parcerias com organizações religiosas brasileiras"
         },
         {
-          "id": "religiosas estrangeiras",
+          "id": "religiosas_estrangeiras",
           "label": "Parcerias com organizações religiosas estrangeiras"
         },
         {
@@ -1553,7 +1553,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         },
         {
           "id": "empresas_estrangeiras",
-          "label": "Empresas privadas brasileiras"
+          "label": "Empresas privadas estrangeiras"
         },
         {
           "id": "doacoes_pj",
