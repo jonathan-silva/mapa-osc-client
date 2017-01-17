@@ -393,9 +393,13 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         var labelElement;
 
         function contains( substring, string ) {
-          return string.indexOf(substring)>=0
+          if (typeof string === 'string'){
+            return string.indexOf(substring)>=0;
+          } else {
+            return false;
+          }
         }
-
+        console.log(item);
         if(item.label){
           var obrigatorio;
           if(item.obrigatorio){
