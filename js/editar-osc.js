@@ -1472,6 +1472,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     };
 
     recursos_form = {
+      "recursos_geral": [
+        {
+          "id": "ano",
+          "label": "Ano",
+          "content": "2016",
+          "fonte": null,
+          "placeholder":"",
+          "type": "select",
+          "options": [
+            "2016",
+            "2015",
+            "2014"
+          ],
+          "custom_class": "select-ano"
+        },
+      ],
       "recursos_proprios": [
         {
           "id": "patrimoniais",
@@ -1612,6 +1628,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById(ano)
       );
 
+      //geral, seleção do ano
+      items = recursos_form.recursos_geral;
+      formItens = [];
+      for (var i=0; i<items.length; i++){
+        formItens.push(new FormItens(items[i].id, items[i].label, ano, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext, items[i].custom_class));
+      }
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens}
+        ), document.getElementById("recursos_geral-"+ano)
+      );
+
       //proprios
       items = recursos_form.recursos_proprios;
       formItens = [];
@@ -1664,6 +1693,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("recursos_nao_financeiros-"+ano)
       );
     }
+
+    // interacoes da selecao de anos
+    $(".select-ano").find(".form-control").bind("change", function(){
+      var ano = $(this).val();
+      if($("#"+ano).hasClass('hidden')){
+        $("#"+ano).toggleClass('hidden');  
+        $("#"+ano).siblings().addClass('hidden');
+      }
+      
+    });
 
 
 

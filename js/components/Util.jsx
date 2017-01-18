@@ -337,8 +337,9 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             {SpanFonte}
           </div>
         } else if(item.type == 'select'){
+          var className = "input-box"+ custom_class;
           ContentElement =
-          <div className="input-box">
+          <div className={className}>
             <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
             {SpanFonte}
           </div>
@@ -399,7 +400,6 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             return false;
           }
         }
-        console.log(item);
         if(item.label){
           var obrigatorio;
           if(item.obrigatorio){
@@ -455,7 +455,6 @@ define('componenteSection', ['react'], function (React) {
       } else {
         ano = "-"+ano;
       }
-      console.log(ano);
       var dados = this.props.dados;
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
