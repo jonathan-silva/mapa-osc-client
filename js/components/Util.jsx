@@ -399,7 +399,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             return false;
           }
         }
-        console.log(item);
+        //console.log(item);
         if(item.label){
           var obrigatorio;
           if(item.obrigatorio){
@@ -419,6 +419,10 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           if( (contains("_bras",item.id)) || (contains("doacoes_",item.id)) || (contains("_estr",item.id))  ){
             labelElement = <label className="control-label" for={item.id} title="Insira o total obtido da fonte do recurso solicitado">{item.label}:</label>
           }
+          if(item.header=="Link"){
+            labelElement = <label className="control-label" for={item.header} title="Insira um link para a página do projeto, se houver">{item.label}:</label>
+          }
+
         }
         var className = "form-group";
         if (item.hide){
@@ -857,6 +861,71 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             <FormInputProjeto dados={inputs}></FormInputProjeto>
             {ButtonElement}
           </div>
+          if(header === "Link"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="insira um link para a página do projeto, se houver">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Total de Beneficiários"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="se houver, indique o total de beneficiários do projeto">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Valor Total"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Indique o valor total do projeto">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Abrangência de atuação"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Defina a abrangência territorial do projeto.">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Local de execução"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Público Beneficiado"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Especifique, se houver, o publico diretamente beneficiado pelo projeto.">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+          if(header === "Financiadores do Projeto"){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Liste os financiadores do projeto.">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }/*
+          if((header === "Objetivos de desenvolvimento do milênio") || (header === "Objetivos")){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Liste os financiadores do projeto.">{header}</div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }*/
+
 
         itens.push(
           ContainerElement

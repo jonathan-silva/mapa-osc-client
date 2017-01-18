@@ -86,7 +86,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
-        console.log(data);
+        //console.log(data);
         montarCabecalho(data);
         montarDadosGerais(data);
         montarAreasDeAtuacao(data);
@@ -2208,7 +2208,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           "options": null
         },
         "objetivos": {
-          "header": "Objetivos de desenvolvimento do milênio",
+          "header": "Objetivos de desenvolvimento do milênio",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)
           "containerClass": "col-md-12",
           "removable": false,
           "type": "select",
@@ -2270,6 +2270,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
       }
+
       function montarProjeto(json){
         var project = json;
         var agrupadores = [];
@@ -2409,11 +2410,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
         $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
         $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
-        $divObjetivosProjeto.append('<div class="header">Objetivos</div>');
+        $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
-        $divMetasProjeto.append('<div class="header">Metas</div>');
+        $divMetasProjeto.append('<div class="header">Metas relacionadas ao ODS definido</div>');
         $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
 
         // rotas.Objetivos()
