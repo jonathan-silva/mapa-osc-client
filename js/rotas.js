@@ -13,6 +13,9 @@ class Rotas{
   AutocompleteOSCByName(term, limit){
     return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0";
   }
+  AutocompleteOSCByCnpj(term, limit){
+    return this.getBaseUrl()+":8383/api/search/cnpj/autocomplete/"+term+"/"+limit+"/0";
+  }
   AutocompleteOSCByCounty(term, limit){
     return this.getBaseUrl()+":8383/api/menu/geo/municipio/"+term+"/"+limit+"/0";
   }
@@ -127,6 +130,7 @@ class Rotas{
 
   //cadastro-representante.js
   CadastroRepresentante(){
+    console.log(this.getBaseUrl()+":8383/api/user/");
     return this.getBaseUrl()+":8383/api/user/";
   }
 
