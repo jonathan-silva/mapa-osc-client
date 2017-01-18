@@ -359,7 +359,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       };
       var items = dados_form.form_items;
       var headerPriority = '2';
-      var headerText = 'Dados Gerais';
+      var headerText = 'Dados Gerais <a href=./>.</a>';
       var formItens = [];
 
       for (var i=0; i<items.length; i++){
@@ -368,7 +368,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
-          {header:{priority: headerPriority, text: headerText}, dados:formItens}
+          {header:{priority: headerPriority, text: headerText +"<a href='www.google.com' target='_blank'>...</a>"}, dados:formItens}
         ), document.getElementById("dados_gerais")
       );
     }
@@ -727,7 +727,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       headerPriority = '2';
-      headerText = 'Títulos e certificações';
+      headerText = 'Títulos e Certificações';
       formItens = [];
       dados_form =
       {
@@ -842,7 +842,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         utilidade_publica_municipal = '0';//json.certificado.utilidade_publica_municipal;
 
       headerPriority = '2';
-      headerText = 'Títulos e certificações';
+      headerText = 'Títulos e Certificações';
       formItens = [];
       dados_form =
       {
@@ -952,7 +952,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {
               "id": "relacoes_trabalho",
               "priority": "2",
-              "text": "Relações de trabalho e governança",
+              "text": "Relações de Trabalho e Governança",
               "target": "relacoes_trabalho_e_governanca"
           },
           {
@@ -1698,10 +1698,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $(".select-ano").find(".form-control").bind("change", function(){
       var ano = $(this).val();
       if($("#"+ano).hasClass('hidden')){
-        $("#"+ano).toggleClass('hidden');  
+        $("#"+ano).toggleClass('hidden');
         $("#"+ano).siblings().addClass('hidden');
       }
-      
+
     });
 
 
@@ -2453,7 +2453,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
-        $divMetasProjeto.append('<div class="header">Metas relacionadas ao ODS definido</div>');
+        $divMetasProjeto.append('<div class="header">Metas Relacionadas ao ODS definido</div>');
         $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
 
         // rotas.Objetivos()
@@ -2525,7 +2525,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           // $(this).removeClass("ui-selected");
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-          $('#metas-'+cd_objetivo).append('<div class="header">Metas</div>');
+          $('#metas-'+cd_objetivo).append('<div class="header">Metas Relacionadas ao ODS definido</div>');
           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
           if($('#metas-'+cd_objetivo).hasClass('hidden')){
            $('#metas-'+cd_objetivo).toggleClass('hidden');
@@ -2923,4 +2923,31 @@ function isTrue(obj){
   else {
     return false;
   }
+}
+
+var jsonModalAjuda = {
+	"Dados Gerais":"Os campos abaixo trazem informações mais gerais sobre a OSC. Essas informações podem ser preenchidas ou editadas pelo(a) representante da OSC cadastrado(a) no Mapa, com a exceção do endereço, que é informação oficial proveniente da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho.",
+ 	"Áreas e Subáreas de Atuação da OSC":"A seção informa, em primeiro lugar, a atividade econômica da OSC proveniente da declaração da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho. Informações adicionais acerca de outras áreas e subáreas de atuação da organização podem ser adicionadas pelo representante da OSC.",
+ 	"Descrição da OSC":"Aqui a OSC pode contar um pouco de sua história, identificar a sua missão e visão (quando houver) e finalidades (previstas no seu estatuto). Os campos podem ser preenchidos pelo(a) representante da OSC cadastrado(a) no Mapa.",
+ 	"Titulações e Certificações":"Essa seção indica os títulos (Utilidade pública estadual ou municipal), qualificações (OSCIP) e certificações (CEBAS) concedidos pelo Poder Público à OSC.<br><br>Para saber mais sobre cada um dos títulos ou certificações, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+ 	"Relações de Trabalho e Governança":"Aqui o(a) representante da OSC pode indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da sua organização, além de preencher o número de trabalhadores voluntários da entidade. Isso garante transparência para quem busca informações sobre a OSC. Os campos relativos ao número de empregados formais provêm das informações lançadas na RAIS/MTE.",
+ 	"Espaços de Participação Social":"Nesse espaço, o(a) representante da OSC pode indicar a participação em espaços colegiados com o Poder Público (conselhos de políticas públicas), as oportunidades que teve de integrar espaços que traçaram diretrizes de políticas (conferências de políticas públicas), bem como outros espaços de participação compartilhados com o Poder Público ou autoorganizados pela própria sociedade civil (fóruns, redes etc.).<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+ 	"Projetos, atividades e/ou programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+ 	"Fonte de recursos anual da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."
+};
+
+function abrirModalAjuda(titulo) {
+
+	var	corpo = jsonModalAjuda[titulo];
+	var tituloCompleto = "Ajuda - "+titulo;
+	acionarModalAjuda(tituloCompleto, corpo);
+}
+
+function acionarModalAjuda(titulo, corpo) {
+  $("#modalTitulo").html("");
+  $("#modalTitulo").html(titulo);
+  $("#corpoModal").html("");
+  $("#corpoModal").html(corpo);
+  $("#modalAjuda").modal('show');
+  verificarContraste();
 }
