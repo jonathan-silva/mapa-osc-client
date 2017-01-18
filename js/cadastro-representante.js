@@ -28,9 +28,9 @@ require(['react', 'jsx!components/Util'], function(React) {
             this.fonte = false;
         }
         //formulario 1
-        var hd = 'Verifique se a organização já está cadastrada no Mapa, informando o nome ou CNPJ.';
+        var hd = 'Verifique se a organização já está cadastrada no Mapa, informando o CNPJ.';
         var id = ['nomeEntidade'];
-        var label = ['Nome ou CNPJ da Entidade'];
+        var label = ['CNPJ da Entidade'];
         var type = ['text'];
         var obrigatorio = [true];
 
@@ -85,7 +85,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                     dataType: "json",
                     data: {
                         flag: 'autocomplete',
-                        rota: rotas.AutocompleteOSCByNameId(replaceSpecialChars(request.term).replace(/ /g, '+'))
+                        rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)
                     },
                     success: function(data) {
                       if (data == null){
@@ -101,7 +101,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                           return {
                               label: item.tx_nome_osc,
                               value: item.tx_nome_osc,
-                              id: item.id_osc
+                              id:    item.id_osc
                           };
                       }));
                     },
@@ -273,14 +273,11 @@ require(['react', 'jsx!components/Util'], function(React) {
                     "id_osc": $id_osc
                 }]
             };
-
-
-            //console.log(json);
+          
 
             $.ajax({
                 //url: 'http://localhost:8080/api/user/',
-
-                url: 'js/controller.php',//'http://localhost:8383/api/user/',
+                url: controller,
                 type: 'POST',
                 dataType: 'json',
                 data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
