@@ -130,7 +130,6 @@ function verificarContraste(){
 
 function verificarLogado(){
 
-
   var user = window.localStorage.getItem('User');
   var aut  = window.localStorage.getItem('Authorization');
   var nome  = window.localStorage.getItem('Nome');
@@ -138,12 +137,15 @@ function verificarLogado(){
   if (user){
     $(".menuLogado").removeClass("logado");
     $("#btnEntrar").addClass("logado");
+    $("#btnCadastrar").addClass("logado");
     $(".menuLogado .dropdown-toggle").append(nome);
     $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
     return true;
   }else{
+    $(".menuLogado .dropdown-toggle").html('');
     $(".menuLogado").addClass("logado");
     $("#btnEntrar").removeClass("logado");
+    $("#btnCadastrar").removeClass("logado");
     return false;
   }
 }
@@ -153,13 +155,15 @@ function deslogar(){
   window.localStorage.removeItem('User');
   window.localStorage.removeItem('Authorization');
   window.localStorage.removeItem('Nome');
+  $(".menuLogado .dropdown-toggle").html('');
   $(".menuLogado").addClass("logado");
   $("#btnEntrar").removeClass("logado");
+  $("#btnCadastrar").removeClass("logado");
   return true;
 }
 
 
 
 
-
+verificarLogado();
 verificarContraste();

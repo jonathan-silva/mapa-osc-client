@@ -68,6 +68,9 @@ define(['react','rotas'], function(React) {
           items.push(<li><a id="btnEntrar" className="btn-link"  data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
           items.push(<li id="dropdown-menu-header" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
         }
+        else if(i == this.props.headerObject.menuList.length-2){//Posição do cadastrar
+          items.push(<li><a id="btnCadastrar" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        }
         else{
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
@@ -157,7 +160,7 @@ define(['react','rotas'], function(React) {
           var rotas = new Rotas();
 
           $.ajax({
-          // CORRETO 
+          // CORRETO
           url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           //url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
           type: 'POST',
@@ -172,9 +175,9 @@ define(['react','rotas'], function(React) {
             verificarLogado();
           },
           error: function (data) {
-              console.log(data);
+              //console.log(data);
               if (data.status == 200){
-                console.log(data.responseText.tx_nome_usuario);   
+                //console.log(data.responseText.tx_nome_usuario);
                 jQuery("#labelError").text("");
                 window.localStorage.setItem('User', data.responseText.id_usuario);
                 window.localStorage.setItem('Authorization', data.responseText.access_token);
@@ -183,7 +186,7 @@ define(['react','rotas'], function(React) {
                 verificarLogado();
               }else {
                 jQuery("#labelError").text("Senha incorreta. Tente novamente.");
-                console.log(data.responseText);
+                //console.log(data.responseText);
               }
           }
       });

@@ -97,10 +97,11 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   ReactDOM.render(Footer({footerObject: new FooterObject(blocks, imgsAltRealizacao, imgList)}), document.getElementById("rodape"));
 
 
-  $(document).ready(function(){
+  window.onload = function () {
     verificarLogado(); //
     verificarContraste();
-  });
+  };
+
 });
 
 
