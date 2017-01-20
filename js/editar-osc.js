@@ -1491,7 +1491,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       "recursos_proprios": [
         {
           "id": "patrimoniais",
-          "label": "Rendimentos de fundos patrimoniais"
+          "label": "Rendimentos de fundos patrimoniais",
+          "pretext": "R$"
         },
         {
           "id": "reservas",
@@ -1645,6 +1646,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       items = recursos_form.recursos_proprios;
       formItens = [];
       for (var i=0; i<items.length; i++){
+        console.log(items[i].pretext);
         formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
       }
       FormItem = React.createFactory(FormItem);
@@ -1692,6 +1694,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("recursos_nao_financeiros-"+ano)
       );
+      
+      // máscara monetária
+      $("#recursos_proprios-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
+      $("#recursos_proprios-"+ano).find('input').addClass('with-pretext');
+      $("#recursos_proprios-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+
+      $("#recursos_publicos-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
+      $("#recursos_publicos-"+ano).find('input').addClass('with-pretext');
+      $("#recursos_publicos-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+
+      $("#recursos_privados-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
+      $("#recursos_privados-"+ano).find('input').addClass('with-pretext');
+      $("#recursos_privados-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+
+      $("#recursos_nao_financeiros-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
+      $("#recursos_nao_financeiros-"+ano).find('input').addClass('with-pretext');
+      $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
     }
 
     // interacoes da selecao de anos

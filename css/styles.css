@@ -548,7 +548,12 @@ body.indisponivel {
 }
 .with-pretext{
   display: block;
-  padding: 9px 10px 10px 165px;
+  padding: 9px 10px 10px 30px;
+}
+.pretext{
+  position: absolute;
+  float: left;
+  margin: 6px 0px 0px 6px;
 }
 .input-box{
   position: relative;
