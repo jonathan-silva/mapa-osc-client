@@ -68,6 +68,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var user = window.localStorage.getItem('User');
     var auth  = window.localStorage.getItem('Authorization');
 
+    $("#unauthorized" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      autoOpen: false,
+      buttons: {
+        "OK": function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
     var authHeader = {
       "User": user,
       "Authorization": auth
@@ -2580,7 +2593,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            console.log(data);
          },
          error: function(e) {
-           console.log(e);
+          showUnauthorizedUser(e);
+          console.log(e);
          }
        });
       console.log(newJson);
@@ -2614,6 +2628,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(data);
       },
       error: function(e) {
+        showUnauthorizedUser(e);
         console.log(e);
       }
     });
@@ -2637,6 +2652,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(data);
         },
         error: function(e) {
+          showUnauthorizedUser(e);
           console.log(e);
         }
       });
@@ -2663,6 +2679,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(data);
         },
         error: function(e) {
+          showUnauthorizedUser(e);
           console.log(e);
         }
       });
@@ -2704,6 +2721,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             console.log(data);
           },
           error: function(e) {
+            showUnauthorizedUser(e);
             console.log(e);
           }
         });
@@ -2711,6 +2729,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
   });
 });
+
+function showUnauthorizedUser(e){
+  if(e.status === 403){
+    $('#unauthorized').dialog('open');
+    console.log(e);
+  }
+}
 
 function getEmptyProject(){
   var project = {
