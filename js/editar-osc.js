@@ -418,6 +418,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         area_atuacao_outra = [];
       }
       areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
+      console.log(areas_atuacao);
       var macro_area_suggestions = getSuggestions();
       $.when(
         $.ajax({
@@ -451,7 +452,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-        //console.log(rotas.AreaAtuacao());
+        console.log(macro_area_suggestions);
+        console.log(subarea_suggestions);
 
         for (var i = 0; i < subarea_suggestions.length; i++) {
           subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
@@ -482,6 +484,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "custom_class": "autocomplete"
             },
             {
+              "id": "macro_area_1_outros",
+              "label": "Insira a subarea desejada",
+              "content": null,
+              "fonte": null,
+              "placeholder": "Não constam informações nas bases de dados do Mapa.",
+              "type": "text",
+              "hide": true,
+              "custom_class": null
+            },
+            {
               "id": "macro_area_2",
               "label": "Macro Área 2",
               "content": null,
@@ -489,23 +501,36 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               "placeholder": "Selecione uma segunda área de atuação da OSC, se houver.",
               "type": "text",
               "custom_class": "autocomplete"
+            },
+            {
+              "id": "macro_area_2_outros",
+              "label": "Insira a subarea desejada",
+              "content": null,
+              "fonte": null,
+              "placeholder": "Não constam informações nas bases de dados do Mapa.",
+              "type": "text",
+              "hide": true,
+              "custom_class": null
             }
           ]
         };
         items = dados_form.form_items;
+        formItens.push(new AutocompleteItem(items[0].id, items[0].label, json.dados_gerais.tx_nome_atividade_economica_osc, json.dados_gerais.ft_atividade_economica_osc, items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
+        items.splice(0,1);
+        console.log(items);
         for (var j=0; j<items.length; j++){
           var content = null;
           var fonte = null;
-          if (j === 0){
-            content = json.dados_gerais.tx_nome_atividade_economica_osc;
-            fonte = json.dados_gerais.ft_atividade_economica_osc;
-          }
-          else if(areas_atuacao.length > j){
+          if(areas_atuacao.length > j){
             content = areas_atuacao[j].tx_nome_area_atuacao;
             fonte = areas_atuacao[j].ft_nome_area_atuacao;
           }
           //formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+          if(items[j].custom_class === "autocomplete"){
 		        formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+          } else {
+            formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, null, items[j].hide));
+          }
         }
         FormItem = React.createFactory(FormItem);
         ReactDOM.render(
@@ -586,6 +611,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $(".autocomplete").on("click", function(){
            $(this).autocomplete( "search", "" );
          });
+          //interações seção areas de atuacao
+          $(".checkboxList :checkbox").change(function() {
+            
+            if($(this).val() === "Outros"){
+              var pai = $(this).closest(".form-group");
+              var id = pai.find(".autocomplete").attr("id");
+              var $inputContainer = pai.siblings().find("#"+id+"_outros").closest(".form-group");
+              $inputContainer.toggleClass('hidden');
+              if($inputContainer.hasClass('hidden')){
+                var $input = $inputContainer.find('input');
+                $input.val("");
+              }
+            }
+          });
         });
       }
   }
@@ -1450,7 +1489,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
 
   function montarFontedeRecursos(json){
-    console.log(json.recursos);
+    // console.log(json.recursos);
 
     var sections = {
       "items": [
@@ -1628,13 +1667,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       montarPorAno(anos[j], j);
     }
     function montarPorAno(ano, index) {
-      console.log(ano);
+      // console.log(ano);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");
       }
       items = sections.items;
-      console.log(items);
+      // console.log(items);
       Section = React.createFactory(Section);
       ReactDOM.render(
         Section(
@@ -1659,7 +1698,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       items = recursos_form.recursos_proprios;
       formItens = [];
       for (var i=0; i<items.length; i++){
-        console.log(items[i].pretext);
         formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
       }
       FormItem = React.createFactory(FormItem);
