@@ -23,7 +23,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var geojson;
   var mapState = {};
   var mapRegion = {};
-  llayers = {};
+  llayers = {}; //layers do mapa de calor
+  clayers = {}; //layers dos estados
+  rlayers = {}; //layers das regiões
   clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
@@ -332,7 +334,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
-          //console.log(layer.feature.properties.regiao);
+          //console.log(layer.feature.properties.Regiao);
           //console.log(layer.feature.properties.id);
           layer.off();
           layer.on({
@@ -340,6 +342,18 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
               mouseout: resetHighlight,
               click: zoomm
           });
+
+
+          if(rlayers[layer.feature.properties.Regiao]==undefined){
+
+            var l = clayers[layer.feature.properties.id];
+            map.removeLayer(l);
+          }
+          else{
+
+            loadChunkDataRegiao(layer);
+
+          }
           //console.log(e.target.feature.properties.id);
       }
 
@@ -407,7 +421,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
                   });
       mapRegion[dados[k].id_regiao] = dados[k].nr_quantidade_osc_regiao;
-      clustersLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
+      var layerPoint = loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level);
+      clustersLayer.addLayer(layerPoint);
+      if(level=="estado") {
+        clayers[dados[k].id_regiao]=layerPoint;
+      }
+      else if (level=="regiao") {
+        rlayers[dados[k].id_regiao]=layerPoint;
+      }
     }
 
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
@@ -457,7 +478,34 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
           map.removeLayer(e.target);
+          delete rlayers[idRegiao];
           carregaMapaCluster(data, "estado");
+        }
+      }
+    });
+  }
+
+  function loadChunkDataRegiao(layer){
+    var idRegiao = layer.feature.properties.Regiao;
+    $("#loadingMapModal").show();
+    $.ajax({
+      url: urlController,
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        tabela(urlRota);
+        paginar(Object.keys(data).length-1);
+        if(data!==undefined){
+          carregaMapaCluster(data, "estado");
+          var r = rlayers[idRegiao];
+          map.removeLayer(r);
+          delete rlayers[idRegiao];
+          var l = clayers[layer.feature.properties.id];
+          map.removeLayer(l);
         }
       }
     });
