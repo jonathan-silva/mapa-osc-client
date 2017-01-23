@@ -256,6 +256,38 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     leafletView.ProcessView();
   }
 
+  var info = L.control();
+
+  function highlightFeature(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+          fillOpacity: 0.7
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera) {
+          layer.bringToFront();
+      }
+      if(layer.feature.properties.Name=="GO"){
+        //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
+        layer.bringToBack();
+      }
+      info.update(layer.feature.properties);
+  }
+
+  function resetHighlight(e) {
+      geojson.resetStyle(e.target);
+      info.update();
+  }
+
+  function zoomm(e){
+    var layer = e.target;
+      map.fitBounds(layer.getBounds());
+  }
+
   function heatMap(arrayPDF, arrayID){
       $.each(statesData.features , function(i){
           nomeEstado = statesData.features[i].properties.Name;
@@ -285,9 +317,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           layerGroup.addLayer(layer);
           llayers[layer.feature.properties.id] = layer;
       }
-      map.addLayer(layerGroup);
 
-      var info = L.control();
+      map.addLayer(layerGroup);
 
       info.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -304,30 +335,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
       info.addTo(map);
       var lll;
-      function highlightFeature(e) {
-          var layer = e.target;
-
-          layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-              fillOpacity: 0.7
-          });
-
-          if (!L.Browser.ie && !L.Browser.opera) {
-              layer.bringToFront();
-          }
-          if(layer.feature.properties.Name=="GO"){
-            //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
-            layer.bringToBack();
-          }
-          info.update(layer.feature.properties);
-      }
-
-      function resetHighlight(e) {
-          geojson.resetStyle(e.target);
-          info.update();
-      }
 
       function zoomToFeature(e) {
         //console.log(e);
@@ -336,13 +343,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           loadChunkData(layer.feature.properties.id);
           //console.log(layer.feature.properties.Regiao);
           //console.log(layer.feature.properties.id);
-          layer.off();
-          layer.on({
-              mouseover: highlightFeature,
-              mouseout: resetHighlight,
-              click: zoomm
-          });
-
 
           if(rlayers[layer.feature.properties.Regiao]==undefined){
 
@@ -354,12 +354,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             loadChunkDataRegiao(layer);
 
           }
-          //console.log(e.target.feature.properties.id);
-      }
-
-      function zoomm(e){
-        var layer = e.target;
-          map.fitBounds(layer.getBounds());
+          layer.off();
+          layer.on({
+              mouseover: highlightFeature,
+              mouseout: resetHighlight,
+              click: zoomm
+          });
       }
 
       var legend = L.control({position: 'bottomright'});
