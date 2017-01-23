@@ -17,11 +17,13 @@ require(["jquery-ui"], function (React) {
 
 });
 var urlRota;
+
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
   var geojson;
   var mapState = {};
   var mapRegion = {};
+  llayers = {};
   clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
@@ -279,6 +281,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
               click: zoomToFeature
           });
           layerGroup.addLayer(layer);
+          llayers[layer.feature.properties.id] = layer;
       }
       map.addLayer(layerGroup);
 
@@ -325,6 +328,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       }
 
       function zoomToFeature(e) {
+        //console.log(e);
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
@@ -490,6 +494,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   function clickClusterEstado(e){
     //console.log(e);
     var idEstado = e.target.options.icon.options.id;
+    //zoomToFeature(idEstado);
     $("#loadingMapModal").show();
     $.ajax({
       url: urlController,
@@ -505,6 +510,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
+          var l = llayers[idEstado];
+          l.off();
           carregaMapa(data);
         }
       }
