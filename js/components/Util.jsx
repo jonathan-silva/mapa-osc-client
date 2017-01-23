@@ -464,6 +464,7 @@ define('componenteSection', ['react'], function (React) {
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var HeaderElement = `h${item.priority}`;
+
         var ButtonElement;
         var containerClass = "";
         if(item.add_element){
@@ -472,6 +473,18 @@ define('componenteSection', ['react'], function (React) {
         if(item.container_class){
           containerClass = item.container_class;
         }
+        if (item.text == "Fonte de recursos anual da OSC" || item.text =="Espaços de Participação Social" || item.text == "Relações de Trabalho e Governança" || item.text =="Projetos, atividade e programas") {
+          itens.push(
+            <div>
+              <div className={containerClass}>
+                <HeaderElement>{item.text}<a className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + item.text} data={item.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>
+                {ButtonElement}
+              </div>
+              <div id={item.id+ano}></div>
+            </div>
+          );
+        }
+        else{
         itens.push(
           <div>
             <div className={containerClass}>
@@ -481,6 +494,8 @@ define('componenteSection', ['react'], function (React) {
             <div id={item.id+ano}></div>
           </div>
         );
+      }
+
       }
 
       return itens;
@@ -537,6 +552,9 @@ define('componenteAgrupador', ['react', 'componenteFormItem'], function (React, 
             <div>{this.renderListItems()}</div>
           );
       }
+
+      //items.push(<HeaderElement>{this.props.header.text}<a className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + this.props.header.text} data={this.props.header.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>);
+
   });
 
   return Agrupador;
@@ -916,14 +934,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 {ButtonElement}
               </div>
           }
-          if(header === "Metas Relacionadas ao ODS definido"){
-            ContainerElement =
-              <div className={containerClass}>
-                <div className="header" title="Marque as metas que se enquadram neste projeto.">{header}</div>
-                <FormInputProjeto dados={inputs}></FormInputProjeto>
-                {ButtonElement}
-              </div>
-          }
+
 
 
         itens.push(
