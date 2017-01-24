@@ -130,7 +130,6 @@ class Rotas{
 
   //cadastro-representante.js
   CadastroRepresentante(){
-    console.log(this.getBaseUrl()+":8383/api/user/");
     return this.getBaseUrl()+":8383/api/user/";
   }
 
@@ -142,6 +141,11 @@ class Rotas{
   //recuperar-senha
   RecuperSenha(){
     return this.getBaseUrl()+":8383/api/user/esquecisenha/";
+  }
+
+  //configurar-conta.js
+  ValidarUsuario(id){
+    return this.getBaseUrl()+":8383/api/user/"+id;
   }
 
 }

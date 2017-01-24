@@ -10,6 +10,7 @@
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/tagsinput/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
   </head>
   <body>
 
@@ -42,28 +43,14 @@
                 <hr>
                 <div id="form-org">
                 </div>
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">Concordo com os
-                      <a>termos de uso</a>
-                    </label>
-                  </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">Desejo receber email sobre as novidades do Mapa das Organizações da Sociedade
-                      Civil.</label>
-                  </div>
+                <div id="tags" class="hide">
+                  <input id ="tag" type="text" value="">
                 </div>
-                <div class="form-group">
-                  <div class="captcha">
-                    <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
-                  </div>
-                </div>
+                <br>
                 <div class="form-group">
                   <div class="col-sm-offset-0 text-center">
-                    <button type="submit" class="btn btn-success">Confirmar</button>
-                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                    <button type="button" class="btn btn-success">Confirmar</button>
+                    <button type="button" class="btn btn-danger">Cancelar</button>
                   </div>
                 </div>
               </div>
