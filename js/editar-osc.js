@@ -119,7 +119,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   function clique(){
     $(".ajuda").on("click", function(){
       abrirModalAjuda($(this).attr("data"));
-      //console.log(f);
+      //console.log("ok");
     });
   }
 
@@ -381,7 +381,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       };
       var items = dados_form.form_items;
       var headerPriority = '2';
-      var headerText = 'Dados Gerais <a href=./>.</a>';
+      var headerText = 'Dados Gerais';
       var formItens = [];
 
       for (var i=0; i<items.length; i++){
@@ -390,7 +390,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
-          {header:{priority: headerPriority, text: headerText +"<a href='www.google.com' target='_blank'>...</a>"}, dados:formItens}
+          {header:{priority: headerPriority, text: headerText}, dados:formItens}
         ), document.getElementById("dados_gerais")
       );
     }
@@ -541,12 +541,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, null, items[j].hide));
           }
         }
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:{priority: headerPriority, text: headerText}, dados:formItens}
-          ), document.getElementById("areas_de_atuacao")
-        );
 
         require(["react", "jquery-ui", "jquery"], function (React) {
           //autocomplete macro_area_1 e macro_area_2
@@ -635,7 +629,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
         });
+
+        FormItem = React.createFactory(FormItem);
+        ReactDOM.render(
+          FormItem(
+            {header:{priority: headerPriority, text: headerText}, dados:formItens}
+          ), document.getElementById("areas_de_atuacao")
+        );
       }
+
   }
 
     //Descrição
@@ -1092,8 +1094,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
       }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome do dirigente", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo do dirigente", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1193,8 +1195,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
     else {
       formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Nome do dirigente", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Cargo do dirigente", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
       Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
@@ -1377,12 +1379,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
             }
           }
-          formItens.push(new FormItens("tx_nome_conselho"+"-0", "Nome do Conselho", null,null, null, "text"));
-          formItens.push(new FormItens("tx_nome_tipo_participacao"+"-0", "Titularidade", null,null, null, "text"));
-          formItens.push(new FormItens("tx_nome_representante_conselho"+"-0", "Nome de representante", null,null, null, "text"));
-          formItens.push(new FormItens("tx_periodicidade_reuniao"+"-0", "Periodicidade da Reunião", null,null, null, "text"));
-          formItens.push(new FormItens("dt_data_inicio_conselho"+"-0", "Data de início de vigência", null,null, null, "text", null, null, "date"));
-          formItens.push(new FormItens("dt_data_fim_conselho"+"-0", "Data de fim de vigência", null,null, null, "text", null, null, "date"));
+          formItens.push(new FormItens("tx_nome_conselho"+"-0", "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
+          formItens.push(new FormItens("tx_nome_tipo_participacao"+"-0", "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
+          formItens.push(new FormItens("tx_nome_representante_conselho"+"-0", "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
+          formItens.push(new FormItens("tx_periodicidade_reuniao"+"-0", "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
+          formItens.push(new FormItens("dt_data_inicio_conselho"+"-0", "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
+          formItens.push(new FormItens("dt_data_fim_conselho"+"-0", "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
 
           Agrupador = React.createFactory(AgrupadorConselhos);
           ReactDOM.render(
@@ -1412,9 +1414,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                }
               }
             }
-            formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, null, "text"));
-            formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, null, "text"));
-            formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+            formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
+            formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
+            formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
+
 
             Agrupador = React.createFactory(AgrupadorConferencia);
             ReactDOM.render(
@@ -1442,7 +1445,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
 
-        formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, null, "text", null, null, null, null, true));
+        formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
         FormItemButtons = React.createFactory(FormItemButtons);
         ReactDOM.render(
@@ -1457,12 +1460,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     else {
 
       formItens = [];
-      formItens.push(new FormItens(null, "Nome do Conselho", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Titularidade", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Nome de representante", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Periodicidade da Reunião", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Data de início de vigência", null,null, null, "date", null, null, "date"));
-      formItens.push(new FormItens(null, "Data de fim de vigência", null,null, null, "date", null, null, "date"));
+      formItens.push(new FormItens(null, "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
+      formItens.push(new FormItens(null, "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
+      formItens.push(new FormItens(null, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
+      formItens.push(new FormItens(null, "Periodicidade das reuniões do Conselho", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
+      formItens.push(new FormItens(null, "Data de início de vigência da representação da OSC no Conselho", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
+      formItens.push(new FormItens(null, "Data de encerramento de vigência da representação no Conselho", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
       Agrupador = React.createFactory(AgrupadorConselhos);
       ReactDOM.render(
         Agrupador(
@@ -1472,9 +1475,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addItem('conselhos');
 
       formItens = [];
-      formItens.push(new FormItens(null, "Nome da Conferência", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Forma de participação na conferência", null,null, null, "text"));
-      formItens.push(new FormItens(null, "Ano de realização da conferência", null,null, null, "text", null, null, "date"));
+      formItens.push(new FormItens(null, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
+      formItens.push(new FormItens(null, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
+      formItens.push(new FormItens(null, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
 
       Agrupador = React.createFactory(AgrupadorConferencia);
       ReactDOM.render(
@@ -1485,7 +1488,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addItem('conferencias');
 
       formItens = [];
-      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, null, "text", null, null, null, null, true));
+      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
       FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
@@ -2532,7 +2535,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
-        $divMetasProjeto.append('<div class="header">Metas Relacionadas ao ODS definido</div>');
+        $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
         $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
 
         // rotas.Objetivos()
@@ -2604,7 +2607,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           // $(this).removeClass("ui-selected");
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-          $('#metas-'+cd_objetivo).append('<div class="header">Metas Relacionadas ao ODS definido</div>');
+          $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
           if($('#metas-'+cd_objetivo).hasClass('hidden')){
            $('#metas-'+cd_objetivo).toggleClass('hidden');
@@ -3023,13 +3026,13 @@ var jsonModalAjuda = {
  	"Títulos e Certificações":"Essa seção indica os títulos (Utilidade pública estadual ou municipal), qualificações (OSCIP) e certificações (CEBAS) concedidos pelo Poder Público à OSC.<br><br>Para saber mais sobre cada um dos títulos ou certificações, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
  	"Relações de Trabalho e Governança":"Aqui o(a) representante da OSC pode indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da sua organização, além de preencher o número de trabalhadores voluntários da entidade. Isso garante transparência para quem busca informações sobre a OSC. Os campos relativos ao número de empregados formais provêm das informações lançadas na RAIS/MTE.",
  	"Espaços de Participação Social":"Nesse espaço, o(a) representante da OSC pode indicar a participação em espaços colegiados com o Poder Público (conselhos de políticas públicas), as oportunidades que teve de integrar espaços que traçaram diretrizes de políticas (conferências de políticas públicas), bem como outros espaços de participação compartilhados com o Poder Público ou autoorganizados pela própria sociedade civil (fóruns, redes etc.).<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
- 	"Projetos, atividades e/ou programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+ 	"Projetos, atividade e programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
  	"Fonte de recursos anual da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."
 };
 
 function abrirModalAjuda(titulo) {
-
 	var	corpo = jsonModalAjuda[titulo];
+  console.log(corpo);
 	var tituloCompleto = "Ajuda - "+titulo;
 	acionarModalAjuda(tituloCompleto, corpo);
 }

@@ -1999,7 +1999,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "ES",
-		  	"Regiao": "4",
+		  	"Regiao": "3",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">ES</font></td></tr></table>"
 		},
 		"geometry": {
@@ -3194,7 +3194,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "MG",
-		  	"Regiao": "4",
+		  	"Regiao": "3",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">MG</font></td></tr></table>"
 		},
 		"geometry": {
@@ -6816,7 +6816,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "PR",
-		  	"Regiao": "3",
+		  	"Regiao": "4",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">PR</font></td></tr></table>"
 		},
 		"geometry": {
@@ -7238,7 +7238,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "RJ",
-		  	"Regiao": "4",
+		  	"Regiao": "3",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">RJ</font></td></tr></table>"
 		},
 		"geometry": {
@@ -8301,7 +8301,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "RS",
-		  	"Regiao": "3",
+		  	"Regiao": "4",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">RS</font></td></tr></table>"
 		},
 		"geometry": {
@@ -8718,7 +8718,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "SC",
-		  	"Regiao": "3",
+		  	"Regiao": "4",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">SC</font></td></tr></table>"
 		},
 		"geometry": {
@@ -9108,7 +9108,7 @@ var statesData = {
 		"type": "Feature",
 		"properties": {
 			"Name": "SP",
-		  	"Regiao": "4",
+		  	"Regiao": "3",
 			"Description": "<table border=0 cellpadding=0 cellspacing=0  width=250 style=\"FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;\"><tr><td bgcolor=\"#E3E1CA\" align=\"right\"><font COLOR=\"#000000\"><b>UF</b></font></td><td bgcolor=\"#E4E6CA\"> <font COLOR=\"#008000\">SP</font></td></tr></table>"
 		},
 		"geometry": {

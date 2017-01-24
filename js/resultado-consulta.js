@@ -17,11 +17,15 @@ require(["jquery-ui"], function (React) {
 
 });
 var urlRota;
+
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
   var geojson;
   var mapState = {};
   var mapRegion = {};
+  llayers = {}; //layers do mapa de calor
+  clayers = {}; //layers dos estados
+  rlayers = {}; //layers das regiões
   clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
@@ -259,6 +263,38 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     leafletView.ProcessView();
   }
 
+  var info = L.control();
+
+  function highlightFeature(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+          fillOpacity: 0.7
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera) {
+          layer.bringToFront();
+      }
+      if(layer.feature.properties.Name=="GO"){
+        //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
+        layer.bringToBack();
+      }
+      info.update(layer.feature.properties);
+  }
+
+  function resetHighlight(e) {
+      geojson.resetStyle(e.target);
+      info.update();
+  }
+
+  function zoomm(e){
+    var layer = e.target;
+      map.fitBounds(layer.getBounds());
+  }
+
   function heatMap(arrayPDF, arrayID){
       $.each(statesData.features , function(i){
           nomeEstado = statesData.features[i].properties.Name;
@@ -286,10 +322,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
               click: zoomToFeature
           });
           layerGroup.addLayer(layer);
+          llayers[layer.feature.properties.id] = layer;
       }
-      map.addLayer(layerGroup);
 
-      var info = L.control();
+      map.addLayer(layerGroup);
 
       info.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -306,49 +342,31 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
       info.addTo(map);
       var lll;
-      function highlightFeature(e) {
-          var layer = e.target;
-
-          layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-              fillOpacity: 0.7
-          });
-
-          if (!L.Browser.ie && !L.Browser.opera) {
-              layer.bringToFront();
-          }
-          if(layer.feature.properties.Name=="GO"){
-            //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
-            layer.bringToBack();
-          }
-          info.update(layer.feature.properties);
-      }
-
-      function resetHighlight(e) {
-          geojson.resetStyle(e.target);
-          info.update();
-      }
 
       function zoomToFeature(e) {
+        //console.log(e);
         var layer = e.target;
           map.fitBounds(layer.getBounds());
           loadChunkData(layer.feature.properties.id);
-          //console.log(layer.feature.properties.regiao);
+          //console.log(layer.feature.properties.Regiao);
           //console.log(layer.feature.properties.id);
+
+          if(rlayers[layer.feature.properties.Regiao]==undefined){
+
+            var l = clayers[layer.feature.properties.id];
+            map.removeLayer(l);
+          }
+          else{
+
+            loadChunkDataRegiao(layer);
+
+          }
           layer.off();
           layer.on({
               mouseover: highlightFeature,
               mouseout: resetHighlight,
               click: zoomm
           });
-          //console.log(e.target.feature.properties.id);
-      }
-
-      function zoomm(e){
-        var layer = e.target;
-          map.fitBounds(layer.getBounds());
       }
 
       var legend = L.control({position: 'bottomright'});
@@ -410,7 +428,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
                   });
       mapRegion[dados[k].id_regiao] = dados[k].nr_quantidade_osc_regiao;
-      clustersLayer.addLayer(loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level));
+      var layerPoint = loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level);
+      clustersLayer.addLayer(layerPoint);
+      if(level=="estado") {
+        clayers[dados[k].id_regiao]=layerPoint;
+      }
+      else if (level=="regiao") {
+        rlayers[dados[k].id_regiao]=layerPoint;
+      }
     }
 
     if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
@@ -460,7 +485,34 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
           map.removeLayer(e.target);
+          delete rlayers[idRegiao];
           carregaMapaCluster(data, "estado");
+        }
+      }
+    });
+  }
+
+  function loadChunkDataRegiao(layer){
+    var idRegiao = layer.feature.properties.Regiao;
+    $("#loadingMapModal").show();
+    $.ajax({
+      url: urlController,
+      type: 'GET',
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
+      error: function(e){
+          console.log("ERRO no AJAX :" + e);
+      },
+      success: function(data){
+        tabela(urlRota);
+        paginar(Object.keys(data).length-1);
+        if(data!==undefined){
+          carregaMapaCluster(data, "estado");
+          var r = rlayers[idRegiao];
+          map.removeLayer(r);
+          delete rlayers[idRegiao];
+          var l = clayers[layer.feature.properties.id];
+          map.removeLayer(l);
         }
       }
     });
@@ -497,6 +549,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   function clickClusterEstado(e){
     //console.log(e);
     var idEstado = e.target.options.icon.options.id;
+    //zoomToFeature(idEstado);
     $("#loadingMapModal").show();
     $.ajax({
       url: urlController,
@@ -512,6 +565,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
+          var l = llayers[idEstado];
+          l.off();
           carregaMapa(data);
         }
       }
