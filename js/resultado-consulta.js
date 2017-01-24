@@ -135,38 +135,45 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             i++;
           }
         }
+        //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
+        if(newData.length >1){
+          var datatable = $('#resultadoconsulta_formato_dados').DataTable({
+            responsive: true,
+            processing: true,
+            deferLoading: 1000,
+            deferRender: true,
+            searching: false,
+            data: newData,
+            dom: 'Bfrtip',
+            "bPaginate": false,
+            "bSort": true,
+            "aaSorting": [[ 1, 'asc' ]],
+             columns: [
+                     {title: "", width: 50},
+                     {title: "Nome da OSC", width: 200},
+                     {title: "CNPJ"},
+                     {title: "Natureza Jurídica"},
+                     {title: "Endereço"},
+                     {title: "Detalhar"}
+                 ],
+             aoColumnDefs: [
+               {bSortable :false, aTargets: [0]},
+               {bSortable :false, aTargets: [5]},
+               {bSortable :false, aTargets: [4]}
+             ],
+             autoWidth: true
+           });
+           datatable.destroy();
+           datatable.draw();
 
-        var datatable = $('#resultadoconsulta_formato_dados').DataTable({
-          responsive: true,
-          processing: true,
-          deferLoading: 1000,
-          deferRender: true,
-          searching: false,
-          data: newData,
-          dom: 'Bfrtip',
-          "bPaginate": false,
-          "bSort": true,
-          "aaSorting": [[ 1, 'asc' ]],
-           columns: [
-                   {title: "", width: 50},
-                   {title: "Nome da OSC", width: 200},
-                   {title: "CNPJ"},
-                   {title: "Natureza Jurídica"},
-                   {title: "Endereço"},
-                   {title: "Detalhar"}
-               ],
-           aoColumnDefs: [
-             {bSortable :false, aTargets: [0]},
-             {bSortable :false, aTargets: [5]},
-             {bSortable :false, aTargets: [4]}
-           ],
-           autoWidth: true
-         });
-         datatable.destroy();
-         datatable.draw();
-
-         $('#loading').addClass('hide');
+           $('#loading').addClass('hide');
        }
+       else {
+          $('#modalTitle').text('Nenhuma OSC encontrada');
+          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+          $('#modalMensagem').modal('show');
+       }
+      }
      });
 
     $('#resultadoconsulta_formato_dados').on( 'draw.dt', function () {
