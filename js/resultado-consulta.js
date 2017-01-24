@@ -354,7 +354,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           if(rlayers[layer.feature.properties.Regiao]==undefined){
 
             var l = clayers[layer.feature.properties.id];
-            map.removeLayer(l);
+            if(l!=undefined)
+              map.removeLayer(l);
           }
           else{
 
@@ -567,6 +568,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           map.removeLayer(e.target);
           var l = llayers[idEstado];
           l.off();
+          l.on({
+              mouseover: highlightFeature,
+              mouseout: resetHighlight,
+              click: zoomm
+          });
           carregaMapa(data);
         }
       }
