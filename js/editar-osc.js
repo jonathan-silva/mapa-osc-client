@@ -22,7 +22,7 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
         reader.onload = function (e) {
           $("#imagemLogo").attr('src', e.target.result)
         };
-      reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(input.files[0]);
     }
     else {
         $('#errorLabel').removeClass('hide');
@@ -39,7 +39,7 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
 
 });
 
-require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'datatables-responsive'], function (React) {
+require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'jquery-ui', 'datatables-responsive'], function (React) {
 
   var dadosForm = new DataForms();
 
@@ -122,58 +122,53 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   function clique(){
     $(".ajuda").on("click", function(){
       abrirModalAjuda($(this).attr("data"));
-      //console.log("ok");
     });
   }
 
 	function montarCabecalho(json){
     function fCabecalho(Nome, cd_nur,NatJur){
-        this.Nome = Nome;
-        this.cd_nur = cd_nur;
-        this.NatJur = NatJur;
-      }
-    if (validateObject(json.cabecalho)) {
-      var Nome = json.cabecalho.tx_razao_social_osc ? json.cabecalho.tx_razao_social_osc : "";
-      var cd_nur = json.cabecalho.cd_identificador_osc ? json.cabecalho.cd_identificador_osc : "";
-      var NatJur = json.cabecalho.tx_nome_natureza_juridica_osc ? json.cabecalho.tx_nome_natureza_juridica_osc : "";
-
-      var cabecalho = [];
-      cabecalho.push(new fCabecalho(Nome, cd_nur, NatJur));
-      Cabecalho = React.createFactory(Cabecalho);
-      ReactDOM.render(Cabecalho({dados:cabecalho}), document.getElementById("cabecalho"));
+      this.Nome = Nome;
+      this.cd_nur = cd_nur;
+      this.NatJur = NatJur;
     }
+    var cabecalho = validateObject(json.cabecalho) ? json.cabecalho : "";
+    var Nome = cabecalho.tx_razao_social_osc ? cabecalho.tx_razao_social_osc : "";
+    var cd_nur = cabecalho.cd_identificador_osc ? cabecalho.cd_identificador_osc : "";
+    var NatJur = cabecalho.tx_nome_natureza_juridica_osc ? cabecalho.tx_nome_natureza_juridica_osc : "";
+
+    var cabecalhoArray = [];
+    cabecalhoArray.push(new fCabecalho(Nome, cd_nur, NatJur));
+    Cabecalho = React.createFactory(Cabecalho);
+    ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
+
   }
-
-
 
   // Dados Gerais
   function montarDadosGerais(json){
-    if (validateObject(json.dados_gerais)) {
-      var dadosGerais = json.dados_gerais;
-      var content = montarEnderecoImovel(dadosGerais)
-      var dados_form =dadosForm.dadosGerais(dadosGerais, content);
-      var items = dados_form.form_items;
-      var headerPriority = '2';
-      var headerText = 'Dados Gerais';
-      var formItens = [];
+    var dadosGerais = validateObject(json.dados_gerais) ? json.dados_gerais : "";
+    var content = montarEnderecoImovel(dadosGerais)
+    var dados_form =dadosForm.dadosGerais(dadosGerais, content);
+    var items = dados_form.form_items;
+    var headerPriority = '2';
+    var headerText = 'Dados Gerais';
+    var formItens = [];
 
-      for (var i=0; i<items.length; i++){
-        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
-      }
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:{priority: headerPriority, text: headerText}, dados:formItens}
-        ), document.getElementById("dados_gerais")
-      );
+    for (var i=0; i<items.length; i++){
+      formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
     }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("dados_gerais")
+    );
 
     $("#tx_telefone").find("input").mask('(00) 0000-0000');
   }
 
   //Áreas de atuação
   function montarAreasDeAtuacao(json){
-    //if (validateObject(json.area_atuacao)) {
+
     function AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
       this.id = id;
       this.label = label;
@@ -185,20 +180,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.areas = areas;
       this.subareas = subareas;
     }
-    var areas_atuacao;
-    var area_atuacao_outra;
 
-    if(json.area_atuacao){
-      areas_atuacao = json.area_atuacao.area_atuacao;
-      area_atuacao_outra = json.area_atuacao.area_atuacao_outra;
-    }
+    var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao.area_atuacao : [];
+    var area_atuacao_outra = validateObject(json.area_atuacao) ? json.area_atuacao.area_atuacao_outra : [];
 
-    if(areas_atuacao === undefined){
-      areas_atuacao = [];
-    }
-    if(area_atuacao_outra === undefined){
-      area_atuacao_outra = [];
-    }
     areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
     //console.log(areas_atuacao);
     var macro_area_suggestions = dadosForm.getSuggestions();
@@ -236,7 +221,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function loadSuggestions(macro_area_suggestions, subarea_suggestions){
       //console.log(macro_area_suggestions);
       //console.log(subarea_suggestions);
-
       for (var i = 0; i < subarea_suggestions.length; i++) {
         subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
@@ -469,154 +453,102 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
   }
 
-    //Relações de trabalho e governança
-    function montarRelacoesGovernanca(json){
+  //Relações de trabalho e governança
+  function montarRelacoesGovernanca(json){
+    // Governança: Dirigentes
+    var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
+
+    var sections = dadosForm.sectionsRelacoesGovernanca();
+    items = sections.items;
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );
+    function DadosForm(label, content) {
+      this.nome = label;
+      this.cargo = content;
+    }
+
+    //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
+    var relacoes_trabalho =0;
+
+    var relacoes_trabalho_governanca = validateObject(json.relacoes_trabalho_governanca) ? json.relacoes_trabalho_governanca : "";
       // Governança: Dirigentes
-      var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-
-      var sections = dadosForm.sectionsRelacoesGovernanca();
-      items = sections.items;
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:items}
-        ), document.getElementById(items[0].target)
-      );
-      function DadosForm(label, content) {
-        this.nome = label;
-        this.cargo = content;
-      }
-
-      //var dirigentes = json.relacoes_trabalho_governanca.governanca;
-      //var conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
-	    var dirigentes = '0';
-      var conselheiros = 0;
-
-      //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
-      var relacoes_trabalho =0;
-
-      if (validateObject(json.relacoes_trabalho_governanca)) {
-      // Governança: Dirigentes
-      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
-        dirigentes = json.relacoes_trabalho_governanca.governanca
-      }
+    var  dirigentes = validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.governanca : '0';
       // Governança: Conselheiros
-      if (validateObject(json.relacoes_trabalho_governanca.governanca)){
-        conselheiros = json.relacoes_trabalho_governanca.conselho_fiscal;
-      }
+    var  conselheiros = validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.conselho_fiscal : 0;
 
-      formItens = [];
-      for (j=0; j<dirigentes.length; j++){
-        for (var property in dirigentes[j]) {
-          if (dirigentes[j].hasOwnProperty(property)) {
-            if(property == "tx_nome_dirigente"){
-              formItens.push(new FormItens(dirigentes[j].id, "Nome", dirigentes[j].tx_nome_dirigente, dirigentes[j].ft_nome_dirigente, null, "text"));
-            }
-            if(property == "tx_cargo_dirigente"){
-              formItens.push(new FormItens(dirigentes[j].id, "Cargo", dirigentes[j].tx_cargo_dirigente, dirigentes[j].ft_cargo_dirigente, null, "text"));
-            }
+    formItens = [];
+    for (j=0; j<dirigentes.length; j++){
+      for (var property in dirigentes[j]) {
+        if (dirigentes[j].hasOwnProperty(property)) {
+          if(property == "tx_nome_dirigente"){
+            formItens.push(new FormItens(dirigentes[j].id, "Nome", dirigentes[j].tx_nome_dirigente, dirigentes[j].ft_nome_dirigente, null, "text"));
+          }
+          if(property == "tx_cargo_dirigente"){
+            formItens.push(new FormItens(dirigentes[j].id, "Cargo", dirigentes[j].tx_cargo_dirigente, dirigentes[j].ft_cargo_dirigente, null, "text"));
           }
         }
       }
-      formItens.push(new FormItens(null, "Nome do dirigente", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo do dirigente", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
-      Agrupador = React.createFactory(Agrupador);
-      ReactDOM.render(
-        Agrupador(
-          {dados:formItens}
-        ), document.getElementById("dirigentes")
-      );
-      formItens = [];
-      //formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:null, dados:formItens}
-        ), document.getElementById("conselheiros")
-      );
-      addItem('dirigentes');
-
-      // Governança: Conselheiros
-      var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
-      formItens = [];
-      for (var i = 0; i < conselho_fiscal.length; i++) {
-        var conselheiro = conselho_fiscal[i];
-        formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira o nome do conselheiro fiscal", "text"));
-      }
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
-      FormItemButtons = React.createFactory(FormItemButtons);
-      ReactDOM.render(
-        FormItemButtons(
-          {header:null, dados:formItens}
-        ), document.getElementById("conselho_fiscal")
-      );
-
-      addItem('conselho_fiscal');
-
-      //Trabalhadores
-      //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
-      //var relacoes_trabalho_outra = json.relacoes_trabalho_governanca.relacoes_trabalho_outra[0];
-
-      if (validateObject(json.relacoes_trabalho_governanca.relacoes_trabalho)) {
-          relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
-      }
-      dados_form = dadosForm.relacoesTrabalho(relacoes_trabalho);
-      formItens = [];
-      for (var i = 0; i < dados_form.form_items.length; i++) {
-        var campo = dados_form.form_items[i];
-        formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
-      }
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:null, dados:formItens}
-        ), document.getElementById("trabalhadores")
-      );
     }
-    else {
-      formItens = [];
-      formItens.push(new FormItens(null, "Nome do dirigente", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
-      formItens.push(new FormItens(null, "Cargo do dirigente", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
-      Agrupador = React.createFactory(Agrupador);
-      ReactDOM.render(
-        Agrupador(
-          {dados:formItens}
-        ), document.getElementById("dirigentes")
-      );
-        addItem('dirigentes');
+    formItens.push(new FormItens(null, "Nome do dirigente", null , null, "Insira o nome do dirigente", "text", null, null, null, null, true));
+    formItens.push(new FormItens(null, "Cargo do dirigente", null , null, "Insira o cargo do dirigente", "text", null, null, null, null, true));
+    Agrupador = React.createFactory(Agrupador);
+    ReactDOM.render(
+      Agrupador(
+        {dados:formItens}
+      ), document.getElementById("dirigentes")
+    );
+    formItens = [];
+    //formItens.push(new FormItens(null, "Quantidade de conselheiros", conselheiros, null, null, "p"));
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselheiros")
+    );
+    addItem('dirigentes');
 
-      formItens = [];
-      formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
-      FormItemButtons = React.createFactory(FormItemButtons);
-      ReactDOM.render(
-        FormItemButtons(
-          {header:null, dados:formItens}
-        ), document.getElementById("conselho_fiscal")
-      );
-      addItem('conselho_fiscal');
-
-      formItens = [];
-      dados_form = dadosForm.trabalhadoresRelacoesGovernanca();
-      for (var i = 0; i < dados_form.form_items.length; i++) {
-        var campo = dados_form.form_items[i];
-        formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
-      }
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:null, dados:formItens}
-        ), document.getElementById("trabalhadores")
-      );
-      addItem('trabalhadores');
+    // Governança: Conselheiros
+    var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
+    formItens = [];
+    for (var i = 0; i < conselho_fiscal.length; i++) {
+      var conselheiro = conselho_fiscal[i];
+      formItens.push(new FormItens(conselheiro.id_conselheiro, "Nome", conselheiro.tx_nome_conselheiro, conselheiro.ft_nome_conselheiro, "Insira o nome do conselheiro fiscal", "text"));
     }
-}
+    formItens.push(new FormItens(null, "Nome", null , null, "Insira o nome do conselheiro fiscal", "text", null, null, null, null, true));
+    FormItemButtons = React.createFactory(FormItemButtons);
+    ReactDOM.render(
+      FormItemButtons(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselho_fiscal")
+    );
+
+    addItem('conselho_fiscal');
+
+    //Trabalhadores
+    relacoes_trabalho = validateObject(json.relacoes_trabalho_governanca.relacoes_trabalho) ? json.relacoes_trabalho_governanca.relacoes_trabalho : "";
+
+    dados_form = dadosForm.relacoesTrabalho(relacoes_trabalho);
+    formItens = [];
+    for (var i = 0; i < dados_form.form_items.length; i++) {
+      var campo = dados_form.form_items[i];
+      formItens.push(new FormItens(campo.id, campo.label, campo.content, campo.fonte, campo.placeholder, campo.type));
+    }
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("trabalhadores")
+    );
+
+  }
 
     // Espaços participacao social;
     function montarEspacosParticipacaoSocial(json){
       var tx_sem_participacao_social = "Não há registros de participação social";
-      //var conselhos = json.participacao_social.conselho;
-      //var conferencias = json.participacao_social.conferencia;
-      //var outras = json.participacao_social.outra;
       var conselhos='0';
       var conferencias = '0';
       var outras ='0';
@@ -629,11 +561,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         Section(
           {dados:items}
         ), document.getElementById(items[0].target)
-      );/*
-      function DadosForm(label, content) {
-        this.nome = label;
-        this.cargo = content;
-      }*/
+      );
 
       if (validateObject(json.participacao_social)){
 
@@ -664,26 +592,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   formItens.push(new FormItens(5, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
                   formItens.push(new FormItens(6, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
                 }
-                /*
-                if(property == "tx_nome_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Nome do Conselho", conselhos[j].tx_nome_conselho, conselhos[j].ft_conselho, null, "text"));
-                }
-
-                if(property == "tx_nome_tipo_participacao"){
-                  formItens.push(new FormItens(conselho[j].id, "Titularidade", conselhos[j].tx_nome_tipo_participacao, conselhos[j].ft_tipo_participacao, null, "text"));
-                }
-                if(property == "tx_nome_representante_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Nome de representante", conselhos[j].tx_nome_representante_conselho , conselhos[j].ft_nome_representante_conselho, null, "text"));
-                }
-                if(property == "tx_periodicidade_reuniao"){
-                  formItens.push(new FormItens(conselho[j].id, "Periodicidade da Reunião", conselhos[j].tx_periodicidade_reuniao, conselhos[j].ft_periodicidade_reuniao, null, "text"));
-                }
-                if(property == "dt_data_inicio_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Data de início de vigência", conselhos[j].dt_data_inicio_conselho, conselhos[j].ft_data_inicio_conselho, null, "text", null, null, "date"));
-                }
-                if(property == "dt_data_fim_conselho"){
-                  formItens.push(new FormItens(conselho[j].id, "Data de fim de vigência", conselhos[j].dt_data_fim_conselho, conselhos[j].ft_data_fim_conselho, null, "text", null, null, "date"));
-                }*/
              }
             }
           }
@@ -956,7 +864,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 },
               ],
               autoWidth: true,
-              "oLanguage": dadosForm.oLanguageDataTable();
+              "oLanguage": dadosForm.oLanguageDataTable()
              });
 
              $('#table_lista_projetos').append('<span class="input-group-btn">'+
@@ -1029,7 +937,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           },
         ],
         autoWidth: true,
-        "oLanguage": dadosForm.oLanguageDataTable();
+        "oLanguage": dadosForm.oLanguageDataTable()
        });
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
