@@ -124,7 +124,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   function clique(){
     $(".ajuda").on("click", function(){
       abrirModalAjuda($(this).attr("data"));
-      //console.log("ok");
+      console.log("ok");
     });
   }
 
@@ -1561,120 +1561,147 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {
           "id": "patrimoniais",
           "label": "Rendimentos de fundos patrimoniais",
-          "pretext": "R$"
+          "pretext": "R$",
+          "placeholder":""
         },
         {
           "id": "reservas",
-          "label": "Rendimentos financeiros de reservas ou contas correntes  próprias"
+          "label": "Rendimentos financeiros de reservas ou contas correntes  próprias",
+          "placeholder":""
         },
         {
           "id": "mensalidades",
-          "label": "Mensalidades ou contribuições de associados"
+          "label": "Mensalidades ou contribuições de associados",
+          "placeholder":""
         },
         {
           "id": "premios",
-          "label": "Prêmios recebidos"
+          "label": "Prêmios recebidos",
+          "placeholder":""
         },
         {
           "id": "venda",
-          "label": "Venda de produtos"
+          "label": "Venda de produtos",
+          "placeholder":""
         },
         {
           "id": "servicos",
-          "label": "Prestação de serviços"
+          "label": "Prestação de serviços",
+          "placeholder":""
         },
         {
           "id": "bens",
-          "label": "Venda de bens e direitos"
+          "label": "Venda de bens e direitos",
+          "placeholder":""
         }
       ],
 
       "recursos_publicos": [
         {
           "id": "federal",
-          "label": "Parceria com o governo federal"
+          "label": "Parceria com o governo federal",
+          "placeholder":""
         },
         {
           "id": "estadual",
-          "label": "Parceria com o governo estadual"
+          "label": "Parceria com o governo estadual",
+          "placeholder":""
         },
         {
           "id": "municipal",
-          "label": "Parceria com o governo municipal"
+          "label": "Parceria com o governo municipal",
+          "placeholder":""
         },
         {
           "id": "multilaterais",
-          "label": "Acordo com organismos multilaterais "
+          "label": "Acordo com organismos multilaterais ",
+          "placeholder":""
         },
         {
           "id": "estrangeiros",
-          "label": "Acordo com governos estrangeiros"
+          "label": "Acordo com governos estrangeiros",
+          "placeholder":""
         },
         {
           "id": "empresas_publicas",
-          "label": "Empresas públicas ou sociedades de economia mista"
+          "label": "Empresas públicas ou sociedades de economia mista",
+          "placeholder":""
         }
       ],
 
       "recursos_privados": [
         {
           "id": "oscs_brasileiras",
-          "label": "Parceria com OSCs brasileiras"
+          "label": "Parceria com OSCs brasileiras",
+          "placeholder":""
         },
         {
           "id": "oscs_estrangeiras",
-          "label": "Parcerias com OSCs estrangeiras"
+          "label": "Parcerias com OSCs estrangeiras",
+          "placeholder":""
         },
         {
           "id": "religiosas_brasileiras",
-          "label": "Parcerias com organizações religiosas brasileiras"
+          "label": "Parcerias com organizações religiosas brasileiras",
+          "placeholder":""
         },
         {
           "id": "religiosas_estrangeiras",
-          "label": "Parcerias com organizações religiosas estrangeiras"
+          "label": "Parcerias com organizações religiosas estrangeiras",
+          "placeholder":""
         },
         {
           "id": "empresas_brasileiras",
-          "label": "Empresas privadas brasileiras"
+          "label": "Empresas privadas brasileiras",
+          "placeholder":""
         },
         {
           "id": "empresas_estrangeiras",
-          "label": "Empresas privadas estrangeiras"
+          "label": "Empresas privadas estrangeiras",
+          "placeholder":""
         },
         {
           "id": "doacoes_pj",
-          "label": "Doações de pessoa jurídica"
+          "label": "Doações de pessoa jurídica",
+          "placeholder":""
         },
         {
           "id": "doacoes_pf",
-          "label": "Doações de pessoa física"
+          "label": "Doações de pessoa física",
+          "placeholder":""
         },
         {
           "id": "doacoes_servicos",
-          "label": "Doações recebidas na forma de produtos e serviços (com Nota Fiscal)"
+          "label": "Doações recebidas na forma de produtos e serviços (com Nota Fiscal)",
+          "placeholder":""
         }
       ],
 
       "recursos_nao_financeiros": [
         {
           "id": "voluntariado",
-          "label": "Voluntariado"
+          "label": "Voluntariado",
+          "placeholder":""
         },
         {
           "id": "isencoes",
-          "label": "Isenções"
+          "label": "Isenções",
+          "placeholder":""
         },
         {
           "id": "imunidades",
-          "label": "Imunidades"
+          "label": "Imunidades",
+          "placeholder":""
         },
         {
           "id": "bens_recebidos",
-          "label": "Bens recebidos em direito de uso"
+          "label": "Bens recebidos em direito de uso",
+          "placeholder":""
         },
         {
           "id": "doacoes_recebidas",
-          "label": "Doações recebidas na forma de produtos e serviços (sem Nota Fiscal)"
+          "label": "Doações recebidas na forma de produtos e serviços (sem Nota Fiscal)",
+          "placeholder":""
         }
       ]
     };
@@ -3038,9 +3065,9 @@ var jsonModalAjuda = {
 
 function abrirModalAjuda(titulo) {
 	var	corpo = jsonModalAjuda[titulo];
-  console.log(corpo);
 	var tituloCompleto = "Ajuda - "+titulo;
 	acionarModalAjuda(tituloCompleto, corpo);
+  console.log(tituloCompleto);
 }
 
 function acionarModalAjuda(titulo, corpo) {
