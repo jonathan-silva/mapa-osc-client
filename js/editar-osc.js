@@ -132,9 +132,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.NatJur = NatJur;
     }
     var cabecalho = validateObject(json.cabecalho) ? json.cabecalho : "";
-    var Nome = cabecalho.tx_razao_social_osc ? cabecalho.tx_razao_social_osc : "";
-    var cd_nur = cabecalho.cd_identificador_osc ? cabecalho.cd_identificador_osc : "";
-    var NatJur = cabecalho.tx_nome_natureza_juridica_osc ? cabecalho.tx_nome_natureza_juridica_osc : "";
+    var Nome = validateObject(cabecalho.tx_razao_social_osc) ? cabecalho.tx_razao_social_osc : "";
+    var cd_nur = validateObject(cabecalho.cd_identificador_osc) ? cabecalho.cd_identificador_osc : "";
+    var NatJur = validateObject(cabecalho.tx_nome_natureza_juridica_osc) ? cabecalho.tx_nome_natureza_juridica_osc : "";
 
     var cabecalhoArray = [];
     cabecalhoArray.push(new fCabecalho(Nome, cd_nur, NatJur));
@@ -193,7 +193,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         type: 'get',
         dataType: 'json',
         data: {},
-
         success: function(data) {
           return data;
         },
@@ -206,7 +205,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         type: 'get',
         dataType: 'json',
         data: {},
-
         success: function(data) {
           return data;
         },
@@ -219,12 +217,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
 
     function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-      //console.log(macro_area_suggestions);
-      //console.log(subarea_suggestions);
+
       for (var i = 0; i < subarea_suggestions.length; i++) {
         subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
       }
+
       headerPriority = '2';
       headerText = 'Áreas e Subáreas de Atuação da OSC';
       formItens = [];
@@ -471,7 +469,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.cargo = content;
     }
 
-    //var relacoes_trabalho = json.relacoes_trabalho_governanca.relacoes_trabalho;
     var relacoes_trabalho =0;
 
     var relacoes_trabalho_governanca = validateObject(json.relacoes_trabalho_governanca) ? json.relacoes_trabalho_governanca : "";
@@ -512,7 +509,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     addItem('dirigentes');
 
     // Governança: Conselheiros
-    var conselho_fiscal = conselheiros;//json.relacoes_trabalho_governanca.conselho_fiscal;
+    var conselho_fiscal = conselheiros;
     formItens = [];
     for (var i = 0; i < conselho_fiscal.length; i++) {
       var conselheiro = conselho_fiscal[i];
@@ -529,7 +526,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     addItem('conselho_fiscal');
 
     //Trabalhadores
-    relacoes_trabalho = validateObject(json.relacoes_trabalho_governanca.relacoes_trabalho) ? json.relacoes_trabalho_governanca.relacoes_trabalho : "";
+    relacoes_trabalho = validateObject(relacoes_trabalho_governanca.relacoes_trabalho) ? relacoes_trabalho_governanca.relacoes_trabalho : "";
 
     dados_form = dadosForm.relacoesTrabalho(relacoes_trabalho);
     formItens = [];
@@ -549,9 +546,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // Espaços participacao social;
     function montarEspacosParticipacaoSocial(json){
       var tx_sem_participacao_social = "Não há registros de participação social";
-      var conselhos='0';
-      var conferencias = '0';
-      var outras ='0';
 
       var participacao_social_form = dadosForm.partSocial();
 
@@ -563,88 +557,100 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById(items[0].target)
       );
 
-      if (validateObject(json.participacao_social)){
+      var nomeConselho = null;
+      var nomeTipoParticipacao = null;
+      var nomeRepresentanteConselho = null;
+      var periodicidade = null;
+      var dataInicioConselho = null;
+      var dataFimConselho = null;
+      var nomeConferencia = null;
+      var nomeFormaParticipacao = null;
+      var anoRealizacao = null;
 
-      if (validateObject(json.participacao_social.conselho)) {
-        conselhos = json.participacao_social.conselho;
+      if (validateObject(json.participacao_social)){
+        nomeConselho = "tx_nome_conselho-0";
+        nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
+        nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
+        periodicidade = "tx_periodicidade_reuniao-0";
+        dataInicioConselho = "dt_data_inicio_conselho-0";
+        dataFimConselho = "dt_data_fim_conselho-0";
+        nomeConferencia = "tx_nome_conferencia-0";
+        nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
+        anoRealizacao = "dt_ano_realizacao-0";
       }
 
-      if (validateObject(json.participacao_social.conferencia)) {
-         conferencias = json.participacao_social.conferencia;
-       }
+    var participacao_social = validateObject(json.participacao_social) ? json.participacao_social : "";
+    var conselhos=validateObject(participacao_social.conselho) ? participacao_social.conselho : '0';
+    var conferencias = validateObject(participacao_social.conferencia) ? participacao_social.conferencia : '0';
+    var outras = validateObject(participacao_social.outra) ? participacao_social.outra : '0';
 
-       if (validateObject(json.participacao_social.outra)) {
-         outras = json.participacao_social.outra;
-       }
+    formItens = [];
 
-        formItens = [];
-
-        if (conselhos) {
-          var conselho = participacao_social_form.items;
-          for (j=0; j<conselhos.length; j++){
-            for (var property in conselhos[j]) {
-              if (conselhos[j].hasOwnProperty(property)) {
-                if(property == "conselho"){
-                  formItens.push(new FormItens(conselhos[j].conselho.id, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "text"));
-                  formItens.push(new FormItens(2, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "text"));
-                  formItens.push(new FormItens(3, "Nome de representante", conselhos[j].conselho.tx_nome_representante_conselho , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
-                  formItens.push(new FormItens(4, "Periodicidade da Reunião", conselhos[j].conselho.tx_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "text"));
-                  formItens.push(new FormItens(5, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
-                  formItens.push(new FormItens(6, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
-                }
-             }
+    if (conselhos) {
+      var conselho = participacao_social_form.items;
+      for (j=0; j<conselhos.length; j++){
+        for (var property in conselhos[j]) {
+          if (conselhos[j].hasOwnProperty(property)) {
+            if(property == "conselho"){
+              formItens.push(new FormItens(conselhos[j].conselho.id, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "text"));
+              formItens.push(new FormItens(2, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "text"));
+              formItens.push(new FormItens(3, "Nome de representante", conselhos[j].conselho.tx_nome_representante_conselho , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
+              formItens.push(new FormItens(4, "Periodicidade da Reunião", conselhos[j].conselho.tx_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "text"));
+              formItens.push(new FormItens(5, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
+              formItens.push(new FormItens(6, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
             }
-          }
-          formItens.push(new FormItens("tx_nome_conselho"+"-0", "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
-          formItens.push(new FormItens("tx_nome_tipo_participacao"+"-0", "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
-          formItens.push(new FormItens("tx_nome_representante_conselho"+"-0", "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
-          formItens.push(new FormItens("tx_periodicidade_reuniao"+"-0", "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
-          formItens.push(new FormItens("dt_data_inicio_conselho"+"-0", "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
-          formItens.push(new FormItens("dt_data_fim_conselho"+"-0", "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
+         }
+        }
+      }
+      formItens.push(new FormItens(nomeConselho, "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
+      formItens.push(new FormItens(nomeTipoParticipacao, "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
+      formItens.push(new FormItens(nomeRepresentanteConselho, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
+      formItens.push(new FormItens(periodicidade, "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
+      formItens.push(new FormItens(dataInicioConselho, "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
+      formItens.push(new FormItens(dataFimConselho, "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
 
-          Agrupador = React.createFactory(AgrupadorConselhos);
-          ReactDOM.render(
-            Agrupador(
-              {header:null, dados:formItens}
-            ), document.getElementById("conselhos")
-          );
-        };
+      Agrupador = React.createFactory(AgrupadorConselhos);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:formItens}
+        ), document.getElementById("conselhos")
+      );
+    };
 
-        addItem('conselhos');
+    addItem('conselhos');
 
-        formItens = [];//
-          if (conferencias.length) {
-            var conferencia = participacao_social_form.items;
-            for (j=0; j<conferencias.length; j++){
-              for (var property in conferencias[j]) {
-                if (conferencias[j].hasOwnProperty(property)) {
-                  if(property == "tx_nome_conferencia"){
-                    formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
-                  }
-                  if(property == "tx_nome_forma_participacao_conferencia"){
-                    formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
-                  }
-                  if(property == "dt_ano_realizacao"){
-                    formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
-                  }
-               }
+    formItens = [];//
+      if (conferencias.length) {
+        var conferencia = participacao_social_form.items;
+        for (j=0; j<conferencias.length; j++){
+          for (var property in conferencias[j]) {
+            if (conferencias[j].hasOwnProperty(property)) {
+              if(property == "tx_nome_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
               }
-            }
-            formItens.push(new FormItens("tx_nome_conferencia"+"-0", "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
-            formItens.push(new FormItens("tx_nome_forma_participacao_conferencia"+"-0", "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
-            formItens.push(new FormItens("dt_ano_realizacao"+"-0", "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
-
-
-            Agrupador = React.createFactory(AgrupadorConferencia);
-            ReactDOM.render(
-              Agrupador(
-                {header:null, dados:formItens}
-              ), document.getElementById("conferencias")
-            );
+              if(property == "tx_nome_forma_participacao_conferencia"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+              }
+              if(property == "dt_ano_realizacao"){
+                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
+              }
+           }
           }
+        }
+        formItens.push(new FormItens(nomeConferencia, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
+        formItens.push(new FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
+        formItens.push(new FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
 
 
-          addItem('conferencias');
+        Agrupador = React.createFactory(AgrupadorConferencia);
+        ReactDOM.render(
+          Agrupador(
+            {header:null, dados:formItens}
+          ), document.getElementById("conferencias")
+        );
+      }
+
+      addItem('conferencias');
 
       formItens = [];//
       if (outras.length) {
@@ -672,61 +678,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       addItem('outros_part');
-	  }
-    else {
-
-      formItens = [];
-      formItens.push(new FormItens(null, "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
-      formItens.push(new FormItens(null, "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
-      formItens.push(new FormItens(null, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
-      formItens.push(new FormItens(null, "Periodicidade das reuniões do Conselho", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
-      formItens.push(new FormItens(null, "Data de início de vigência da representação da OSC no Conselho", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
-      formItens.push(new FormItens(null, "Data de encerramento de vigência da representação no Conselho", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
-      Agrupador = React.createFactory(AgrupadorConselhos);
-      ReactDOM.render(
-        Agrupador(
-          {header:null, dados:formItens}
-        ), document.getElementById("conselhos")
-      );
-      addItem('conselhos');
-
-      formItens = [];
-      formItens.push(new FormItens(null, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
-      formItens.push(new FormItens(null, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
-      formItens.push(new FormItens(null, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
-
-      Agrupador = React.createFactory(AgrupadorConferencia);
-      ReactDOM.render(
-        Agrupador(
-          {header:null, dados:formItens}
-        ), document.getElementById("conferencias")
-      );
-      addItem('conferencias');
-
-      formItens = [];
-      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
-      FormItemButtons = React.createFactory(FormItemButtons);
-      ReactDOM.render(
-        FormItemButtons(
-          {header:null, dados:formItens}
-        ), document.getElementById("outros_part")
-      );
-      addItem('outros_part');
-
-    }
   }
 
   function montarFontedeRecursos(json){
     // console.log(json.recursos);
-
     var sections = dadosForm.itemsRecurso();
-
     recursos_form = dadosForm.tiposRecurso();
-
     var anos = ["2016", "2015", "2014"];
+
     for (var j = 0; j < anos.length; j++) {
       montarPorAno(anos[j], j);
     }
+
     function montarPorAno(ano, index) {
       // console.log(ano);
       $("#recursos").append('<div id='+ano+'></div>');
@@ -816,85 +779,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#"+ano).toggleClass('hidden');
         $("#"+ano).siblings().addClass('hidden');
       }
-
     });
-
   }
     // Lista de Projetos
     function montarProjetos(json){
-      if (validateObject(json.projeto_abreviado)) {
-            var projects_list = json.projeto_abreviado;
-            var headerProjeto = {
-              "id": "lista_projetos",
-              "priority": "2",
-              "text": "Projetos, atividade e programas"
-            };
-
-            Section = React.createFactory(Section);
-            ReactDOM.render(
-              Section(
-                {dados:[headerProjeto]}
-              ), document.getElementById("projetos")
-            );
-            $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
-            var columns = 2;
-            var sizeOfData = projects_list.length;
-            newData = new Array(sizeOfData);
-            for (var i=0; i < projects_list.length; i++){
-              newData[i] = new Array(columns);
-              newData[i][0] = projects_list[i].id_projeto;
-              newData[i][1] = projects_list[i].tx_nome_projeto;
-            }
-            var table_lista_projetos = $('#table_lista_projetos').DataTable({
-              responsive: true,
-              deferLoading: 1000,
-              deferRender: true,
-              data: newData,
-              columns: [
-                {DT_RowId: "Id"},
-                {title: "Nome do Projeto"}
-              ],
-              order: [],
-              aoColumnDefs: [
-                {bSortable :false, aTargets: [0]},
-                {
-                  "targets": [ 0 ],
-                  "visible": false,
-                  "searchable": false
-                },
-              ],
-              autoWidth: true,
-              "oLanguage": dadosForm.oLanguageDataTable()
-             });
-
-             $('#table_lista_projetos').append('<span class="input-group-btn">'+
-                        '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
-                      '</span>');
-             $('#add_projeto').click(function(){
-              table_lista_projetos.row.add([
-                "-1",
-                "Novo Projeto"
-              ]).draw();
-              verificarContraste();
-             });
-
-             $("#table_lista_projetos").on('click', 'tr', function(){
-              var id_projeto = table_lista_projetos.row(this).data()[0];
-              var divId = "projeto-" + id_projeto;
-              var projetos = $(this).next(".projeto");
-              if(projetos.length < 1){
-               $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-               carregaProjeto(id_projeto);
-               verificarContraste();
-              } else {
-               var $divDadosProjeto = $(projetos[0]);
-               $divDadosProjeto.toggleClass("hidden");
-              }
-             });
-
-    }
-    else {
-      var projects_list =  '0';
+      var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
@@ -907,17 +796,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
-
       $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
       var columns = 2;
       var sizeOfData = projects_list.length;
       newData = new Array(sizeOfData);
+
       for (var i=0; i < projects_list.length; i++){
         newData[i] = new Array(columns);
-        newData[i][0] = 1;
-        newData[i][1] = "";
+        newData[i][0] = validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
+        newData[i][1] = validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
       }
-      //console.log(newData);
       var table_lista_projetos = $('#table_lista_projetos').DataTable({
         responsive: true,
         deferLoading: 1000,
@@ -939,31 +827,32 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         autoWidth: true,
         "oLanguage": dadosForm.oLanguageDataTable()
        });
-      $('#table_lista_projetos').append('<span class="input-group-btn">'+
-                 '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
-               '</span>');
-      $('#add_projeto').click(function(){
-       table_lista_projetos.row.add([
-         "-1",
-         "Novo Projeto"
-       ]).draw();
-       verificarContraste();
-      });
 
-      $("#table_lista_projetos").on('click', 'tr', function(){
-       var id_projeto = table_lista_projetos.row(this).data()[0];
-       var divId = "projeto-" + id_projeto;
-       var projetos = $(this).next(".projeto");
-       if(projetos.length < 1){
-        $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-        carregaProjeto(id_projeto);
+       $('#table_lista_projetos').append('<span class="input-group-btn">'+
+                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+                '</span>');
+       $('#add_projeto').click(function(){
+        table_lista_projetos.row.add([
+          "-1",
+          "Novo Projeto"
+        ]).draw();
         verificarContraste();
-       } else {
-        var $divDadosProjeto = $(projetos[0]);
-        $divDadosProjeto.toggleClass("hidden");
-       }
-      });
-    }
+       });
+
+       $("#table_lista_projetos").on('click', 'tr', function(){
+        var id_projeto = table_lista_projetos.row(this).data()[0];
+        var divId = "projeto-" + id_projeto;
+        var projetos = $(this).next(".projeto");
+        if(projetos.length < 1){
+         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+         carregaProjeto(id_projeto);
+         verificarContraste();
+        } else {
+         var $divDadosProjeto = $(projetos[0]);
+         $divDadosProjeto.toggleClass("hidden");
+        }
+       });
+
   }
     // Projetos
     function carregaProjeto(id){
@@ -1018,6 +907,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       function montarProjeto(json){
+        //console.log(json);
         var project = json;
         var agrupadores = [];
         var projectId = project.id_projeto;
@@ -1043,12 +933,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         var autodeclaradas = project.area_atuacao.concat(project.area_atuacao_outra);
 
-        var localizacao = getLocalizacaoProjeto(projectId, project.localizacao);
+        var localizacao = getTipoProjeto("localizacao_projeto", project.localizacao);
         var fonte = getFonteDeRecursosProjeto(projectId);
-        var publicoBeneficiado = getPublicoBeneficiadoProjeto(projectId, project.publico_beneficiado);
-        var financiadores = getFinanciadoresProjeto(projectId, project.financiador);
-        var autodeclaradas = getAutodeclaradasProjeto(projectId, autodeclaradas);
-        var parceiras = getParceirasProjeto(projectId, project.parceira);
+        var publicoBeneficiado = getTipoProjeto("publico_beneficiado", project.publico_beneficiado);
+        var financiadores = getTipoProjeto("financiadores", project.financiador);
+        var autodeclaradas = getTipoProjeto("autodeclaradas", autodeclaradas);
+        var parceiras = getTipoProjeto("parceiras", project.parceira);
         var valorMeta = "";
         var idObjetivo = "";
         var multipleInputs = [
@@ -1179,7 +1069,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
         function montarObjetivos(json){
-
           var options = json;
           var $selectObjetivos = $divObjetivosProjeto.find("select");
           for (var i = 0; i < options.length; i++) {
@@ -1192,7 +1081,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         function loadMetas(cd_objetivo){
-
           // rotas.Metas()
           $.ajax({
             url: rotas.MetaProjeto(cd_objetivo),
@@ -1208,7 +1096,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
         }
+
         loadMetas(cd_objetivo);
+
         function montarMetas(data, cd_objetivo){
           var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
           var options = data;
@@ -1245,7 +1135,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Salvar
     $("#salvar").click(function(){
-
       //Dados Gerais
       //$("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
       var newJson = {};
@@ -1263,7 +1152,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         type: 'POST',
         dataType: 'json',
         data: newJson,
-
          success: function(data) {
            console.log(data);
          },
@@ -1298,7 +1186,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
      type: 'POST',
      dataType: 'json',
      data: newJson,
-
       success: function(data) {
         console.log(data);
       },
@@ -1322,7 +1209,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        type: 'POST',
        dataType: 'json',
        data: newJson,
-
         success: function(data) {
           console.log(data);
         },
@@ -1349,7 +1235,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        type: 'POST',
        dataType: 'json',
        data: newJson,
-
         success: function(data) {
           console.log(data);
         },
@@ -1391,7 +1276,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          type: 'POST',
          dataType: 'json',
          data: newJson,
-
           success: function(data) {
             console.log(data);
           },
@@ -1432,60 +1316,12 @@ function getFonteDeRecursosProjeto(id){
   };
   return objFonte;
 }
-function getLocalizacaoProjeto(id, dados){
-  var localizacao = {
-    "localizacao_projeto": dados
-  };
-  var key = Object.keys(localizacao)[0];
-  var objLocalizacao = {
+
+function getTipoProjeto(key, dados){
+  return {
     "id": key,
-    "dados": localizacao[key]
+    "dados": dados
   };
-  return objLocalizacao;
-}
-function getPublicoBeneficiadoProjeto(id, dados){
-  var publico_beneficiado = {
-    "publico_beneficiado": dados
-  };
-  var key = Object.keys(publico_beneficiado)[0];
-  var objBeneficiado = {
-    "id": key,
-    "dados": publico_beneficiado[key]
-  };
-  return objBeneficiado;
-}
-function getFinanciadoresProjeto(id, dados){
-  var financiadores = {
-    "financiadores": dados
-  };
-  var key = Object.keys(financiadores)[0];
-  var objFinanciadores = {
-    "id": key,
-    "dados": financiadores[key]
-  };
-  return objFinanciadores;
-}
-function getAutodeclaradasProjeto(id, dados){
-  var autodeclaradas = {
-    "autodeclaradas": dados
-  };
-  var key = Object.keys(autodeclaradas)[0];
-  var objAutodeclaradas = {
-    "id": key,
-    "dados": autodeclaradas[key]
-  };
-  return objAutodeclaradas;
-}
-function getParceirasProjeto(id, dados){
-  var parceiras = {
-    "parceiras": dados
-  };
-  var key = Object.keys(parceiras)[0];
-  var objParceiras = {
-    "id": key,
-    "dados": parceiras[key]
-  };
-  return objParceiras;
 }
 
 function addItem(idDiv){
@@ -1540,7 +1376,6 @@ function montarEnderecoImovel(dadosGerais){
   return tx_endereco_completo;
 }
 
-
 function isTrue(obj){
   if(obj){
     return true;
@@ -1550,17 +1385,12 @@ function isTrue(obj){
   }
 }
 
-var dadosForm = new DataForms();
-var jsonModalAjuda = dadosForm.jsonModalAjuda();
-
 function abrirModalAjuda(titulo) {
+  var dadosForm = new DataForms();
+  var jsonModalAjuda = dadosForm.jsonModalAjuda();
 	var	corpo = jsonModalAjuda[titulo];
-  //console.log(corpo);
 	var tituloCompleto = "Ajuda - "+titulo;
-	acionarModalAjuda(tituloCompleto, corpo);
-}
 
-function acionarModalAjuda(titulo, corpo) {
   $("#modalTitulo").html("");
   $("#modalTitulo").html(titulo);
   $("#corpoModal").html("");
