@@ -127,7 +127,7 @@ function verificarContraste(){
     }
 }
 
-
+setLogin = false;
 function verificarLogado(){
 
   var user = window.localStorage.getItem('User');
@@ -135,21 +135,28 @@ function verificarLogado(){
   var nome  = window.localStorage.getItem('Nome');
 
   if (user){
-    $(".menuLogado").removeClass("logado");
-    $("#btnEntrar").addClass("logado");
-    $("#btnCadastrar").addClass("logado");
-    $(".menuLogado .dropdown-toggle").append(nome);
-    $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+    if(!setLogin)
+    {
+      $(".menuLogado").removeClass("logado");
+      $("#btnEntrar").addClass("logado");
+      $("#btnCadastrar").addClass("logado");
+      $(".menuLogado .dropdown-toggle").append(nome);
+      $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+    }
+    setLogin = true;
     return true;
   }else{
-    $(".menuLogado .dropdown-toggle").html('');
-    $(".menuLogado").addClass("logado");
-    $("#btnEntrar").removeClass("logado");
-    $("#btnCadastrar").removeClass("logado");
+    if(setLogin)
+    {
+      $(".menuLogado .dropdown-toggle").html('');
+      $(".menuLogado").addClass("logado");
+      $("#btnEntrar").removeClass("logado");
+      $("#btnCadastrar").removeClass("logado");
+    }
+    setLogin = false;
     return false;
   }
 }
-
 
 function deslogar(){
   window.localStorage.removeItem('User');
@@ -162,8 +169,4 @@ function deslogar(){
   return true;
 }
 
-
-
-
-verificarLogado();
 verificarContraste();

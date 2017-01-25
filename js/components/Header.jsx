@@ -258,11 +258,6 @@ define(['react','rotas'], function(React) {
       );
     }
   });
-
-  //ReactDOM.render(<BotaoResponsivo icons={menu}/>, document.getElementById("menu-mobile"));
-  //ReactDOM.render(<Menu items={menu}/>, document.getElementById("navbar-ex-collapse"));
-  //ReactDOM.render(<DropdownMenu submenu={linksSubmenu}/>, document.getElementById("dropdown-menu-header"));
-  //ReactDOM.render(<Header/>, document.getElementById("header"));
   return Header;
 });
 

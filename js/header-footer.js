@@ -1,11 +1,5 @@
 //Header da página
-require(['react', 'jsx!components/Header'], function(React, Header) {
-
-
-  var nome = window.localStorage.getItem('Nome');
-  var hauser = window.localStorage.getItem('User');
-  var aut  = window.localStorage.getItem('Authorization');
-
+require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) {
 
   function MenuDropDownObject(text, link){
     this.text = text;
@@ -23,13 +17,12 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
     this.link = link;
   }
 
-
   var menuList = [];
   menuList.push(new MenuListObject("Home", "index.html"));
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
   menuList.push(new MenuListObject("Cadastre-se", "cadastro-representante.html"));
-  menuList.push(new MenuListObject("Entrar", "#"));
+  menuList.push(new MenuListObject("Entrar", ""));
 
   var linksSubmenu = [];
   linksSubmenu.push(new MenuDropDownObject("Sobre", "sobre.html"));
@@ -61,12 +54,12 @@ require(['react', 'jsx!components/Header'], function(React, Header) {
   Header = React.createFactory(Header);
   ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
 
+  verificarLogado();
   verificarContraste();
 });
 
-
 //Footer da página
-require(['react', 'jsx!components/Footer'], function(React, Footer) {
+require(['react', 'jsx!components/Footer','bootstrap'], function(React, Footer) {
 
   function BlockFooterObject(title, urls, texts, target){
     this.title = title;
@@ -96,16 +89,11 @@ require(['react', 'jsx!components/Footer'], function(React, Footer) {
   Footer = React.createFactory(Footer);
   ReactDOM.render(Footer({footerObject: new FooterObject(blocks, imgsAltRealizacao, imgList)}), document.getElementById("rodape"));
 
+  verificarContraste();
 
   window.onload = function () {
-    verificarLogado(); //
+    verificarLogado();
     verificarContraste();
   };
-
-});
-
-
-//Bibliotecas
-define(["jquery", "bootstrap"], function($) {
 
 });
