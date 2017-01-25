@@ -296,7 +296,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
       var items=[];
       if(this.props.header){
         var HeaderElement = `h${this.props.header.priority}`;
-        items.push(<HeaderElement>{this.props.header.text}<a teste={this.props.header} className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + this.props.header.text} data={this.props.header.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>);
+        items.push(<HeaderElement>{this.props.header.text}<a className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + this.props.header.text} data={this.props.header.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>);
       }
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
@@ -416,12 +416,47 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             console.log(item.id);
             labelElement = <label className="control-label" for={item.id} title="Indique se houve recursos captados de fontes privadas">{item.label}:</label>
           }*/
-          if( (contains("_bras",item.id)) || (contains("doacoes_",item.id)) || (contains("_estr",item.id))  ){
-            labelElement = <label className="control-label" for={item.id} title="Insira o total obtido da fonte do recurso solicitado">{item.label}:</label>
+          if(item.id=="oscs_brasileiras") {
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) brasileiras, com a exceção de organizações religiosas.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.header=="Link"){
+          if(item.id=="oscs_estrangeiras"){
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) estrangeiras, com a exceção de organizações religiosas.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="religiosas_brasileiras"){
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas brasileiras.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="religiosas_estrangeiras"){
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas estrangeiras.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="empresas_brasileiras"){
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias com empresas privadas brasileiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="empresas_estrangeiras"){
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias com empresas privadas estrangeiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+         if(item.header=="Link"){
             labelElement = <label className="control-label" for={item.header} title="Insira um link para a página do projeto, se houver">{item.label}:</label>
           }
+          if(item.id=="estrangeiros"){
+            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com governos estrangeiros em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="multilaterais"){
+            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com organizações multilaterais em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro. Exemplos de organizações multilaterais são as Nações Unidas, o Banco Mundial e o Banco Interamericano de Desenvolvimento">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="premios"){
+            labelElement = <label className="control-label" for={item.header} title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+
+
 
         }
         var className = "form-group";
