@@ -709,7 +709,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       items = recursos_form.recursos_geral;
       formItens = [];
       for (var i=0; i<items.length; i++){
-        formItens.push(new FormItens(items[i].id, items[i].label, ano, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext, items[i].custom_class));
+        formItens.push(new FormItens("ano-"+ano, items[i].label, ano, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext, items[i].custom_class));
       }
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
@@ -775,10 +775,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // interacoes da selecao de anos
     $(".select-ano").find(".form-control").bind("change", function(){
       var ano = $(this).val();
+      var valor = $(this).attr("id").slice(4);
       if($("#"+ano).hasClass('hidden')){
         $("#"+ano).toggleClass('hidden');
         $("#"+ano).siblings().addClass('hidden');
       }
+      $(this).find('option[value='+valor+']').prop('selected', true);
     });
   }
     // Lista de Projetos
@@ -1290,7 +1292,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 });
 
 function showUnauthorizedUser(e){
-  if(e.status === 403){
+  if(e.status === 401){
     $('#unauthorized').dialog('open');
     console.log(e);
   }
