@@ -42,13 +42,18 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
    };
 
    var newJson = {};
-   newJson["headers"] = authHeader;
+   newJson['headers'] = authHeader;
 
    var $id_osc = '';
    var rotas = new Rotas();
    var limiteAutocomplete = 10;
    var controller = "js/controller.php";
-   var oscs;
+   $('#tag').tagsinput({
+       cancelConfirmKeysOnEmpty: false,
+       freeInput: false,
+       itemValue: 'id',
+       itemText: 'text'
+      });
 
    $.ajax({
        url: rotas.ValidarUsuario(user),
@@ -58,22 +63,17 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
-         oscs = data.representacao;
+         for (var i = 0; i < data.representacao.length; i++){
+           $('#tags').removeClass('hide');
+           $('#tag').tagsinput('add', {id: data.representacao[i].id_osc, text: data.representacao[i].tx_nome_osc});
+         }
        },
        error: function(e) {
            console.log(e);
        }
    });
 
-   console.log(oscs);
-
    require(["jquery-ui", "rotas"], function(React) {
-     $('#tag').tagsinput({
-         cancelConfirmKeysOnEmpty: false,
-         freeInput: false,
-         itemValue: 'id',
-         itemText: 'text'
-        });
        $("#nomeEntidade.form-control").autocomplete({
            minLength: 14,
            source: function(request, response) {
@@ -113,6 +113,90 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        });
      });
 
+     $('#send').on('click', function(){
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var senha = $('#senha').val();
+        var confirmarSenha = $('#confirmarSenha').val();
+        var tag = $('#tag').val();
+        var error = true;
+
+        if(nome === '' || nome === null){
+          $("#nome").closest('.form-group').removeClass('has-success').addClass('has-error');
+        }
+        else{
+          $("#nome").closest('.form-group').removeClass('has-error').addClass('has-success');
+          error = false;
+        }
+        if(!validaEmail(email)){
+          $("#email").closest('.form-group').removeClass('has-success').addClass('has-error');
+          error = true;
+        }
+        else{
+          $("#email").closest('.form-group').removeClass('has-error').addClass('has-success');
+          if(error){
+            error = true;
+          }
+          else {
+            error = false;
+          }
+        }
+        if(confirmarSenha !== '' && senha !== ''){
+          if (confirmarSenha === senha) {
+              $("#senha").closest('.form-group').removeClass('has-error').addClass('has-success');
+              $("#confirmarSenha").closest('.form-group').removeClass('has-error').addClass('has-success');
+              if(error){
+                error = true;
+              }
+              else {
+                error = false;
+              }
+          } else {
+              $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
+              $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
+              error = true;
+          }
+      }
+
+      if(tag === '' || tag === null){
+        error = true;
+      }
+      else{
+        if(error){
+          error = true;
+        }
+        else {
+          error = false;
+        }
+      }
+
+      if(!error){
+        newJson['tx_nome_usuario'] = nome;
+        newJson['tx_email_usuario'] = email;
+        if(senha !== '' && senha !== null)
+          newJson['tx_senha_usuario'] = senha;
+        var tags = tag.split(',');
+        var tagValue = [];
+        for (var i = 0; i < tags.length; i++){
+           tagValue.push({'id_osc':tags[i]});
+        }
+        newJson['representante'] = tagValue;
+        console.log(newJson);
+        console.log(rotas.UpdateUsuario(user));
+        $.ajax({
+            url: rotas.UpdateUsuario(user),
+            type: 'POST',
+            dataType: "json",
+            data: newJson,
+            success: function(data) {
+              console.log(data);
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+      }
+     });
 });
 function replaceSpecialChars(str) {
     str = str.replace(/[ÀÁÂÃÄÅ]/, "A");
@@ -128,4 +212,23 @@ function replaceSpecialChars(str) {
     str = str.replace(/[Ç]/, "C");
     str = str.replace(/[ç]/, "c");
     return str;
+}
+
+function validaEmail(email) {
+    usuario = email.substring(0, email.indexOf("@"));
+    dominio = email.substring(email.indexOf("@") + 1, email.length);
+
+    if ((usuario.length >= 1) &&
+        (dominio.length >= 3) &&
+        (usuario.search("@") == -1) &&
+        (dominio.search("@") == -1) &&
+        (usuario.search(" ") == -1) &&
+        (dominio.search(" ") == -1) &&
+        (dominio.search(".") != -1) &&
+        (dominio.indexOf(".") >= 1) &&
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+        return true;
+    } else {
+        return false;
+    }
 }

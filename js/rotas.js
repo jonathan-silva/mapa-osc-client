@@ -148,4 +148,8 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/"+id;
   }
 
+  UpdateUsuario(id){
+    return this.getBaseUrl()+":8383/api/user/"+id;
+  }
+
 }
