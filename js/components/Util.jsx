@@ -381,8 +381,11 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
          </div>
        } else {
           if(item.id.toString().substring(0,2) === "dt"){
-            //console.log(item.id);
-            custom_class += " date";
+            if(item.label.substring(0,3) === "Ano"){
+              custom_class += " ano";
+            } else {
+              custom_class += " date";
+            }
           }
           var className = "form-control "+custom_class;
           ContentElement =
@@ -852,7 +855,11 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
-            class_string += "date";
+            if(item.label.substring(0,3) === "Ano"){
+              class_string += "ano";
+            } else {
+              class_string += "date";
+            }
           }
           var InputElement =
             <div id={id}>

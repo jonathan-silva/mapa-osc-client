@@ -112,6 +112,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarEspacosParticipacaoSocial(data);
         montarProjetos(data);
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        $(".ano").datepicker({ dateFormat: 'yy' });
         montarFontedeRecursos(data);
         verificarContraste();
         clique();
@@ -180,12 +181,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.areas = areas;
       this.subareas = subareas;
     }
-
-    var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao.area_atuacao : [];
-    var area_atuacao_outra = validateObject(json.area_atuacao) ? json.area_atuacao.area_atuacao_outra : [];
-
+    var areas_atuacao = [];
+    // = validateObject(json.area_atuacao) ? json.area_atuacao : [];
+    var area_atuacao_outra = validateObject(json.area_atuacao.area_atuacao_outra) ? json.area_atuacao.area_atuacao_outra : [];
+    console.log(areas_atuacao);
+    console.log(area_atuacao_outra);
     areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
-    //console.log(areas_atuacao);
+    
     var macro_area_suggestions = dadosForm.getSuggestions();
     $.when(
       $.ajax({
@@ -632,14 +634,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
               }
               if(property == "dt_ano_realizacao"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "date"));
+                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(0,4), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
               }
            }
           }
         }
         formItens.push(new FormItens(nomeConferencia, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
         formItens.push(new FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
-        formItens.push(new FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "date"));
+        formItens.push(new FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
 
 
         Agrupador = React.createFactory(AgrupadorConferencia);
@@ -1011,6 +1013,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         );
 
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        $(".ano").datepicker({ dateFormat: 'yy' });
 
         // interacoes
 
@@ -1352,6 +1355,7 @@ function addItem(idDiv){
         $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
         $cloneDiv.parent().children().last().find('input[type=text]').val('');
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        $(".ano").datepicker({ dateFormat: 'yy' });
       }
     }
     else {
