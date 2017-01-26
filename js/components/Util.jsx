@@ -855,7 +855,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
-            if(item.label.substring(0,3) === "Ano"){
+            if(id.substring(3,6) === "Ano"){
               class_string += "ano";
             } else {
               class_string += "date";
