@@ -25,7 +25,8 @@ require.config({
     "cookies":"util/cookies",
     "contraste":"util/contraste",
     "util" : "util/Util.js",
-    "simplePagination" : "libs/simplePagination/simplePagination"
+    "simplePagination" : "libs/simplePagination/simplePagination",
+    "tagsinput":"libs/tagsinput/bootstrap-tagsinput"
   },
   shim: {
       'contraste':['cookies'],
@@ -44,7 +45,8 @@ require.config({
       'google': ['leafletCluster'],
       'graficoParaTabela': ['bootstrap'],
       'util':['jquery'],
-      'simplePagination': ['jquery']
+      'simplePagination': ['jquery'],
+      'tagsinput':['bootstrap','jquery']
   },
   jsx: {
     fileExtension: '.jsx',

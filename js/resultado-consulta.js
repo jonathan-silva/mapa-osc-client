@@ -140,7 +140,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           }
         }
         //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
-        if(newData.length >1){
+        if(typeof newData[0] !== "undefined"){
           var datatable = $('#resultadoconsulta_formato_dados').DataTable({
             responsive: true,
             processing: true,
