@@ -131,65 +131,61 @@ define(['react','rotas'], function(React) {
         }
       }else if (index == 6) {
 
-          var email =  $('#emailLogin').val();
-          var senha =  $('#senhaLogin').val();
-          jQuery("#labelError").text("");
+              var email =  $('#emailLogin').val();
+              var senha =  $('#senhaLogin').val();
+              jQuery("#labelError").text("");
 
-
-          if (!validaEmail(email)){
-            $("#emailLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
-            jQuery("#labelError").text("Endereço de e-mail inválido.");
-            return false;
-          }else{
-            $("#emailLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-          }
-
-          if (senha.length < 5){
-            $("#senhaLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
-            jQuery("#labelError").text("Senha inválida.");
-            return false;
-          }else{
-            $("#senhaLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-          }
-
-          var $json = {
-              "tx_email_usuario": email,
-              "tx_senha_usuario": senha
-          };
-
-          var rotas = new Rotas();
-
-          $.ajax({
-          // CORRETO
-          url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
-          //url: "http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
-          type: 'POST',
-          dataType: 'json',
-          data: $json,
-           success: function (data) {
-            jQuery("#labelError").text("");
-            window.localStorage.setItem('User', data.id_usuario);
-            window.localStorage.setItem('Authorization', data.access_token);
-            window.localStorage.setItem('Nome', data.tx_nome_usuario);
-            $('#modalLogin').modal('hide');
-            verificarLogado();
-          },
-          error: function (data) {
-              //console.log(data);
-              if (data.status == 200){
-                //console.log(data.responseText.tx_nome_usuario);
-                jQuery("#labelError").text("");
-                window.localStorage.setItem('User', data.responseText.id_usuario);
-                window.localStorage.setItem('Authorization', data.responseText.access_token);
-                window.localStorage.setItem('Nome', data.responseText.tx_nome_usuario);
-                $('#modalLogin').modal('hide');
-                verificarLogado();
-              }else {
-                jQuery("#labelError").text("Senha incorreta. Tente novamente.");
-                //console.log(data.responseText);
+              if (!validaEmail(email)){
+                $("#emailLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                jQuery("#labelError").text("Endereço de e-mail inválido.");
+                return false;
+              }else{
+                $("#emailLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
               }
-          }
-      });
+
+              if (senha.length < 5){
+                $("#senhaLogin.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                jQuery("#labelError").text("Senha inválida.");
+                return false;
+              }else{
+                $("#senhaLogin.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+              }
+
+              var $json = {
+                  "tx_email_usuario": email,
+                  "tx_senha_usuario": senha
+              };
+
+              var rotas = new Rotas();
+              jQuery("#labelError").text(""); // Limpar dados
+              $.ajax({
+              url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+              type: 'POST',
+              dataType: 'json',
+              data: $json,
+              success: function (data) {
+                  window.localStorage.setItem('User', data.id_usuario);
+                  window.localStorage.setItem('Authorization', data.access_token);
+                  window.localStorage.setItem('Nome', data.tx_nome_usuario);
+                  $('#modalLogin').modal('hide');
+                  verificarLogado();
+              },
+              error: function (data) {
+                  if (data.status == 200){
+                      window.localStorage.setItem('User', data.responseText.id_usuario);
+                      window.localStorage.setItem('Authorization', data.responseText.access_token);
+                      window.localStorage.setItem('Nome', data.responseText.tx_nome_usuario);
+                      $('#modalLogin').modal('hide');
+                      verificarLogado();
+                  } else if (data.status == 403) {
+                      jQuery("#labelError").text(JSON.parse(data.responseText).msg);
+                  } else if (data.status == 401) { // Usuario Inválido
+                      jQuery("#labelError").text("E-mail e/ou senha incorretos. Tente novamente.");
+                  }else {
+                      jQuery("#labelError").text("E-mail e/ou senha incorretos. Tente novamente.");
+                  }
+              }
+          });
 
       }
       else if (index == 0) {
@@ -258,11 +254,6 @@ define(['react','rotas'], function(React) {
       );
     }
   });
-
-  //ReactDOM.render(<BotaoResponsivo icons={menu}/>, document.getElementById("menu-mobile"));
-  //ReactDOM.render(<Menu items={menu}/>, document.getElementById("navbar-ex-collapse"));
-  //ReactDOM.render(<DropdownMenu submenu={linksSubmenu}/>, document.getElementById("dropdown-menu-header"));
-  //ReactDOM.render(<Header/>, document.getElementById("header"));
   return Header;
 });
 
