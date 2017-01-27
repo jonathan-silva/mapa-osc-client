@@ -32,7 +32,8 @@ class DataForms{
           "label": "Endereço da OSC",
           "content": content ? content : null,
           "fonte": dadosGerais.ft_endereco ? dadosGerais.ft_endereco : null,
-          "type": "p"
+          "type": "p",
+          "placeholder": "Insira o endereço da OSC"
         },
         {
           "id": "tx_nome_situacao_imovel_osc",
@@ -101,7 +102,7 @@ class DataForms{
           "label": "Telefone",
           "content": dadosGerais.tx_telefone ? dadosGerais.tx_telefone : null,
           "fonte": dadosGerais.ft_telefone ? dadosGerais.ft_telefone : null,
-          "placeholder": "Insira o telefone da OSC",
+          "placeholder": "Insira aqui o contato de telefone da OSC (DDD + número do telefone)",
           "type": "tel"
         }
       ]
@@ -590,37 +591,37 @@ class DataForms{
           "id": "patrimoniais",
           "label": "Rendimentos de fundos patrimoniais",
           "pretext": "R$",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de rendimentos de fundos patrimoniais"
         },
         {
           "id": "reservas",
           "label": "Rendimentos financeiros de reservas ou contas correntes  próprias",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de rendimentos financeiros de reservas ou contas correntes próprias"
         },
         {
           "id": "mensalidades",
           "label": "Mensalidades ou contribuições de associados",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de mensalidades ou contribuições de associados"
         },
         {
           "id": "premios",
           "label": "Prêmios recebidos",
-          "placeholder":""
+          "placeholder":"Insira o valor de prêmios recebidos"
         },
         {
           "id": "venda",
           "label": "Venda de produtos",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de venda de produtos"
         },
         {
           "id": "servicos",
           "label": "Prestação de serviços",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de prestação de serviços"
         },
         {
           "id": "bens",
           "label": "Venda de bens e direitos",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de venda de bens e direitos"
         }
       ],
 
@@ -628,32 +629,32 @@ class DataForms{
         {
           "id": "federal",
           "label": "Parceria com o governo federal",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com o governo federal"
         },
         {
           "id": "estadual",
           "label": "Parceria com o governo estadual",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com o governo estadual"
         },
         {
           "id": "municipal",
           "label": "Parceria com o governo municipal",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com o governo municipal"
         },
         {
           "id": "multilaterais",
           "label": "Acordo com organismos multilaterais ",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de acordos com organismos multilaterais"
         },
         {
           "id": "estrangeiros",
           "label": "Acordo com governos estrangeiros",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de acordos com governos estrangeiros"
         },
         {
           "id": "empresas_publicas",
           "label": "Empresas públicas ou sociedades de economia mista",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de empresas públicas ou sociedades de economia mista"
         }
       ],
 
@@ -661,47 +662,47 @@ class DataForms{
         {
           "id": "oscs_brasileiras",
           "label": "Parceria com OSCs brasileiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com OSCs brasileiras"
         },
         {
           "id": "oscs_estrangeiras",
           "label": "Parcerias com OSCs estrangeiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com OSCs estrangeiras"
         },
         {
           "id": "religiosas_brasileiras",
           "label": "Parcerias com organizações religiosas brasileiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com organizações religiosas brasileiras"
         },
         {
           "id": "religiosas_estrangeiras",
           "label": "Parcerias com organizações religiosas estrangeiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de parcerias com organizações religiosas estrangeiras"
         },
         {
           "id": "empresas_brasileiras",
           "label": "Empresas privadas brasileiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de empresas privadas"
         },
         {
           "id": "empresas_estrangeiras",
           "label": "Empresas privadas estrangeiras",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de empresas privadas estrangeiras"
         },
         {
           "id": "doacoes_pj",
           "label": "Doações de pessoa jurídica",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de doações de pessoa jurídica"
         },
         {
           "id": "doacoes_pf",
           "label": "Doações de pessoa física",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de doações de pessoa física"
         },
         {
           "id": "doacoes_servicos",
           "label": "Doações recebidas na forma de produtos e serviços (com Nota Fiscal)",
-          "placeholder":""
+          "placeholder":"Insira o valor de Doações recebidas na forma de produtos e serviços (com Nota Fiscal)"
         }
       ],
 
@@ -709,27 +710,27 @@ class DataForms{
         {
           "id": "voluntariado",
           "label": "Voluntariado",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de doações voluntárias"
         },
         {
           "id": "isencoes",
           "label": "Isenções",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de isenções"
         },
         {
           "id": "imunidades",
           "label": "Imunidades",
-          "placeholder":""
+          "placeholder":"Insira o valor recebido de imunidades"
         },
         {
           "id": "bens_recebidos",
           "label": "Bens recebidos em direito de uso",
-          "placeholder":""
+          "placeholder":"Insira o valor de bens recebidos em direito de uso"
         },
         {
           "id": "doacoes_recebidas",
           "label": "Doações recebidas na forma de produtos e serviços (sem Nota Fiscal)",
-          "placeholder":""
+          "placeholder":"Insira o valor de doações recebidas na forma de produtos e serviços (sem Nota Fiscal)"
         }
       ]
     };

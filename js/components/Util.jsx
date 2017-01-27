@@ -301,7 +301,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
       }
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
-        var placeholder = item.content;
+        var placeholder = item.placeholder;
         var content = item.content;
         if(((content == null) || (content === "")) && (item.placeholder != undefined)){
           placeholder = item.placeholder;
@@ -378,7 +378,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         } else if (item.type == 'tel'){
          ContentElement =
          <div id={item.id}>
-           <input id={item.id} type="tel" className="form-control" defaultValue={content}></input>
+           <input id={item.id} type="tel" className="form-control" placeholder={placeholder} defaultValue={content}></input>
          </div>
        } else {
           if(item.id.toString().substring(0,2) === "dt"){

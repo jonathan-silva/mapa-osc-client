@@ -70,7 +70,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
     window.localStorage.setItem('User', 17);
-    window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99BxIlY0RmrzPryTOytXYYX/E=");
+    window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99Bx6qR7coRXBGHycCaTr27F4=");
     var user = window.localStorage.getItem('User');
     var auth  = window.localStorage.getItem('Authorization');
 
@@ -515,10 +515,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var property in dirigentes[j]) {
         if (dirigentes[j].hasOwnProperty(property)) {
           if(property == "tx_nome_dirigente"){
-            formItens.push(new FormItens(dirigentes[j].id, "Nome", dirigentes[j].tx_nome_dirigente, dirigentes[j].ft_nome_dirigente, null, "text"));
+            formItens.push(new FormItens(dirigentes[j].id, "Nome do dirigente", dirigentes[j].tx_nome_dirigente, dirigentes[j].ft_nome_dirigente, "Insira o nome do dirigente", "text"));
           }
           if(property == "tx_cargo_dirigente"){
-            formItens.push(new FormItens(dirigentes[j].id, "Cargo", dirigentes[j].tx_cargo_dirigente, dirigentes[j].ft_cargo_dirigente, null, "text"));
+            formItens.push(new FormItens(dirigentes[j].id, "Cargo do dirigente", dirigentes[j].tx_cargo_dirigente, dirigentes[j].ft_cargo_dirigente, "Insira o cargo do dirigente", "text"));
           }
         }
       }
