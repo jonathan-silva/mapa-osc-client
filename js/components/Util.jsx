@@ -219,6 +219,7 @@ define('componenteDropdown', ['react'], function (React) {
     },
     renderListItems: function () {
       var items = [];
+      items.push(<option value={null} selected>Selecione uma opção...</option>);
       for(var i=0; i<this.props.list.length; i++){
         var val = this.props.list[i];
         if (val == this.props.selected) {
