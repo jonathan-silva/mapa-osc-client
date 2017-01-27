@@ -167,6 +167,7 @@ define(['react','rotas'], function(React) {
                   window.localStorage.setItem('User', data.id_usuario);
                   window.localStorage.setItem('Authorization', data.access_token);
                   window.localStorage.setItem('Nome', data.tx_nome_usuario);
+                  window.localStorage.setItem('Osc', data.representacao);
                   $('#modalLogin').modal('hide');
                   verificarLogado();
               },
