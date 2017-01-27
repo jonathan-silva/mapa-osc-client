@@ -230,7 +230,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       formItens = [];
       dados_form = dadosForm.areasAtuacao();
       items = dados_form.form_items;
-      formItens.push(new AutocompleteItem(items[0].id, items[0].label, json.dados_gerais.tx_nome_atividade_economica_osc, json.dados_gerais.ft_atividade_economica_osc, items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
+      formItens.push(new AutocompleteItem(items[0].id, items[0].label, validateObject(json.dados_gerais.tx_nome_atividade_economica_osc)?json.dados_gerais.tx_nome_atividade_economica_osc:"Não informado", validateObject(json.dados_gerais.ft_atividade_economica_osc)?json.dados_gerais.ft_atividade_economica_osc:"Não informado", items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
       items.splice(0,1);
       //console.log(items);
       for (var j=0; j<items.length; j++){
@@ -714,17 +714,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
 
   function montarFontedeRecursos(json){
-    // console.log(json.recursos);
+    //console.log(json.recursos.recursos);
     var sections = dadosForm.itemsRecurso();
     recursos_form = dadosForm.tiposRecurso();
-    var anos = ["2016", "2015", "2014"];
-
-    for (var j = 0; j < anos.length; j++) {
-      montarPorAno(anos[j], j);
+    //var anos = ["2016", "2015", "2014"];
+    for (var j = 0; j < json.recursos.recursos.length/*anos.length*/; j++) {
+      montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc,j);//(anos[j], j);
     }
 
     function montarPorAno(ano, index) {
-      // console.log(ano);
+      console.log(ano);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");

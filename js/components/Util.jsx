@@ -459,6 +459,39 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             labelElement = <label className="control-label" for={item.header} title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
+          if(item.id=="doacoes_pf"){
+            labelElement = <label className="control-label" for={item.header} title="Doações recebidas de indivíduos.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="doacoes_pj"){
+            labelElement = <label className="control-label" for={item.header} title="Doações recebidas de empresas, associações, órgãos públicos, igrejas ou outros tipos de organizações.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="doacoes_servicos"){
+            labelElement = <label className="control-label" for={item.header} title="As doações recebidas pela OSC na forma de produtos ou serviços com nota fiscal podem ser contabilizadas pelo valor da nota fiscal.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="voluntariado"){
+            labelElement = <label className="control-label" for={item.header} title="O voluntário é o indivíduo que dedica parte de seu tempo à realização de atividades não remuneradas de diversos tipos.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="doacoes_recebidas"){
+            labelElement = <label className="control-label" for={item.header} title="Doações recebidas pela OSC na forma de produtos ou serviços sem nota fiscal.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="patrimoniais"){
+            labelElement = <label className="control-label" for={item.header} title="Fundos patrimoniais são estruturas que oferecem sustentabilidade financeira a uma organização sem fins lucrativos.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="reservas"){
+            labelElement = <label className="control-label" for={item.header} title="Os fundos de reserva são frequentemente usados pelas organizações no atendimento emergencial de despesas ordinárias do dia a dia da entidade.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+
+          if(item.id=="mensalidades"){
+            labelElement = <label className="control-label" for={item.header} title="Contribuição financeira para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
 
 
 
