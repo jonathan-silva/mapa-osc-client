@@ -1164,36 +1164,38 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         function montarMetas(data, cd_objetivo){
-          var checkboxItems = [];
-          function CheckboxItems(id, label, value, type, custom_class){
-            this.id = id;
-            this.label = label;
-            this.value = value;
-            this.type = type;
-            this.custom_class = custom_class;
-          }
-          console.log(data);
-          items = data;
-          for (var i=0; i<items.length; i++){
-            checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
-          }
-          Checkbox = React.createFactory(Checkbox);
-          ReactDOM.render(
-            Checkbox(
-              {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
-            ), document.getElementById("selectable-"+cd_objetivo)
-          );
-          console.log(CheckboxItems);
-
-          /*var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
-          var options = data;
-          for (var i = 0; i < options.length; i++) {
-            if(options[i].cd_meta_projeto == cd_meta){
-              $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
-            } else {
-              $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+          if (validateObject(data)){
+            var checkboxItems = [];
+            function CheckboxItems(id, label, value, type, custom_class){
+              this.id = id;
+              this.label = label;
+              this.value = value;
+              this.type = type;
+              this.custom_class = custom_class;
             }
-          }*/
+            //console.log(data);
+            items = data;
+            for (var i=0; i<items.length; i++){
+              checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+            }
+            Checkbox = React.createFactory(Checkbox);
+            ReactDOM.render(
+              Checkbox(
+                {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
+              ), document.getElementById("selectable-"+cd_objetivo)
+            );
+            //console.log(CheckboxItems);
+
+            /*var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
+            var options = data;
+            for (var i = 0; i < options.length; i++) {
+              if(options[i].cd_meta_projeto == cd_meta){
+                $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+              } else {
+                $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+              }
+            }*/
+          }
         }
         /*$('#selectable-'+cd_objetivo).selectable();*/
 
@@ -1206,14 +1208,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            });
 
           // $(this).removeClass("ui-selected");
-          console.log($divObjetivosMetasProjeto);
+          //console.log($divObjetivosMetasProjeto);
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
           $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
           if($('#metas-'+cd_objetivo).hasClass('hidden')){
            $('#metas-'+cd_objetivo).toggleClass('hidden');
           }
-          console.log(cd_objetivo);
+          //console.log(cd_objetivo);
           if(parseInt(cd_objetivo) !== 0){
             loadMetas(cd_objetivo);
           }
@@ -1242,7 +1244,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         dataType: 'json',
         data: newJson,
          success: function(data) {
-           console.log(data);
+           //console.log(data);
          },
          error: function(e) {
           showUnauthorizedUser(e);
@@ -1252,7 +1254,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //console.log(newJson);
 
      //Áreas de atuação
-     console.log(old_json);
+     //console.log(old_json);
      if(!validateObject(old_json.area_atuacao)){
        var newJson = {};
        newJson.area_atuacao = [];
@@ -1316,7 +1318,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       */
        newJson["headers"] = authHeader;
        newJson["id_osc"] = idOsc;
-       console.log(newJson);
+       //console.log(newJson);
      }
     $.ajax({
      url: rotas.AreaAtuacao(idOsc),
@@ -1324,7 +1326,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
      dataType: 'json',
      data: newJson,
       success: function(data) {
-        console.log(data);
+        //console.log(data);
       },
       error: function(e) {
         showUnauthorizedUser(e);
@@ -1347,7 +1349,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        dataType: 'json',
        data: newJson,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         },
         error: function(e) {
           showUnauthorizedUser(e);
@@ -1373,7 +1375,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        dataType: 'json',
        data: newJson,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         },
         error: function(e) {
           showUnauthorizedUser(e);
@@ -1414,7 +1416,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          dataType: 'json',
          data: newJson,
           success: function(data) {
-            console.log(data);
+            //console.log(data);
           },
           error: function(e) {
             showUnauthorizedUser(e);
