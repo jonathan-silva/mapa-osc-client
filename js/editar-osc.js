@@ -150,7 +150,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   // Dados Gerais
   function montarDadosGerais(json){
     var dadosGerais = validateObject(json.dados_gerais) ? json.dados_gerais : "";
-    console.log(dadosGerais);
     var content = montarEnderecoImovel(dadosGerais)
     var dados_form =dadosForm.dadosGerais(dadosGerais, content);
     var items = dados_form.form_items;
@@ -189,6 +188,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
     var macro_area_suggestions = dadosForm.getSuggestions();
+    console.log(areas_atuacao);
 
     $.when(
       $.ajax({
@@ -1236,7 +1236,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });
        newJson["headers"] = authHeader;
        newJson["id_osc"] = idOsc;
-       console.log(newJson);
+       //console.log(newJson);
 
        $.ajax({
         url: rotas.DadosGerais(idOsc),
@@ -1271,7 +1271,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
      });
      newJson["headers"] = authHeader;
      newJson["id_osc"] = idOsc;
-     //console.log(newJson);
+     console.log(newJson);
     $.ajax({
      url: rotas.AreaAtuacao(idOsc),
      type: 'POST',
