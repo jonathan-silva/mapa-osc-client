@@ -184,6 +184,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.areas = areas;
       this.subareas = subareas;
     }
+    console.log(json.area_atuacao);
     var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao : [];
     var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
@@ -1164,36 +1165,38 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         function montarMetas(data, cd_objetivo){
-          var checkboxItems = [];
-          function CheckboxItems(id, label, value, type, custom_class){
-            this.id = id;
-            this.label = label;
-            this.value = value;
-            this.type = type;
-            this.custom_class = custom_class;
-          }
-          console.log(data);
-          items = data;
-          for (var i=0; i<items.length; i++){
-            checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
-          }
-          Checkbox = React.createFactory(Checkbox);
-          ReactDOM.render(
-            Checkbox(
-              {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
-            ), document.getElementById("selectable-"+cd_objetivo)
-          );
-          console.log(CheckboxItems);
-
-          /*var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
-          var options = data;
-          for (var i = 0; i < options.length; i++) {
-            if(options[i].cd_meta_projeto == cd_meta){
-              $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
-            } else {
-              $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+          if (validateObject(data)){
+            var checkboxItems = [];
+            function CheckboxItems(id, label, value, type, custom_class){
+              this.id = id;
+              this.label = label;
+              this.value = value;
+              this.type = type;
+              this.custom_class = custom_class;
             }
-          }*/
+            //console.log(data);
+            items = data;
+            for (var i=0; i<items.length; i++){
+              checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+            }
+            Checkbox = React.createFactory(Checkbox);
+            ReactDOM.render(
+              Checkbox(
+                {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
+              ), document.getElementById("selectable-"+cd_objetivo)
+            );
+            //console.log(CheckboxItems);
+
+            /*var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
+            var options = data;
+            for (var i = 0; i < options.length; i++) {
+              if(options[i].cd_meta_projeto == cd_meta){
+                $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
+              } else {
+                $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
+              }
+            }*/
+          }
         }
         /*$('#selectable-'+cd_objetivo).selectable();*/
 
@@ -1206,14 +1209,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            });
 
           // $(this).removeClass("ui-selected");
-          console.log($divObjetivosMetasProjeto);
+          //console.log($divObjetivosMetasProjeto);
           $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
           $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
           $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
           if($('#metas-'+cd_objetivo).hasClass('hidden')){
            $('#metas-'+cd_objetivo).toggleClass('hidden');
           }
-          console.log(cd_objetivo);
+          //console.log(cd_objetivo);
           if(parseInt(cd_objetivo) !== 0){
             loadMetas(cd_objetivo);
           }
@@ -1242,7 +1245,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         dataType: 'json',
         data: newJson,
          success: function(data) {
-           console.log(data);
+           //console.log(data);
          },
          error: function(e) {
           showUnauthorizedUser(e);
@@ -1253,78 +1256,81 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
      //Áreas de atuação
      console.log(old_json);
-     if(!validateObject(old_json.area_atuacao)){
-       var newJson = {};
-       newJson.area_atuacao = [];
-       var suggestions = dadosForm.getSuggestions();
-       $("#areas_de_atuacao .autocomplete").each(function(){
-        var cd_area = 0;
-        for (var i = 0; i < suggestions.length; i++) {
-         if($(this).val() === suggestions[i].tx_nome_area_atuacao){
-           cd_area = suggestions[i].cd_area_atuacao;
-         }
-        }
-        var macro_area_id = $(this).attr("id").substring(11);
+     var newJson = {};
+     newJson.area_atuacao = [];
+     var suggestions = dadosForm.getSuggestions();
+     $("#areas_de_atuacao .autocomplete").each(function(){
+      var cd_area = 0;
+      for (var i = 0; i < suggestions.length; i++) {
+       if($(this).val() === suggestions[i].tx_nome_area_atuacao){
+         cd_area = suggestions[i].cd_area_atuacao;
+       }
+      }
+      var macro_area_id = $(this).attr("id").substring(11);
 
-        if($(this).val() === "Outros"){
-          obj_area_atuacao = {
-            "cd_area_atuacao": cd_area,
-            "tx_nome_area_atuacao": $("#macro_area_"+macro_area_id+"_outros").val(),
-            "ft_area_atuacao": "Usuário"
-          }
-        } else {
-          obj_area_atuacao = {
-            "cd_area_atuacao": cd_area,
-            "tx_nome_area_atuacao": $(this).val(),
-            "ft_area_atuacao": "Usuário"
-          }
+      if($(this).val() === "Outros"){
+        obj_area_atuacao = {
+          "cd_area_atuacao": cd_area,
+          "tx_nome_area_atuacao": $("#macro_area_"+macro_area_id+"_outros").val(),
+          "ft_area_atuacao": "Usuário",
+          "id_area_atuacao": null
         }
-        var subareas = [];
-        $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
-          $(this).find("input:checked").each(function(){
-            if($(this).closest("label").text() === "Outros"){
-              subareas.push({
-                "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
-                "cd_subarea_atuacao": $(this).val()
-              });
-            } else {
-              subareas.push({
-                "tx_nome_subarea_atuacao": $(this).closest("label").text(),
-                "cd_subarea_atuacao": $(this).val()
-              });
-            }
-          });
+      } else {
+        obj_area_atuacao = {
+          "cd_area_atuacao": cd_area,
+          "tx_nome_area_atuacao": $(this).val(),
+          "ft_area_atuacao": "Usuário",
+          "id_area_atuacao": null
+        }
+      }
+      var subareas = [];
+      $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
+        $(this).find("input:checked").each(function(){
+          if($(this).closest("label").text() === "Outros"){
+            subareas.push({
+              "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
+              "cd_subarea_atuacao": $(this).val(),
+              "id_area_atuacao": null
+            });
+          } else {
+            subareas.push({
+              "tx_nome_subarea_atuacao": $(this).closest("label").text(),
+              "cd_subarea_atuacao": $(this).val(),
+              "id_area_atuacao": null
+            });
+          }
         });
-        obj_area_atuacao.subareas = subareas;
-        newJson.area_atuacao.push(obj_area_atuacao);
-       });
-       /*
-       $("#areas_de_atuacao .autocomplete").each(function(){
-         newJson.push({
-           "ft_area_declarada": "Usuário",
-           "tx_nome_area_atuacao": $(this).val()
-         });
-       });
-       $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-         var subareas = [];
-         $(this).find("input:checked").each(function(){
-           subareas.push($(this).closest("label").text());
-         });
-        var key = "tx_nome_subarea_atuacao";
-        newJson[index][key] = subareas;
       });
-      */
-       newJson["headers"] = authHeader;
-       newJson["id_osc"] = idOsc;
-       console.log(newJson);
-     }
+      obj_area_atuacao.subareas = subareas;
+      newJson.area_atuacao.push(obj_area_atuacao);
+     });
+     /*
+     $("#areas_de_atuacao .autocomplete").each(function(){
+       newJson.push({
+         "ft_area_declarada": "Usuário",
+         "tx_nome_area_atuacao": $(this).val()
+       });
+     });
+     $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
+       var subareas = [];
+       $(this).find("input:checked").each(function(){
+         subareas.push($(this).closest("label").text());
+       });
+      var key = "tx_nome_subarea_atuacao";
+      newJson[index][key] = subareas;
+    });
+    */
+     newJson["headers"] = authHeader;
+     newJson["id_osc"] = idOsc;
+     console.log(newJson);
+
     $.ajax({
-     url: rotas.AreaAtuacao(idOsc),
+     url: rotas.AtualizarAreaAtuacao(idOsc),
      type: 'POST',
      dataType: 'json',
      data: newJson,
       success: function(data) {
-        console.log(data);
+        //console.log(data);
       },
       error: function(e) {
         showUnauthorizedUser(e);
@@ -1347,7 +1353,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        dataType: 'json',
        data: newJson,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         },
         error: function(e) {
           showUnauthorizedUser(e);
@@ -1373,7 +1379,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        dataType: 'json',
        data: newJson,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         },
         error: function(e) {
           showUnauthorizedUser(e);
@@ -1414,7 +1420,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          dataType: 'json',
          data: newJson,
           success: function(data) {
-            console.log(data);
+            //console.log(data);
           },
           error: function(e) {
             showUnauthorizedUser(e);

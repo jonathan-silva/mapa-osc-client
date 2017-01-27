@@ -162,6 +162,7 @@ function deslogar(){
   window.localStorage.removeItem('User');
   window.localStorage.removeItem('Authorization');
   window.localStorage.removeItem('Nome');
+  window.localStorage.removeItem('Osc');
   $(".menuLogado .dropdown-toggle").html('');
   $(".menuLogado").addClass("logado");
   $("#btnEntrar").removeClass("logado");
