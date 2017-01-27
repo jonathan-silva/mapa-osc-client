@@ -133,7 +133,6 @@ class Rotas{
 
   //cadastro-representante.js
   CadastroRepresentante(){
-    console.log(this.getBaseUrl()+":8383/api/user/");
     return this.getBaseUrl()+":8383/api/user/";
   }
 

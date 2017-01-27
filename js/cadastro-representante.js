@@ -273,7 +273,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                     "id_osc": $id_osc
                 }]
             };
-          
+
 
             $.ajax({
                 //url: 'http://localhost:8080/api/user/',
@@ -281,16 +281,22 @@ require(['react', 'jsx!components/Util'], function(React) {
                 type: 'POST',
                 dataType: 'json',
                 data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
-                error: function(e) {
-                    jQuery("#modalTitle").text("Problema no cadastro!");
-                    jQuery("#modalConteudo").text('');
-                    jQuery("#modalConteudo").text(JSON.parse(e.responseText).msg);
+                error: function(data) {
+                    if (data.status == 200){
+                        jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
+                        jQuery("#modalConteudo").text('');
+                        jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+                    }else{
+                        jQuery("#modalTitle").text("Problema no cadastro!");
+                        jQuery("#modalConteudo").text('');
+                        jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
+                    }
                     $modal.modal('show');
                 },
-                success: function(e) {
+                success: function(data) {
                     jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
                     jQuery("#modalConteudo").text('');
-                    jQuery("#modalConteudo").text(e.msg);
+                    jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
                     $modal.modal('show');
                 }
             }); //final ajax
