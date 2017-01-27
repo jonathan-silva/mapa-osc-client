@@ -42,6 +42,7 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'jquery-ui', 'datatables-responsive'], function (React) {
 
   var dadosForm = new DataForms();
+  var old_json = null;
 
   require(
     ['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
@@ -68,6 +69,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       idOsc = valoresURL[0];
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
+    window.localStorage.setItem('User', 17);
+    window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99BxIlY0RmrzPryTOytXYYX/E=");
     var user = window.localStorage.getItem('User');
     var auth  = window.localStorage.getItem('Authorization');
 
@@ -141,7 +144,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     cabecalhoArray.push(new fCabecalho(Nome, cd_nur, NatJur));
     Cabecalho = React.createFactory(Cabecalho);
     ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
-
+    old_json = json;
   }
 
   // Dados Gerais
@@ -181,14 +184,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.areas = areas;
       this.subareas = subareas;
     }
-    var areas_atuacao = [];
-    // = validateObject(json.area_atuacao) ? json.area_atuacao : [];
-    var area_atuacao_outra = validateObject(json.area_atuacao.area_atuacao_outra) ? json.area_atuacao.area_atuacao_outra : [];
-    console.log(areas_atuacao);
-    console.log(area_atuacao_outra);
+    var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao : [];
+    var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
-    
     var macro_area_suggestions = dadosForm.getSuggestions();
+
     $.when(
       $.ajax({
         url: rotas.AreaAtuacao(),
@@ -325,8 +325,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             } else {
               $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
             }
-            
-            
+
+
             if (macro_area === "Outros"){
               $inputContainer.toggleClass('hidden');
               if($inputContainer.hasClass('hidden')){
@@ -942,7 +942,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       function montarProjeto(json){
-        //console.log(json);
+        console.log(json);
         var project = json;
         var agrupadores = [];
         var projectId = project.id_projeto;
@@ -966,7 +966,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         }
-        var autodeclaradas = project.area_atuacao.concat(project.area_atuacao_outra);
+        var area_atuacao_projeto = validateObject(project.area_atuacao) ? project.area_atuacao : [];
+        var area_atuacao_outra_projeto = validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
+        var autodeclaradas = area_atuacao_projeto.concat(area_atuacao_outra_projeto);
 
         var localizacao = getTipoProjeto("localizacao_projeto", project.localizacao);
         var fonte = getFonteDeRecursosProjeto(projectId);
@@ -980,9 +982,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           localizacao, publicoBeneficiado, financiadores,
           autodeclaradas, parceiras, fonte
         ];
+        console.log(multipleInputs);
         for (var j = 0; j < multipleInputs.length; j++) {
-          var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
-          agrupadores.push(agrupador);
+          if(validateObject(multipleInputs[j].dados)){
+            var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
+            agrupadores.push(agrupador);
+          }
         }
 
         function createAgrupadorMultipleInputs(object){
@@ -1072,10 +1077,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var meta = -1;
           var cd_meta = -1;
         } else {
-          var objetivo = project.objetivo_meta.tx_nome_objetivo_projeto;
-          var cd_objetivo = project.objetivo_meta.cd_objetivo_projeto;
-          var meta = project.objetivo_meta.tx_nome_meta_projeto;
-          var cd_meta = project.objetivo_meta.cd_meta_projeto;
+          var objetivo = validateObject(project.objetivo_meta) ? project.objetivo_meta.tx_nome_objetivo_projeto : null;
+          var cd_objetivo = validateObject(project.objetivo_meta) ? project.objetivo_meta.cd_objetivo_projeto : null;
+          var meta = validateObject(project.objetivo_meta) ? project.objetivo_meta.tx_nome_meta_projeto : null;
+          var cd_meta = validateObject(project.objetivo_meta) ? project.objetivo_meta.cd_meta_projeto : null;
         }
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
@@ -1107,6 +1112,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         function montarObjetivos(json){
           var options = json;
           var $selectObjetivos = $divObjetivosProjeto.find("select");
+          $selectObjetivos.append('<option selected id="' + 0 + '">' + "Selecione um item" + '</option>');
           for (var i = 0; i < options.length; i++) {
             if(options[i].cd_objetivo_projeto === cd_objetivo){
               $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -1133,7 +1139,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
         }
 
-        loadMetas(cd_objetivo);
+        if(cd_objetivo){
+          loadMetas(cd_objetivo);
+        }
 
         function montarMetas(data, cd_objetivo){
           var checkboxItems = [];
@@ -1185,7 +1193,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if($('#metas-'+cd_objetivo).hasClass('hidden')){
            $('#metas-'+cd_objetivo).toggleClass('hidden');
           }
-          loadMetas(cd_objetivo);
+          console.log(cd_objetivo);
+          if(parseInt(cd_objetivo) !== 0){
+            loadMetas(cd_objetivo);
+          }
          });
       }
     }
@@ -1194,7 +1205,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
       //Dados Gerais
       //$("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      var newJson = {};
+      old_dados_gerais = validateObject(old_json.dados_gerais) ? old_json.dados_gerais : {};
+      var newJson = old_dados_gerais;
        $("#dados_gerais :input").each(function(){
          var key = $(this).attr("id");
          var value = $(this).val();
@@ -1202,7 +1214,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });
        newJson["headers"] = authHeader;
        newJson["id_osc"] = idOsc;
-       //console.log(newJson);
+       console.log(newJson);
 
        $.ajax({
         url: rotas.DadosGerais(idOsc),
