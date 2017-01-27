@@ -132,13 +132,23 @@ class DataForms{
         },
         {
           "id": "macro_area_1_outros",
+          "label": "Insira a area desejada",
+          "content": null,
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "text",
+          "hide": true,
+          "custom_class": "macro_area_outros"
+        },
+        {
+          "id": "sub_area_1_outros",
           "label": "Insira a subarea desejada",
           "content": null,
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "text",
           "hide": true,
-          "custom_class": null
+          "custom_class": "sub_area_outros"
         },
         {
           "id": "macro_area_2",
@@ -151,13 +161,23 @@ class DataForms{
         },
         {
           "id": "macro_area_2_outros",
+          "label": "Insira a area desejada",
+          "content": null,
+          "fonte": null,
+          "placeholder": "Não constam informações nas bases de dados do Mapa.",
+          "type": "text",
+          "hide": true,
+          "custom_class": "macro_area_outros"
+        },
+        {
+          "id": "sub_area_2_outros",
           "label": "Insira a subarea desejada",
           "content": null,
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "text",
           "hide": true,
-          "custom_class": null
+          "custom_class": "sub_area_outros"
         }
       ]
     };
@@ -328,6 +348,10 @@ class DataForms{
         "cd_area_atuacao": 9,
         "tx_nome_area_atuacao": "Desenvolvimento e defesa de direitos"
       },
+      {
+        "cd_area_atuacao": 10,
+        "tx_nome_area_atuacao": "Outros"
+      }
     ];
     return suggestions;
   }

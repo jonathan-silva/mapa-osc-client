@@ -244,7 +244,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(items[j].custom_class === "autocomplete"){
 	        formItens.push(new AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
         } else {
-          formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, null, items[j].hide));
+          formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
         }
       }
 
@@ -315,6 +315,31 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            if($element.hasClass('hidden')){
              $element.toggleClass('hidden');
            }
+           // interação macro_area_outros
+            var macro_area = ui.item.value;
+            var pai = $(this).closest(".form-group");
+            var id = pai.find(".autocomplete").attr("id");
+            var $inputContainer = null;
+            if(id === "macro_area_1"){
+              $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
+            } else {
+              $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
+            }
+            
+            
+            if (macro_area === "Outros"){
+              $inputContainer.toggleClass('hidden');
+              if($inputContainer.hasClass('hidden')){
+                var $input = $inputContainer.find('input');
+                $input.val("");
+              }
+            } else {
+              if(!$inputContainer.hasClass('hidden')){
+                $inputContainer.toggleClass('hidden');
+                var $input = $inputContainer.find('input');
+                $input.val("");
+              }
+            }
          }
        });
        $(".autocomplete").on("click", function(){
@@ -326,7 +351,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if($(this).val() === "Outros"){
             var pai = $(this).closest(".form-group");
             var id = pai.find(".autocomplete").attr("id");
-            var $inputContainer = pai.siblings().find("#"+id+"_outros").closest(".form-group");
+            var $inputContainer = null;
+            if(id === "macro_area_1"){
+              $inputContainer = pai.siblings().find("#sub_area_1_outros").closest(".form-group");
+            } else {
+              $inputContainer = pai.siblings().find("#sub_area_2_outros").closest(".form-group");
+            }
             $inputContainer.toggleClass('hidden');
             if($inputContainer.hasClass('hidden')){
               var $input = $inputContainer.find('input');
@@ -334,6 +364,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         });
+
       });
 
       FormItem = React.createFactory(FormItem);
