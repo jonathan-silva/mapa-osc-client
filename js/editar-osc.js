@@ -44,8 +44,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var dadosForm = new DataForms();
   var old_json = null;
 
-  require(
-    ['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection', 'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'], function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
+  require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
+   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'],
+    function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
+
     function FormItens(id, label, content, fonte, placeholder, type, options, pretext, custom_class, hide, defaultFormItem){
       this.id = id;
       this.label = label;
@@ -59,7 +61,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.hide = hide;
       this.default = defaultFormItem;
     }
-    //var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
+
     var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var rotas = new Rotas();
     var urlRota = "";
@@ -69,8 +71,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       idOsc = valoresURL[0];
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
-    window.localStorage.setItem('User', 17);
-    window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99Bx6qR7coRXBGHycCaTr27F4=");
+    //window.localStorage.setItem('User', 17);
+    //window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99Bx6qR7coRXBGHycCaTr27F4=");
     var user = window.localStorage.getItem('User');
     var auth  = window.localStorage.getItem('Authorization');
 
@@ -93,9 +95,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     // console.log(urlRota);
-    // api/osc/no_project/{id}
     $.ajax({
-      //url: "http://localhost:8080/api/osc/no_project/"+idOsc,
       url: rotas.OSCByID_no_project(idOsc),
       type: 'GET',
       dataType: 'json',
@@ -184,7 +184,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       this.areas = areas;
       this.subareas = subareas;
     }
-    console.log(json.area_atuacao);
+    //console.log(json.area_atuacao);
     var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao : [];
     var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
@@ -221,7 +221,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
 
     function loadSuggestions(macro_area_suggestions, subarea_suggestions){
-
       for (var i = 0; i < subarea_suggestions.length; i++) {
         subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
         subarea_suggestions[i]["value"] = subarea_suggestions[i]["cd_subarea_atuacao"];
@@ -252,101 +251,101 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       require(["react", "jquery-ui", "jquery"], function (React) {
         //autocomplete macro_area_1 e macro_area_2
-        macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
-          newItem = {
-            label: item.tx_nome_area_atuacao,
-            value: item.tx_nome_area_atuacao,
-            id: item.cd_area_atuacao
-          };
+          macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
+            newItem = {
+              label: item.tx_nome_area_atuacao,
+              value: item.tx_nome_area_atuacao,
+              id: item.cd_area_atuacao
+            };
 
-          return newItem;
-        });
-        $("#areas_de_atuacao .autocomplete").autocomplete({
-          minLength: 0,
-          create: function(event, ui) {
-            var value = $(this).attr("placeholder");
-            for (var i = 0; i < macro_area_suggestions.length; i++) {
-              var suggestion = macro_area_suggestions[i].value;
-              if (suggestion === value){
-                var $container = $(this).siblings(".checkboxList");
-                var $element = $container.find("#subareas-"+i);
-                if($element.hasClass('hidden')){
-                  $element.toggleClass('hidden');
-                }
+            return newItem;
+          });
 
-                for (var j = 0; j < areas_atuacao.length; j++) {
-                  if((value === areas_atuacao[j].tx_nome_area_atuacao)){
-                    var subarea_exists = false;
-                    $element.find("label").each(function(){
-                      if(areas_atuacao[j].tx_nome_subarea_atuacao === $(this).text().trim()){
-                        subarea_exists = $(this);
+          $("#areas_de_atuacao .autocomplete").autocomplete({
+            minLength: 0,
+            create: function(event, ui) {
+              var value = $(this).attr("placeholder");
+              for (var i = 0; i < macro_area_suggestions.length; i++) {
+                var suggestion = macro_area_suggestions[i].value;
+                if (suggestion === value){
+                  var $container = $(this).siblings(".checkboxList");
+                  var $element = $container.find("#subareas-"+i);
+                  if($element.hasClass('hidden')){
+                    $element.toggleClass('hidden');
+                  }
+
+                  for (var j = 0; j < areas_atuacao.length; j++) {
+                    if((value === areas_atuacao[j].tx_nome_area_atuacao)){
+                      var subarea_exists = false;
+                      $element.find("label").each(function(){
+                        if(areas_atuacao[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                          subarea_exists = $(this);
+                        }
+                      });
+                      if(subarea_exists){
+                        subarea_exists.find("input").prop('checked', true);
+                      } else {
+                        $element.find("#outros").val(areas_atuacao[j].tx_nome_subarea_atuacao);
                       }
-                    });
-                    if(subarea_exists){
-                      subarea_exists.find("input").prop('checked', true);
-                    } else {
-                      $element.find("#outros").val(areas_atuacao[j].tx_nome_subarea_atuacao);
                     }
                   }
                 }
               }
-            }
-          },
-          source: macro_area_suggestions,
-          change: function( event, ui ) {
-          },
-          select: function(event, ui){
-           var targetElement = event.target;
-           var id = macro_area_suggestions.indexOf(ui.item)+1;
-           var $container = $($(targetElement).siblings(".checkboxList")[0]);
-           $container.children().each(function( index ) {
-             if(!$(this).hasClass('hidden')){
-               $(this).toggleClass('hidden');
-               $(this).children().each(function(index){
-                 var $input = $($(this).find('input')[0]);
-                 if ($input.is(':checked')){
-                   $input.prop('checked', false);
-                 }
-                 if ($input.prop('type') == "text"){
-                   $input.val("");
-                 }
-               });
+            },
+            source: macro_area_suggestions,
+            change: function( event, ui ) {
+            },
+            select: function(event, ui){
+             var targetElement = event.target;
+             var id = macro_area_suggestions.indexOf(ui.item)+1;
+             var $container = $($(targetElement).siblings(".checkboxList")[0]);
+             $container.children().each(function( index ) {
+               if(!$(this).hasClass('hidden')){
+                 $(this).toggleClass('hidden');
+                 $(this).children().each(function(index){
+                   var $input = $($(this).find('input')[0]);
+                   if ($input.is(':checked')){
+                     $input.prop('checked', false);
+                   }
+                   if ($input.prop('type') == "text"){
+                     $input.val("");
+                   }
+                 });
+               }
+             });
+             var $element = $container.find("#subareas-"+id);
+             if($element.hasClass('hidden')){
+               $element.toggleClass('hidden');
              }
-           });
-           var $element = $container.find("#subareas-"+id);
-           if($element.hasClass('hidden')){
-             $element.toggleClass('hidden');
-           }
-           // interação macro_area_outros
-            var macro_area = ui.item.value;
-            var pai = $(this).closest(".form-group");
-            var id = pai.find(".autocomplete").attr("id");
-            var $inputContainer = null;
-            if(id === "macro_area_1"){
-              $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
-            } else {
-              $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
-            }
-
-
-            if (macro_area === "Outros"){
-              $inputContainer.toggleClass('hidden');
-              if($inputContainer.hasClass('hidden')){
-                var $input = $inputContainer.find('input');
-                $input.val("");
+             // interação macro_area_outros
+              var macro_area = ui.item.value;
+              var pai = $(this).closest(".form-group");
+              var id = pai.find(".autocomplete").attr("id");
+              var $inputContainer = null;
+              if(id === "macro_area_1"){
+                $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
+              } else {
+                $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
               }
-            } else {
-              if(!$inputContainer.hasClass('hidden')){
+
+              if (macro_area === "Outros"){
                 $inputContainer.toggleClass('hidden');
-                var $input = $inputContainer.find('input');
-                $input.val("");
+                if($inputContainer.hasClass('hidden')){
+                  var $input = $inputContainer.find('input');
+                  $input.val("");
+                }
+              } else {
+                if(!$inputContainer.hasClass('hidden')){
+                  $inputContainer.toggleClass('hidden');
+                  var $input = $inputContainer.find('input');
+                  $input.val("");
+                }
               }
-            }
-         }
-       });
-       $(".autocomplete").on("click", function(){
-         $(this).autocomplete( "search", "" );
-       });
+           }
+         });
+         $(".autocomplete").on("click", function(){
+           $(this).autocomplete( "search", "" );
+         });
         //interações seção areas de atuacao
         $(".checkboxList :checkbox").change(function() {
 
@@ -366,7 +365,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         });
-
       });
 
       FormItem = React.createFactory(FormItem);
@@ -376,12 +374,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("areas_de_atuacao")
       );
     }
-
   }
 
   //Descrição
   function montarDescricao(json){
-
       var descricao = validateObject(json.descricao) ? json.descricao : "";
       headerPriority = '2';
       headerText = 'Descrição da OSC';
@@ -403,7 +399,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var newJson = {};
     $("#descricao").find("#salvar").click(function(){
       $("#descricao .form-control").each(function(){
-
         newJson[$(this).attr("id")] = $(this).val();
       });
     });
@@ -412,21 +407,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   //Títulos e certificações
   function montarTitulosCertificacoes(json){
     var tx_sem_titulos = "Não há registros de títulos ou certificações";
-
     var utilidade_publica_estadual;
     var utilidade_publica_municipal;
-
     var certificacoes = validateObject(json.certificado) ? json.certificado.certificado : "";
 
     headerPriority = '2';
     headerText = 'Títulos e Certificações';
     formItens = [];
     dados_form = dadosForm.titulosCertificacoes(json);
-    if(certificacoes){
-      items = certificacoes;
-    } else {
-      items = [];
-    }
+    var items = validateObject(certificacoes) ? certificacoes : [];
 
     if(items.length > 0){
       for (j=0; j<items.length; j++){
@@ -449,6 +438,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {header:{priority: headerPriority, text: headerText}, dados:formItens}
       ), document.getElementById("auto")
     );
+
     formItens = [];
     for (j=0; j<items.length; j++){
       formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, null, items[j].hide));
@@ -490,7 +480,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   function montarRelacoesGovernanca(json){
     // Governança: Dirigentes
     var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-
     var sections = dadosForm.sectionsRelacoesGovernanca();
     items = sections.items;
     Section = React.createFactory(Section);
@@ -505,7 +494,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     var relacoes_trabalho =0;
-
     var relacoes_trabalho_governanca = validateObject(json.relacoes_trabalho_governanca) ? json.relacoes_trabalho_governanca : "";
       // Governança: Dirigentes
     var  dirigentes = validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.governanca : '0';
@@ -575,50 +563,46 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         {header:null, dados:formItens}
       ), document.getElementById("trabalhadores")
     );
-
   }
 
     // Espaços participacao social;
-    function montarEspacosParticipacaoSocial(json){
-      var tx_sem_participacao_social = "Não há registros de participação social";
+  function montarEspacosParticipacaoSocial(json){
+    var tx_sem_participacao_social = "Não há registros de participação social";
+    var participacao_social_form = dadosForm.partSocial();
+    items = participacao_social_form.items;
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );
 
-      var participacao_social_form = dadosForm.partSocial();
+    var nomeConselho = null;
+    var nomeTipoParticipacao = null;
+    var nomeRepresentanteConselho = null;
+    var periodicidade = null;
+    var dataInicioConselho = null;
+    var dataFimConselho = null;
+    var nomeConferencia = null;
+    var nomeFormaParticipacao = null;
+    var anoRealizacao = null;
 
-      items = participacao_social_form.items;
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:items}
-        ), document.getElementById(items[0].target)
-      );
-
-      var nomeConselho = null;
-      var nomeTipoParticipacao = null;
-      var nomeRepresentanteConselho = null;
-      var periodicidade = null;
-      var dataInicioConselho = null;
-      var dataFimConselho = null;
-      var nomeConferencia = null;
-      var nomeFormaParticipacao = null;
-      var anoRealizacao = null;
-
-      if (validateObject(json.participacao_social)){
-        nomeConselho = "tx_nome_conselho-0";
-        nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
-        nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
-        periodicidade = "tx_periodicidade_reuniao-0";
-        dataInicioConselho = "dt_data_inicio_conselho-0";
-        dataFimConselho = "dt_data_fim_conselho-0";
-        nomeConferencia = "tx_nome_conferencia-0";
-        nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
-        anoRealizacao = "dt_ano_realizacao-0";
-      }
+    if (validateObject(json.participacao_social)){
+      nomeConselho = "tx_nome_conselho-0";
+      nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
+      nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
+      periodicidade = "tx_periodicidade_reuniao-0";
+      dataInicioConselho = "dt_data_inicio_conselho-0";
+      dataFimConselho = "dt_data_fim_conselho-0";
+      nomeConferencia = "tx_nome_conferencia-0";
+      nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
+      anoRealizacao = "dt_ano_realizacao-0";
+    }
 
     var participacao_social = validateObject(json.participacao_social) ? json.participacao_social : "";
     var conselhos=validateObject(participacao_social.conselho) ? participacao_social.conselho : '0';
     var conferencias = validateObject(participacao_social.conferencia) ? participacao_social.conferencia : '0';
     var outras = validateObject(participacao_social.outra) ? participacao_social.outra : '0';
-
     formItens = [];
 
     if (conselhos) {
@@ -655,64 +639,61 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     addItem('conselhos');
 
     formItens = [];//
-      if (conferencias.length) {
-        var conferencia = participacao_social_form.items;
-        for (j=0; j<conferencias.length; j++){
-          for (var property in conferencias[j]) {
-            if (conferencias[j].hasOwnProperty(property)) {
-              if(property == "tx_nome_conferencia"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
-              }
-              if(property == "tx_nome_forma_participacao_conferencia"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
-              }
-              if(property == "dt_ano_realizacao"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(6), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
-              }
-           }
-          }
+    if (conferencias.length) {
+      var conferencia = participacao_social_form.items;
+      for (j=0; j<conferencias.length; j++){
+        for (var property in conferencias[j]) {
+          if (conferencias[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_conferencia"){
+              formItens.push(new FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "text"));
+            }
+            if(property == "tx_nome_forma_participacao_conferencia"){
+              formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
+            }
+            if(property == "dt_ano_realizacao"){
+              formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(6), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
+            }
+         }
         }
-        formItens.push(new FormItens(nomeConferencia, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
-        formItens.push(new FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
-        formItens.push(new FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
+      }
+      formItens.push(new FormItens(nomeConferencia, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
+      formItens.push(new FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
+      formItens.push(new FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
 
+      Agrupador = React.createFactory(AgrupadorConferencia);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:formItens}
+        ), document.getElementById("conferencias")
+      );
+    }
 
-        Agrupador = React.createFactory(AgrupadorConferencia);
-        ReactDOM.render(
-          Agrupador(
-            {header:null, dados:formItens}
-          ), document.getElementById("conferencias")
-        );
+    addItem('conferencias');
+
+    formItens = [];//
+    if (outras.length) {
+      var outra = participacao_social_form.items;
+      for (j=0; j<outras.length; j++){
+        for (var property in outras[j]) {
+          if (outras[j].hasOwnProperty(property)) {
+            if(property == "tx_nome_participacao_social_outra"){
+              formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
+            }
+         }
+        }
       }
 
-      addItem('conferencias');
+      formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
-      formItens = [];//
-      if (outras.length) {
-        var outra = participacao_social_form.items;
-        for (j=0; j<outras.length; j++){
-          for (var property in outras[j]) {
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:formItens}
+        ), document.getElementById("outros_part")
+      );
+    }
 
-            if (outras[j].hasOwnProperty(property)) {
-
-              if(property == "tx_nome_participacao_social_outra"){
-                formItens.push(new FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
-              }
-           }
-          }
-        }
-
-        formItens.push(new FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
-
-        FormItemButtons = React.createFactory(FormItemButtons);
-        ReactDOM.render(
-          FormItemButtons(
-            {header:null, dados:formItens}
-          ), document.getElementById("outros_part")
-        );
-      }
-
-      addItem('outros_part');
+    addItem('outros_part');
   }
 
   function montarFontedeRecursos(json){
@@ -751,7 +732,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       );
 
       //recursos
-
       //colocando dados no Array
       recursos_form.recursos_nao_financeiros = mapContentRecursos(recursos.recursos_nao_financeiros, recursos_form.recursos_nao_financeiros);
       recursos_form.recursos_privados = mapContentRecursos(recursos.recursos_privados, recursos_form.recursos_privados);
@@ -835,78 +815,77 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $(this).find('option[value='+valor+']').prop('selected', true);
     });
   }
-    // Lista de Projetos
-    function montarProjetos(json){
-      var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
-      var headerProjeto = {
-        "id": "lista_projetos",
-        "priority": "2",
-        "text": "Projetos, atividade e programas"
-      };
+  // Lista de Projetos
+  function montarProjetos(json){
+    var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
+    var headerProjeto = {
+      "id": "lista_projetos",
+      "priority": "2",
+      "text": "Projetos, atividade e programas"
+    };
 
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:[headerProjeto]}
-        ), document.getElementById("projetos")
-      );
-      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
-      var columns = 2;
-      var sizeOfData = projects_list.length;
-      newData = new Array(sizeOfData);
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:[headerProjeto]}
+      ), document.getElementById("projetos")
+    );
+    $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+    var columns = 2;
+    var sizeOfData = projects_list.length;
+    newData = new Array(sizeOfData);
 
-      for (var i=0; i < projects_list.length; i++){
-        newData[i] = new Array(columns);
-        newData[i][0] = validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
-        newData[i][1] = validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
+    for (var i=0; i < projects_list.length; i++){
+      newData[i] = new Array(columns);
+      newData[i][0] = validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
+      newData[i][1] = validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
+    }
+    var table_lista_projetos = $('#table_lista_projetos').DataTable({
+      responsive: true,
+      deferLoading: 1000,
+      deferRender: true,
+      data: newData,
+      columns: [
+        {DT_RowId: "Id"},
+        {title: "Nome do Projeto"}
+      ],
+      order: [],
+      aoColumnDefs: [
+        {bSortable :false, aTargets: [0]},
+        {
+          "targets": [ 0 ],
+          "visible": false,
+          "searchable": false
+        },
+      ],
+      autoWidth: true,
+      "oLanguage": dadosForm.oLanguageDataTable()
+     });
+
+     $('#table_lista_projetos').append('<span class="input-group-btn">'+
+                '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+              '</span>');
+     $('#add_projeto').click(function(){
+      table_lista_projetos.row.add([
+        "-1",
+        "Novo Projeto"
+      ]).draw();
+      verificarContraste();
+     });
+
+     $("#table_lista_projetos").on('click', 'tr', function(){
+      var id_projeto = table_lista_projetos.row(this).data()[0];
+      var divId = "projeto-" + id_projeto;
+      var projetos = $(this).next(".projeto");
+      if(projetos.length < 1){
+       $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+       carregaProjeto(id_projeto);
+       verificarContraste();
+      } else {
+       var $divDadosProjeto = $(projetos[0]);
+       $divDadosProjeto.toggleClass("hidden");
       }
-      var table_lista_projetos = $('#table_lista_projetos').DataTable({
-        responsive: true,
-        deferLoading: 1000,
-        deferRender: true,
-        data: newData,
-        columns: [
-          {DT_RowId: "Id"},
-          {title: "Nome do Projeto"}
-        ],
-        order: [],
-        aoColumnDefs: [
-          {bSortable :false, aTargets: [0]},
-          {
-            "targets": [ 0 ],
-            "visible": false,
-            "searchable": false
-          },
-        ],
-        autoWidth: true,
-        "oLanguage": dadosForm.oLanguageDataTable()
-       });
-
-       $('#table_lista_projetos').append('<span class="input-group-btn">'+
-                  '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
-                '</span>');
-       $('#add_projeto').click(function(){
-        table_lista_projetos.row.add([
-          "-1",
-          "Novo Projeto"
-        ]).draw();
-        verificarContraste();
-       });
-
-       $("#table_lista_projetos").on('click', 'tr', function(){
-        var id_projeto = table_lista_projetos.row(this).data()[0];
-        var divId = "projeto-" + id_projeto;
-        var projetos = $(this).next(".projeto");
-        if(projetos.length < 1){
-         $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-         carregaProjeto(id_projeto);
-         verificarContraste();
-        } else {
-         var $divDadosProjeto = $(projetos[0]);
-         $divDadosProjeto.toggleClass("hidden");
-        }
-       });
-
+     });
   }
     // Projetos
     function carregaProjeto(id){
@@ -921,25 +900,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "type": "add",
         "value": "Adicionar"
       };
-
-      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder){
-        this.id = id;
-        this.content = content;
-        this.type = type;
-        this.options = options;
-        this.removable = removable;
-        this.buttons = buttons;
-        this.buttonsInLine = buttonsInLine;
-        this.placeholder = placeholder;
-      }
-
-      function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
-        this.id = id;
-        this.containerClass = containerClass;
-        this.header = header;
-        this.inputs = inputs;
-        this.buttons = buttons;
-      }
 
       // rotas.ProjectByID(id)
       if(id === "-1"){
@@ -981,7 +941,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
             if((value === null) || (value.constructor !== Array)){
               var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder);
-
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
               agrupadores.push(agrupadorInputProjeto);
             }
@@ -989,7 +948,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         var area_atuacao_projeto = validateObject(project.area_atuacao) ? project.area_atuacao : [];
         var area_atuacao_outra_projeto = validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
-        var autodeclaradas = area_atuacao_projeto.concat(area_atuacao_outra_projeto);
+        var autodeclaradas = [].concat(area_atuacao_projeto).concat(area_atuacao_outra_projeto);
 
         var localizacao = getTipoProjeto("localizacao_projeto", project.localizacao);
         var fonte = getFonteDeRecursosProjeto(projectId);
@@ -1073,7 +1032,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(".ano").datepicker({ dateFormat: 'yy' });
 
         // interacoes
-
         $('#projeto-'+id).on("click", ".btn-danger", function(){
           $(this).parents(".input-group").remove();
         });
@@ -1092,25 +1050,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
         //metas e objetivos
-        if(project.objetivo_meta === null){
-          var objetivo = -1;
-          var cd_objetivo = -1;
-          var meta = -1;
-          var cd_meta = -1;
-        } else {
-          var objetivo = validateObject(project.objetivo_meta) ? project.objetivo_meta.tx_nome_objetivo_projeto : null;
-          var cd_objetivo = validateObject(project.objetivo_meta) ? project.objetivo_meta.cd_objetivo_projeto : null;
-          var meta = validateObject(project.objetivo_meta) ? project.objetivo_meta.tx_nome_meta_projeto : null;
-          var cd_meta = validateObject(project.objetivo_meta) ? project.objetivo_meta.cd_meta_projeto : null;
-        }
+        var objetivo_meta = validateObject(project.objetivo_meta) ? project.objetivo_meta : "";
+        var objetivo = validateObject(objetivo_meta.tx_nome_objetivo_projeto) ? objetivo_meta.tx_nome_objetivo_projeto : -1;
+        var cd_objetivo = validateObject(objetivo_meta.cd_objetivo_projeto) ? objetivo_meta.cd_objetivo_projeto : -1;
+        var meta = validateObject(objetivo_meta.tx_nome_meta_projeto) ? objetivo_meta.tx_nome_meta_projeto : -1;
+        var cd_meta = validateObject(objetivo_meta.cd_meta_projeto) ? objetivo_meta.cd_meta_projeto : -1;
+
         var $divProjeto = $('#projeto-'+id);
         $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
+
         var $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
         $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
+
         $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
         $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
         $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+
         var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
         $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
         $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
@@ -1186,41 +1142,30 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               ), document.getElementById("selectable-"+cd_objetivo)
             );
             //console.log(CheckboxItems);
-
-            /*var $selectMetas = $divProjeto.find('#selectable-'+cd_objetivo);
-            var options = data;
-            for (var i = 0; i < options.length; i++) {
-              if(options[i].cd_meta_projeto == cd_meta){
-                $selectMetas.append('<li class="ui-widget-content ui-selected">' + options[i].tx_nome_meta_projeto + '</li>');
-              } else {
-                $selectMetas.append('<li class="ui-widget-content">' + options[i].tx_nome_meta_projeto + '</li>');
-              }
-            }*/
           }
         }
-        /*$('#selectable-'+cd_objetivo).selectable();*/
 
-         $('.objetivos').find('select').on('change', function(){
-          cd_objetivo = $(this).children(":selected").attr("id")
-           $(this).parents("#objetivos-metas").find(".metas").each(function(){
-            if(!$(this).hasClass('hidden')){
-             $(this).toggleClass('hidden');
-            }
-           });
-
-          // $(this).removeClass("ui-selected");
-          //console.log($divObjetivosMetasProjeto);
-          $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-          $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-          $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
-          if($('#metas-'+cd_objetivo).hasClass('hidden')){
-           $('#metas-'+cd_objetivo).toggleClass('hidden');
-          }
-          //console.log(cd_objetivo);
-          if(parseInt(cd_objetivo) !== 0){
-            loadMetas(cd_objetivo);
+       $('.objetivos').find('select').on('change', function(){
+        cd_objetivo = $(this).children(":selected").attr("id")
+         $(this).parents("#objetivos-metas").find(".metas").each(function(){
+          if(!$(this).hasClass('hidden')){
+           $(this).toggleClass('hidden');
           }
          });
+
+        // $(this).removeClass("ui-selected");
+        //console.log($divObjetivosMetasProjeto);
+        $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+        $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
+        $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+        if($('#metas-'+cd_objetivo).hasClass('hidden')){
+         $('#metas-'+cd_objetivo).toggleClass('hidden');
+        }
+        //console.log(cd_objetivo);
+        if(parseInt(cd_objetivo) !== 0){
+          loadMetas(cd_objetivo);
+        }
+       });
       }
     }
 
@@ -1255,7 +1200,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //console.log(newJson);
 
      //Áreas de atuação
-     console.log(old_json);
+     //console.log(old_json);
      var newJson = {};
      newJson.area_atuacao = [];
      var suggestions = dadosForm.getSuggestions();
@@ -1266,63 +1211,37 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          cd_area = suggestions[i].cd_area_atuacao;
        }
       }
-      var macro_area_id = $(this).attr("id").substring(11);
 
-      if($(this).val() === "Outros"){
-        obj_area_atuacao = {
-          "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": $("#macro_area_"+macro_area_id+"_outros").val(),
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
-        }
-      } else {
-        obj_area_atuacao = {
-          "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": $(this).val(),
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
-        }
+      var macro_area_id = $(this).attr("id").substring(11);
+      var idMacroAreaOutros = $("#macro_area_"+macro_area_id+"_outros").val();
+
+      obj_area_atuacao = {
+        "cd_area_atuacao": cd_area,
+        "tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val(),
+        "ft_area_atuacao": "Usuário",
+        "id_area_atuacao": null
       }
+
       var subareas = [];
       $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
         $(this).find("input:checked").each(function(){
-          if($(this).closest("label").text() === "Outros"){
-            subareas.push({
-              "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
-              "cd_subarea_atuacao": $(this).val(),
-              "id_area_atuacao": null
-            });
-          } else {
-            subareas.push({
-              "tx_nome_subarea_atuacao": $(this).closest("label").text(),
-              "cd_subarea_atuacao": $(this).val(),
-              "id_area_atuacao": null
-            });
-          }
+          var labelOutros = $(this).closest("label").text();
+          var isLabelOutros = ($(this).closest("label").text() === "Outros");
+
+          subareas.push({
+            "tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
+            "cd_subarea_atuacao": $(this).val(),
+            "id_area_atuacao": null
+          });
         });
       });
       obj_area_atuacao.subareas = subareas;
       newJson.area_atuacao.push(obj_area_atuacao);
      });
-     /*
-     $("#areas_de_atuacao .autocomplete").each(function(){
-       newJson.push({
-         "ft_area_declarada": "Usuário",
-         "tx_nome_area_atuacao": $(this).val()
-       });
-     });
-     $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-       var subareas = [];
-       $(this).find("input:checked").each(function(){
-         subareas.push($(this).closest("label").text());
-       });
-      var key = "tx_nome_subarea_atuacao";
-      newJson[index][key] = subareas;
-    });
-    */
+
      newJson["headers"] = authHeader;
      newJson["id_osc"] = idOsc;
-     console.log(newJson);
+     //console.log(newJson);
 
     $.ajax({
      url: rotas.AtualizarAreaAtuacao(idOsc),
@@ -1399,7 +1318,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var key = $(this).attr("id");
             var value = $child.find(".form-control").val();
             if(key)
-            newJson[key] = value;
+              newJson[key] = value;
           } else {
             var children = $(this).children();
             var key = $(this).attr("id");
@@ -1431,41 +1350,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
   });
 });
-
-function showUnauthorizedUser(e){
-  if(e.status === 401){
-    $('#unauthorized').dialog('open');
-    console.log(e);
-  }
-}
-
-function getFonteDeRecursosProjeto(id){
-  var fonte = {
-    "fonte_de_recursos": [
-      {
-        "id_fonte_recursos_projeto": 1,
-        "cd_origem_fonte_recursos_projeto": 1092,
-        "tx_nome_origem_fonte_recursos_projeto": "Público",
-        "cd_fonte_recursos_projeto": null,
-        "tx_nome_fonte_recursos_projeto": "Federal",
-        "ft_fonte_recursos_projeto": null
-      }
-    ]
-  };
-  var key = Object.keys(fonte)[0];
-  var objFonte = {
-    "id": key,
-    "dados": fonte[key]
-  };
-  return objFonte;
-}
-
-function getTipoProjeto(key, dados){
-  return {
-    "id": key,
-    "dados": dados
-  };
-}
 
 function addItem(idDiv){
   $('#'+idDiv+' button').on('click', function(){
@@ -1510,35 +1394,31 @@ function montarEnderecoImovel(dadosGerais){
   var tx_endereco_completo = '';
   for (var i = 0; i < endereco.length; i++) {
     if (endereco[i] !== null){
-      tx_endereco_completo += (tx_endereco_completo === '' ? '' : ', ');
-      tx_endereco_completo += endereco[i];
+      tx_endereco_completo += tx_endereco_completo === '' ? '' : ', ';
+      tx_endereco_completo += tx_endereco_completo === '' ? 'Endereço não registrado.' : endereco[i];
     }
   }
-  if (tx_endereco_completo === '') {
-    tx_endereco_completo = 'Endereço não registrado.';
-  }
+
   return tx_endereco_completo;
 }
 
-function isTrue(obj){
-  if(obj){
-    return true;
-  }
-  else {
-    return false;
-  }
-}
-
-function abrirModalAjuda(titulo) {
-  var dadosForm = new DataForms();
-  var jsonModalAjuda = dadosForm.jsonModalAjuda();
-	var	corpo = jsonModalAjuda[titulo];
-	var tituloCompleto = "Ajuda - "+titulo;
-
-  $("#modalTitulo").html("");
-  $("#modalTitulo").html(titulo);
-  $("#corpoModal").html("");
-  $("#corpoModal").html(corpo);
-  $("#modalAjuda").modal('show');
-  verificarContraste();
+function getFonteDeRecursosProjeto(id){
+  var fonte = {
+    "fonte_de_recursos": [
+      {
+        "id_fonte_recursos_projeto": 1,
+        "cd_origem_fonte_recursos_projeto": 1092,
+        "tx_nome_origem_fonte_recursos_projeto": "Público",
+        "cd_fonte_recursos_projeto": null,
+        "tx_nome_fonte_recursos_projeto": "Federal",
+        "ft_fonte_recursos_projeto": null
+      }
+    ]
+  };
+  var key = Object.keys(fonte)[0];
+  var objFonte = {
+    "id": key,
+    "dados": fonte[key]
+  };
+  return objFonte;
 }
