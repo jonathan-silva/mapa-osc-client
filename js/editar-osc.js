@@ -838,6 +838,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // Lista de Projetos
     function montarProjetos(json){
       var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
+      console.log(json.projeto);
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
