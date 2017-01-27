@@ -744,7 +744,8 @@ class DataForms{
         "containerClass": "col-md-12",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o nome do projeto"
       },
       "tx_nome_status_projeto": {
         "header": "Situação do projeto",
@@ -758,42 +759,48 @@ class DataForms{
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a data de início do projeto"
       },
       "dt_data_fim_projeto": {
         "header": "Data de Fim",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o data de fim do projeto"
       },
       "tx_link_projeto": {
         "header": "Link",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o link do projeto"
       },
       "nr_total_beneficiarios": {
         "header": "Total de Beneficiários",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o número total de beneficiários"
       },
       "nr_valor_total_projeto": {
         "header": "Valor Total",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o valor total do projeto"
       },
       "tx_valor_captado_projeto": {
         "header": "Valor Captado",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira o valor captado do projeto"
       },
       "fonte_de_recursos": {
         "header": "Fonte de Recursos",
@@ -871,14 +878,16 @@ class DataForms{
         "containerClass": "col-md-12",
         "removable": false,
         "type": "textarea",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a metodologia de monitoramento do projeto"
       },
       "tx_descricao_projeto": {
         "header": "Descrição do Projeto, atividade e/ou programa",
         "containerClass": "col-md-12",
         "removable": false,
         "type": "textarea",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a descrição do projeto"
       },
       "objetivos": {
         "header": "Objetivos de desenvolvimento do milênio",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)

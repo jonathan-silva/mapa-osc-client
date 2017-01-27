@@ -838,6 +838,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var inline = item.buttonsInLine;
         var type = item.type;
         var options = item.options;
+        var placeholder = item.placeholder;
 
         if(content === undefined){
           content = "";
@@ -851,7 +852,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else if (type == 'textarea'){
           InputElement =
           <div id={id}>
-            <textarea className="form-control" defaultValue={content}></textarea>
+            <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
         } else {
           var class_string = "form-control ";
@@ -864,7 +865,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           }
           var InputElement =
             <div id={id}>
-              <input className={class_string} defaultValue={content}></input>
+              <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
         }
 

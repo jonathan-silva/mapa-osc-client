@@ -903,7 +903,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "value": "Adicionar"
       };
 
-      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine){
+      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder){
         this.id = id;
         this.content = content;
         this.type = type;
@@ -911,6 +911,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.removable = removable;
         this.buttons = buttons;
         this.buttonsInLine = buttonsInLine;
+        this.placeholder = placeholder;
       }
 
       function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
@@ -955,11 +956,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var removable = labelMap[property].removable;
             var type = labelMap[property].type;
             var options = labelMap[property].options;
+            var placeholder = labelMap[property].placeholder;
             var buttons = null;
             var buttonsInLine = false;
 
             if((value === null) || (value.constructor !== Array)){
-              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine);
+              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder);
 
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
               agrupadores.push(agrupadorInputProjeto);
