@@ -236,6 +236,7 @@ class DataForms{
 
   titulosCertificacoes(json){
     var certificado = validateObject(json.certificado) ? json.certificado : ""
+    console.log(certificado);
     var utilidade_publica_estadual = certificado.utilidade_publica_estadual;
     var utilidade_publica_municipal = certificado.utilidade_publica_municipal;
     var titulosCertificacoes={
@@ -568,7 +569,9 @@ class DataForms{
     return itemsRecurso;
   }
 
-  tiposRecurso(){
+  tiposRecurso(/*json*/){
+    //var recursos=json.recursos;//validateObject(json.recursos.recursos)?json.recursos.recursos:"";
+    //console.log(validateObject(json.recursos));
     var tiposRecurso = {
       "recursos_geral": [
         {
@@ -702,7 +705,8 @@ class DataForms{
         {
           "id": "doacoes_servicos",
           "label": "Doações recebidas na forma de produtos e serviços (com Nota Fiscal)",
-          "placeholder":"Insira o valor de Doações recebidas na forma de produtos e serviços (com Nota Fiscal)"
+          "placeholder":"Insira o valor de Doações recebidas na forma de produtos e serviços (com Nota Fiscal)",
+          "content":""
         }
       ],
 
