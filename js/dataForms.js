@@ -56,10 +56,10 @@ class DataForms{
           "type": "text"
         },
         {
-          "id": "dt_inscricao_osc",
+          "id": "dt_ano_cadastro_cnpj",
           "label": "Ano de inscrição no Cadastro de CNPJ",
-          "content": dadosGerais.dt_inscricao_osc ? dadosGerais.dt_inscricao_osc.substring(0,4) : null,
-          "fonte": dadosGerais.ft_inscricao_osc ? dadosGerais.ft_inscricao_osc: null,
+          "content": dadosGerais.dt_ano_cadastro_cnpj ? dadosGerais.dt_ano_cadastro_cnpj.substring(6) : null,
+          "fonte": dadosGerais.ft_ano_cadastro_cnpj ? dadosGerais.ft_ano_cadastro_cnpj: null,
           "placeholder": "Insira o ano em que a OSC foi legalmente criada",
           "type": "text",
           "custom_class": "ano"
@@ -67,7 +67,7 @@ class DataForms{
         {
           "id": "dt_fundacao_osc",
           "label": "Ano de Fundação",
-          "content": dadosGerais.dt_fundacao_osc ? dadosGerais.dt_fundacao_osc.substring(0,4) : null,
+          "content": dadosGerais.dt_fundacao_osc ? dadosGerais.dt_fundacao_osc.substring(6) : null,
           "fonte": dadosGerais.ft_fundacao_osc ? dadosGerais.ft_fundacao_osc : null,
           "placeholder": "Insira o ano de fundação da OSC",
           "type": "text",

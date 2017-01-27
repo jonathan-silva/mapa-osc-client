@@ -150,6 +150,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   // Dados Gerais
   function montarDadosGerais(json){
     var dadosGerais = validateObject(json.dados_gerais) ? json.dados_gerais : "";
+    console.log(dadosGerais);
     var content = montarEnderecoImovel(dadosGerais)
     var dados_form =dadosForm.dadosGerais(dadosGerais, content);
     var items = dados_form.form_items;
@@ -665,7 +666,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 formItens.push(new FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "text"));
               }
               if(property == "dt_ano_realizacao"){
-                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(0,4), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
+                formItens.push(new FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(6), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
               }
            }
           }
