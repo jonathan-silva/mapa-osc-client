@@ -49,6 +49,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
+
   linksUsuarioLogado.push(new MenuDropDownObject("Sair", "javascript: deslogar();void(0);"));
 
 
