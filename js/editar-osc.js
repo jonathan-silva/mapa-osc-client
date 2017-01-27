@@ -451,7 +451,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     );
     formItens = [];
     for (j=0; j<items.length; j++){
-      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, null, items[j].hide));
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, "date", items[j].hide));
     }
 
     FormItem = React.createFactory(FormItem);
@@ -1269,57 +1269,44 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var macro_area_id = $(this).attr("id").substring(11);
 
       if($(this).val() === "Outros"){
+        var text = $("#macro_area_"+macro_area_id+"_outros").val();
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": $("#macro_area_"+macro_area_id+"_outros").val(),
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
+          "tx_nome_area_atuacao": text ? text : null
         }
       } else {
+        var text = $(this).val();
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": $(this).val(),
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
+          "tx_nome_area_atuacao": text ? text : null
         }
       }
       var subareas = [];
-      $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
-        $(this).find("input:checked").each(function(){
-          if($(this).closest("label").text() === "Outros"){
-            subareas.push({
-              "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
-              "cd_subarea_atuacao": $(this).val(),
-              "id_area_atuacao": null
-            });
+      if($(this).siblings(".checkboxList").children(":not(.hidden)").length === 0){
+        subareas = null;
+      } else {
+        $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
+          if($(this).find("input:checked").length === 0){
+            subareas = null;
           } else {
-            subareas.push({
-              "tx_nome_subarea_atuacao": $(this).closest("label").text(),
-              "cd_subarea_atuacao": $(this).val(),
-              "id_area_atuacao": null
+            $(this).find("input:checked").each(function(){
+              if($(this).closest("label").text() === "Outros"){
+                subareas = null;
+              } else {
+                subareas.push({
+                  "tx_nome_subarea_atuacao": $(this).closest("label").text(),
+                  "cd_subarea_atuacao": $(this).val()
+                });
+              }
             });
           }
         });
-      });
-      obj_area_atuacao.subareas = subareas;
+      }
+      if(subareas){
+        obj_area_atuacao.subareas = subareas;
+      }
       newJson.area_atuacao.push(obj_area_atuacao);
      });
-     /*
-     $("#areas_de_atuacao .autocomplete").each(function(){
-       newJson.push({
-         "ft_area_declarada": "Usuário",
-         "tx_nome_area_atuacao": $(this).val()
-       });
-     });
-     $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-       var subareas = [];
-       $(this).find("input:checked").each(function(){
-         subareas.push($(this).closest("label").text());
-       });
-      var key = "tx_nome_subarea_atuacao";
-      newJson[index][key] = subareas;
-    });
-    */
      newJson["headers"] = authHeader;
      newJson["id_osc"] = idOsc;
      console.log(newJson);
@@ -1362,16 +1349,29 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       //Certificacoes
-      var newJson = [];
+      var newJson = {};
+      newJson.certificados = [];
       $("#certificacoes .form-control").each(function(){
+        var cd_certificado = 0;
+        if($(this).attr("id").substring(18) === "estadual"){
+          cd_certificado = 6;
+        }
+        if($(this).attr("id").substring(18) === "municipal"){
+          cd_certificado = 7;
+        }
         var item = {};
         item[$(this).attr("id")] = {};
         item[$(this).attr("id")].dt_fim_certificado = $(this).val();
-        newJson.push(item);
+        item[$(this).attr("id")].dt_inicio_certificado = null;
+        item[$(this).attr("id")].ft_certificado = authHeader.User;
+        item[$(this).attr("id")].ft_inicio_certificado = authHeader.User;
+        item[$(this).attr("id")].ft_fim_certificado = authHeader.User;
+        item[$(this).attr("id")].cd_certificado = cd_certificado;
+        newJson.certificados.push(item);
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      //console.log(newJson);
+      console.log(newJson);
 
       $.ajax({
        url: rotas.Certificado(idOsc),
