@@ -188,7 +188,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
     var macro_area_suggestions = dadosForm.getSuggestions();
-    console.log(areas_atuacao);
+    //console.log(areas_atuacao);
 
     $.when(
       $.ajax({
@@ -722,7 +722,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarPorAno(ano, index, recursos) {
-      console.log(ano);
+      //console.log(ano);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");
@@ -961,7 +961,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       function montarProjeto(json){
-        console.log(json);
+        //console.log(json);
         var project = json;
         var agrupadores = [];
         var projectId = project.id_projeto;
@@ -1002,7 +1002,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           localizacao, publicoBeneficiado, financiadores,
           autodeclaradas, parceiras, fonte
         ];
-        console.log(multipleInputs);
+        //console.log(multipleInputs);
         for (var j = 0; j < multipleInputs.length; j++) {
           if(validateObject(multipleInputs[j].dados)){
             var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
