@@ -49,7 +49,9 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
-  linksUsuarioLogado.push(new MenuDropDownObject("Sair", "javascript:deslogar();"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Sair", "javascript: deslogar();void(0);"));
+
+
 
   Header = React.createFactory(Header);
   ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
