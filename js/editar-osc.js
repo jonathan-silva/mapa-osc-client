@@ -1265,10 +1265,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }
         }
         var macro_area_id = $(this).attr("id").substring(11);
-        obj_area_atuacao = {
-          "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": $(this).val(),
-          "ft_area_atuacao": "Usuário"
+
+        if($(this).val() === "Outros"){
+          obj_area_atuacao = {
+            "cd_area_atuacao": cd_area,
+            "tx_nome_area_atuacao": $("#macro_area_"+macro_area_id+"_outros").val(),
+            "ft_area_atuacao": "Usuário"
+          }
+        } else {
+          obj_area_atuacao = {
+            "cd_area_atuacao": cd_area,
+            "tx_nome_area_atuacao": $(this).val(),
+            "ft_area_atuacao": "Usuário"
+          }
         }
         var subareas = [];
         $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
