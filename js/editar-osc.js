@@ -1272,54 +1272,39 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var text = $("#macro_area_"+macro_area_id+"_outros").val();
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": text ? text : null,
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
+          "tx_nome_area_atuacao": text ? text : null
         }
       } else {
         var text = $(this).val();
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": text ? text : null,
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
+          "tx_nome_area_atuacao": text ? text : null
         }
       }
       var subareas = [];
       if($(this).siblings(".checkboxList").children(":not(.hidden)").length === 0){
-        subareas.push({
-          "tx_nome_subarea_atuacao": null,
-          "cd_subarea_atuacao": null,
-          "id_area_atuacao": null
-        });
+        subareas = null;
       } else {
         $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
           if($(this).find("input:checked").length === 0){
-            subareas.push({
-              "tx_nome_subarea_atuacao": null,
-              "cd_subarea_atuacao": null,
-              "id_area_atuacao": null
-            });
+            subareas = null;
           } else {
             $(this).find("input:checked").each(function(){
               if($(this).closest("label").text() === "Outros"){
-                subareas.push({
-                  "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
-                  "cd_subarea_atuacao": $(this).val(),
-                  "id_area_atuacao": null
-                });
+                subareas = null;
               } else {
                 subareas.push({
                   "tx_nome_subarea_atuacao": $(this).closest("label").text(),
-                  "cd_subarea_atuacao": $(this).val(),
-                  "id_area_atuacao": null
+                  "cd_subarea_atuacao": $(this).val()
                 });
               }
             });
           }
         });
       }
-      obj_area_atuacao.subareas = subareas;
+      if(subareas){
+        obj_area_atuacao.subareas = subareas;
+      }
       newJson.area_atuacao.push(obj_area_atuacao);
      });
      newJson["headers"] = authHeader;
