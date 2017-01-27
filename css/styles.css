@@ -914,6 +914,10 @@ select{
   color: #d43f3a !important;
 }
 
+.glyphicon-info-sign{
+  cursor:help;
+}
+
 @media print{
   #header, #rodape, #barra-brasil, .selecao, .topo, footer{
     display: none !important;
