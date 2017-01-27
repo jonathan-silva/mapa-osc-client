@@ -715,17 +715,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
 
   function montarFontedeRecursos(json){
-    // console.log(json.recursos);
+    console.log(json.recursos);
     var sections = dadosForm.itemsRecurso();
     recursos_form = dadosForm.tiposRecurso();
     var anos = ["2016", "2015", "2014"];
 
     for (var j = 0; j < anos.length; j++) {
-      montarPorAno(anos[j], j);
+      montarPorAno(anos[j], j, json.recursos.recursos[j]);
     }
 
-    function montarPorAno(ano, index) {
-      // console.log(ano);
+    function montarPorAno(ano, index, recursos) {
+      console.log(recursos);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");
@@ -753,6 +753,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       );
 
       //recursos
+
+      //colocando dados no Array
+      recursos_form.recursos_nao_financeiros = mapContentRecursos(recursos.recursos_nao_financeiros, recursos_form.recursos_nao_financeiros);
+      recursos_form.recursos_privados = mapContentRecursos(recursos.recursos_privados, recursos_form.recursos_privados);
+      recursos_form.recursos_proprios = mapContentRecursos(recursos.recursos_proprios, recursos_form.recursos_proprios);
+      recursos_form.recursos_publicos = mapContentRecursos(recursos.recursos_publicos, recursos_form.recursos_publicos);
       var recursosArray=[
         {//proprios
           "items": recursos_form.recursos_proprios,
@@ -777,8 +783,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var items = recursosArray[k].items;
         var divId = recursosArray[k].divId;
 
-        for (var i=0; i<items.length; i++)
+        for (var i=0; i<items.length; i++){
+          //console.log(items[i]);
           formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+        }
 
         FormItem = React.createFactory(FormItem);
         ReactDOM.render(
@@ -804,6 +812,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#recursos_nao_financeiros-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
       $("#recursos_nao_financeiros-"+ano).find('input').addClass('with-pretext');
       $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+    }
+
+    function mapContentRecursos(obj, array){
+      var index = 0;
+      for (var k in obj){
+        if (obj.hasOwnProperty(k)) {
+          var o = obj[k];
+          console.log(k, o.nr_valor_recursos_osc, o.id_recursos_osc);
+          array[index].id = o.id_recursos_osc;
+          array[index].content = o.nr_valor_recursos_osc;
+          index++;
+        }
+      }
+      return array;
     }
 
     // interacoes da selecao de anos
