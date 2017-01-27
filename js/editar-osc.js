@@ -186,7 +186,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
     var areas_atuacao = validateObject(json.area_atuacao) ? json.area_atuacao : [];
     var area_atuacao_outra = validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
-    areas_atuacao = areas_atuacao.concat(area_atuacao_outra);
+    areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
     var macro_area_suggestions = dadosForm.getSuggestions();
     console.log(areas_atuacao);
 
