@@ -223,7 +223,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       for (var i = 0; i < subarea_suggestions.length; i++) {
         subarea_suggestions[i]["label"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
-        subarea_suggestions[i]["value"] = subarea_suggestions[i]["tx_nome_subarea_atuacao"];
+        subarea_suggestions[i]["value"] = subarea_suggestions[i]["cd_subarea_atuacao"];
       }
 
       headerPriority = '2';
@@ -349,7 +349,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //interações seção areas de atuacao
         $(".checkboxList :checkbox").change(function() {
 
-          if($(this).val() === "Outros"){
+          if($(this).closest("label").text() === "Outros"){
             var pai = $(this).closest(".form-group");
             var id = pai.find(".autocomplete").attr("id");
             var $inputContainer = null;
@@ -722,7 +722,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarPorAno(ano, index, recursos) {
-      //console.log(ano);
+      console.log(ano);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");
@@ -781,7 +781,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var divId = recursosArray[k].divId;
 
         for (var i=0; i<items.length; i++){
-          //console.log(items[i]);
           formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
         }
 
@@ -1253,24 +1252,63 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //console.log(newJson);
 
      //Áreas de atuação
-     var newJson = [];
-     $("#areas_de_atuacao .autocomplete").each(function(){
-       newJson.push({
-         "ft_area_declarada": "Usuário",
-         "tx_nome_area_atuacao": $(this).val()
+     console.log(old_json);
+     if(!validateObject(old_json.area_atuacao)){
+       var newJson = {};
+       newJson.area_atuacao = [];
+       var suggestions = dadosForm.getSuggestions();
+       $("#areas_de_atuacao .autocomplete").each(function(){
+        var cd_area = 0;
+        for (var i = 0; i < suggestions.length; i++) {
+         if($(this).val() === suggestions[i].tx_nome_area_atuacao){
+           cd_area = suggestions[i].cd_area_atuacao;
+         }
+        }
+        var macro_area_id = $(this).attr("id").substring(11);
+        obj_area_atuacao = {
+          "cd_area_atuacao": cd_area,
+          "tx_nome_area_atuacao": $(this).val(),
+          "ft_area_atuacao": "Usuário"
+        }
+        var subareas = [];
+        $(this).siblings(".checkboxList").children(":not(.hidden)").each(function(index){
+          $(this).find("input:checked").each(function(){
+            if($(this).closest("label").text() === "Outros"){
+              subareas.push({
+                "tx_nome_subarea_atuacao": $("#sub_area_"+macro_area_id+"_outros").val(),
+                "cd_subarea_atuacao": $(this).val()
+              });
+            } else {
+              subareas.push({
+                "tx_nome_subarea_atuacao": $(this).closest("label").text(),
+                "cd_subarea_atuacao": $(this).val()
+              });
+            }
+          });
+        });
+        obj_area_atuacao.subareas = subareas;
+        newJson.area_atuacao.push(obj_area_atuacao);
        });
-     });
-     $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
-       var subareas = [];
-       $(this).find("input:checked").each(function(){
-         subareas.push($(this).closest("label").text());
+       /*
+       $("#areas_de_atuacao .autocomplete").each(function(){
+         newJson.push({
+           "ft_area_declarada": "Usuário",
+           "tx_nome_area_atuacao": $(this).val()
+         });
        });
-      var key = "tx_nome_subarea_atuacao";
-      newJson[index][key] = subareas;
-     });
-     newJson["headers"] = authHeader;
-     newJson["id_osc"] = idOsc;
-     console.log(newJson);
+       $("#areas_de_atuacao .checkboxList").children(":not(.hidden)").each(function(index){
+         var subareas = [];
+         $(this).find("input:checked").each(function(){
+           subareas.push($(this).closest("label").text());
+         });
+        var key = "tx_nome_subarea_atuacao";
+        newJson[index][key] = subareas;
+      });
+      */
+       newJson["headers"] = authHeader;
+       newJson["id_osc"] = idOsc;
+       console.log(newJson);
+     }
     $.ajax({
      url: rotas.AreaAtuacao(idOsc),
      type: 'POST',
