@@ -715,7 +715,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
 
   function montarFontedeRecursos(json){
-    console.log(json.recursos);
     var sections = dadosForm.itemsRecurso();
     recursos_form = dadosForm.tiposRecurso();
     var anos = ["2016", "2015", "2014"];
@@ -725,7 +724,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarPorAno(ano, index, recursos) {
-      console.log(recursos);
       $("#recursos").append('<div id='+ano+'></div>');
       if(index !== 0){
         $('#'+ano).toggleClass("hidden");
@@ -819,7 +817,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var k in obj){
         if (obj.hasOwnProperty(k)) {
           var o = obj[k];
-          console.log(k, o.nr_valor_recursos_osc, o.id_recursos_osc);
           array[index].id = o.id_recursos_osc;
           array[index].content = o.nr_valor_recursos_osc;
           index++;
