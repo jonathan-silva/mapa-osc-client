@@ -261,6 +261,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           return newItem;
         });
+        var id_suggestion = 0;
         $("#areas_de_atuacao .autocomplete").autocomplete({
           minLength: 0,
           create: function(event, ui) {
@@ -294,10 +295,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           },
           source: macro_area_suggestions,
           change: function( event, ui ) {
+            console.log(ui.item);
           },
           select: function(event, ui){
            var targetElement = event.target;
            var id = macro_area_suggestions.indexOf(ui.item)+1;
+           id_suggestion = id;
            var $container = $($(targetElement).siblings(".checkboxList")[0]);
            $container.children().each(function( index ) {
              if(!$(this).hasClass('hidden')){
@@ -313,6 +316,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                });
              }
            });
+
            var $element = $container.find("#subareas-"+id);
            if($element.hasClass('hidden')){
              $element.toggleClass('hidden');
@@ -346,6 +350,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        });
        $(".autocomplete").on("click", function(){
          $(this).autocomplete( "search", "" );
+       });
+       $(".autocomplete").keyup(function(){
+         console.log($(this).val());
+         if(($(this).val() === "") && (id_suggestion != 0)){
+           var id = id_suggestion;
+           console.log(id);
+           var $container = $(this).parent();
+           var $element = $container.find("#subareas-"+id);
+           console.log($element);
+           if(!$element.hasClass('hidden')){
+             $element.toggleClass('hidden');
+           }
+         }
+
        });
         //interações seção areas de atuacao
         $(".checkboxList :checkbox").change(function() {
