@@ -815,7 +815,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var k in obj){
         if (obj.hasOwnProperty(k)) {
           var o = obj[k];
-          array[index].id = o.id_recursos_osc;
+          //array[index].id = o.id_recursos_osc;
           array[index].content = o.nr_valor_recursos_osc;
           index++;
         }
