@@ -92,10 +92,13 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";
   }
   MetasById(id){
-    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto"+id;
+    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
   }
   AreaAtuacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/area_atuacao";
+  }
+  AtualizarAreaAtuacao(id){
+    return this.getBaseUrl()+":8383/api/osc/areaatuacao/"+id;
   }
   DadosGerais(id){
     return this.getBaseUrl()+":8383/api/osc/dadosgerais/"+id;

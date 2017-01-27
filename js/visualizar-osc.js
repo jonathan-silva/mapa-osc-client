@@ -51,7 +51,8 @@ require(["jquery-ui"], function (React) {
   });
 
 	jQuery(document).ready(function($) {
-			$("#btnEditar").attr("href","editar-osc.html#/"+idOsc);
+
+			verificarBotaoEditar(idOsc);
 	    $(".scroll").click(function(event){
 	        event.preventDefault();
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
@@ -98,4 +99,23 @@ function validateObject(obj){
     return false;
   }
   return true;
+}
+
+function verificarBotaoEditar(id){
+	if(verificarPermissaoBotao(id)){
+		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm">Editar OSC</a>');
+		$("#btnEditar").attr("href","editar-osc.html#/"+id);
+	}
+}
+
+function verificarPermissaoBotao(id){
+	var osc  = JSON.parse(window.localStorage.getItem('Osc'));
+	if(osc != "undefined" && osc !== null){
+		for (var i = 0; i < osc.length; i++) {
+			if (osc[i] == id) {
+     		return true;
+   		}
+		}
+	}
+	return false;
 }

@@ -61,9 +61,7 @@
             <a href="javascript:if(window.print)window.print()">Imprimir</a>
           </li>
           <li>
-            <div class="btnEditar">
-              <a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm">Editar OSC</a>
-            </div>
+            <div class="btnEditar"></div>
           </li>
         </ul>
         <hr>
@@ -764,7 +762,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label title="Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais." >Empresas públicas ou sociedades de economia mista <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
+                      <label title="Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais. Sociedade de economia mista é pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público." >Empresas públicas ou sociedades de economia mista <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
@@ -824,14 +822,14 @@
                     </div>
 
                     <div class="form-group">
-                      <label title="Doações recebidas de indivíduos." >Doações de pessoa jurídica <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
+                      <label title="Doações recebidas de empresas, associações, órgãos públicos, igrejas ou outros tipos de organizações." >Doações de pessoa jurídica <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                     </div>
 
                     <div class="form-group">
-                      <label title="Doações recebidas de empresas, associações, órgãos públicos, igrejas ou outros tipos de organizações." >Doações de pessoa física <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
+                      <label title="Doações recebidas de indivíduos." >Doações de pessoa física <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
