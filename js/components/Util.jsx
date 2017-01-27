@@ -413,9 +413,23 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           /*if(item.id=="tx_endereco_eletronico_sugerido"){
             labelElement = <label className="control-label" for={item.id} title="Defina um nome que vai constar como link para esta página da OSC , que poderá divulgá-lo como endereço oficial do Mapa">{item.label}:</label>
           }*/
-          if((item.id=="estadual") || (item.id=="municipal") || (item.id=="federal")){
-            labelElement = <label className="control-label" for={item.id} title="Insira o total obtido do nível de governo solicitado">{item.label}:</label>
-          }/*
+          if(item.id=="estadual") {
+            labelElement = <label className="control-label" for={item.id} title="As parcerias voluntárias entre a administração pública do nível estadual e as organizações civis.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="federal") {
+            labelElement = <label className="control-label" for={item.id} title="As parcerias voluntárias entre a administração pública do nível federal e as organizações civis.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="municipal") {
+            labelElement = <label className="control-label" for={item.id} title="As parcerias voluntárias entre a administração pública do nível municipal e as organizações civis.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="empresas_publicas") {
+            labelElement = <label className="control-label" for={item.id} title="Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais. Sociedade de economia mista é pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          /*
           if(item.id=="recursos_privados-2016"){
             console.log(item.id);
             labelElement = <label className="control-label" for={item.id} title="Indique se houve recursos captados de fontes privadas">{item.label}:</label>
@@ -441,22 +455,22 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
           if(item.id=="empresas_estrangeiras"){
-            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias com empresas privadas estrangeiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto">{item.label}:
+            labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias com empresas privadas estrangeiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
          if(item.header=="Link"){
-            labelElement = <label className="control-label" for={item.header} title="Insira um link para a página do projeto, se houver">{item.label}:</label>
+            labelElement = <label className="control-label" for={item.header} title="Insira um link para a página do projeto, se houver.">{item.label}:</label>
           }
           if(item.id=="estrangeiros"){
-            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com governos estrangeiros em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro">{item.label}:
+            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com governos estrangeiros em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
           if(item.id=="multilaterais"){
-            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com organizações multilaterais em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro. Exemplos de organizações multilaterais são as Nações Unidas, o Banco Mundial e o Banco Interamericano de Desenvolvimento">{item.label}:
+            labelElement = <label className="control-label" for={item.header} title="Acordos de cooperação podem ser firmados com organizações multilaterais em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro. Exemplos de organizações multilaterais são as Nações Unidas, o Banco Mundial e o Banco Interamericano de Desenvolvimento.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
           if(item.id=="premios"){
-            labelElement = <label className="control-label" for={item.header} title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização">{item.label}:
+            labelElement = <label className="control-label" for={item.header} title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
           if(item.id=="doacoes_pf"){
@@ -487,14 +501,34 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             labelElement = <label className="control-label" for={item.header} title="Os fundos de reserva são frequentemente usados pelas organizações no atendimento emergencial de despesas ordinárias do dia a dia da entidade.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-
           if(item.id=="mensalidades"){
             labelElement = <label className="control-label" for={item.header} title="Contribuição financeira para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-
-
-
+          if(item.id=="venda"){
+            labelElement = <label className="control-label" for={item.header} title="Esta é uma das formas de captação mais utilizadas pelas organizações, já que os produtos podem ser confeccionados pela própria instituição.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="servicos"){
+            labelElement = <label className="control-label" for={item.header} title="Atividades realizadas por uma organização com o fim de atendimento do beneficiário de ações sociais pode retornar dividendos para a entidade.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="bens"){
+            labelElement = <label className="control-label" for={item.header} title="Cessão onerosa da marca associada a uma organização civil para empresas privadas que, em troca, pagam royalties ou direitos autorais.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="isencoes"){
+            labelElement = <label className="control-label" for={item.header} title="A isenção fiscal é a dispensa de tributo por meio de lei realizada pelo ente federativo competente para institui-lo.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="imunidades"){
+            labelElement = <label className="control-label" for={item.header} title="A imunidade é uma limitação constitucional ao poder de tributar, ou seja, nega ao Estado o poder de tributar pessoas ou organizações definidas como imunes.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
+          if(item.id=="bens_recebidos"){
+            labelElement = <label className="control-label" for={item.header} title="Bens cedidos por um doador a um donatário, de modo que este fica obrigado a manter e cuidar dos bens doados, sem que tenha, no entanto, direito pleno ao bem, mas apenas direito de uso em relação a ele.">{item.label}:
+            <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
+          }
         }
         var className = "form-group";
         if (item.hide){
