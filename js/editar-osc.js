@@ -823,6 +823,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarProjetos(json){
       var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
       //console.log(json.projeto);
+
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
@@ -945,6 +946,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "value": "Adicionar"
       };
 
+      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder,title){
+        this.id = id;
+        this.content = content;
+        this.type = type;
+        this.options = options;
+        this.removable = removable;
+        this.buttons = buttons;
+        this.buttonsInLine = buttonsInLine;
+        this.placeholder = placeholder;
+        this.title = title;
+      }
+
+      function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+        this.id = id;
+        this.containerClass = containerClass;
+        this.header = header;
+        this.inputs = inputs;
+        this.buttons = buttons;
+      }
+
       // rotas.ProjectByID(id)
       if(id === "-1"){
         var empty_project = dadosForm.getEmptyProject();
@@ -970,6 +991,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var project = json;
         var agrupadores = [];
         var projectId = project.id_projeto;
+        var title = validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
         for (var property in project) {
           if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
             var sectionId = property;
@@ -984,8 +1006,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var buttonsInLine = false;
 
             if((value === null) || (value.constructor !== Array)){
-              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder);
+              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder,title);
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+
               agrupadores.push(agrupadorInputProjeto);
             }
           }

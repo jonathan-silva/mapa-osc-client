@@ -985,60 +985,113 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         }
         var ContainerElement =
           <div className={containerClass}>
-            <div className="header">{header}</div>
+            <div className="header">{header}
+            <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span></div>
             <FormInputProjeto dados={inputs}></FormInputProjeto>
             {ButtonElement}
           </div>
-          if(header === "Link"){
-            ContainerElement =
-              <div className={containerClass}>
-                <div className="header" title="insira um link para a página do projeto, se houver">{header}
-                <span><img className="imgDadoOficial" src="img/dado_representante.png"></img></span></div>
-                <FormInputProjeto dados={inputs}></FormInputProjeto>
-                {ButtonElement}
-              </div>
-          }
-          if(header === "Total de Beneficiários"){
-            ContainerElement =
-              <div className={containerClass}>
-                <div className="header" title="se houver, indique o total de beneficiários do projeto">{header}</div>
-                <FormInputProjeto dados={inputs}></FormInputProjeto>
-                {ButtonElement}
-              </div>
-          }
           if(header === "Valor Total"){
-            if(item){
-              console.log(item);
-              //var titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
-              //var SpanFonte = <img className="imgDadoOficial" src="img/base_dados.png"></img></span>
-            }
+            var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+            //console.log(title);
+            if (title != null){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Indique o valor total do projeto">{header}</div>
+                <div className="header">{header+" "}
+                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
           }
+        }
           if(header === "Abrangência de atuação"){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Defina a abrangência territorial do projeto.">{header}</div>
+                <div className="header" title="Defina a abrangência territorial do projeto.">{header}
+                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span></div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
+          }
+          if(header === "Data de Início"){
+              var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+              if (title != null){
+              ContainerElement =
+                <div className={containerClass}>
+                  <div className="header"> {header+" "}
+                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  </div>
+                  <FormInputProjeto dados={inputs}></FormInputProjeto>
+                  {ButtonElement}
+                </div>
+            }
+          }
+          if(header === "Data de Fim"){
+              var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+              if (title != null){
+              ContainerElement =
+                <div className={containerClass}>
+                  <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
+                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  </div>
+                  <FormInputProjeto dados={inputs}></FormInputProjeto>
+                  {ButtonElement}
+                </div>
+            }
           }
           if(header === "Local de execução"){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}</div>
+                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
+                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
+            if (title){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
+                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                </div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+            }
+          }
+          if(header === "Fonte de Recursos"){
+            console.log(inputs);
+            var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+            if (title){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header">{header+" "}
+                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                </div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+            }
+          }
+          if(header === "Nome do projeto, atividade ou programa"){
+              var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+              if (title != null){
+              ContainerElement =
+                <div className={containerClass}>
+                  <div className="header">{header+" "}
+                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  </div>
+                  <FormInputProjeto dados={inputs}></FormInputProjeto>
+                  {ButtonElement}
+                </div>
+            }
           }
           if(header === "Público Beneficiado"){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Especifique, se houver, o publico diretamente beneficiado pelo projeto.">{header}</div>
+                <div className="header" title="Especifique, se houver, o publico diretamente beneficiado pelo projeto.">{header}
+                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
@@ -1046,15 +1099,9 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           if(header === "Financiadores do Projeto"){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Liste os financiadores do projeto.">{header}</div>
-                <FormInputProjeto dados={inputs}></FormInputProjeto>
-                {ButtonElement}
-              </div>
-          }
-          if(header === "Área de atuação do projeto, atividade ou programa"){
-            ContainerElement =
-              <div className={containerClass}>
-                <div className="header">{header}<img className="imgDadoOficial" src="img/dado_representante.png"></img></div>
+                <div className="header" title="Liste os financiadores do projeto.">{header}
+                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
