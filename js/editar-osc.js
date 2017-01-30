@@ -818,14 +818,55 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $(this).find('option[value='+valor+']').prop('selected', true);
     });
   }
-  // Lista de Projetos
-  function montarProjetos(json){
-    var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
-    var headerProjeto = {
-      "id": "lista_projetos",
-      "priority": "2",
-      "text": "Projetos, atividade e programas"
-    };
+
+    // Lista de Projetos
+    function montarProjetos(json){
+      var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
+      //console.log(json.projeto);
+      var headerProjeto = {
+        "id": "lista_projetos",
+        "priority": "2",
+        "text": "Projetos, atividade e programas"
+      };
+
+      Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:[headerProjeto]}
+        ), document.getElementById("projetos")
+      );
+      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+      var columns = 2;
+      var sizeOfData = projects_list.length;
+      newData = new Array(sizeOfData);
+
+      for (var i=0; i < projects_list.length; i++){
+        newData[i] = new Array(columns);
+        newData[i][0] = validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
+        newData[i][1] = validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
+      }
+      var table_lista_projetos = $('#table_lista_projetos').DataTable({
+        responsive: true,
+        deferLoading: 1000,
+        deferRender: true,
+        data: newData,
+        columns: [
+          {DT_RowId: "Id"},
+          {title: "Nome do Projeto"}
+        ],
+        order: [],
+        aoColumnDefs: [
+          {bSortable :false, aTargets: [0]},
+          {
+            "targets": [ 0 ],
+            "visible": false,
+            "searchable": false
+          },
+        ],
+        autoWidth: true,
+        "oLanguage": dadosForm.oLanguageDataTable()
+       });
+
 
     Section = React.createFactory(Section);
     ReactDOM.render(
