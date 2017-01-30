@@ -859,7 +859,8 @@ class DataForms{
         "containerClass": "col-md-3",
         "removable": true,
         "type": "text",
-        "options": null
+        "options": null,
+        "title":null
       },
       "parceiras": {
         "header": "OSCs Parceiras",

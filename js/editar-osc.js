@@ -856,7 +856,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     // Lista de Projetos
     function montarProjetos(json){
       var projects_list = validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
-      console.log(json.projeto);
       var headerProjeto = {
         "id": "lista_projetos",
         "priority": "2",
@@ -941,7 +940,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         "value": "Adicionar"
       };
 
-      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder){
+      function InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder,title){
         this.id = id;
         this.content = content;
         this.type = type;
@@ -950,6 +949,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         this.buttons = buttons;
         this.buttonsInLine = buttonsInLine;
         this.placeholder = placeholder;
+        this.title = title;
       }
 
       function AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
@@ -981,10 +981,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       function montarProjeto(json){
-        console.log(json);
+        //console.log(json);
         var project = json;
         var agrupadores = [];
         var projectId = project.id_projeto;
+        var title = validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
         for (var property in project) {
           if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
             var sectionId = property;
@@ -999,9 +1000,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var buttonsInLine = false;
 
             if((value === null) || (value.constructor !== Array)){
-              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder);
+              var inputProjeto = new InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder,title);
 
               var agrupadorInputProjeto = new AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+
               agrupadores.push(agrupadorInputProjeto);
             }
           }
@@ -1022,7 +1024,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           localizacao, publicoBeneficiado, financiadores,
           autodeclaradas, parceiras, fonte
         ];
-        console.log(multipleInputs);
+        //console.log(multipleInputs);
         for (var j = 0; j < multipleInputs.length; j++) {
           if(validateObject(multipleInputs[j].dados)){
             var agrupador = createAgrupadorMultipleInputs(multipleInputs[j]);
