@@ -251,28 +251,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       require(["react", "jquery-ui", "jquery"], function (React) {
         //autocomplete macro_area_1 e macro_area_2
-          macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
-            newItem = {
-              label: item.tx_nome_area_atuacao,
-              value: item.tx_nome_area_atuacao,
-              id: item.cd_area_atuacao
-            };
+        macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
+          newItem = {
+            label: item.tx_nome_area_atuacao,
+            value: item.tx_nome_area_atuacao,
+            id: item.cd_area_atuacao
+          };
 
-            return newItem;
-          });
-
-          $("#areas_de_atuacao .autocomplete").autocomplete({
-            minLength: 0,
-            create: function(event, ui) {
-              var value = $(this).attr("placeholder");
-              for (var i = 0; i < macro_area_suggestions.length; i++) {
-                var suggestion = macro_area_suggestions[i].value;
-                if (suggestion === value){
-                  var $container = $(this).siblings(".checkboxList");
-                  var $element = $container.find("#subareas-"+i);
-                  if($element.hasClass('hidden')){
-                    $element.toggleClass('hidden');
-                  }
+          return newItem;
+        });
+        var id_suggestion = 0;
+        $("#areas_de_atuacao .autocomplete").autocomplete({
+          minLength: 0,
+          create: function(event, ui) {
+            var value = $(this).attr("placeholder");
+            for (var i = 0; i < macro_area_suggestions.length; i++) {
+              var suggestion = macro_area_suggestions[i].value;
+              if (suggestion === value){
+                var $container = $(this).siblings(".checkboxList");
+                var $element = $container.find("#subareas-"+i);
+                if($element.hasClass('hidden')){
+                  $element.toggleClass('hidden');
+                }
 
                   for (var j = 0; j < areas_atuacao.length; j++) {
                     if((value === areas_atuacao[j].tx_nome_area_atuacao)){
@@ -341,11 +341,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   $input.val("");
                 }
               }
+
            }
          });
+
          $(".autocomplete").on("click", function(){
            $(this).autocomplete( "search", "" );
          });
+
         //interações seção areas de atuacao
         $(".checkboxList :checkbox").change(function() {
 
@@ -1234,7 +1237,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             "id_area_atuacao": null
           });
         });
-      }
+
       if(subareas){
         obj_area_atuacao.subareas = subareas;
       }
@@ -1366,74 +1369,75 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   });
 });
 
-function addItem(idDiv){
-  $('#'+idDiv+' button').on('click', function(){
-    if($(this).hasClass('btn-primary')){
-      var $cloneDiv = ($(this).parent());
-      var $input = $cloneDiv.find('input[type=text]');
-      var values = new Array();
-      $input.parent().removeClass('has-error');
-      $('.alert-danger').remove();
-      $input.each(function(i){
-        if($(this).val() !== "" ){
-            values[i] = true;
-        }
-        else {
-          values[i] = false;
-          $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-        }
-      });
-      if(values.every(isTrue)){
+  function addItem(idDiv){
+    $('#'+idDiv+' button').on('click', function(){
+      if($(this).hasClass('btn-primary')){
+        var $cloneDiv = ($(this).parent());
+        var $input = $cloneDiv.find('input[type=text]');
+        var values = new Array();
         $input.parent().removeClass('has-error');
-        $input.after().find('span').remove();
-        var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-        $cloneChildren = $('#'+idDiv).children();
-        $cloneDiv.clone().appendTo($cloneChildren);
-        $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
-        $cloneDiv.parent().children().last().find('input[type=text]').val('');
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-        $(".ano").datepicker({ dateFormat: 'yy' });
+        $('.alert-danger').remove();
+        $input.each(function(i){
+          if($(this).val() !== "" ){
+              values[i] = true;
+          }
+          else {
+            values[i] = false;
+            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+          }
+        });
+        if(values.every(isTrue)){
+          $input.parent().removeClass('has-error');
+          $input.after().find('span').remove();
+          var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
+          $cloneChildren = $('#'+idDiv).children();
+          $cloneDiv.clone().appendTo($cloneChildren);
+          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
+          $cloneDiv.parent().children().last().find('input[type=text]').val('');
+          $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+          $(".ano").datepicker({ dateFormat: 'yy' });
+        }
       }
-    }
-    else {
-      $(this).parent().remove();
-    }
- });
-}
-
-function montarEnderecoImovel(dadosGerais){
-  var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
-    dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
-    dadosGerais.tx_nome_municipio, dadosGerais.tx_nome_uf, dadosGerais.tx_sigla_uf,
-    "CEP: "+dadosGerais.nr_cep];
-  var tx_endereco_completo = '';
-  for (var i = 0; i < endereco.length; i++) {
-    if (endereco[i] !== null){
-      tx_endereco_completo += tx_endereco_completo === '' ? '' : ', ';
-      tx_endereco_completo += tx_endereco_completo === '' ? 'Endereço não registrado.' : endereco[i];
-    }
+      else {
+        $(this).parent().remove();
+      }
+   });
   }
 
-  return tx_endereco_completo;
-}
-
-function getFonteDeRecursosProjeto(id){
-  var fonte = {
-    "fonte_de_recursos": [
-      {
-        "id_fonte_recursos_projeto": 1,
-        "cd_origem_fonte_recursos_projeto": 1092,
-        "tx_nome_origem_fonte_recursos_projeto": "Público",
-        "cd_fonte_recursos_projeto": null,
-        "tx_nome_fonte_recursos_projeto": "Federal",
-        "ft_fonte_recursos_projeto": null
+  function montarEnderecoImovel(dadosGerais){
+    var endereco = [dadosGerais.tx_endereco, dadosGerais.nr_localizacao,
+      dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
+      dadosGerais.tx_nome_municipio, dadosGerais.tx_nome_uf, dadosGerais.tx_sigla_uf,
+      "CEP: "+dadosGerais.nr_cep];
+    var tx_endereco_completo = '';
+    for (var i = 0; i < endereco.length; i++) {
+      if (endereco[i] !== null){
+        tx_endereco_completo += tx_endereco_completo === '' ? '' : ', ';
+        tx_endereco_completo += tx_endereco_completo === '' ? 'Endereço não registrado.' : endereco[i];
       }
-    ]
-  };
-  var key = Object.keys(fonte)[0];
-  var objFonte = {
-    "id": key,
-    "dados": fonte[key]
-  };
-  return objFonte;
-}
+    }
+
+    return tx_endereco_completo;
+  }
+
+  function getFonteDeRecursosProjeto(id){
+    var fonte = {
+      "fonte_de_recursos": [
+        {
+          "id_fonte_recursos_projeto": 1,
+          "cd_origem_fonte_recursos_projeto": 1092,
+          "tx_nome_origem_fonte_recursos_projeto": "Público",
+          "cd_fonte_recursos_projeto": null,
+          "tx_nome_fonte_recursos_projeto": "Federal",
+          "ft_fonte_recursos_projeto": null
+        }
+      ]
+    };
+    var key = Object.keys(fonte)[0];
+    var objFonte = {
+      "id": key,
+      "dados": fonte[key]
+    };
+    return objFonte;
+  }
+});
