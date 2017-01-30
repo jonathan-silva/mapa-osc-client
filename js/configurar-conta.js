@@ -70,6 +70,13 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        },
        error: function(e) {
            console.log(e);
+           $('#modalMensagem').modal({backdrop: 'static', keyboard: false});  
+           $('#modalTitle').text('Erro');
+           $('#modalConteudo').text('É necessário estar logado no sistema para acessar essa página.');
+           $('.modal-footer button').on('click', function(){
+             history.go(-1);
+           });
+           $('#modalMensagem').modal('show');
        }
    });
 
@@ -180,16 +187,18 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
         for (var i = 0; i < tags.length; i++){
            tagValue.push({'id_osc':tags[i]});
         }
-        newJson['representante'] = tagValue;
-        console.log(newJson);
-        console.log(rotas.UpdateUsuario(user));
+        newJson['representacao'] = tagValue;
+        newJson['id_usuario'] = user;
+
         $.ajax({
             url: rotas.UpdateUsuario(user),
             type: 'POST',
             dataType: "json",
             data: newJson,
             success: function(data) {
-              console.log(data);
+              $('#modalTitle').text('Sucesso');
+              $('#modalConteudo').text('Sua atualização foi realizada com sucesso.');
+              $('#modalMensagem').modal('show');
             },
             error: function(e) {
                 console.log(e);
