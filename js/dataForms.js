@@ -1,4 +1,7 @@
 class DataForms{
+  constructor(){
+
+  }
   dadosGerais(dadosGerais, content){
     var dadosGerais = {
       "form_items": [
@@ -235,7 +238,8 @@ class DataForms{
   }
 
   titulosCertificacoes(json){
-    var certificado = validateObject(json.certificado) ? json.certificado : ""
+    var util = new Util();
+    var certificado = util.validateObject(json.certificado) ? json.certificado : ""
     console.log(certificado);
     var utilidade_publica_estadual = certificado.utilidade_publica_estadual;
     var utilidade_publica_municipal = certificado.utilidade_publica_municipal;

@@ -1,0 +1,75 @@
+class TitulosCertificacoes {
+  constructor() {
+
+  }
+  montarTitulosCertificacoes(json, util){
+    var tx_sem_titulos = "Não há registros de títulos ou certificações";
+    var utilidade_publica_estadual;
+    var utilidade_publica_municipal;
+    var certificacoes = util.validateObject(json.certificado) ? json.certificado.certificado : "";
+
+    headerPriority = '2';
+    headerText = 'Títulos e Certificações';
+    formItens = [];
+    dados_form = dadosForm.titulosCertificacoes(json);
+    var items = util.validateObject(certificacoes) ? certificacoes : [];
+
+    if(items.length > 0){
+      for (j=0; j<items.length; j++){
+        var dataValidadeText = "Data de Validade: " + (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informada");
+        formItens.push(new FormItens(items[j].id_certificado, items[j].tx_nome_certificado, dataValidadeText, items[j].ft_certificado, null, "p"));
+      }
+    } else {
+      formItens.push(new FormItens(null, null, tx_sem_titulos, "base", null, "p"));
+    }
+    items = dados_form.form_items;
+    var autoElement = React.createElement('div', { id: 'auto' });
+    var manualLabel = React.createElement('label', null, 'Utilidade pública');
+    var manualElement = React.createElement('div', { id: 'manual' });
+    var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
+    ReactDOM.render(root, document.getElementById('certificacoes'));
+
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:{priority: headerPriority, text: headerText}, dados:formItens}
+      ), document.getElementById("auto")
+    );
+
+    formItens = [];
+    for (j=0; j<items.length; j++){
+      formItens.push(new FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, "date", items[j].hide));
+    }
+
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:formItens}
+      ), document.getElementById("manual")
+    );
+
+    //interações seção títulos e certificações
+    $("#certificacoes :checkbox").change(function() {
+      var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
+      $inputContainer.toggleClass('hidden');
+      if($inputContainer.hasClass('hidden')){
+        var $input = $inputContainer.find('input');
+        $input.val("");
+      }
+    });
+
+    $("#manual").find("input:text").each(function(){
+      if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
+        var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
+
+        $("#manual").find("input:checkbox").each(function(){
+          if($(this).val() === utilidade_publica_id){
+            $(this).prop('checked', true);
+          }
+        });
+
+        $(this).parents(".hidden").toggleClass('hidden');
+      }
+    });
+  }
+}
