@@ -237,10 +237,9 @@ class DataForms{
     return descricao;
   }
 
-  titulosCertificacoes(json){
-    var util = new Util();
+  titulosCertificacoes(json, util){
     var certificado = util.validateObject(json.certificado) ? json.certificado : ""
-    console.log(certificado);
+    //console.log(certificado);
     var utilidade_publica_estadual = certificado.utilidade_publica_estadual;
     var utilidade_publica_municipal = certificado.utilidade_publica_municipal;
     var titulosCertificacoes={
