@@ -1106,6 +1106,34 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 {ButtonElement}
               </div>
           }
+          if(header === "Descrição do Projeto, atividade e/ou programa"){
+            var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+            if (title != null){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
+                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                </div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+          }
+        }
+
+          if(header === "Situação do projeto"){
+           var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+           if (title != null){
+           ContainerElement =
+             <div className={containerClass}>
+               <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
+               <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+               </div>
+               <FormInputProjeto dados={inputs}></FormInputProjeto>
+               {ButtonElement}
+             </div>
+          }
+        }
+
 
 
 
