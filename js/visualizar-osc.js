@@ -27,8 +27,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
-	$(e).find("span").toggleClass( "glyphicon-minus" );
-
+	$(e).find(".glyphicon").toggleClass( "glyphicon-minus" );
 }
 
 
