@@ -104,98 +104,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success: function(data){
         //console.log(data);
         //Cabeçalho
-        var cabecalhoArray = cabecalhoObject.montarCabecalho(data, util);
-        Cabecalho = React.createFactory(Cabecalho);
-        ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
-        old_json = data;
-
+        ativarCabecalho(data, util);
         // Dados Gerais
-        var formItens = dadosGerais.montarDadosGerais(data, util, dadosForm);
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:{priority: headerPriority, text: 'Dados Gerais'}, dados:formItens}
-          ), document.getElementById("dados_gerais")
-        );
-        $("#tx_telefone").find("input").mask('(00) 0000-0000');
-
+        ativarDadosGerais(data, util, dadosForm);
         //Áreas de atuação
-        var tx_nome_atividade_economica_osc="";
-        var ft_atividade_economica_osc="";
-        obj = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
-        var formItens = obj.formItens;
-        carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:{priority: headerPriority, text: 'Áreas e Subáreas de Atuação da OSC'}, dados:formItens}
-          ), document.getElementById("areas_de_atuacao")
-        );
-
+        var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc) ? data.dados_gerais.tx_nome_atividade_economica_osc : "";
+        var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc) ? data.dados_gerais.ft_atividade_economica_osc : "";
+        ativarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica);
         //Descrição
-        var formItens = descricao.montarDescricao(data, util, dadosForm.descricao(descricao));
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:{priority: headerPriority, text: 'Descrição da OSC'}, dados:formItens}
-          ), document.getElementById("descricao")
-        );
-        //Salvar
-        $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-        var newJson = {};
-        $("#descricao").find("#salvar").click(function(){
-          $("#descricao .form-control").each(function(){
-            newJson[$(this).attr("id")] = $(this).val();
-          });
-        });
-
+        ativarDescricao(data, util);
         //Títulos e certificações
-        var dados_form = dadosForm.titulosCertificacoes(data, util);
-        var formItens = titulosCertificacoes.montarTitulosCertificacoes(data, util, dados_form);
-        var autoElement = React.createElement('div', { id: 'auto' });
-        var manualLabel = React.createElement('label', null, 'Utilidade pública');
-        var manualElement = React.createElement('div', { id: 'manual' });
-
-        var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
-        ReactDOM.render(root, document.getElementById('certificacoes'));
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:{priority: headerPriority, text: 'Títulos e Certificações'}, dados:formItens[0]}
-          ), document.getElementById("auto")
-        );
-
-        FormItem = React.createFactory(FormItem);
-        ReactDOM.render(
-          FormItem(
-            {header:null, dados:formItens[1]}
-          ), document.getElementById("manual")
-        );
-
-        //interações seção títulos e certificações
-        $("#certificacoes :checkbox").change(function() {
-          var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
-          $inputContainer.toggleClass('hidden');
-          if($inputContainer.hasClass('hidden')){
-            var $input = $inputContainer.find('input');
-            $input.val("");
-          }
-        });
-
-        $("#manual").find("input:text").each(function(){
-          if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
-            var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
-            $("#manual").find("input:checkbox").each(function(){
-              if($(this).val() === utilidade_publica_id){
-                $(this).prop('checked', true);
-              }
-            });
-            $(this).parents(".hidden").toggleClass('hidden');
-          }
-        });
-
+        ativarTitulosCertificacoes(data, util, dadosForm);
         //Relações de trabalho e governança
-        relacoesGovernanca.montarRelacoesGovernanca(data, util);
+        ativarTrabalhoGovernanca();
         /*
         // Espaços participacao social
         espacosPartSocial.montarEspacosParticipacaoSocial(data, util);
@@ -214,7 +135,151 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     });
 
+    function ativarCabecalho(data, util){
+      var cabecalhoArray = cabecalhoObject.montarCabecalho(data, util);
+      Cabecalho = React.createFactory(Cabecalho);
+      ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
+      old_json = data;
+    }
 
+    function ativarDadosGerais(data, util, dadosForm) {
+      var formItens = dadosGerais.montarDadosGerais(data, util, dadosForm);
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: 'Dados Gerais'}, dados:formItens}
+        ), document.getElementById("dados_gerais")
+      );
+      $("#tx_telefone").find("input").mask('(00) 0000-0000');
+    }
+
+    function ativarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
+      var obj = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
+      var formItens = obj.formItens;
+      carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: 'Áreas e Subáreas de Atuação da OSC'}, dados:formItens}
+        ), document.getElementById("areas_de_atuacao")
+      );
+    }
+
+    function ativarDescricao(data, util){
+      var formItens = descricao.montarDescricao(data, util, dadosForm.descricao(descricao));
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: 'Descrição da OSC'}, dados:formItens}
+        ), document.getElementById("descricao")
+      );
+      //Salvar
+      $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+      var newJson = {};
+      $("#descricao").find("#salvar").click(function(){
+        $("#descricao .form-control").each(function(){
+          newJson[$(this).attr("id")] = $(this).val();
+        });
+      });
+    }
+
+    function ativarTitulosCertificacoes(data, util, dados_form){
+      var dados_form = dadosForm.titulosCertificacoes(data, util);
+      var formItens = titulosCertificacoes.montarTitulosCertificacoes(data, util, dados_form);
+      var autoElement = React.createElement('div', { id: 'auto' });
+      var manualLabel = React.createElement('label', null, 'Utilidade pública');
+      var manualElement = React.createElement('div', { id: 'manual' });
+
+      var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
+      ReactDOM.render(root, document.getElementById('certificacoes'));
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:{priority: headerPriority, text: 'Títulos e Certificações'}, dados:formItens[0]}
+        ), document.getElementById("auto")
+      );
+
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:formItens[1]}
+        ), document.getElementById("manual")
+      );
+
+      ativarInteracoes();
+    }
+
+    function ativarInteracoes(){
+      //interações seção títulos e certificações
+      $("#certificacoes :checkbox").change(function() {
+        var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
+        $inputContainer.toggleClass('hidden');
+        if($inputContainer.hasClass('hidden')){
+          var $input = $inputContainer.find('input');
+          $input.val("");
+        }
+      });
+
+      $("#manual").find("input:text").each(function(){
+        if ($(this).attr("placeholder") !== "Não constam informações nas bases de dados do Mapa."){
+          var utilidade_publica_id = $(this).attr("id").replace("data_validade_", "");
+          $("#manual").find("input:checkbox").each(function(){
+            if($(this).val() === utilidade_publica_id){
+              $(this).prop('checked', true);
+            }
+          });
+          $(this).parents(".hidden").toggleClass('hidden');
+        }
+      });
+    }
+
+    function ativarTrabalhoGovernanca(data, util, dadosForm){
+      var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
+      var dirigentes = formItens[0];
+      var conselheiros = formItens[1];
+      var conselho_fiscal = formItens[2];
+      var trabalhadores = formItens[3];
+
+      var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
+      var sections = dadosForm.sectionsRelacoesGovernanca();
+      var items = sections.items;
+      var Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:items}
+        ), document.getElementById(items[0].target)
+      );
+      //dirigentes
+      var Agrupador = React.createFactory(Agrupador);
+      ReactDOM.render(
+        Agrupador(
+          {dados:dirigentes}
+        ), document.getElementById("dirigentes")
+      );
+      //conselheiros
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:conselheiros}
+        ), document.getElementById("conselheiros")
+      );
+      addItem('dirigentes');
+      //conselho fiscal
+      FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:conselho_fiscal}
+        ), document.getElementById("conselho_fiscal")
+      );
+      addItem('conselho_fiscal');
+      //trabalhadores
+      FormItem = React.createFactory(FormItem);
+      ReactDOM.render(
+        FormItem(
+          {header:null, dados:trabalhadores}
+        ), document.getElementById("trabalhadores")
+      );
+    }
 
     function clique(){
       $(".ajuda").on("click", function(){
