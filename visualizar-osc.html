@@ -78,12 +78,14 @@
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                  <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_nome_fantasia_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_nome_fantasia_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_sigla_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_sigla_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_sigla_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <!--div class="form-group">
                 <label>Endereço eletrônico sugerido para esta página:</label>
@@ -93,49 +95,58 @@
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_endereco)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_endereco)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_nome_responsavel_legal)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_responsavel_legal}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_nome_responsavel_legal)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_inscricao_osc | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_inscricao_osc == null">Não informado</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_inscricao_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_inscricao_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_inscricao_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_fundacao_osc | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc == null">Não informado</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_fundacao_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_fundacao_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_fundacao_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_email)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_email}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_email)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_resumo_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_resumo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_resumo_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_site)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_site}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_site)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_telefone)?ctrl.osc.dados_gerais.tx_telefone:"Não informado"}}</span>
-                <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_telefone)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_telefone)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
             </div>
 
@@ -154,14 +165,16 @@
               <div class="form-group">
                 <label>Atividade Econômica:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span title="Informação oficial. {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.dados_gerais.ft_atividade_economica_osc)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="isNumber(ctrl.osc.dados_gerais.ft_atividade_economica_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
                 <label>Área de atuação do projeto, atividade ou programa: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                 <div>
-                  <strong>Subárea</strong> -&gt; <em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
-                    <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                  <strong>Subárea: </strong><em>{{(area_atuacao.tx_nome_subarea_atuacao)?area_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
+                    <span ng-if="!isNumber(area_atuacao.ft_area_atuacao)" title="Informação oficial. {{area_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="isNumber(area_atuacao.ft_area_atuacao)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
                 </div>
               </div>
               <div class="form-group">
@@ -169,7 +182,8 @@
                 <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
                   <div class="form-group">
                     <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
-                    <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                    <span ng-if="!isNumber(area_atuacao_outra.ft_area_atuacao)" title="Informação oficial. {{area_atuacao_outra.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="isNumber(area_atuacao_outra.ft_area_atuacao)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                   </div>
                 </div>
                 <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao == null">
@@ -195,35 +209,40 @@
                 <label>Como surgiu a OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_historico)?ctrl.osc.descricao.tx_historico:"Não informado"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.descricao.ft_historico)" title="Informação oficial. {{ctrl.osc.descricao.ft_historico}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.descricao.ft_historico)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_missao_osc)?ctrl.osc.descricao.tx_missao_osc:"Não informada"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.descricao.ft_missao_osc)" title="Informação oficial. {{ctrl.osc.descricao.ft_missao_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.descricao.ft_missao_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_visao_osc)?ctrl.osc.descricao.tx_visao_osc:"Não informada"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.descricao.ft_visao_osc)" title="Informação oficial. {{ctrl.osc.descricao.ft_visao_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.descricao.ft_visao_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_finalidades_estatutarias)?ctrl.osc.descricao.tx_finalidades_estatutarias:"Não informadas"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.descricao.ft_finalidades_estatutarias)" title="Informação oficial. {{ctrl.osc.descricao.ft_finalidades_estatutarias}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.descricao.ft_finalidades_estatutarias)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
                 <div>
                   <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_link_estatuto_osc)?ctrl.osc.dados_gerais.tx_link_estatuto_osc:"Não informado"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.descricao.ft_link_estatuto_osc)" title="Informação oficial. {{ctrl.osc.descricao.ft_link_estatuto_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.descricao.ft_link_estatuto_osc)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
             </div>
@@ -240,13 +259,12 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-repeat="certificado in ctrl.osc.certificado.certificado">
               <label>{{certificado.tx_nome_certificado}}</label>
-              <span title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <div>
-               <!--span class="form-control-static">Fonte:{{certificado.ft_certificado}}</span><img class="imgDadoOficial" src="img/base_dados.png"></span-->
-             </div>
+              <span ng-if="!isNumber(certificado.ft_certificado)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+              <span ng-if="isNumber(certificado.ft_certificado)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
                 {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
-              <span title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+              <span ng-if="!isNumber(certificado.ft_certificado)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+              <span ng-if="isNumber(certificado.ft_certificado)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </div>
             <div ng-if="(ctrl.osc.certificado.certificado == null)">
               <span class="form-control-static">Não possui Títulos ou Certificações</span>
@@ -269,12 +287,14 @@
                 <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
-                    <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                    <span ng-if="!isNumber(governanca.ft_cargo_dirigente)" title="Informação oficial. {{governanca.ft_cargo_dirigente}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="isNumber(governanca.ft_cargo_dirigente)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                   </div>
                   <span>:</span>
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
-                    <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                    <span ng-if="!isNumber(governanca.ft_nome_dirigente)" title="Informação oficial. {{governanca.ft_nome_dirigente}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="isNumber(governanca.ft_nome_dirigente)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.governanca == null)">
@@ -288,7 +308,8 @@
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
-                    <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                    <span ng-if="!isNumber(governanca.ft_nome_conselheiro)" title="Informação oficial. {{governanca.ft_nome_conselheiro}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="isNumber(governanca.ft_nome_conselheiro)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal == null)">
@@ -302,22 +323,26 @@
                 <div class="form-group">
                   <label>Total de Trabalhadores:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores:"Não informado"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores)" title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
                 <div class="form-group">
                   <label>Empregados:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
-                  <span title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo)" title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
-                  <span title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia)" title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>
-                  <span title="Informação preenchida pela Organização"><img class="imgDadoEditavel"  src="img/dado_representante.png"></span>
+                  <span ng-if="!isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios)" title="Informação oficial. {{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="isNumber(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
               </div>
           </div>
@@ -467,7 +492,7 @@
 
                 <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
                   <div class="panel-heading " role="tab" id="{{'heading'+ $index }}" title="Clique para Detalhar o Projeto." >
-                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}<span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span></h3>
+                    <h3 class="panel-title ">{{proj.tx_nome_projeto}} <span ng-if="!isNumber(proj.ft_nome_projeto)" title="Informação oficial. {{proj.ft_nome_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span><span ng-if="isNumber(proj.ft_nome_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span><span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span></h3>
                   </div>
                 </a>
 
@@ -486,6 +511,8 @@
                       <div class="form-group">
                           <span class="form-control-static">{{proj.dt_data_inicio_projeto | limitTo : -4}}</span>
                           <span class="form-control-static" ng-if="proj.dt_data_inicio_projeto == null">Não informado</span>
+                          <span ng-if="!isNumber(proj.ft_data_inicio_projeto)" title="Informação oficial. {{proj.ft_data_inicio_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_data_inicio_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                       </div>
                       </div>
 
@@ -494,6 +521,8 @@
                       <div class="form-group">
                           <span class="form-control-static">{{proj.dt_data_fim_projeto | limitTo : -4}}</span>
                           <span class="form-control-static" ng-if="proj.dt_data_fim_projeto == null">Não informado</span>
+                          <span ng-if="!isNumber(proj.ft_data_fim_projeto)" title="Informação oficial. {{proj.ft_data_fim_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_data_fim_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                       </div>
                       </div>
 
@@ -501,6 +530,8 @@
                       <div class="header ">Total de Beneficiários</div>
                       <div class="form-group">
                           <span class="form-control-static">{{(proj.nr_total_beneficiarios)?proj.nr_total_beneficiarios:"Não informado"}}</span>
+                          <span ng-if="!isNumber(proj.ft_total_beneficiarios)" title="Informação oficial. {{proj.ft_total_beneficiarios}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_total_beneficiarios)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                       </div>
                       </div>
 
@@ -522,6 +553,8 @@
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_total_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"":"Não informado" }}</span>
+                          <span ng-if="!isNumber(proj.ft_valor_total_projeto)" title="Informação oficial. {{proj.ft_valor_total_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_valor_total_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                       </div>
                       <div>
@@ -529,6 +562,8 @@
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
+                          <span ng-if="!isNumber(proj.ft_valor_captado_projeto)" title="Informação oficial. {{proj.ft_valor_captado_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_valor_captado_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                       </div>
                     </div>
@@ -537,8 +572,8 @@
                       <div class="header ">Tipo da Fonte de Recursos</div>
                       <div class="form-group"  ng-repeat="fonte_recursos in proj.fonte_recursos">
                         <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span><br>
-                        <span class="form-control-static">{{(fonte_recursos.tx_nome_fonte_recursos_projeto)}}:</span>
-                        <span class="form-control-static">{{(fonte_recursos.ft_fonte_recursos_projeto)}}</span>
+                        <span ng-if="!isNumber(fonte_recursos.ft_fonte_recursos_projeto)" title="Informação oficial. {{fonte_recursos.ft_fonte_recursos_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                        <span ng-if="isNumber(fonte_recursos.ft_fonte_recursos_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                       </div>
                       <div class="form-group"  ng-if="proj.fonte_recursos == null">
                         <span class="form-control-static">Não informado</span>
@@ -555,6 +590,8 @@
                         <div class="header ">Área Auto-declarada do projeto</div>
                         <div class="form-group"  ng-repeat="area_atuacao in proj.area_atuacao">
                             <span class="form-control-static">{{(area_atuacao.tx_nome_area_atuacao_projeto)?area_atuacao.tx_nome_area_atuacao_projeto:"Não informado"}}</span>
+                            <span ng-if="!isNumber(area_atuacao.ft_nome_area_atuacao_projeto)" title="Informação oficial. {{area_atuacao.ft_nome_area_atuacao_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                            <span ng-if="isNumber(area_atuacao.ft_nome_area_atuacao_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                         <div class="form-group"  ng-repeat="area_atuacao_outra in proj.area_atuacao_outra">
                             <span class="form-control-static">{{(area_atuacao_outra.tx_nome_area_atuacao_outra_projeto)?area_atuacao_outra.tx_nome_area_atuacao_outra_projeto:"Não informado"}}</span>
@@ -569,11 +606,15 @@
                         <div class="header ">Abrangência de atuação</div>
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_abrangencia_projeto)?proj.tx_nome_abrangencia_projeto:"Não informado"}}</span>
+                          <span ng-if="!isNumber(proj.ft_nome_abrangencia_projeto)" title="Informação oficial. {{proj.ft_nome_abrangencia_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_nome_abrangencia_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                       <div>
                         <div class="header ">Zona de Atuação</div>
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_zona_atuacao)?proj.tx_nome_zona_atuacao:"Não informado"}}</span>
+                          <span ng-if="!isNumber(proj.ft_nome_zona_atuacao)" title="Informação oficial. {{proj.ft_nome_zona_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="isNumber(proj.ft_nome_zona_atuacao)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                       </div>
                     </div>
@@ -634,7 +675,8 @@
                 <!--span class="form-control-static" >{{(ctrl.osc.projeto.recursos.nr_valor_total)?"R$ "+ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$":"Não informado"}}</span-->
                 <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$ "}}</span>
                 <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_total)?"":"Não informado" }}</span>
-                <span title="Informação oficial."><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="!isNumber(ctrl.osc.projeto.recursos.ft_valor_total_projeto)" title="Informação oficial. {{ctrl.osc.projeto.recursos.ft_valor_total_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="isNumber(ctrl.osc.projeto.recursos.ft_valor_total_projeto)" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               </div>
           </div>
