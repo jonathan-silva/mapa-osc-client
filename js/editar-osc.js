@@ -115,7 +115,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         montarEspacosParticipacaoSocial(data);
         montarProjetos(data);
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-        $(".ano").datepicker({ dateFormat: 'yy' });
+        //$(".ano").datepicker({ dateFormat: 'yy' });
+      $(function() {
+            $('.ano').datepicker({
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'yy',
+                yearRange: '1950:2050',
+                onClose: function(dateText, inst) {
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, 1));
+                }
+            });
+        	$(".ano").focus(function () {
+                $(".ui-datepicker-calendar").hide();
+                $('.ui-datepicker-month').hide();
+                $('.ui-datepicker-prev').hide();
+                $('.ui-datepicker-next').hide();
+            });
+      });
+
         montarFontedeRecursos(data);
         verificarContraste();
         clique();
@@ -1096,7 +1115,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         );
 
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-        $(".ano").datepicker({ dateFormat: 'yy' });
+        //$(".ano").datepicker({ dateFormat: 'yy' });
 
         // interacoes
         $('#projeto-'+id).on("click", ".btn-danger", function(){
@@ -1459,7 +1478,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
           $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-          $(".ano").datepicker({ dateFormat: 'yy' });
+          //$(".ano").datepicker({ dateFormat: 'yy' });
         }
       }
       else {
