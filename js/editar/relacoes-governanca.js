@@ -2,6 +2,7 @@ class RelacoesGovernanca {
   constructor() {
 
   }
+  
   montarRelacoesGovernanca(json, util, dadosForm){
     var relGovObject=[];
     var relacoes_trabalho =0;
@@ -10,7 +11,7 @@ class RelacoesGovernanca {
     var conselheiros = util.validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.conselho_fiscal : 0;
 
     var formItens = [];
-    for (j=0; j<dirigentes.length; j++){
+    for (var j=0; j<dirigentes.length; j++){
       for (var property in dirigentes[j]) {
         if (dirigentes[j].hasOwnProperty(property)) {
           if(property == "tx_nome_dirigente"){
