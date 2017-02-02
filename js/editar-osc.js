@@ -114,14 +114,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Descrição
         ativarDescricao(data, util);
         //Títulos e certificações
-        ativarTitulosCertificacoes(data, util, dadosForm);
+        ativarTitulosCertificacoes(data, util, dadosForm);/*
         //Relações de trabalho e governança
-        ativarTrabalhoGovernanca();
-        /*
+        ativarTrabalhoGovernanca(data, util, dadosForm);
         // Espaços participacao social
-        espacosPartSocial.montarEspacosParticipacaoSocial(data, util);
+        ativarEspacosPart(data, util, dadosForm);*/
         //Projetos
-        projeto.montarProjetos(data, util);
+        ativarProjetos(data, util, dadosForm);
+        /*
         //Datas
         $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
         $(".ano").datepicker({ dateFormat: 'yy' });
@@ -165,6 +165,118 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
     }
 
+    function carregarAreasAtuacao(area_suggestions, macro_area_suggestions){
+      var id_suggestion = 0;
+
+        $("#areas_de_atuacao .autocomplete").autocomplete({
+          minLength: 0,
+          create: function(event, ui) {
+            var value = $(this).attr("placeholder");
+            for (var i = 0; i < macro_area_suggestions.length; i++) {
+              var suggestion = macro_area_suggestions[i].value;
+
+              //if (suggestion === value){
+                var $container = $(this).siblings(".checkboxList");
+                var $element = $container.find("#subareas-"+i);
+                if($element.hasClass('hidden')){
+                  $element.toggleClass('hidden');
+                }
+                for (var j = 0; j < macro_area_suggestions.length; j++) {
+                  if((value === macro_area_suggestions[j].tx_nome_area_atuacao)){
+                    var subarea_exists = false;
+                    $element.find("label").each(function(){
+                      if(macro_area_suggestions[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                        subarea_exists = $(this);
+                      }
+                    });
+                    if(subarea_exists){
+                      subarea_exists.find("input").prop('checked', true);
+                    } else {
+                      $element.find("#outros").val(macro_area_suggestions[j].tx_nome_subarea_atuacao);
+                    }
+                  }
+                }
+              //}
+            }
+          },
+          source: macro_area_suggestions,
+          change: function( event, ui ) {
+          },
+          select: function(event, ui){
+            var targetElement = event.target;
+            var id = macro_area_suggestions.indexOf(ui.item)+1;
+            var $container = $($(targetElement).siblings(".checkboxList")[0]);
+            $container.children().each(function( index ) {
+              if(!$(this).hasClass('hidden')){
+                $(this).toggleClass('hidden');
+                $(this).children().each(function(index){
+                  var $input = $($(this).find('input')[0]);
+                  if ($input.is(':checked')){
+                    $input.prop('checked', false);
+                  }
+                  if ($input.prop('type') == "text"){
+                    $input.val("");
+                  }
+                });
+              }
+            });
+            var $element = $container.find("#subareas-"+id);
+            if($element.hasClass('hidden')){
+              $element.toggleClass('hidden');
+            }
+            // interação macro_area_outros
+            var macro_area = ui.item.value;
+            var pai = $(this).closest(".form-group");
+            var id = pai.find(".autocomplete").attr("id");
+            var $inputContainer = null;
+            if(id === "macro_area_1"){
+              $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
+            } else {
+              $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
+            }
+
+            if (macro_area === "Outros"){
+              $inputContainer.toggleClass('hidden');
+              if($inputContainer.hasClass('hidden')){
+                var $input = $inputContainer.find('input');
+                $input.val("");
+              }
+            } else {
+              if(!$inputContainer.hasClass('hidden')){
+                $inputContainer.toggleClass('hidden');
+                var $input = $inputContainer.find('input');
+                $input.val("");
+              }
+            }
+
+          }
+        });
+
+        $(".autocomplete").on("click", function(){
+          $(this).autocomplete( "search", "" );
+        });
+
+        //interações seção areas de atuacao
+        $(".checkboxList :checkbox").change(function() {
+
+          if($(this).closest("label").text() === "Outros"){
+            var pai = $(this).closest(".form-group");
+            var id = pai.find(".autocomplete").attr("id");
+            var $inputContainer = null;
+            if(id === "macro_area_1"){
+              $inputContainer = pai.siblings().find("#sub_area_1_outros").closest(".form-group");
+            } else {
+              $inputContainer = pai.siblings().find("#sub_area_2_outros").closest(".form-group");
+            }
+            $inputContainer.toggleClass('hidden');
+            if($inputContainer.hasClass('hidden')){
+              var $input = $inputContainer.find('input');
+              $input.val("");
+            }
+          }
+        });
+    }
+
     function ativarDescricao(data, util){
       var formItens = descricao.montarDescricao(data, util, dadosForm.descricao(descricao));
       FormItem = React.createFactory(FormItem);
@@ -183,7 +295,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
-    function ativarTitulosCertificacoes(data, util, dados_form){
+    function ativarTitulosCertificacoes(data, util, dadosForm){
       var dados_form = dadosForm.titulosCertificacoes(data, util);
       var formItens = titulosCertificacoes.montarTitulosCertificacoes(data, util, dados_form);
       var autoElement = React.createElement('div', { id: 'auto' });
@@ -206,10 +318,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("manual")
       );
 
-      ativarInteracoes();
+      carregarInteracoesTitCertif();
     }
 
-    function ativarInteracoes(){
+    function carregarInteracoesTitCertif(){
       //interações seção títulos e certificações
       $("#certificacoes :checkbox").change(function() {
         var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
@@ -236,9 +348,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function ativarTrabalhoGovernanca(data, util, dadosForm){
       var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
       var dirigentes = formItens[0];
-      var conselheiros = formItens[1];
-      var conselho_fiscal = formItens[2];
-      var trabalhadores = formItens[3];
+      var conselheiros = [];
+      var conselho_fiscal = formItens[1];
+      var trabalhadores = formItens[2];
 
       var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
       var sections = dadosForm.sectionsRelacoesGovernanca();
@@ -279,6 +391,51 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:trabalhadores}
         ), document.getElementById("trabalhadores")
       );
+    }
+
+    function ativarEspacosPart(data, util, dadosForm){
+      var tx_sem_participacao_social = "Não há registros de participação social";
+      var participacao_social_form = dadosForm.partSocial();
+      var items = participacao_social_form.items;
+      var Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:items}
+        ), document.getElementById(items[0].target)
+      );
+
+      var arrayObj = espacosPartSocial.montarEspacosParticipacaoSocial(data, util, participacao_social_form);
+      var conselhos = arrayObj[0];
+      var conferencias = arrayObj[1];
+      var outros_part = arrayObj[2];
+
+      var Agrupador = React.createFactory(AgrupadorConselhos);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:conselhos}
+        ), document.getElementById("conselhos")
+      );
+      addItem('conselhos');
+
+      var Agrupador = React.createFactory(AgrupadorConferencia);
+      ReactDOM.render(
+        Agrupador(
+          {header:null, dados:conferencias}
+        ), document.getElementById("conferencias")
+      );
+      addItem('conferencias');
+
+      var FormItemButtons = React.createFactory(FormItemButtons);
+      ReactDOM.render(
+        FormItemButtons(
+          {header:null, dados:outros_part}
+        ), document.getElementById("outros_part")
+      );
+      addItem('outros_part');
+    }
+
+    function ativarProjetos(data, util){
+      var projetos = projeto.montarProjetos(data, util);
     }
 
     function clique(){
@@ -458,7 +615,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     });
   }
-
+  
   function carregarAreasAtuacao(area_suggestions, macro_area_suggestions){
     console.log($("#areas_de_atuacao .autocomplete"));
     var id_suggestion = 0;
