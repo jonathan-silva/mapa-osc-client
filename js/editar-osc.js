@@ -122,14 +122,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        ativarEspacosPart(data, util, dadosForm);
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM);
+        espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm);
-        /*
         //Datas
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });*/
-        //$(".ano").datepicker({ dateFormat: 'yy' });
-      $(function() {
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        //Fonte de recurso
+        fonteRecurso.montarFontedeRecursos(data, util);
+        //Acessibilidade
+        verificarContraste();
+        //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
+        clique();
+        //Seleção anual como opção do date picker
+        $(function() {
             $('.ano').datepicker({
                 changeYear: true,
                 showButtonPanel: true,
@@ -140,68 +146,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                     $(this).datepicker('setDate', new Date(year, 1));
                 }
             });
-        	$(".ano").focus(function () {
+          	$(".ano").focus(function () {
                 $(".ui-datepicker-calendar").hide();
                 $('.ui-datepicker-month').hide();
                 $('.ui-datepicker-prev').hide();
                 $('.ui-datepicker-next').hide();
             });
-      });
-
-        //fonteRecurso.montarFontedeRecursos(data, util);
-
-        verificarContraste();
-        //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
-        clique();
+        });
       }
     });
 
-    function ativarEspacosPart(data, util, dadosForm){
-      var tx_sem_participacao_social = "Não há registros de participação social";
-      var participacao_social_form = dadosForm.partSocial();
-      var items = participacao_social_form.items;
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:items}
-        ), document.getElementById(items[0].target)
-      );
-
-      var arrayObj = espacosPartSocial.montarEspacosParticipacaoSocial(data, util, participacao_social_form);
-      var formItens = arrayObj[0];
-
-
-
-      Agrupador = React.createFactory(AgrupadorConselhos);
-      ReactDOM.render(
-        Agrupador(
-          {header:null, dados:formItens}
-        ), document.getElementById("conselhos")
-      );
-      util.addItem('conselhos');
-
-      var formItens = arrayObj[1];
-      Agrupador = React.createFactory(AgrupadorConferencia);
-      ReactDOM.render(
-        Agrupador(
-          {header:null, dados:formItens}
-        ), document.getElementById("conferencias")
-      );
-      util.addItem('conferencias');
-
-      var formItens = arrayObj[2];
-      FormItemButtons = React.createFactory(FormItemButtons);
-      ReactDOM.render(
-        FormItemButtons(
-          {header:null, dados:formItens}
-        ), document.getElementById("outros_part")
-      );
-      util.addItem('outros_part');
-    }
-
     function ativarProjetos(data, util){
       var projetosArray = projeto.montarProjetos(data, util);
-
       var headerProjeto = projetosArray[0];
       Section = React.createFactory(Section);
       ReactDOM.render(

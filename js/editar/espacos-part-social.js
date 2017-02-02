@@ -2,6 +2,51 @@ class EspacosPartSocial {
   constructor() {
 
   }
+
+  ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons){
+    var formItens = arrayObj[0];
+
+    Agrupador = React.createFactory(AgrupadorConselhos);
+    ReactDOM.render(
+      Agrupador(
+        {header:null, dados:formItens}
+      ), document.getElementById("conselhos")
+    );
+    util.addItem('conselhos');
+
+    var formItens = arrayObj[1];
+    Agrupador = React.createFactory(AgrupadorConferencia);
+    ReactDOM.render(
+      Agrupador(
+        {header:null, dados:formItens}
+      ), document.getElementById("conferencias")
+    );
+    util.addItem('conferencias');
+
+    var formItens = arrayObj[2];
+    FormItemButtons = React.createFactory(FormItemButtons);
+    ReactDOM.render(
+      FormItemButtons(
+        {header:null, dados:formItens}
+      ), document.getElementById("outros_part")
+    );
+    util.addItem('outros_part');
+  }
+
+  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM){
+    var tx_sem_participacao_social = "Não há registros de participação social";
+    var participacao_social_form = dadosForm.partSocial();
+    var items = participacao_social_form.items;
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );
+
+    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form);
+  }
+
   montarEspacosParticipacaoSocial(json, util, participacao_social_form){
     var arraySecao = [];
 
@@ -88,7 +133,7 @@ class EspacosPartSocial {
 
       arraySecao.push(formItens);
     }
-    
+
     return arraySecao;
   }
 }
