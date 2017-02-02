@@ -29,8 +29,7 @@ class Util {
         return data;
       },
       error: function(e) {
-        //util.showUnauthorizedUser(e);
-        console.log(e);
+        return e;
       }
     });
   }

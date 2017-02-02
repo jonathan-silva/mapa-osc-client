@@ -687,10 +687,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     // Salvar
     $("#salvar").click(function(){
+      var success="";//guarda mensagens dos saves das secoes da pagina
       //Dados Gerais
-      //$("#dados_gerais").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
-      old_dados_gerais = util.validateObject(old_json.dados_gerais) ? old_json.dados_gerais : {};
-      var newJson = old_dados_gerais;
+      var newJson = util.validateObject(old_json.dados_gerais) ? old_json.dados_gerais : {};
       $("#dados_gerais :input").each(function(){
         var key = $(this).attr("id");
         var value = $(this).val();
@@ -698,15 +697,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      //console.log(newJson);
 
-      util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
-      //console.log(newJson);
+      success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
+      console.log(success);
 
       //Áreas de atuação
-      //console.log(old_json);
-      var newJson = {};
-      newJson.area_atuacao = [];
+      if(util.validateObject(old_json.area_atuacao)){
+        newJson = old_json.area_atuacao;
+      } else{
+        newJson={};
+        newJson.area_atuacao = [];
+      }
+
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
@@ -744,12 +746,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           newJson.area_atuacao.push(obj_area_atuacao);
         });
-
+      });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
 
-        util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
+        success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
+        console.log(success);
 
         //Descricao
         var newJson = {};
@@ -760,7 +762,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["id_osc"] = idOsc;
         //console.log(newJson);
 
-        util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
+        success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
+        console.log(success);
 
         //Certificacoes
         var newJson = {};
@@ -787,7 +790,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["id_osc"] = idOsc;
         //console.log(newJson);
 
-        util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
+        success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
+        console.log(success);
 
         // Projetos
         var newJson = [];
@@ -816,9 +820,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
           //console.log(newJson);
-          util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
+          success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
+          console.log(success);
         });
-      });
+      //});
     });
   });
 
@@ -830,7 +835,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return false;
     }
   }
-  
+
   function addItem(idDiv){
     $('#'+idDiv+' button').on('click', function(){
       if($(this).hasClass('btn-primary')){
