@@ -97,16 +97,20 @@ class Util {
     };
   }
 
-  isTrue(obj){
-    if(obj){
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+
 
   addItem(idDiv){
+    function addItemm(idDiv){
+
+    function isTrue(obj){
+      if(obj){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
     $('#'+idDiv+' button').on('click', function(){
       if($(this).hasClass('btn-primary')){
         var $cloneDiv = ($(this).parent());
@@ -129,7 +133,7 @@ class Util {
           var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
           var $cloneChildren = $('#'+idDiv).children();
           $cloneDiv.clone().appendTo($cloneChildren);
-          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
+          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
           $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
           //$(".ano").datepicker({ dateFormat: 'yy' });
@@ -140,4 +144,6 @@ class Util {
       }
     });
   }
+  addItemm(idDiv);
+}
 }
