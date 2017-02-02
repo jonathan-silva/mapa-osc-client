@@ -52,7 +52,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var relacoesGovernanca = new RelacoesGovernanca();
   var espacosPartSocial = new EspacosPartSocial();
   var projeto = new Projeto();
-  //var fonteRecurso = new FonteRecurso();
+  var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
 
@@ -126,14 +126,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm);
-        //Datas
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
         //Fonte de recurso
-        fonteRecurso.montarFontedeRecursos(data, util);
+        fonteRecurso.montarFontedeRecursos(data, util, dadosForm, React, ReactDOM, Section, FormItem);
         //Acessibilidade
         verificarContraste();
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
         clique();
+        //Datas
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
         //Seleção anual como opção do date picker
         $(function() {
             $('.ano').datepicker({

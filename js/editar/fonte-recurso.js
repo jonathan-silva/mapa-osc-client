@@ -3,7 +3,7 @@ class FonteRecurso {
 
   }
 
-  montarPorAno(ano, index, recursos) {
+  montarPorAno(ano, index, recursos, util, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     //console.log(ano);
     $("#recursos").append('<div id='+ano+'></div>');
     if(index !== 0){
@@ -20,7 +20,7 @@ class FonteRecurso {
 
     //geral, seleção do ano
     items = recursos_form.recursos_geral;
-    formItens = [];
+    var formItens = [];
     for (var i=0; i<items.length; i++){
       formItens.push(util.FormItens("ano-"+ano, items[i].label, ano, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext, items[i].custom_class));
     }
@@ -62,7 +62,7 @@ class FonteRecurso {
       var divId = recursosArray[k].divId;
 
       for (var i=0; i<items.length; i++){
-        formItens.push(new FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
+        formItens.push(util.FormItens(items[i].id, items[i].label, items[i].content, items[i].fonte, items[i].placeholder, items[i].type, items[i].options, items[i].pretext));
       }
 
       FormItem = React.createFactory(FormItem);
@@ -91,11 +91,11 @@ class FonteRecurso {
     $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
   }
 
-  montarFontedeRecursos(json, util){
+  montarFontedeRecursos(json, util, dadosForm, React, ReactDOM, Section, FormItem){
     var sections = dadosForm.itemsRecurso();
-    recursos_form = dadosForm.tiposRecurso();
+    var recursos_form = dadosForm.tiposRecurso();
     for (var j = 0; j < json.recursos.recursos.length; j++) {
-      montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j]);
+      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
 
     // interacoes da selecao de anos
