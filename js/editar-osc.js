@@ -843,7 +843,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $input.parent().removeClass('has-error');
           $input.after().find('span').remove();
           var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-          $cloneChildren = $('#'+idDiv).children();
+          var $cloneChildren = $('#'+idDiv).children();
           $cloneDiv.clone().appendTo($cloneChildren);
           $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
