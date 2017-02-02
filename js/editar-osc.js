@@ -89,8 +89,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       "User": user,
       "Authorization": auth
     }
+
     var headerPriority = '2';
-    // console.log(urlRota);
+    var divObjetivosMetasProjeto='';
 
     $.ajax({
       url: rotas.OSCByID_no_project(idOsc),
@@ -114,11 +115,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Descrição
         ativarDescricao(data, util);
         //Títulos e certificações
-        ativarTitulosCertificacoes(data, util, dadosForm);/*
+        ativarTitulosCertificacoes(data, util, dadosForm);
         //Relações de trabalho e governança
-        ativarTrabalhoGovernanca(data, util, dadosForm);
+        //ativarTrabalhoGovernanca(data, util, dadosForm);
         // Espaços participacao social
-        ativarEspacosPart(data, util, dadosForm);*/
+        ativarEspacosPart(data, util, dadosForm);/**/
         //Projetos
         ativarProjetos(data, util, dadosForm);
         /*
@@ -355,14 +356,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
       var sections = dadosForm.sectionsRelacoesGovernanca();
       var items = sections.items;
-      var Section = React.createFactory(Section);
+      Section = React.createFactory(Section);
       ReactDOM.render(
         Section(
           {dados:items}
         ), document.getElementById(items[0].target)
       );
       //dirigentes
-      var Agrupador = React.createFactory(Agrupador);
+      Agrupador = React.createFactory(Agrupador);
       ReactDOM.render(
         Agrupador(
           {dados:dirigentes}
@@ -397,7 +398,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var tx_sem_participacao_social = "Não há registros de participação social";
       var participacao_social_form = dadosForm.partSocial();
       var items = participacao_social_form.items;
-      var Section = React.createFactory(Section);
+      Section = React.createFactory(Section);
       ReactDOM.render(
         Section(
           {dados:items}
@@ -405,37 +406,265 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       );
 
       var arrayObj = espacosPartSocial.montarEspacosParticipacaoSocial(data, util, participacao_social_form);
-      var conselhos = arrayObj[0];
-      var conferencias = arrayObj[1];
-      var outros_part = arrayObj[2];
+      var formItens = arrayObj[0];
 
-      var Agrupador = React.createFactory(AgrupadorConselhos);
+
+
+      Agrupador = React.createFactory(AgrupadorConselhos);
       ReactDOM.render(
         Agrupador(
-          {header:null, dados:conselhos}
+          {header:null, dados:formItens}
         ), document.getElementById("conselhos")
       );
       addItem('conselhos');
 
-      var Agrupador = React.createFactory(AgrupadorConferencia);
+      var formItens = arrayObj[1];
+      Agrupador = React.createFactory(AgrupadorConferencia);
       ReactDOM.render(
         Agrupador(
-          {header:null, dados:conferencias}
+          {header:null, dados:formItens}
         ), document.getElementById("conferencias")
       );
       addItem('conferencias');
 
-      var FormItemButtons = React.createFactory(FormItemButtons);
+      var formItens = arrayObj[2];
+      FormItemButtons = React.createFactory(FormItemButtons);
       ReactDOM.render(
         FormItemButtons(
-          {header:null, dados:outros_part}
+          {header:null, dados:formItens}
         ), document.getElementById("outros_part")
       );
       addItem('outros_part');
     }
 
     function ativarProjetos(data, util){
-      var projetos = projeto.montarProjetos(data, util);
+      var projetosArray = projeto.montarProjetos(data, util);
+
+      var headerProjeto = projetosArray[0];
+      Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:[headerProjeto]}
+        ), document.getElementById("projetos")
+      );
+      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+
+      var newData = projetosArray[1];
+      var table_lista_projetos = montaTabelaListaProjetos(newData);
+      Section = React.createFactory(Section);
+      ReactDOM.render(
+        Section(
+          {dados:[headerProjeto]}
+        ), document.getElementById("projetos")
+      );
+      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+
+      var newData = projetosArray[2];
+      var table_lista_projetos = montaTabelaListaProjetos(newData);
+      $('#table_lista_projetos').append('<span class="input-group-btn">'+
+      '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
+      '</span>');
+      $('#add_projeto').click(function(){
+        table_lista_projetos.row.add([
+          "-1",
+          "Novo Projeto"
+        ]).draw();
+        verificarContraste();
+      });
+
+      $("#table_lista_projetos").on('click', 'tr', function(){
+        var id_projeto = table_lista_projetos.row(this).data()[0];
+        var divId = "projeto-" + id_projeto;
+        var projetos = $(this).next(".projeto");
+        if(projetos.length < 1){
+          $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
+          var result = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
+
+          agrupamento(result, id_projeto);
+          metasObjetivos(data, id_projeto);
+          verificarContraste();
+        } else {
+          var $divDadosProjeto = $(projetos[0]);
+          $divDadosProjeto.toggleClass("hidden");
+        }
+      });
+    }
+
+    function montaTabelaListaProjetos(newData){
+      var table_lista_projetos = $('#table_lista_projetos').DataTable({
+        responsive: true,
+        deferLoading: 1000,
+        deferRender: true,
+        data: newData,
+        columns: [
+          {DT_RowId: "Id"},
+          {title: "Nome do Projeto"}
+        ],
+        order: [],
+        aoColumnDefs: [
+          {bSortable :false, aTargets: [0]},
+          {
+            "targets": [ 0 ],
+            "visible": false,
+            "searchable": false
+          },
+        ],
+        autoWidth: true,
+        "oLanguage": dadosForm.oLanguageDataTable()
+      });
+
+      return table_lista_projetos;
+    }
+
+    function agrupamento(agrupadores, id){
+      AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
+      ReactDOM.render(
+        AgrupadorInputProjeto(
+          {dados:agrupadores}
+        ), document.getElementById("projeto-"+id)
+      );
+
+      $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+      $(".ano").datepicker({ dateFormat: 'yy' });
+
+      // interacoes
+      $('#projeto-'+id).on("click", ".btn-danger", function(){
+        $(this).parents(".input-group").remove();
+      });
+
+      $('#projeto-'+id).find(".btn-primary").bind("click", function(){
+        $(this).parent().siblings(".form-group").append(
+          '<div class="input-group">'+
+          '<div>'+
+          '<input class="form-control" placeholder="Insira a informação"></input>'+
+          '</div>'+
+          '<span class="input-group-btn">'+
+          '<button class="btn-danger btn">Remover</button>'+
+          '</span>'+
+          '</div>'
+        );
+      });
+    }
+
+    function metasObjetivos(project, id){
+      //metas e objetivos
+      var objetivo_meta = util.validateObject(project.objetivo_meta) ? project.objetivo_meta : "";
+      var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto) ? objetivo_meta.tx_nome_objetivo_projeto : -1;
+      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto) ? objetivo_meta.cd_objetivo_projeto : -1;
+      var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto) ? objetivo_meta.tx_nome_meta_projeto : -1;
+      var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto) ? objetivo_meta.cd_meta_projeto : -1;
+
+      var $divProjeto = $('#projeto-'+id);
+      $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
+
+      $divObjetivosMetasProjeto = $divProjeto.find("#objetivos-metas");
+      $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
+
+      $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
+      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
+      $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
+      $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+
+      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
+      $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+
+      $.ajax({
+        url: rotas.Objetivos(),
+        type: 'GET',
+        dataType: 'json',
+        data:{},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          montarObjetivos(data);
+        }
+      });
+
+      if(cd_objetivo){
+        loadMetas(cd_objetivo);
+      }
+    }
+
+    function montarObjetivos(json){
+      var options = json;
+      var $selectObjetivos = $divObjetivosProjeto.find("select");
+      $selectObjetivos.append('<option selected id="' + 0 + '">' + "Selecione um item" + '</option>');
+      for (var i = 0; i < options.length; i++) {
+        if(options[i].cd_objetivo_projeto === cd_objetivo){
+          $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+        } else {
+          $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+        }
+      }
+    }
+
+    function loadMetas(cd_objetivo){
+      // rotas.Metas()
+      $.ajax({
+        url: rotas.MetaProjeto(cd_objetivo),
+        type: 'GET',
+        dataType: 'json',
+        data:{},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          montarMetas(data, cd_objetivo);
+        }
+      });
+    }
+
+    function montarMetas(data, cd_objetivo){
+      if (util.validateObject(data)){
+        var checkboxItems = [];
+        function CheckboxItems(id, label, value, type, custom_class){
+          this.id = id;
+          this.label = label;
+          this.value = value;
+          this.type = type;
+          this.custom_class = custom_class;
+        }
+        //console.log(data);
+        items = data;
+        for (var i=0; i<items.length; i++){
+          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+        }
+        Checkbox = React.createFactory(Checkbox);
+        ReactDOM.render(
+          Checkbox(
+            {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
+          ), document.getElementById("selectable-"+cd_objetivo)
+        );
+        //console.log(CheckboxItems);
+      }
+    }
+
+    function carregaMetas($divObjetivosMetasProjeto){
+      $('.objetivos').find('select').on('change', function(){
+        cd_objetivo = $(this).children(":selected").attr("id")
+        $(this).parents("#objetivos-metas").find(".metas").each(function(){
+          if(!$(this).hasClass('hidden')){
+            $(this).toggleClass('hidden');
+          }
+        });
+
+        // $(this).removeClass("ui-selected");
+        //console.log($divObjetivosMetasProjeto);
+        $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+        $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
+        $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+        if($('#metas-'+cd_objetivo).hasClass('hidden')){
+          $('#metas-'+cd_objetivo).toggleClass('hidden');
+        }
+        //console.log(cd_objetivo);
+        if(parseInt(cd_objetivo) !== 0){
+          loadMetas(cd_objetivo);
+        }
+      });
     }
 
     function clique(){

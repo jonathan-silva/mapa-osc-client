@@ -23,7 +23,7 @@ class EspacosPartSocial {
 
     if (conselhos) {
       var conselho = participacao_social_form.items;
-      for (j=0; j<conselhos.length; j++){
+      for (var j=0; j<conselhos.length; j++){
         for (var property in conselhos[j]) {
           if (conselhos[j].hasOwnProperty(property)) {
             if(property == "conselho"){
@@ -50,7 +50,7 @@ class EspacosPartSocial {
     var formItens = [];//
     if (conferencias.length) {
       var conferencia = participacao_social_form.items;
-      for (j=0; j<conferencias.length; j++){
+      for (var j=0; j<conferencias.length; j++){
         for (var property in conferencias[j]) {
           if (conferencias[j].hasOwnProperty(property)) {
             if(property == "tx_nome_conferencia"){
@@ -75,7 +75,7 @@ class EspacosPartSocial {
     var formItens = [];//
     if (outras.length) {
       var outra = participacao_social_form.items;
-      for (j=0; j<outras.length; j++){
+      for (var j=0; j<outras.length; j++){
         for (var property in outras[j]) {
           if (outras[j].hasOwnProperty(property)) {
             if(property == "tx_nome_participacao_social_outra"){
@@ -88,6 +88,7 @@ class EspacosPartSocial {
 
       arraySecao.push(formItens);
     }
+    
     return arraySecao;
   }
 }
