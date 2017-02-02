@@ -125,8 +125,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM);
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
-        projeto.montarProjetos(data, util);
-        //ativarProjetos(data, util, dadosForm);
+        ativarProjetos(data, util, dadosForm);
         //Fonte de recurso
         fonteRecurso.montarFontedeRecursos(data, util, dadosForm, React, ReactDOM, Section, FormItem);
         //Acessibilidade
