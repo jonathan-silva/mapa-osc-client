@@ -156,13 +156,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function ativarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
       var obj = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
       var formItens = obj.formItens;
-      carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
       FormItem = React.createFactory(FormItem);
       ReactDOM.render(
         FormItem(
           {header:{priority: headerPriority, text: 'Áreas e Subáreas de Atuação da OSC'}, dados:formItens}
         ), document.getElementById("areas_de_atuacao")
       );
+      carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
     }
 
     function ativarDescricao(data, util){
@@ -460,115 +460,127 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   }
 
   function carregarAreasAtuacao(area_suggestions, macro_area_suggestions){
+    console.log($("#areas_de_atuacao .autocomplete"));
     var id_suggestion = 0;
 
-      $("#areas_de_atuacao .autocomplete").autocomplete({
-        minLength: 0,
-        create: function(event, ui) {
-          var value = $(this).attr("placeholder");
-          for (var i = 0; i < macro_area_suggestions.length; i++) {
-            var suggestion = macro_area_suggestions[i].value;
+    $("#areas_de_atuacao .autocomplete").autocomplete({
+      minLength: 0,
+      create: function(event, ui) {
+        var value = $(this).attr("placeholder");
+        for (var i = 0; i < macro_area_suggestions.length; i++) {
+          var suggestion = macro_area_suggestions[i].value;
 
-            //if (suggestion === value){
-              var $container = $(this).siblings(".checkboxList");
-              var $element = $container.find("#subareas-"+i);
-              if($element.hasClass('hidden')){
-                $element.toggleClass('hidden');
-              }
-              for (var j = 0; j < macro_area_suggestions.length; j++) {
-                if((value === macro_area_suggestions[j].tx_nome_area_atuacao)){
-                  var subarea_exists = false;
-                  $element.find("label").each(function(){
-                    if(macro_area_suggestions[j].tx_nome_subarea_atuacao === $(this).text().trim()){
-                      subarea_exists = $(this);
-                    }
-                  });
-                  if(subarea_exists){
-                    subarea_exists.find("input").prop('checked', true);
-                  } else {
-                    $element.find("#outros").val(macro_area_suggestions[j].tx_nome_subarea_atuacao);
+          if (suggestion === value){
+            var $container = $(this).siblings(".checkboxList");
+            var $element = $container.find("#subareas-"+i);
+            if($element.hasClass('hidden')){
+              $element.toggleClass('hidden');
+            }
+            for (var j = 0; j < macro_area_suggestions.length; j++) {
+              if((value === macro_area_suggestions[j].tx_nome_area_atuacao)){
+                var subarea_exists = false;
+                $element.find("label").each(function(){
+                  if(macro_area_suggestions[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                    subarea_exists = $(this);
                   }
+                });
+                if(subarea_exists){
+                  subarea_exists.find("input").prop('checked', true);
+                } else {
+                  $element.find("#outros").val(macro_area_suggestions[j].tx_nome_subarea_atuacao);
                 }
               }
-            //}
-          }
-        },
-        source: macro_area_suggestions,
-        change: function( event, ui ) {
-        },
-        select: function(event, ui){
-          var targetElement = event.target;
-          var id = macro_area_suggestions.indexOf(ui.item)+1;
-          var $container = $($(targetElement).siblings(".checkboxList")[0]);
-          $container.children().each(function( index ) {
-            if(!$(this).hasClass('hidden')){
-              $(this).toggleClass('hidden');
-              $(this).children().each(function(index){
-                var $input = $($(this).find('input')[0]);
-                if ($input.is(':checked')){
-                  $input.prop('checked', false);
-                }
-                if ($input.prop('type') == "text"){
-                  $input.val("");
-                }
-              });
-            }
-          });
-          var $element = $container.find("#subareas-"+id);
-          if($element.hasClass('hidden')){
-            $element.toggleClass('hidden');
-          }
-          // interação macro_area_outros
-          var macro_area = ui.item.value;
-          var pai = $(this).closest(".form-group");
-          var id = pai.find(".autocomplete").attr("id");
-          var $inputContainer = null;
-          if(id === "macro_area_1"){
-            $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
-          } else {
-            $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
-          }
-
-          if (macro_area === "Outros"){
-            $inputContainer.toggleClass('hidden');
-            if($inputContainer.hasClass('hidden')){
-              var $input = $inputContainer.find('input');
-              $input.val("");
-            }
-          } else {
-            if(!$inputContainer.hasClass('hidden')){
-              $inputContainer.toggleClass('hidden');
-              var $input = $inputContainer.find('input');
-              $input.val("");
             }
           }
-
         }
-      });
-
-      $(".autocomplete").on("click", function(){
-        $(this).autocomplete( "search", "" );
-      });
-
-      //interações seção areas de atuacao
-      $(".checkboxList :checkbox").change(function() {
-
-        if($(this).closest("label").text() === "Outros"){
-          var pai = $(this).closest(".form-group");
-          var id = pai.find(".autocomplete").attr("id");
-          var $inputContainer = null;
-          if(id === "macro_area_1"){
-            $inputContainer = pai.siblings().find("#sub_area_1_outros").closest(".form-group");
-          } else {
-            $inputContainer = pai.siblings().find("#sub_area_2_outros").closest(".form-group");
+      },
+      source: macro_area_suggestions,
+      change: function( event, ui ) {
+      },
+      select: function(event, ui){
+        var targetElement = event.target;
+        var id = macro_area_suggestions.indexOf(ui.item)+1;
+        id_suggestion = id;
+        var $container = $($(targetElement).siblings(".checkboxList")[0]);
+        $container.children().each(function( index ) {
+          if(!$(this).hasClass('hidden')){
+            $(this).toggleClass('hidden');
+            $(this).children().each(function(index){
+              var $input = $($(this).find('input')[0]);
+              if ($input.is(':checked')){
+                $input.prop('checked', false);
+              }
+              if ($input.prop('type') == "text"){
+                $input.val("");
+              }
+            });
           }
+        });
+        var $element = $container.find("#subareas-"+id);
+        if($element.hasClass('hidden')){
+          $element.toggleClass('hidden');
+        }
+        // interação macro_area_outros
+        var macro_area = ui.item.value;
+        var pai = $(this).closest(".form-group");
+        var id = pai.find(".autocomplete").attr("id");
+        var $inputContainer = null;
+        if(id === "macro_area_1"){
+          $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
+        } else {
+          $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
+        }
+
+        if (macro_area === "Outros"){
           $inputContainer.toggleClass('hidden');
           if($inputContainer.hasClass('hidden')){
             var $input = $inputContainer.find('input');
             $input.val("");
           }
+        } else {
+          if(!$inputContainer.hasClass('hidden')){
+            $inputContainer.toggleClass('hidden');
+            var $input = $inputContainer.find('input');
+            $input.val("");
+          }
         }
-      });
-  }
 
+      }
+    });
+
+    $(".autocomplete").on("click", function(){
+      $(this).autocomplete( "search", "" );
+    });
+
+    $(".autocomplete").keyup(function(){
+      if(($(this).val() === "") && (id_suggestion != 0)){
+        var id = id_suggestion;
+        var $container = $(this).parent();
+        var $element = $container.find("#subareas-"+id);
+        if(!$element.hasClass('hidden')){
+          $element.toggleClass('hidden');
+        }
+      }
+    });
+
+    //interações seção areas de atuacao
+    $(".checkboxList :checkbox").change(function() {
+
+      if($(this).closest("label").text() === "Outros"){
+        var pai = $(this).closest(".form-group");
+        var id = pai.find(".autocomplete").attr("id");
+        var $inputContainer = null;
+        if(id === "macro_area_1"){
+          $inputContainer = pai.siblings().find("#sub_area_1_outros").closest(".form-group");
+        } else {
+          $inputContainer = pai.siblings().find("#sub_area_2_outros").closest(".form-group");
+        }
+        $inputContainer.toggleClass('hidden');
+        if($inputContainer.hasClass('hidden')){
+          var $input = $inputContainer.find('input');
+          $input.val("");
+        }
+      }
+    });
+  }
 });
