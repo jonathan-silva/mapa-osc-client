@@ -235,6 +235,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function agrupamento(agrupadores, id){
+      //console.log(agrupadores);
       AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
       ReactDOM.render(
         AgrupadorInputProjeto(
@@ -282,7 +283,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          montarObjetivos(data);
+          montarObjetivos(data, cd_objetivo);
         }
       });
 
@@ -306,7 +307,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     }
 
-    function montarObjetivos(json){
+    function montarObjetivos(json, cd_objetivo){
       var options = json;
       var $selectObjetivos = $divObjetivosProjeto.find("select");
       $selectObjetivos.append('<option selected id="' + 0 + '">' + "Selecione um item" + '</option>');
