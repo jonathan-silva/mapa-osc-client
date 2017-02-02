@@ -173,6 +173,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            $('#loading').addClass('hide');
        }
        else {
+          $('#modalMensagem').modal({backdrop: 'static', keyboard: false}); 
           $('#modalTitle').text('Nenhuma OSC encontrada');
           $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
           $('#modalMensagem').modal('show');
@@ -459,7 +460,16 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
-        paginar(Object.keys(data).length-1);
+        if(typeof data.length !== 'undefined'){
+          var count = 0;
+          for(var i = 0; i < data.length; i++){
+            count += data[i].nr_quantidade_osc_regiao;
+          }
+          paginar(count);
+        }
+        else{
+          paginar(Object.keys(data).length-1);
+        }
         if(data!==undefined){
           carregaMapa(data);
         }
@@ -481,7 +491,17 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
-        paginar(Object.keys(data).length-1);
+        if(typeof data.length !== 'undefined'){
+          var count = 0;
+          for(var i = 0; i < data.length; i++){
+            count += data[i].nr_quantidade_osc_regiao;
+          }
+          paginar(count);
+        }
+        else{
+          paginar(Object.keys(data).length-1);
+        }
+
         if(data!==undefined){
 
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
@@ -506,7 +526,16 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
-        paginar(Object.keys(data).length-1);
+        if(typeof data.length !== 'undefined'){
+          var count = 0;
+          for(var i = 0; i < data.length; i++){
+            count += data[i].nr_quantidade_osc_regiao;
+          }
+          paginar(count);
+        }
+        else{
+          paginar(Object.keys(data).length-1);
+        }
         if(data!==undefined){
           carregaMapaCluster(data, "estado");
           var r = rlayers[idRegiao];
@@ -562,7 +591,16 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       },
       success: function(data){
         tabela(urlRota);
-        paginar(Object.keys(data).length-1);
+        if(typeof data.length !== 'undefined'){
+          var count = 0;
+          for(var i = 0; i < data.length; i++){
+            count += data[i].nr_quantidade_osc_regiao;
+          }
+          paginar(count);
+        }
+        else{
+          paginar(Object.keys(data).length-1);
+        }
         if(data!==undefined){
           map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
           map.removeLayer(e.target);
@@ -603,7 +641,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
       if(data!==undefined){
         tabela(urlRota);
-
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){

@@ -52,6 +52,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var relacoesGovernanca = new RelacoesGovernanca();
   var espacosPartSocial = new EspacosPartSocial();
   var projeto = new Projeto();
+  //var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
 
@@ -90,7 +91,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       "Authorization": auth
     }
 
-    var headerPriority = '2';
     var divObjetivosMetasProjeto='';
 
     $.ajax({
@@ -105,9 +105,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success: function(data){
         //console.log(data);
         //Cabeçalho
-        ativarCabecalho(data, util);
+        cabecalhoObject.montarCabecalho(data, util, React, ReactDOM, Cabecalho);
+        old_json = data;
         // Dados Gerais
-        ativarDadosGerais(data, util, dadosForm);
+        dadosGerais.montarDadosGerais(data, util, dadosForm, React, ReactDOM, FormItem);
         //Áreas de atuação
         var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc) ? data.dados_gerais.tx_nome_atividade_economica_osc : "";
         var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc) ? data.dados_gerais.ft_atividade_economica_osc : "";
@@ -124,35 +125,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ativarProjetos(data, util, dadosForm);
         /*
         //Datas
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-        $(".ano").datepicker({ dateFormat: 'yy' });
-        //Fonte de recurso
-        fonteRecurso.montarFontedeRecursos(data, util);
-        */
-        //Acessibilidade
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });*/
+        //$(".ano").datepicker({ dateFormat: 'yy' });
+      $(function() {
+            $('.ano').datepicker({
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'yy',
+                yearRange: '1950:2050',
+                onClose: function(dateText, inst) {
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, 1));
+                }
+            });
+        	$(".ano").focus(function () {
+                $(".ui-datepicker-calendar").hide();
+                $('.ui-datepicker-month').hide();
+                $('.ui-datepicker-prev').hide();
+                $('.ui-datepicker-next').hide();
+            });
+      });
+
+        //fonteRecurso.montarFontedeRecursos(data, util);
+
         verificarContraste();
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
         clique();
       }
     });
-
-    function ativarCabecalho(data, util){
-      var cabecalhoArray = cabecalhoObject.montarCabecalho(data, util);
-      Cabecalho = React.createFactory(Cabecalho);
-      ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
-      old_json = data;
-    }
-
-    function ativarDadosGerais(data, util, dadosForm) {
-      var formItens = dadosGerais.montarDadosGerais(data, util, dadosForm);
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:{priority: headerPriority, text: 'Dados Gerais'}, dados:formItens}
-        ), document.getElementById("dados_gerais")
-      );
-      $("#tx_telefone").find("input").mask('(00) 0000-0000');
-    }
 
     function ativarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
       var obj = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
@@ -566,6 +566,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto) ? objetivo_meta.tx_nome_meta_projeto : -1;
       var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto) ? objetivo_meta.cd_meta_projeto : -1;
 
+      $.ajax({
+        url: rotas.Objetivos(),
+        type: 'GET',
+        dataType: 'json',
+        data:{},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          montarObjetivos(data);
+        }
+      });
+
       var $divProjeto = $('#projeto-'+id);
       $divProjeto.append('<div class="col-md-12" id="objetivos-metas"</div>');
 
@@ -580,20 +594,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
       $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
       $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
-
-      $.ajax({
-        url: rotas.Objetivos(),
-        type: 'GET',
-        dataType: 'json',
-        data:{},
-        error:function(e){
-          console.log("Erro no ajax: ");
-          console.log(e);
-        },
-        success: function(data){
-          montarObjetivos(data);
-        }
-      });
 
       if(cd_objetivo){
         loadMetas(cd_objetivo);
@@ -680,8 +680,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function clique(){
+      var jsonModalAjuda = dadosForm.jsonModalAjuda();
       $(".ajuda").on("click", function(){
-        abrirModalAjuda($(this).attr("data"));
+        util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
       });
     }
 
@@ -862,7 +863,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
           $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-          $(".ano").datepicker({ dateFormat: 'yy' });
+          //$(".ano").datepicker({ dateFormat: 'yy' });
         }
       }
       else {

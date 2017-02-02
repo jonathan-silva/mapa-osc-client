@@ -56,16 +56,16 @@ class Util {
   }
 
   AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
-    this.id = id;
-    this.containerClass = containerClass;
-    this.header = header;
-    this.inputs = inputs;
-    this.buttons = buttons;
+    return{
+      "id" : id,
+      "containerClass" : containerClass,
+      "header" : header,
+      "inputs" : inputs,
+      "buttons" : buttons
+    };
   }
 
-  abrirModalAjuda(titulo) {
-    var dadosForm = new DataForms();
-    var jsonModalAjuda = dadosForm.jsonModalAjuda();
+  abrirModalAjuda(titulo, jsonModalAjuda) {
   	var	corpo = jsonModalAjuda[titulo];
   	var tituloCompleto = "Ajuda - "+titulo;
 
@@ -78,14 +78,16 @@ class Util {
   }
 
   InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder){
-    this.id = id;
-    this.content = content;
-    this.type = type;
-    this.options = options;
-    this.removable = removable;
-    this.buttons = buttons;
-    this.buttonsInLine = buttonsInLine;
-    this.placeholder = placeholder;
+    return {
+      "id" : id,
+      "content" : content,
+      "type" : type,
+      "options" : options,
+      "removable" : removable,
+      "buttons" : buttons,
+      "buttonsInLine" : buttonsInLine,
+      "placeholder" : placeholder
+    };
   }
 
   getTipoProjeto(key, dados){

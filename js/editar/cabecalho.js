@@ -3,7 +3,7 @@ class Cabecalho {
 
   }
 
-  montarCabecalho(json, util){
+  montarCabecalho(json, util, React, ReactDOM, Cabecalho){
 
     var cabecalho = util.validateObject(json.cabecalho) ? json.cabecalho : "";
     var Nome = util.validateObject(cabecalho.tx_razao_social_osc) ? cabecalho.tx_razao_social_osc : "";
@@ -16,6 +16,7 @@ class Cabecalho {
     };
     var cabecalhoArray = [];
     cabecalhoArray.push(fCabecalho);
-    return cabecalhoArray;
+    Cabecalho = React.createFactory(Cabecalho);
+    ReactDOM.render(Cabecalho({dados:cabecalhoArray}), document.getElementById("cabecalho"));
   }
 }
