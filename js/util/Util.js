@@ -96,4 +96,48 @@ class Util {
       "dados": dados
     };
   }
+
+  isTrue(obj){
+    if(obj){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  addItem(idDiv){
+    $('#'+idDiv+' button').on('click', function(){
+      if($(this).hasClass('btn-primary')){
+        var $cloneDiv = ($(this).parent());
+        var $input = $cloneDiv.find('input[type=text]');
+        var values = new Array();
+        $input.parent().removeClass('has-error');
+        $('.alert-danger').remove();
+        $input.each(function(i){
+          if($(this).val() !== "" ){
+            values[i] = true;
+          }
+          else {
+            values[i] = false;
+            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+          }
+        });
+        if(values.every(isTrue)){
+          $input.parent().removeClass('has-error');
+          $input.after().find('span').remove();
+          var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
+          var $cloneChildren = $('#'+idDiv).children();
+          $cloneDiv.clone().appendTo($cloneChildren);
+          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
+          $cloneDiv.parent().children().last().find('input[type=text]').val('');
+          $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+          //$(".ano").datepicker({ dateFormat: 'yy' });
+        }
+      }
+      else {
+        $(this).parent().remove();
+      }
+    });
+  }
 }

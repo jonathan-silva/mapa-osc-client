@@ -2,7 +2,7 @@ class RelacoesGovernanca {
   constructor() {
 
   }
-  
+
   montarRelacoesGovernanca(json, util, dadosForm){
     var relGovObject=[];
     var relacoes_trabalho =0;
@@ -49,4 +49,50 @@ class RelacoesGovernanca {
     return relGovObject;
   }
 
+  ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util){
+    var dirigentes = formItens[0];
+    var conselheiros = [];
+    var conselho_fiscal = formItens[1];
+    var trabalhadores = formItens[2];
+
+    var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
+    var sections = dadosForm.sectionsRelacoesGovernanca();
+    var items = sections.items;
+    Section = React.createFactory(Section);
+    ReactDOM.render(
+      Section(
+        {dados:items}
+      ), document.getElementById(items[0].target)
+    );
+    //dirigentes
+    Agrupador = React.createFactory(Agrupador);
+    ReactDOM.render(
+      Agrupador(
+        {dados:dirigentes}
+      ), document.getElementById("dirigentes")
+    );
+    //conselheiros
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:conselheiros}
+      ), document.getElementById("conselheiros")
+    );
+    util.addItem('dirigentes');
+    //conselho fiscal
+    FormItemButtons = React.createFactory(FormItemButtons);
+    ReactDOM.render(
+      FormItemButtons(
+        {header:null, dados:conselho_fiscal}
+      ), document.getElementById("conselho_fiscal")
+    );
+    util.addItem('conselho_fiscal');
+    //trabalhadores
+    FormItem = React.createFactory(FormItem);
+    ReactDOM.render(
+      FormItem(
+        {header:null, dados:trabalhadores}
+      ), document.getElementById("trabalhadores")
+    );
+  }
 }

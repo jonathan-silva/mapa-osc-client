@@ -119,9 +119,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var dados_form = dadosForm.titulosCertificacoes(data, util);
         titulosCertificacoes.montarTitulosCertificacoes(data, util, dados_form, React, ReactDOM, FormItem);
         //Relações de trabalho e governança
-        //ativarTrabalhoGovernanca(data, util, dadosForm);
+        var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
+        relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        ativarEspacosPart(data, util, dadosForm);/**/
+        ativarEspacosPart(data, util, dadosForm);
         //Projetos
         ativarProjetos(data, util, dadosForm);
         /*
@@ -155,54 +156,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     });
 
-    function ativarTrabalhoGovernanca(data, util, dadosForm){
-      var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
-      var dirigentes = formItens[0];
-      var conselheiros = [];
-      var conselho_fiscal = formItens[1];
-      var trabalhadores = formItens[2];
-
-      var tx_sem_relacoes = "Não há registros de relações de trabalho e governança";
-      var sections = dadosForm.sectionsRelacoesGovernanca();
-      var items = sections.items;
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:items}
-        ), document.getElementById(items[0].target)
-      );
-      //dirigentes
-      Agrupador = React.createFactory(Agrupador);
-      ReactDOM.render(
-        Agrupador(
-          {dados:dirigentes}
-        ), document.getElementById("dirigentes")
-      );
-      //conselheiros
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:null, dados:conselheiros}
-        ), document.getElementById("conselheiros")
-      );
-      addItem('dirigentes');
-      //conselho fiscal
-      FormItemButtons = React.createFactory(FormItemButtons);
-      ReactDOM.render(
-        FormItemButtons(
-          {header:null, dados:conselho_fiscal}
-        ), document.getElementById("conselho_fiscal")
-      );
-      addItem('conselho_fiscal');
-      //trabalhadores
-      FormItem = React.createFactory(FormItem);
-      ReactDOM.render(
-        FormItem(
-          {header:null, dados:trabalhadores}
-        ), document.getElementById("trabalhadores")
-      );
-    }
-
     function ativarEspacosPart(data, util, dadosForm){
       var tx_sem_participacao_social = "Não há registros de participação social";
       var participacao_social_form = dadosForm.partSocial();
@@ -225,7 +178,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("conselhos")
       );
-      addItem('conselhos');
+      util.addItem('conselhos');
 
       var formItens = arrayObj[1];
       Agrupador = React.createFactory(AgrupadorConferencia);
@@ -234,7 +187,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("conferencias")
       );
-      addItem('conferencias');
+      util.addItem('conferencias');
 
       var formItens = arrayObj[2];
       FormItemButtons = React.createFactory(FormItemButtons);
@@ -243,7 +196,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {header:null, dados:formItens}
         ), document.getElementById("outros_part")
       );
-      addItem('outros_part');
+      util.addItem('outros_part');
     }
 
     function ativarProjetos(data, util){
@@ -625,47 +578,4 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
   });
 
-  function isTrue(obj){
-    if(obj){
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  function addItem(idDiv){
-    $('#'+idDiv+' button').on('click', function(){
-      if($(this).hasClass('btn-primary')){
-        var $cloneDiv = ($(this).parent());
-        var $input = $cloneDiv.find('input[type=text]');
-        var values = new Array();
-        $input.parent().removeClass('has-error');
-        $('.alert-danger').remove();
-        $input.each(function(i){
-          if($(this).val() !== "" ){
-            values[i] = true;
-          }
-          else {
-            values[i] = false;
-            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-          }
-        });
-        if(values.every(isTrue)){
-          $input.parent().removeClass('has-error');
-          $input.after().find('span').remove();
-          var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-          var $cloneChildren = $('#'+idDiv).children();
-          $cloneDiv.clone().appendTo($cloneChildren);
-          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItem(idDiv));
-          $cloneDiv.parent().children().last().find('input[type=text]').val('');
-          $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-          //$(".ano").datepicker({ dateFormat: 'yy' });
-        }
-      }
-      else {
-        $(this).parent().remove();
-      }
-    });
-  }
 });
