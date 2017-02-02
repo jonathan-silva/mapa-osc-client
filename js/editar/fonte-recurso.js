@@ -98,19 +98,6 @@ class FonteRecurso {
       montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j]);
     }
 
-    mapContentRecursos(obj, array){
-      var index = 0;
-      for (var k in obj){
-        if (obj.hasOwnProperty(k)) {
-          var o = obj[k];
-          //array[index].id = o.id_recursos_osc;
-          array[index].content = o.nr_valor_recursos_osc;
-          index++;
-        }
-      }
-      return array;
-    }
-
     // interacoes da selecao de anos
     $(".select-ano").find(".form-control").bind("change", function(){
       var ano = $(this).val();
@@ -121,5 +108,18 @@ class FonteRecurso {
       }
       $(this).find('option[value='+valor+']').prop('selected', true);
     });
+  }
+
+  mapContentRecursos(obj, array){
+    var index = 0;
+    for (var k in obj){
+      if (obj.hasOwnProperty(k)) {
+        var o = obj[k];
+        //array[index].id = o.id_recursos_osc;
+        array[index].content = o.nr_valor_recursos_osc;
+        index++;
+      }
+    }
+    return array;
   }
 }
