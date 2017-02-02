@@ -822,6 +822,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
   });
 
+  function isTrue(obj){
+    if(obj){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
   function addItem(idDiv){
     $('#'+idDiv+' button').on('click', function(){
       if($(this).hasClass('btn-primary')){
