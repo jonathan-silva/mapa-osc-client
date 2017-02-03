@@ -45,7 +45,7 @@ class TitulosCertificacoes {
     }
 
     res.push(formItens);
-
+    items = dados_form.form_items;
     formItens = [];
     for (var j=0; j<items.length; j++){
       formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, null, "date", items[j].hide));
@@ -65,6 +65,8 @@ class TitulosCertificacoes {
         {header:{priority: headerPriority, text: 'Títulos e Certificações'}, dados:res[0]}
       ), document.getElementById("auto")
     );
+
+    res.push(formItens);
 
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(

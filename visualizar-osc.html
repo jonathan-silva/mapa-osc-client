@@ -151,7 +151,7 @@
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
-                <span class="form-control-static" id="tel">{{(ctrl.osc.dados_gerais.tx_telefone)?ctrl.osc.dados_gerais.tx_telefone:"Não informado"}}</span>
+                <span class="form-control-static" id="tel">{{ctrl.osc.dados_gerais.tx_telefone | tel}}</span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>

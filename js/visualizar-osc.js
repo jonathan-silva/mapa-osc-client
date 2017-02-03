@@ -24,6 +24,34 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	};
 }]);
 
+controller.filter('tel', function() {
+	return function(input) {
+		if(input !== null && input !== undefined  && input !== ""){
+	  	var str = input+ '';
+	    str = str.replace(/\D/g,'');
+			if(str.length === 11 ){
+				if(str[0] === 0){
+					str=str.replace(/^(\d{4})(\d{3})(\d{4})/,'$1-$2-$3');
+				}
+				else{
+					  str=str.replace(/^(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
+				}
+	    }
+			else if(str.length === 10){
+	    	str=str.replace(/^(\d{2})(\d{4})(\d{4})/,'($1) $2-$3');
+	    }
+			else if(str.length === 9){
+	    	str=str.replace(/^(\d{0})(\d{5})(\d{4})/,'($1) $2-$3');
+	    }
+			else if(str.length === 8){
+	        str=str.replace(/^(\d{0})(\d{4})(\d{4})/,'($1) $2-$3');
+	    }
+	    return str;
+		}
+		return "Não informado";
+  };
+});
+
 function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
