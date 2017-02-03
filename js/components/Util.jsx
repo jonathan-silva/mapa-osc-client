@@ -921,6 +921,15 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           <div id={id}>
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
+          if (id=="nr_valor_total_projeto"){
+            console.log(item);
+            /*
+            InputElement =
+            <div id={id}>
+              <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
+            </div>
+            */
+          }
         } else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
