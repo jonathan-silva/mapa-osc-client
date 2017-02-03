@@ -424,7 +424,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-
+      console.log(newJson);
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
       console.log(success);
 
@@ -435,6 +435,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson={};
         newJson.area_atuacao = [];
       }
+      console.log(newJson);
 
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
@@ -476,7 +477,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 

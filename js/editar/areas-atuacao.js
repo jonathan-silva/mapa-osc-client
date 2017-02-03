@@ -94,14 +94,17 @@ class AreaAtuacao {
   }
 
   montarAreasDeAtuacao(json, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc, React, ReactDOM, FormItem){
+    console.log(json);
     var headerPriority = '2';
     var areas_atuacao = util.validateObject(json.area_atuacao) ? json.area_atuacao : [];
     var area_atuacao_outra = util.validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
+    console.log(areas_atuacao);
     var area_suggestions = this.carregaMacro(rotas, [], util);
 
     var obj = this.loadSuggestions(area_suggestions, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;
+    console.log(formItens);
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
