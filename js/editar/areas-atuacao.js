@@ -16,7 +16,9 @@ class AreaAtuacao {
     };
   }
 
-  loadSuggestions(area_suggestions, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
+  loadSuggestions(area_suggestions, areas_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
+    console.log(area_suggestions);
+    console.log(areas_atuacao);
     var macro_area_suggestions = area_suggestions[0];
     var subarea_suggestions = area_suggestions[1];
     for (var i = 0; i < subarea_suggestions.length; i++) {
@@ -39,7 +41,8 @@ class AreaAtuacao {
       }
       //formItens.push(AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
       if(items[j].custom_class === "autocomplete"){
-        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+        console.log(items[j]);
+        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
       } else {
         formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
       }
@@ -100,7 +103,7 @@ class AreaAtuacao {
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
     var area_suggestions = this.carregaMacro(rotas, [], util);
 
-    var obj = this.loadSuggestions(area_suggestions, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
+    var obj = this.loadSuggestions(area_suggestions, areas_atuacao[0].area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(

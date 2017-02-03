@@ -19,6 +19,7 @@ class Util {
   }
 
   carregaAjax(url, type, params){
+    var retorno = null;
     $.ajax({
       url: url,
       async: false,
@@ -26,12 +27,13 @@ class Util {
       dataType: 'json',
       data: params,
       success: function(data) {
-        return data;
+        retorno =  data;
       },
       error: function(e) {
-        return e;
+        retorno = e;
       }
     });
+    return retorno;
   }
 
   //verifica se objeto existe, se e nulo ou vazio
