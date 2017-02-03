@@ -102,8 +102,9 @@ class AreaAtuacao {
     var area_atuacao_outra = util.validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
     var area_suggestions = this.carregaMacro(rotas, [], util);
+    var areas_atuacao_inicial = util.validateObject(areas_atuacao[0]) ? areas_atuacao[0] : [];
 
-    var obj = this.loadSuggestions(area_suggestions, areas_atuacao[0].area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
+    var obj = this.loadSuggestions(area_suggestions, areas_atuacao_inicial.area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(

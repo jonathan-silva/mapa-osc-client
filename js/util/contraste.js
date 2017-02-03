@@ -47,7 +47,7 @@ function ativarCSSContraste() {
   $(".form-control").css("background-color", "#02174a");
   $(".form-control").css("color", "#ffffff");
   $(".ui-autocomplete-input").css("background-image", "url(../img/lupa_inv.png)");
-
+  $(".panel-heading h3").css("color", "#ffffff");
 
   $("#buscarPerfil li a").on({
     click:function (){
@@ -81,8 +81,20 @@ function ativarCSSContraste() {
     mouseover: function(){
       $(this).css("color", "#337cbb");
       $(this).css("background-color", "#d7eefb");
+      $(this).find("h3").css("color", "#337cbb");
     }, mouseout: function(){
       $(this).css("color", "#fff331");
+      $(this).css("background-color", "#333333");
+      $(this).find("h3").css("color", "#ffffff");
+    }
+  });
+
+  $(".panel-default").on({
+    mouseover: function(){
+      $(this).css("color", "#ffffff");
+      $(this).css("background-color", "#d7eefb");
+    }, mouseout: function(){
+      $(this).css("color", "#ffffff");
       $(this).css("background-color", "#333333");
     }
   });

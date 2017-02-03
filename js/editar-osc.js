@@ -322,7 +322,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function loadMetas(cd_objetivo){
-      console.log(cd_objetivo);
       $.ajax({
         url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
