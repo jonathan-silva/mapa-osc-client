@@ -28,7 +28,6 @@ class TitulosCertificacoes {
   }
 
   montarTitulosCertificacoes(json, util, dados_form, React, ReactDOM, FormItem){
-    console.log(json, dados_form);
     var headerPriority = '2';
     var res = [];
     var tx_sem_titulos = "Não há registros de títulos ou certificações";
