@@ -63,7 +63,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
     var urlRota = "";
     var idOsc = "";
-    //console.log(rotas);
+
     if(valoresURL !== null){
       idOsc = valoresURL[0];
       urlRota = rotas.OSCByID_no_project(idOsc);
@@ -103,7 +103,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
-        //console.log(data);
         //Cabeçalho
         cabecalhoObject.montarCabecalho(data, util, React, ReactDOM, Cabecalho);
         old_json = data;
@@ -235,7 +234,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function agrupamento(agrupadores, id){
-      //console.log(agrupadores);
+
       AgrupadorInputProjeto = React.createFactory(AgrupadorInputProjeto);
       ReactDOM.render(
         AgrupadorInputProjeto(
@@ -296,15 +295,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
       $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
-      $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+      $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
-      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+cd_objetivo);
+      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
       $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+      $divMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
 
       if(cd_objetivo){
         loadMetas(cd_objetivo);
       }
+
+      carregaEventoMetas();
     }
 
     function montarObjetivos(json, cd_objetivo){
@@ -321,7 +322,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function loadMetas(cd_objetivo){
-      // rotas.Metas()
+      console.log(cd_objetivo);
       $.ajax({
         url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
@@ -337,6 +338,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
+    function carregaEventoMetas(){
+      $('.objetivos').find('select').on('change', function(){
+      	cd_objetivo = $(this).children(":selected").attr("id")
+      	$(this).parents("#objetivos-metas").find(".metas").each(function(){
+      		if(!$(this).hasClass('hidden')){
+      			$(this).toggleClass('hidden');
+      		}
+      	});
+
+      	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+      	$('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
+      	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+      	if($('#metas-'+cd_objetivo).hasClass('hidden')){
+      		$('#metas-'+cd_objetivo).toggleClass('hidden');
+      	}
+      	if(parseInt(cd_objetivo) !== 0){
+      		loadMetas(cd_objetivo);
+      	}
+      });
+    }
+
     function montarMetas(data, cd_objetivo){
       if (util.validateObject(data)){
         var checkboxItems = [];
@@ -347,7 +369,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           this.type = type;
           this.custom_class = custom_class;
         }
-        //console.log(data);
+
         items = data;
         for (var i=0; i<items.length; i++){
           checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
@@ -355,10 +377,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
           Checkbox(
-            {header:{priority: headerPriority, text: headerText}, dados:checkboxItems}
+            {dados:checkboxItems}
           ), document.getElementById("selectable-"+cd_objetivo)
         );
-        //console.log(CheckboxItems);
+
       }
     }
 
@@ -371,15 +393,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
-        // $(this).removeClass("ui-selected");
-        //console.log($divObjetivosMetasProjeto);
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         $('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
         $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
         if($('#metas-'+cd_objetivo).hasClass('hidden')){
           $('#metas-'+cd_objetivo).toggleClass('hidden');
         }
-        //console.log(cd_objetivo);
         if(parseInt(cd_objetivo) !== 0){
           loadMetas(cd_objetivo);
         }
@@ -468,7 +487,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
 
         success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
         console.log(success);
@@ -496,7 +514,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
 
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
@@ -527,7 +544,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-          //console.log(newJson);
+
           success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
           console.log(success);
         });
