@@ -24,9 +24,19 @@ require.config({
     "graficoParaTabela":"util/graficoParaTabela",
     "cookies":"util/cookies",
     "contraste":"util/contraste",
-    "util" : "util/Util.js",
+    "util" : "util/Util",
+    "dataForms":"dataForms",
     "simplePagination" : "libs/simplePagination/simplePagination",
-    "tagsinput":"libs/tagsinput/bootstrap-tagsinput"
+    "tagsinput":"libs/tagsinput/bootstrap-tagsinput",
+    "editarCabecalho":"editar/cabecalho",
+    "editarAreasAtuacao":"editar/areas-atuacao",
+    "editarDadosGerais":"editar/dados-gerais",
+    "editarDescricao":"editar/descricao",
+    "editarEspPartSoc":"editar/espacos-part-social",
+    "editarFonteRecurso":"editar/fonte-recurso",
+    "editarProjeto":"editar/projetos",
+    "editarRelGovernanca":"editar/relacoes-governanca",
+    "editarTitCert":"editar/titulos-certificacoes"
   },
   shim: {
       'contraste':['cookies'],
@@ -46,7 +56,8 @@ require.config({
       'graficoParaTabela': ['bootstrap'],
       'util':['jquery'],
       'simplePagination': ['jquery'],
-      'tagsinput':['bootstrap','jquery']
+      'tagsinput':['bootstrap','jquery'],
+      'editarCabecalho':['util','dataForms','editarAreasAtuacao','editarDadosGerais','editarDescricao','editarEspPartSoc','editarFonteRecurso','editarTitCert','editarProjeto','editarRelGovernanca']
   },
   jsx: {
     fileExtension: '.jsx',
