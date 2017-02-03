@@ -61,7 +61,7 @@ class Projeto {
 
   montarProjeto(project, util, dadosForm){
     var labelMap = dadosForm.labelsProjeto();
-    console.log(labelMap);
+    //console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
