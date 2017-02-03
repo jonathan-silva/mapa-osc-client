@@ -64,6 +64,7 @@ class Projeto {
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
+    var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
     for (var property in project) {
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
@@ -78,7 +79,7 @@ class Projeto {
         var buttonsInLine = false;
 
         if((value === null) || (value.constructor !== Array)){
-          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder);
+          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
           agrupadores.push(agrupadorInputProjeto);
         }

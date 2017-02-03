@@ -77,7 +77,7 @@ class Util {
     verificarContraste();
   }
 
-  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder){
+  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title){
     return {
       "id" : id,
       "content" : content,
@@ -86,7 +86,8 @@ class Util {
       "removable" : removable,
       "buttons" : buttons,
       "buttonsInLine" : buttonsInLine,
-      "placeholder" : placeholder
+      "placeholder" : placeholder,
+      "title": title
     };
   }
 
