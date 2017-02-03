@@ -270,7 +270,7 @@ require(['react', 'jsx!components/Util'], function (React) {
     {
     "topico":"Utilidade Pública (Títulos)",
     "desc": ["O título de Utilidade Pública Federal (UPF) foi extinto por meio da Lei nº 13.204 de 2015, que alterou trechos do MROSC e revogou a Lei nº 91 de 1935. Essa medida visou estender a todas as organizações sem fins lucrativos os benefícios previstos em lei, independentemente da exigência de cumprir requisitos formais e burocráticos para certificação e titulação de UPF.",
-             "Os títulos de Utilidade Pública estaduais e municipais, no entanto, continuam em vigor. Os benefícios concedidos para as organizações tituladas variam de acordo com as legislações locais, abrangendo desde a possibilidade de dedução discal de certos tributos à permissão de celebração de parcerias com o Poder Público."],
+             "Os títulos de Utilidade Pública estaduais e municipais, no entanto, continuam em vigor. Os benefícios concedidos para as organizações tituladas variam de acordo com as legislações locais, abrangendo desde a possibilidade de dedução fiscal de certos tributos à permissão de celebração de parcerias com o Poder Público."],
     },
     {
     "topico":"Venda de Bens e Direitos",
