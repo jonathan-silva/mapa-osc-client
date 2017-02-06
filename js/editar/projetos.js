@@ -66,7 +66,7 @@ class Projeto {
     var agrupadores = [];
     var projectId = project.id_projeto;
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
-    
+
     for (var property in project) {
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;

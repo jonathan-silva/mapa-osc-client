@@ -917,7 +917,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.title) && (id === "tx_nome_status_projeto") && (content) ) {
+            if ( (item.title) && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -929,7 +929,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.title) && (id === "tx_descricao_projeto") && (content) ){
+          if ( (item.title) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
               <textarea className="form-control" defaultValue={content} disabled></textarea>
@@ -958,21 +958,22 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         }
 
         if(removable){
+          console.log(item.dados);
           InputElement =
             <div id={id} className="input-group">
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
-            ;
-
-        }/*
-        if (id=="nr_valor_total_projeto"){
-          console.log(type);
-          InputElement =
-          <div id={id}>
-            <textarea className={class_string} defaultValue={content} placeholder={placeholder}></textarea>
-          </div>
-        }*/
+            /*;
+            if ( (item.title) && (id =="localizacao_projeto") ) {
+                console.log(item.title);
+              InputElement =
+                <div id={id} className="input-group">
+                {InputElement}
+                <FormButtonProjeto dados={buttons} inline={inline} disabled></FormButtonProjeto>
+                </div>
+          }*/
+        }
         itens.push(
           InputElement
         )
@@ -1035,6 +1036,21 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
           }
         }
+        if(header === "Valor Captado"){
+          //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
+          var title = item.inputs[0].title;
+          //console.log(title);
+          if (title != null){
+          ContainerElement =
+            <div className={containerClass}>
+              <div className="header">{header+" "}
+              <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+              </div>
+              <FormInputProjeto dados={inputs}></FormInputProjeto>
+              {ButtonElement}
+            </div>
+        }
+      }
           if(header === "Abrangência de atuação"){
             ContainerElement =
               <div className={containerClass}>

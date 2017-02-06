@@ -801,7 +801,7 @@ class DataForms{
         "options": null,
         "placeholder": "Insira o valor total do projeto"
       },
-      "tx_valor_captado_projeto": {
+      "nr_valor_captado_projeto": {
         "header": "Valor Captado",
         "containerClass": "col-md-3",
         "removable": false,
