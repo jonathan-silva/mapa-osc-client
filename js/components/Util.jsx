@@ -917,6 +917,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
         } else if (type == 'textarea'){
+          console.log(id);
           InputElement =
           <div id={id}>
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
@@ -942,7 +943,14 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
-        }
+        }/*
+        if (id=="nr_valor_total_projeto"){
+          console.log(type);
+          InputElement =
+          <div id={id}>
+            <textarea className={class_string} defaultValue={content} placeholder={placeholder}></textarea>
+          </div>
+        }*/
         itens.push(
           InputElement
         )
