@@ -916,12 +916,25 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <div id={id}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
+            ;
+            if ( (item.title) && (id === "tx_nome_status_projeto") && (content) ) {
+              InputElement =
+              <div id={id}>
+                <span className="form-control">{content}</span>
+              </div>
+            }
         } else if (type == 'textarea'){
-          console.log(id);
           InputElement =
           <div id={id}>
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
+          ;
+          if ( (item.title) && (id === "tx_descricao_projeto") && (content) ){
+            InputElement =
+            <div id={id}>
+              <textarea className="form-control" defaultValue={content} disabled></textarea>
+            </div>
+          }
         } else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
@@ -935,6 +948,13 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <div id={id}>
               <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
+            ;
+            if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
+              InputElement =
+                <div id={id}>
+                  <span className="form-control">{content}</span>
+                </div>
+          }
         }
 
         if(removable){
@@ -943,6 +963,8 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
+            ;
+
         }/*
         if (id=="nr_valor_total_projeto"){
           console.log(type);
@@ -1071,7 +1093,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Fonte de Recursos"){
-            console.log(inputs);
+            //console.log(inputs);
             //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
             var title = item.inputs[0].title;
             if (title){
