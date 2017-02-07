@@ -52,7 +52,6 @@ class AreaAtuacao {
         items[j].subareas_selected = areas_atuacao[1].subarea_atuacao;
       }
       if(items[j].custom_class === "autocomplete"){
-        console.log(items[j]);
         formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
       } else {
         formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
@@ -249,5 +248,7 @@ class AreaAtuacao {
         }
       }
     });
+
+    //iniciar subareas selecionadas
   }
 }

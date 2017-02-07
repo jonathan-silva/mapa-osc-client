@@ -250,9 +250,11 @@ define('componenteCheckbox', ['react'], function (React) {
     renderListItems: function(){
       var dados = this.props.dados;
       var selecionados = this.props.selected ? this.props.selected : null;
+
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
+        item.selected = null;
         var inputElement;
         var checkboxElement;
         if(selecionados){
@@ -262,7 +264,6 @@ define('componenteCheckbox', ['react'], function (React) {
             }
           }
         }
-        console.log(item);
         checkboxElement =
         <div className="input-box checkbox">
           <label>
@@ -357,11 +358,14 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
           var subareas = item.subareas;
           var subareas_selected = null;
           var className = "form-control"+custom_class;
+          var checkbox_className = "hidden";
           var itensCheckBox = [];
           for (var j = 0; j < areas.length; j++) {
             if(item.content === areas[j].tx_nome_area_atuacao){
+              checkbox_className = "";
               subareas_selected = item.subareas_selected;
             } else {
+              checkbox_className = "hidden";
               subareas_selected = null;
             }
             var subset = [];
@@ -371,7 +375,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
                 subset.push(subareas[k]);
               }
             }
-            itensCheckBox.push(<div id = {"subareas-"+cd_area} className="hidden"><Checkbox dados={subset} selected={subareas_selected}></Checkbox></div>)
+            itensCheckBox.push(<div id = {"subareas-"+cd_area} className={checkbox_className}><Checkbox dados={subset} selected={subareas_selected}></Checkbox></div>)
           }
 
           ContentElement =
