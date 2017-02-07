@@ -249,30 +249,28 @@ define('componenteCheckbox', ['react'], function (React) {
   var Checkbox = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
+      var selecionados = this.props.selected ? this.props.selected : null;
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var inputElement;
         var checkboxElement;
-        if(item.value == "outros"){
-          inputElement = <input id={item.value} placeholder="Por favor, especifique" type="text" size="50"></input>
-          checkboxElement =
-          <div className="input-box checkbox">
-            <label>
-              {item.label+": "}
-              {inputElement}
-            </label>
-          </div>
-        } else {
-          checkboxElement =
-          <div className="input-box checkbox">
-            <label>
-              <input type="checkbox" value={item.value}>
-              </input>
-              {item.label}
-            </label>
-          </div>
+        if(selecionados){
+          for (var j = 0; j < selecionados.length; j++) {
+            if(item.tx_nome_subarea_atuacao === selecionados[j].tx_nome_subarea_atuacao){
+              item.selected = "checked";
+            }
+          }
         }
+        console.log(item);
+        checkboxElement =
+        <div className="input-box checkbox">
+          <label>
+            <input type="checkbox" value={item.value} defaultChecked={item.selected}>
+            </input>
+            {item.label}
+          </label>
+        </div>
         itens.push(
           checkboxElement
         );
@@ -302,6 +300,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
         var placeholder = item.placeholder;
+
         var content = item.content;
         if(((content == null) || (content === "")) && (item.placeholder != undefined)){
           placeholder = item.placeholder;
@@ -356,9 +355,15 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         } else if(item.areas){
           var areas = item.areas;
           var subareas = item.subareas;
+          var subareas_selected = null;
           var className = "form-control"+custom_class;
           var itensCheckBox = [];
           for (var j = 0; j < areas.length; j++) {
+            if(item.content === areas[j].tx_nome_area_atuacao){
+              subareas_selected = item.subareas_selected;
+            } else {
+              subareas_selected = null;
+            }
             var subset = [];
             var cd_area = areas[j].cd_area_atuacao;
             for (var k = 0; k < subareas.length; k++) {
@@ -366,12 +371,12 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
                 subset.push(subareas[k]);
               }
             }
-            itensCheckBox.push(<div id = {"subareas-"+cd_area} className="hidden"><Checkbox dados={subset}></Checkbox></div>)
+            itensCheckBox.push(<div id = {"subareas-"+cd_area} className="hidden"><Checkbox dados={subset} selected={subareas_selected}></Checkbox></div>)
           }
 
           ContentElement =
           <div className="input-box">
-            <input className={className}  id={item.id} placeholder={placeholder} type={item.type}></input>
+            <input className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             {SpanFonte}
             <div className="checkboxList">{itensCheckBox}</div>
           </div>
@@ -958,7 +963,6 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         }
 
         if(removable){
-          console.log(item.dados);
           InputElement =
             <div id={id} className="input-group">
               {InputElement}

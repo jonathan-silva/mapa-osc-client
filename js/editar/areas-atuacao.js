@@ -2,7 +2,7 @@ class AreaAtuacao {
   constructor() {
 
   }
-  AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas){
+  AutocompleteItem(id, label, content, fonte, placeholder, type, custom_class, areas, subareas, subareas_selected){
     return {
       "id" : id,
       "label" : label,
@@ -12,13 +12,14 @@ class AreaAtuacao {
       "type" : type,
       "custom_class" : custom_class,
       "areas" : areas,
-      "subareas" : subareas
+      "subareas" : subareas,
+      "subareas_selected": subareas_selected
     };
   }
 
   loadSuggestions(area_suggestions, areas_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
     //console.log(area_suggestions);
-    //console.log(areas_atuacao);
+    console.log(areas_atuacao);
     var macro_area_suggestions = area_suggestions[0];
     var subarea_suggestions = area_suggestions[1];
     for (var i = 0; i < subarea_suggestions.length; i++) {
@@ -35,14 +36,24 @@ class AreaAtuacao {
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
+      /*
       if(macro_area_suggestions.length > j){
         content = macro_area_suggestions[j].tx_nome_area_atuacao;
         fonte = macro_area_suggestions[j].ft_nome_area_atuacao;
       }
+      */
       //formItens.push(AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+      if(items[j].id === "macro_area_1"){
+        items[j].content = areas_atuacao[0].tx_nome_area_atuacao;
+        items[j].subareas_selected = areas_atuacao[0].subarea_atuacao;
+      }
+      if(items[j].id === "macro_area_2"){
+        items[j].content = areas_atuacao[1].tx_nome_area_atuacao;
+        items[j].subareas_selected = areas_atuacao[1].subarea_atuacao;
+      }
       if(items[j].custom_class === "autocomplete"){
-        //console.log(items[j]);
-        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+        console.log(items[j]);
+        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
       } else {
         formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
       }
@@ -106,6 +117,7 @@ class AreaAtuacao {
 
     var obj = this.loadSuggestions(area_suggestions, areas_atuacao_inicial.area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;
+    console.log(obj);
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
