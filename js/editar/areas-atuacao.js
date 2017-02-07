@@ -19,7 +19,7 @@ class AreaAtuacao {
 
   loadSuggestions(area_suggestions, areas_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc){
     //console.log(area_suggestions);
-    console.log(areas_atuacao);
+    //console.log(areas_atuacao);
     var macro_area_suggestions = area_suggestions[0];
     var subarea_suggestions = area_suggestions[1];
     for (var i = 0; i < subarea_suggestions.length; i++) {
@@ -116,7 +116,6 @@ class AreaAtuacao {
 
     var obj = this.loadSuggestions(area_suggestions, areas_atuacao_inicial.area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;
-    console.log(obj);
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(

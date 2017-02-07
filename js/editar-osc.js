@@ -434,8 +434,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson={};
         newJson.area_atuacao = [];
       }
-      //console.log(newJson);
-
+      console.log(old_json);
+      newJson.area_atuacao = [];
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
@@ -450,9 +450,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val(),
-          "ft_area_atuacao": "Usuário",
-          "id_area_atuacao": null
+          "tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
         }
 
         var subareas = [];
@@ -464,7 +462,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             subareas.push({
               "tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
               "cd_subarea_atuacao": $(this).val(),
-              "id_area_atuacao": null
+              "ft_area_atuacao": "Representante"
             });
           });
 
@@ -476,7 +474,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
