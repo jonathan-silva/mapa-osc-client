@@ -250,5 +250,26 @@ class AreaAtuacao {
     });
 
     //iniciar subareas selecionadas
+    $(".checkboxList").each(function(){
+      $(this).find("input").each(function(){
+        if($(this).is(":checked")){
+          if($(this).closest("label").text() === "Outros"){
+            var pai = $(this).closest(".form-group");
+            var id = pai.find(".autocomplete").attr("id");
+            var $inputContainer = null;
+            if(id === "macro_area_1"){
+              $inputContainer = pai.siblings().find("#sub_area_1_outros").closest(".form-group");
+            } else {
+              $inputContainer = pai.siblings().find("#sub_area_2_outros").closest(".form-group");
+            }
+            $inputContainer.toggleClass('hidden');
+            if($inputContainer.hasClass('hidden')){
+              var $input = $inputContainer.find('input');
+              $input.val("");
+            }
+          }
+        }
+      });
+    });
   }
 }
