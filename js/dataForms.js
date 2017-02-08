@@ -827,7 +827,7 @@ class DataForms{
           "Municipal", "Federal", "Estadual"
         ]
       },
-      "financiadores": {
+      "financiador_projeto": {
         "header": "Financiadores do Projeto",
         "containerClass": "col-md-3",
         "removable": true,
@@ -865,7 +865,7 @@ class DataForms{
         "options": null,
         "title":null
       },
-      "parceiras": {
+      "osc_parceira": {
         "header": "OSCs Parceiras",
         "containerClass": "col-md-6",
         "removable": true,
@@ -950,9 +950,9 @@ class DataForms{
       "publico_beneficiado": [],
       "area_atuacao": [],
       "area_atuacao_outra": [],
-      "localizacao": [],
-      "parceira": [],
-      "financiador": [],
+      "localizacao_projeto": [],
+      "osc_parceira": [],
+      "financiador_projeto": [],
       "objetivo_meta": null,
       "recursos": null
     };

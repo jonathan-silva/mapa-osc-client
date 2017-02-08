@@ -583,8 +583,11 @@
                       </div>
                         <div>
                           <div class="header ">Financiadores do Projeto</div>
-                          <div class="form-group">
-                            <span class="form-control-static">{{(proj.financiador)?proj.financiador:"Não informado"}}</span>
+                          <div class="form-group"  ng-repeat="financiador in proj.financiador_projeto">
+                            <span class="form-control-static">{{(financiador.tx_nome_financiador)?financiador.tx_nome_financiador:"Não informado"}}</span>
+                          </div>
+                          <div class="form-group"  ng-if="proj.financiador_projeto == null">
+                            <span class="form-control-static">Não informado</span>
                           </div>
                         </div>
                     </div>

@@ -61,7 +61,7 @@ class Projeto {
 
   montarProjeto(project, util, dadosForm){
     var labelMap = dadosForm.labelsProjeto();
-    //console.log(labelMap);
+
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
@@ -84,8 +84,16 @@ class Projeto {
           var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
           agrupadores.push(agrupadorInputProjeto);
-        }
-      }
+        }/*
+        if (header=="Valor Total"){
+          console.log(labelMap[property]);
+          console.log(inputProjeto);
+          console.log(agrupadorInputProjeto);
+        };*/
+      }/*
+      else if ((project.hasOwnProperty(property)) && (labelMap[property] == undefined)){
+        console.log(labelMap);
+      }*/
     }
     var area_atuacao_projeto = util.validateObject(project.area_atuacao) ? project.area_atuacao : [];
     var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
@@ -94,9 +102,9 @@ class Projeto {
     var localizacao = util.getTipoProjeto("localizacao_projeto", project.localizacao);
     var fonte = this.getFonteDeRecursosProjeto(projectId);
     var publicoBeneficiado = util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado);
-    var financiadores = util.getTipoProjeto("financiadores", project.financiador);
+    var financiadores = util.getTipoProjeto("financiador_projeto", project.financiador_projeto);console.log(project);
     var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
-    var parceiras = util.getTipoProjeto("parceiras", project.parceira);
+    var parceiras = util.getTipoProjeto("osc_parceira", project.osc_parceira);
     var valorMeta = "";
     var idObjetivo = "";
     var multipleInputs = [
