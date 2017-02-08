@@ -1,9 +1,11 @@
 require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], function (React) {
   require(['componenteFormItem'], function(FormItem){
-    function FormItens(id, label, type){
+    function FormItens(id, label, type, obrigatorio){
       this.id = id;
       this.label = label;
       this.type = type;
+      this.obrigatorio = obrigatorio;
+      this.fonte = false;
     }
 
     //formulario 1
@@ -11,10 +13,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
     var id = ['nome','email','senha','confirmarSenha'];
     var label = ['Nome','Email','Senha','Confirmar Senha'];
     var type = ['text','email','password','password'];
+    var obrigatorio = [true, true, true, true, true];
     var formItens = [];
 
     for (var j=0; j<id.length; j++){
-      formItens.push(new FormItens(id[j], label[j],type[j]));
+      formItens.push(new FormItens(id[j], label[j], type[j], obrigatorio[j]));
     }
 
     //formulario 2
@@ -22,10 +25,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
     var id2 = ['nomeEntidade'];
     var label2 = ['CNPJ da Entidade'];
     var type2 = ['text'];
+    var obrigatorio2 = [true];
     var formItens2 = [];
 
     for (var i=0; i<id2.length; i++){
-      formItens2.push(new FormItens(id2[i], label2[i],type2[i]));
+      formItens2.push(new FormItens(id2[i], label2[i], type2[i], obrigatorio2[j]));
     }
 
     FormItem = React.createFactory(FormItem);
@@ -70,7 +74,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        },
        error: function(e) {
            console.log(e);
-           $('#modalMensagem').modal({backdrop: 'static', keyboard: false});  
+           $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
            $('#modalTitle').text('Erro');
            $('#modalConteudo').text('É necessário estar logado no sistema para acessar essa página.');
            $('.modal-footer button').on('click', function(){

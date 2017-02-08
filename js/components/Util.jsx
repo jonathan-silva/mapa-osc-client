@@ -296,7 +296,11 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
       var items=[];
       if(this.props.header){
         var HeaderElement = `h${this.props.header.priority}`;
-        items.push(<HeaderElement>{this.props.header.text}<a className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + this.props.header.text} data={this.props.header.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>);
+        if(this.props.header.text == "Dados Gerais" || this.props.header.text == "Áreas e Subáreas de Atuação da OSC" || this.props.header.text == "Descrição da OSC" || this.props.header.text == "Títulos e Certificações"){
+          items.push(<HeaderElement>{this.props.header.text}<a className='btn-item ajuda' type='button' title={'Clique para informações sobre os campos de ' + this.props.header.text} data={this.props.header.text}><span className='glyphicon glyphicon-question-sign' aria-hidden='true'></span></a></HeaderElement>);
+        }else{
+          items.push(<HeaderElement>{this.props.header.text}</HeaderElement>);
+        }
       }
       for (var i=0; i<this.props.dados.length; i++){
         var item = this.props.dados[i];
