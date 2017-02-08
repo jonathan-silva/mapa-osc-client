@@ -70,7 +70,7 @@
             <a href="#recursos" name="recursos" class="scroll">Fonte de recursos</a>
           </li>
           <li>
-            <a href="javascript:if(window.print)window.print()">Imprimir</a>
+            <div class="btnRelatorioAtividade"><a class="btn btn-info btn-sm" id="btnRelatorioAtividade" type="button" title="Clique para gerar o Relatorio de Atividades" onclick="abrirModalRelatorio('Relatório de Atividades');" >Relatório de Atividades</a></div>
           </li>
           <li>
             <div class="btnEditar"></div>
@@ -996,9 +996,7 @@
         </div>
         <div id="corpoModal" class="modal-body">
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-        </div>
+        <div class="modal-footer" id="btnFooter"></div>
       </div>
     </div>
   </div>
