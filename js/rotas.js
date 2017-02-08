@@ -155,4 +155,9 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/"+id;
    }
 
+   //usuario
+  AtivarUsuario(token){
+    return this.getBaseUrl()+":8383/api/user/ativarcadastro/"+token;
+  }
+
 }
