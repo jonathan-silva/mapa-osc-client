@@ -1,7 +1,9 @@
 var controller = angular.module('oscApp', []);
 var idOsc;
+var absUrl;
 
 controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
+	absUrl = $location.$$absUrl;
 	var self = this;
 	var rotas = new Rotas();//rotas.js
 	//createCookie('ppkcookie','2',7);
@@ -87,6 +89,7 @@ require(["jquery-ui"], function (React) {
 		 window.onload = function () {
 				 verificarContraste();
 		 };
+
 	});
 
 });
@@ -106,16 +109,55 @@ function abrirModalAjuda(titulo) {
 
 	var	corpo = jsonModalAjuda[titulo];
 	var tituloCompleto = "Ajuda - "+titulo;
-	acionarModalAjuda(tituloCompleto, corpo);
+	var btn = "<button type='button' class='btn btn-danger' data-dismiss='modal'>Fechar</button>";
+
+	acionarModalAjuda(tituloCompleto, corpo, btn);
 }
 
-function acionarModalAjuda(titulo, corpo) {
+function abrirModalRelatorio(titulo) {
+
+	var	corpo = "<fieldset id='escolhaImpressao'><legend>Escolha quais seções para imprimir</legend>";
+	corpo += "<input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais<br>";
+  corpo += "<input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC<br>";
+	corpo += "<input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC<br>";
+	corpo += "<input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações<br>";
+	corpo += "<input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança<br>";
+	corpo += "<input type='checkbox' name='secao' value='participacao_social' checked> Espaços de Participação Social<br>";
+	corpo += "<input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas<br>";
+	corpo += "<input type='checkbox' name='secao' value='recursos' checked> Fonte de recursos anual da OSC<br>";
+	corpo += "</fieldset>";
+
+	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'>Imprimir</button>";
+	btn += "<button type='button' class='btn btn-danger' data-dismiss='modal'>Fechar</button>";
+
+	var tituloCompleto = "Gerar "+titulo;
+	acionarModalAjuda(tituloCompleto, corpo, btn);
+}
+
+function acionarModalAjuda(titulo, corpo, btn) {
   $("#modalTitulo").html("");
   $("#modalTitulo").html(titulo);
   $("#corpoModal").html("");
   $("#corpoModal").html(corpo);
+	$("#btnFooter").html("");
+	$("#btnFooter").html(btn);
   $("#modalAjuda").modal('show');
   verificarContraste();
+}
+
+function imprimir(){
+
+	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
+	  valor = $(this).val();
+		$("#"+valor).hide();
+	});
+
+	$("#modalAjuda").hide();
+	if(window.print){
+		window.print();
+	}
+	window.location.href = absUrl;
+	window.location.reload();
 }
 
 function validateObject(obj){

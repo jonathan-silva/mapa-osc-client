@@ -810,7 +810,7 @@ body.indisponivel {
   float: left;
   padding-left: 5px;
 }
-.btnColabore,.btnEditar{
+.btnColabore,.btnEditar,.btnRelatorioAtividade{
   padding-top: 10px;
   padding-bottom: 5px;
   padding-right: 10px;
@@ -919,7 +919,7 @@ select{
 }
 
 @media print{
-  #header, #rodape, #barra-brasil, .selecao, .topo, footer{
+  #header, #rodape, #barra-brasil, .selecao, .topo, hr, footer{
     display: none !important;
   }
 }
