@@ -43,6 +43,7 @@ class AreaAtuacao {
       }
       */
       //formItens.push(AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+      if (areas_atuacao) {
       if(items[j].id === "macro_area_1"){
         items[j].content = areas_atuacao[0].tx_nome_area_atuacao;
         items[j].subareas_selected = areas_atuacao[0].subarea_atuacao;
@@ -57,6 +58,7 @@ class AreaAtuacao {
         formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
       }
     }
+  }
     //autocomplete macro_area_1 e macro_area_2
     macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
       var newItem = {
