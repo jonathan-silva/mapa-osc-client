@@ -37,11 +37,6 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
     });
   });
 
-  $(".scroll").click(function(event){
-      event.preventDefault();
-      $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
- });
-
 });
 
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'jquery-ui', 'datatables-responsive', 'editarCabecalho'], function (React) {
@@ -479,7 +474,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -506,17 +501,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             cd_certificado = 7;
           }
           var item = {};
-          item.dt_fim_certificado = $(this).val();
-          item.dt_inicio_certificado = null;
-          item.ft_certificado = authHeader.User;
-          item.ft_inicio_certificado = authHeader.User;
-          item.ft_fim_certificado = authHeader.User;
-          item.cd_certificado = cd_certificado;
+          item[$(this).attr("id")] = {};
+          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
+          item[$(this).attr("id")].dt_inicio_certificado = null;
+          item[$(this).attr("id")].ft_certificado = authHeader.User;
+          item[$(this).attr("id")].ft_inicio_certificado = authHeader.User;
+          item[$(this).attr("id")].ft_fim_certificado = authHeader.User;
+          item[$(this).attr("id")].cd_certificado = cd_certificado;
           newJson.certificados.push(item);
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        console.log(newJson);
 
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
