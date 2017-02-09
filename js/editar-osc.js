@@ -311,7 +311,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarObjetivos(json, cd_objetivo){
       var options = json;
       var $selectObjetivos = $divObjetivosProjeto.find("select");
-      $selectObjetivos.append('<option selected id="' + 0 + '">' + "Selecione um item" + '</option>');
+      $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -434,7 +434,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson={};
         newJson.area_atuacao = [];
       }
-      console.log(old_json);
+      console.log("old_json", old_json);
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson.area_atuacao = [];
@@ -474,7 +474,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -516,13 +516,102 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
 
-        // Projetos
+        // Relações de trabalho
+        /*
         var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        console.log(newJson);
+        success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
+        console.log(success);
+        */
+
+        // Projetos
+        var newJson = {};
         var idProjeto = "";
+        function getDataFromForm($elementos){
+          var obj = {};
+          var auxArr = [];
+          $elementos.each(function() {
+            var $pai = $(this).closest(".form-group");
+            var valor = $(this).val();
+            if(valor === "-1"){
+              valor = "";
+            }
+            if($pai.attr("id") === undefined){
+              $pai = $(this).parent();
+            }
+            if($(this).closest(".metas").length > 0){
+              $pai = $(this).closest(".metas")[0];
+              if(obj["metas"] === undefined){
+                obj["metas"] = [];
+              }
+              if($(this).prop("checked")){
+                obj["metas"].push({
+                  "tx_meta_projeto": valor
+                });
+              }
+            } else if( $pai.attr("id") === "fonte_de_recursos"){
+              if(obj[$pai.attr("id")] === undefined){
+                obj[$pai.attr("id")] = {};
+              }
+              var tipo = $(this).parent().parent().attr("id");
+              if(tipo === "fonte_de_recursos"){
+                obj[$pai.attr("id")].cd_origem_fonte_recursos_projeto = valor;
+                obj[$pai.attr("id")].tx_nome_origem_fonte_recursos_projeto = null;
+              } else {
+                obj[$pai.attr("id")].id_fonte_recursos_projeto = null;
+                obj[$pai.attr("id")].cd_fonte_recursos_projeto = valor;
+                obj[$pai.attr("id")].tx_nome_fonte_recursos_projeto = null;
+                obj[$pai.attr("id")].ft_fonte_recursos_projeto = null;
+              }
+            } else if( $pai.attr("id") === "autodeclaradas"){
+              if(Array.isArray(obj[$pai.attr("id")])){
+                obj[$pai.attr("id")].push({
+                  "cd_area_atuacao_projeto": null,
+                  "tx_area_atuacao_projeto": valor
+                });
+              } else {
+                obj[$pai.attr("id")] = [];
+                obj[$pai.attr("id")].push({
+                  "cd_area_atuacao_projeto": null,
+                  "tx_area_atuacao_projeto": valor
+                });
+              }
+            } else if ($pai.attr("id") === "objetivos"){
+              console.log($(this).val());
+            } else {
+              obj[$pai.attr("id")] = valor;
+            }
+          });
+          return obj;
+        }
         $(".projeto").each(function(){
           console.log("projeto");
           var str = $(this).attr("id");
           idProjeto = str.substring(str.indexOf("-") + 1);
+
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
+          /*
+          $(this).find("input").each(function() {
+            var $pai = $(this).closest(".form-group");
+            newJson[$pai.attr("id")] = $(this).val();
+          });
+          $(this).find("textarea").each(function() {
+            var $pai = $(this).closest(".form-group");
+            newJson[$pai.attr("id")] = $(this).val();
+          });
+          $(this).find("select").each(function() {
+            var $pai = $(this).closest(".form-group");
+            if($pai.attr("id") === undefined){
+              $pai = $(this).parent();
+            }
+            newJson[$pai.attr("id")] = $(this).val();
+          });*/
+
+          /*
           $(this).find(".form-group").each(function(){
             if($(this).children().length <= 1){
               $child = $(this).children(':first');
@@ -540,7 +629,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             }
           });
-          newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
+          */
+          //newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
           console.log(newJson);

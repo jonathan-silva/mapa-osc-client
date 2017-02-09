@@ -102,7 +102,7 @@ class Projeto {
     var localizacao = util.getTipoProjeto("localizacao_projeto", project.localizacao);
     var fonte = this.getFonteDeRecursosProjeto(projectId);
     var publicoBeneficiado = util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado);
-    var financiadores = util.getTipoProjeto("financiador_projeto", project.financiador_projeto);console.log(project);
+    var financiadores = util.getTipoProjeto("financiador_projeto", project.financiador_projeto);
     var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
     var parceiras = util.getTipoProjeto("osc_parceira", project.osc_parceira);
     var valorMeta = "";
@@ -141,6 +141,7 @@ class Projeto {
         },
         success: function(data){
           res = data;
+          console.log(res);
         }
       });
       agrupadores = this.montarProjeto(res, util, dadosForm);
@@ -160,6 +161,7 @@ class Projeto {
       "value": "Adicionar"
     };
     var sectionId = object.id
+    console.log(object);
     var element = labelMap[object.id];
     var inputs = [];
     var value = "";
@@ -174,9 +176,16 @@ class Projeto {
       buttonsAgrupador = [buttonAdd];
       buttonsInLine = true;
     }
+    if(object.dados.length === 0){
+      var inputId = sectionId;
+      value = "";
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+      inputs.push(inputProjeto);
+    }
     for (var i = 0; i < object.dados.length; i++) {
       var inputId = sectionId;
       for (var property in object.dados[i]) {
+        console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
           if(sectionId == "fonte_de_recursos"){
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
