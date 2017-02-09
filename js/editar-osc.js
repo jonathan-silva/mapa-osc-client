@@ -512,7 +512,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        //console.log(newJson);
+        console.log(newJson);
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -634,7 +634,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
           console.log(newJson);
-          success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
+          success = util.carregaAjax(rotas.AtualizarProjectByID(idProjeto), 'POST', newJson);
           console.log(success);
         });
       //});
