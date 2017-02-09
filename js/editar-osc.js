@@ -520,11 +520,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
-
+        
         // Projetos
         var newJson = [];
         var idProjeto = "";
         $(".projeto").each(function(){
+          console.log("projeto");
           var str = $(this).attr("id");
           idProjeto = str.substring(str.indexOf("-") + 1);
           $(this).find(".form-group").each(function(){
@@ -547,7 +548,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-
+          console.log(newJson);
           success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
           console.log(success);
         });
