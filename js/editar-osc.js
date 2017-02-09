@@ -435,6 +435,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson.area_atuacao = [];
       }
       console.log(old_json);
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
       newJson.area_atuacao = [];
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
@@ -450,7 +452,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area,
-          "tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
+          //"tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
         }
 
         var subareas = [];
@@ -460,20 +462,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var isLabelOutros = ($(this).closest("label").text() === "Outros");
 
             subareas.push({
-              "tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
+              //"tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
               "cd_subarea_atuacao": $(this).val(),
-              "ft_area_atuacao": "Representante"
+              //"ft_area_atuacao": "Representante"
             });
           });
 
           if(subareas){
-            obj_area_atuacao.subareas = subareas;
+            obj_area_atuacao.subarea_atuacao = subareas;
           }
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
         console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
@@ -491,7 +491,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         //Certificacoes
         var newJson = {};
-        newJson.certificados = [];
+        newJson.certificado = [];
         $("#certificacoes .form-control").each(function(){
           var cd_certificado = 0;
           if($(this).attr("id").substring(18) === "estadual"){
@@ -501,21 +501,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             cd_certificado = 7;
           }
           var item = {};
-          item[$(this).attr("id")] = {};
-          item[$(this).attr("id")].dt_fim_certificado = $(this).val();
-          item[$(this).attr("id")].dt_inicio_certificado = null;
-          item[$(this).attr("id")].ft_certificado = authHeader.User;
-          item[$(this).attr("id")].ft_inicio_certificado = authHeader.User;
-          item[$(this).attr("id")].ft_fim_certificado = authHeader.User;
-          item[$(this).attr("id")].cd_certificado = cd_certificado;
-          newJson.certificados.push(item);
+          item = {};
+          item.dt_fim_certificado = $(this).val();
+          item.dt_inicio_certificado = null;
+          item.ft_certificado = authHeader.User;
+          item.ft_inicio_certificado = authHeader.User;
+          item.ft_fim_certificado = authHeader.User;
+          item.cd_certificado = cd_certificado;
+          newJson.certificado.push(item);
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-
+        //console.log(newJson);
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
-        
+
         // Projetos
         var newJson = [];
         var idProjeto = "";
