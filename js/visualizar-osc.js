@@ -156,8 +156,12 @@ function imprimir(){
 	if(window.print){
 		window.print();
 	}
-	window.location.href = absUrl;
-	window.location.reload();
+	
+	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
+		valor = $(this).val();
+		$("#"+valor).show();
+	});
+
 }
 
 function validateObject(obj){

@@ -922,6 +922,7 @@ select{
   #header, #rodape, #barra-brasil, .selecao, .topo, hr, footer{
     display: none !important;
   }
+  #conteudo{padding-bottom: 0px;}
 }
 
 tbody tr {
