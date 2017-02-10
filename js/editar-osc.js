@@ -641,7 +641,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           success = util.carregaAjax(rotas.AtualizarProjectByID(idProjeto), 'POST', newJson);
           console.log(success);
         });
+        console.log(old_json);
+        // Fonte de recursos
+        newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $("#recursos").children().each(function(){
+          var obj = {};
+          var ano = $(this).find("select").val();
+          obj["dt_ano_recursos_osc"] = ano;
+          $(this).find("input").each(function(){
+            obj[$(this).attr("id")] = $(this).val();
+          })
+          newJson.push(obj);
+        });
+        console.log(newJson);
       //});
+
+
+
     });
   });
 
