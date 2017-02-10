@@ -38,8 +38,15 @@ define(['react','rotas'], function(React) {
       for (var i=0; i< this.props.submenu.length; i++) {
         var l = this.props.submenu[i];
         //se titulo vir vazio entende-se que devemos adicionar um separador
-        if (l.text=='') elems.push(<li className="divider"></li>);
-        else elems.push(<li><a href={l.link}>{l.text}</a></li>);
+        if (l.text=='') {
+          elems.push(<li className="divider"></li>);
+        }
+        else if (l.text=='Sair') {
+          elems.push(<li><a href={l.link}><span className="glyphicon glyphicon-log-out" aria-hidden="true"></span> {l.text}</a></li>);
+        }
+        else {
+          elems.push(<li><a href={l.link}>{l.text}</a></li>);
+        }
       }
       return elems;
     },
