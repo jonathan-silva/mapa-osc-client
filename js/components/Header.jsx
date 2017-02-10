@@ -244,8 +244,8 @@ define(['react','rotas'], function(React) {
                 </form>
               </div>
               <div className="modal-footer">
-                <a type="submit" className="btn btn-success" onClick={this.getComponent.bind(this, 6)}>Entrar</a>
-                <a className="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                <a type="submit" className="btn btn-success" onClick={this.getComponent.bind(this, 6)}><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> Entrar</a>
+                <a className="btn btn-danger" data-dismiss="modal"><span className="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</a>
                 <a type="button" className="btn btn-link" href="recuperar-senha.html">Esqueci a senha</a>
               </div>
             </div>

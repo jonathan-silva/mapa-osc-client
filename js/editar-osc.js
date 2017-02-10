@@ -410,6 +410,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
       });
     }
+    // Cancelar
+    $("#cancelar").click(function(){
+      window.location.href='/visualizar-osc.html#/'+idOsc;
+    });
 
     // Salvar
     $("#salvar").click(function(){

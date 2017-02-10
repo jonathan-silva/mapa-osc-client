@@ -127,7 +127,7 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<input type='checkbox' name='secao' value='recursos' checked> Fonte de recursos anual da OSC<br>";
 	corpo += "</fieldset>";
 
-	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'>Imprimir</button>";
+	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
 	btn += "<button type='button' class='btn btn-danger' data-dismiss='modal'>Fechar</button>";
 
 	var tituloCompleto = "Gerar "+titulo;
@@ -156,7 +156,7 @@ function imprimir(){
 	if(window.print){
 		window.print();
 	}
-	
+
 	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
 		valor = $(this).val();
 		$("#"+valor).show();
@@ -176,7 +176,7 @@ function validateObject(obj){
 
 function verificarBotaoEditar(id){
 	if(verificarPermissaoBotao(id)){
-		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm">Editar OSC</a>');
+		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar OSC</a>');
 		$("#btnEditar").attr("href","editar-osc.html#/"+id);
 	}
 }
