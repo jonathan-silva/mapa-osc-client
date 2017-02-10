@@ -135,7 +135,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
             newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
             newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
-            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info">Detalhar &nbsp;<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>';
+            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
             i++;
           }
         }
@@ -173,7 +173,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            $('#loading').addClass('hide');
        }
        else {
-          $('#modalMensagem').modal({backdrop: 'static', keyboard: false}); 
+          $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
           $('#modalTitle').text('Nenhuma OSC encontrada');
           $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
           $('#modalMensagem').modal('show');
@@ -212,7 +212,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
                     '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
                     '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
-                    '<div align="center"><button type = button class="btn btn-info" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">Detalhes</button>'+
+                    '<div align="center"><button type = button class="btn btn-info" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
         }
