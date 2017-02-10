@@ -88,6 +88,9 @@ class Rotas{
   ProjectByID(id){
     return this.getBaseUrl()+":8383/api/projeto/"+id;
   }
+  AtualizarProjectByID(id){
+    return this.getBaseUrl()+":8383/api/osc/projeto/"+id;
+  }
   Objetivos(){
     return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";
   }
@@ -114,6 +117,27 @@ class Rotas{
   }
   Certificado(id){
     return this.getBaseUrl()+":8383/api/osc/certificado/"+id;
+  }
+  RelacoesTrabalho(id){
+    return this.getBaseUrl()+":8383/api/osc/relacoestrabalho/"+id;
+  }
+  RelacoesTrabalhoOutra(id){
+    return this.getBaseUrl()+":8383/api/osc/relacoestrabalhooutra/"+id;
+  }
+  ParticipacaoSocialConselho(id){
+    return this.getBaseUrl()+":8383/api/osc/participacaosocialconselho/"+id;
+  }
+  ParticipacaoSocialConferencia(id){
+    return this.getBaseUrl()+":8383/api/osc/participacaosocialconferencia/"+id;
+  }
+  ParticipacaoSocialConferenciaOutra(id){
+    return this.getBaseUrl()+":8383/api/osc/participacaosocialconferenciaoutra/"+id;
+  }
+  ParticipacaoSocialDeclarada(id){
+    return this.getBaseUrl()+":8383/api/osc/participacaosocialdeclarada/"+id;
+  }
+  OutraParticipacaoSocial(id){
+    return this.getBaseUrl()+":8383/api/osc/outraparticipacaosocial/"+id;
   }
 
   // editais.js
