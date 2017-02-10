@@ -276,7 +276,7 @@ require(['react', 'jsx!components/Util'], function(React) {
 
 
             $.ajax({
-                //url: 'http://localhost:8080/api/user/',
+                //url: 'http://mapaosc-desenv:8383/api/user/',
                 url: controller,
                 type: 'POST',
                 dataType: 'json',
