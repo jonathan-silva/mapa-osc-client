@@ -410,13 +410,6 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         }
         var labelElement;
 
-        function contains( substring, string ) {
-          if (typeof string === 'string'){
-            return string.indexOf(substring)>=0;
-          } else {
-            return false;
-          }
-        }
         if(item.label){
           var obrigatorio;
           if(item.obrigatorio){
@@ -782,7 +775,7 @@ define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (R
           ButtonElement = <button className="btn-primary btn">Adicionar</button>
         } else {
           ButtonElement = <button className="btn-danger btn">Remover</button>
-        }
+        }        
         itens.push(
           <div>
             <FormItem dados={[item]}></FormItem>
@@ -1302,3 +1295,10 @@ define('componenteLinhaProjeto', ['react', 'componenteColunaProjeto'], function 
     }
   });
 });*/
+function contains( substring, string ) {
+  if (typeof string === 'string'){
+    return string.indexOf(substring)>=0;
+  } else {
+    return false;
+  }
+}
