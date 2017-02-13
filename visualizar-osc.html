@@ -120,7 +120,7 @@
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj | limitTo : -4}}</span>
-                <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_inscricao_osc == null">Não informado</span>
+                <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj == null">Não informado</span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj != 'Representante' && ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
