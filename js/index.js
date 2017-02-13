@@ -163,6 +163,7 @@ require(["jquery-ui", "rotas"], function (React) {
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
     val = val.replace(/ /g, '+');//troca espaços por '+'
+    val = replaceSpecialChars(val);
     var link;
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?"+id+"="+val;
@@ -182,18 +183,18 @@ require(["jquery-ui", "rotas"], function (React) {
   });
 
   function replaceSpecialChars(str){
-    str = str.replace(/[ÀÁÂÃÄÅ]/,"A");
-    str = str.replace(/[àáâãäå]/,"a");
-    str = str.replace(/[ÉÈÊË]/,"E");
-    str = str.replace(/[éèêë]/,"e");
-    str = str.replace(/[ÍÌÎÏ]/,"I");
-    str = str.replace(/[íìîï]/,"i");
-    str = str.replace(/[ÓÒÔÕ]/,"O");
-    str = str.replace(/[óòôõ]/,"o");
-    str = str.replace(/[ÚÙÛÜ]/,"U");
-    str = str.replace(/[úùûü]/,"u");
-    str = str.replace(/[Ç]/,"C");
-    str = str.replace(/[ç]/,"c");
+    str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+    str = str.replace(/[àáâãäå]/g,"a");
+    str = str.replace(/[ÉÈÊË]/g,"E");
+    str = str.replace(/[éèêë]/g,"e");
+    str = str.replace(/[ÍÌÎÏ]/g,"I");
+    str = str.replace(/[íìîï]/g,"i");
+    str = str.replace(/[ÓÒÔÕ]/g,"O");
+    str = str.replace(/[óòôõ]/g,"o");
+    str = str.replace(/[ÚÙÛÜ]/g,"U");
+    str = str.replace(/[úùûü]/g,"u");
+    str = str.replace(/[Ç]/g,"C");
+    str = str.replace(/[ç]/g,"c");
     return str;
   }
 
