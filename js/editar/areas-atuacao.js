@@ -36,20 +36,16 @@ class AreaAtuacao {
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
-      /*
-      if(macro_area_suggestions.length > j){
-        content = macro_area_suggestions[j].tx_nome_area_atuacao;
-        fonte = macro_area_suggestions[j].ft_nome_area_atuacao;
-      }
-      */
-      //formItens.push(AutocompleteItem(items[j].id, items[j].label, content, fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions));
+
       if(items[j].id === "macro_area_1"){
         items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
         items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
+        items[j].fonte = (areas_atuacao)?areas_atuacao[0].subarea_atuacao[0].ft_area_atuacao:null;
       }
       if(items[j].id === "macro_area_2"){
         items[j].content = (areas_atuacao)?areas_atuacao[1].tx_nome_area_atuacao:"";
         items[j].subareas_selected = (areas_atuacao)?areas_atuacao[1].subarea_atuacao:"";
+        items[j].fonte = (areas_atuacao)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
       }
       if(items[j].custom_class === "autocomplete"){
         formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));

@@ -316,7 +316,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
-        if((item.fonte) && (item.type== 'p')){
+        if(item.fonte != 'Representante' && item.fonte != null){
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
@@ -775,7 +775,7 @@ define('componenteFormItemButtons', ['react', 'componenteFormItem'], function (R
           ButtonElement = <button className="btn-primary btn">Adicionar</button>
         } else {
           ButtonElement = <button className="btn-danger btn">Remover</button>
-        }        
+        }
         itens.push(
           <div>
             <FormItem dados={[item]}></FormItem>
