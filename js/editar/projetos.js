@@ -64,7 +64,7 @@ class Projeto {
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = 0;//project.id_projeto;
-    var project = project.projeto[0];
+    var project = project.projeto[0];console.log(project);
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
     for (var property in project) {
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
