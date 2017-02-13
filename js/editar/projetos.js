@@ -61,12 +61,11 @@ class Projeto {
 
   montarProjeto(project, util, dadosForm){
     var labelMap = dadosForm.labelsProjeto();
-
     var arrayCampos = [];
     var agrupadores = [];
-    var projectId = project.id_projeto;
+    var projectId = 0;//project.id_projeto;
+    var project = project.projeto[0];
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
-
     for (var property in project) {
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
@@ -79,7 +78,6 @@ class Projeto {
         var placeholder = labelMap[property].placeholder;
         var buttons = null;
         var buttonsInLine = false;
-
         if((value === null) || (value.constructor !== Array)){
           var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
@@ -141,7 +139,7 @@ class Projeto {
         },
         success: function(data){
           res = data;
-          console.log(res);
+          //console.log(res);
         }
       });
       agrupadores = this.montarProjeto(res, util, dadosForm);
@@ -161,7 +159,7 @@ class Projeto {
       "value": "Adicionar"
     };
     var sectionId = object.id
-    console.log(object);
+    //console.log(object);
     var element = labelMap[object.id];
     var inputs = [];
     var value = "";
@@ -185,7 +183,7 @@ class Projeto {
     for (var i = 0; i < object.dados.length; i++) {
       var inputId = sectionId;
       for (var property in object.dados[i]) {
-        console.log(property);
+        //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
           if(sectionId == "fonte_de_recursos"){
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
