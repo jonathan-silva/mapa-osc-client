@@ -22,7 +22,7 @@
             <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
           <div ng-if="ctrl.osc.cabecalho.im_logo != null" class="divImg">
-            <img src="ctrl.osc.cabecalho.im_logo" class="img-rounded media-object logoOSC">
+            <img src={{ctrl.osc.dados_gerais.im_logo}} class="img-rounded media-object logoOSC">
           </div>
           <div>
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
