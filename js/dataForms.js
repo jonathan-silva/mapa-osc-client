@@ -898,13 +898,13 @@ class DataForms{
         "placeholder": "Insira a descrição do projeto"
       },
       "objetivos": {
-        "header": "Objetivos de desenvolvimento do milênio",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)
+        "header": "Objetivos do Desenvolvimento Sustentável - ODS",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)
         "containerClass": "col-md-12",
         "removable": false,
         "type": "select",
         "options": null
       },
-      "objetivos_metas": {
+      "objetivo_metas": {
         "header": null,
         "containerClass": null,
         "removable": false,

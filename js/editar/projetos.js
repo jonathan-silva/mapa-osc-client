@@ -60,13 +60,13 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm){
-    var labelMap = dadosForm.labelsProjeto();
+    var labelMap = dadosForm.labelsProjeto();console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = 0;//project.id_projeto;
     var project = project.projeto[0];console.log(project);
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
-    for (var property in project) {
+    for (var property in project) { //labelMap[property]) { console.log(property);
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
         var value = project[property];
@@ -88,10 +88,16 @@ class Projeto {
           console.log(inputProjeto);
           console.log(agrupadorInputProjeto);
         };*/
-      }/*
-      else if ((project.hasOwnProperty(property)) && (labelMap[property] == undefined)){
-        console.log(labelMap);
+      }
+      else {
+        if (!( project.hasOwnProperty(property) ) ) { console.log(labelMap[property]);}
+        if (labelMap[property] == undefined){ console.log(property);}
+        /*if ( !(project.hasOwnProperty(property)) || (labelMap[property] == undefined)){
+        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
+        var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+        agrupadores.push(agrupadorInputProjeto);
       }*/
+     }
     }
     var area_atuacao_projeto = util.validateObject(project.area_atuacao) ? project.area_atuacao : [];
     var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
@@ -114,6 +120,12 @@ class Projeto {
       if(util.validateObject(multipleInputs[j].dados)){
         var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
         agrupadores.push(agrupador);
+      }
+      else {
+        console.log(multipleInputs[j]);
+        /* if ()
+        var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
+        agrupadores.push(agrupador);*/
       }
     }
     return agrupadores;
