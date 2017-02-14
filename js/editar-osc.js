@@ -539,6 +539,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var obj = {}
           obj.conselho = {};
           obj.representante = {};
+          var empty = false;
           $(this).find("input").each(function(){
             var split = $(this).attr("id").split("-");
             var campo = split[0];
@@ -550,8 +551,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               obj.conselho.id_conselho = conselho_id;
               obj.conselho[campo] = $(this).val();
             }
+            if((conselho_id === "0") && ($(this).val() === "")){
+              empty = true;
+            }
           });
-          newJson.push(obj);
+          if(!empty){
+            newJson.push(obj);
+          }
         });
         console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
