@@ -589,12 +589,29 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Outros espaços
-        // var newJson = [];
-        // newJson["headers"] = authHeader;
-        // newJson["id_osc"] = idOsc;
-        // console.log(newJson);
-        // success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
-        // console.log(success);
+        var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $("#outros_part").find("div").children(".form-group").each(function(){
+          var obj = {}
+          var empty = false;
+          $(this).find("input").each(function(){
+            var split = $(this).attr("id").split("-");
+            var campo = split[0];
+            var outros_part_id = split[1];
+            obj[campo] = $(this).val();
+            obj.id_participacao_social_outra = outros_part_id;
+            if((outros_part_id === "0") && ($(this).val() === "")){
+              empty = true;
+            }
+          });
+          if(!empty){
+            newJson.push(obj);
+          }
+        });
+        console.log(newJson);
+        success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
+        console.log(success);
 
         // Projetos
         var newJson = {};

@@ -124,12 +124,12 @@ class EspacosPartSocial {
         for (var property in outras[j]) {
           if (outras[j].hasOwnProperty(property)) {
             if(property == "tx_nome_participacao_social_outra"){
-              formItens.push(util.FormItens(outra[j].id, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
+              formItens.push(util.FormItens(property+"-"+outras[j].id_participacao_social_outra, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", outras[j].tx_nome_participacao_social_outra, outras[j].ft_participacao_social_outra, null, "text"));
             }
           }
         }
       }
-      formItens.push(util.FormItens(null, "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
+      formItens.push(util.FormItens("tx_nome_participacao_social_outra-0", "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
       arraySecao.push(formItens);
     }
