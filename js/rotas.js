@@ -130,12 +130,6 @@ class Rotas{
   ParticipacaoSocialConferencia(id){
     return this.getBaseUrl()+":8383/api/osc/participacaosocialconferencia/"+id;
   }
-  ParticipacaoSocialConferenciaOutra(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialconferenciaoutra/"+id;
-  }
-  ParticipacaoSocialDeclarada(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialdeclarada/"+id;
-  }
   OutraParticipacaoSocial(id){
     return this.getBaseUrl()+":8383/api/osc/outraparticipacaosocial/"+id;
   }

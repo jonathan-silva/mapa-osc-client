@@ -530,6 +530,49 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
         */
 
+        // Participacao social
+        // Conselho
+        var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $(".conselho").each(function(){
+          var obj = {}
+          obj.conselho = {};
+          obj.representante = {};
+          $(this).find("input").each(function(){
+            var split = $(this).attr("id").split("-");
+            var campo = split[0];
+            var conselho_id = split[1];
+            if(campo === "tx_nome_representante_conselho"){
+              obj.representante.id_participacao_social_conselho = conselho_id;
+              obj.representante[campo] = $(this).val();
+            } else {
+              obj.conselho.id_conselho = conselho_id;
+              obj.conselho[campo] = $(this).val();
+            }
+          });
+          newJson.push(obj);
+        });
+        console.log(newJson);
+        success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
+        console.log(success);
+
+        // Conferência
+        // var newJson = [];
+        // newJson["headers"] = authHeader;
+        // newJson["id_osc"] = idOsc;
+        // console.log(newJson);
+        // success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
+        // console.log(success);
+
+        // Outros espaços
+        // var newJson = [];
+        // newJson["headers"] = authHeader;
+        // newJson["id_osc"] = idOsc;
+        // console.log(newJson);
+        // success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
+        // console.log(success);
+
         // Projetos
         var newJson = {};
         var idProjeto = "";
