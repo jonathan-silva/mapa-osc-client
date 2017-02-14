@@ -432,12 +432,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       console.log(success);
 
       //Áreas de atuação
-      if(util.validateObject(old_json.area_atuacao)){
-        newJson = old_json.area_atuacao;
-      } else{
-        newJson={};
-        newJson.area_atuacao = [];
-      }
+      // if(util.validateObject(old_json.area_atuacao)){
+      //   newJson = old_json.area_atuacao;
+      // } else{
+      //   newJson={};
+      //   newJson.area_atuacao = [];
+      // }
+      newJson={};
+      newJson.area_atuacao = [];
       console.log("old_json", old_json);
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
@@ -455,8 +457,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var idMacroAreaOutros = $("#macro_area_"+macro_area_id+"_outros").val();
 
         obj_area_atuacao = {
-          "cd_area_atuacao": cd_area,
-          //"tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
+          "cd_area_atuacao": cd_area.toString(),
+          "tx_nome_subarea_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
         }
 
         var subareas = [];
@@ -466,7 +468,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var isLabelOutros = ($(this).closest("label").text() === "Outros");
 
             subareas.push({
-              //"tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
+              "tx_nome_subarea_atuacao_outra": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : null,
               "cd_subarea_atuacao": $(this).val(),
               //"ft_area_atuacao": "Representante"
             });
@@ -478,7 +480,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        //console.log(newJson);
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
