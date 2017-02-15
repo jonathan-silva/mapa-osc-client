@@ -133,6 +133,15 @@ class Rotas{
   OutraParticipacaoSocial(id){
     return this.getBaseUrl()+":8383/api/osc/outraparticipacaosocial/"+id;
   }
+  Conselho(){
+    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+  }
+  Conferencia(){
+    return this.getBaseUrl()+":8383/api/menu/osc/conferencia/";
+  }
+  FormaParticipacao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
+  }
 
   // editais.js
   Edital(){

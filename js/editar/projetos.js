@@ -64,7 +64,7 @@ class Projeto {
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
-    var project = (util.validateObject(project.projeto))?project.projeto[0]:project;//console.log(project);
+    var project = (util.validateObject(project.projeto))?project.projeto[0]:project;
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
     for (var property in project) { //labelMap[property]) { console.log(property);
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
@@ -102,7 +102,7 @@ class Projeto {
     var fonte = this.getFonteDeRecursosProjeto(projectId);
     var publicoBeneficiado = util.validateObject(project.publico_beneficiado) ? util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado) : util.getTipoProjeto("publico_beneficiado", []);
     var financiadores = util.validateObject(project.financiador_projeto) ? util.getTipoProjeto("financiador_projeto", project.financiador_projeto) : util.getTipoProjeto("financiador_projeto", []);
-    var autodeclaradas = util.validateObject(autodeclaradas) ? util.getTipoProjeto("autodeclaradas", autodeclaradas) : util.getTipoProjeto("autodeclaradas", "");
+    var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
     var parceiras = util.validateObject(project.osc_parceira) ? util.getTipoProjeto("osc_parceira", project.osc_parceira) : util.getTipoProjeto("osc_parceira", []);
     var valorMeta = "";
     var idObjetivo = "";
@@ -117,6 +117,7 @@ class Projeto {
         agrupadores.push(agrupador);
       }
     }
+    //metasObjetivos(project, projectId);
     return agrupadores;
   }
 

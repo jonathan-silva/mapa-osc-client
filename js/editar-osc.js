@@ -93,6 +93,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     var divObjetivosMetasProjeto='';
 
+    /*$.ajax({
+      url: rotas.Conselho(),
+      type: 'GET',
+      dataType: 'json',
+      conselhos:{flag: "", rota: urlRota},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(conselhos){return conselhos}*/
+
     $.ajax({
       url: rotas.OSCByID_no_project(idOsc),
       type: 'GET',
@@ -121,7 +132,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM);
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.FormaParticipacao());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm);
@@ -293,7 +304,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
 
       $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
-      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank><img className="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
@@ -432,14 +443,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       console.log(success);
 
       //Áreas de atuação
-      // if(util.validateObject(old_json.area_atuacao)){
-      //   newJson = old_json.area_atuacao;
-      // } else{
-      //   newJson={};
-      //   newJson.area_atuacao = [];
-      // }
-      newJson={};
-      newJson.area_atuacao = [];
+      if(util.validateObject(old_json.area_atuacao)){
+        newJson = old_json.area_atuacao;
+      } else{
+        newJson={};
+        newJson.area_atuacao = [];
+      }
       console.log("old_json", old_json);
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
@@ -457,8 +466,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var idMacroAreaOutros = $("#macro_area_"+macro_area_id+"_outros").val();
 
         obj_area_atuacao = {
-          "cd_area_atuacao": cd_area.toString(),
-          "tx_nome_subarea_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
+          "cd_area_atuacao": cd_area,
+          //"tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
         }
 
         var subareas = [];
@@ -468,7 +477,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var isLabelOutros = ($(this).closest("label").text() === "Outros");
 
             subareas.push({
-              "tx_nome_subarea_atuacao_outra": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : null,
+              //"tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
               "cd_subarea_atuacao": $(this).val(),
               //"ft_area_atuacao": "Representante"
             });
@@ -480,7 +489,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -531,89 +540,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
         console.log(success);
         */
-
-        // Participacao social
-        // Conselho
-        var newJson = [];
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        $(".conselho").each(function(){
-          var obj = {}
-          obj.conselho = {};
-          obj.representante = {};
-          var empty = false;
-          $(this).find("input").each(function(){
-            var split = $(this).attr("id").split("-");
-            var campo = split[0];
-            var conselho_id = split[1];
-            if(campo === "tx_nome_representante_conselho"){
-              obj.representante.id_participacao_social_conselho = conselho_id;
-              obj.representante[campo] = $(this).val();
-            } else {
-              obj.conselho.id_conselho = conselho_id;
-              obj.conselho[campo] = $(this).val();
-            }
-            if((conselho_id === "0") && ($(this).val() === "")){
-              empty = true;
-            }
-          });
-          if(!empty){
-            newJson.push(obj);
-          }
-        });
-        console.log(newJson);
-        success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
-        console.log(success);
-
-        // Conferência
-        var newJson = [];
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        $(".conferencia").each(function(){
-          var obj = {}
-          var empty = false;
-          $(this).find("input").each(function(){
-            var split = $(this).attr("id").split("-");
-            var campo = split[0];
-            var conferencia_id = split[1];
-            obj[campo] = $(this).val();
-            obj.cd_conferencia = conferencia_id;
-            if((conferencia_id === "0") && ($(this).val() === "")){
-              empty = true;
-            }
-          });
-          if(!empty){
-            newJson.push(obj);
-          }
-        });
-        console.log(newJson);
-        success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
-        console.log(success);
-
-        // Outros espaços
-        var newJson = [];
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        $("#outros_part").find("div").children(".form-group").each(function(){
-          var obj = {}
-          var empty = false;
-          $(this).find("input").each(function(){
-            var split = $(this).attr("id").split("-");
-            var campo = split[0];
-            var outros_part_id = split[1];
-            obj[campo] = $(this).val();
-            obj.id_participacao_social_outra = outros_part_id;
-            if((outros_part_id === "0") && ($(this).val() === "")){
-              empty = true;
-            }
-          });
-          if(!empty){
-            newJson.push(obj);
-          }
-        });
-        console.log(newJson);
-        success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
-        console.log(success);
 
         // Projetos
         var newJson = {};

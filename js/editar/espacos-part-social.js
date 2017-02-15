@@ -33,7 +33,7 @@ class EspacosPartSocial {
     util.addItem('outros_part');
   }
 
-  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM){
+  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, formas){
     var tx_sem_participacao_social = "Não há registros de participação social";
     var participacao_social_form = dadosForm.partSocial();
     var items = participacao_social_form.items;
@@ -44,11 +44,11 @@ class EspacosPartSocial {
       ), document.getElementById(items[0].target)
     );
 
-    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form);
+    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, formas);
   }
 
-  montarEspacosParticipacaoSocial(json, util, participacao_social_form){
-    var arraySecao = [];
+  montarEspacosParticipacaoSocial(json, util, participacao_social_form, conselho, conferencia, forma){
+    var arraySecao = []; console.log(conselho);
 
     var nomeConselho = util.validateObject(json.participacao_social) ? "tx_nome_conselho-0" : null;
     var nomeTipoParticipacao = util.validateObject(json.participacao_social) ? "tx_nome_tipo_participacao-0" : null;
