@@ -30,7 +30,6 @@ class AreaAtuacao {
     var formItens = [];
     var dados_form = dadosForm.areasAtuacao();
     var items = dados_form.form_items;
-    console.log(areas_atuacao);
     formItens.push(this.AutocompleteItem(items[0].id, items[0].label, util.validateObject(tx_nome_atividade_economica_osc) ? tx_nome_atividade_economica_osc:"Não informado", util.validateObject(ft_atividade_economica_osc) ? ft_atividade_economica_osc:"Não informado", items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
     items.splice(0,1);
     //console.log(items);
@@ -47,6 +46,22 @@ class AreaAtuacao {
           items[j].content = (areas_atuacao.length>1)?areas_atuacao[1].tx_nome_area_atuacao:"";
           items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:"";
           items[j].fonte = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
+        }
+        if(util.validateObject(areas_atuacao[0])){
+          if(items[j].id === "macro_area_1_outros"){
+            items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
+          }
+          if(items[j].id === "sub_area_1_outros"){
+            items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao!==null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
+          }
+        }
+        if(util.validateObject(areas_atuacao[1])){
+          if(items[j].id === "macro_area_2_outros"){
+            items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
+          }
+          if(items[j].id === "sub_area_2_outros"){
+            items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao!==null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
+          }
         }
         if(items[j].custom_class === "autocomplete"){
           formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
@@ -161,6 +176,16 @@ class AreaAtuacao {
       change: function( event, ui ) {
       },
       select: function(event, ui){
+        if(event.target.id == 'macro_area_1'){
+          $('#sub_area_1_outros').parent().parent().addClass('hidden');
+          $('#sub_area_1_outros').val('');
+          $(this).parent().find(':checkbox').prop("checked", false);
+        }
+        else{
+          $('#sub_area_2_outros').parent().parent().addClass('hidden');
+          $('#sub_area_2_outros').val('');
+          $(this).parent().find(':checkbox').prop("checked", false);
+        }
         var targetElement = event.target;
         var id = macro_area_suggestions.indexOf(ui.item)+1;
         id_suggestion = id;
@@ -207,7 +232,6 @@ class AreaAtuacao {
             $input.val("");
           }
         }
-
       }
     });
 
@@ -268,5 +292,12 @@ class AreaAtuacao {
         }
       });
     });
+    var macro_area_1 = $('#macro_area_1');
+    var macro_area_2 = $('#macro_area_2');
+    if(macro_area_1.val()=='Outros')
+      $('#macro_area_1_outros').parent().parent().removeClass('hidden');
+    if(macro_area_2.val()=='Outros')
+      $('#macro_area_2_outros').parent().parent().removeClass('hidden');
+
   }
 }
