@@ -3,8 +3,12 @@ class FonteRecurso {
 
   }
 
-  montarPorAno(ano, index, recursos, util, sections, recursos_form, React, ReactDOM, Section, FormItem) {
+  montarPorAno(ano, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     //console.log(ano);
+    var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
+    var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
+    var recursos_nao_financeiros = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 3; });
+    var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
     $("#recursos").append('<div id='+ano+'></div>');
     if(index !== 0){
       $('#'+ano).toggleClass("hidden");
@@ -33,10 +37,12 @@ class FonteRecurso {
 
     //recursos
     //colocando dados no Array
-    recursos_form.recursos_nao_financeiros = this.mapContentRecursos(recursos.recursos_nao_financeiros, recursos_form.recursos_nao_financeiros);
-    recursos_form.recursos_privados = this.mapContentRecursos(recursos.recursos_privados, recursos_form.recursos_privados);
-    recursos_form.recursos_proprios = this.mapContentRecursos(recursos.recursos_proprios, recursos_form.recursos_proprios);
-    recursos_form.recursos_publicos = this.mapContentRecursos(recursos.recursos_publicos, recursos_form.recursos_publicos);
+    recursos_form.recursos_nao_financeiros = this.mapContentRecursos(recursos.recursos_nao_financeiros, recursos_nao_financeiros);
+    recursos_form.recursos_privados = this.mapContentRecursos(recursos.recursos_privados, recursos_privados);
+    recursos_form.recursos_proprios = this.mapContentRecursos(recursos.recursos_proprios, recursos_proprios);
+    recursos_form.recursos_publicos = this.mapContentRecursos(recursos.recursos_publicos, recursos_publicos);
+    console.log(recursos_form);
+
     var recursosArray=[
       {//proprios
         "items": recursos_form.recursos_proprios,
@@ -91,11 +97,32 @@ class FonteRecurso {
     $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
   }
 
-  montarFontedeRecursos(json, util, dadosForm, React, ReactDOM, Section, FormItem){
+  carregaFontes(rotas){
+    var fontesRecursos = null;
+    $.ajax({
+      url: rotas.FontesRecursos(),
+      async: false,
+      type: 'GET',
+      dataType: 'json',
+      data: {},
+      success: function(data) {
+          fontesRecursos = data;
+      },
+      error: function(e) {
+        //util.showUnauthorizedUser(e);
+        console.log(e);
+      }
+    });
+
+    return fontesRecursos;
+  }
+
+  montarFontedeRecursos(json, util, rotas, dadosForm, React, ReactDOM, Section, FormItem){
     var sections = dadosForm.itemsRecurso();
     var recursos_form = dadosForm.tiposRecurso();
+    var fontesRecursos = this.carregaFontes(rotas);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
-      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, sections, recursos_form, React, ReactDOM, Section, FormItem);
+      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
 
     // interacoes da selecao de anos
@@ -111,13 +138,24 @@ class FonteRecurso {
   }
 
   mapContentRecursos(obj, array){
+    /*
+      array[index].id = array[index].cd_fonte_recursos_osc;
+      array[index].label = array[index].tx_nome_fonte_recursos_osc;
+      array[index].content = o.nr_valor_recursos_osc;
+      array[index].placeholder = "Insira o valor";
+    */
     var index = 0;
-    for (var k in obj){
-      if (obj.hasOwnProperty(k)) {
+    for (var i = 0; i < array.length; i++) {
+      var fonteRecurso = array[i];
+      fonteRecurso.id = fonteRecurso.cd_fonte_recursos_osc;
+      fonteRecurso.label = fonteRecurso.tx_nome_fonte_recursos_osc;
+      fonteRecurso.content = "";
+      fonteRecurso.placeholder = "Insira o valor";
+      for (var k in obj){
         var o = obj[k];
-        //array[index].id = o.id_recursos_osc;
-        array[index].content = o.nr_valor_recursos_osc;
-        index++;
+        if ((obj.hasOwnProperty(k)) && (o.cd_fonte_recursos_osc === fonteRecurso.cd_fonte_recursos_osc)) {
+          fonteRecurso.content = o.nr_valor_recursos_osc;
+        }
       }
     }
     return array;
