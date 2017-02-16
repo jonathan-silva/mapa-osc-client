@@ -57,7 +57,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var newJson = {};
 
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
-  'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos'],
+  'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery'],
   function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
 
     var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
@@ -427,7 +427,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      //console.log(newJson);
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
       console.log(success);
 
@@ -439,16 +438,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //   newJson.area_atuacao = [];
       // }
       newJson={};
-      newJson.area_atuacao = [];
-      console.log("old_json", old_json);
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      newJson.area_atuacao = [];
+      newJson["area_atuacao"] = [];
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
         for (var i = 0; i < suggestions.length; i++) {
-          if($(this).val() === suggestions[i].tx_nome_area_atuacao){
+          if($(this).val().trim().toLowerCase() === suggestions[i].tx_nome_area_atuacao.trim().toLowerCase()){
             cd_area = suggestions[i].cd_area_atuacao;
           }
         }
@@ -458,7 +455,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area.toString(),
-          "tx_nome_subarea_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
+          "tx_nome_area_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
         }
 
         var subareas = [];
@@ -466,23 +463,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).find("input:checked").each(function(){
             var labelOutros = $(this).closest("label").text();
             var isLabelOutros = ($(this).closest("label").text() === "Outros");
-
             subareas.push({
-              "tx_nome_subarea_atuacao_outra": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : null,
-              "cd_subarea_atuacao": $(this).val(),
-              //"ft_area_atuacao": "Representante"
-            });
+                "tx_nome_subarea_atuacao_outra": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : null,
+                "cd_subarea_atuacao": $(this).val()
+                //"ft_area_atuacao": "Representante"
+              });
+
           });
 
-          if(subareas){
-            obj_area_atuacao.subarea_atuacao = subareas;
+          if(subareas.length <= 0){
+            subareas = [];
+            subareas.push({
+              "tx_nome_subarea_atuacao_outra": null,
+              "cd_subarea_atuacao": null
+            });
           }
+          obj_area_atuacao.subarea_atuacao = subareas;
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
-        console.log(success);
+        console.log(success.responseText);
 
         //Descricao
         var newJson = {};
@@ -518,7 +519,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        console.log(newJson);
         success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
         console.log(success);
 
