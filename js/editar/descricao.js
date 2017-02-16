@@ -4,7 +4,7 @@ class Descricao {
   }
   montarDescricao(json, util, dados_form, React, ReactDOM, FormItem){
     var headerPriority = '2';
-    var descricao = util.validateObject(json.descricao) ? json.descricao : "";
+    var descricao = util.validateObject(json.descricao, "");
     var formItens = [];
 
     var items = dados_form.form_items;

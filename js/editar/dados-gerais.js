@@ -20,7 +20,7 @@ class DadosGerais {
     }
 
   montarDadosGerais(json, util, dadosForm, React, ReactDOM, FormItem){
-    var dadosGerais = util.validateObject(json.dados_gerais) ? json.dados_gerais : "";
+    var dadosGerais = util.validateObject(json.dados_gerais, "");
     var content = this.montarEnderecoImovel(dadosGerais)
     var dados_form =dadosForm.dadosGerais(dadosGerais, content);
     var items = dados_form.form_items;

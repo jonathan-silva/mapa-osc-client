@@ -120,8 +120,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Dados Gerais
         dadosGerais.montarDadosGerais(data, util, dadosForm, React, ReactDOM, FormItem);
         //Áreas de atuação
-        var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc) ? data.dados_gerais.tx_nome_atividade_economica_osc : "";
-        var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc) ? data.dados_gerais.ft_atividade_economica_osc : "";
+        var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc, "") ;
+        var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc, "");
         areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica, React, ReactDOM, FormItem);
         //Descrição
         descricao.montarDescricao(data, util, dadosForm.descricao(descricao), React, ReactDOM, FormItem);
@@ -277,11 +277,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
-      var objetivo_meta = util.validateObject(project.objetivo_meta) ? project.objetivo_meta : "";
-      var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto) ? objetivo_meta.tx_nome_objetivo_projeto : -1;
-      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto) ? objetivo_meta.cd_objetivo_projeto : -1;
-      var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto) ? objetivo_meta.tx_nome_meta_projeto : -1;
-      var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto) ? objetivo_meta.cd_meta_projeto : -1;
+      var objetivo_meta = util.validateObject(project.objetivo_meta, "");
+      var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
+      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
+      var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto, -1);
+      var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto, -1);
 
       $.ajax({
         url: rotas.Objetivos(),
@@ -370,7 +370,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarMetas(data, cd_objetivo){
-      if (util.validateObject(data)){
+      if (util.validateObject(data, false)){
         var checkboxItems = [];
         function CheckboxItems(id, label, value, type, custom_class){
           this.id = id;
@@ -430,7 +430,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
       var success="";//guarda mensagens dos saves das secoes da pagina
       //Dados Gerais
-      var newJson = util.validateObject(old_json.dados_gerais) ? old_json.dados_gerais : {};
+      var newJson = util.validateObject(old_json.dados_gerais, {});
       $("#dados_gerais :input").each(function(){
         var key = $(this).attr("id");
         var value = $(this).val();

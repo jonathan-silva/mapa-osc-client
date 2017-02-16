@@ -48,8 +48,8 @@ class EspacosPartSocial {
   }
 
   montarEspacosParticipacaoSocial(json, util, participacao_social_form, conselho, conferencia, forma){
-    var arraySecao = []; console.log(conselho);
-
+    var arraySecao = [];
+    /*
     var nomeConselho = util.validateObject(json.participacao_social) ? "tx_nome_conselho-0" : null;
     var nomeTipoParticipacao = util.validateObject(json.participacao_social) ? "tx_nome_tipo_participacao-0" : null;
     var nomeRepresentanteConselho = util.validateObject(json.participacao_social) ? "tx_nome_representante_conselho-0" : null;
@@ -59,11 +59,32 @@ class EspacosPartSocial {
     var nomeConferencia = util.validateObject(json.participacao_social) ? "tx_nome_conferencia-0" : null;
     var nomeFormaParticipacao = util.validateObject(json.participacao_social) ? "tx_nome_forma_participacao_conferencia-0" : null;
     var anoRealizacao = util.validateObject(json.participacao_social) ? "dt_ano_realizacao-0" : null;
+    */
+    var nomeConselho = null;
+    var nomeTipoParticipacao = null;
+    var nomeRepresentanteConselho = null;
+    var periodicidade = null;
+    var dataInicioConselho = null;
+    var dataFimConselho = null;
+    var nomeConferencia = null;
+    var nomeFormaParticipacao = null;
+    var anoRealizacao = null;
+    if(json.participacao_social){
+      var nomeConselho = "tx_nome_conselho-0";
+      var nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
+      var nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
+      var periodicidade = "tx_periodicidade_reuniao-0";
+      var dataInicioConselho = "dt_data_inicio_conselho-0";
+      var dataFimConselho = "dt_data_fim_conselho-0";
+      var nomeConferencia = "tx_nome_conferencia-0";
+      var nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
+      var anoRealizacao = "dt_ano_realizacao-0";
+    }
 
-    var participacao_social = util.validateObject(json.participacao_social) ? json.participacao_social : "";
-    var conselhos=util.validateObject(participacao_social.conselho) ? participacao_social.conselho : '0';
-    var conferencias = util.validateObject(participacao_social.conferencia) ? participacao_social.conferencia : '0';
-    var outras = util.validateObject(participacao_social.outra) ? participacao_social.outra : '0';
+    var participacao_social = util.validateObject(json.participacao_social, "");
+    var conselhos=util.validateObject(participacao_social.conselho, '0');
+    var conferencias = util.validateObject(participacao_social.conferencia, '0');
+    var outras = util.validateObject(participacao_social.outra, '0');
     var formItens = [];
 
     if (conselhos) {

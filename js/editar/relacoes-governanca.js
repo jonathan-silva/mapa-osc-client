@@ -6,9 +6,9 @@ class RelacoesGovernanca {
   montarRelacoesGovernanca(json, util, dadosForm){
     var relGovObject=[];
     var relacoes_trabalho =0;
-    var relacoes_trabalho_governanca = util.validateObject(json.relacoes_trabalho_governanca) ? json.relacoes_trabalho_governanca : "";
-    var dirigentes = util.validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.governanca : '0';
-    var conselheiros = util.validateObject(relacoes_trabalho_governanca.governanca) ? relacoes_trabalho_governanca.conselho_fiscal : 0;
+    var relacoes_trabalho_governanca = util.validateObject(json.relacoes_trabalho_governanca, "");
+    var dirigentes = util.validateObject(relacoes_trabalho_governanca.governanca, '0');
+    var conselheiros = util.validateObject(relacoes_trabalho_governanca.conselho_fiscal, 0);
 
     var formItens = [];
     for (var j=0; j<dirigentes.length; j++){
@@ -38,7 +38,7 @@ class RelacoesGovernanca {
     relGovObject.push(formItens);
 
     //Trabalhadores
-    var relacoes_trabalho = util.validateObject(relacoes_trabalho_governanca.relacoes_trabalho) ? relacoes_trabalho_governanca.relacoes_trabalho : "";
+    var relacoes_trabalho = util.validateObject(relacoes_trabalho_governanca.relacoes_trabalho, "");
     var dados_form = dadosForm.relacoesTrabalho(relacoes_trabalho);
     var formItens = [];
     for (var i = 0; i < dados_form.form_items.length; i++) {
