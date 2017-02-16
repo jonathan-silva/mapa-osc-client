@@ -443,12 +443,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       console.log(success);
 
       //Áreas de atuação
-      if(util.validateObject(old_json.area_atuacao)){
-        newJson = old_json.area_atuacao;
-      } else{
-        newJson={};
-        newJson.area_atuacao = [];
-      }
+      // if(util.validateObject(old_json.area_atuacao)){
+      //   newJson = old_json.area_atuacao;
+      // } else{
+      //   newJson={};
+      //   newJson.area_atuacao = [];
+      // }
+      newJson={};
+      newJson.area_atuacao = [];
       console.log("old_json", old_json);
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
@@ -466,8 +468,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var idMacroAreaOutros = $("#macro_area_"+macro_area_id+"_outros").val();
 
         obj_area_atuacao = {
-          "cd_area_atuacao": cd_area,
-          //"tx_nome_area_atuacao": ($(this).val() === "Outros") ? idMacroAreaOutros : $(this).val()
+          "cd_area_atuacao": cd_area.toString(),
+          "tx_nome_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
         }
 
         var subareas = [];
@@ -477,7 +479,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var isLabelOutros = ($(this).closest("label").text() === "Outros");
 
             subareas.push({
-              //"tx_nome_subarea_atuacao": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : labelOutros,
+              "tx_nome_subarea_atuacao_outra": isLabelOutros ? $("#sub_area_"+macro_area_id+"_outros").val() : null,
               "cd_subarea_atuacao": $(this).val(),
               //"ft_area_atuacao": "Representante"
             });
@@ -540,6 +542,89 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
         console.log(success);
         */
+
+        // Participacao social
+        // Conselho
+        var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $(".conselho").each(function(){
+         var obj = {}
+         obj.conselho = {};
+         obj.representante = {};
+         var empty = false;
+         $(this).find("input").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           var conselho_id = split[1];
+           if(campo === "tx_nome_representante_conselho"){
+             obj.representante.id_participacao_social_conselho = conselho_id;
+             obj.representante[campo] = $(this).val();
+           } else {
+             obj.conselho.id_conselho = conselho_id;
+             obj.conselho[campo] = $(this).val();
+           }
+           if((conselho_id === "0") && ($(this).val() === "")){
+             empty = true;
+           }
+         });
+         if(!empty){
+           newJson.push(obj);
+         }
+        });
+        console.log(newJson);
+        success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
+        console.log(success);
+
+        // Conferência
+        var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $(".conferencia").each(function(){
+         var obj = {}
+         var empty = false;
+         $(this).find("input").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           var conferencia_id = split[1];
+           obj[campo] = $(this).val();
+           obj.cd_conferencia = conferencia_id;
+           if((conferencia_id === "0") && ($(this).val() === "")){
+             empty = true;
+           }
+         });
+         if(!empty){
+           newJson.push(obj);
+         }
+        });
+        console.log(newJson);
+        success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
+        console.log(success);
+
+        // Outros espaços
+        var newJson = [];
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        $("#outros_part").find("div").children(".form-group").each(function(){
+          var obj = {}
+          var empty = false;
+          $(this).find("input").each(function(){
+            var split = $(this).attr("id").split("-");
+            var campo = split[0];
+            var outros_part_id = split[1];
+            obj[campo] = $(this).val();
+            obj.id_participacao_social_outra = outros_part_id;
+            if((outros_part_id === "0") && ($(this).val() === "")){
+              empty = true;
+            }
+          });
+          if(!empty){
+            newJson.push(obj);
+          }
+        });
+        console.log(newJson);
+        success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
+        console.log(success);
 
         // Projetos
         var newJson = {};
