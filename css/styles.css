@@ -933,3 +933,5 @@ tbody tr :hover{
   color: #337cbb;
   background-color:#d7eefb;
 }
+.subCheckbox{margin-left: 30px;}
+.subCheckbox label{padding-right: 10px;}

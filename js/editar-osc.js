@@ -93,6 +93,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     var divObjetivosMetasProjeto='';
 
+    /*$.ajax({
+      url: rotas.Conselho(),
+      type: 'GET',
+      dataType: 'json',
+      conselhos:{flag: "", rota: urlRota},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(conselhos){return conselhos}*/
+
     $.ajax({
       url: rotas.OSCByID_no_project(idOsc),
       type: 'GET',
@@ -121,7 +132,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM);
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.FormaParticipacao());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm);
@@ -293,7 +304,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
 
       $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
-      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank><img className="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
@@ -538,28 +549,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conselho").each(function(){
-          var obj = {}
-          obj.conselho = {};
-          obj.representante = {};
-          var empty = false;
-          $(this).find("input").each(function(){
-            var split = $(this).attr("id").split("-");
-            var campo = split[0];
-            var conselho_id = split[1];
-            if(campo === "tx_nome_representante_conselho"){
-              obj.representante.id_participacao_social_conselho = conselho_id;
-              obj.representante[campo] = $(this).val();
-            } else {
-              obj.conselho.id_conselho = conselho_id;
-              obj.conselho[campo] = $(this).val();
-            }
-            if((conselho_id === "0") && ($(this).val() === "")){
-              empty = true;
-            }
-          });
-          if(!empty){
-            newJson.push(obj);
-          }
+         var obj = {}
+         obj.conselho = {};
+         obj.representante = {};
+         var empty = false;
+         $(this).find("input").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           var conselho_id = split[1];
+           if(campo === "tx_nome_representante_conselho"){
+             obj.representante.id_participacao_social_conselho = conselho_id;
+             obj.representante[campo] = $(this).val();
+           } else {
+             obj.conselho.id_conselho = conselho_id;
+             obj.conselho[campo] = $(this).val();
+           }
+           if((conselho_id === "0") && ($(this).val() === "")){
+             empty = true;
+           }
+         });
+         if(!empty){
+           newJson.push(obj);
+         }
         });
         console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
@@ -570,21 +581,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conferencia").each(function(){
-          var obj = {}
-          var empty = false;
-          $(this).find("input").each(function(){
-            var split = $(this).attr("id").split("-");
-            var campo = split[0];
-            var conferencia_id = split[1];
-            obj[campo] = $(this).val();
-            obj.cd_conferencia = conferencia_id;
-            if((conferencia_id === "0") && ($(this).val() === "")){
-              empty = true;
-            }
-          });
-          if(!empty){
-            newJson.push(obj);
-          }
+         var obj = {}
+         var empty = false;
+         $(this).find("input").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           var conferencia_id = split[1];
+           obj[campo] = $(this).val();
+           obj.cd_conferencia = conferencia_id;
+           if((conferencia_id === "0") && ($(this).val() === "")){
+             empty = true;
+           }
+         });
+         if(!empty){
+           newJson.push(obj);
+         }
         });
         console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);

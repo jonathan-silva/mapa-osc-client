@@ -86,6 +86,7 @@ require(["jquery-ui"], function (React) {
 	        event.preventDefault();
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
+
 		 window.onload = function () {
 				 verificarContraste();
 		 };
@@ -117,14 +118,19 @@ function abrirModalAjuda(titulo) {
 function abrirModalRelatorio(titulo) {
 
 	var	corpo = "<fieldset id='escolhaImpressao'><legend>Escolha quais seções para imprimir</legend>";
-	corpo += "<input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais<br>";
-  corpo += "<input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC<br>";
-	corpo += "<input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC<br>";
-	corpo += "<input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações<br>";
-	corpo += "<input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança<br>";
-	corpo += "<input type='checkbox' name='secao' value='participacao_social' checked> Espaços de Participação Social<br>";
-	corpo += "<input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas<br>";
-	corpo += "<input type='checkbox' name='secao' value='recursos' checked> Fonte de recursos anual da OSC<br>";
+	corpo += "<label><input type='checkbox' name='escolha' value='tudo' checked> Todas Seções</label><br><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais</label><br>";
+  corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='participacao_social' checked> Espaços de Participação Social</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas</label><br>";
+	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoProjeto' value='todos_projetos'> Todas as Informações do Projeto</label></div>";
+	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fonte de recursos anual da OSC</label><br>";
+	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label></div>";
 	corpo += "</fieldset>";
 
 	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
@@ -132,6 +138,17 @@ function abrirModalRelatorio(titulo) {
 
 	var tituloCompleto = "Gerar "+titulo;
 	acionarModalAjuda(tituloCompleto, corpo, btn);
+	$("#escolhaImpressao input:checkbox[name=escolha]").click(function() {
+			if( $(this).is(':checked') ){
+				$("#escolhaImpressao input:checkbox[name=secao]").each(function(){
+					$(this).prop("checked", true );
+				});
+		 } else {
+				$("#escolhaImpressao input:checkbox[name=secao]").each(function(){
+					$(this).prop("checked", false );
+				});
+		 }
+	 });
 }
 
 function acionarModalAjuda(titulo, corpo, btn) {
@@ -152,10 +169,46 @@ function imprimir(){
 		$("#"+valor).hide();
 	});
 
+	if($("#escolhaImpressao input:checkbox[name=secaoProjeto]").is(':checked')){
+		$("#projetos").find(".panel-collapse").each(function() {
+			$(this).show();
+			$(this).parent().find(".glyphicon").toggleClass( "glyphicon-minus" );
+		});
+	}
+
+	$("#escolhaImpressao input:checkbox[name=secaoRecurso]:checked").each(function(){
+		var valor = $(this).val();
+		$("#recursos").find(".panel-title").each(function() {
+ 			var vet = $(this).text().split(" ");
+ 		 	if(vet[1] == valor){
+ 				$(this).parent().parent().parent().find(".panel-collapse").show();
+ 			 	$(this).parent().parent().find(".glyphicon").toggleClass( "glyphicon-minus" );
+ 		 	}
+ 	 	});
+	});
+
 	$("#modalAjuda").hide();
 	if(window.print){
 		window.print();
 	}
+
+	if($("#escolhaImpressao input:checkbox[name=secaoProjeto]").is(':checked')){
+		$("#projetos").find(".panel-collapse").each(function() {
+			$(this).hide();
+			$(this).parent().find(".glyphicon").toggleClass( "glyphicon-minus" );
+		});
+	}
+
+	$("#escolhaImpressao input:checkbox[name=secaoRecurso]:checked").each(function(){
+		var valor = $(this).val();
+		$("#recursos").find(".panel-title").each(function() {
+			var vet = $(this).text().split(" ");
+			if(vet[1] == valor){
+				$(this).parent().parent().parent().find(".panel-collapse").hide();
+				$(this).parent().parent().find(".glyphicon").toggleClass( "glyphicon-minus" );
+			}
+		});
+	});
 
 	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
 		valor = $(this).val();

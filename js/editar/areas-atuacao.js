@@ -30,29 +30,31 @@ class AreaAtuacao {
     var formItens = [];
     var dados_form = dadosForm.areasAtuacao();
     var items = dados_form.form_items;
+    console.log(areas_atuacao);
     formItens.push(this.AutocompleteItem(items[0].id, items[0].label, util.validateObject(tx_nome_atividade_economica_osc) ? tx_nome_atividade_economica_osc:"Não informado", util.validateObject(ft_atividade_economica_osc) ? ft_atividade_economica_osc:"Não informado", items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
     items.splice(0,1);
     //console.log(items);
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
-
-      if(items[j].id === "macro_area_1"){
-        items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
-        items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
-        items[j].fonte = (areas_atuacao)?areas_atuacao[0].subarea_atuacao[0].ft_area_atuacao:null;
+      if(areas_atuacao.length !== 0){
+        if(items[j].id === "macro_area_1"){
+          items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
+          items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
+          items[j].fonte = (areas_atuacao)?areas_atuacao[0].subarea_atuacao[0].ft_area_atuacao:null;
+        }
+        if(items[j].id === "macro_area_2"){
+          items[j].content = (areas_atuacao.length>1)?areas_atuacao[1].tx_nome_area_atuacao:"";
+          items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:"";
+          items[j].fonte = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
+        }
+        if(items[j].custom_class === "autocomplete"){
+          formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
+        } else {
+          formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
+        }
       }
-      if(items[j].id === "macro_area_2"){
-        items[j].content = (areas_atuacao)?areas_atuacao[1].tx_nome_area_atuacao:"";
-        items[j].subareas_selected = (areas_atuacao)?areas_atuacao[1].subarea_atuacao:"";
-        items[j].fonte = (areas_atuacao)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
-      }
-      if(items[j].custom_class === "autocomplete"){
-        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
-      } else {
-        formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
-      }
-  }
+    }
     //autocomplete macro_area_1 e macro_area_2
     macro_area_suggestions = $.map(macro_area_suggestions, function(item) {
       var newItem = {

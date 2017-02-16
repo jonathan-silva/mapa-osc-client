@@ -60,11 +60,11 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm){
-    var labelMap = dadosForm.labelsProjeto();console.log(labelMap);
+    var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
-    var projectId = 0;//project.id_projeto;
-    var project = project.projeto[0];console.log(project);
+    var projectId = project.id_projeto;
+    var project = (util.validateObject(project.projeto))?project.projeto[0]:project;
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
     for (var property in project) { //labelMap[property]) { console.log(property);
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
@@ -82,13 +82,8 @@ class Projeto {
           var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
           agrupadores.push(agrupadorInputProjeto);
-        }/*
-        if (header=="Valor Total"){
-          console.log(labelMap[property]);
-          console.log(inputProjeto);
-          console.log(agrupadorInputProjeto);
-        };*/
-      }
+        }
+      }/*
       else {
         if (!( project.hasOwnProperty(property) ) ) { console.log(labelMap[property]);}
         if (labelMap[property] == undefined){ console.log(property);}
@@ -96,19 +91,19 @@ class Projeto {
         var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
         var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
         agrupadores.push(agrupadorInputProjeto);
-      }*/
-     }
+      }
+    }*/
     }
     var area_atuacao_projeto = util.validateObject(project.area_atuacao) ? project.area_atuacao : [];
     var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
     var autodeclaradas = [].concat(area_atuacao_projeto).concat(area_atuacao_outra_projeto);
 
-    var localizacao = util.getTipoProjeto("localizacao_projeto", project.localizacao);
+    var localizacao = util.validateObject(project.localizacao) ? util.getTipoProjeto("localizacao_projeto", project.localizacao) : util.getTipoProjeto("localizacao_projeto", []);
     var fonte = this.getFonteDeRecursosProjeto(projectId);
-    var publicoBeneficiado = util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado);
-    var financiadores = util.getTipoProjeto("financiador_projeto", project.financiador_projeto);
+    var publicoBeneficiado = util.validateObject(project.publico_beneficiado) ? util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado) : util.getTipoProjeto("publico_beneficiado", []);
+    var financiadores = util.validateObject(project.financiador_projeto) ? util.getTipoProjeto("financiador_projeto", project.financiador_projeto) : util.getTipoProjeto("financiador_projeto", []);
     var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
-    var parceiras = util.getTipoProjeto("osc_parceira", project.osc_parceira);
+    var parceiras = util.validateObject(project.osc_parceira) ? util.getTipoProjeto("osc_parceira", project.osc_parceira) : util.getTipoProjeto("osc_parceira", []);
     var valorMeta = "";
     var idObjetivo = "";
     var multipleInputs = [
@@ -121,13 +116,8 @@ class Projeto {
         var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
         agrupadores.push(agrupador);
       }
-      else {
-        console.log(multipleInputs[j]);
-        /* if ()
-        var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
-        agrupadores.push(agrupador);*/
-      }
     }
+    //metasObjetivos(project, projectId);
     return agrupadores;
   }
 
