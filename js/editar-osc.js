@@ -137,7 +137,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Projetos
         ativarProjetos(data, util, dadosForm);
         //Fonte de recurso
-        fonteRecurso.montarFontedeRecursos(data, util, dadosForm, React, ReactDOM, Section, FormItem);
+        fonteRecurso.montarFontedeRecursos(data, util, rotas, dadosForm, React, ReactDOM, Section, FormItem);
         //Acessibilidade
         verificarContraste();
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
