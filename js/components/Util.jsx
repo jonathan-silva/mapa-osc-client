@@ -1027,7 +1027,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             {ButtonElement}
           </div>
           if(header === "Valor Total"){
-            //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
             var title = item.inputs[0].title;
             //console.log(title);
             if (title != null){
@@ -1042,7 +1041,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
         }
         if(header === "Valor Captado"){
-          //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
           var title = item.inputs[0].title;
           //console.log(title);
           if (title != null){
@@ -1066,7 +1064,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
           }
           if(header === "Data de Início"){
-              //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
               var title = item.inputs[0].title;
               if (title != null){
               ContainerElement =
@@ -1080,7 +1077,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Data de Fim"){
-              //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
               var title = item.inputs[0].title;
               if (title != null){
               ContainerElement =
@@ -1114,8 +1110,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Fonte de Recursos"){
-            //console.log(inputs);
-            //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
             var title = item.inputs[0].title;
             if (title){
             ContainerElement =
@@ -1129,7 +1123,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Nome do projeto, atividade ou programa"){
-              //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
               var title = item.inputs[0].title;
               if (title != null){
               ContainerElement =
@@ -1163,7 +1156,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
           }
           if(header === "Descrição do Projeto, atividade e/ou programa"){
-            //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
             var title = item.inputs[0].title;
             if (title != null){
             ContainerElement =
@@ -1178,7 +1170,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         }
 
           if(header === "Situação do projeto"){
-           //var title = validateObject(item.inputs[0].title)?item.inputs[0].title:null;
            var title = item.inputs[0].title;
            if (title != null){
            ContainerElement =

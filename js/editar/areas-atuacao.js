@@ -37,7 +37,8 @@ class AreaAtuacao {
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
-      if(areas_atuacao.length !== 0){
+      var lenAreaAtuacao = util.validateObject(areas_atuacao, 0);
+      if(lenAreaAtuacao !== 0){
         if(items[j].id === "macro_area_1"){
           items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
           items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
@@ -48,7 +49,7 @@ class AreaAtuacao {
           items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:"";
           items[j].fonte = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
         }
-        if(util.validateObject(areas_atuacao[0])){
+        if(util.validateObject(areas_atuacao[0], false)){
           if(items[j].id === "macro_area_1_outros"){
             items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
           }
@@ -56,7 +57,7 @@ class AreaAtuacao {
             items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao!==null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
           }
         }
-        if(util.validateObject(areas_atuacao[1])){
+        if(util.validateObject(areas_atuacao[1], false)){
           if(items[j].id === "macro_area_2_outros"){
             items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
           }
