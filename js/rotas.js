@@ -142,7 +142,9 @@ class Rotas{
   FormaParticipacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
   }
-
+  FontesRecursos(){
+    return this.getBaseUrl()+":8383/api/menu/osc/fonte_recursos_osc";
+  }
   // editais.js
   Edital(){
     return this.getBaseUrl()+":8383/api/edital";
