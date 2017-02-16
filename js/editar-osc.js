@@ -469,7 +469,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         obj_area_atuacao = {
           "cd_area_atuacao": cd_area.toString(),
-          "tx_nome_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
+          "tx_nome_area_atuacao_outra": ($(this).val() === "Outros") ? idMacroAreaOutros : null
         }
 
         var subareas = [];
@@ -491,7 +491,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.area_atuacao.push(obj_area_atuacao);
         });
       });
-        //console.log(newJson);
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
