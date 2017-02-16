@@ -483,7 +483,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
       });
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
-        console.log(success.responseText);
+        console.log(success);
 
         //Descricao
         var newJson = {};
