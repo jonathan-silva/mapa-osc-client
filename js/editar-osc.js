@@ -37,6 +37,11 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
     });
   });
 
+  $(".scroll").click(function(event){
+      event.preventDefault();
+      $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+ });
+
 });
 
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'jquery-ui', 'datatables-responsive', 'editarCabecalho'], function (React) {
