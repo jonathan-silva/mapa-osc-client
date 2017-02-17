@@ -925,7 +925,7 @@ select{
   #conteudo{padding-bottom: 0px;}
 }
 
-#table_lista_projetos tbody tr {
+#table_lista_projetos tbody tr, .cursor {
   cursor: pointer;
 }
 

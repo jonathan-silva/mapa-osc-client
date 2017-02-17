@@ -102,9 +102,11 @@ define(['react','rotas'], function(React) {
 
       if( index == 1){
           desativaContraste();
+          location.reload();
       }
       else if (index == 2) {
           ativaContraste();
+          location.reload();
       }
       else if (index == 3) {
 
@@ -196,6 +198,27 @@ define(['react','rotas'], function(React) {
           });
 
       }
+      else if (index == 7) {
+
+        var elemento="#conteudo";
+        var posicao = $(elemento).offset().top - 0;
+        $('html, body').stop().animate({ scrollTop: posicao }, 800);
+
+      }
+      else if (index == 8) {
+
+        var elemento="#navbar-ex-collapse";
+        var posicao = $(elemento).offset().top - 0;
+        $('html, body').stop().animate({ scrollTop: posicao }, 800);
+
+      }
+      else if (index == 9) {
+
+        var elemento="#rodape";
+        var posicao = $(elemento).offset().top - 0;
+        $('html, body').stop().animate({ scrollTop: posicao }, 800);
+
+      }
       else if (index == 0) {
       }
 
@@ -208,17 +231,17 @@ define(['react','rotas'], function(React) {
         <div className="container extensao">
           <div id="topo_acessibilidade">
             <ul id="nav1">
-              <li>Ir para o <a href="#conteudo" accesskey="1">Conteúdo [1]</a></li>
-              <li>Ir para o <a href="#navbar-ex-collapse" accesskey="2">Menu [2]</a></li>
-              <li>Ir para o <a href="#rodape" accesskey="3">Rodapé [3]</a></li>
+              <li>Ir para o <a name="conteudo" accesskey="1" className="cursor" onClick={this.getComponent.bind(this, 7)}>Conteúdo [1]</a></li>
+              <li>Ir para o <a name="navbar-ex-collapse" className="cursor" accesskey="2" onClick={this.getComponent.bind(this, 8)}>Menu [2]</a></li>
+              <li>Ir para o <a name="rodape" accesskey="3" className="cursor" onClick={this.getComponent.bind(this, 9)}>Rodapé [3]</a></li>
             </ul>
             <ul id="nav2">
               <li><a href="acessibilidade.html" target="_self">Acessibilidade</a></li>
-              <li id="contraste">Contraste <a id="contraste_normal" href="" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 1)}><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" href="" data-toggle="tooltip" data-placement="bottom" onClick={this.getComponent.bind(this, 2)}><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
+              <li id="contraste">Contraste <a id="contraste_normal" data-toggle="tooltip" data-placement="bottom" className="cursor" onClick={this.getComponent.bind(this, 1)}><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" data-toggle="tooltip" data-placement="bottom" className="cursor" onClick={this.getComponent.bind(this, 2)}><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
               <li>Tamanho do texto
-              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font" onClick={this.getComponent.bind(this, 3)}> A+</a>
-              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font" onClick={this.getComponent.bind(this, 4)}> A</a>
-              <a href="#" data-toggle="tooltip" data-placement="bottom" title="Diminuir fonte" className="dec-font" onClick={this.getComponent.bind(this, 5)}> A-</a></li>
+              <a data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font cursor" onClick={this.getComponent.bind(this, 3)}> A+</a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font cursor" onClick={this.getComponent.bind(this, 4)}> A</a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Diminuir fonte" className="dec-font cursor" onClick={this.getComponent.bind(this, 5)}> A-</a></li>
             </ul>
           </div>
         </div>
