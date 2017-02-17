@@ -171,6 +171,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
         });
+
+        $("#btnRemoverLogo").click(function(){
+          $("#imagemLogo").attr('src',"img/camera.jpg")
+        });
+
       }
     });
 
@@ -445,6 +450,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
       });
     }
+
     // Cancelar
     $("#cancelar").click(function(){
       window.location.href='/visualizar-osc.html#/'+idOsc;
@@ -462,6 +468,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
+
+      var imgSrc = $("#imagemLogo").attr("src");
+      if(imgSrc == "img/camera.jpg" || imgSrc == null || imgSrc == undefined){
+        newJson["im_logo"] = null;
+      }
+      else{
+          newJson["im_logo"] = imgSrc;
+      }
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação

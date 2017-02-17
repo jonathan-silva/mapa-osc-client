@@ -939,3 +939,6 @@ select{
 .margin{
   margin-left: 15px;
 }
+#btnRemoverLogo{
+  margin-top: 10px;
+}

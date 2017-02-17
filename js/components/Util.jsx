@@ -29,7 +29,8 @@ define('componenteCabecalho', ['react'], function (React) {
           <div>
             <div className="divImg">
               <img id="imagemLogo" src={(this.props.dados[i].imgLogo)?this.props.dados[i].imgLogo:"img/camera.jpg"} className="img-rounded media-object logoOSC"></img>
-              <label className="custom-file-upload btn btn-info" title="Inserir Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i className="fa fa-cloud-upload"></i>Inserir Logo</label>
+              <label className="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i className="fa fa-cloud-upload"></i>Inserir Logo</label>
+              <a className="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span className="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>
               <div className="alert alert-danger fade in hide" id="errorLabel">
                 <strong>Erro!</strong> Somente Imagem formato png, jpg ou gif.
               </div>
