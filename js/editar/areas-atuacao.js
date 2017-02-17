@@ -30,14 +30,16 @@ class AreaAtuacao {
     var formItens = [];
     var dados_form = dadosForm.areasAtuacao();
     var items = dados_form.form_items;
-    formItens.push(this.AutocompleteItem(items[0].id, items[0].label, util.validateObject(tx_nome_atividade_economica_osc) ? tx_nome_atividade_economica_osc:"Não informado", util.validateObject(ft_atividade_economica_osc) ? ft_atividade_economica_osc:"Não informado", items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
+    formItens.push(this.AutocompleteItem(items[0].id, items[0].label, util.validateObject(tx_nome_atividade_economica_osc,"Não informado"), util.validateObject(ft_atividade_economica_osc,"Não informado"), items[0].placeholder, items[0].type, items[0].custom_class, macro_area_suggestions, subarea_suggestions));
+
     items.splice(0,1);
     //console.log(items);
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
-      var tam = util.validateObject(areas_atuacao)?areas_atuacao.length:0
-      if( /*areas_atuacao.length*/ tam !== 0){
+      var lenAreaAtuacao = util.validateObject(areas_atuacao, 0);
+      
+      if(lenAreaAtuacao !== 0){
         if(items[j].id === "macro_area_1"){
           items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
           items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
@@ -48,7 +50,7 @@ class AreaAtuacao {
           items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:"";
           items[j].fonte = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
         }
-        if(util.validateObject(areas_atuacao[0])){
+        if(util.validateObject(areas_atuacao[0], false)){
           if(items[j].id === "macro_area_1_outros"){
             items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
           }
@@ -56,7 +58,7 @@ class AreaAtuacao {
             items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao!==null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
           }
         }
-        if(util.validateObject(areas_atuacao[1])){
+        if(util.validateObject(areas_atuacao[1], false)){
           if(items[j].id === "macro_area_2_outros"){
             items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
           }
@@ -122,11 +124,11 @@ class AreaAtuacao {
 
   montarAreasDeAtuacao(json, util, dadosForm, rotas, tx_nome_atividade_economica_osc, ft_atividade_economica_osc, React, ReactDOM, FormItem){
     var headerPriority = '2';
-    var areas_atuacao = util.validateObject(json.area_atuacao) ? json.area_atuacao : [];
-    var area_atuacao_outra = util.validateObject(areas_atuacao.area_atuacao_outra) ? areas_atuacao.area_atuacao_outra : [];
+    var areas_atuacao = util.validateObject(json.area_atuacao, []);
+    var area_atuacao_outra = util.validateObject(areas_atuacao.area_atuacao_outra, []);
     areas_atuacao = [].concat(areas_atuacao).concat(area_atuacao_outra);
     var area_suggestions = this.carregaMacro(rotas, [], util);
-    var areas_atuacao_inicial = util.validateObject(areas_atuacao[0]) ? areas_atuacao[0] : [];
+    var areas_atuacao_inicial = util.validateObject(areas_atuacao[0], []);
 
     var obj = this.loadSuggestions(area_suggestions, areas_atuacao_inicial.area_atuacao, util, dadosForm, tx_nome_atividade_economica_osc, ft_atividade_economica_osc);
     var formItens = obj.formItens;

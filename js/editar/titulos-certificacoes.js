@@ -31,9 +31,9 @@ class TitulosCertificacoes {
     var headerPriority = '2';
     var res = [];
     var tx_sem_titulos = "Não há registros de títulos ou certificações";
-    var certificacoes = util.validateObject(json.certificado) ? json.certificado.certificado : "";
+    var certificacoes = util.validateObject(json.certificado, "");
     var formItens = [];
-    var items = util.validateObject(certificacoes) ? certificacoes : [];
+    var items = util.validateObject(certificacoes, []);
 
     if(items.length > 0){
       for (var j=0; j<items.length; j++){

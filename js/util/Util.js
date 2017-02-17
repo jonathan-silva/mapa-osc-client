@@ -37,17 +37,17 @@ class Util {
   }
 
   //verifica se objeto existe, se e nulo ou vazio
-  validateObject(obj){
+  validateObject(obj, returnsIfFalse){
     if(obj === null){
-      return false;
+      return returnsIfFalse;
     }
     else if(obj===undefined){
-      return false;
+      return returnsIfFalse;
     }
     if(Object.keys(obj).length === 0 && obj.constructor === Object){
-      return false;
+      return returnsIfFalse;
     }
-    return true;
+    return obj;
   }
 
   showUnauthorizedUser(e){
