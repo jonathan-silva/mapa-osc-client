@@ -52,7 +52,7 @@ define(['react','rotas'], function(React) {
     },
     render: function () {
       return (<div>
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{this.props.titulo}<i className="fa fa-caret-down"></i></a>
+              <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{this.props.titulo}<i className="fa fa-caret-down"></i></a>
               <ul className="dropdown-menu" role="menu">{this.renderList()}</ul>
               </div>);
     }
