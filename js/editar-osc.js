@@ -175,7 +175,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
-      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+      $( "#lista_projetos" ).append( '<table id="table_lista_projetos" class="table-striped"></table>' );
 
       var newData = projetosArray[1];
       var table_lista_projetos = montaTabelaListaProjetos(newData);
@@ -185,7 +185,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
-      $( "#lista_projetos" ).append( '<table id="table_lista_projetos"></table>' );
+      $( "#lista_projetos" ).append( '<table id="table_lista_projetos" class="table-striped"></table>' );
 
       var newData = projetosArray[2];
       var table_lista_projetos = montaTabelaListaProjetos(newData);

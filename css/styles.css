@@ -925,13 +925,17 @@ select{
   #conteudo{padding-bottom: 0px;}
 }
 
-tbody tr {
+#table_lista_projetos tbody tr {
   cursor: pointer;
 }
 
-tbody tr :hover{
+#table_lista_projetos tbody tr :hover{
   color: #337cbb;
   background-color:#d7eefb;
 }
 .subCheckbox{margin-left: 30px;}
 .subCheckbox label{padding-right: 10px;}
+
+.margin{
+  margin-left: 15px;
+}
