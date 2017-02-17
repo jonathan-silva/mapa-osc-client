@@ -59,13 +59,15 @@ class Projeto {
     return arraySecaoProjeto;
   }
 
-  montarProjeto(project, util, dadosForm){
+  montarProjeto(project, util, dadosForm,rotas){
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
     var project = (util.validateObject(project.projeto))?project.projeto[0]:project;
     var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
+    var objetivo_meta = util.validateObject(project.objetivo_meta)?project.objetivo_meta:null;
+    console.log(objetivo_meta);
     for (var property in project) { //labelMap[property]) { console.log(property);
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
@@ -79,7 +81,7 @@ class Projeto {
         var buttons = null;
         var buttonsInLine = false;
         if((value === null) || (value.constructor !== Array)){
-          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
+          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title,objetivo_meta);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
           agrupadores.push(agrupadorInputProjeto);
         }
@@ -105,10 +107,11 @@ class Projeto {
     var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
     var parceiras = util.validateObject(project.osc_parceira) ? util.getTipoProjeto("osc_parceira", project.osc_parceira) : util.getTipoProjeto("osc_parceira", []);
     var valorMeta = "";
-    var idObjetivo = "";
+    var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";
+    //var objetivo_meta = /*util.validateObject(project.objetivo_meta)?*/ this.metasObjetivos(project,idObjetivo,util,rotas) ;// : util.getTipoProjeto("objetivo_meta", []);
     var multipleInputs = [
       localizacao, publicoBeneficiado, financiadores,
-      autodeclaradas, parceiras, fonte
+      autodeclaradas, parceiras, fonte//, objetivo_meta
     ];
     //console.log(multipleInputs);
     for (var j = 0; j < multipleInputs.length; j++) {
@@ -116,7 +119,7 @@ class Projeto {
         var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
         agrupadores.push(agrupador);
       }
-    }
+   }
     //metasObjetivos(project, projectId);
     return agrupadores;
   }
@@ -127,7 +130,7 @@ class Projeto {
     // rotas.ProjectByID(id)
     if(id === "-1"){
       var empty_project = dadosForm.getEmptyProject();
-      agrupadores = this.montarProjeto(empty_project, util, dadosForm);
+      agrupadores = this.montarProjeto(empty_project, util, dadosForm,rotas);
     } else {
       $.ajax({
         url: rotas.ProjectByID(id),
@@ -144,7 +147,8 @@ class Projeto {
           //console.log(res);
         }
       });
-      agrupadores = this.montarProjeto(res, util, dadosForm);
+      agrupadores = this.montarProjeto(res, util, dadosForm,rotas);
+      console.log(res);
     }
 
     return agrupadores;
@@ -165,9 +169,9 @@ class Projeto {
     var element = labelMap[object.id];
     var inputs = [];
     var value = "";
-    var removable = element.removable;
-    var type = element.type;
-    var options = element.options;
+    var removable = util.validateObject(element)?element.removable:"";
+    var type = util.validateObject(element)?element.type:"";
+    var options = util.validateObject(element)?element.options:"";
     var suboptions = null;
     var buttonsInput = null;
     var buttonsInLine = false;
@@ -207,8 +211,8 @@ class Projeto {
         }
       }
     }
-    var header = element.header;
-    var containerClass = element.containerClass;
+    var header = util.validateObject(element)?element.header:"";
+    var containerClass = util.validateObject(element)?element.containerClass:"col-md-3";console.log(containerClass);
     var buttonsAgrupador = null;
     if(removable){
       buttonsInput = [buttonRemove];
@@ -217,4 +221,6 @@ class Projeto {
     var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
     return agrupadorInputProjeto;
   }
+
+
 }
