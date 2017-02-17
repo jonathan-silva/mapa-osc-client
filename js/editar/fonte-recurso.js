@@ -41,7 +41,6 @@ class FonteRecurso {
     recursos_form.recursos_privados = this.mapContentRecursos(recursos.recursos_privados, recursos_privados);
     recursos_form.recursos_proprios = this.mapContentRecursos(recursos.recursos_proprios, recursos_proprios);
     recursos_form.recursos_publicos = this.mapContentRecursos(recursos.recursos_publicos, recursos_publicos);
-    console.log(recursos_form);
 
     var recursosArray=[
       {//proprios

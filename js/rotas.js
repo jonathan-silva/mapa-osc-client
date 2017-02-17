@@ -145,6 +145,9 @@ class Rotas{
   FontesRecursos(){
     return this.getBaseUrl()+":8383/api/menu/osc/fonte_recursos_osc";
   }
+  AtualizarFontesRecursos(id){
+    return this.getBaseUrl()+":8383/api/osc/recursososc/"+id;
+  }
   // editais.js
   Edital(){
     return this.getBaseUrl()+":8383/api/edital";

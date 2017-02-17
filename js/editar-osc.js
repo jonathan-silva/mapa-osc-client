@@ -745,19 +745,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         console.log(old_json);
         // Fonte de recursos
-        newJson = [];
+        newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
+        newJson["fonte_recursos"] = [];
         $("#recursos").children().each(function(){
-          var obj = {};
+          console.log($(this));
           var ano = $(this).find("select").val();
-          obj["dt_ano_recursos_osc"] = ano;
           $(this).find("input").each(function(){
-            obj[$(this).attr("id")] = $(this).val();
+            var obj = {};
+            obj.dt_ano_recursos_osc = ano;
+            obj.cd_fonte_recursos_osc = $(this).attr("id");
+            obj.nr_valor_recursos_osc = $(this).val();
+            newJson.fonte_recursos.push(obj);
           })
-          newJson.push(obj);
+
         });
         console.log(newJson);
+        success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
+        console.log(success.responseText);
       //});
 
 
