@@ -238,7 +238,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var result = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
 
           agrupamento(result, id_projeto);
-          metasObjetivos(data, id_projeto);
+          metasObjetivos(data, id_projeto,rotas);
           verificarContraste();
         } else {
           var $divDadosProjeto = $(projetos[0]);
@@ -304,8 +304,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
-    function metasObjetivos(project, id){
+    function metasObjetivos(project, id,rotas){
+
+      $.ajax({
+        url: rotas.ProjectByID(id),
+        type: 'GET',
+        async: false,
+        dataType: 'json',
+        data:{},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          project = data;
+        }
+      });
+
       //metas e objetivos
+      var proj = util.validateObject(project,[])
+      var projet = util.validateObject(proj.projeto,proj)
+      var project = util.validateObject(projet[0],projet);
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
       var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
@@ -352,6 +371,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var options = json;
       var $selectObjetivos = $divObjetivosProjeto.find("select");
       $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -411,6 +431,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         items = data;
         for (var i=0; i<items.length; i++){
+          /*if(options[i].cd_objetivo_projeto === cd_objetivo){
+            $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+          } else {
+            $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+          }*/
           checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
         }
         Checkbox = React.createFactory(Checkbox);
