@@ -156,7 +156,6 @@ class Projeto {
         }
       });
       agrupadores = this.montarProjeto(res, util, dadosForm,rotas);
-      console.log(res);
     }
 
     return agrupadores;
@@ -220,7 +219,7 @@ class Projeto {
       }
     }
     var header = util.validateObject(element)?element.header:"";
-    var containerClass = util.validateObject(element)?element.containerClass:"col-md-3";console.log(containerClass);
+    var containerClass = util.validateObject(element)?element.containerClass:"col-md-3";
     var buttonsAgrupador = null;
     if(removable){
       buttonsInput = [buttonRemove];
