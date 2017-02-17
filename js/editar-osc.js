@@ -71,6 +71,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     if(valoresURL !== null){
       idOsc = valoresURL[0];
+      verificarPermissao(idOsc);
+      addBotaoVisualizar(idOsc);
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
     //window.localStorage.setItem('User', 17);
@@ -171,6 +173,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     });
 
+    function verificarPermissao(id){
+    	var osc  = JSON.parse(window.localStorage.getItem('Osc'));
+    	if(osc != "undefined" && osc !== null){
+    		for (var i = 0; i < osc.length; i++) {
+    			if (osc[i] == id) {
+         		return true;
+       		}
+    		}
+    	}
+      window.location.href = "visualizar-osc.html#/"+id;
+    	return false;
+    }
+    function addBotaoVisualizar(id){
+        $(".btnVisualizar").append('<a id="btnVisualizar" type="button" title="Clique para Visualizar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Visualizar OSC</a>');
+		    $("#btnVisualizar").attr("href","visualizar-osc.html#/"+id);
+    }
     function ativarProjetos(data, util){
       var projetosArray = projeto.montarProjetos(data, util);
       var headerProjeto = projetosArray[0];

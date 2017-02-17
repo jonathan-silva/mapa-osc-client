@@ -179,6 +179,7 @@ define(['react','rotas'], function(React) {
                   window.localStorage.setItem('Osc', data.representacao);
                   $('#modalLogin').modal('hide');
                   verificarLogado();
+                  location.reload();
               },
               error: function (data) {
                   if (data.status == 200){
