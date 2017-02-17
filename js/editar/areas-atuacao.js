@@ -36,7 +36,8 @@ class AreaAtuacao {
     for (var j=0; j<items.length; j++){
       var content = null;
       var fonte = null;
-      if(areas_atuacao.length !== 0){
+      var tam = util.validateObject(areas_atuacao)?areas_atuacao.length:0
+      if( /*areas_atuacao.length*/ tam !== 0){
         if(items[j].id === "macro_area_1"){
           items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
           items[j].subareas_selected = (areas_atuacao)?areas_atuacao[0].subarea_atuacao:"";
