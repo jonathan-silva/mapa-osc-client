@@ -16,27 +16,6 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
     }
   });
 
-  function readURL(input) {
-    if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $("#imagemLogo").attr('src', e.target.result)
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-    else {
-      $('#errorLabel').removeClass('hide');
-    }
-  }
-
-  $('.custom-file-upload').on("change", function(){
-    $('input[type=file]').each(function(index){
-      if ($('input[type=file]').eq(index).val() != ""){
-        readURL(this);
-      }
-    });
-  });
-
   $(".scroll").click(function(event){
       event.preventDefault();
       $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
@@ -169,6 +148,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 $('.ui-datepicker-prev').hide();
                 $('.ui-datepicker-next').hide();
             });
+        });
+
+        function readURL(input) {
+          if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $("#imagemLogo").attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+          else {
+            $('#errorLabel').removeClass('hide');
+          }
+        }
+
+        $('.custom-file-upload').on("change", function(){
+          $('.alert').addClass('hide');
+          $('input[type=file]').each(function(index){
+            if ($('input[type=file]').eq(index).val() != ""){
+              readURL(this);
+            }
+          });
         });
       }
     });
