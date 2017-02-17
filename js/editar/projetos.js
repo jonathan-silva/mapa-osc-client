@@ -27,7 +27,7 @@ class Projeto {
   montarProjetos(json, util){
     var arraySecaoProjeto = [];
 
-    var projects_list = util.validateObject(json.projeto_abreviado) ? json.projeto_abreviado : '0';
+    var projects_list = util.validateObject(json.projeto_abreviado, '0');
     //console.log(json.projeto);
     var headerProjeto = {
       "id": "lista_projetos",
@@ -41,8 +41,8 @@ class Projeto {
     var newData = new Array(sizeOfData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = util.validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
-      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
+      newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
+      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
     }
     arraySecaoProjeto.push(newData);
 
@@ -51,8 +51,8 @@ class Projeto {
     var newData = new Array(sizeOfData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = util.validateObject(projects_list[i].id_projeto) ? projects_list[i].id_projeto : 1;
-      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto) ? projects_list[i].tx_nome_projeto : "";
+      newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
+      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
     }
     arraySecaoProjeto.push(newData);
 
@@ -64,10 +64,10 @@ class Projeto {
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
-    var project = (util.validateObject(project.projeto))?project.projeto[0]:project;
-    var title = util.validateObject(project.ft_identificador_projeto_externo)?project.ft_identificador_projeto_externo:null;
-    var objetivo_meta = util.validateObject(project.objetivo_meta)?project.objetivo_meta:null;
-    console.log(objetivo_meta);
+    var projet = util.validateObject(project.projeto,project)
+    var project = util.validateObject(projet[0],projet);
+    var title = util.validateObject(project.ft_identificador_projeto_externo,null);
+    var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) { //labelMap[property]) { console.log(property);
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
@@ -96,16 +96,24 @@ class Projeto {
       }
     }*/
     }
-    var area_atuacao_projeto = util.validateObject(project.area_atuacao) ? project.area_atuacao : [];
-    var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra) ? project.area_atuacao_outra : [];
+    var area_atuacao_projeto = util.validateObject(project.area_atuacao, []);
+    var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra, []);
     var autodeclaradas = [].concat(area_atuacao_projeto).concat(area_atuacao_outra_projeto);
 
-    var localizacao = util.validateObject(project.localizacao) ? util.getTipoProjeto("localizacao_projeto", project.localizacao) : util.getTipoProjeto("localizacao_projeto", []);
+    var projectlocalizacao = util.validateObject(project.localizacao, []);
+    var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
     var fonte = this.getFonteDeRecursosProjeto(projectId);
-    var publicoBeneficiado = util.validateObject(project.publico_beneficiado) ? util.getTipoProjeto("publico_beneficiado", project.publico_beneficiado) : util.getTipoProjeto("publico_beneficiado", []);
-    var financiadores = util.validateObject(project.financiador_projeto) ? util.getTipoProjeto("financiador_projeto", project.financiador_projeto) : util.getTipoProjeto("financiador_projeto", []);
+
+    var projectPublicoFinanciado = util.validateObject(project.publico_beneficiado, []);
+    var publicoBeneficiado =  util.getTipoProjeto("publico_beneficiado", projectPublicoFinanciado);
+
+    var financiadorProjeto = util.validateObject(project.financiador_projeto, []);
+    var financiadores =  util.getTipoProjeto("financiador_projeto", financiadorProjeto);
     var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
-    var parceiras = util.validateObject(project.osc_parceira) ? util.getTipoProjeto("osc_parceira", project.osc_parceira) : util.getTipoProjeto("osc_parceira", []);
+
+    var oscParceira = util.validateObject(project.osc_parceira, []);
+    var parceiras =  util.getTipoProjeto("osc_parceira", oscParceira);
+
     var valorMeta = "";
     var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";
     //var objetivo_meta = /*util.validateObject(project.objetivo_meta)?*/ this.metasObjetivos(project,idObjetivo,util,rotas) ;// : util.getTipoProjeto("objetivo_meta", []);
@@ -113,9 +121,9 @@ class Projeto {
       localizacao, publicoBeneficiado, financiadores,
       autodeclaradas, parceiras, fonte//, objetivo_meta
     ];
-    //console.log(multipleInputs);
+
     for (var j = 0; j < multipleInputs.length; j++) {
-      if(util.validateObject(multipleInputs[j].dados)){
+      if(util.validateObject(multipleInputs[j].dados, false)){
         var agrupador = this.createAgrupadorMultipleInputs(multipleInputs[j], labelMap, util);
         agrupadores.push(agrupador);
       }
