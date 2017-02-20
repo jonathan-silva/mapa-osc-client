@@ -38,7 +38,7 @@ class AreaAtuacao {
       var content = null;
       var fonte = null;
       var lenAreaAtuacao = util.validateObject(areas_atuacao, 0);
-      
+
       if(lenAreaAtuacao !== 0){
         if(items[j].id === "macro_area_1"){
           items[j].content = (areas_atuacao)?areas_atuacao[0].tx_nome_area_atuacao:"";
@@ -47,7 +47,7 @@ class AreaAtuacao {
         }
         if(items[j].id === "macro_area_2"){
           items[j].content = (areas_atuacao.length>1)?areas_atuacao[1].tx_nome_area_atuacao:"";
-          items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:"";
+          items[j].subareas_selected = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao:null;
           items[j].fonte = (areas_atuacao.length>1)?areas_atuacao[1].subarea_atuacao[0].ft_area_atuacao:null;
         }
         if(util.validateObject(areas_atuacao[0], false)){

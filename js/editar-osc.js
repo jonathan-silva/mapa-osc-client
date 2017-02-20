@@ -182,7 +182,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        		}
     		}
     	}
-      window.location.href = "visualizar-osc.html#/"+id;
+      //window.location.href = "visualizar-osc.html#/"+id;
     	return false;
     }
     function addBotaoVisualizar(id){
@@ -470,7 +470,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //   newJson={};
       //   newJson.area_atuacao = [];
       // }
-      newJson={};
+      var newJson = util.validateObject(old_json.area_atuacao, {});
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson["area_atuacao"] = [];
@@ -520,7 +521,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Descricao
-        var newJson = {};
+        var newJson = util.validateObject(old_json.descricao, {});
         $("#descricao .form-control").each(function(){
           newJson[$(this).attr("id")] = $(this).val();
         });
@@ -531,7 +532,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Certificacoes
-        var newJson = {};
+        var newJson = util.validateObject(old_json.certificacoes, {});
         newJson.certificado = [];
         $("#certificacoes .form-control").each(function(){
           var cd_certificado = 0;
@@ -558,7 +559,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Relações de trabalho
         /*
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         console.log(newJson);
@@ -568,7 +569,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Participacao social
         // Conselho
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conselho").each(function(){
@@ -592,7 +593,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           newJson.push(obj);
+           //newJson.push(obj);
+           newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -600,7 +602,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Conferência
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conferencia").each(function(){
@@ -617,7 +619,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           newJson.push(obj);
+           //newJson.push(obj);
+           newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -625,7 +628,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Outros espaços
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $("#outros_part").find("div").children(".form-group").each(function(){
@@ -642,7 +645,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
           if(!empty){
-            newJson.push(obj);
+            //newJson.push(obj);
+            newJson = Object.assign({}, newJson, obj);
           }
         });
         console.log(newJson);
