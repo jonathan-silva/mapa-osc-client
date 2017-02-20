@@ -434,7 +434,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //var $selectMetas = $divMetasProjeto.find("select"); console.log($selectMetas);
 
         items = data;
-        console.log(cd_objetivo);
+        console.log(items);
         for (var i=0; i<items.length; i++){
           /*if(options[i].cd_objetivo_projeto === cd_objetivo){
             $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
