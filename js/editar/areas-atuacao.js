@@ -66,11 +66,11 @@ class AreaAtuacao {
             items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao!==null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
           }
         }
-        if(items[j].custom_class === "autocomplete"){
-          formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
-        } else {
-          formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
-        }
+      }
+      if(items[j].custom_class === "autocomplete"){
+        formItens.push(this.AutocompleteItem(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].custom_class, macro_area_suggestions, subarea_suggestions, items[j].subareas_selected));
+      } else {
+        formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type, items[j].options, items[j].pretext, items[j].custom_class, items[j].hide));
       }
     }
     //autocomplete macro_area_1 e macro_area_2
