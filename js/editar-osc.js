@@ -78,6 +78,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     var divObjetivosMetasProjeto='';
+    var $divMetasProjeto='';
 
     /*$.ajax({
       url: rotas.Conselho(),
@@ -356,9 +357,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
-      var $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
+      $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
       $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
       $divMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
+      //console.log($divMetasProjeto);
 
       if(cd_objetivo){
         loadMetas(cd_objetivo);
@@ -421,22 +423,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarMetas(data, cd_objetivo){
       if (util.validateObject(data, false)){
         var checkboxItems = [];
-        function CheckboxItems(id, label, value, type, custom_class){
+        function CheckboxItems(id, label, selected, value, type){//}, custom_class){
           this.id = id;
           this.label = label;
+          this.selected = selected;
           this.value = value;
           this.type = type;
-          this.custom_class = custom_class;
+          //this.custom_class = custom_class;
         }
+        //var $selectMetas = $divMetasProjeto.find("select"); console.log($selectMetas);
 
         items = data;
+        console.log(cd_objetivo);
         for (var i=0; i<items.length; i++){
           /*if(options[i].cd_objetivo_projeto === cd_objetivo){
             $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
           } else {
             $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
           }*/
-          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, 'true', items[i].tx_nome_meta_projeto, "checkbox"));//, null));
         }
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
@@ -444,6 +449,31 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             {dados:checkboxItems}
           ), document.getElementById("selectable-"+cd_objetivo)
         );
+
+        /*var $selectMetas = $divMetasProjeto.find("select"); //console.log($selectMetas);
+
+        items = data;
+        for (var i=0; i<items.length; i++){
+          new CheckboxItems();
+          checkboxItems.push(CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+        /*}
+        for (var i=0; i<items.length; i++){* /
+          if(items[i].cd_meta_projeto === cd_meta) {
+          console.log(items[i].cd_meta_projeto);
+
+          //checkboxItems.checked(CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+        } /*else {
+          $selectMetas.append('<ol id="selectable-'+options[i].cd_meta_projeto +'" class="selectable"></ol>');
+        }* /
+      }
+        Checkbox = React.createFactory(Checkbox);
+        ReactDOM.render(
+          Checkbox(
+            {dados:checkboxItems}
+          ), document.getElementById("selectable-"+cd_objetivo)
+        );*/
+        console.log({dados:checkboxItems});
+        console.log(Checkbox);
 
       }
     }
