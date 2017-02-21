@@ -47,7 +47,59 @@ class EspacosPartSocial {
     return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, formas);
   }
 
-  montarEspacosParticipacaoSocial(json, util, participacao_social_form, conselho, conferencia, forma){
+  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lforma){
+
+    $.ajax({
+      url: lconselho,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lconselho = data;
+      }
+    });
+    var lista_conselho=[];
+    for (var i=0;i<lconselho.length;i++){ lista_conselho[i] = lconselho[i].tx_nome_conselho}
+
+    $.ajax({
+      url: lconferencia,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lconferencia = data;
+      }
+    });
+    var lista_conferencia=[];
+    for (var i=0;i<lconferencia.length;i++){ lista_conferencia[i] = lconferencia[i].tx_nome_conferencia}
+
+    $.ajax({
+      url: lforma,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lforma = data;
+      }
+    });
+    var lista_forma=[];
+    for (var i=0;i<lforma.length;i++){ lista_forma[i] = lforma[i].tx_nome_tipo_participacao}
+
     var arraySecao = [];
     /*
     var nomeConselho = util.validateObject(json.participacao_social) ? "tx_nome_conselho-0" : null;
@@ -103,8 +155,9 @@ class EspacosPartSocial {
           }
         }
       }
-      formItens.push(util.FormItens(nomeConselho, "Nome do Conselho", null,null, "Insira no nome do conselho de política pública", "text"));
-      formItens.push(util.FormItens(nomeTipoParticipacao, "Titularidade", null,null, "Diga se a OSCs ocupa vaga de titular ou suplente", "text"));
+
+      formItens.push(util.FormItens(nomeConselho, "Nome do Conselho", null,null, "", "select",lista_conselho,"Insira o nome do conselho de política pública"));
+      formItens.push(util.FormItens(nomeTipoParticipacao, "Titularidade", null,null, "", "select",lista_forma,"Diga se a OSCs ocupa vaga de titular ou suplente"));
       formItens.push(util.FormItens(nomeRepresentanteConselho, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
       formItens.push(util.FormItens(periodicidade, "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
       formItens.push(util.FormItens(dataInicioConselho, "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
@@ -131,8 +184,9 @@ class EspacosPartSocial {
           }
         }
       }
-      formItens.push(util.FormItens(nomeConferencia, "Nome da Conferência", null,null, "Caso a OSC tenha participado, indique aqui o nome da conferência de política pública", "text"));
-      formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "Indique qual foi a forma de atuação da OSC nesta Conferência", "text"));
+
+      formItens.push(util.FormItens(nomeConferencia, "Nome da Conferência", null,null, "", "select",lista_conferencia,"Caso a OSC tenha participado, indique aqui o nome da conferência de política pública"));
+      formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
       formItens.push(util.FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
 
       arraySecao.push(formItens);
