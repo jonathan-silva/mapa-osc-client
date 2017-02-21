@@ -572,29 +572,39 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
+
+        newJson["conselho"] = [];
+        newJson["conselho"]["representante"] = [];
         $(".conselho").each(function(){
-         var obj = {}
-         obj.conselho = {};
-         obj.representante = {};
+
+         var conselho = {};
+         var arrayRepresentante = [];
          var empty = false;
+
          $(this).find("input").each(function(){
+           var representante = {};
+
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           var conselho_id = split[1];
-           if(campo === "tx_nome_representante_conselho"){
-             obj.representante.id_participacao_social_conselho = conselho_id;
-             obj.representante[campo] = $(this).val();
-           } else {
-             obj.conselho.id_conselho = conselho_id;
-             obj.conselho[campo] = $(this).val();
+           var id = split[1];
+           conselho["cd_conselho"] = id;
+           conselho["cd_tipo_participacao"] = id;
+           
+           if(campo == "tx_nome_representante_conselho"){
+             representante["id_participacao_social_conselho"] = id;
+             representante["tx_nome_representante_conselho"] = $(this).val();
+             arrayRepresentante.push(representante);
            }
-           if((conselho_id === "0") && ($(this).val() === "")){
+           else {
+             conselho[campo] = $(this).val();
+           }
+
+           if((id == "0") && ($(this).val() === "")){
              empty = true;
            }
          });
          if(!empty){
-           //newJson.push(obj);
-           newJson = Object.assign({}, newJson, obj);
+           newJson["conselho"].push({"conselho" : conselho, "representante" : arrayRepresentante});
          }
         });
         console.log(newJson);
