@@ -16,6 +16,27 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
     }
   });
 
+  function readURL(input) {
+    if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#imagemLogo").attr('src', e.target.result)
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+    else {
+      $('#errorLabel').removeClass('hide');
+    }
+  }
+
+  $('.custom-file-upload').on("change", function(){
+    $('input[type=file]').each(function(index){
+      if ($('input[type=file]').eq(index).val() != ""){
+        readURL(this);
+      }
+    });
+  });
+
   $(".scroll").click(function(event){
       event.preventDefault();
       $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
@@ -150,33 +171,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 $('.ui-datepicker-next').hide();
             });
         });
-
-        function readURL(input) {
-          if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              $("#imagemLogo").attr('src', e.target.result)
-            };
-            reader.readAsDataURL(input.files[0]);
-          }
-          else {
-            $('#errorLabel').removeClass('hide');
-          }
-        }
-
-        $('.custom-file-upload').on("change", function(){
-          $('.alert').addClass('hide');
-          $('input[type=file]').each(function(index){
-            if ($('input[type=file]').eq(index).val() != ""){
-              readURL(this);
-            }
-          });
-        });
-
-        $("#btnRemoverLogo").click(function(){
-          $("#imagemLogo").attr('src',"img/camera.jpg")
-        });
-
       }
     });
 
@@ -239,7 +233,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var result = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
 
           agrupamento(result, id_projeto);
-          metasObjetivos(data, id_projeto,rotas);
+          metasObjetivos(data, id_projeto);
           verificarContraste();
         } else {
           var $divDadosProjeto = $(projetos[0]);
@@ -305,27 +299,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
-    function metasObjetivos(project, id,rotas){
-
-      $.ajax({
-        url: rotas.ProjectByID(id),
-        type: 'GET',
-        async: false,
-        dataType: 'json',
-        data:{},
-        error:function(e){
-          console.log("Erro no ajax: ");
-          console.log(e);
-        },
-        success: function(data){
-          project = data;
-        }
-      });
-
+    function metasObjetivos(project, id){
       //metas e objetivos
-      var proj = util.validateObject(project,[])
-      var projet = util.validateObject(proj.projeto,proj)
-      var project = util.validateObject(projet[0],projet);
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
       var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
@@ -353,7 +328,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
 
       $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
-      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank>.</a> </div>');
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
@@ -373,7 +348,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var options = json;
       var $selectObjetivos = $divObjetivosProjeto.find("select");
       $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
-
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -442,6 +416,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
           }*/
           checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, 'true', items[i].tx_nome_meta_projeto, "checkbox"));//, null));
+//          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
+
         }
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
@@ -505,7 +481,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
       });
     }
-
     // Cancelar
     $("#cancelar").click(function(){
       window.location.href='/visualizar-osc.html#/'+idOsc;
@@ -523,14 +498,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-
-      var imgSrc = $("#imagemLogo").attr("src");
-      if(imgSrc == "img/camera.jpg" || imgSrc == null || imgSrc == undefined){
-        newJson["im_logo"] = null;
-      }
-      else{
-          newJson["im_logo"] = imgSrc;
-      }
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação
@@ -540,7 +507,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //   newJson={};
       //   newJson.area_atuacao = [];
       // }
-      newJson={};
+      var newJson = util.validateObject(old_json.area_atuacao, {});
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson["area_atuacao"] = [];
@@ -590,7 +558,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Descricao
-        var newJson = {};
+        var newJson = util.validateObject(old_json.descricao, {});
         $("#descricao .form-control").each(function(){
           newJson[$(this).attr("id")] = $(this).val();
         });
@@ -601,7 +569,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Certificacoes
-        var newJson = {};
+        var newJson = util.validateObject(old_json.certificacoes, {});
         newJson.certificado = [];
         $("#certificacoes .form-control").each(function(){
           var cd_certificado = 0;
@@ -628,7 +596,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Relações de trabalho
         /*
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         console.log(newJson);
@@ -638,7 +606,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Participacao social
         // Conselho
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conselho").each(function(){
@@ -662,7 +630,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           newJson.push(obj);
+           //newJson.push(obj);
+           newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -670,7 +639,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Conferência
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conferencia").each(function(){
@@ -687,7 +656,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           newJson.push(obj);
+           //newJson.push(obj);
+           newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -695,7 +665,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Outros espaços
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $("#outros_part").find("div").children(".form-group").each(function(){
@@ -712,7 +682,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
           if(!empty){
-            newJson.push(obj);
+            //newJson.push(obj);
+            newJson = Object.assign({}, newJson, obj);
           }
         });
         console.log(newJson);
