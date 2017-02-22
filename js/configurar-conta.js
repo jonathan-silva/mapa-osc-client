@@ -201,7 +201,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
             data: newJson,
             success: function(data) {
               $('#modalTitle').text('Sucesso');
-              $('#modalConteudo').text('Sua atualização foi realizada com sucesso.');
+              $('#modalConteudo').text('Sua atualização foi realizada com sucesso. É necessário realizar o login novamente.');
               $('#modalMensagem').modal('show');
             },
             error: function(e) {

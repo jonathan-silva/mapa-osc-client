@@ -60,7 +60,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
-
+  
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery'],
   function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
