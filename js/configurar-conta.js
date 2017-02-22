@@ -39,7 +39,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
    var user = window.localStorage.getItem('User');
    var auth  = window.localStorage.getItem('Authorization');
-
+   
    var authHeader = {
      "User": user,
      "Authorization": auth
@@ -188,8 +188,10 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
           newJson['tx_senha_usuario'] = senha;
         var tags = tag.split(',');
         var tagValue = [];
+        var tagsValue = [];
         for (var i = 0; i < tags.length; i++){
            tagValue.push({'id_osc':tags[i]});
+           tagsValue.push(tags[i]);
         }
         newJson['representacao'] = tagValue;
         newJson['id_usuario'] = user;
@@ -200,8 +202,10 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
             dataType: "json",
             data: newJson,
             success: function(data) {
+              window.localStorage.removeItem('Osc');
+              window.localStorage.setItem('Osc', ('[' + tagsValue + ']'));
               $('#modalTitle').text('Sucesso');
-              $('#modalConteudo').text('Sua atualização foi realizada com sucesso. É necessário realizar o login novamente.');
+              $('#modalConteudo').text('Sua atualização foi realizada com sucesso.');
               $('#modalMensagem').modal('show');
             },
             error: function(e) {
