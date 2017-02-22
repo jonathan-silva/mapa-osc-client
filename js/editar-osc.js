@@ -39,7 +39,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
-  
+
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery'],
   function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
@@ -152,7 +152,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
         function readURL(input) {
-          if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
+          if (input.files && input.files[0] && input.files[0].type.match('image.*') && input.files[0].size < 1000000) {
             var reader = new FileReader();
             reader.onload = function (e) {
               $("#imagemLogo").attr('src', e.target.result)
