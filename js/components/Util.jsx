@@ -326,7 +326,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
-        if(item.fonte != 'Representante' && item.fonte != null){
+        if(item.fonte != 'Representante' && item.fonte != null && item.fonte != false){
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
