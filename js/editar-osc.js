@@ -629,13 +629,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Relações de trabalho
-        /*
-        var newJson = {};
+        var newJson = util.validateObject(old_json.relacoes_trabalho_governanca, {});
+        $("#relacoes_trabalho .form-control").each(function(){
+          newJson[$(this).attr("id")] = $(this).val();
+          console.log("entrou");
+        });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         console.log(newJson);
-        success = util.carregaAjax(rotas.ProjectByID(idProjeto), 'POST', newJson);
+        success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
+        /*
+
         */
 
         // Participacao social
