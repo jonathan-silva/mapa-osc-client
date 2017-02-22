@@ -32,7 +32,7 @@ define('componenteCabecalho', ['react'], function (React) {
               <div id="btnInserirImg"></div>
               <div id="btnRemoverImg"></div>
               <div className="alert alert-danger fade in hide" id="errorLabel">
-                <strong>Erro!</strong> Somente Imagem formato png, jpg ou gif.
+                <strong>Erro!</strong> Somente Imagem no formato png, jpg ou gif menores que 1 MB.
               </div>
            </div>
            <div className="cabeca">
