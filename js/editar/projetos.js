@@ -133,12 +133,12 @@ class Projeto {
   }
 
   carregaProjeto(id, dadosForm, rotas, util){
-    var res = null;
+    var res = {};
     var agrupadores=null;
     // rotas.ProjectByID(id)
     if(id === "-1"){
       var empty_project = dadosForm.getEmptyProject();
-      agrupadores = this.montarProjeto(empty_project, util, dadosForm,rotas);
+      res.agrupadores = this.montarProjeto(empty_project, util, dadosForm,rotas);
     } else {
       $.ajax({
         url: rotas.ProjectByID(id),
@@ -151,14 +151,14 @@ class Projeto {
           console.log(e);
         },
         success: function(data){
-          res = data;
-          //console.log(res);
+          res.projeto = data;
         }
       });
-      agrupadores = this.montarProjeto(res, util, dadosForm,rotas);
+      agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);
+      res.agrupadores = agrupadores;
     }
 
-    return agrupadores;
+    return res;
   }
 
   createAgrupadorMultipleInputs(object, labelMap, util){

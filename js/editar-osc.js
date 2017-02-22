@@ -39,7 +39,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
-  
+
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery'],
   function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
@@ -244,10 +244,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var projetos = $(this).next(".projeto");
         if(projetos.length < 1){
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-          var result = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
+          var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
+          var result = res.agrupadores;
+          var proj = res.projeto;console.log(res);
 
           agrupamento(result, id_projeto);
-          metasObjetivos(data, id_projeto);
+          if(proj){
+            metasObjetivos(proj.projeto[0], id_projeto);
+          } else {
+            metasObjetivos({}, id_projeto);
+          }
           verificarContraste();
         } else {
           var $divDadosProjeto = $(projetos[0]);
@@ -315,9 +321,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
+      console.log(project);
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
-      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
+      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);console.log(cd_objetivo);
       var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto, -1);
       var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto, -1);
 
@@ -365,6 +372,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+          console.log(cd_objetivo);
         } else {
           $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         }
