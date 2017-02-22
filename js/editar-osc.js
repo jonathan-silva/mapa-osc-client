@@ -543,7 +543,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      newJson["area_atuacao"] = [];
+      newJson["area_atuacao"] = []; console.log(newJson);
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
@@ -630,12 +630,37 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Relações de trabalho
         var newJson = util.validateObject(old_json.relacoes_trabalho_governanca, {});
-        $("#relacoes_trabalho .form-control").each(function(){
-          newJson[$(this).attr("id")] = $(this).val();
-          console.log("entrou");
-        });
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
+        newJson.relacoes_trabalho_governanca=[];
+        var item = {};
+        item = {};
+
+        //Governanca
+        $("#dirigentes").find("input").each(function(){
+          console.log("entrou gov");/*
+          item.dt_fim_certificado = $(this).val();
+          item.dt_inicio_certificado = null;
+          item.ft_certificado = authHeader.User;
+          item.ft_inicio_certificado = authHeader.User;
+          */
+        });
+
+        //Conselho Fiscal
+        $("#conselho_fiscal").find("input").each(function(){
+          console.log("entrou cons");/*
+          item.dt_fim_certificado = $(this).val();
+          item.ft_fim_certificado = authHeader.User;*/
+        });
+
+        //Trabalhadores
+        $("#trabalhadores").find("input").each(function(){
+          console.log("entrou trab");/*
+          item.dt_fim_certificado = $(this).val();
+          item.ft_fim_certificado = authHeader.User;
+          */
+        });
+        //newJson.relacoes_trabalho_governanca.push(item);
         console.log(newJson);
         success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
