@@ -103,7 +103,7 @@ define(['react'], function(React) {
               <div className="container">
                 <div className="row">
                   <div className="col-md-4">
-                    <h5>{tituloLogo} © {ano}</h5>
+                    <h5 title="Melhor visualizado nos seguintes navegadores: Chrome, Firefox, Edge, Opera.">{tituloLogo} © {ano}</h5>
                     <div className="colabore">
                       <a type="button" className="btn btn-info btn-xs" href="colabore.html">Colabore com o Mapa</a>
                     </div>
