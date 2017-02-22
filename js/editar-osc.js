@@ -355,7 +355,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
       $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-      $divMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
       //console.log($divMetasProjeto);
 
       if(cd_objetivo){
@@ -403,7 +403,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       			$(this).toggleClass('hidden');
       		}
       	});
-
+        $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
       	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
@@ -471,7 +471,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("selectable-"+cd_objetivo)
         );*/
         console.log({dados:checkboxItems});
-        console.log(Checkbox);
 
       }
     }
