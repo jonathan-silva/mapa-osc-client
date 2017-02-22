@@ -576,16 +576,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           if(subareas.length <= 0){
             subareas = null;
-            /*subareas.push({
-              "tx_nome_subarea_atuacao_outra": null,
-              "cd_subarea_atuacao": null
-            });*/
           }
           obj_area_atuacao.subarea_atuacao = subareas;
           newJson.area_atuacao.push(obj_area_atuacao);
         });
+        if(newJson.area_atuacao.length == 0){
+          newJson.area_atuacao.push({
+            "cd_area_atuacao": 0,
+            "tx_nome_area_atuacao_outra": null,
+            "subarea_atuacao": null
+          });
+        }
       });
-        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
         console.log(success);
 
