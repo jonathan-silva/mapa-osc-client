@@ -16,27 +16,6 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
     }
   });
 
-  function readURL(input) {
-    if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $("#imagemLogo").attr('src', e.target.result)
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-    else {
-      $('#errorLabel').removeClass('hide');
-    }
-  }
-
-  $('.custom-file-upload').on("change", function(){
-    $('input[type=file]').each(function(index){
-      if ($('input[type=file]').eq(index).val() != ""){
-        readURL(this);
-      }
-    });
-  });
-
   $(".scroll").click(function(event){
       event.preventDefault();
       $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
@@ -171,6 +150,35 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 $('.ui-datepicker-next').hide();
             });
         });
+
+        function readURL(input) {
+          if (input.files && input.files[0] && input.files[0].type.match('image.*')) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $("#imagemLogo").attr('src', e.target.result)
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+          else {
+            $('#errorLabel').removeClass('hide');
+          }
+        }
+
+        addBotaoimagem();
+        $('.custom-file-upload').on("change", function(){
+          $('.alert').addClass('hide');
+          $('input[type=file]').each(function(index){
+            if ($('input[type=file]').eq(index).val() != ""){
+              readURL(this);
+            }
+          });
+        });
+
+        $("#btnRemoverLogo").click(function(){
+          $("#imagemLogo").attr('src',"img/camera.jpg");
+          $('input[type=file]').eq(0).val("");
+        });
+
       }
     });
 
@@ -190,6 +198,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(".btnVisualizar").append('<a id="btnVisualizar" type="button" title="Clique para Visualizar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Visualizar OSC</a>');
 		    $("#btnVisualizar").attr("href","visualizar-osc.html#/"+id);
     }
+
+    function addBotaoimagem(){
+        $("#btnInserirImg").append('<label class="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>');
+        $("#btnRemoverImg").append('<a class="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>');
+    }
+
     function ativarProjetos(data, util){
       var projetosArray = projeto.montarProjetos(data, util);
       var headerProjeto = projetosArray[0];
@@ -481,6 +495,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
       });
     }
+
     // Cancelar
     $("#cancelar").click(function(){
       window.location.href='/visualizar-osc.html#/'+idOsc;
@@ -498,6 +513,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
+
+      var imgSrc = $("#imagemLogo").attr("src");
+      if(imgSrc == "img/camera.jpg" || imgSrc == null || imgSrc == undefined){
+        newJson["im_logo"] = null;
+      }
+      else{
+          newJson["im_logo"] = imgSrc;
+      }
+
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação

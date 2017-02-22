@@ -26,11 +26,21 @@ define('componenteCabecalho', ['react'], function (React) {
       var items=[];
       for (var i=0; i<this.props.dados.length; i++){
         items.push(
-          <div className="cabeca">
-          <h2>Nome: {this.props.dados[i].Nome}</h2>
-          <h3>CNPJ: {this.props.dados[i].cd_nur}</h3>
-          <h3>Natureza Jurídica: {this.props.dados[i].NatJur}</h3>
-          </div>
+          <div>
+            <div className="divImg">
+              <img id="imagemLogo" src={(this.props.dados[i].imgLogo)?this.props.dados[i].imgLogo:"img/camera.jpg"} className="img-rounded media-object logoOSC"></img>
+              <div id="btnInserirImg"></div>
+              <div id="btnRemoverImg"></div>
+              <div className="alert alert-danger fade in hide" id="errorLabel">
+                <strong>Erro!</strong> Somente Imagem formato png, jpg ou gif.
+              </div>
+           </div>
+           <div className="cabeca">
+              <h2>Nome: {this.props.dados[i].Nome}</h2>
+              <h3>CNPJ: {this.props.dados[i].cd_nur}</h3>
+              <h3>Natureza Jurídica: {this.props.dados[i].NatJur}</h3>
+            </div>
+        </div>
         );
       }
       return items;
