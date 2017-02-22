@@ -809,6 +809,7 @@ body.indisponivel {
   width: 180px;
   float: left;
   padding-left: 5px;
+  min-height: 150px;
 }
 .btnColabore,.btnEditar,.btnRelatorioAtividade,.btnVisualizar{
   padding-top: 10px;
