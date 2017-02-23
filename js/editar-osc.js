@@ -630,37 +630,52 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Relações de trabalho
         var newJson = util.validateObject(old_json.relacoes_trabalho_governanca, {});
+        newJson.relacoes_trabalho_governanca={};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        newJson.relacoes_trabalho_governanca=[];
-        var item = {};
-        item = {};
+        newJson.relacoes_trabalho_governanca.governanca=[];
+        newJson.relacoes_trabalho_governanca.conselho_fiscal=[];
+        newJson.relacoes_trabalho_governanca.relacoes_trabalho=[];
 
         //Governanca
-        $("#dirigentes").find("input").each(function(){
-          console.log("entrou gov");/*
-          item.dt_fim_certificado = $(this).val();
-          item.dt_inicio_certificado = null;
-          item.ft_certificado = authHeader.User;
-          item.ft_inicio_certificado = authHeader.User;
-          */
+        $("#dirigentes").find("input").each(function(i){
+          if ($(this)[0].value){
+            if ((i % 2)==0){
+            var item = {};
+            item.tx_nome_dirigente = $(this)[0].value;
+            item.ft_nome_dirigente = authHeader.User;//"Representante";
+            //item.id_conselheiro = $(this)[0].id;
+            newJson.relacoes_trabalho_governanca.governanca.push(item);
+          }
+          else {
+            var item = {};
+            item.tx_cargo_dirigente = $(this)[0].value;
+            item.ft_cargo_dirigente = authHeader.User;//"Representante";
+            newJson.relacoes_trabalho_governanca.governanca.push(item);
+          }
+      }
         });
 
         //Conselho Fiscal
         $("#conselho_fiscal").find("input").each(function(){
-          console.log("entrou cons");/*
-          item.dt_fim_certificado = $(this).val();
-          item.ft_fim_certificado = authHeader.User;*/
+          if ($(this)[0].value){
+            var item = {};
+            item.tx_nome_conselheiro = $(this)[0].value;
+            item.ft_nome_conselheiro = authHeader.User;//"Representante";
+          newJson.relacoes_trabalho_governanca.conselho_fiscal.push(item);
+        }
         });
 
         //Trabalhadores
         $("#trabalhadores").find("input").each(function(){
-          console.log("entrou trab");/*
-          item.dt_fim_certificado = $(this).val();
-          item.ft_fim_certificado = authHeader.User;
-          */
+        if ($(this)[0].value){
+          var item = {};
+          item.nr_trabalhadores_voluntarios = $(this)[0].value;
+          item.ft_trabalhadores_voluntarios = authHeader.User;//"Representante";
+          newJson.relacoes_trabalho_governanca.relacoes_trabalho.push(item);
+        }
         });
-        //newJson.relacoes_trabalho_governanca.push(item);
+
         console.log(newJson);
         success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
