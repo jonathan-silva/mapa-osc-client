@@ -19,12 +19,12 @@ class Descricao {
       ), document.getElementById("descricao")
     );
     //Salvar
-    $("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
+    /*$("#descricao").append('<button id="salvar" class="btn-primary btn">Salvar</button>');
     var newJson = {};
     $("#descricao").find("#salvar").click(function(){
       $("#descricao .form-control").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
-    });
+    });*/
   }
 }

@@ -605,29 +605,35 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Certificacoes
         var newJson = util.validateObject(old_json.certificacoes, {});
         newJson.certificado = [];
-        $("#certificacoes .form-control").each(function(){
+        $("#certificacoes .form-control").each(function(i){
           var cd_certificado = 0;
-          if($(this).attr("id").substring(18) === "estadual"){
-            cd_certificado = 6;
-          }
-          if($(this).attr("id").substring(18) === "municipal"){
+          if($(this).attr("id").substring(18) === "estadual" && $(this).is(':visible')){
             cd_certificado = 7;
+          }
+          if($(this).attr("id").substring(18) === "municipal" && $(this).is(':visible')){
+            cd_certificado = 8;
           }
           var item = {};
           item = {};
-          item.dt_fim_certificado = $(this).val();
           item.dt_inicio_certificado = null;
-          item.ft_certificado = authHeader.User;
-          item.ft_inicio_certificado = authHeader.User;
-          item.ft_fim_certificado = authHeader.User;
+          item.dt_fim_certificado = $(this).val();
+          item.ft_certificado = 'Representante'//authHeader.User;
+          item.ft_inicio_certificado = 'Representante'//authHeader.User;
+          item.ft_fim_certificado = 'Representante'//authHeader.User;
           item.cd_certificado = cd_certificado;
-          newJson.certificado.push(item);
+          if(cd_certificado > 0){
+            newJson.certificado.push(item);
+          }
         });
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
-        console.log(success);
-
+        if(newJson.certificado.length > 0){
+          newJson["headers"] = authHeader;
+          newJson["id_osc"] = idOsc;
+          success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
+          console.log(success);
+        }
+        else {
+          console.log('Nenhum certificado novo a ser inserido');
+        }
         // Relações de trabalho
         /*
         var newJson = {};
