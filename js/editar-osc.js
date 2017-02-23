@@ -833,10 +833,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-          newJson["id_projeto"] = idProjeto;
-          console.log(newJson);
-          success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
-          console.log(success);
+
+          if(idProjeto !== -1){
+            console.log(newJson);
+            success = util.carregaAjax(rotas.CriarProjectByID(), 'POST', newJson);
+            console.log(success);
+          } else {
+            newJson["id_projeto"] = idProjeto;
+            console.log(newJson);
+            success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+          }
         });
         console.log(old_json);
         // Fonte de recursos
