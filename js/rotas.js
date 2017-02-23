@@ -151,6 +151,12 @@ class Rotas{
   AtualizarFontesRecursos(id){
     return this.getBaseUrl()+":8383/api/osc/recursososc/"+id;
   }
+  ConselhoFiscal(id){
+    return this.getBaseUrl()+":8383/api/osc/conselhofiscal/"+id;
+  }
+  Dirigente(id){
+    return this.getBaseUrl()+":8383/api/osc/dirigente/"+id;
+  }
   // editais.js
   Edital(){
     return this.getBaseUrl()+":8383/api/edital";
