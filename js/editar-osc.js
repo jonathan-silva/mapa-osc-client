@@ -543,7 +543,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      newJson["area_atuacao"] = []; console.log(newJson);
+      newJson["area_atuacao"] = [];
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
@@ -614,7 +614,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             cd_certificado = 8;
           }
           var item = {};
-          item = {};
           item.dt_inicio_certificado = null;
           item.dt_fim_certificado = $(this).val();
           item.ft_certificado = 'Representante'//authHeader.User;
@@ -635,54 +634,62 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log('Nenhum certificado novo a ser inserido');
         }
         // Relações de trabalho
-        var newJson = util.validateObject(old_json.relacoes_trabalho_governanca, {});
-        newJson.relacoes_trabalho_governanca={};
+        var newJson = {};//util.validateObject(old_json.relacoes_trabalho_governanca, {});
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        newJson.relacoes_trabalho_governanca.governanca=[];
-        newJson.relacoes_trabalho_governanca.conselho_fiscal=[];
-        newJson.relacoes_trabalho_governanca.relacoes_trabalho=[];
-
+        newJson["dirigente"] = [];
         //Governanca
         $("#dirigentes").find("input").each(function(i){
-          if ($(this)[0].value){
-            if ((i % 2)==0){
-            var item = {};
-            item.tx_nome_dirigente = $(this)[0].value;
-            item.ft_nome_dirigente = authHeader.User;//"Representante";
-            //item.id_conselheiro = $(this)[0].id;
-            newJson.relacoes_trabalho_governanca.governanca.push(item);
+          var item = {};
+            if ($(this)[0].value){
+                if ((i % 2)==0){
+                item.tx_nome_dirigente = $(this)[0].value;
+                item.ft_nome_dirigente = "Representante"; //authHeader.User;
+              }
+              else {
+                item.tx_cargo_dirigente = $(this)[0].value;
+                item.ft_cargo_dirigente = "Representante"; //authHeader.User;
+              }
+            newJson.dirigente.push(item);
           }
-          else {
-            var item = {};
-            item.tx_cargo_dirigente = $(this)[0].value;
-            item.ft_cargo_dirigente = authHeader.User;//"Representante";
-            newJson.relacoes_trabalho_governanca.governanca.push(item);
-          }
-      }
         });
 
+        console.log(newJson);
+        success = util.carregaAjax(rotas.Dirigente(idOsc), 'POST', newJson);
+        console.log(success);
+
         //Conselho Fiscal
+        newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        newJson["conselho_fiscal"] = [];
         $("#conselho_fiscal").find("input").each(function(){
           if ($(this)[0].value){
             var item = {};
             item.tx_nome_conselheiro = $(this)[0].value;
-            item.ft_nome_conselheiro = authHeader.User;//"Representante";
-          newJson.relacoes_trabalho_governanca.conselho_fiscal.push(item);
-        }
-        });
-
-        //Trabalhadores
-        $("#trabalhadores").find("input").each(function(){
-        if ($(this)[0].value){
-          var item = {};
-          item.nr_trabalhadores_voluntarios = $(this)[0].value;
-          item.ft_trabalhadores_voluntarios = authHeader.User;//"Representante";
-          newJson.relacoes_trabalho_governanca.relacoes_trabalho.push(item);
-        }
+            item.ft_nome_conselheiro = "Representante"; //authHeader.User;
+            newJson.conselho_fiscal.push(item);
+          }
         });
 
         console.log(newJson);
+        success = util.carregaAjax(rotas.ConselhoFiscal(idOsc), 'POST', newJson);
+        console.log(success);
+
+        //Trabalhadores
+        /*$("#trabalhadores").find("input").each(function(){
+        if ($(this)[0].value){
+          var item = {};
+          item.nr_trabalhadores_voluntarios = $(this)[0].value;
+          item.ft_trabalhadores_voluntarios = "Representante";//authHeader.User;
+          newJson.relacoes_trabalho_governanca.relacoes_trabalho.push(item);
+        }
+      });*/
+        newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+        newJson["nr_trabalhadores_voluntarios"] =  $('#voluntarios').val();
+
         success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
         /*
