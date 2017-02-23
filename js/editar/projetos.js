@@ -212,7 +212,8 @@ class Projeto {
             }
           } else if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+            var cd = object.dados[i].cd_area_atuacao_projeto;
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd);
             inputs.push(inputProjeto);
           }
         }

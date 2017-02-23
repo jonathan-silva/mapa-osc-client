@@ -263,7 +263,6 @@ define('componenteCheckbox', ['react'], function (React) {
 
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
-        //console.log(item);
         var item = dados[i];
         item.selected = null;
         var inputElement;
@@ -277,7 +276,6 @@ define('componenteCheckbox', ['react'], function (React) {
         } else {
           if(item.checked){
             item.selected = "checked";
-            console.log(item);
           }
         }
         checkboxElement =
@@ -925,7 +923,8 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var type = item.type;
         var options = item.options;
         var placeholder = item.placeholder;
-
+        var codigo = item.cd ? item.cd : null;
+        console.log(codigo);
         if(content === undefined){
           content = "";
         }
@@ -965,7 +964,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           }
           var InputElement =
             <div id={id}>
-              <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
+              <input id={codigo} className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
             if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
@@ -1015,6 +1014,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
+      console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];

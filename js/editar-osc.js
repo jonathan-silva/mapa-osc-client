@@ -417,7 +417,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarMetas(data, cd_objetivo, cd_meta){
-      console.log(cd_meta);
+      console.log(data);
+      console.log(cd_objetivo);
       if (util.validateObject(data, false)){
         var checkboxItems = [];
         function CheckboxItem(id, label, value, type, checked){
@@ -426,29 +427,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           this.value = value;
           this.type = type;
           this.checked = checked;
-          //this.custom_class = custom_class;
         }
-        //var $selectMetas = $divMetasProjeto.find("select"); console.log($selectMetas);
 
         items = data;
-        console.log(items);
         for (var i=0; i<items.length; i++){
           var checkboxItem = null;
           if(items[i].cd_meta_projeto === cd_meta){
-            console.log(items[i]);
-            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "teste", true);
-            console.log(checkboxItem);
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", true);
             checkboxItems.push(checkboxItem);
           } else {
-            console.log(items[i]);
             checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", false);
-            console.log(checkboxItem);
             checkboxItems.push(checkboxItem);
           }
-//        checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
-
         }
-        console.log(checkboxItems);
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
           Checkbox(
@@ -750,7 +741,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 obj["metas"] = [];
               }
               if($(this).prop("checked")){
+                var codigo = valor.split(" ")[0].split(".")[1];
                 obj["metas"].push({
+                  "cd_meta_projeto": codigo,
                   "tx_meta_projeto": valor
                 });
               }
@@ -771,18 +764,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             } else if( $pai.attr("id") === "autodeclaradas"){
               if(Array.isArray(obj[$pai.attr("id")])){
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": null,
+                  "cd_area_atuacao_projeto": $(this).attr("id"),
                   "tx_area_atuacao_projeto": valor
                 });
               } else {
                 obj[$pai.attr("id")] = [];
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": null,
+                  "cd_area_atuacao_projeto": $(this).attr("id"),
                   "tx_area_atuacao_projeto": valor
                 });
               }
             } else if ($pai.attr("id") === "objetivos"){
-              console.log($(this).val());
+              var codigo = valor.split(".")[0];
+              obj["objetivos"] = {
+                "cd_objetivo_projeto": codigo,
+                "tx_objetivo_projeto": valor
+              };
             } else {
               obj[$pai.attr("id")] = valor;
             }
@@ -836,8 +833,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+          newJson["id_projeto"] = idProjeto;
           console.log(newJson);
-          success = util.carregaAjax(rotas.AtualizarProjectByID(idProjeto), 'POST', newJson);
+          success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
           console.log(success);
         });
         console.log(old_json);
