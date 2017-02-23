@@ -355,11 +355,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
       $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-      $divMetasProjeto.append('<ol id="selectable-'+id +'" class="selectable"></ol>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
       //console.log($divMetasProjeto);
 
       if(cd_objetivo){
-        loadMetas(cd_objetivo);
+        loadMetas(cd_objetivo, cd_meta);
       }
 
       carregaEventoMetas();
@@ -379,7 +379,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     }
 
-    function loadMetas(cd_objetivo){
+    function loadMetas(cd_objetivo, cd_meta){
       $.ajax({
         url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
@@ -390,7 +390,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          montarMetas(data, cd_objetivo);
+          montarMetas(data, cd_objetivo, cd_meta);
         }
       });
     }
@@ -403,7 +403,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       			$(this).toggleClass('hidden');
       		}
       	});
-
+        $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
       	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
@@ -411,35 +411,34 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       		$('#metas-'+cd_objetivo).toggleClass('hidden');
       	}
       	if(parseInt(cd_objetivo) !== 0){
-      		loadMetas(cd_objetivo);
+      		loadMetas(cd_objetivo, null);
       	}
       });
     }
 
-    function montarMetas(data, cd_objetivo){
+    function montarMetas(data, cd_objetivo, cd_meta){
+      console.log(data);
+      console.log(cd_objetivo);
       if (util.validateObject(data, false)){
         var checkboxItems = [];
-        function CheckboxItems(id, label, selected, value, type){//}, custom_class){
+        function CheckboxItem(id, label, value, type, checked){
           this.id = id;
           this.label = label;
-          this.selected = selected;
           this.value = value;
           this.type = type;
-          //this.custom_class = custom_class;
+          this.checked = checked;
         }
-        //var $selectMetas = $divMetasProjeto.find("select"); console.log($selectMetas);
 
         items = data;
-        console.log(items);
         for (var i=0; i<items.length; i++){
-          /*if(options[i].cd_objetivo_projeto === cd_objetivo){
-            $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+          var checkboxItem = null;
+          if(items[i].cd_meta_projeto === cd_meta){
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", true);
+            checkboxItems.push(checkboxItem);
           } else {
-            $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
-          }*/
-          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, 'true', items[i].tx_nome_meta_projeto, "checkbox"));//, null));
-//          checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
-
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", false);
+            checkboxItems.push(checkboxItem);
+          }
         }
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
@@ -471,7 +470,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("selectable-"+cd_objetivo)
         );*/
         console.log({dados:checkboxItems});
-        console.log(Checkbox);
 
       }
     }
@@ -492,7 +490,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('#metas-'+cd_objetivo).toggleClass('hidden');
         }
         if(parseInt(cd_objetivo) !== 0){
-          loadMetas(cd_objetivo);
+          loadMetas(cd_objetivo, null);
         }
       });
     }
@@ -796,7 +794,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 obj["metas"] = [];
               }
               if($(this).prop("checked")){
+                var codigo = valor.split(" ")[0].split(".")[1];
                 obj["metas"].push({
+                  "cd_meta_projeto": codigo,
                   "tx_meta_projeto": valor
                 });
               }
@@ -817,18 +817,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             } else if( $pai.attr("id") === "autodeclaradas"){
               if(Array.isArray(obj[$pai.attr("id")])){
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": null,
+                  "cd_area_atuacao_projeto": $(this).attr("id"),
                   "tx_area_atuacao_projeto": valor
                 });
               } else {
                 obj[$pai.attr("id")] = [];
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": null,
+                  "cd_area_atuacao_projeto": $(this).attr("id"),
                   "tx_area_atuacao_projeto": valor
                 });
               }
             } else if ($pai.attr("id") === "objetivos"){
-              console.log($(this).val());
+              var codigo = valor.split(".")[0];
+              obj["objetivos"] = {
+                "cd_objetivo_projeto": codigo,
+                "tx_objetivo_projeto": valor
+              };
             } else {
               obj[$pai.attr("id")] = valor;
             }
@@ -882,9 +886,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-          console.log(newJson);
-          success = util.carregaAjax(rotas.AtualizarProjectByID(idProjeto), 'POST', newJson);
-          console.log(success);
+
+          if(idProjeto !== -1){
+            console.log(newJson);
+            success = util.carregaAjax(rotas.CriarProjectByID(), 'POST', newJson);
+            console.log(success);
+          } else {
+            newJson["id_projeto"] = idProjeto;
+            console.log(newJson);
+            success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+          }
         });
         console.log(old_json);
         // Fonte de recursos
