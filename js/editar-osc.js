@@ -420,12 +420,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       console.log(cd_meta);
       if (util.validateObject(data, false)){
         var checkboxItems = [];
-        function CheckboxItems(id, label, value, type, selected){
+        function CheckboxItem(id, label, value, type, checked){
           this.id = id;
           this.label = label;
           this.value = value;
           this.type = type;
-          this.selected = selected;
+          this.checked = checked;
           //this.custom_class = custom_class;
         }
         //var $selectMetas = $divMetasProjeto.find("select"); console.log($selectMetas);
@@ -433,11 +433,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         items = data;
         console.log(items);
         for (var i=0; i<items.length; i++){
+          var checkboxItem = null;
           if(items[i].cd_meta_projeto === cd_meta){
             console.log(items[i]);
-            checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", true));
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "teste", true);
+            console.log(checkboxItem);
+            checkboxItems.push(checkboxItem);
           } else {
-            checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", false));
+            console.log(items[i]);
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", false);
+            console.log(checkboxItem);
+            checkboxItems.push(checkboxItem);
           }
 //        checkboxItems.push(new CheckboxItems(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", null));
 

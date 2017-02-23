@@ -263,7 +263,7 @@ define('componenteCheckbox', ['react'], function (React) {
 
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
-        console.log(item);
+        //console.log(item);
         var item = dados[i];
         item.selected = null;
         var inputElement;
@@ -275,7 +275,7 @@ define('componenteCheckbox', ['react'], function (React) {
             }
           }
         } else {
-          if(item.selected){
+          if(item.checked){
             item.selected = "checked";
             console.log(item);
           }
