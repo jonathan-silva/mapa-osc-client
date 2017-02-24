@@ -775,8 +775,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Projetos
+        var listaProjetos = [];
         var newJson = {};
-        var idProjeto = "";
+        var idProjeto = 0;
         function getDataFromForm($elementos){
           var obj = {};
           var auxArr = [];
@@ -842,63 +843,24 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         $(".projeto").each(function(){
           var str = $(this).attr("id");
-          idProjeto = str.substring(str.indexOf("-") + 1);
+          idProjeto = Number(str.substring(str.indexOf("-") + 1));
 
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
-          /*
-          $(this).find("input").each(function() {
-            var $pai = $(this).closest(".form-group");
-            newJson[$pai.attr("id")] = $(this).val();
-          });
-          $(this).find("textarea").each(function() {
-            var $pai = $(this).closest(".form-group");
-            newJson[$pai.attr("id")] = $(this).val();
-          });
-          $(this).find("select").each(function() {
-            var $pai = $(this).closest(".form-group");
-            if($pai.attr("id") === undefined){
-              $pai = $(this).parent();
-            }
-            newJson[$pai.attr("id")] = $(this).val();
-          });*/
 
-          /*
-          $(this).find(".form-group").each(function(){
-            if($(this).children().length <= 1){
-              $child = $(this).children(':first');
-              var key = $(this).attr("id");
-              var value = $child.find(".form-control").val();
-              if(key)
-              newJson[key] = value;
-            } else {
-              var children = $(this).children();
-              var key = $(this).attr("id");
-              newJson[key] = [];
-              for (var i = 0; i < children.length; i++) {
-                var $child = $(children[i]);
-                newJson[key].push($child.find(":input").val());
-              }
-            }
-          });
-          */
-          //newJson["meta"] = $(".metas :visible").find(".ui-selected").text();
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-
           if(idProjeto !== -1){
-            console.log(newJson);
-            success = util.carregaAjax(rotas.CriarProjectByID(), 'POST', newJson);
-            console.log(success);
-          } else {
             newJson["id_projeto"] = idProjeto;
-            console.log(newJson);
-            success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
-            console.log(success);
+          } else {
+            newJson["id_projeto"] = null;
           }
+          listaProjetos.push(newJson);
         });
-        console.log(old_json);
+        console.log(listaProjetos);
+        success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', listaProjetos);
+        console.log(success);
         // Fonte de recursos
         newJson = {};
         newJson["headers"] = authHeader;
