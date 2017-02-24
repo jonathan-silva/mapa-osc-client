@@ -78,6 +78,7 @@ class EspacosPartSocial {
       },
       success: function(data){
         lconferencia = data;
+        console.log(lconferencia);
       }
     });
     var lista_conferencia=[];
@@ -167,6 +168,7 @@ class EspacosPartSocial {
     };
 
     var formItens = [];//
+    console.log(conferencias);
     if (conferencias.length) {
       var conferencia = participacao_social_form.items;
       for (var j=0; j<conferencias.length; j++){

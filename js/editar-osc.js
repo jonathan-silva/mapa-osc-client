@@ -246,7 +246,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
           var result = res.agrupadores;
-          var proj = res.projeto;console.log(res);
+          var proj = res.projeto;
 
           agrupamento(result, id_projeto);
           if(proj){
@@ -321,10 +321,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
-      console.log(project);
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
-      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);console.log(cd_objetivo);
+      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
       var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto, -1);
       var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto, -1);
 
@@ -372,7 +371,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
-          console.log(cd_objetivo);
         } else {
           $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         }
@@ -417,8 +415,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function montarMetas(data, cd_objetivo, cd_meta){
-      console.log(data);
-      console.log(cd_objetivo);
       if (util.validateObject(data, false)){
         var checkboxItems = [];
         function CheckboxItem(id, label, value, type, checked){
@@ -469,8 +465,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             {dados:checkboxItems}
           ), document.getElementById("selectable-"+cd_objetivo)
         );*/
-        console.log({dados:checkboxItems});
-
       }
     }
 
@@ -541,7 +535,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      newJson["area_atuacao"] = []; console.log(newJson);
+      newJson["area_atuacao"] = [];
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
         var cd_area = 0;
@@ -689,7 +683,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         // Participacao social
         // Conselho
-        var newJson = {};
+        var newJson = [];
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conselho").each(function(){
@@ -713,8 +707,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           //newJson.push(obj);
-           newJson = Object.assign({}, newJson, obj);
+           newJson.push(obj);
+           //newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -722,7 +716,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Conferência
-        var newJson = {};
+        var newJson = [];
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         $(".conferencia").each(function(){
@@ -739,8 +733,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           //newJson.push(obj);
-           newJson = Object.assign({}, newJson, obj);
+           newJson.push(obj);
+           //newJson = Object.assign({}, newJson, obj);
          }
         });
         console.log(newJson);
@@ -840,7 +834,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           return obj;
         }
         $(".projeto").each(function(){
-          console.log("projeto");
           var str = $(this).attr("id");
           idProjeto = str.substring(str.indexOf("-") + 1);
 
@@ -905,7 +898,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["id_osc"] = idOsc;
         newJson["fonte_recursos"] = [];
         $("#recursos").children().each(function(){
-          console.log($(this));
           var ano = $(this).find("select").val();
           $(this).find("input").each(function(){
             var obj = {};
