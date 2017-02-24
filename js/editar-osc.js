@@ -54,24 +54,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       addBotaoVisualizar(idOsc);
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
-    //window.localStorage.setItem('User', 17);
-    //window.localStorage.setItem('Authorization', "vhYFzMQd8FzeMgM89P99Bx6qR7coRXBGHycCaTr27F4=");
+
     var user = window.localStorage.getItem('User');
     var auth  = window.localStorage.getItem('Authorization');
-
-    $("#unauthorized" ).dialog({
-      resizable: false,
-      height: "auto",
-      width: 400,
-      modal: true,
-      autoOpen: false,
-      buttons: {
-        "OK": function() {
-          $( this ).dialog( "close" );
-        }
-      }
-    });
-
     var authHeader = {
       "User": user,
       "Authorization": auth
@@ -497,7 +482,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     // Cancelar
-    $("#cancelar").click(function(){
+    $("#cancelar").click(function(){  
       window.location.href='/visualizar-osc.html#/'+idOsc;
     });
 
@@ -874,7 +859,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success.responseText);
       //});
 
-
+      jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(um) dia.<br><br>Obrigado!"};
+      util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
 
     });
   });

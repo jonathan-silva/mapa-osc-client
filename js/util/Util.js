@@ -69,7 +69,6 @@ class Util {
 
   abrirModalAjuda(titulo, jsonModalAjuda) {
   	var	corpo = jsonModalAjuda[titulo];
-  	var tituloCompleto = "Ajuda - "+titulo;
 
     $("#modalTitulo").html("");
     $("#modalTitulo").html(titulo);
