@@ -626,23 +626,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log('Nenhum certificado novo a ser inserido');
         }
         // Relações de trabalho
+
+        //Governanca
         var newJson = {};//util.validateObject(old_json.relacoes_trabalho_governanca, {});
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        newJson["dirigente"] = [];
-        //Governanca
+        newJson["governanca"] = [];
+        var item = {};
         $("#dirigentes").find("input").each(function(i){
-          var item = {};
-            if ($(this)[0].value){
-                if ((i % 2)==0){
-                item.tx_nome_dirigente = $(this)[0].value;
-                item.ft_nome_dirigente = "Representante"; //authHeader.User;
-              }
-              else {
-                item.tx_cargo_dirigente = $(this)[0].value;
-                item.ft_cargo_dirigente = "Representante"; //authHeader.User;
-              }
-            newJson.dirigente.push(item);
+          if ($(this)[0].value){
+            if ((i % 2)==0){
+              item.id_dirigente = $(this).attr("id") ? $(this).attr("id") : null;
+              item.tx_nome_dirigente = $(this)[0].value;
+              item.ft_nome_dirigente = "Representante"; //authHeader.User;
+            } else {
+              item.tx_cargo_dirigente = $(this)[0].value;
+              item.ft_cargo_dirigente = "Representante"; //authHeader.User;
+              newJson.governanca.push(item);
+              item = {};
+            }
           }
         });
 
@@ -669,24 +671,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Trabalhadores
-        /*$("#trabalhadores").find("input").each(function(){
-        if ($(this)[0].value){
-          var item = {};
-          item.nr_trabalhadores_voluntarios = $(this)[0].value;
-          item.ft_trabalhadores_voluntarios = "Representante";//authHeader.User;
-          newJson.relacoes_trabalho_governanca.relacoes_trabalho.push(item);
-        }
-      });*/
         newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["nr_trabalhadores_voluntarios"] =  $('#voluntarios').val();
-
+        console.log(newJson);
         success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
-        /*
-
-        */
 
         // Participacao social
         // Conselho
