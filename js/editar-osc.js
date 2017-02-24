@@ -660,6 +660,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#conselho_fiscal").find("input").each(function(){
           if ($(this)[0].value){
             var item = {};
+            item.id_conselheiro = $(this).attr("id") ? $(this).attr("id") : null ;
             item.tx_nome_conselheiro = $(this)[0].value;
             item.ft_nome_conselheiro = "Representante"; //authHeader.User;
             newJson.conselho_fiscal.push(item);
