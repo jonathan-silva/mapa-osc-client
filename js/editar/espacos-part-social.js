@@ -81,7 +81,13 @@ class EspacosPartSocial {
       }
     });
     var lista_conferencia=[];
-    for (var i=0;i<lconferencia.length;i++){ lista_conferencia[i] = lconferencia[i].tx_nome_conferencia}
+
+    for (var i=0;i<lconferencia.length;i++){
+      lista_conferencia.push({
+        "texto": lconferencia[i].tx_nome_conferencia,
+        "valor": lconferencia[i].cd_conferencia
+      })
+    }
 
     $.ajax({
       url: lforma,
@@ -98,7 +104,12 @@ class EspacosPartSocial {
       }
     });
     var lista_forma=[];
-    for (var i=0;i<lforma.length;i++){ lista_forma[i] = lforma[i].tx_nome_tipo_participacao}
+    for (var i=0;i<lforma.length;i++){
+      lista_forma.push({
+        "texto": lforma[i].tx_nome_tipo_participacao,
+        "valor": lforma[i].cd_tipo_participacao
+      });
+    }
 
     var arraySecao = [];
     /*
@@ -184,7 +195,6 @@ class EspacosPartSocial {
           }
         }
       }
-
       formItens.push(util.FormItens(nomeConferencia, "Nome da Conferência", null,null, "", "select",lista_conferencia,"Caso a OSC tenha participado, indique aqui o nome da conferência de política pública"));
       formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
       formItens.push(util.FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));

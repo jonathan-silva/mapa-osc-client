@@ -238,7 +238,6 @@ define('componenteDropdown', ['react'], function (React) {
           items.push(<option value={val}>{val}</option>);
         }
       }
-
       return items;
     },
       render: function() {
@@ -253,6 +252,42 @@ define('componenteDropdown', ['react'], function (React) {
   });
 
   return Dropdown;
+});
+
+define('componenteDropdownDual', ['react'], function (React) {
+  var DropdownDual = React.createClass({
+    getInitialState:function(){
+      return {selectValue:this.props.list[0].valor};
+    },
+    handleChange: function(e){
+      this.setState({selectValue: e.target.value});
+    },
+    renderListItems: function () {
+      var items = [];
+      items.push(<option value={-1} selected>Selecione uma opção...</option>);
+      for(var i=0; i<this.props.list.length; i++){
+        var val = this.props.list[i].valor;
+        var text = this.props.list[i].texto;
+        if (val === this.props.selected) {
+          items.push(<option value={val} selected>{text}</option>);
+        } else {
+          items.push(<option value={val}>{text}</option>);
+        }
+      }
+      return items;
+    },
+      render: function() {
+          return (
+            <div>
+             <select id={this.props.id} className="form-control">
+                {this.renderListItems()}
+              </select>
+            </div>
+          );
+      }
+  });
+
+  return DropdownDual;
 });
 
 define('componenteCheckbox', ['react'], function (React) {
@@ -304,7 +339,7 @@ define('componenteCheckbox', ['react'], function (React) {
   return Checkbox;
 });
 
-define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox'], function (React, Dropdown, Checkbox) {
+define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownDual','componenteCheckbox'], function (React, Dropdown, DropdownDual, Checkbox) {
   var FormItem = React.createClass({
     renderListItems: function(){
       var items=[];
@@ -331,6 +366,7 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
         if(item.fonte != 'Representante' && item.fonte != null && item.fonte != false){
+          console.log(item);
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
@@ -356,12 +392,22 @@ define('componenteFormItem', ['react','componenteDropdown','componenteCheckbox']
             {SpanFonte}
           </div>
         } else if(item.type == 'select'){
-          var className = "input-box"+ custom_class;
-          ContentElement =
-          <div className={className}>
-            <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
-            {SpanFonte}
-          </div>
+          if((item.id.split("-")[0]==="tx_nome_conferencia") || (item.id.split("-")[0]==="tx_nome_forma_participacao_conferencia") || (item.id.split("-")[0]==="tx_nome_tipo_participacao")){
+
+            var className = "input-box"+ custom_class;
+            ContentElement =
+            <div className={className}>
+              <DropdownDual list={item.options} id={item.id} selected={item.content}></DropdownDual>
+              {SpanFonte}
+            </div>
+          } else {
+            var className = "input-box"+ custom_class;
+            ContentElement =
+            <div className={className}>
+              <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
+              {SpanFonte}
+            </div>
+          }
         } else if(item.id == "tx_endereco_eletronico_sugerido"){
           ContentElement =
           <div className="input-box">
@@ -924,7 +970,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
-        console.log(codigo);
+        console.log(item);
         if(content === undefined){
           content = "";
         }
@@ -935,7 +981,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.title) && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
+            if ( (item.fonte) && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -947,7 +993,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.title) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
+          if ( (item.fonte) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
               <textarea className="form-control" defaultValue={content} disabled></textarea>
@@ -967,7 +1013,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <input id={codigo} className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
-            if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
+            if ( (item.fonte) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
               InputElement =
                 <div id={id}>
                   <span className="form-control">{content}</span>
@@ -1014,7 +1060,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
@@ -1023,6 +1068,8 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         var inputs = item.inputs;
         var containerClass = dados[i].containerClass;
         var buttons = item.buttons;
+        var className = "imgDadoOficial";
+        var src = "img/base_dados.png";
         if(buttons !== undefined || null){
           ButtonElement =
             <FormButtonProjeto dados={buttons}></FormButtonProjeto>
@@ -1032,10 +1079,15 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         if(header === undefined){
           header = "";
         }
+        console.log(inputs[0]);
+        if((inputs[0].title === "Representante") || (inputs[0].title === null)){
+          className = "imgDadoEditavel";
+          src = "img/dado_representante.png";
+        }
         var ContainerElement =
           <div className={containerClass}>
             <div className="header">{header}
-            <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span></div>
+            <span><img title="informação preenchida pela organização" className={className} src={src}></img></span></div>
             <FormInputProjeto dados={inputs}></FormInputProjeto>
             {ButtonElement}
           </div>
@@ -1046,7 +1098,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header">{header+" "}
-                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1060,7 +1112,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           ContainerElement =
             <div className={containerClass}>
               <div className="header">{header+" "}
-              <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+              <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
               </div>
               <FormInputProjeto dados={inputs}></FormInputProjeto>
               {ButtonElement}
@@ -1071,7 +1123,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Defina a abrangência territorial do projeto.">{header}
-                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span></div>
+                <span><img title="informação preenchida pela organização" className={className} src={src}></img></span></div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
@@ -1082,7 +1134,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header"> {header+" "}
-                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                   </div>
                   <FormInputProjeto dados={inputs}></FormInputProjeto>
                   {ButtonElement}
@@ -1095,7 +1147,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
-                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                   </div>
                   <FormInputProjeto dados={inputs}></FormInputProjeto>
                   {ButtonElement}
@@ -1106,7 +1158,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
-                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                <span><img title="informação preenchida pela organização" className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1115,7 +1167,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
-                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1128,7 +1180,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header">{header+" "}
-                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1141,7 +1193,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header">{header+" "}
-                  <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                  <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                   </div>
                   <FormInputProjeto dados={inputs}></FormInputProjeto>
                   {ButtonElement}
@@ -1152,7 +1204,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Especifique, se houver, o publico diretamente beneficiado pelo projeto.">{header}
-                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                <span><img title="informação preenchida pela organização" className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1162,7 +1214,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
            ContainerElement =
              <div className={containerClass}>
                <div className="header" title="Insira um link para a página do projeto, se houver.">{header}
-               <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+               <span><img title="informação preenchida pela organização" className={className} src={src}></img></span>
                </div>
                <FormInputProjeto dados={inputs}></FormInputProjeto>
                {ButtonElement}
@@ -1172,7 +1224,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Liste os financiadores do projeto.">{header}
-                <span><img title="informação preenchida pela organização" className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+                <span><img title="informação preenchida pela organização" className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1184,7 +1236,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
-                <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+                <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
@@ -1198,7 +1250,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
            ContainerElement =
              <div className={containerClass}>
                <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
-               <span><img title={"informação oficial, fonte: "+title} className="imgDadoOficial" src="img/base_dados.png"></img></span>
+               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                </div>
                <FormInputProjeto dados={inputs}></FormInputProjeto>
                {ButtonElement}

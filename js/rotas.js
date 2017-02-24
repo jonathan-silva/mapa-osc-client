@@ -91,8 +91,8 @@ class Rotas{
   AtualizarProjectByID(id){
     return this.getBaseUrl()+":8383/api/osc/projeto/"+id;
   }
-  CriarProjectByID(){
-    return this.getBaseUrl()+":8383/api/osc/projeto/";
+  CriarProjectByID(id){
+    return this.getBaseUrl()+":8383/api/osc/projeto/insert/"+id;
   }
   Objetivos(){
     return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";

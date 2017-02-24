@@ -482,7 +482,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     // Cancelar
-    $("#cancelar").click(function(){  
+    $("#cancelar").click(function(){
       window.location.href='/visualizar-osc.html#/'+idOsc;
     });
 
@@ -670,18 +670,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var newJson = [];
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
+        newJson["conselho"] = [];
         $(".conselho").each(function(){
          var obj = {}
          obj.conselho = {};
-         obj.representante = {};
+         obj.representante = [];
          var empty = false;
          $(this).find("input").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
            var conselho_id = split[1];
            if(campo === "tx_nome_representante_conselho"){
-             obj.representante.id_participacao_social_conselho = conselho_id;
-             obj.representante[campo] = $(this).val();
+             obj.representante.push(
+               {
+                "tx_nome_representante_conselho": $(this).val()
+               }
+             );
            } else {
              obj.conselho.id_conselho = conselho_id;
              obj.conselho[campo] = $(this).val();
@@ -691,7 +695,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
          if(!empty){
-           newJson.push(obj);
+           newJson.conselho.push(obj);
            //newJson = Object.assign({}, newJson, obj);
          }
         });
@@ -700,24 +704,29 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         // Conferência
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
+        newJson["conferencia"] = [];
         $(".conferencia").each(function(){
-         var obj = {}
-         var empty = false;
+         var obj = {};
          $(this).find("input").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           var conferencia_id = split[1];
            obj[campo] = $(this).val();
-           obj.cd_conferencia = conferencia_id;
-           if((conferencia_id === "0") && ($(this).val() === "")){
-             empty = true;
-           }
          });
-         if(!empty){
-           newJson.push(obj);
+         $(this).find("select").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           if (campo === "tx_nome_forma_participacao_conferencia"){
+            obj["cd_forma_participacao_conferencia"] = $(this).val();
+          } else {
+            obj["cd_conferencia"] = $(this).val();
+          }
+         });
+         if(!(obj.cd_conferencia === "-1") && !(obj.cd_forma_participacao_conferencia === "-1")){
+
+           newJson.conferencia.push(obj);
            //newJson = Object.assign({}, newJson, obj);
          }
         });
@@ -828,16 +837,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-          if(idProjeto !== -1){
-            newJson["id_projeto"] = idProjeto;
-          } else {
+          if(idProjeto === -1){
             newJson["id_projeto"] = null;
+            console.log(newJson);
+            success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+          } else {
+            newJson["id_projeto"] = idProjeto;
+            console.log(newJson);
+            success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
           }
-          listaProjetos.push(newJson);
+          //listaProjetos.push(newJson);
         });
-        console.log(listaProjetos);
-        success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', listaProjetos);
-        console.log(success);
+        // console.log(listaProjetos);
+        // success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', listaProjetos);
+        // console.log(success);
         // Fonte de recursos
         newJson = {};
         newJson["headers"] = authHeader;
