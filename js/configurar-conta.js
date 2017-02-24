@@ -153,7 +153,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
             error = false;
           }
         }
-        if(confirmarSenha !== '' && senha !== ''){
+        if(confirmarSenha !== '' && senha !== '' && senha.length > 5 && confirmarSenha.length > 5 ){
           if (confirmarSenha === senha) {
               $("#senha").closest('.form-group').removeClass('has-error').addClass('has-success');
               $("#confirmarSenha").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -168,6 +168,10 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
               $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
               error = true;
           }
+      }else {
+        error = true;
+        $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
+        $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
       }
 
       if(tag === '' || tag === null){
