@@ -970,7 +970,6 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
-        console.log(item);
         if(content === undefined){
           content = "";
         }
@@ -1079,8 +1078,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         if(header === undefined){
           header = "";
         }
-        console.log(inputs[0]);
-        if((inputs[0].title === "Representante") || (inputs[0].title === null)){
+        if((inputs[0].title === "Representante") || (inputs[0].title === null) || (inputs[0].title === undefined)){
           className = "imgDadoEditavel";
           src = "img/dado_representante.png";
         }
@@ -1155,6 +1153,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Local de execução"){
+            console.log(item);
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
