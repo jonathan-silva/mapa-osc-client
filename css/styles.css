@@ -946,3 +946,6 @@ select{
 #contraste_normal{
   display: none;
 }
+.listaOscs{
+  display:block;
+}

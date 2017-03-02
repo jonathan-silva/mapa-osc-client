@@ -13,7 +13,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
     var id = ['nome','email','senha','confirmarSenha'];
     var label = ['Nome','Email','Senha','Confirmar Senha'];
     var type = ['text','email','password','password'];
-    var obrigatorio = [true, true, true, true, true];
+    var obrigatorio = [true, true, false, false ];
     var formItens = [];
 
     for (var j=0; j<id.length; j++){
@@ -29,7 +29,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
     var formItens2 = [];
 
     for (var i=0; i<id2.length; i++){
-      formItens2.push(new FormItens(id2[i], label2[i], type2[i], obrigatorio2[j]));
+      formItens2.push(new FormItens(id2[i], label2[i], type2[i], obrigatorio2[i]));
     }
 
     FormItem = React.createFactory(FormItem);
@@ -68,7 +68,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
+
          for (var i = 0; i < data.representacao.length; i++){
+           if(i==0){
+             $('#tags').prepend('<label class="control-label listaOscs">Lista de OSCs: <span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>');
+           }
            $('#tags').removeClass('hide');
            $('#tag').tagsinput('add', {id: data.representacao[i].id_osc, text: data.representacao[i].tx_nome_osc});
          }
@@ -135,6 +139,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
         if(nome === '' || nome === null){
           $("#nome").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $("#nome").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Nome não pode está vazio!</span></div>');
         }
         else{
           $("#nome").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -142,6 +147,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
         }
         if(!validaEmail(email)){
           $("#email").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $("#email").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Email não pode está vazio!</span></div>');
           error = true;
         }
         else{
@@ -153,77 +159,84 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
             error = false;
           }
         }
-        if(confirmarSenha !== '' && senha !== '' && senha.length > 5 && confirmarSenha.length > 5 ){
-          if (confirmarSenha === senha) {
-              $("#senha").closest('.form-group').removeClass('has-error').addClass('has-success');
-              $("#confirmarSenha").closest('.form-group').removeClass('has-error').addClass('has-success');
-              if(error){
-                error = true;
-              }
-              else {
-                error = false;
-              }
-          } else {
-              $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
-              $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
-              error = true;
-          }
-      }else {
-        error = true;
-        $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
-        $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
-      }
 
-      if(tag === '' || tag === null){
-        error = true;
-      }
-      else{
-        if(error){
+        if(senha !== '' ){
+          if(senha.length > 5 ){
+            if (confirmarSenha === senha)
+            {
+                $("#senha").closest('.form-group').removeClass('has-error').addClass('has-success');
+                $("#confirmarSenha").closest('.form-group').removeClass('has-error').addClass('has-success');
+                if(error){
+                  error = true;
+                }
+                else {
+                  error = false;
+                }
+            } else {
+                $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
+                $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
+                $("#confirmarSenha").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Confirmar senha tem que ser igual senha!</span></div>');
+                error = true;
+            }
+          }else {
+            error = true;
+            $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
+            $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
+            $("#senha").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Senha é Menor que 6 Caracteres!</span></div>');
+          }
+        }
+
+        if(tag === '' || tag === null){
+          $("#tag").closest('#tags').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: É necessário ter pelo menos uma OSC!</span></div>');
           error = true;
         }
-        else {
-          error = false;
-        }
-      }
-
-      if(!error){
-        newJson['tx_nome_usuario'] = nome;
-        newJson['tx_email_usuario'] = email;
-        if(senha !== '' && senha !== null)
-          newJson['tx_senha_usuario'] = senha;
-        var tags = tag.split(',');
-        var tagValue = [];
-        for (var i = 0; i < tags.length; i++){
-           tagValue.push({'id_osc':tags[i]});
+        else{
+          if(error){
+            error = true;
+          }
+          else {
+            error = false;
+          }
         }
 
-        newJson['representacao'] = tagValue;
-        newJson['id_usuario'] = user;
+        if(!error){
+          newJson['tx_nome_usuario'] = nome;
+          newJson['tx_email_usuario'] = email;
+          if(senha !== '' && senha !== null && senha.length > 5)
+            newJson['tx_senha_usuario'] = senha;
+          var tags = tag.split(',');
+          var tagValue = [];
+          for (var i = 0; i < tags.length; i++){
+             tagValue.push({'id_osc':tags[i]});
+          }
 
-        $.ajax({
-            url: rotas.UpdateUsuario(user),
-            type: 'POST',
-            dataType: "json",
-            data: newJson,
-            success: function(data) {
+          newJson['representacao'] = tagValue;
+          newJson['id_usuario'] = user;
 
-              $('#modalTitle').text('Sucesso');
-              $('#modalConteudo').text('Sua atualização foi realizada com sucesso.');
-              $('#modalMensagem').modal('show');
+          $.ajax({
+              url: rotas.UpdateUsuario(user),
+              type: 'POST',
+              dataType: "json",
+              data: newJson,
+              success: function(data) {
 
-              //atualizar nome Usuário e ids das OSCs permetidas para edição.
-              window.localStorage.setItem('Osc', ("["+tags+"]"));
-              window.localStorage.setItem('Nome', nome);
-              $(".menuLogado .dropdown-toggle").html('');
-              $(".menuLogado .dropdown-toggle").append(nome);
-              $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+                $('#modalTitle').text('Sucesso');
+                $('#modalConteudo').text('Sua atualização foi realizada com sucesso.');
+                $('#modalMensagem').modal('show');
 
-            },
-            error: function(e) {
-                console.log(e);
-            }
-        });
-      }
+                //atualizar nome Usuário e ids das OSCs permetidas para edição.
+                window.localStorage.setItem('Osc', ("["+tags+"]"));
+                window.localStorage.setItem('Nome', nome);
+                $(".menuLogado .dropdown-toggle").html('');
+                $(".menuLogado .dropdown-toggle").append(nome);
+                $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+
+              },
+              error: function(e) {
+                  console.log(e);
+              }
+          });
+        }
      });
 });
 function replaceSpecialChars(str) {
