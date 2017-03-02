@@ -232,17 +232,20 @@ define(['react','rotas'], function(React) {
         <div className="container extensao">
           <div id="topo_acessibilidade">
             <ul id="nav1">
-              <li>Ir para o <a name="conteudo" accesskey="1" className="cursor" onClick={this.getComponent.bind(this, 7)}>Conteúdo [1]</a></li>
-              <li>Ir para o <a name="navbar-ex-collapse" className="cursor" accesskey="2" onClick={this.getComponent.bind(this, 8)}>Menu [2]</a></li>
-              <li>Ir para o <a name="rodape" accesskey="3" className="cursor" onClick={this.getComponent.bind(this, 9)}>Rodapé [3]</a></li>
+              <li>Ir para o <a id="navCont" name="conteudo" className="cursor" onClick={this.getComponent.bind(this, 7)}>Conteúdo [1]</a></li>
+              <li>Ir para o <a id="navMenu" name="navbar-ex-collapse" className="cursor"  onClick={this.getComponent.bind(this, 8)}>Menu [2]</a></li>
+              <li>Ir para o <a id="navRoda" name="rodape" className="cursor" onClick={this.getComponent.bind(this, 9)}>Rodapé [3]</a></li>
             </ul>
             <ul id="nav2">
               <li><a href="acessibilidade.html" target="_self">Acessibilidade</a></li>
-              <li id="contraste">Contraste <a id="contraste_normal" data-toggle="tooltip" data-placement="bottom" className="cursor" onClick={this.getComponent.bind(this, 1)}><img src="img/contraste1.png" title="Contraste normal" width="13" height="14"/></a><a id="alto_contraste" data-toggle="tooltip" data-placement="bottom" className="cursor" onClick={this.getComponent.bind(this, 2)}><img src="img/contraste2.png" title="Alto contraste" width="13" height="14"/></a></li>
+              <li id="contraste">
+              <a id="contraste_normal" data-toggle="tooltip" data-placement="bottom" title="Contraste normal" className="cursor" onClick={this.getComponent.bind(this, 1)}>Contraste Normal</a>
+              <a id="alto_contraste" data-toggle="tooltip" data-placement="bottom" title="Alto contraste"  className="cursor" onClick={this.getComponent.bind(this, 2)}>Alto Contraste</a>
+              </li>
               <li>Tamanho do texto
-              <a data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font cursor" onClick={this.getComponent.bind(this, 3)}> A+</a>
-              <a data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font cursor" onClick={this.getComponent.bind(this, 4)}> A</a>
-              <a data-toggle="tooltip" data-placement="bottom" title="Diminuir fonte" className="dec-font cursor" onClick={this.getComponent.bind(this, 5)}> A-</a></li>
+              <a data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font cursor" onClick={this.getComponent.bind(this, 3)}><b> A+</b></a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font cursor" onClick={this.getComponent.bind(this, 4)}><b> A</b></a>
+              <a data-toggle="tooltip" data-placement="bottom" title="Diminuir fonte" className="dec-font cursor" onClick={this.getComponent.bind(this, 5)}><b> A-</b></a></li>
             </ul>
           </div>
         </div>

@@ -59,6 +59,9 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 
   verificarLogado();
   verificarContraste();
+  document.getElementById("navCont").accessKey = "1";
+  document.getElementById("navMenu").accessKey = "2";
+  document.getElementById("navRoda").accessKey = "3";
 });
 
 //Footer da página
