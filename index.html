@@ -316,22 +316,23 @@
     <script src="js/config.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script async src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
-    <!-- Piwik -->
 
+    <!-- Piwik -->
     <script type="text/javascript">
       var _paq = _paq || [];
-      _paq.push(["setDomains", ["*.mapaosc","*.mapaosc.ipea.gov.br","*.mapaosc-homologa","*.mapaosc-homologa.ipea.gov.br","*.mapaosc-homologa-new.","*.mapaosc-homologa-new.ipea.gov.br"]]);
+      _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+      _paq.push(["setDomains", ["*.mapaosc","*.mapaosc.ipea.gov.br","*.mapaosc","*.mapaosc-homologa","*.mapaosc-homologa-new","*.mapaosc-homologa-new.ipea.gov.br","*.mapaosc-homologa.ipea.gov.br","*.mapaosc.ipea.gov.br"]]);
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//189.21.130.36/piwik/";
+        var u="//webstats.ipea.gov.br/piwik/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
         _paq.push(['setSiteId', 2]);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
       })();
     </script>
-    <noscript><p><img src="//189.21.130.36/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+    <noscript><p><img src="//webstats.ipea.gov.br/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
 
   </body>
