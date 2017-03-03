@@ -94,7 +94,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Áreas de atuação
         var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc, "") ;
         var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc, "");
-        areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica, React, ReactDOM, FormItem);
+        var areas_atuacao_sugestoes = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica, React, ReactDOM, FormItem);
         //Descrição
         descricao.montarDescricao(data, util, dadosForm.descricao(descricao), React, ReactDOM, FormItem);
         //Títulos e certificações
@@ -107,7 +107,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.FormaParticipacao());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
-        ativarProjetos(data, util, dadosForm);
+        ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
         //Fonte de recurso
         fonteRecurso.montarFontedeRecursos(data, util, rotas, dadosForm, React, ReactDOM, Section, FormItem);
         //Acessibilidade
@@ -189,7 +189,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#btnRemoverImg").append('<a class="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>');
     }
 
-    function ativarProjetos(data, util){
+    function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
       var projetosArray = projeto.montarProjetos(data, util);
       var headerProjeto = projetosArray[0];
       Section = React.createFactory(Section);
@@ -234,6 +234,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var proj = res.projeto;
 
           agrupamento(result, id_projeto);
+          montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);
           if(proj){
             metasObjetivos(proj.projeto[0], id_projeto);
           } else {
@@ -243,6 +244,149 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         } else {
           var $divDadosProjeto = $(projetos[0]);
           $divDadosProjeto.toggleClass("hidden");
+        }
+      });
+    }
+
+    function montarAreasDeAtuacaoProjetos(sugestoes){
+      var sugestoesAreas = sugestoes[0];
+      var sugestoesSubAreas = sugestoes[1];
+      console.log(sugestoesAreas);
+      console.log(sugestoesSubAreas);
+      // $('.projeto').append('<input class="form-control autocomplete"> </input>');
+      // $('.projeto').append('<div class="checkboxList"> </div>');
+      // $('.projeto').append('<div class="col-md-3"> <div class="header">Áreas de atuação do projeto, atividade ou programa<div id="areas_de_atuacao_projeto"> </div>');
+      var areaAtuacao = new AreaAtuacao();
+      // var headerPriority = '2';
+      // var obj = areaAtuacao.loadSuggestions(sugestoesAreas, null, util, dadosForm);
+      // console.log(obj);
+      // var formItens = obj.formItens;
+      // FormItem = React.createFactory(FormItem);
+      // ReactDOM.render(
+      //   FormItem(
+      //     {header:{priority: headerPriority, text: 'Áreas e Subáreas de Atuação da OSC'}, dados:formItens}
+      //   ), document.getElementById("areas_de_atuacao_projeto")
+      // );
+      var id_suggestion = 0;
+      $(".projeto #area_atuacao input").addClass('autocomplete');
+
+      sugestoesAreas = $.map(sugestoesAreas, function(item) {
+        var newItem = {
+          label: item.tx_nome_area_atuacao,
+          value: item.tx_nome_area_atuacao,
+          id: item.cd_area_atuacao
+        };
+
+        return newItem;
+      });
+
+      $(".projeto .autocomplete").autocomplete({
+        minLength: 0,
+        create: function(event, ui) {
+          var value = $(this).attr("placeholder");
+          for (var i = 0; i < sugestoesAreas.length; i++) {
+            var suggestion = sugestoesAreas[i].value;
+
+            if (suggestion === value){
+              var $container = $(this).siblings(".checkboxList");
+              var $element = $container.find("#subareas-"+i);
+              if($element.hasClass('hidden')){
+                $element.toggleClass('hidden');
+              }
+              for (var j = 0; j < sugestoesAreas.length; j++) {
+                if((value === sugestoesAreas[j].tx_nome_area_atuacao)){
+                  var subarea_exists = false;
+                  $element.find("label").each(function(){
+                    if(sugestoesAreas[j].tx_nome_subarea_atuacao === $(this).text().trim()){
+                      subarea_exists = $(this);
+                    }
+                  });
+                  if(subarea_exists){
+                    subarea_exists.find("input").prop('checked', true);
+                  } else {
+                    $element.find("#outros").val(sugestoesAreas[j].tx_nome_subarea_atuacao);
+                  }
+                }
+              }
+            }
+          }
+        },
+        source: sugestoesAreas,
+        change: function( event, ui ) {
+        },
+        select: function(event, ui){
+          if(event.target.id == 'macro_area_1'){
+            $('#sub_area_1_outros').parent().parent().addClass('hidden');
+            $('#sub_area_1_outros').val('');
+            $(this).parent().find(':checkbox').prop("checked", false);
+          }
+          else{
+            $('#sub_area_2_outros').parent().parent().addClass('hidden');
+            $('#sub_area_2_outros').val('');
+            $(this).parent().find(':checkbox').prop("checked", false);
+          }
+          var targetElement = event.target;
+          var id = sugestoesAreas.indexOf(ui.item)+1;
+          id_suggestion = id;
+          var $container = $($(targetElement).siblings(".checkboxList")[0]);
+          $container.children().each(function( index ) {
+            if(!$(this).hasClass('hidden')){
+              $(this).toggleClass('hidden');
+              $(this).children().each(function(index){
+                var $input = $($(this).find('input')[0]);
+                if ($input.is(':checked')){
+                  $input.prop('checked', false);
+                }
+                if ($input.prop('type') == "text"){
+                  $input.val("");
+                }
+              });
+            }
+          });
+          var $element = $container.find("#subareas-"+id);
+          if($element.hasClass('hidden')){
+            $element.toggleClass('hidden');
+          }
+          // interação macro_area_outros
+          var macro_area = ui.item.value;
+          var pai = $(this).closest(".form-group");
+          var id = pai.find(".autocomplete").attr("id");
+          var $inputContainer = null;
+          if(id === "macro_area_1"){
+            $inputContainer = pai.siblings().find("#macro_area_1_outros").closest(".form-group");
+          } else {
+            $inputContainer = pai.siblings().find("#macro_area_2_outros").closest(".form-group");
+          }
+
+          if (macro_area === "Outros"){
+            $inputContainer.toggleClass('hidden');
+            if($inputContainer.hasClass('hidden')){
+              var $input = $inputContainer.find('input');
+              $input.val("");
+            }
+          } else {
+            if(!$inputContainer.hasClass('hidden')){
+              $inputContainer.toggleClass('hidden');
+              var $input = $inputContainer.find('input');
+              $input.val("");
+            }
+          }
+        }
+      });
+
+      $(".autocomplete").on("click", function(){
+        console.log("click");
+        $(this).autocomplete( "search", "" );
+      });
+
+      $(".autocomplete").keyup(function(){
+        if(($(this).val() === "") && (id_suggestion != 0)){
+          var id = id_suggestion;
+          var $container = $(this).parent();
+          var $element = $container.find("#subareas-"+id);
+          if(!$element.hasClass('hidden')){
+            $element.toggleClass('hidden');
+          }
         }
       });
     }
@@ -802,16 +946,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 obj[$pai.attr("id")].tx_nome_fonte_recursos_projeto = null;
                 obj[$pai.attr("id")].ft_fonte_recursos_projeto = null;
               }
-            } else if( $pai.attr("id") === "autodeclaradas"){
+            } else if( $pai.attr("id") === "area_atuacao_outra"){
               if(Array.isArray(obj[$pai.attr("id")])){
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": $(this).attr("id"),
+                  "cd_area_atuacao_projeto": $(this).attr("id") ? $(this).attr("id") : null,
                   "tx_area_atuacao_projeto": valor
                 });
               } else {
                 obj[$pai.attr("id")] = [];
                 obj[$pai.attr("id")].push({
-                  "cd_area_atuacao_projeto": $(this).attr("id"),
+                  "cd_area_atuacao_projeto": $(this).attr("id") ? $(this).attr("id") : null,
                   "tx_area_atuacao_projeto": valor
                 });
               }

@@ -139,6 +139,7 @@ class AreaAtuacao {
       ), document.getElementById("areas_de_atuacao")
     );
     this.carregarAreasAtuacao(obj.area_suggestions, obj.macro_area_suggestions);
+    return area_suggestions;
   }
 
   carregarAreasAtuacao(area_suggestions, macro_area_suggestions){
@@ -148,6 +149,7 @@ class AreaAtuacao {
       minLength: 0,
       create: function(event, ui) {
         var value = $(this).attr("placeholder");
+        console.log(macro_area_suggestions);
         for (var i = 0; i < macro_area_suggestions.length; i++) {
           var suggestion = macro_area_suggestions[i].value;
 

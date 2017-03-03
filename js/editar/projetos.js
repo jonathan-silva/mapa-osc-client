@@ -60,6 +60,7 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
+    console.log(project);
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
@@ -68,7 +69,7 @@ class Projeto {
     var project = util.validateObject(projet[0],projet);
     var title = util.validateObject(project.ft_identificador_projeto_externo,null);
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
-    for (var property in project) { //labelMap[property]) { console.log(property);
+    for (var property in project) {
       if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
         var sectionId = property;
         var value = project[property];
@@ -81,24 +82,30 @@ class Projeto {
         var buttons = null;
         var buttonsInLine = false;
         if((value === null) || (value.constructor !== Array)){
-          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title,objetivo_meta);
+          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
           var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
           agrupadores.push(agrupadorInputProjeto);
         }
-      }/*
-      else {
-        if (!( project.hasOwnProperty(property) ) ) { console.log(labelMap[property]);}
-        if (labelMap[property] == undefined){ console.log(property);}
-        /*if ( !(project.hasOwnProperty(property)) || (labelMap[property] == undefined)){
-        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title);
-        var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-        agrupadores.push(agrupadorInputProjeto);
       }
-    }*/
+    }
+    if (!(project.hasOwnProperty("area_atuacao"))){
+      var property = "area_atuacao";
+      var sectionId = property;
+      var value = "";
+      var header = labelMap[property].header;
+      var containerClass = labelMap[property].containerClass;
+      var removable = labelMap[property].removable;
+      var type = labelMap[property].type;
+      var options = labelMap[property].options;
+      var placeholder = labelMap[property].placeholder;
+      var buttons = null;
+      var buttonsInLine = false;
+      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
+      var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+      agrupadores.push(agrupadorInputProjeto);
     }
     var area_atuacao_projeto = util.validateObject(project.area_atuacao, []);
-    var area_atuacao_outra_projeto = util.validateObject(project.area_atuacao_outra, []);
-    var autodeclaradas = [].concat(area_atuacao_projeto).concat(area_atuacao_outra_projeto);
+    var autodeclaradas = util.validateObject(project.area_atuacao_outra, []);
 
     var projectlocalizacao = util.validateObject(project.localizacao, []);
     var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
@@ -109,7 +116,7 @@ class Projeto {
 
     var financiadorProjeto = util.validateObject(project.financiador_projeto, []);
     var financiadores =  util.getTipoProjeto("financiador_projeto", financiadorProjeto);
-    var autodeclaradas = util.getTipoProjeto("autodeclaradas", autodeclaradas);
+    var autodeclaradas = util.getTipoProjeto("area_atuacao_outra", autodeclaradas);
 
     var oscParceira = util.validateObject(project.osc_parceira, []);
     var parceiras =  util.getTipoProjeto("osc_parceira", oscParceira);
@@ -118,8 +125,7 @@ class Projeto {
     var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";
     //var objetivo_meta = /*util.validateObject(project.objetivo_meta)?*/ this.metasObjetivos(project,idObjetivo,util,rotas) ;// : util.getTipoProjeto("objetivo_meta", []);
     var multipleInputs = [
-      localizacao, publicoBeneficiado, financiadores,
-      autodeclaradas, parceiras, fonte//, objetivo_meta
+      autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     ];
 
     for (var j = 0; j < multipleInputs.length; j++) {

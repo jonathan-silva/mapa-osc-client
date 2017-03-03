@@ -834,8 +834,16 @@ class DataForms{
         "type": "text",
         "options": null
       },
-      "autodeclaradas": {
-        "header": "Área de atuação do projeto, atividade ou programa",
+      "area_atuacao": {
+        "header": "Áreas de atuação do projeto, atividade ou programa",
+        "containerClass": "col-md-12",
+        "removable": false,
+        "type": "text",
+        "options": null,
+        "placeholder": "Selecione a área de atuação do projeto"
+      },
+      "area_atuacao_outra": {
+        "header": "Outras áreas de atuação do projeto, atividade ou programa",
         "containerClass": "col-md-3",
         "removable": true,
         "type": "text",
