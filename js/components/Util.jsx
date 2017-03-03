@@ -471,7 +471,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
         var labelElement;
 
         if(item.label){
-          var obrigatorio;//console.log(item.label);console.log(item.header);
+          var obrigatorio="";//console.log(item.label);console.log(item.header);
           if(item.obrigatorio){
             obrigatorio = <span className="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span>;
           }

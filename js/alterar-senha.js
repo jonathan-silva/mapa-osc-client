@@ -37,14 +37,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
    var $id_osc = '';
    var rotas = new Rotas();
-   var limiteAutocomplete = 10;
    var controller = "js/controller.php";
-   $('#tag').tagsinput({
-       cancelConfirmKeysOnEmpty: false,
-       freeInput: false,
-       itemValue: 'id',
-       itemText: 'text'
-      });
 
    $.ajax({
        url: rotas.ValidarUsuario(user),
@@ -54,10 +47,6 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
-         for (var i = 0; i < data.representacao.length; i++){
-           $('#tags').removeClass('hide');
-           $('#tag').tagsinput('add', {id: data.representacao[i].id_osc, text: data.representacao[i].tx_nome_osc});
-         }
        },
        error: function(e) {
            console.log(e);
@@ -71,53 +60,15 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        }
    });
 
-   require(["jquery-ui", "rotas"], function(React) {
-       $("#nomeEntidade.form-control").autocomplete({
-           minLength: 14,
-           source: function(request, response) {
-               $.ajax({
-                   url: controller,
-                   type: 'GET',
-                   dataType: "json",
-                   data: {
-                       flag: 'autocomplete',
-                       rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)
-                   },
-                   success: function(data) {
-                     if (data === null){
-                         $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
-                     }else{
-                       $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-                     }
-                     response($.map(data, function(item) {
-                         return {
-                             label: item.tx_nome_osc,
-                             value: item.tx_nome_osc,
-                             id:    item.id_osc
-                         };
-                     }));
-                   },
-                   error: function(e) {
-                       response([]);
-                   }
-               });
-           },
-           select: function(event, ui) {
-               $id_osc = ui.item.id;
-               $('#tags').removeClass('hide');
-               $('#tag').tagsinput('add', {id: ui.item.id, text: ui.item.label});
+   $('#send').on('click', function(){
+      var senha = $('#senha').val();
+      var confirmarSenha = $('#confirmarSenha').val();
+      var error = true;
 
-           }
-       });
-     });
-
-     $('#send').on('click', function(){
-        var senha = $('#senha').val();
-        var confirmarSenha = $('#confirmarSenha').val();
-        var error = true;
-
-        if(confirmarSenha !== '' && senha !== ''){
-          if (confirmarSenha === senha) {
+      if(senha !== '' ){
+        if(senha.length > 5 ){
+          if (confirmarSenha === senha)
+          {
               $("#senha").closest('.form-group').removeClass('has-error').addClass('has-success');
               $("#confirmarSenha").closest('.form-group').removeClass('has-error').addClass('has-success');
               if(error){
@@ -129,21 +80,20 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
           } else {
               $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
               $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
+              $("#confirmarSenha").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Confirmar senha tem que ser igual senha!</span></div>');
               error = true;
           }
+        }else {
+          error = true;
+          $("#senha").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $("#confirmarSenha").closest('.form-group').removeClass('has-success').addClass('has-error');
+          $("#senha").closest('.form-group').append('<div class="form-group row-centered"><span id="labelError" class="label label-danger centered">Erro: Senha é Menor que 6 Caracteres!</span></div>');
+        }
       }
 
       if(!error){
-        newJson['tx_nome_usuario'] = nome;
-        newJson['tx_email_usuario'] = email;
-        if(senha !== '' && senha !== null)
+        if(senha !== '' && senha !== null && senha.length > 5)
           newJson['tx_senha_usuario'] = senha;
-        var tags = tag.split(',');
-        var tagValue = [];
-        for (var i = 0; i < tags.length; i++){
-           tagValue.push({'id_osc':tags[i]});
-        }
-        newJson['representacao'] = tagValue;
         newJson['id_usuario'] = user;
 
         $.ajax({
@@ -161,20 +111,5 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
             }
         });
       }
-     });
+    });
 });
-function replaceSpecialChars(str) {
-    str = str.replace(/[ÀÁÂÃÄÅ]/g, "A");
-    str = str.replace(/[àáâãäå]/g, "a");
-    str = str.replace(/[ÉÈÊË]/g, "E");
-    str = str.replace(/[éèêë]/g, "e");
-    str = str.replace(/[ÍÌÎÏ]/g, "I");
-    str = str.replace(/[íìîï]/g, "i");
-    str = str.replace(/[ÓÒÔÕ]/g, "O");
-    str = str.replace(/[óòôõ]/g, "o");
-    str = str.replace(/[ÚÙÛÜ]/g, "U");
-    str = str.replace(/[úùûü]/g, "u");
-    str = str.replace(/[Ç]/g, "C");
-    str = str.replace(/[ç]/g, "c");
-    return str;
-}

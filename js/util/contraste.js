@@ -7,6 +7,8 @@ function ativaContraste() {
 }
 
 function ativarCSSContraste() {
+  $("#alto_contraste" ).hide();
+  $("#contraste_normal" ).show();
   $("body" ).css( "background-color", "#000000" );
   $("body" ).css( "color", "#ffffff" );
   $("a").css( "color", "#FFF333" );
