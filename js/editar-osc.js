@@ -821,6 +821,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 "cd_objetivo_projeto": codigo,
                 "tx_objetivo_projeto": valor
               };
+            } else if(($pai.attr("id") === "tx_nome_status_projeto")){
+              var cd_status_projeto = null;
+              if(valor === "Planejado"){
+                cd_status_projeto = 1;
+              }
+              if(valor === "Em execução"){
+                cd_status_projeto = 2;
+              }
+              if(valor === "Finalizado"){
+                cd_status_projeto = 3;
+              }
+              obj["cd_status_projeto"] = cd_status_projeto;
             } else {
               obj[$pai.attr("id")] = valor;
             }
