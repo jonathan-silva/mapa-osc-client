@@ -3,22 +3,10 @@ class Projeto {
 
   }
 
-  getFonteDeRecursosProjeto(id){
-    var fonte = {
-      "fonte_de_recursos": [
-        {
-          "id_fonte_recursos_projeto": 1,
-          "cd_origem_fonte_recursos_projeto": 1092,
-          "tx_nome_origem_fonte_recursos_projeto": "Público",
-          "cd_fonte_recursos_projeto": null,
-          "tx_nome_fonte_recursos_projeto": "Federal",
-          "ft_fonte_recursos_projeto": null
-        }
-      ]
-    };
+  getFonteDeRecursosProjeto(fonte){
     var key = Object.keys(fonte)[0];
     var objFonte = {
-      "id": key,
+      "id": "fonte_recursos",
       "dados": fonte[key]
     };
     return objFonte;
@@ -70,24 +58,32 @@ class Projeto {
     var title = util.validateObject(project.ft_identificador_projeto_externo,null);
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) {
-      if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-        var sectionId = property;
-        var value = project[property];
-        var header = labelMap[property].header;
-        var containerClass = labelMap[property].containerClass;
-        var removable = labelMap[property].removable;
-        var type = labelMap[property].type;
-        var options = labelMap[property].options;
-        var placeholder = labelMap[property].placeholder;
-        var buttons = null;
-        var buttonsInLine = false;
-        if((value === null) || (value.constructor !== Array)){
-          var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
-          var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
-          agrupadores.push(agrupadorInputProjeto);
+      // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
+      if((property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
+        if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
+
+          var sectionId = property;
+          var value = project[property];
+          var header = labelMap[property].header;
+          var containerClass = labelMap[property].containerClass;
+          var removable = labelMap[property].removable;
+          var type = labelMap[property].type;
+          var options = labelMap[property].options;
+          var placeholder = labelMap[property].placeholder;
+          var buttons = null;
+          var buttonsInLine = false;
+          if((value === null) || (value.constructor !== Array)){
+            var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
+            var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+            agrupadores.push(agrupadorInputProjeto);
+          }
         }
       }
     }
+    if (!(project.hasOwnProperty("fonte_de_recursos"))){
+      console.log("teste")
+    }
+    /* Area de atuacao de projeto temporariamente escondida
     if (!(project.hasOwnProperty("area_atuacao"))){
       var property = "area_atuacao";
       var sectionId = property;
@@ -103,13 +99,14 @@ class Projeto {
       var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
       var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
       agrupadores.push(agrupadorInputProjeto);
-    }
+    }*/
     var area_atuacao_projeto = util.validateObject(project.area_atuacao, []);
     var autodeclaradas = util.validateObject(project.area_atuacao_outra, []);
 
     var projectlocalizacao = util.validateObject(project.localizacao, []);
     var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
-    var fonte = this.getFonteDeRecursosProjeto(projectId);
+    var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
+    fonte.dados = util.validateObject(project.fonte_recursos, []);
 
     var projectPublicoFinanciado = util.validateObject(project.publico_beneficiado, []);
     var publicoBeneficiado =  util.getTipoProjeto("publico_beneficiado", projectPublicoFinanciado);
@@ -123,10 +120,15 @@ class Projeto {
 
     var valorMeta = "";
     var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";
-    //var objetivo_meta = /*util.validateObject(project.objetivo_meta)?*/ this.metasObjetivos(project,idObjetivo,util,rotas) ;// : util.getTipoProjeto("objetivo_meta", []);
+
+    // Area de atuacao de projeto e OSCs parceiras temporariamente escondidas
+    // var multipleInputs = [
+    //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
+    // ];
     var multipleInputs = [
-      autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
+      localizacao, publicoBeneficiado, financiadores, fonte
     ];
+    console.log(multipleInputs);
 
     for (var j = 0; j < multipleInputs.length; j++) {
       if(util.validateObject(multipleInputs[j].dados, false)){
@@ -177,6 +179,7 @@ class Projeto {
       "type": "add",
       "value": "Adicionar"
     };
+    console.log(object);
     var sectionId = object.id
     //console.log(object);
     var element = labelMap[object.id];
@@ -199,20 +202,17 @@ class Projeto {
       var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
       inputs.push(inputProjeto);
     }
+    console.log(sectionId);
     for (var i = 0; i < object.dados.length; i++) {
       var inputId = sectionId;
       for (var property in object.dados[i]) {
         //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
-          if(sectionId == "fonte_de_recursos"){
+          if(sectionId == "fonte_recursos"){
+            console.log(sectionId);
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
               value = object.dados[i][property];
               options = labelMap[object.id].options;
-              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
-              inputs.push(inputProjeto);
-            } else if (property === "tx_nome_fonte_recursos_projeto"){
-              options = labelMap[object.id+"_publico"].options;
-              var inputId = "sub-" + sectionId;
               var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
               inputs.push(inputProjeto);
             }

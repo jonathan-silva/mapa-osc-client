@@ -253,6 +253,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var sugestoesSubAreas = sugestoes[1];
       console.log(sugestoesAreas);
       console.log(sugestoesSubAreas);
+      $divAreaAtuacaoProjeto = $(".projeto #area_atuacao input");
       // $('.projeto').append('<input class="form-control autocomplete"> </input>');
       // $('.projeto').append('<div class="checkboxList"> </div>');
       // $('.projeto').append('<div class="col-md-3"> <div class="header">Áreas de atuação do projeto, atividade ou programa<div id="areas_de_atuacao_projeto"> </div>');
@@ -268,7 +269,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //   ), document.getElementById("areas_de_atuacao_projeto")
       // );
       var id_suggestion = 0;
-      $(".projeto #area_atuacao input").addClass('autocomplete');
+      $divAreaAtuacaoProjeto.addClass('autocomplete');
+      $divAreaAtuacaoProjeto.append('<div class="checkboxList"></div>')
+      for (var i = 0; i < sugestoesAreas.length; i++) {
+        var sugestaoArea = sugestoesAreas[i];
+        $divAreaAtuacaoProjeto.find('.checkboxList').append('<div>')
+        for (var j = 0; j < sugestoesSubAreas.length; j++) {
+          var sugestaoSubArea = sugestoesSubAreas[j];
+          if (sugestaoArea.cd_area_atuacao === sugestaoSubArea.cd_area_atuacao) {
+
+          }
+        }
+
+      }
+
 
       sugestoesAreas = $.map(sugestoesAreas, function(item) {
         var newItem = {
@@ -922,12 +936,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
             if($(this).closest(".metas").length > 0){
               $pai = $(this).closest(".metas")[0];
-              if(obj["metas"] === undefined){
-                obj["metas"] = [];
+              if(obj["objetivo_meta"] === undefined){
+                obj["objetivo_meta"] = [];
               }
               if($(this).prop("checked")){
-                var codigo = valor.split(" ")[0].split(".")[1];
-                obj["metas"].push({
+                var codigo = valor.split(" ")[0];
+                obj["objetivo_meta"].push({
                   "cd_meta_projeto": codigo,
                   "tx_meta_projeto": valor
                 });
@@ -938,13 +952,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
               var tipo = $(this).parent().parent().attr("id");
               if(tipo === "fonte_de_recursos"){
-                obj[$pai.attr("id")].cd_origem_fonte_recursos_projeto = valor;
-                obj[$pai.attr("id")].tx_nome_origem_fonte_recursos_projeto = null;
-              } else {
-                obj[$pai.attr("id")].id_fonte_recursos_projeto = null;
-                obj[$pai.attr("id")].cd_fonte_recursos_projeto = valor;
-                obj[$pai.attr("id")].tx_nome_fonte_recursos_projeto = null;
-                obj[$pai.attr("id")].ft_fonte_recursos_projeto = null;
+                console.log(valor)
+                if(valor === "Recursos públicos"){
+                  valor = 1;
+                }
+                if(valor === "Recursos privados"){
+                  valor = 2;
+                }
+                if(valor === "Recursos próprios"){
+                  valor = 3;
+                }
+                if(valor === "Outros"){
+                  valor = 4;
+                }
+                if(valor === ""){
+                  obj[$pai.attr("id")] = null;
+                } else {
+                  obj[$pai.attr("id")].cd_origem_fonte_recursos_projeto = valor;
+                  obj[$pai.attr("id")].tx_nome_origem_fonte_recursos_projeto = null;
+                }
               }
             } else if( $pai.attr("id") === "area_atuacao_outra"){
               if(Array.isArray(obj[$pai.attr("id")])){
@@ -960,11 +986,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 });
               }
             } else if ($pai.attr("id") === "objetivos"){
-              var codigo = valor.split(".")[0];
+              /*var codigo = valor.split(".")[0];
               obj["objetivos"] = {
                 "cd_objetivo_projeto": codigo,
                 "tx_objetivo_projeto": valor
-              };
+              };*/
             } else if(($pai.attr("id") === "tx_nome_status_projeto")){
               var cd_status_projeto = null;
               if(valor === "Planejado"){
@@ -977,6 +1003,66 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 cd_status_projeto = 3;
               }
               obj["cd_status_projeto"] = cd_status_projeto;
+            } else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
+              var cd_abrangencia_projeto = null;
+              if(valor === "Municipal"){
+                cd_abrangencia_projeto = 1;
+              }
+              if(valor === "Estadual"){
+                cd_abrangencia_projeto = 2;
+              }
+              if(valor === "Regional"){
+                cd_abrangencia_projeto = 3;
+              }
+              if(valor === "Estadual"){
+                cd_abrangencia_projeto = 4;
+              }
+              obj["cd_abrangencia_projeto"] = cd_abrangencia_projeto;
+            } else if(($pai.attr("id") === "tx_nome_zona_atuacao")){
+              var cd_zona_atuacao_projeto = null;
+              if(valor === "Urbana"){
+                cd_zona_atuacao_projeto = 1;
+              }
+              if(valor === "Rural"){
+                cd_zona_atuacao_projeto = 2;
+              }
+              obj["cd_zona_atuacao_projeto"] = cd_zona_atuacao_projeto;
+            } else if(($pai.attr("id") === "localizacao_projeto")){
+              var localizacoes = [];
+              var localizacao = {};
+              var $inputs = $pai.find("input");
+              $inputs.each(function(){
+                if($(this).val() !== ""){
+                  localizacao = {};
+                  localizacao.tx_nome_regiao_localizacao_projeto = $(this).val();
+                  localizacoes.push(localizacao);
+                }
+              });
+              obj["localizacao"] = localizacoes;
+            } else if(($pai.attr("id") === "publico_beneficiado")){
+              var publicos_beneficiados = [];
+              var publico_beneficiado = {};
+              var $inputs = $pai.find("input");
+              $inputs.each(function(){
+                if($(this).val() !== ""){
+                  publico_beneficiado = {};
+                  publico_beneficiado.tx_nome_publico_beneficiado = $(this).val();
+                  publicos_beneficiados.push(publico_beneficiado);
+                }
+              });
+              obj["publico_beneficiado"] = publicos_beneficiados;
+            } else if(($pai.attr("id") === "financiador_projeto")){
+              var financiadores = [];
+              var financiador = {};
+              var $inputs = $pai.find("input");
+              $inputs.each(function(){
+                if($(this).val() !== ""){
+                  financiador = {};
+                  financiador.tx_nome_financiador = $(this).val();
+                  financiadores.push(financiador);
+                }
+              });
+              obj["financiador_projeto"] = financiadores;
             } else {
               obj[$pai.attr("id")] = valor;
             }
@@ -991,6 +1077,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
 
+          if(newJson["objetivo_meta"] === undefined){
+            newJson["objetivo_meta"] = [];
+          }
+          newJson["objetivo_meta"] = null;
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
           if(idProjeto === -1){
