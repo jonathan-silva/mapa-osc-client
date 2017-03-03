@@ -82,13 +82,15 @@ class EspacosPartSocial {
     });
     var lista_conferencia=[];
 
+    for (var i=0;i<lconferencia.length;i++){ lista_conferencia[i] = lconferencia[i].tx_nome_conferencia}
+/*
     for (var i=0;i<lconferencia.length;i++){
       lista_conferencia.push({
         "texto": lconferencia[i].tx_nome_conferencia,
         "valor": lconferencia[i].cd_conferencia
       })
     }
-
+*/
     $.ajax({
       url: lforma,
       type: 'GET',
@@ -104,12 +106,13 @@ class EspacosPartSocial {
       }
     });
     var lista_forma=[];
-    for (var i=0;i<lforma.length;i++){
+    for (var i=0;i<lforma.length;i++){ lista_forma[i] = lforma[i].tx_nome_tipo_participacao}
+    /*for (var i=0;i<lforma.length;i++){
       lista_forma.push({
         "texto": lforma[i].tx_nome_tipo_participacao,
         "valor": lforma[i].cd_tipo_participacao
       });
-    }
+    }*/
 
     var arraySecao = [];
     /*
@@ -133,15 +136,15 @@ class EspacosPartSocial {
     var nomeFormaParticipacao = null;
     var anoRealizacao = null;
     if(json.participacao_social){
-      var nomeConselho = "tx_nome_conselho-0";
-      var nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
-      var nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
-      var periodicidade = "tx_periodicidade_reuniao-0";
-      var dataInicioConselho = "dt_data_inicio_conselho-0";
-      var dataFimConselho = "dt_data_fim_conselho-0";
-      var nomeConferencia = "tx_nome_conferencia-0";
-      var nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
-      var anoRealizacao = "dt_ano_realizacao-0";
+      nomeConselho = "tx_nome_conselho-0";
+      nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
+      nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
+      periodicidade = "tx_periodicidade_reuniao-0";
+      dataInicioConselho = "dt_data_inicio_conselho-0";
+      dataFimConselho = "dt_data_fim_conselho-0";
+      nomeConferencia = "tx_nome_conferencia-0";
+      nomeFormaParticipacao = "tx_nome_forma_participacao_conferencia-0";
+      anoRealizacao = "dt_ano_realizacao-0";
     }
 
     var participacao_social = util.validateObject(json.participacao_social, "");

@@ -366,7 +366,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
         if(item.fonte != 'Representante' && item.fonte != null && item.fonte != false){
-          console.log(item);
+          //console.log(item);
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
@@ -1153,7 +1153,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Local de execução"){
-            console.log(item);
+            //console.log(item);
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
