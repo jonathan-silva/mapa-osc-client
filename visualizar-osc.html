@@ -545,6 +545,8 @@
                         <div class="form-group"  ng-repeat="pubben in proj.publico_beneficiado">
                           <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}:</span>
                           <span class="form-control-static">{{(pubben.nr_estimativa_pessoas_atendidas)?pubben.nr_estimativa_pessoas_atendidas:"Não informado"}} pessoas</span>
+                          <span ng-if="(pubben.ft_publico_beneficiado_projeto != 'Representante' && pubben.ft_publico_beneficiado_projeto != null)" title="Informação oficial. {{pubben.ft_publico_beneficiado_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="(pubben.ft_publico_beneficiado_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                         <div class="form-group"  ng-if="proj.publico_beneficiado == null">
                           <span class="form-control-static">Não informado</span>
@@ -583,15 +585,17 @@
                       <div class="form-group"  ng-if="proj.fonte_recursos == null">
                         <span class="form-control-static">Não informado</span>
                       </div>
-                        <div>
-                          <div class="header ">Financiadores do Projeto</div>
-                          <div class="form-group"  ng-repeat="financiador in proj.financiador_projeto">
-                            <span class="form-control-static">{{(financiador.tx_nome_financiador)?financiador.tx_nome_financiador:"Não informado"}}</span>
-                          </div>
-                          <div class="form-group"  ng-if="proj.financiador_projeto == null">
-                            <span class="form-control-static">Não informado</span>
-                          </div>
+                      <div>
+                        <div class="header ">Financiadores do Projeto</div>
+                        <div class="form-group"  ng-repeat="financiador in proj.financiador_projeto">
+                          <span class="form-control-static">{{(financiador.tx_nome_financiador)?financiador.tx_nome_financiador:"Não informado"}}</span>
+                          <span ng-if="(financiador.ft_nome_financiador != 'Representante' && financiador.ft_nome_financiador != null)" title="Informação oficial. {{financiador.ft_nome_financiador}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                          <span ng-if="(financiador.ft_nome_financiador == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
+                        <div class="form-group"  ng-if="proj.financiador_projeto == null">
+                          <span class="form-control-static">Não informado</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="col-md-3 ">
@@ -639,14 +643,12 @@
                       </div>
                     </div>
 
-                    <div class="col-md-3 ">
-
-                    </div>
-
                     <div class="col-md-6 ">
                       <div class="header ">OSCs Parceiras</div>
                       <div class="form-group"  ng-repeat="osc_parceira in proj.osc_parceira">
                         <span class="form-control-static">{{(osc_parceira.tx_nome_osc_parceira_projeto)?osc_parceira.tx_nome_osc_parceira_projeto:"Não informado"}}</span>
+                        <span ng-if="(osc_parceira.ft_osc_parceira_projeto != 'Representante' && osc_parceira.ft_osc_parceira_projeto != null)" title="Informação oficial. {{osc_parceira.ft_osc_parceira_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                        <span ng-if="(osc_parceira.ft_osc_parceira_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                       </div>
                       <div class="form-group"  ng-if="proj.osc_parceira == null">
                         <span class="form-control-static">Não informado</span>
@@ -655,17 +657,25 @@
 
                     <div class="col-md-12 ">
                       <div class="header">Objetivos de desenvolvimento do milênio</div>
-                      <div class="form-group">
-                        <span class="form-control-static" >{{(proj.objetivo_meta.tx_nome_objetivo_projeto)?proj.objetivo_meta.tx_nome_objetivo_projeto:"Não informado"}}</span>
-                        <span ng-if="(proj.objetivo_meta.ft_objetivo_projeto != 'Representante' && proj.objetivo_meta.ft_objetivo_projeto != null)" title="Informação oficial. {{proj.objetivo_meta.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                        <span ng-if="(proj.objetivo_meta.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                      <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
+                        <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
+                        <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                        <span ng-if="(objetivo.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                      </div>
+                      <div class="form-group"  ng-if="proj.objetivo_meta == null">
+                        <span class="form-control-static">Não informado</span>
                       </div>
                     </div>
 
                     <div class="col-md-12 ">
                       <div class="header">Metas dos Objetivos</div>
-                      <div class="form-group">
-                        <span class="form-control-static" >{{(proj.objetivo_meta.tx_nome_meta_projeto)?proj.objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
+                      <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta">
+                        <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
+                        <span ng-if="(objetivo_meta.ft_objetivo_projeto != 'Representante' && objetivo_meta.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                        <span ng-if="(objetivo_meta.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                      </div>
+                      <div class="form-group"  ng-if="proj.objetivo_meta == null">
+                        <span class="form-control-static">Não informado</span>
                       </div>
                     </div>
 
