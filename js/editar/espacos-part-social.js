@@ -198,8 +198,13 @@ class EspacosPartSocial {
           }
         }
       }
+      var lista_forma_conferencia = [
+      'Membro de comissão organizadora nacional', 'Membro de comissão organizadora estadual ou distrital', 'Membro de comissão organizadora municipal',
+'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
+'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outro'];
+
       formItens.push(util.FormItens(nomeConferencia, "Nome da Conferência", null,null, "", "select",lista_conferencia,"Caso a OSC tenha participado, indique aqui o nome da conferência de política pública"));
-      formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
+      formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma_conferencia,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
       formItens.push(util.FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
 
       arraySecao.push(formItens);

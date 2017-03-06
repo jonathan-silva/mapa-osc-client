@@ -50,6 +50,14 @@ class Util {
     return obj;
   }
 
+  contains( substring, string ) {
+    if (typeof string === 'string'){
+      return string.indexOf(substring)>=0;
+    } else {
+      return false;
+    }
+  }
+
   showUnauthorizedUser(e){
     if(e.status === 401){
       $('#unauthorized').dialog('open');
