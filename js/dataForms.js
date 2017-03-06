@@ -809,13 +809,13 @@ class DataForms{
         "options": null,
         "placeholder": "Insira o valor captado do projeto"
       },
-      "fonte_de_recursos": {
+      "fonte_recursos": {
         "header": "Fonte de Recursos",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
-          "Público", "Privado", "Próprio"
+          "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
         ]
       },
       "fonte_de_recursos_publico": {
@@ -824,7 +824,7 @@ class DataForms{
         "removable": false,
         "type": "select",
         "options": [
-          "Municipal", "Federal", "Estadual"
+          "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
         ]
       },
       "financiador_projeto": {

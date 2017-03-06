@@ -11,18 +11,18 @@
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
-  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais()">
+  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();">
     <div id="barra-brasil"></div>
     <div id="header"></div>
 
     <div id="conteudo" class="section">
       <div class="container">
         <div class="row">
-          <div ng-if="ctrl.osc.cabecalho.im_logo == null || ctrl.osc.cabecalho.im_logo =='' " class="divImg">
+          <div ng-if="(ctrl.osc.cabecalho.im_logo == null || ctrl.osc.cabecalho.im_logo =='' )" class="divImg">
             <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
-          <div ng-if="ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' " class="divImg">
-            <img src={{ctrl.osc.dados_gerais.im_logo}} class="img-rounded media-object logoOSC">
+          <div ng-if="(ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' )" class="divImg">
+            <img src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
           </div>
           <div>
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}

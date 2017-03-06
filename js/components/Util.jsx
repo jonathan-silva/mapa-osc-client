@@ -1153,7 +1153,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "Local de execução"){
-            //console.log(item);
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
