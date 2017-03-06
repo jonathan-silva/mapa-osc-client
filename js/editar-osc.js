@@ -246,6 +246,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $divDadosProjeto.toggleClass("hidden");
         }
       });
+
+      $("#table_lista_projetos_paginate").click(function(e){
+        verificarContraste();
+      });
     }
 
     function montarAreasDeAtuacaoProjetos(sugestoes){
@@ -482,8 +486,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
       $divMetasProjeto = $divObjetivosMetasProjeto.find("#metas-"+id);
-      $divMetasProjeto.append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+      $divMetasProjeto.append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+      $divMetasProjeto.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
       //console.log($divMetasProjeto);
 
       if(cd_objetivo){
@@ -532,14 +536,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       	});
         $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-      	$('#metas-'+cd_objetivo).append('<div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div>');
-      	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol>');
+      	$('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+      	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
       	if($('#metas-'+cd_objetivo).hasClass('hidden')){
       		$('#metas-'+cd_objetivo).toggleClass('hidden');
       	}
       	if(parseInt(cd_objetivo) !== 0){
       		loadMetas(cd_objetivo, null);
       	}
+              verificarContraste();
       });
     }
 
