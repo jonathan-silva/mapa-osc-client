@@ -5,9 +5,15 @@ class TitulosCertificacoes {
 
   carregarInteracoesTitCertif(){
     //interações seção títulos e certificações
+    $('#certificacoes :checkbox').prop('checked', false);
     $("#certificacoes :checkbox").change(function() {
       var $inputContainer = $(this).closest(".form-group").siblings().find("#utilidade_publica_"+this.value).closest(".form-group");
-      $inputContainer.toggleClass('hidden');
+      if(!$(this).is(':checked')){
+        $inputContainer.addClass('hidden');
+      }
+      else{
+        $inputContainer.removeClass('hidden');
+      }
       if($inputContainer.hasClass('hidden')){
         var $input = $inputContainer.find('input');
         $input.val("");
