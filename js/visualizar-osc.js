@@ -58,6 +58,7 @@ function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
 	$(e).find(".glyphicon").toggleClass( "glyphicon-minus" );
+	verificarContraste();
 }
 
 
@@ -87,7 +88,7 @@ require(["jquery-ui"], function (React) {
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
 
-		 setTimeout(function(){ verificarContraste(); }, 2000);
+		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
 		 };
