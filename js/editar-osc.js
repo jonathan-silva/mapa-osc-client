@@ -948,11 +948,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             } else if( $pai.attr("id") === "fonte_de_recursos"){
               if(obj[$pai.attr("id")] === undefined){
-                obj[$pai.attr("id")] = {};
+                obj[$pai.attr("id")] = [];
               }
               var tipo = $(this).parent().parent().attr("id");
-              if(tipo === "fonte_de_recursos"){
-                console.log(valor)
+              if(tipo === "fonte_recursos"){
+                console.log(valor);
                 if(valor === "Recursos públicos"){
                   valor = 1;
                 }
@@ -1080,7 +1080,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if(newJson["objetivo_meta"] === undefined){
             newJson["objetivo_meta"] = [];
           }
-          newJson["objetivo_meta"] = null;
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
           if(idProjeto === -1){
