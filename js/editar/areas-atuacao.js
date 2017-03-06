@@ -149,7 +149,6 @@ class AreaAtuacao {
       minLength: 0,
       create: function(event, ui) {
         var value = $(this).attr("placeholder");
-        console.log(macro_area_suggestions);
         for (var i = 0; i < macro_area_suggestions.length; i++) {
           var suggestion = macro_area_suggestions[i].value;
 

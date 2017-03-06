@@ -795,8 +795,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
         });
+        if(newJson['governanca'].length == 0){
+          newJson['governanca'] = null;
+        }
 
-        console.log(newJson);
         success = util.carregaAjax(rotas.Dirigente(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -815,7 +817,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
-        console.log(newJson);
+        if(newJson['conselho_fiscal'].length == 0){
+          newJson['conselho_fiscal'] = null;
+        }
+
         success = util.carregaAjax(rotas.ConselhoFiscal(idOsc), 'POST', newJson);
         console.log(success);
 
