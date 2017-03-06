@@ -754,7 +754,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             cd_certificado = 8;
           }
           var item = {};
-          item.dt_inicio_certificado = null;
+          //item.dt_inicio_certificado = null;
           item.dt_fim_certificado = $(this).val();
           item.ft_certificado = 'Representante'//authHeader.User;
           item.ft_inicio_certificado = 'Representante'//authHeader.User;
