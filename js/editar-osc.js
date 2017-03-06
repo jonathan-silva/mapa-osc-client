@@ -96,7 +96,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc, "");
         var areas_atuacao_sugestoes = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica, React, ReactDOM, FormItem);
         //Descrição
-        descricao.montarDescricao(data, util, dadosForm.descricao(descricao), React, ReactDOM, FormItem);
+        descricao.montarDescricao(data, util, dadosForm, React, ReactDOM, FormItem);
         //Títulos e certificações
         var dados_form = dadosForm.titulosCertificacoes(data, util);
         titulosCertificacoes.montarTitulosCertificacoes(data, util, dados_form, React, ReactDOM, FormItem);

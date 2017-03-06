@@ -243,7 +243,7 @@
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
-                  <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_link_estatuto_osc)?ctrl.osc.dados_gerais.tx_link_estatuto_osc:"Não informado"}}</span>
+                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_link_estatuto_osc)?ctrl.osc.descricao.tx_link_estatuto_osc:"Não informado"}}</span>
                   <span ng-if="(ctrl.osc.descricao.ft_link_estatuto_osc != 'Representante' && ctrl.osc.descricao.ft_link_estatuto_osc != null)" title="Informação oficial. {{ctrl.osc.descricao.ft_link_estatuto_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                   <span ng-if="(ctrl.osc.descricao.ft_link_estatuto_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
