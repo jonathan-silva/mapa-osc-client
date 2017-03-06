@@ -811,7 +811,7 @@ class DataForms{
       },
       "fonte_recursos": {
         "header": "Fonte de Recursos",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": false,
         "type": "select",
         "options": [
@@ -829,7 +829,7 @@ class DataForms{
       },
       "financiador_projeto": {
         "header": "Financiadores do Projeto",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": true,
         "type": "text",
         "options": null
@@ -851,14 +851,14 @@ class DataForms{
       },
       "publico_beneficiado": {
         "header": "Público Beneficiado",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": true,
         "type": "text",
         "options": null
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": false,
         "type": "select",
         "options": [
@@ -867,7 +867,7 @@ class DataForms{
       },
       "localizacao_projeto": {
         "header": "Local de execução",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": true,
         "type": "text",
         "options": null,
@@ -882,7 +882,7 @@ class DataForms{
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-4",
         "removable": false,
         "type": "select",
         "options": [
