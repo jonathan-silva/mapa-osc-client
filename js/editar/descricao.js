@@ -2,12 +2,13 @@ class Descricao {
   constructor() {
 
   }
-  montarDescricao(json, util, dados_form, React, ReactDOM, FormItem){
+  montarDescricao(json, util, dadosForm, React, ReactDOM, FormItem){
     var headerPriority = '2';
     var descricao = util.validateObject(json.descricao, "");
+    var dados_form = dadosForm.descricao(descricao);
+    var items = dados_form.form_items;
     var formItens = [];
 
-    var items = dados_form.form_items;
     for (var j=0; j<items.length; j++){
       formItens.push(util.FormItens(items[j].id, items[j].label, items[j].content, items[j].fonte, items[j].placeholder, items[j].type));
     }
