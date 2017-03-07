@@ -65,7 +65,7 @@ require(["jquery-ui", "rotas"], function(React) {
         }
 
         var json = {"tx_email_usuario":$email};
-        console.log(json);
+
 
         $.ajax({
              url: controller,

@@ -187,6 +187,11 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/esquecisenha/";
   }
 
+  //alterar-senha
+  AlterarSenha(){
+    return this.getBaseUrl()+":8383/api/user/alterarsenha/";
+  }
+
   //configurar-conta.js
   ValidarUsuario(id){
     return this.getBaseUrl()+":8383/api/user/"+id;
