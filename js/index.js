@@ -14,19 +14,21 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           "key" : "Número OSC Parcerias" ,
           "bar": true,
           "color": "#8ed5ff",
-          "values" : [ {"label" : 2009, "value" : 1184} , {"label" : 2010, "value" : 1035} ,
-                      {"label" : 2011, "value" : 16289} , {"label" : 2012, "value" : 16681},
-                      {"label" : 2013, "value" : 16803} , {"label" : 2014, "value" : 17039},
-                      {"label" : 2015, "value" : 15183} , {"label" : 2016, "value" : 15596} ]
+          "values" : [ {"label" : 2009, "value" : 1020} , {"label" : 2010, "value" : 874} ,
+                      {"label" : 2011, "value" : 16258} , {"label" : 2012, "value" : 16672},
+                      {"label" : 2013, "value" : 16799} , {"label" : 2014, "value" : 17031},
+                      {"label" : 2015, "value" : 15175} , {"label" : 2016, "value" : 16309},
+                      {"label" : 2017, "value" : 1456}]
         } ,
         {
           "tipo_valor":"$",
           "key" : "Valor Total Pago" ,
           "color" : "#333",
-          "values" : [ {"label" : 2009, "value" : 2114159898.04677} , {"label" : 2010, "value" : 2269350646.31726} ,
-                      {"label" : 2011, "value" : 5483215571.02208} , {"label" : 2012, "value" : 6813078949.4345},
-                      {"label" : 2013, "value" : 6977451931.98629} , {"label" : 2014, "value" : 7426759858.10878},
-                      {"label" : 2015, "value" : 4813084434.41138} , {"label" : 2016, "value" : 14406692.3994473} ]
+          "values" : [ {"label" : 2009, "value" : 2097927848.90473} , {"label" : 2010, "value" : 2281962978.49661} ,
+                      {"label" : 2011, "value" : 5549325689.21752} , {"label" : 2012, "value" : 6901981281.24876},
+                      {"label" : 2013, "value" : 7062210861.9215} , {"label" : 2014, "value" : 7511003213.6233},
+                      {"label" : 2015, "value" : 4872101423.21428} , {"label" : 2016, "value" : 5261215337.98598},
+                      {"label" : 2017, "value" : 153863506.33} ]
         }
         ]}];
 
