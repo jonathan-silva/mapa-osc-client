@@ -143,10 +143,10 @@ class Projeto {
     return agrupadores;
   }
 
-  carregaProjeto(id, dadosForm, rotas, util){
+  carregaProjeto(id, dadosForm, rotas, util, novo){
     var res = {};
     var agrupadores=null;
-    if(id == "-1"){
+    if(novo){
       var empty_project = dadosForm.getEmptyProject();
       res.agrupadores = this.montarProjeto(empty_project, util, dadosForm,rotas);
     } else {

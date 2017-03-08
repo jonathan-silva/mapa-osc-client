@@ -215,20 +215,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
       '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
       '</span>');
+      var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         table_lista_projetos.row.add([
           "-1",
           "Novo Projeto"
         ]).draw();
+        proj_id_generator = 0;
         verificarContraste();
       });
-
       $("#table_lista_projetos").on('click', 'tr', function(){
+        var novo = false;
         var id_projeto = table_lista_projetos.row(this).data()[0];
         var projetos = $(this).next(".projeto");
-        console.log(id_projeto);
+        if(id_projeto == "-1"){
+          novo = true;
+          id_projeto = Number(id_projeto) - proj_id_generator;
+          proj_id_generator += 1;
+        }
         if(projetos.length < 1){
-          var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
+          var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
           var result = res.agrupadores;
           var proj = res.projeto;
           console.log(res);
@@ -248,6 +254,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           verificarContraste();
         } else {
+          console.log(projetos);
           var $divDadosProjeto = $(projetos[0]);
           $divDadosProjeto.toggleClass("hidden");
         }
