@@ -13,6 +13,7 @@ class EspacosPartSocial {
       ), document.getElementById("conselhos")
     );
     util.addItem('conselhos');
+    $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
 
     var formItens = arrayObj[1];
     Agrupador = React.createFactory(AgrupadorConferencia);
@@ -159,7 +160,6 @@ class EspacosPartSocial {
         for (var property in conselhos[j]) {
           if (conselhos[j].hasOwnProperty(property)) {
             if(property == "conselho"){
-              console.log(lista_forma);
               formItens.push(util.FormItens("tx_nome_conselho-"+conselhos[j].conselho.id_conselho, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "select",lista_conselho));
               formItens.push(util.FormItens("tx_nome_tipo_participacao-"+conselhos[j].conselho.id_conselho, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "select", lista_forma));
               formItens.push(util.FormItens("tx_nome_representante_conselho-"+conselhos[j].conselho.id_conselho, "Nome de representante", conselhos[j].representante ? conselhos[j].representante[0].tx_nome_representante_conselho : "" , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
@@ -177,7 +177,6 @@ class EspacosPartSocial {
       formItens.push(util.FormItens(periodicidade, "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
       formItens.push(util.FormItens(dataInicioConselho, "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
       formItens.push(util.FormItens(dataFimConselho, "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
-
       arraySecao.push(formItens);
     };
 
@@ -228,7 +227,7 @@ class EspacosPartSocial {
 
       arraySecao.push(formItens); console.log(formItens);
     }
-
+    $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
     return arraySecao;
   }
 }

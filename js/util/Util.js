@@ -146,6 +146,29 @@ class Util {
           $cloneDiv.clone().appendTo($cloneChildren);
           $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
+          console.log($cloneDiv);
+          var date_inputs = $cloneDiv.parent().children().last().find(".date");
+          var cloneDiv_date_inputs = $cloneDiv.parent().children().last().prev().find(".date");
+          console.log(cloneDiv_date_inputs);
+          for (var i = 0; i < date_inputs.length; i++) {
+            var date_input = date_inputs[i];
+            var cloneDiv_date_input = cloneDiv_date_inputs[i];
+            var cloneDiv_id_string = $(cloneDiv_date_input).attr("id")
+            var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+            var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
+            var date_input_id_string = $(date_input).attr("id");
+            var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+            var id_clone_div = Number(cloneDiv_id);
+            var id_clone_div_text = date_input_text;
+            id_clone_div--;
+            $(date_input).removeClass('hasDatepicker');
+            $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
+            $(date_input).datepicker({ dateFormat: 'dd-mm-yy' });
+          }
+
+
+
+
           $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
           //$(".ano").datepicker({ dateFormat: 'yy' });
         }
