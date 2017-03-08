@@ -226,6 +226,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#table_lista_projetos").on('click', 'tr', function(){
         var id_projeto = table_lista_projetos.row(this).data()[0];
         var projetos = $(this).next(".projeto");
+        console.log(id_projeto);
         if(projetos.length < 1){
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
           var result = res.agrupadores;
@@ -234,9 +235,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           var divId = "projeto-" + id_projeto;
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
-
-          console.log(proj);
-          console.log();
 
           agrupamento(result, id_projeto);
           montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);

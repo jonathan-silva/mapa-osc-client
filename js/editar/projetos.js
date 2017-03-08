@@ -16,6 +16,7 @@ class Projeto {
     var arraySecaoProjeto = [];
 
     var projects_list = util.validateObject(json.projeto_abreviado, []);
+    //console.log(json.projeto);
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
@@ -29,6 +30,16 @@ class Projeto {
     console.log(projects_list);
     console.log(sizeOfData);
     console.log(newData);
+    for (var i=0; i < projects_list.length; i++){
+      newData[i] = new Array(columns);
+      newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
+      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
+    }
+    arraySecaoProjeto.push(newData);
+    console.log(arraySecaoProjeto);
+    var columns = 2;
+    var sizeOfData = projects_list.length;
+    var newData = new Array(sizeOfData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
       newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
