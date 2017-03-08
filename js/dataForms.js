@@ -47,7 +47,8 @@ class DataForms{
           "options": [
             "Próprio",
             "Alugado",
-            "Outro"
+            "Cedido",
+            "Comodato"
           ]
         },
         {

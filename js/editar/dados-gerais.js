@@ -38,6 +38,7 @@ class DadosGerais {
       ), document.getElementById("dados_gerais")
     );
     $("#tx_telefone").find("input").mask('(00) 0000-0000');
+    console.log($("#voluntarios"));
   }
 
 }

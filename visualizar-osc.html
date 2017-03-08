@@ -378,7 +378,12 @@
                       <span class="form-control-static">{{conselho.conselho.tx_nome_tipo_participacao}}</span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_nome_representante_conselho}}</span>
+                      <div ng-repeat="representante in conselho.representante">
+                        <span  class="form-control-static">{{representante.tx_nome_representante_conselho}}</span>
+                      </div>
+                      <div ng-if="conselho.representante == null">
+                        <span  class="form-control-static">Não informado</span>
+                      </div>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.tx_periodicidade_reuniao}}</span>
