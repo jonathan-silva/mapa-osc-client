@@ -922,7 +922,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") ) {
                obj.conselho[campo] = $(this).val();
              }
-
            }
            if((conselho_id === "0") && ($(this).val() === "")){
              empty = true;
@@ -942,7 +941,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              break;
             }
            }
-           obj.conselho.cd_tipo_participacao = 2 ;
 
          });
 

@@ -224,7 +224,7 @@ class EspacosPartSocial {
       }
       formItens.push(util.FormItens("tx_nome_participacao_social_outra-0", "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
-      arraySecao.push(formItens);
+      arraySecao.push(formItens); console.log(formItens);
     }
 
     return arraySecao;
