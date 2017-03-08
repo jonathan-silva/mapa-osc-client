@@ -93,5 +93,6 @@ class RelacoesGovernanca {
         {header:null, dados:trabalhadores}
       ), document.getElementById("trabalhadores")
     );
+    $("#voluntarios").mask('00000000');
   }
 }

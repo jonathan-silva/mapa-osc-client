@@ -670,7 +670,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#dados_gerais :input").each(function(){
         var key = $(this).attr("id");
         var value = $(this).val();
-        newJson[key] = value;
+        if(key === "tx_nome_situacao_imovel_osc"){
+          newJson["cd_situacao_imovel_osc"] = null;
+          if(value === "Próprio"){
+            newJson["cd_situacao_imovel_osc"] = 1
+          }
+          if(value === "Alugado"){
+            newJson["cd_situacao_imovel_osc"] = 2
+          }
+          if(value === "Cedido"){
+            newJson["cd_situacao_imovel_osc"] = 3
+          }
+          if(value === "Comodato"){
+            newJson["cd_situacao_imovel_osc"] = 4
+          }
+        } else {
+          newJson[key] = value;
+        }
       });
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
