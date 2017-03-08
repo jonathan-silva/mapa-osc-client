@@ -236,7 +236,8 @@ class AreaAtuacao {
             $input.val("");
           }
         }
-      }
+      },
+
     });
 
     $(".autocomplete").on("click", function(){
@@ -252,6 +253,34 @@ class AreaAtuacao {
           $element.toggleClass('hidden');
         }
       }
+    });
+
+    $(".autocomplete").focusout(function(event){
+
+      // Verificar se existe item
+      var value = this.value;
+      var valueLowerCase = value.toLowerCase();
+      var valid = false;
+      var idMacro = this.id;
+      var idCombo = idMacro.split("macro_area_");
+      $("#ui-id-"+idCombo[1]+" .ui-menu-item-wrapper" ).each(function() {
+        if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+          valid = true;
+          return false;
+        }
+      });
+
+      // Retornar se ok
+      if ( valid ) {
+        return;
+      }
+
+      //Remover
+      $("#"+idMacro).val("");
+      $("#"+idMacro).parent().find(".checkboxList div[id^='subareas-']:not(:hidden)").each(function() {
+        $(this).toggleClass('hidden');
+      });
+
     });
 
     //interações seção areas de atuacao
