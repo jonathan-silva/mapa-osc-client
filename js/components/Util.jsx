@@ -392,22 +392,13 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             {SpanFonte}
           </div>
         } else if(item.type == 'select'){
-          if((item.id.split("-")[0]==="tx_nome_conferencia") || (item.id.split("-")[0]==="tx_nome_forma_participacao_conferencia") || (item.id.split("-")[0]==="tx_nome_tipo_participacao")){
-
-            var className = "input-box"+ custom_class;
-            ContentElement =
-            <div className={className}>
-              <DropdownDual list={item.options} id={item.id} selected={item.content}></DropdownDual>
-              {SpanFonte}
-            </div>
-          } else {
-            var className = "input-box"+ custom_class;
-            ContentElement =
-            <div className={className}>
-              <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
-              {SpanFonte}
-            </div>
-          }
+          console.log(item.options);
+          var className = "input-box"+ custom_class;
+          ContentElement =
+          <div className={className}>
+            <Dropdown list={item.options} id={item.id} selected={item.content}></Dropdown>
+            {SpanFonte}
+          </div>
         } else if(item.id == "tx_endereco_eletronico_sugerido"){
           ContentElement =
           <div className="input-box">
