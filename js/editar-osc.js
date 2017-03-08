@@ -881,7 +881,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
-        var newJson = [];
+        var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["conselho"] = [];
@@ -903,10 +903,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              break;
             }
            }
-           for (var i=0;i<lconselho.length;i++){
-           if ($(this).val() === lconselho[i].tx_nome_conselho){
-             obj.conselho.cd_conselho = lconselho[i].cd_conselho;
-             console.log(obj.conselho.cd_conselho);
+           for (var i=0;i<lforma.length;i++){
+           if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
+             obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
+             console.log(obj.conselho.cd_tipo_participacao);
              break;
             }
            }
@@ -918,8 +918,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                }
              );
            } else {
-             obj.conselho.id_conselho = conselho_id;
-             obj.conselho[campo] = $(this).val();
+             obj.conselho.cd_conselho = conselho_id;
+             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") ) {
+               obj.conselho[campo] = $(this).val();
+             }
+
            }
            if((conselho_id === "0") && ($(this).val() === "")){
              empty = true;
@@ -929,24 +932,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $(this).find("select").each(function(){
            for (var i=0;i<lconselho.length;i++){
            if ($(this).val() === lconselho[i].tx_nome_conselho){
-             obj.conselho.id_conselho = lconselho[i].cd_conselho;
-             console.log(obj.conselho.id_conselho);
+             obj.conselho.cd_conselho = lconselho[i].cd_conselho;
              break;
             }
            }
            for (var i=0;i<lforma.length;i++){
-           if ($(this).val() === lforma[i].tx_nome_conselho){
-             obj.conselho.id_forma = lforma[i].cd_conselho;
-             console.log(obj.conselho.id_forma);
+           if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
+             obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
              break;
             }
            }
+           obj.conselho.cd_tipo_participacao = 2 ;
 
          });
 
          if(!empty){
            newJson.conselho.push(obj);
            //newJson = Object.assign({}, newJson, obj);
+         }
+         else {
+           newJson.conselho.push(null);
          }
         });
         console.log(newJson);
@@ -1021,9 +1026,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          //if(!(obj.cd_conferencia === "-1") && !(obj.cd_forma_participacao_conferencia === "-1") && !(obj.dt_ano_realizacao == "")){
          if ( (util.validateObject(obj.cd_conferencia,true))  && obj.cd_conferencia !== undefined ){
            newJson.conferencia.push(obj);
-           console.log(obj.cd_conferencia);
-           console.log(obj.cd_forma_participacao_conferencia);
-           console.log(obj.dt_ano_realizacao);
          }
          else {
            newJson["conferencia"].push(null);
