@@ -949,3 +949,9 @@ select{
 .listaOscs{
   display:block;
 }
+
+.tagRemove{
+  font-weight: bold;
+  font-size: larger;
+  color: darkred;
+  }
