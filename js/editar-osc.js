@@ -231,7 +231,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util);
           var result = res.agrupadores;
           var proj = res.projeto;
-          var id_projeto_externo = proj.projeto[0].tx_identificador_projeto_externo;
+          console.log(res);
+          var id_projeto_externo = proj ? proj.projeto[0].tx_identificador_projeto_externo : null;
 
           var divId = "projeto-" + id_projeto;
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
