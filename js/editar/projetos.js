@@ -15,8 +15,7 @@ class Projeto {
   montarProjetos(json, util){
     var arraySecaoProjeto = [];
 
-    var projects_list = util.validateObject(json.projeto_abreviado, '0');
-    //console.log(json.projeto);
+    var projects_list = util.validateObject(json.projeto_abreviado, []);
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
@@ -27,23 +26,16 @@ class Projeto {
     var columns = 2;
     var sizeOfData = projects_list.length;
     var newData = new Array(sizeOfData);
+    console.log(projects_list);
+    console.log(sizeOfData);
+    console.log(newData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
       newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
       newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
     }
     arraySecaoProjeto.push(newData);
-
-    var columns = 2;
-    var sizeOfData = projects_list.length;
-    var newData = new Array(sizeOfData);
-    for (var i=0; i < projects_list.length; i++){
-      newData[i] = new Array(columns);
-      newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
-      newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
-    }
-    arraySecaoProjeto.push(newData);
-
+    console.log(arraySecaoProjeto);
     return arraySecaoProjeto;
   }
 
