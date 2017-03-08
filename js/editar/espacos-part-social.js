@@ -5,7 +5,6 @@ class EspacosPartSocial {
 
   ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons){
     var formItens = arrayObj[0];
-    console.log(arrayObj);
     Agrupador = React.createFactory(AgrupadorConselhos);
     ReactDOM.render(
       Agrupador(
@@ -159,7 +158,6 @@ class EspacosPartSocial {
         for (var property in conselhos[j]) {
           if (conselhos[j].hasOwnProperty(property)) {
             if(property == "conselho"){
-              console.log(lista_forma);
               formItens.push(util.FormItens("tx_nome_conselho-"+conselhos[j].conselho.id_conselho, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "select",lista_conselho));
               formItens.push(util.FormItens("tx_nome_tipo_participacao-"+conselhos[j].conselho.id_conselho, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "select", lista_forma));
               formItens.push(util.FormItens("tx_nome_representante_conselho-"+conselhos[j].conselho.id_conselho, "Nome de representante", conselhos[j].representante ? conselhos[j].representante[0].tx_nome_representante_conselho : "" , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
@@ -226,7 +224,7 @@ class EspacosPartSocial {
       }
       formItens.push(util.FormItens("tx_nome_participacao_social_outra-0", "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
-      arraySecao.push(formItens); console.log(formItens);
+      arraySecao.push(formItens);
     }
 
     return arraySecao;
