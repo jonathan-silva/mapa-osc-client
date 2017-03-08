@@ -1,3 +1,30 @@
+require(['jquery-ui'], function (React) {
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+          .addClass( "arrow" )
+          .addClass( feedback.vertical )
+          .addClass( feedback.horizontal )
+          .appendTo( this );
+      }
+    }
+  });
+
+  jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){
+          event.preventDefault();
+          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+     });
+  });
+
+});
+
+
 require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], function (React) {
   require(['componenteFormItem'], function(FormItem){
     function FormItens(id, label, type, obrigatorio){
@@ -76,6 +103,9 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
            $('#tags').removeClass('hide');
            $('#tag').tagsinput('add', {id: data.representacao[i].id_osc, text: data.representacao[i].tx_nome_osc});
          }
+         $("#tags span[data-role=remove]").each(function(){
+            $(this).addClass("tagRemove").prop('title', 'Clique para Remover a OSC do seu Cadastro.');
+         });
        },
        error: function(e) {
            console.log(e);
@@ -125,6 +155,9 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
                $('#tags').removeClass('hide');
                $('#tag').tagsinput('add', {id: ui.item.id, text: ui.item.label});
 
+               $("#tags span[data-role=remove]").each(function(){
+                  $(this).addClass("tagRemove").prop('title', 'Clique para Remover a OSC do seu Cadastro.');
+               });
            }
        });
      });
