@@ -406,7 +406,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $(".autocomplete").on("click", function(){
-        console.log("click");
         $(this).autocomplete( "search", "" );
       });
 
@@ -556,11 +555,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function carregaEventoMetas(){
       $('.objetivos').find('select').on('change', function(){
       	cd_objetivo = $(this).children(":selected").attr("id")
-      	$(this).parents("#objetivos-metas").find(".metas").each(function(){
+        $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
+      	$divObjetivosMetasProjeto.find(".metas").each(function(){
       		if(!$(this).hasClass('hidden')){
       			$(this).toggleClass('hidden');
       		}
       	});
+        console.log($divObjetivosMetasProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
