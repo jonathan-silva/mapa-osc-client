@@ -1004,6 +1004,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["conferencia"] = [];
         $(".conferencia").each(function(){
          var obj = {};
+	obj["cd_conferencia"] = 0;
+	obj["cd_forma_participacao_conferencia"] = 0;
+	obj["dt_ano_realizacao"] = 0;
+		
          $(this).find("input").each(function(){
            for (var i=0;i<lconferencia.length;i++){
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
