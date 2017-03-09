@@ -1089,6 +1089,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var auxArr = [];
           $elementos.each(function() {
             var $pai = $(this).closest(".form-group");
+            console.log($pai.attr("id"));
             var valor = $(this).val();
             if(valor === "-1"){
               valor = "";
@@ -1114,7 +1115,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
               var tipo = $(this).parent().parent().attr("id");
               if(tipo === "fonte_recursos"){
-                console.log(valor);
                 if(valor === "Recursos públicos"){
                   valor = 1;
                 }
@@ -1168,6 +1168,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
               obj["cd_status_projeto"] = cd_status_projeto;
             } else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
+              console.log("entrou");
               var cd_abrangencia_projeto = null;
               if(valor === "Municipal"){
                 cd_abrangencia_projeto = 1;
@@ -1178,7 +1179,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if(valor === "Regional"){
                 cd_abrangencia_projeto = 3;
               }
-              if(valor === "Estadual"){
+              if(valor === "Nacional"){
                 cd_abrangencia_projeto = 4;
               }
               obj["cd_abrangencia_projeto"] = cd_abrangencia_projeto;
@@ -1204,7 +1205,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               });
               obj["localizacao"] = localizacoes.length > 0 ? localizacoes : null;
             } else if(($pai.attr("id") === "publico_beneficiado")){
-              console.log("public beneficiado");
               publicos_beneficiados = [];
               var publico_beneficiado = {};
               var $inputs = $pai.find("input");
@@ -1236,10 +1236,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         $(".projeto").each(function(){
           var str = $(this).attr("id");
-          var id_array = str.split("-");
+          var id_projeto_text = str.substr(0,str.indexOf('-'));
+          var id_projeto = str.substr(str.indexOf('-')+1);
           var idProjetoExterno = $($(this).find("div")[0]).attr("id");
-          console.log(id_array);
-          idProjeto = Number(id_array[1]);
+          console.log(id_projeto_text);
+          console.log(id_projeto);
+          idProjeto = Number(id_projeto);
           idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
@@ -1251,6 +1253,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+          console.log(idProjeto);
           if(idProjeto === -1){
             newJson["id_projeto"] = null;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
