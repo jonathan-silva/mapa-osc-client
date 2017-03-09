@@ -177,7 +177,7 @@
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
-                <label>Área de atuação do projeto, atividade ou programa: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
+                <label>Macro Área {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                 <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
                   <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
                   {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}

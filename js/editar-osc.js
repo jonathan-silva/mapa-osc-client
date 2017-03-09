@@ -1239,8 +1239,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var id_projeto_text = str.substr(0,str.indexOf('-'));
           var id_projeto = str.substr(str.indexOf('-')+1);
           var idProjetoExterno = $($(this).find("div")[0]).attr("id");
-          console.log(id_projeto_text);
-          console.log(id_projeto);
           idProjeto = Number(id_projeto);
           idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
