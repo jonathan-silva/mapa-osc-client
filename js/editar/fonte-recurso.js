@@ -5,10 +5,11 @@ class FonteRecurso {
 
   montarPorAno(ano, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     //console.log(ano);
+
     var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
     var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
-    var recursos_nao_financeiros = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 3; });
-    var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
+    var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 3; });
+    var recursos_nao_financeiros = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
     $("#recursos").append('<div id='+ano+'></div>');
     if(index !== 0){
       $('#'+ano).toggleClass("hidden");
@@ -34,7 +35,6 @@ class FonteRecurso {
         {header:null, dados:formItens}
       ), document.getElementById("recursos_geral-"+ano)
     );
-
     //recursos
     //colocando dados no Array
     recursos_form.recursos_nao_financeiros = this.mapContentRecursos(recursos.recursos_nao_financeiros, recursos_nao_financeiros);
