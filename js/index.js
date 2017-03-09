@@ -225,7 +225,7 @@ require(["jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-     link = "./resultado-consulta.html?"+'organizacao'+"="+ui.item.value.replace(/ /g, '+');
+     link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value).replace(/ /g, '+');
      location.href=link;
    }
  });
