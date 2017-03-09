@@ -909,7 +909,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
          $(this).find("input").each(function(){
            var split = $(this).attr("id").split("-");
-           var campo = split[0];console.log(campo);
+           var campo = split[0];
            var conselho_id = split[1];
 
            for (var i=0;i<lconselho.length;i++){
@@ -1007,7 +1007,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 	obj["cd_conferencia"] = 0;
 	obj["cd_forma_participacao_conferencia"] = 0;
 	obj["dt_ano_realizacao"] = 0;
-		
+
          $(this).find("input").each(function(){
            for (var i=0;i<lconferencia.length;i++){
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
@@ -1286,7 +1286,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
-        console.log(success.responseText);
+        console.log(success);
       //});
 
       jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(um) dia.<br><br>Obrigado!"};
