@@ -948,7 +948,6 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
-      console.log(dados);
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var id = item.id;
