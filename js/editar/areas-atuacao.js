@@ -53,20 +53,27 @@ class AreaAtuacao {
         if(util.validateObject(areas_atuacao[0], false)){
           if (areas_atuacao[0].tx_nome_area_atuacao === "Outros") {
               if(items[j].id === "macro_area_1_outros"){
-                items[j].content = (areas_atuacao[0])?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
+                items[j].content = (areas_atuacao[0].tx_nome_area_atuacao_outra)?areas_atuacao[0].tx_nome_area_atuacao_outra:""; console.log(items[j].content);
               }
               if(items[j].id === "sub_area_1_outros"){
-                items[j].content = (areas_atuacao[0])?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
+                var tamanho = (areas_atuacao[0].subarea_atuacao)?areas_atuacao[0].subarea_atuacao.length:0;
+                for (var i = 0; i < tamanho; i++) {
+                  if (areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra !== null ) {
+                    items[j].content = (areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra)?areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
+                    console.log(items[j].content);
+                  }
+                }
               }
           }
           else {
             if(items[j].id === "macro_area_1_outros"){
-              items[j].content = (areas_atuacao[0].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
+              items[j].content = (areas_atuacao[0].tx_nome_area_atuacao_outra)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
             }
             if(items[j].id === "sub_area_1_outros"){
-              for (var i = 0; i < areas_atuacao[0].subarea_atuacao.length; i++) {
+              var tamanho = (areas_atuacao[0].subarea_atuacao)?areas_atuacao[0].subarea_atuacao.length:0;
+              for (var i = 0; i < tamanho; i++) {
                 if (areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra !== null ) {
-                  items[j].content = (areas_atuacao[0].subarea_atuacao[i].cd_subarea_atuacao!==null)?areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
+                  items[j].content = (areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra)?areas_atuacao[0].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
                 }
               }
             }
@@ -75,20 +82,26 @@ class AreaAtuacao {
         if(util.validateObject(areas_atuacao[1], false)){
           if (areas_atuacao[1].tx_nome_area_atuacao === "Outros") {
               if(items[j].id === "macro_area_2_outros"){
-                items[j].content = (areas_atuacao[1])?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
+                items[j].content = (areas_atuacao[1].tx_nome_area_atuacao_outra)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
               }
               if(items[j].id === "sub_area_2_outros"){
-                items[j].content = (areas_atuacao[1])?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
+                var tamanho = (areas_atuacao[1].subarea_atuacao)?areas_atuacao[1].subarea_atuacao.length:0;
+                for (var i = 0; i < tamanho; i++) {
+                  if (areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra !== null ) {
+                    items[j].content = (areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra)?areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
+                  }
+                }
               }
           }
           else {
             if(items[j].id === "macro_area_2_outros"){
-              items[j].content = (areas_atuacao[1].subarea_atuacao[0].cd_subarea_atuacao===null)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
+              items[j].content = (areas_atuacao[1].subarea_atuacao)?areas_atuacao[1].tx_nome_area_atuacao_outra:"";
             }
             if(items[j].id === "sub_area_2_outros"){
-              for (var i = 0; i < areas_atuacao[1].subarea_atuacao.length; i++) {
+              var tamanho = (areas_atuacao[1].subarea_atuacao)?areas_atuacao[1].subarea_atuacao.length:0;
+              for (var i = 0; i < tamanho; i++) {
                 if (areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra !== null ) {
-                  items[j].content = (areas_atuacao[1].subarea_atuacao[i].cd_subarea_atuacao!==null)?areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
+                  items[j].content = (areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra)?areas_atuacao[1].subarea_atuacao[i].tx_nome_subarea_atuacao_outra:"";
                 }
               }
             }

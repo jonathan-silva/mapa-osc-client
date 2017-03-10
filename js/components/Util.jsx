@@ -222,7 +222,7 @@ define('componenteAccordion', ['react'], function (React) {
 define('componenteDropdown', ['react'], function (React) {
   var Dropdown = React.createClass({
     getInitialState:function(){
-      console.log(this.props);
+      //console.log(this.props);
         return {selectValue:this.props.list[0]};
     },
     handleChange: function(e){

@@ -184,7 +184,7 @@ class EspacosPartSocial {
 'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
 'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outro'];
     var formItens = [];//
-    console.log(conferencias);
+    //console.log(conferencias);
     if (conferencias.length) {
       var conferencia = participacao_social_form.items;
       for (var j=0; j<conferencias.length; j++){
