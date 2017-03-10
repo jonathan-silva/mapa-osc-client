@@ -5,7 +5,6 @@ class EspacosPartSocial {
 
   ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons){
     var formItens = arrayObj[0];
-    console.log(arrayObj);
     Agrupador = React.createFactory(AgrupadorConselhos);
     ReactDOM.render(
       Agrupador(
@@ -229,7 +228,7 @@ class EspacosPartSocial {
       }
       formItens.push(util.FormItens("tx_nome_participacao_social_outra-0", "Atuação em Fóruns, Articulações, Coletivos e Redes de OSCs", null , null, "Indique em quais outros espaços de participação a OSC atualmente tem atuação, se houver", "text", null, null, null, null, true));
 
-      arraySecao.push(formItens); console.log(formItens);
+      arraySecao.push(formItens);
     }
     $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
     return arraySecao;

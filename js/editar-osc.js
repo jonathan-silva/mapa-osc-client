@@ -116,7 +116,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
         clique();
         //Datas
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy',changeYear: true });
         //Seleção anual como opção do date picker
         $(function() {
             $('.ano').datepicker({
@@ -463,7 +463,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("projeto-"+id)
       );
 
-      $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+      $(".date").datepicker({ dateFormat: 'dd-mm-yy',changeYear: true });
       $(".ano").datepicker({ dateFormat: 'yy' });
 
       // interacoes
@@ -716,8 +716,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       else{
           newJson["im_logo"] = imgSrc;
       }
-      console.log(newJson);
-
+      //console.log(newJson);
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação
@@ -933,14 +932,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            for (var i=0;i<lconselho.length;i++){
            if ($(this).val() === lconselho[i].tx_nome_conselho){
              obj.conselho.cd_conselho = lconselho[i].cd_conselho;
-             console.log(obj.conselho.cd_conselho);
              break;
             }
            }
            for (var i=0;i<lforma.length;i++){
            if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
              obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
-             console.log(obj.conselho.cd_tipo_participacao);
              break;
             }
            }
@@ -1020,10 +1017,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["conferencia"] = [];
         $(".conferencia").each(function(){
          var obj = {};
-	obj["cd_conferencia"] = 0;
-	obj["cd_forma_participacao_conferencia"] = 0;
-	obj["dt_ano_realizacao"] = 0;
-
+         obj["cd_conferencia"] = 0;
+         obj["cd_forma_participacao_conferencia"] = 0;
+         obj["dt_ano_realizacao"] = 0 ;
          $(this).find("input").each(function(){
            for (var i=0;i<lconferencia.length;i++){
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
