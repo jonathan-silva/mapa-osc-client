@@ -522,9 +522,9 @@
                       <div class="col-md-3 ">
                         <div class="header ">Situação do Projeto</div>
                         <div class="form-group">
-                            <span class="form-control-static">{{(proj.tx_status_projeto)?proj.tx_status_projeto:"Não informado"}}</span>
-                            <span ng-if="(proj.ft_nome_status_projeto != 'Representante' && proj.ft_nome_status_projeto != null)" title="Informação oficial. {{proj.ft_nome_status_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                            <span ng-if="(proj.ft_nome_status_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                            <span class="form-control-static">{{(proj.tx_nome_status_projeto)?proj.tx_nome_status_projeto:"Não informado"}}</span>
+                            <span ng-if="(proj.ft_status_projeto != 'Representante' && proj.ft_status_projeto != null)" title="Informação oficial. {{proj.ft_status_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                            <span ng-if="(proj.ft_status_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
                       </div>
 
@@ -551,8 +551,8 @@
                       <div class="col-md-3 ">
                         <div class="header ">Link</div>
                         <div class="form-group">
-                            <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >{{(proj.tx_link_projeto)?proj.tx_link_projeto:"Não informado"}}</span>
-                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{(proj.tx_link_projeto)?proj.tx_link_projeto:"Não informado"}} <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                            <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
+                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                             <span ng-if="(proj.ft_link_projeto != 'Representante' && proj.ft_link_projeto != null)" title="Informação oficial. {{proj.ft_link_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                             <span ng-if="(proj.ft_link_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
@@ -592,9 +592,10 @@
                       <div class="col-md-3 ">
                         <div class="header ">Tipo da Fonte de Recursos</div>
                         <div class="form-group"  ng-repeat="fonte_recursos in proj.fonte_recursos">
-                          <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span><br>
+                          <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span>
                           <span ng-if="(fonte_recursos.ft_fonte_recursos_projeto != 'Representante' && fonte_recursos.ft_fonte_recursos_projeto != null)" title="Informação oficial. {{fonte_recursos.ft_fonte_recursos_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(fonte_recursos.ft_fonte_recursos_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                          <br>
                         </div>
                         <div class="form-group"  ng-if="proj.fonte_recursos == null">
                           <span class="form-control-static">Não informado</span>
@@ -637,8 +638,7 @@
                       <div class="col-md-3 ">
                         <div class="header ">Público Beneficiado</div>
                         <div class="form-group"  ng-repeat="pubben in proj.publico_beneficiado">
-                          <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}:</span>
-                          <span class="form-control-static">{{(pubben.nr_estimativa_pessoas_atendidas)?pubben.nr_estimativa_pessoas_atendidas:"Não informado"}} pessoas</span>
+                          <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}</span>
                           <span ng-if="(pubben.ft_publico_beneficiado_projeto != 'Representante' && pubben.ft_publico_beneficiado_projeto != null)" title="Informação oficial. {{pubben.ft_publico_beneficiado_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(pubben.ft_publico_beneficiado_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
@@ -702,7 +702,7 @@
 
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
-                        <div class="header">Objetivos de desenvolvimento do milênio</div>
+                        <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="https://nacoesunidas.org/pos2015" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
                         <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
@@ -716,7 +716,7 @@
 
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
-                        <div class="header">Metas dos Objetivos</div>
+                        <div class="header">Metas Relacionadas ao ODS</div>
                         <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta">
                           <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo_meta.ft_objetivo_projeto != 'Representante' && objetivo_meta.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
