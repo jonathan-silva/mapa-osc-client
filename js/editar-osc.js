@@ -488,11 +488,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function metasObjetivos(project, id){
       //metas e objetivos
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
-      var objetivo = util.validateObject(objetivo_meta.tx_nome_objetivo_projeto, -1);
-      var cd_objetivo = util.validateObject(objetivo_meta.cd_objetivo_projeto, -1);
-      var meta = util.validateObject(objetivo_meta.tx_nome_meta_projeto, -1);
-      var cd_meta = util.validateObject(objetivo_meta.cd_meta_projeto, -1);
-      console.log(project);
+      var objetivo = util.validateObject(objetivo_meta[0].tx_nome_objetivo_projeto, -1);
+      var cd_objetivo = util.validateObject(objetivo_meta[0].cd_objetivo_projeto, -1);
+      var cd_metas = [];
+      var metas = [];
+      if(objetivo !== -1){
+        for (var i = 0; i < objetivo_meta.length; i++) {
+          var cd_meta = objetivo_meta[i].cd_meta_projeto;
+          var meta = objetivo_meta[i].tx_nome_objetivo_projeto;
+          cd_metas.push(cd_meta);
+          metas.push(meta);
+        }
+      }
 
       $.ajax({
         url: rotas.Objetivos(),
@@ -525,7 +532,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //console.log($divMetasProjeto);
 
       if(cd_objetivo){
-        loadMetas(cd_objetivo, cd_meta);
+        loadMetas(cd_objetivo, cd_metas);
       }
 
       carregaEventoMetas();
@@ -544,7 +551,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     }
 
-    function loadMetas(cd_objetivo, cd_meta){
+    function loadMetas(cd_objetivo, cd_metas){
       $.ajax({
         url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
@@ -555,7 +562,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          montarMetas(data, cd_objetivo, cd_meta);
+          montarMetas(data, cd_objetivo, cd_metas);
         }
       });
     }
@@ -584,7 +591,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
-    function montarMetas(data, cd_objetivo, cd_meta){
+    function montarMetas(data, cd_objetivo, cd_metas){
       if (util.validateObject(data, false)){
         var checkboxItems = [];
         function CheckboxItem(id, label, value, type, checked){
@@ -597,9 +604,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         items = data;
         console.log(items);
+        console.log(cd_metas);
         for (var i=0; i<items.length; i++){
           var checkboxItem = null;
-          if(items[i].cd_meta_projeto === cd_meta){
+          if(cd_metas.includes(items[i].cd_meta_projeto)){
             checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", true);
             checkboxItems.push(checkboxItem);
           } else {
@@ -1116,7 +1124,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
 
     });
-    
+
     function salvarProjetos(){
       console.log($(".projeto"));
       console.log("salvar projetos");
