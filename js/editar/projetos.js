@@ -70,6 +70,7 @@ class Projeto {
           var buttons = null;
           var buttonsInLine = false;
           if((value === null) || (value.constructor !== Array)){
+            console.log(sectionId);
             var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
             agrupadores.push(agrupadorInputProjeto);
@@ -175,7 +176,6 @@ class Projeto {
       "type": "add",
       "value": "Adicionar"
     };
-    console.log(object);
     var sectionId = object.id
     //console.log(object);
     var element = labelMap[object.id];
@@ -198,14 +198,12 @@ class Projeto {
       var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
       inputs.push(inputProjeto);
     }
-    console.log(sectionId);
     for (var i = 0; i < object.dados.length; i++) {
       var inputId = sectionId;
       for (var property in object.dados[i]) {
         //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
           if(sectionId == "fonte_recursos"){
-            console.log(sectionId);
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
               value = object.dados[i][property];
               options = labelMap[object.id].options;

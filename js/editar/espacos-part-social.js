@@ -12,6 +12,7 @@ class EspacosPartSocial {
       ), document.getElementById("conselhos")
     );
     util.addItem('conselhos');
+    $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
 
     var formItens = arrayObj[1];
     Agrupador = React.createFactory(AgrupadorConferencia);
@@ -175,7 +176,6 @@ class EspacosPartSocial {
       formItens.push(util.FormItens(periodicidade, "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
       formItens.push(util.FormItens(dataInicioConselho, "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
       formItens.push(util.FormItens(dataFimConselho, "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
-
       arraySecao.push(formItens);
     };
 
@@ -184,6 +184,7 @@ class EspacosPartSocial {
 'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
 'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outro'];
     var formItens = [];//
+    console.log(conferencias);
     if (conferencias.length) {
       var conferencia = participacao_social_form.items;
       for (var j=0; j<conferencias.length; j++){
@@ -196,7 +197,10 @@ class EspacosPartSocial {
               formItens.push(util.FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "select",lista_forma_conferencia));
             }
             if(property == "dt_ano_realizacao"){
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", conferencias[j].dt_ano_realizacao.substring(6), conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
+              var dtAnoRealizacao = conferencias[j].dt_ano_realizacao;
+              dtAnoRealizacao = dtAnoRealizacao ? dtAnoRealizacao.substring(6) : dtAnoRealizacao;
+              console.log(dtAnoRealizacao);
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
             }
           }
         }
@@ -226,7 +230,7 @@ class EspacosPartSocial {
 
       arraySecao.push(formItens);
     }
-
+    $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
     return arraySecao;
   }
 }

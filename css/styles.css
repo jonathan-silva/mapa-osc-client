@@ -920,7 +920,7 @@ select{
 }
 
 @media print{
-  #header, #rodape, #barra-brasil, .selecao, .topo, hr, footer{
+  #header, #rodape, #barra-brasil, .selecao, .topo, hr, footer, .rastro-navegacao{
     display: none !important;
   }
   #conteudo{padding-bottom: 0px;}
@@ -954,4 +954,7 @@ select{
   font-weight: bold;
   font-size: larger;
   color: darkred;
+  }
+  .vis{
+    margin-bottom: 5px;
   }
