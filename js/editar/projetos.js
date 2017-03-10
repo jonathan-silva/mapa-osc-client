@@ -51,8 +51,7 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
-    console.log(project);
-    var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
+    var labelMap = dadosForm.labelsProjeto();console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
@@ -76,7 +75,6 @@ class Projeto {
           var buttons = null;
           var buttonsInLine = false;
           if((value === null) || (value.constructor !== Array)){
-            console.log(sectionId);
             var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
             agrupadores.push(agrupadorInputProjeto);

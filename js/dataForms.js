@@ -913,9 +913,9 @@ class DataForms{
         "type": "select",
         "options": null
       },
-      "objetivo_metas": {
-        "header": null,
-        "containerClass": null,
+      "objetivo_meta": {
+        "header": "Objetivos do Desenvolvimento Sustentável - ODS",
+        "containerClass": "col-md-12",
         "removable": false,
         "type": "select",
         "options": null
