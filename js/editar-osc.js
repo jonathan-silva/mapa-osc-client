@@ -244,7 +244,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
           var result = res.agrupadores;
           var proj = res.projeto;
-          console.log(res);
+          //console.log(res);
           var id_projeto_externo = proj ? proj.projeto[0].tx_identificador_projeto_externo : null;
 
           var divId = "projeto-" + id_projeto;
@@ -261,7 +261,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           verificarContraste();
         } else {
-          console.log(projetos);
+          //console.log(projetos);
           var $divDadosProjeto = $(projetos[0]);
           $divDadosProjeto.toggleClass("hidden");
         }
@@ -275,8 +275,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarAreasDeAtuacaoProjetos(sugestoes){
       var sugestoesAreas = sugestoes[0];
       var sugestoesSubAreas = sugestoes[1];
-      console.log(sugestoesAreas);
-      console.log(sugestoesSubAreas);
+      //console.log(sugestoesAreas);
+      //console.log(sugestoesSubAreas);
       $divAreaAtuacaoProjeto = $(".projeto #area_atuacao input");
       // $('.projeto').append('<input class="form-control autocomplete"> </input>');
       // $('.projeto').append('<div class="checkboxList"> </div>');
@@ -488,8 +488,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function metasObjetivos(project, id){
       //metas e objetivos
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
-      var objetivo = util.validateObject(objetivo_meta[0].tx_nome_objetivo_projeto, -1);
-      var cd_objetivo = util.validateObject(objetivo_meta[0].cd_objetivo_projeto, -1);
+      var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
+      var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
+      var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
       var cd_metas = [];
       var metas = [];
       if(objetivo !== -1){
@@ -576,7 +577,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       			$(this).toggleClass('hidden');
       		}
       	});
-        console.log($divObjetivosMetasProjeto);
+        //console.log($divObjetivosMetasProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
@@ -585,7 +586,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       		$('#metas-'+cd_objetivo).toggleClass('hidden');
       	}
       	if(parseInt(cd_objetivo) !== 0){
-      		loadMetas(cd_objetivo, null);
+      		loadMetas(cd_objetivo, []);
       	}
               verificarContraste();
       });
@@ -603,8 +604,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         items = data;
-        console.log(items);
-        console.log(cd_metas);
+        //console.log(items);
+        //console.log(cd_metas);
         for (var i=0; i<items.length; i++){
           var checkboxItem = null;
           if(cd_metas.includes(items[i].cd_meta_projeto)){
@@ -663,7 +664,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('#metas-'+cd_objetivo).toggleClass('hidden');
         }
         if(parseInt(cd_objetivo) !== 0){
-          loadMetas(cd_objetivo, null);
+          loadMetas(cd_objetivo, []);
         }
       });
     }
@@ -876,7 +877,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["nr_trabalhadores_voluntarios"] =  $('#voluntarios').val();
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.RelacoesTrabalho(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -983,7 +984,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            newJson.conselho.push(null);
          }
         });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1063,7 +1064,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            newJson["conferencia"].push(null);
          }
         });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1087,7 +1088,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           });
         });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1109,7 +1110,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           })
 
         });
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
         console.log(success);
       //});
@@ -1120,8 +1121,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     });
 
     function salvarProjetos(){
-      console.log($(".projeto"));
-      console.log("salvar projetos");
+      //console.log($(".projeto"));
+      //console.log("salvar projetos");
       // Projetos
       var listaProjetos = [];
       var newJson = {};
@@ -1131,7 +1132,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var auxArr = [];
         $elementos.each(function() {
           var $pai = $(this).closest(".form-group");
-          console.log($pai.attr("id"));
+          //console.log($pai.attr("id"));
           var valor = $(this).val();
           if(valor === "-1"){
             valor = "";
@@ -1210,7 +1211,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
             obj["cd_status_projeto"] = cd_status_projeto;
           } else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
-            console.log("entrou");
+            //console.log("entrou");
             var cd_abrangencia_projeto = null;
             if(valor === "Municipal"){
               cd_abrangencia_projeto = 1;
@@ -1277,7 +1278,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         return obj;
       }
       $(".projeto").each(function(){
-        console.log($(this));
+        //console.log($(this));
         var str = $(this).attr("id");
         var id_projeto_text = str.substr(0,str.indexOf('-'));
         var id_projeto = str.substr(str.indexOf('-')+1);
@@ -1294,17 +1295,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        console.log(idProjeto);
+        //console.log(idProjeto);
         if(idProjeto === -1){
           newJson["id_projeto"] = null;
           newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          console.log(newJson);
+          //console.log(newJson);
           success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
           console.log(success);
         } else {
           newJson["id_projeto"] = idProjeto;
           newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          console.log(newJson);
+          //console.log(newJson);
           success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
           console.log(success);
         }
