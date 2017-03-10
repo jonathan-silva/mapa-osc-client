@@ -962,7 +962,7 @@ class DataForms{
       "localizacao_projeto": [],
       "osc_parceira": [],
       "financiador_projeto": [],
-      "objetivo_meta": null,
+      "objetivo_meta": [],
       "recursos": null
     };
     return project;
