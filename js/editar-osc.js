@@ -116,7 +116,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
         clique();
         //Datas
-        $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+        $(".date").datepicker({ dateFormat: 'dd-mm-yy',changeYear: true });
         //Seleção anual como opção do date picker
         $(function() {
             $('.ano').datepicker({
@@ -462,7 +462,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ), document.getElementById("projeto-"+id)
       );
 
-      $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+      $(".date").datepicker({ dateFormat: 'dd-mm-yy',changeYear: true });
       $(".ano").datepicker({ dateFormat: 'yy' });
 
       // interacoes
