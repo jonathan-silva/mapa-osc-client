@@ -52,6 +52,7 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
     var rotas = new Rotas();
     var limiteAutocomplete = 10;
     var controller = "js/controller.php";
+    var $modal = $('#modalMensagem');
 
 
     $('#send').on('click', function() {
@@ -95,6 +96,7 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
                      jQuery("#modalTitle").text("Sucesso");
                      jQuery("#modalConteudo").text("Alteração realizada com sucesso!");
                      $modal.modal('show');
+                     pagInicial();
                    }else{
                      jQuery("#modalTitle").text("Problema na solicitação!");
                      jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
@@ -106,11 +108,12 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
                    jQuery("#modalTitle").text("Sucesso");
                    jQuery("#modalConteudo").text("Alteração realizada com sucesso!");
                    $modal.modal('show');
+                   pagInicial();
                  }
              }); //final envio ajax
-        }
+        });
     });
-});
+
 
 
 function pagInicial() {
