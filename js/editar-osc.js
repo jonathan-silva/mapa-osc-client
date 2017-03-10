@@ -52,6 +52,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       idOsc = valoresURL[0];
       verificarPermissao(idOsc);
       addBotaoVisualizar(idOsc);
+      addLinkVoltar(idOsc);
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
 
@@ -187,6 +188,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function addBotaoimagem(){
         $("#btnInserirImg").append('<label class="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>');
         $("#btnRemoverImg").append('<a class="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>');
+    }
+
+    function addLinkVoltar(id){
+        $("#voltaEditar").attr("href","editar-osc.html#/"+id);
+		    $("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
     }
 
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
@@ -406,7 +412,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $(".autocomplete").on("click", function(){
-        console.log("click");
         $(this).autocomplete( "search", "" );
       });
 
@@ -556,11 +561,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function carregaEventoMetas(){
       $('.objetivos').find('select').on('change', function(){
       	cd_objetivo = $(this).children(":selected").attr("id")
-      	$(this).parents("#objetivos-metas").find(".metas").each(function(){
+        $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
+      	$divObjetivosMetasProjeto.find(".metas").each(function(){
       		if(!$(this).hasClass('hidden')){
       			$(this).toggleClass('hidden');
       		}
       	});
+        console.log($divObjetivosMetasProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
@@ -909,7 +916,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
          $(this).find("input").each(function(){
            var split = $(this).attr("id").split("-");
-           var campo = split[0];console.log(campo);
+           var campo = split[0];
            var conselho_id = split[1];
 
            for (var i=0;i<lconselho.length;i++){
@@ -1002,6 +1009,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["conferencia"] = [];
         $(".conferencia").each(function(){
          var obj = {};
+	obj["cd_conferencia"] = 0;
+	obj["cd_forma_participacao_conferencia"] = 0;
+	obj["dt_ano_realizacao"] = 0;
+
          $(this).find("input").each(function(){
            for (var i=0;i<lconferencia.length;i++){
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
@@ -1082,6 +1093,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var auxArr = [];
           $elementos.each(function() {
             var $pai = $(this).closest(".form-group");
+            console.log($pai.attr("id"));
             var valor = $(this).val();
             if(valor === "-1"){
               valor = "";
@@ -1107,7 +1119,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
               var tipo = $(this).parent().parent().attr("id");
               if(tipo === "fonte_recursos"){
-                console.log(valor);
                 if(valor === "Recursos públicos"){
                   valor = 1;
                 }
@@ -1161,6 +1172,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
               obj["cd_status_projeto"] = cd_status_projeto;
             } else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
+              console.log("entrou");
               var cd_abrangencia_projeto = null;
               if(valor === "Municipal"){
                 cd_abrangencia_projeto = 1;
@@ -1171,7 +1183,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if(valor === "Regional"){
                 cd_abrangencia_projeto = 3;
               }
-              if(valor === "Estadual"){
+              if(valor === "Nacional"){
                 cd_abrangencia_projeto = 4;
               }
               obj["cd_abrangencia_projeto"] = cd_abrangencia_projeto;
@@ -1197,7 +1209,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               });
               obj["localizacao"] = localizacoes.length > 0 ? localizacoes : null;
             } else if(($pai.attr("id") === "publico_beneficiado")){
-              console.log("public beneficiado");
               publicos_beneficiados = [];
               var publico_beneficiado = {};
               var $inputs = $pai.find("input");
@@ -1229,10 +1240,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         $(".projeto").each(function(){
           var str = $(this).attr("id");
-          var id_array = str.split("-");
+          var id_projeto_text = str.substr(0,str.indexOf('-'));
+          var id_projeto = str.substr(str.indexOf('-')+1);
           var idProjetoExterno = $($(this).find("div")[0]).attr("id");
-          console.log(id_array);
-          idProjeto = Number(id_array[1]);
+          idProjeto = Number(id_projeto);
           idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
           newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
@@ -1244,6 +1255,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+          console.log(idProjeto);
           if(idProjeto === -1){
             newJson["id_projeto"] = null;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
@@ -1280,7 +1292,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
-        console.log(success.responseText);
+        console.log(success);
       //});
 
       jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(um) dia.<br><br>Obrigado!"};

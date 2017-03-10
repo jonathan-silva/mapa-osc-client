@@ -83,6 +83,7 @@ require(["jquery-ui"], function (React) {
 	jQuery(document).ready(function($) {
 
 			verificarBotaoEditar(idOsc);
+			addLinkVoltar(idOsc);
 	    $(".scroll").click(function(event){
 	        event.preventDefault();
 	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
@@ -234,6 +235,10 @@ function verificarBotaoEditar(id){
 		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar OSC</a>');
 		$("#btnEditar").attr("href","editar-osc.html#/"+id);
 	}
+}
+
+function addLinkVoltar(id){
+		$("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
 }
 
 function verificarPermissaoBotao(id){

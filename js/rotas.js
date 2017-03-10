@@ -145,6 +145,9 @@ class Rotas{
   FormaParticipacao(){
     return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
   }
+  FontesRecursosById(){
+    return this.getBaseUrl()+":8383/api/osc/recursos/"+id;
+  }
   FontesRecursos(){
     return this.getBaseUrl()+":8383/api/menu/osc/fonte_recursos_osc";
   }

@@ -948,7 +948,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
-
+      console.log(dados);
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
         var id = item.id;
@@ -991,6 +991,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
+            codigo = id;
             if(id.substring(3,6) === "Ano"){
               class_string += "ano";
             } else {
@@ -999,7 +1000,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           }
           var InputElement =
             <div id={id}>
-              <input id={codigo} className={class_string} defaultValue={content} placeholder={placeholder}></input>
+              <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
             if ( (item.fonte) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
@@ -1049,6 +1050,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
+      console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
