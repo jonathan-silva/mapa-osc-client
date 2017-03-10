@@ -52,6 +52,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       idOsc = valoresURL[0];
       verificarPermissao(idOsc);
       addBotaoVisualizar(idOsc);
+      addLinkVoltar(idOsc);
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
 
@@ -187,6 +188,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function addBotaoimagem(){
         $("#btnInserirImg").append('<label class="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>');
         $("#btnRemoverImg").append('<a class="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>');
+    }
+
+    function addLinkVoltar(id){
+        $("#voltaEditar").attr("href","editar-osc.html#/"+id);
+		    $("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
     }
 
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
