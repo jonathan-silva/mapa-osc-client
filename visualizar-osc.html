@@ -183,32 +183,26 @@
                 <span ng-if="(ctrl.osc.dados_gerais.ft_atividade_economica_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
-                <!--label>{{ctrl.osc.area_atuacao.area_atuacao.tx_nome_area_atuacao}}</label-->
-                <label>Macro Área {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
-                <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
-                  <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
-                  {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
-                    <span ng-if="(subarea_atuacao.ft_area_atuacao != 'Representante' && subarea_atuacao.ft_area_atuacao != null)" title="Informação oficial. {{subarea_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                    <span ng-if="(subarea_atuacao.ft_area_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                <div ng-if="(area_atuacao.tx_nome_area_atuacao == 'Outros')">
+                  <label >Macro Área {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
+                  <span ng-if="(area_atuacao.ft_area_atuacao != 'Representante' && area_atuacao.ft_area_atuacao != null)" title="Informação oficial. {{area_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="(area_atuacao.ft_area_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                </div>
+                <div ng-if="(area_atuacao.tx_nome_area_atuacao != 'Outros')">
+                  <label>Macro Área {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
+                  <span ng-if="(area_atuacao.ft_area_atuacao != 'Representante' && area_atuacao.ft_area_atuacao != null)" title="Informação oficial. {{area_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="(area_atuacao.ft_area_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                  <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
+                    <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
+                    {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
+                      <span ng-if="(subarea_atuacao.ft_subarea_atuacao != 'Representante' && subarea_atuacao.ft_subarea_atuacao != null)" title="Informação oficial. {{subarea_atuacao.ft_subarea_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                      <span ng-if="(subarea_atuacao.ft_subarea_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                  </div>
                 </div>
               </div>
               <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao == null">
                 <label>Área de atuação do projeto, atividade ou programa: </label>
                 <span class="form-control-static">Não informado</span>
-              </div>
-              <div class="form-group">
-                <div class="form-group" ng-repeat="area_atuacao_outra in ctrl.osc.area_atuacao.area_atuacao_outra">
-                  <div class="form-group">
-                    <label>Outras áreas de atuação do projeto, atividade ou programa:</label>
-                    <span class="form-control-static">{{area_atuacao_outra.tx_nome_area_atuacao_outra}}</span>
-                    <span ng-if="(area_atuacao_outra.ft_area_atuacao_outra != 'Representante' && area_atuacao_outra.ft_area_atuacao_outra != null)" title="Informação oficial. {{area_atuacao_outra.ft_area_atuacao_outra}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                    <span ng-if="(area_atuacao_outra.ft_area_atuacao_outra == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
-                  </div>
-                </div>
-                <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao_outra == null">
-                  <label>Outras áreas de atuação do projeto, atividade ou programa:</label>
-                  <span class="form-control-static">Não informado</span>
-                </div>
               </div>
             </div>
 
