@@ -5,7 +5,6 @@ class EspacosPartSocial {
 
   ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons){
     var formItens = arrayObj[0];
-    console.log(arrayObj);
     Agrupador = React.createFactory(AgrupadorConselhos);
     ReactDOM.render(
       Agrupador(

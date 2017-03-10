@@ -27,16 +27,12 @@ class Projeto {
     var columns = 2;
     var sizeOfData = projects_list.length;
     var newData = new Array(sizeOfData);
-    console.log(projects_list);
-    console.log(sizeOfData);
-    console.log(newData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
       newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
       newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
     }
     arraySecaoProjeto.push(newData);
-    console.log(arraySecaoProjeto);
     var columns = 2;
     var sizeOfData = projects_list.length;
     var newData = new Array(sizeOfData);
@@ -46,12 +42,10 @@ class Projeto {
       newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
     }
     arraySecaoProjeto.push(newData);
-    console.log(arraySecaoProjeto);
     return arraySecaoProjeto;
   }
 
   montarProjeto(project, util, dadosForm,rotas){
-    console.log(project);
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
@@ -76,7 +70,6 @@ class Projeto {
           var buttons = null;
           var buttonsInLine = false;
           if((value === null) || (value.constructor !== Array)){
-            console.log(sectionId);
             var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
             agrupadores.push(agrupadorInputProjeto);
