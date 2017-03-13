@@ -40,9 +40,11 @@ require(["jquery-ui","rotas"], function (React) {
       jQuery("#labelCaptcha").text("");
     }
 
+    var controller = "js/controller.php";
     var $nome = $('#nome').val();
     var $email = $('#email').val();
     var $modal = $('#modalMensagem');
+
 
     if (!validaEmail($email)) {
         $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -51,9 +53,37 @@ require(["jquery-ui","rotas"], function (React) {
         $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
     }
 
-    var $json = {"tx_nome_assinante": $nome, "tx_email_assinante": $email};
+    var json = {"tx_nome_assinante": $nome, "tx_email_assinante": $email};
     var rotas = new Rotas();
 
+    $('#loading').show();
+    $.ajax({
+         url: controller,
+         type: 'POST',
+         dataType: 'json',
+         data: {flag: 'consultaPost', rota: rotas.ReceberNoticia(), parametros: json},
+         error:function(data){
+           console.log(data);
+           if (data.status == 200){
+             jQuery("#modalTitle").text("Notícias do Portal");
+             jQuery("#modalConteudo").text("Cadastro realizado com sucesso.");
+             $modal.modal('show');
+           }else{
+             jQuery("#modalTitle").text("Problema na solicitação!");
+             jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
+             $modal.modal('show');
+             return false;
+           }
+         },
+         success: function(data){
+           jQuery("#modalTitle").text("Notícias do Portal");
+           jQuery("#modalConteudo").text("Cadastro realizado com sucesso.");
+           $modal.modal('show');
+         }
+     }); //final envio ajax
+
+
+/*
     $('#loading').show();
     $.ajax({
       type: 'POST',
@@ -83,7 +113,11 @@ require(["jquery-ui","rotas"], function (React) {
       complete: function(){
         $('#loading').hide();
       }
-    });
+    });*/
+
+
+
+
   }); //Final btn click
 
 });
