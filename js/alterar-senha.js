@@ -91,7 +91,6 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
                  dataType: 'json',
                  data: {flag: 'consultaPost', rota: rotas.AlterarSenha(), parametros: json},
                  error:function(data){
-                   console.log(data);
                    if (data.status == 200){
                      jQuery("#modalTitle").text("Sucesso");
                      jQuery("#modalConteudo").text("Alteração realizada com sucesso!");
