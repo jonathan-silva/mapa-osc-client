@@ -1,4 +1,5 @@
 /* jshint ignore:start */
+
 require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
 
   $(document).tooltip({
@@ -265,6 +266,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var $divDadosProjeto = $(projetos[0]);
           $divDadosProjeto.toggleClass("hidden");
         }
+        $("#nr_valor_total_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
+        $("#nr_valor_total_projeto").find('input').addClass('with-pretext');
+        $("#nr_valor_total_projeto").find('input').before('<span class="pretext">R$</span>');
+
+        $("#nr_valor_captado_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
+        $("#nr_valor_captado_projeto").find('input').addClass('with-pretext');
+        $("#nr_valor_captado_projeto").find('input').before('<span class="pretext">R$</span>');
+
+        $("#nr_total_beneficiarios").find('input').mask('00000000');
+
       });
 
       $("#table_lista_projetos_paginate").click(function(e){
