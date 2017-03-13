@@ -73,7 +73,7 @@ require(["jquery-ui", "rotas"], function(React) {
              dataType: 'json',
              data: {flag: 'consultaPost', rota: rotas.RecuperSenha(), parametros: json},
              error:function(data){
-               console.log(data);
+               
                if (data.status == 200){
                  jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
                  jQuery("#modalConteudo").text("Em breve você receberá um e-mail com o procedimento para alterar a senha.");
