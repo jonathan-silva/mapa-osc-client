@@ -63,7 +63,6 @@ require(["jquery-ui","rotas"], function (React) {
          dataType: 'json',
          data: {flag: 'consultaPost', rota: rotas.ReceberNoticia(), parametros: json},
          error:function(data){
-           console.log(data);
            if (data.status == 200){
              jQuery("#modalTitle").text("Notícias do Portal");
              jQuery("#modalConteudo").text("Cadastro realizado com sucesso.");
@@ -81,42 +80,6 @@ require(["jquery-ui","rotas"], function (React) {
            $modal.modal('show');
          }
      }); //final envio ajax
-
-
-/*
-    $('#loading').show();
-    $.ajax({
-      type: 'POST',
-      url: "js/controller.php",
-      data: {flag: 'consultaPost', rota: rotas.ReceberNoticia(), parametros: $json},
-      dataType: 'json',
-      success: function(data) {
-          console.log(data.responseText);
-          $modal.modal('show');
-      },
-      error: function(e) {
-         console.log(e);
-          jQuery("#modalTitle").text("Problema na solicitação!");
-          if (e.status==500){
-            jQuery("#modalConteudo").text("Sistema indisponível no momento. Por favor, tente mais tarde.");
-          }else{
-            try{
-                $msg =JSON.parse(e.responseText).message;
-             }catch(e){
-                $msg = "Sistema indisponível no momento. Por favor, tente mais tarde.";
-             }
-            jQuery("#modalConteudo").text($msg);
-          }
-          $modal.modal('show');
-          return false
-      },
-      complete: function(){
-        $('#loading').hide();
-      }
-    });*/
-
-
-
 
   }); //Final btn click
 
