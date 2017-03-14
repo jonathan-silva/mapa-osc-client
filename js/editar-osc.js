@@ -444,6 +444,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         responsive: true,
         deferLoading: 1000,
         deferRender: true,
+        ordering: false,
         data: newData,
         columns: [
           {DT_RowId: "Id"},
