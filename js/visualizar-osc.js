@@ -10,9 +10,12 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
  //console.log(readCookie('cookieDetalhar'));
 	self.carregarDadosGerais = function(){
 		idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
-		var url = rotas.OSCByID(idOsc);
 
-		$http.get(url).then(function(response) {
+		$http({
+		     url: 'js/controller.php',
+		     method: "GET",
+		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
+		}).then(function(response) {
       //console.log(response);
 			if(response.data.msg == undefined){
 				self.osc = response.data;
