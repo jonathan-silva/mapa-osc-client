@@ -166,12 +166,13 @@ define(['react','rotas'], function(React) {
               };
 
               var rotas = new Rotas();
+              var urlController = 'js/controller.php';
               jQuery("#labelError").text(""); // Limpar dados
               $.ajax({
-              url: rotas.Login(),//"http://mapaosc-desenv.ipea.gov.br:8383/api/user/login/",
+              url: urlController,
               type: 'POST',
               dataType: 'json',
-              data: $json,
+              data: {flag: 'consultaPost', rota: rotas.Login(), parametros: $json},
               success: function (data) {
                   window.localStorage.setItem('User', data.id_usuario);
                   window.localStorage.setItem('Authorization', data.access_token);

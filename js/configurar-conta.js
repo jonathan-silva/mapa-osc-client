@@ -87,11 +87,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        itemText: 'text'
       });
 
-   $.ajax({
-       url: rotas.ValidarUsuario(user),
+   $.ajax({//http://mapaosc-desenv.ipea.gov.br:8383/api/user/17?headers[User]=17&headers[Authorization]=zhlrX6dd9IpkqFYCSoZKcnGPfye/Kywe74keaBVudGG31jCKFh/Xbhhuz1F4n6BOFBQJtY6tG6MFICt5bKDl/9F0BfQ8HroniC11OFndDAXCe8534uI042qZaimTtpIT
+       url: controller,//rotas.ValidarUsuario(user)
        type: 'GET',
        dataType: "json",
-       data: newJson,
+       data: {flag: 'consulta', rota: rotas.ValidarUsuario(user) + "?headers[User]=" + user + "&headers[Authorization]=" + auth },
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
@@ -247,10 +247,10 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
           newJson['id_usuario'] = user;
 
           $.ajax({
-              url: rotas.UpdateUsuario(user),
+              url: 'js/controller.php',
               type: 'POST',
               dataType: "json",
-              data: newJson,
+              data: {flag:'consultaPost', rota: rotas.UpdateUsuario(user), parametros: newJson},
               success: function(data) {
 
                 $('#modalTitle').text('Sucesso');
