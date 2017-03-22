@@ -14,10 +14,11 @@
 
   $parametros = isset($_POST['parametros']) ? $_POST['parametros'] : ''; // JSON DE PARAMETROS
   $authorization = isset($_POST['authorization']) ? $_POST['authorization'] : ''; //CHAVE DO USUARIO LOGADO
-  $user = isset($_POST['user']) ? $_POST['user'] : ''; //ID DO USUARIO LOGADO
 
-  $tx_email_usuario = isset($_POST['tx_email_usuario']) ? $_POST['tx_email_usuario'] : ''; //CHAVE DO USUARIO LOGADO
-  $tx_senha_usuario = isset($_POST['tx_senha_usuario']) ? $_POST['tx_senha_usuario'] : '';
+  $parametros = isset($_GET['parametros']) ? $_GET['parametros'] : ''; // JSON DE PARAMETROS
+  $authorization = isset($_GET['authorization']) ? $_GET['authorization'] : ''; //CHAVE DO USUARIO LOGADO
+
+  $user = isset($_POST['user']) ? $_POST['user'] : ''; //ID DO USUARIO LOGADO
 
   $isCacheEnabled = false;
 
@@ -62,6 +63,21 @@
                                   $opts = array(
                                        'http' => array(
                                             'method'  => 'POST',
+                                            'header'=> array("Content-Type: application/json",
+                                                  "Authorization: $authorization" ,
+                                                  "User: $user"),
+                                            'content' => json_encode($parametros) . " \r\n"
+                                    ));
+
+                                  $context  = stream_context_create($opts);
+                                  $result = file_get_contents($rota, null, $context);
+                                  //print_r('$result');
+                                  print_r($result);
+                                  break;
+                            case "validaUsuario":
+                                  $opts = array(
+                                       'http' => array(
+                                            'method'  => 'GET',
                                             'header'=> array("Content-Type: application/json",
                                                   "Authorization: $authorization" ,
                                                   "User: $user"),

@@ -87,11 +87,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
        itemText: 'text'
       });
 
-   $.ajax({//http://mapaosc-desenv.ipea.gov.br:8383/api/user/17?headers[User]=17&headers[Authorization]=zhlrX6dd9IpkqFYCSoZKcnGPfye/Kywe74keaBVudGG31jCKFh/Xbhhuz1F4n6BOFBQJtY6tG6MFICt5bKDl/9F0BfQ8HroniC11OFndDAXCe8534uI042qZaimTtpIT
+   $.ajax({
        url: controller,//rotas.ValidarUsuario(user)
        type: 'GET',
        dataType: "json",
-       data: {flag: 'consulta', rota: rotas.ValidarUsuario(user) + "?headers[User]=" + user + "&headers[Authorization]=" + auth },
+       data: {flag: 'validaUsuario', rota: rotas.ValidarUsuario(user), parametros: newJson},
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
@@ -245,12 +245,12 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
           newJson['representacao'] = tagValue;
           newJson['id_usuario'] = user;
-
+          console.log(newJson);
           $.ajax({
               url: 'js/controller.php',
               type: 'POST',
               dataType: "json",
-              data: {flag:'consultaPost', rota: rotas.UpdateUsuario(user), parametros: newJson},
+              data: {flag:'login', rota: rotas.UpdateUsuario(user), parametros: newJson},
               success: function(data) {
 
                 $('#modalTitle').text('Sucesso');

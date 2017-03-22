@@ -174,8 +174,6 @@ define(['react','rotas'], function(React) {
               dataType: 'json',
               data: {flag: 'login', rota: rotas.Login(), parametros: $json},
               success: function (data) {
-                console.log(data);
-                alert(data);
                   window.localStorage.setItem('User', data.id_usuario);
                   window.localStorage.setItem('Authorization', data.access_token);
                   window.localStorage.setItem('Nome', data.tx_nome_usuario);
@@ -185,8 +183,6 @@ define(['react','rotas'], function(React) {
                   location.reload();
               },
               error: function (data) {
-                console.log(data);
-                alert(data);
                   if (data.responseText.id_usuario != undefined){
                       window.localStorage.setItem('User', data.responseText.id_usuario);
                       window.localStorage.setItem('Authorization', data.responseText.access_token);
