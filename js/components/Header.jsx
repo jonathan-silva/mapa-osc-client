@@ -187,8 +187,10 @@ define(['react','rotas'], function(React) {
                       window.localStorage.setItem('User', data.responseText.id_usuario);
                       window.localStorage.setItem('Authorization', data.responseText.access_token);
                       window.localStorage.setItem('Nome', data.responseText.tx_nome_usuario);
+                      window.localStorage.setItem('Osc', data.representacao);
                       $('#modalLogin').modal('hide');
                       verificarLogado();
+                      location.reload();
                   } else if (data.status == 403) {
                       jQuery("#labelError").text(JSON.parse(data.responseText).msg);
                   } else if (data.status == 401) { // Usuario Inválido
