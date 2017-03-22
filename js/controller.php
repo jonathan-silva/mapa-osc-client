@@ -41,6 +41,7 @@
                             };
                             break;
                       case "login":
+                            $parametros = isset($_POST['parametros']) ? $_POST['parametros'] : ''; // JSON DE PARAMETROS
                             $opts = array(
                                  'http' => array(
                                       'method'  => 'POST',
