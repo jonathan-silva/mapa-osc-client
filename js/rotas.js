@@ -4,10 +4,8 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "http://mapaosc-homologa-new.ipea.gov.br";
-
     // return "http://mapaosc-desenv.ipea.gov.br";
-    // return "http://10.1.4.205";
+    return "http://10.1.4.205";
     //return "http://localhost";
   }
 

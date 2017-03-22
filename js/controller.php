@@ -15,6 +15,10 @@
   $parametros = isset($_POST['parametros']) ? $_POST['parametros'] : ''; // JSON DE PARAMETROS
   $authorization = isset($_POST['authorization']) ? $_POST['authorization'] : ''; //CHAVE DO USUARIO LOGADO
   $user = isset($_POST['user']) ? $_POST['user'] : ''; //ID DO USUARIO LOGADO
+
+  $tx_email_usuario = isset($_POST['tx_email_usuario']) ? $_POST['tx_email_usuario'] : ''; //CHAVE DO USUARIO LOGADO
+  $tx_senha_usuario = isset($_POST['tx_senha_usuario']) ? $_POST['tx_senha_usuario'] : '';
+
   $isCacheEnabled = false;
 
   if($flag!='' && $rota!=''){
@@ -41,14 +45,12 @@
                                   print_r($dadosJSON);
                             };
                             break;
-                      case "consultaPost":
+                      case "login":
                             $opts = array(
                                  'http' => array(
                                       'method'  => 'POST',
-                                      'header'=> array("Content-Type: application/json",
-                                            "Authorization: $authorization" ,
-                                            "User: $user"),
-                                      'content' => json_encode($parametros) . " \r\n"
+                                      'header'=> "Content-Type: application/json\r\n",
+                                      'content' => json_encode($parametros)
                               ));
 
                             $context  = stream_context_create($opts);
@@ -56,6 +58,21 @@
                             //print_r('$result');
                             print_r($result);
                             break;
+                            case "consultaPost":
+                                  $opts = array(
+                                       'http' => array(
+                                            'method'  => 'POST',
+                                            'header'=> array("Content-Type: application/json",
+                                                  "Authorization: $authorization" ,
+                                                  "User: $user"),
+                                            'content' => json_encode($parametros) . " \r\n"
+                                    ));
+
+                                  $context  = stream_context_create($opts);
+                                  $result = file_get_contents($rota, null, $context);
+                                  //print_r('$result');
+                                  print_r($result);
+                                  break;
                       default:
                             print_r("Tipo de consulta inexistente.");
                   } //fim switch
