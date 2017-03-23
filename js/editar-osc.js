@@ -68,10 +68,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var $divMetasProjeto='';
 
     /*$.ajax({
-      url: rotas.Conselho(),
+      url: urlController,
       type: 'GET',
       dataType: 'json',
-      conselhos:{flag: "", rota: urlRota},
+      conselhos:{flag: "consulta", rota: rotas.Conselho()},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);

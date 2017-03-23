@@ -48,13 +48,13 @@ class EspacosPartSocial {
   }
 
   montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lforma){
-
+    var controller = 'js/controller.php'
     $.ajax({
-      url: lconselho,
+      url: controller,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{},
+      data:{flag: 'consulta', rota: lconselho},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -67,11 +67,11 @@ class EspacosPartSocial {
     for (var i=0;i<lconselho.length;i++){ lista_conselho[i] = lconselho[i].tx_nome_conselho}
 
     $.ajax({
-      url: lconferencia,
+      url: controller,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{},
+      data:{flag: 'consulta', rota: lconferencia},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -92,11 +92,11 @@ class EspacosPartSocial {
     }
 */
     $.ajax({
-      url: lforma,
+      url: controller,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{},
+      data:{flag: 'consulta', rota: lforma},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);

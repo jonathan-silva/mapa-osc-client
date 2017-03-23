@@ -88,7 +88,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
       });
 
    $.ajax({
-       url: controller,//rotas.ValidarUsuario(user)
+       url: controller,
        type: 'GET',
        dataType: "json",
        data: {flag: 'validaUsuario', rota: rotas.ValidarUsuario(user), parametros: newJson},
@@ -245,7 +245,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
           newJson['representacao'] = tagValue;
           newJson['id_usuario'] = user;
-          console.log(newJson);
+          //console.log(newJson);
           $.ajax({
               url: 'js/controller.php',
               type: 'POST',

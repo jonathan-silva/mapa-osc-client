@@ -64,7 +64,7 @@ require(['react'], function (React) {
 
 		  $.ajax({
   			type: 'POST',
-  			url: 'js/controller.php',//'http://localhost:8383/api/user/contato/',
+  			url: 'js/controller.php',
   			data:{flag: 'consultaPost', rota: rotas.Contato(), parametros: $json},
   			dataType: 'json',
         success: function(data) {
