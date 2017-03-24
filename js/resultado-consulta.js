@@ -45,14 +45,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   //var ggl2 = new L.Google('ROADMAP');
   var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         maxZoom: zoomMaximo,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
     });
   //map.addLayer(ggl2);
 
   // Para mapa com contraste
-  var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  var mbAttr = 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://mapbox.com">Mapbox</a>',
 		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYW9zY3MiLCJhIjoiY2owbDJpYWxwMDM3dTMzbzh6dDU2bnpzdyJ9._dh2UCWnAeNeG0ZL5sQ5gA';
 
 	var tilesGrayscale = L.tileLayer(mbUrl, {id: 'mapbox.dark', attribution: mbAttr});
@@ -65,6 +65,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   map.addLayer(googleHybrid);
   map.addLayer(tilesGrayscale);
   map.addLayer(tiles);
+
+  // create fullscreen control
+	var fsControl = new L.Control.FullScreen();
+	// add fullscreen control to the map
+	map.addControl(fsControl);
 
   var parametros='';
   var newData, urlRotaMapa;
