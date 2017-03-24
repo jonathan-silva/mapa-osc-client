@@ -96,9 +96,10 @@ require(['rotas','jquery','datatables-responsive', 'leafletCluster'], function (
 
   function carregaOSC(id, leafletMarker){
       $.ajax({
-          url: rotas.OSCByID(id),
+          url: 'js/controller.php',
           type: "GET",
           dataType: "json",
+          data:  {flag: 'consulta', rota: rotas.OSCByID(id)}
           success: function(data){
             //console.log(data);
             for(var i=0; i<data.length; i++){

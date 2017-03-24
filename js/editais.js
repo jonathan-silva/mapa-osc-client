@@ -61,9 +61,8 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
      });
    }
 
-//  var urlRota = "http://mapaosc-desenv.ipea.gov.br:8383/api/edital";
     var rotas = new Rotas();
-    
+
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',

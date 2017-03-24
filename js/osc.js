@@ -5,11 +5,12 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 
 	self.carregarDadosGerais = function(){
 		var idOsc = $location.path().split('/')[1];
-		//var url = 'http://localhost:8080/api/osc/' + idOsc;
-
-		var url = 'http://localhost:8383/api/osc/' + idOsc;
-
-		$http.get(url).then(function(response) {
+		
+		$http({
+		     url: 'js/controller.php',
+		     method: "GET",
+		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
+		}).then(function(response) {
 			if(response.data.msg == undefined){
 				self.osc = response.data;
 	    	self.msg = '';

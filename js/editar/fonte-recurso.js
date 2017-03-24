@@ -4,7 +4,7 @@ class FonteRecurso {
   }
 
   montarPorAno(ano, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
-    console.log(fontesRecursos);
+    //console.log(fontesRecursos);
 
     var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
     var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
@@ -105,11 +105,11 @@ class FonteRecurso {
   carregaFontes(rotas){
     var fontesRecursos = null;
     $.ajax({
-      url: rotas.FontesRecursos(),
+      url: 'js/controller.php',
       async: false,
       type: 'GET',
       dataType: 'json',
-      data: {},
+      data: {flag: 'consulta', rota: rotas.FontesRecursos()},
       success: function(data) {
           fontesRecursos = data;
       },
@@ -126,7 +126,7 @@ class FonteRecurso {
     var sections = dadosForm.itemsRecurso();
     var recursos_form = dadosForm.tiposRecurso();
     var fontesRecursos = this.carregaFontes(rotas);
-    console.log(json);
+    //console.log(json);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
       this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }

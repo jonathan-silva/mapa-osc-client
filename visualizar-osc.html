@@ -6,7 +6,7 @@
     <title>Visualizar OSC</title>
     <link rel="icon" href="img/fav.png"/>
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
@@ -262,8 +262,10 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
               <label>{{certificado.tx_nome_certificado}} - </label>
+            <!-- ver MOSC-1030
               <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
                 {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
+              -->
               <span ng-if="(certificado.ft_certificado != 'Representante' && certificado.ft_certificado != null)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
               <span ng-if="(certificado.ft_certificado == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </div>
@@ -1080,7 +1082,7 @@
   <script type="text/javascript" src="js/libs/angular-locale_pt-br.js"></script>
   <script type="text/javascript" src="js/rotas.js"></script>
   <script type="text/javascript" src="js/visualizar-osc.js"></script>
-  <script async src="http://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+  <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
   </body>
 </html>
