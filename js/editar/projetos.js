@@ -125,7 +125,7 @@ class Projeto {
     var multipleInputs = [
        fonte, localizacao, publicoBeneficiado, financiadores
     ];
-    console.log(multipleInputs);
+    //console.log(multipleInputs);
 
     for (var j = 0; j < multipleInputs.length; j++) {
       if(util.validateObject(multipleInputs[j].dados, false)){

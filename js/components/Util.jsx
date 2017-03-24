@@ -470,19 +470,23 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           /*if(item.id=="tx_endereco_eletronico_sugerido"){
             labelElement = <label className="control-label" for={item.id} title="Defina um nome que vai constar como link para esta página da OSC , que poderá divulgá-lo como endereço oficial do Mapa">{item.label}:</label>
           }*/
-          if(item.id=="estadual") {
+          //if(item.id=="estadual") {
+          if(contains("estadual",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="As parcerias voluntárias entre a administração pública do nível estadual e as organizações civis.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id=="federal") {
+          //if(item.id=="federal") {
+          if(contains("federal",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="As parcerias voluntárias entre a administração pública do nível federal e as organizações civis.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id=="municipal") {
+          //if(item.id=="municipal") {
+          if(contains("municipal",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="As parcerias voluntárias entre a administração pública do nível municipal e as organizações civis.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==16/*"empresas_publicas"*/) {
+          //if(item.id==16/*"empresas_publicas"*/) {
+          if(contains("Empresas públicas",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais. Sociedade de economia mista é pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
@@ -491,95 +495,118 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             console.log(item.id);
             labelElement = <label className="control-label" for={item.id} title="Indique se houve recursos captados de fontes privadas">{item.label}:</label>
           }*/
-          if(item.id==33/*"oscs_brasileiras"*/) {
+          //if(item.id==33/*"oscs_brasileiras"*/) {
+          if(contains("OSCs brasileiras",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) brasileiras, com a exceção de organizações religiosas.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==34/*"oscs_estrangeiras"*/){
+          //if(item.id==34/*"oscs_estrangeiras"*/){
+          if(contains("OSCs estrangeiras",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) estrangeiras, com a exceção de organizações religiosas.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==35/*"religiosas_brasileiras"*/){
+          //if(item.id==35/*"religiosas_brasileiras"*/){
+          if(contains("religiosas brasileiras",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas brasileiras.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==36/*"religiosas_estrangeiras"*/){
+          //if(item.id==36/*"religiosas_estrangeiras"*/){
+          if(contains("religiosas estrangeiras",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas estrangeiras.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==37/*"empresas_brasileiras"*/){
+          //if(item.id==37/*"empresas_brasileiras"*/){
+          if(contains("Empresas privadas brasileiras",item.label)) {
             labelElement = <label className="control-label" /*for={item.id}*/ title="As diferentes formas de parcerias com empresas privadas brasileiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==38/*"empresas_estrangeiras"*/){
+          //if(item.id==38/*"empresas_estrangeiras"*/){
+          if(contains("Empresas estrangeiras",item.label)) {
             labelElement = <label className="control-label" for={item.id} title="As diferentes formas de parcerias com empresas privadas estrangeiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==15/*"estrangeiros"*/){
+          //if(item.id==15/*"estrangeiros"*/){
+          if(contains("estrangeiros",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Acordos de cooperação podem ser firmados com governos estrangeiros em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==13/*"multilaterais"*/){
+          //if(item.id==13/*"multilaterais"*/){
+          if(contains("multilaterais",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Acordos de cooperação podem ser firmados com organizações multilaterais em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro. Exemplos de organizações multilaterais são as Nações Unidas, o Banco Mundial e o Banco Interamericano de Desenvolvimento.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==29/*"premios"*/){
+          //if(item.id==29/*"premios"*/){
+          if(contains("Prêmios",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==40/*"doacoes_pf"*/){
+          //if(item.id==40/*"doacoes_pf"*/){
+          if(contains("pessoa física",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Doações recebidas de indivíduos.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==39/*"doacoes_pj"*/){
+          //if(item.id==39/*"doacoes_pj"*/){
+          if(contains("pessoa jurídica",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Doações recebidas de empresas, associações, órgãos públicos, igrejas ou outros tipos de organizações.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==41/*"doacoes_servicos"*/){
+          //if(item.id==41/*"doacoes_servicos"*/){
+            if(contains("com Nota Fiscal",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="As doações recebidas pela OSC na forma de produtos ou serviços com nota fiscal podem ser contabilizadas pelo valor da nota fiscal.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==42/*"voluntariado"*/){
+          //if(item.id==42/*"voluntariado"*/){
+          if(contains("Voluntariado",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="O voluntário é o indivíduo que dedica parte de seu tempo à realização de atividades não remuneradas de diversos tipos.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==46/*"doacoes_recebidas"*/){
+          //if(item.id==46/*"doacoes_recebidas"*/){
+          if(contains("sem Nota Fiscal",item.label)) {
             labelElement = <label className="control-label" for={item.header} title="Doações recebidas pela OSC na forma de produtos ou serviços sem nota fiscal.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==26/*"patrimoniais"*/){
+          //if(item.id==26/*"patrimoniais"*/){
+          if(contains("fundos patrimoniais",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Fundos patrimoniais são estruturas que oferecem sustentabilidade financeira a uma organização sem fins lucrativos.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==27/*"reservas"*/){
+          //if(item.id==27/*"reservas"*/){
+          if(contains("contas correntes",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Os fundos de reserva são frequentemente usados pelas organizações no atendimento emergencial de despesas ordinárias do dia a dia da entidade.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==28/*"mensalidades"*/){
+          //if(item.id==28/*"mensalidades"*/){
+          if(contains("Mensalidades",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Contribuição financeira para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==30/*"venda"*/){
+          //if(item.id==30/*"venda"*/){
+          if(contains("Venda de produtos",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Esta é uma das formas de captação mais utilizadas pelas organizações, já que os produtos podem ser confeccionados pela própria instituição.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==31/*"servicos"*/){
+          //if(item.id==31/*"servicos"*/){
+          if(contains("Prestação de serviços",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Atividades realizadas por uma organização com o fim de atendimento do beneficiário de ações sociais pode retornar dividendos para a entidade.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==32/*"bens"*/){
+          //if(item.id==/*"bens"*/){
+          if(item.label=="Venda de bens e direitos"){
             labelElement = <label className="control-label" /*for={item.header}*/ title="Cessão onerosa da marca associada a uma organização civil para empresas privadas que, em troca, pagam royalties ou direitos autorais.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==43/*"isencoes"*/){
+          //if(item.id==43/*"isencoes"*/){
+          if(item.label=="Isenções"){
             labelElement = <label className="control-label" /*for={item.header}*/ title="A isenção fiscal é a dispensa de tributo por meio de lei realizada pelo ente federativo competente para institui-lo.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==44/*"imunidades"*/){
+          //if(item.id==44/*"imunidades"*/){
+          if(item.label=="Imunidades"){
             labelElement = <label className="control-label" /*for={item.header}*/ title="A imunidade é uma limitação constitucional ao poder de tributar, ou seja, nega ao Estado o poder de tributar pessoas ou organizações definidas como imunes.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
-          if(item.id==45/*"bens_recebidos"*/){
+          //if(item.id==45/*"bens_recebidos"*/){
+          if(contains("Bens recebidos",item.label)) {
             labelElement = <label className="control-label" /*for={item.header}*/ title="Bens cedidos por um doador a um donatário, de modo que este fica obrigado a manter e cuidar dos bens doados, sem que tenha, no entanto, direito pleno ao bem, mas apenas direito de uso em relação a ele.">{item.label}:
             <span className='glyphicon glyphicon-info-sign' aria-hidden='true'></span></label>
           }
@@ -1007,7 +1034,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
-            if ( (item.fonte) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
+            if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
               InputElement =
                 <div id={id}>
                   <span className="form-control">{content}</span>
@@ -1054,7 +1081,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
-      console.log(dados);
+      //console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
         var item = dados[i];
