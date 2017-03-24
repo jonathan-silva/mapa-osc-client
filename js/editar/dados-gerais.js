@@ -8,11 +8,11 @@ class DadosGerais {
       dadosGerais.tx_endereco_complemento, dadosGerais.tx_bairro,
       dadosGerais.tx_nome_municipio, dadosGerais.tx_nome_uf, dadosGerais.tx_sigla_uf,
       "CEP: "+dadosGerais.nr_cep];
-      var tx_endereco_completo = '';
+      var tx_endereco_completo = endereco[0];
       for (var i = 0; i < endereco.length; i++) {
-        if (endereco[i] !== null){
-          tx_endereco_completo += tx_endereco_completo === '' ? '' : ', ';
+        if (endereco[i] !== null){ return endereco;
           tx_endereco_completo += tx_endereco_completo === '' ? 'Endereço não registrado.' : endereco[i];
+          tx_endereco_completo += tx_endereco_completo === '' ? '' : ', ';
         }
       }
 
