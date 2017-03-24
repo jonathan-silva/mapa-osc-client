@@ -82,11 +82,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success: function(conselhos){return conselhos}*/
 
     $.ajax({
-      //url: rotas.OSCByID_no_project(idOsc),
       url: urlController,
       type: 'GET',
       dataType: 'json',
-      //data:{flag: "", rota: urlRota},
       data:{flag: "consulta", rota: rotas.OSCByID_no_project(idOsc)},
       error:function(e){
         console.log("Erro no ajax: ");
@@ -522,10 +520,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $.ajax({
         url: urlController,
-        //url: rotas.Objetivos(),
         type: 'GET',
         dataType: 'json',
-        //data:{},
         data:{flag: "consulta", rota: rotas.Objetivos()},
         error:function(e){
           console.log("Erro no ajax: ");
@@ -575,11 +571,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function loadMetas(cd_objetivo, cd_metas){
       $.ajax({
         url: urlController,
-        //url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
         dataType: 'json',
         data:{flag: "consulta", rota: rotas.MetaProjeto(cd_objetivo)},
-        //data:{},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
@@ -908,12 +902,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var lforma = [];
         $.ajax({
           url: urlController,
-          //url: rotas.FormaParticipacao(),
           type: 'GET',
           async: false,
           dataType: 'json',
           data:{flag: "consulta", rota: rotas.FormaParticipacao()},
-          //data:{},
           error:function(e){
             console.log("Erro no ajax: ");
             console.log(e);
@@ -926,12 +918,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var lconselho =[];
         $.ajax({
           url: urlController,
-          //url: rotas.Conselho(),
           type: 'GET',
           async: false,
           dataType: 'json',
           data:{flag: "consulta", rota: rotas.Conselho()},
-          //data:{},
           error:function(e){
             console.log("Erro no ajax: ");
             console.log(e);
@@ -1024,13 +1014,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var lconferencia ={};
 
         $.ajax({
-          url: urlController
-          //url: rotas.Conferencia(),
+          url: urlController,
           type: 'GET',
           async: false,
           dataType: 'json',
           data:{flag: 'consulta', rota: rotas.Conferencia()},
-          //data:{},
           error:function(e){
             console.log("Erro no ajax: ");
             console.log(e);
