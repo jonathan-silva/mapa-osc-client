@@ -11,14 +11,10 @@ class DadosGerais {
       var tx_endereco_completo = '';
       for (var i = 0; i < endereco.length-1; i++) {
         if (endereco[i] !== null){
-          tx_endereco_completo += endereco[i] === '' ? '' : endereco[i]+', ';
-          //tx_endereco_completo += tx_endereco_completo === '' ? 'Endereço não registrado.' : endereco[i];
-        }
-        else {
-          tx_endereco_completo == 'Endereço não registrado.'
+              tx_endereco_completo += endereco[i] === '' ? '' : endereco[i]+', ';
         }
       }
-      tx_endereco_completo += endereco[i] === '' ? '.' : endereco[i]+'.';
+      tx_endereco_completo += endereco[i] === 'CEP: null' ? 'Endereço não registrado.' : endereco[i]+'.';
       return tx_endereco_completo;
     }
 
