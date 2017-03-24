@@ -146,37 +146,37 @@ class Util {
           $cloneDiv.clone().appendTo($cloneChildren);
           $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
           $cloneDiv.parent().children().last().find('input[type=text]').val('');
-          console.log($cloneDiv);
-          var date_inputs = $cloneDiv.parent().children().last().find(".date"); console.log(date_inputs);
-          var ano_inputs = $cloneDiv.parent().children().last().find(".ano"); console.log(ano_inputs);
-          var cloneDiv_date_inputs = $cloneDiv.parent().children().last().prev().find(".date"); console.log(cloneDiv_date_inputs);
-          var cloneDiv_ano_inputs = $cloneDiv.parent().children().last().prev().find(".ano"); console.log(cloneDiv_ano_inputs);
-          console.log(cloneDiv_date_inputs);
+
+          var date_inputs = $cloneDiv.parent().children().last().find(".date");
+          var ano_inputs = $cloneDiv.parent().children().last().find(".ano");
+          var cloneDiv_date_inputs = $cloneDiv.parent().children().last().prev().find(".date");
+          var cloneDiv_ano_inputs = $cloneDiv.parent().children().last().prev().find(".ano");
+
           for (var i = 0; i < date_inputs.length; i++) {
-            var date_input = date_inputs[i];   console.log(date_input);
-            var cloneDiv_date_input = cloneDiv_date_inputs[i];   console.log(cloneDiv_date_input);
-            var cloneDiv_id_string = $(cloneDiv_date_input).attr("id"); console.log(cloneDiv_id_string);
-            var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-')); console.log(cloneDiv_id_text);
-            var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1); console.log(cloneDiv_id);
-            var date_input_id_string = $(date_input).attr("id"); console.log(date_input_id_string);
-            var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-')); console.log(date_input_text);
-            var id_clone_div = Number(cloneDiv_id); console.log(id_clone_div);
-            var id_clone_div_text = date_input_text; console.log(id_clone_div_text);
+            var date_input = date_inputs[i];
+            var cloneDiv_date_input = cloneDiv_date_inputs[i];
+            var cloneDiv_id_string = $(cloneDiv_date_input).attr("id");
+            var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+            var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
+            var date_input_id_string = $(date_input).attr("id");
+            var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+            var id_clone_div = Number(cloneDiv_id);
+            var id_clone_div_text = date_input_text;
             id_clone_div--;
             $(date_input).removeClass('hasDatepicker');
             $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
             $(date_input).datepicker({ dateFormat: 'dd-mm-yy', changeYear: true });
           }
-          if (idDiv == "conferencias") { console.log("conferencias")
-          var date_input = ano_inputs[0];   console.log(date_input);
-          var cloneDiv_date_input = cloneDiv_ano_inputs;   console.log(cloneDiv_date_input);
-          var cloneDiv_id_string = $(cloneDiv_date_input).attr("id"); console.log(cloneDiv_id_string);
-          var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-')); console.log(cloneDiv_id_text);
-          var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1); console.log(cloneDiv_id);
-          var date_input_id_string = $(date_input).attr("id"); console.log(date_input_id_string);
-          var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-')); console.log(date_input_text);
-          var id_clone_div = Number(cloneDiv_id); console.log(id_clone_div);
-          var id_clone_div_text = date_input_text; console.log(id_clone_div_text);
+          if (idDiv == "conferencias") {
+          var date_input = ano_inputs[0];
+          var cloneDiv_date_input = cloneDiv_ano_inputs;
+          var cloneDiv_id_string = $(cloneDiv_date_input).attr("id");
+          var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+          var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
+          var date_input_id_string = $(date_input).attr("id");
+          var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+          var id_clone_div = Number(cloneDiv_id);
+          var id_clone_div_text = date_input_text;
           id_clone_div--;
           $(date_input).removeClass('hasDatepicker');
           $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
