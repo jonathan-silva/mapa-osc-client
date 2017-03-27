@@ -166,8 +166,7 @@ define(['react','rotas'], function(React) {
               };
 
               var rotas = new Rotas();
-              var urlController = 'js/controller.php';
-              console.log($json);
+              var urlController = 'js/controller.php';             
               jQuery("#labelError").text(""); // Limpar dados
               $.ajax({
               url: urlController,
@@ -184,7 +183,6 @@ define(['react','rotas'], function(React) {
                   location.reload();
               },
               error: function (data) {
-                console.log(data);
                   if (data.responseText.id_usuario != undefined){
                       window.localStorage.setItem('User', data.responseText.id_usuario);
                       window.localStorage.setItem('Authorization', data.responseText.access_token);
