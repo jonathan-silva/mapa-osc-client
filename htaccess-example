@@ -4,7 +4,7 @@
   RewriteRule ^index+\/?$  index.html [NC,L]
   RewriteRule ^home+\/?$  index.html [NC,L]
 
-  RewriteRule ^acessibilidade.html +\/?$  acessibilidade.html [NC,L]
+  RewriteRule ^acessibilidade.html+\/?$  acessibilidade.html [NC,L]
   RewriteRule ^adicionar-edital+\/?$  adicionar-edital.html [NC,L]
   RewriteRule ^ajuda+\/?$  ajuda.html [NC,L]
   RewriteRule ^apoio+\/?$  apoio.html [NC,L]
