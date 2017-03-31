@@ -127,7 +127,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 changeYear: true,
                 showButtonPanel: true,
                 dateFormat: 'yy',
-                yearRange: '1900:2050',
+                yearRange: '1900:2017',
                 onClose: function(dateText, inst) {
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, 1));
