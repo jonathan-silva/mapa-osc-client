@@ -1132,7 +1132,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           if (title != null){
           ContainerElement =
             <div className={containerClass}>
-              <div className="header">{header+" "}
+              <div className="header"  title="Indique o valor efetivamente recebido para o PAP.">{header+" "}
               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
               </div>
               <FormInputProjeto dados={inputs}></FormInputProjeto>
@@ -1167,7 +1167,20 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               if (title != null){
               ContainerElement =
                 <div className={containerClass}>
-                  <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header+" "}
+                  <div className="header" title="Indique a data de fim do projeto.">{header+" "}
+                  <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
+                  </div>
+                  <FormInputProjeto dados={inputs}></FormInputProjeto>
+                  {ButtonElement}
+                </div>
+            }
+          }
+          if(header === "Total de Beneficiários"){
+              var title = item.inputs[0].title;
+              if (title != null){
+              ContainerElement =
+                <div className={containerClass}>
+                  <div className="header" title="Indque a estimativa de pessoas diretamente beneficiadas pelo PAP.">{header+" "}
                   <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                   </div>
                   <FormInputProjeto dados={inputs}></FormInputProjeto>
@@ -1224,14 +1237,14 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           if(header === "Público Beneficiado"){
             ContainerElement =
               <div className={containerClass}>
-                <div className="header" title="Especifique, se houver, o publico diretamente beneficiado pelo projeto.">{header}
+                <div className="header" title="Qual o público beneficiado? Exemplos: Jovens, idosos, gestantes etc.">{header}
                 <span><img title="informação preenchida pela organização" className={className} src={src}></img></span>
                 </div>
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
           }
-         if(header === "Link"){
+         if(header === "Link para o projeto"){
            ContainerElement =
              <div className={containerClass}>
                <div className="header" title="Insira um link para a página do projeto, se houver.">{header}
@@ -1265,7 +1278,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
         }
 
-          if(header === "Situação do projeto"){
+        if(header === "Situação do projeto"){
            var title = item.inputs[0].title;
            if (title != null){
            ContainerElement =

@@ -704,7 +704,7 @@
 
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
-                        <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="https://nacoesunidas.org/pos2015" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
+                        <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="https://nacoesunidas.org/pos2015/agenda2030/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
                         <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
