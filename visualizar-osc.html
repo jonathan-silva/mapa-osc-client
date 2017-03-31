@@ -201,7 +201,7 @@
                 </div>
               </div>
               <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao == null">
-                <label>Área de atuação do projeto, atividade ou programa: </label>
+                <label>Área(s) de atuação da OSC: </label>
                 <span class="form-control-static">Não informado</span>
               </div>
             </div>
@@ -551,7 +551,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Link</div>
+                        <div class="header ">Link para o projeto</div>
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
                             <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
@@ -582,7 +582,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Valor Captado</div>
+                        <div class="header ">Valor Recebido</div>
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>

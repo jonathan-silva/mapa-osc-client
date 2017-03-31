@@ -9662,6 +9662,24 @@ function Datepicker() {
 		showMonthAfterYear: false, // True if the year select precedes month, false for month then year
 		yearSuffix: "" // Additional text to append to the year in the month headers
 	};
+	this.regional['pt-BR'] = {
+		closeText: 'Fechar',
+		prevText: '&lt;Anterior',
+		nextText: 'Próximo&gt;',
+		currentText: 'Hoje',
+		monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+		'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+		monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
+		'Jul','Ago','Set','Out','Nov','Dez'],
+		dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+		dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+		dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 0,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
 	this._defaults = { // Global defaults for all the date picker instances
 		showOn: "focus", // "focus" for popup on focus,
 			// "button" for trigger button, or "both" for either
@@ -9712,9 +9730,10 @@ function Datepicker() {
 		autoSize: false, // True to size the input for the date format, false to leave as is
 		disabled: false // The initial disabled state
 	};
-	$.extend( this._defaults, this.regional[ "" ] );
+	$.extend( this._defaults, this.regional[ "" ], this.regional[ "pt-BR" ] );
 	this.regional.en = $.extend( true, {}, this.regional[ "" ] );
-	this.regional[ "en-US" ] = $.extend( true, {}, this.regional.en );
+	this.regional.ptbr = $.extend( true, {}, this.regional[ "pt-BR" ] );
+	this.regional[ "pt-BR" ] = $.extend( true, {}, this.regional.ptbr  );
 	this.dpDiv = datepicker_bindHover( $( "<div id='" + this._mainDivId + "' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>" ) );
 }
 

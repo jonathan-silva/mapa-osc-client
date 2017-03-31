@@ -139,6 +139,41 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 $('.ui-datepicker-prev').hide();
                 $('.ui-datepicker-next').hide();
             });
+
+            $("#tx_telefone input.form-control").focusout(function(event){
+                var target, tel, element;
+                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                tel = target.value.replace(/\D/g, '');
+                element = $(target);
+                element.unmask();
+                if(tel.length === 11) {
+                  if(tel[0] == 0){
+                       element.mask("9999 999 9999")
+   				        } else {
+                      element.mask("(99) 99999-9999");
+                  }
+                }
+                else if(tel.length === 10) {
+                      element.mask("(99) 9999-9999");
+                }
+                else if(tel.length === 9) {
+                      element.mask("(99) 999-9999");
+                }
+                else if(tel.length === 8) {
+                    element.mask("9999-9999");
+                }
+                else if(tel.length === 7) {
+                    element.mask("999-9999");
+                }
+            });
+            $("#tx_telefone input.form-control").focusin(function(event){
+                var target, element;
+                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                element = $(target);
+                element.unmask();
+            });
+
+
         });
 
         function readURL(input) {
@@ -168,7 +203,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $("#imagemLogo").attr('src',"img/camera.jpg");
           $('input[type=file]').eq(0).val("");
         });
-
       }
     });
 

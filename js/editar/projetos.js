@@ -20,7 +20,7 @@ class Projeto {
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
-      "text": "Projetos, atividade e programas"
+      "text": "Projetos, atividades e programas - PAP"
     };
     arraySecaoProjeto.push(headerProjeto);
 
