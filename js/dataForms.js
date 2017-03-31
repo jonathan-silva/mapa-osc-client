@@ -890,14 +890,6 @@ class DataForms{
           "Rural", "Urbana"
         ]
       },
-      "tx_metodologia_monitoramento": {
-        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null,
-        "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
-      },
       "tx_descricao_projeto": {
         "header": "Descrição do Projeto, atividade e/ou programa",
         "containerClass": "col-md-12",
@@ -906,8 +898,16 @@ class DataForms{
         "options": null,
         "placeholder": "Descreva aqui qual sobre o que trata e qual o objetivo do projeto, atividade ou programa."
       },
+      "tx_metodologia_monitoramento": {
+        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
+        "containerClass": "col-md-12",
+        "removable": false,
+        "type": "textarea",
+        "options": null,
+        "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
+      },
       "objetivos": {
-        "header": "Objetivos do Desenvolvimento Sustentável - ODS",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)
+        "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
         "removable": false,
         "type": "select",
@@ -946,10 +946,10 @@ class DataForms{
       "ft_valor_total_projeto": "Usuário",
       "nr_valor_captado_projeto": null,
       "ft_valor_captado_projeto": "Usuário",
-      "tx_metodologia_monitoramento": null,
-      "ft_metodologia_monitoramento": "Usuário",
       "tx_descricao_projeto": null,
       "ft_descricao_projeto": "Usuário",
+      "tx_metodologia_monitoramento": null,
+      "ft_metodologia_monitoramento": "Usuário",
       "cd_abrangencia_projeto": null,
       "tx_nome_abrangencia_projeto": null,
       "ft_abrangencia_projeto": "Usuário",

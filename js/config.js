@@ -37,7 +37,8 @@ require.config({
     "editarFonteRecurso":"editar/fonte-recurso",
     "editarProjeto":"editar/projetos",
     "editarRelGovernanca":"editar/relacoes-governanca",
-    "editarTitCert":"editar/titulos-certificacoes"
+    "editarTitCert":"editar/titulos-certificacoes",
+    "select-boxit":"libs/select-boxit/jquery.selectBoxIt.min"
   },
   shim: {
       'contraste':['cookies'],
@@ -59,6 +60,7 @@ require.config({
       'util':['jquery'],
       'simplePagination': ['jquery'],
       'tagsinput':['bootstrap','jquery'],
+      'select-boxit': ['bootstrap'],
       'editarCabecalho':['util','dataForms','editarAreasAtuacao','editarDadosGerais','editarDescricao','editarEspPartSoc','editarFonteRecurso','editarTitCert','editarProjeto','editarRelGovernanca']
   },
   jsx: {

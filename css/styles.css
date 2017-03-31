@@ -954,7 +954,26 @@ select{
   font-weight: bold;
   font-size: larger;
   color: darkred;
-  }
-  .vis{
-    margin-bottom: 5px;
+}
+.vis{
+  margin-bottom: 5px;
+}
+
+.selectboxit-container .selectboxit, .selectboxit-container .selectboxit-options {
+  width: 100%; /* Width of the dropdown button */
+  max-height:300px;
+}
+
+.selectboxit-options .selectboxit-option .selectboxit-option-anchor {
+  white-space: normal;
+  min-height: 30px;
+  height: auto;
+}
+
+.selectboxit-option a {
+  text-indent: 0px;
+}
+
+.selectboxit-container {
+    width: 100%;
   }
