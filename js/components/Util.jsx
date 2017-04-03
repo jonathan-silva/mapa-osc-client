@@ -1138,8 +1138,8 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               <FormInputProjeto dados={inputs}></FormInputProjeto>
               {ButtonElement}
             </div>
+          }
         }
-      }
           if(header === "Abrangência de atuação"){
             ContainerElement =
               <div className={containerClass}>
@@ -1275,8 +1275,21 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
+            }
           }
-        }
+          if(header === "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa"){
+            var title = item.inputs[0].title;
+            if (title != null){
+            ContainerElement =
+              <div className={containerClass}>
+                <div className="header" title="Indique qual metodologia foi usada.">{header+" "}
+                <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
+                </div>
+                <FormInputProjeto dados={inputs}></FormInputProjeto>
+                {ButtonElement}
+              </div>
+            }
+          }
 
         if(header === "Situação do projeto"){
            var title = item.inputs[0].title;

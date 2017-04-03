@@ -258,12 +258,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
       '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
       '</span>');
+
+      $("#table_lista_projetos tbody td").each(function() {
+        $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+      });
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         salvarProjetos();
         table_lista_projetos.row.add([
           "-1",
-          "Novo Projeto"
+          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'
         ]).draw();
         proj_id_generator = 0;
         verificarContraste();
