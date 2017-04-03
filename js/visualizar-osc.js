@@ -109,7 +109,7 @@ var jsonModalAjuda = {
  	"Relações de Trabalho e Governança":"Aqui o(a) representante da OSC pode indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da sua organização, além de preencher o número de trabalhadores voluntários da entidade. Isso garante transparência para quem busca informações sobre a OSC. Os campos relativos ao número de empregados formais provêm das informações lançadas na RAIS/MTE.",
  	"Espaços de Participação Social":"Nesse espaço, o(a) representante da OSC pode indicar a participação em espaços colegiados com o Poder Público (conselhos de políticas públicas), as oportunidades que teve de integrar espaços que traçaram diretrizes de políticas (conferências de políticas públicas), bem como outros espaços de participação compartilhados com o Poder Público ou autoorganizados pela própria sociedade civil (fóruns, redes etc.).<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
  	"Projetos, atividades e/ou programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
- 	"Fonte de recursos anual da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."
+ 	"Fontes de recursos anuais da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."
 };
 
 function abrirModalAjuda(titulo) {
@@ -133,7 +133,7 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<label><input type='checkbox' name='secao' value='participacao_social' checked> Espaços de Participação Social</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoProjeto' value='todos_projetos'> Todas as Informações do Projeto</label></div>";
-	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fonte de recursos anual da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fontes de recursos anuais da OSC</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label></div>";

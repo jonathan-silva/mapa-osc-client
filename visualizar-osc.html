@@ -74,7 +74,7 @@
             <a href="#projetos" name="projetos" class="scroll">Projetos</a>
           </li>
           <li>
-            <a href="#recursos" name="recursos" class="scroll">Fonte de recursos</a>
+            <a href="#recursos" name="recursos" class="scroll">Fontes de Recursos</a>
           </li>
           <li>
             <div class="btnRelatorioAtividade"><a class="btn btn-info btn-sm" id="btnRelatorioAtividade" type="button" title="Clique para gerar o Relatorio de Atividades" onclick="abrirModalRelatorio('Relatório de Atividades');" ><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Relatório de Atividades</a></div>
@@ -592,7 +592,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Tipo da Fonte de Recursos</div>
+                        <div class="header ">Tipo da Fontes de Recursos</div>
                         <div class="form-group"  ng-repeat="fonte_recursos in proj.fonte_recursos">
                           <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span>
                           <span ng-if="(fonte_recursos.ft_fonte_recursos_projeto != 'Representante' && fonte_recursos.ft_fonte_recursos_projeto != null)" title="Informação oficial. {{fonte_recursos.ft_fonte_recursos_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
@@ -761,7 +761,7 @@
         <div class="row">
           <div class="col-md-12 " id="recursos">
             <div class="project-header ">
-              <h2>Fonte de recursos anual da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fonte de recursos anual da OSC." onclick="abrirModalAjuda('Fonte de recursos anual da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
+              <h2>Fontes de recursos anuais da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fontes de recursos anuais da OSC." onclick="abrirModalAjuda('Fontes de recursos anuais da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             </div>
             <div class="panel-group" id="accordionRec"  role="tablist" aria-multiselectable="true" ng-repeat="rec in ctrl.osc.recursos.recursos">
               <div class="panel panel-default">

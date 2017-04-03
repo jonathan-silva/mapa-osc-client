@@ -297,7 +297,7 @@ class DataForms{
      	"relacoesTrabalho":{"Relações de Trabalho e Governança":"Nesta seção você deve indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da organização e, se houver, indicar quantos são os trabalhadores voluntários atuando nela. Os campos relativos ao número de empregados formais provêm das informações da declaração da RAIS, do Ministério do Trabalho e Emprego."},
      	"espacos":{"Espaços de Participação Social":"Você deve indicar aqui a participação em espaços colegiados com o poder público ou auto organizados pela própria sociedade civil (fóruns, redes etc.). Quanto mais detalhado for, mas será possível saber sobre a importância das instituições participativas no país.<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
      	"projetos":{"Projetos, atividades e programas - PAP":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
-     	"fontes":{"Fonte de recursos anual da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."}
+     	"fontes":{"Fontes de recursos anuais da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."}
     };
 
     return modalAjuda;
@@ -312,7 +312,7 @@ class DataForms{
       "Relações de Trabalho e Governança":"Nesta seção você deve indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da organização e, se houver, indicar quantos são os trabalhadores voluntários atuando nela. Os campos relativos ao número de empregados formais provêm das informações da declaração da RAIS, do Ministério do Trabalho e Emprego.",
       "Espaços de Participação Social":"Você deve indicar aqui a participação em espaços colegiados com o poder público ou auto organizados pela própria sociedade civil (fóruns, redes etc.). Quanto mais detalhado for, mas será possível saber sobre a importância das instituições participativas no país.<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
       "Projetos, atividades e programas - PAP":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
-      "Fonte de recursos anual da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."
+      "Fontes de recursos anuais da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."
     };
   }
 
@@ -543,7 +543,7 @@ class DataForms{
         {
             "id": "recursos_geral",
             "priority": "2",
-            "text": "Fonte de recursos anual da OSC"
+            "text": "Fontes de recursos anuais da OSC"
         },
         {
             "id": "recursos_proprios",
@@ -811,7 +811,7 @@ class DataForms{
         "placeholder": "Insira o valor recebido do projeto"
       },
       "fonte_recursos": {
-        "header": "Fonte de Recursos",
+        "header": "Fontes de Recursos",
         "containerClass": "col-md-4",
         "removable": false,
         "type": "select",
@@ -820,7 +820,7 @@ class DataForms{
         ]
       },
       "fonte_de_recursos_publico": {
-        "header": "Fonte de Recursos Públicos",
+        "header": "Fontes de Recursos Públicos",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "select",

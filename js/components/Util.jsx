@@ -660,7 +660,7 @@ define('componenteSection', ['react'], function (React) {
         if(item.container_class){
           containerClass = item.container_class;
         }
-        if (item.text == "Fonte de recursos anual da OSC" || item.text =="Espaços de Participação Social" || item.text == "Relações de Trabalho e Governança" || item.text =="Projetos, atividades e programas - PAP") {
+        if (item.text == "Fontes de recursos anuais da OSC" || item.text =="Espaços de Participação Social" || item.text == "Relações de Trabalho e Governança" || item.text =="Projetos, atividades e programas - PAP") {
           itens.push(
             <div>
               <div className={containerClass}>
@@ -1208,7 +1208,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
             }
           }
-          if(header === "Fonte de Recursos"){
+          if(header === "Fontes de Recursos"){
             var title = item.inputs[0].title;
             if (title){
             ContainerElement =
