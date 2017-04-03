@@ -107,9 +107,35 @@ class Util {
       "dados": dados
     };
   }
-
-
-
+addOutro(idClass){
+  function addOutros(idClass){
+    $('.'+idClass).each(function(index, el) {
+      var $select = $(this).children().find('select').first();
+      var $outro = $select.find('option:last').val();
+      $select.change(function(){
+        var $element = $(this).parent().parent().parent();
+        if($(this).val() == $outro){
+            $element.find('#outro_'+idClass).remove();
+            $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
+                  +'<label class = "control-label">Novo Item:</label>'
+                    +'<div class="input-box">'
+                      +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" value="">'
+                      +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
+                        +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
+                      +'</span>'
+                    +'</div>'
+                  +'</div>');
+        }
+        else{
+          if($element.find('#outro_'+idClass)){
+            $element.find('#outro_'+idClass).remove();
+          }
+        }
+      })
+    });
+  }
+  addOutros(idClass);
+}
   addItem(idDiv){
     function addItemm(idDiv){
 
@@ -167,6 +193,10 @@ class Util {
             $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
             $(date_input).datepicker({ dateFormat: 'dd-mm-yy', changeYear: true });
           }
+          this.addOutros = new Util();
+          if(idDiv == 'conselhos'){
+            this.addOutros.addOutro('conselho');
+          }
           if (idDiv == "conferencias") {
           var date_input = ano_inputs[0];
           var cloneDiv_date_input = cloneDiv_ano_inputs;
@@ -195,13 +225,16 @@ class Util {
                   $('.ui-datepicker-prev').hide();
                   $('.ui-datepicker-next').hide();
               });
+          this.addOutros.addOutro('conferencia');
         }
-
-
-
-
           $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
           //$(".ano").datepicker({ dateFormat: 'yy' });
+          if($cloneDiv.parent().children().last().find('#outro_conselho')){
+            $cloneDiv.parent().children().last().find('#outro_conselho').remove();
+          }
+          if($cloneDiv.parent().children().last().find('#outro_conferencia')){
+            $cloneDiv.parent().children().last().find('#outro_conferencia').remove();
+          }
         }
       }
       else {

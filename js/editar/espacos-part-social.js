@@ -12,6 +12,7 @@ class EspacosPartSocial {
       ), document.getElementById("conselhos")
     );
     util.addItem('conselhos');
+    util.addOutro('conselho');
     $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
 
     var formItens = arrayObj[1];
@@ -22,6 +23,7 @@ class EspacosPartSocial {
       ), document.getElementById("conferencias")
     );
     util.addItem('conferencias');
+    util.addOutro('conferencia');
 
     var formItens = arrayObj[2];
     FormItemButtons = React.createFactory(FormItemButtons);
@@ -65,7 +67,6 @@ class EspacosPartSocial {
     });
     var lista_conselho=[];
     for (var i=0;i<lconselho.length;i++){ lista_conselho[i] = lconselho[i].tx_nome_conselho}
-    lista_conselho[i] = "Outro";
 
     $.ajax({
       url: controller,
@@ -84,7 +85,6 @@ class EspacosPartSocial {
     var lista_conferencia=[];
 
     for (var i=0;i<lconferencia.length;i++){ lista_conferencia[i] = lconferencia[i].tx_nome_conferencia}
-    lista_conferencia[i]="Outra";
 /*
     for (var i=0;i<lconferencia.length;i++){
       lista_conferencia.push({
@@ -213,20 +213,21 @@ class EspacosPartSocial {
       formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma_conferencia,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
 
 
-      arraySecao.push(formItens);console.log(nomeFormaParticipacao);
+      arraySecao.push(formItens);
+      /*console.log(nomeFormaParticipacao);
       if (nomeFormaParticipacao === "Outra"){ console.log(nomeConferencia);
         /*$inputContainer.toggleClass('hidden');
         if($inputContainer.hasClass('hidden')){
           var $input = $inputContainer.find('input');
           $input.val("");
-        }*/
+        }
       } else {console.log("else");/*
         if(!$inputContainer.hasClass('hidden')){
           $inputContainer.toggleClass('hidden');
           var $input = $inputContainer.find('input');
           $input.val("");
-        }*/
-      }
+        }
+      }*/
     }
 
     var formItens = [];//
@@ -246,7 +247,6 @@ class EspacosPartSocial {
       arraySecao.push(formItens);
     }
     $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-    console.log($(".input-box").select);
     return arraySecao;
   }
 }
