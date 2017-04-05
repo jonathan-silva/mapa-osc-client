@@ -11,9 +11,12 @@
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
-  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();">
+
+  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();" class="conteudo_loading">
+
     <div id="barra-brasil"></div>
     <div id="header"></div>
+    <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
 
     <div id="conteudo" class="section">
       <div class="container">

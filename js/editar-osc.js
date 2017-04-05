@@ -202,6 +202,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $("#imagemLogo").attr('src',"img/camera.jpg");
           $('input[type=file]').eq(0).val("");
         });
+
+        $("#loading").hide();
+        $(".conteudo_loading .section").css('visibility', 'visible');
       }
     });
 

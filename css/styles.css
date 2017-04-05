@@ -977,3 +977,7 @@ select{
 .selectboxit-container {
     width: 100%;
   }
+
+.conteudo_loading .section{
+    visibility: hidden;
+  }
