@@ -85,11 +85,14 @@ require(["jquery-ui"], function (React) {
 
 	jQuery(document).ready(function($) {
 
-			verificarBotaoEditar(idOsc);
-			addLinkVoltar(idOsc);
-	    $(".scroll").click(function(event){
-	        event.preventDefault();
-	        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+		$("#loading").hide();
+		$(".conteudo_loading .section").css('visibility', 'visible');
+
+		verificarBotaoEditar(idOsc);
+		addLinkVoltar(idOsc);
+    $(".scroll").click(function(event){
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
 
 		 setTimeout(function(){ verificarContraste(); }, 3000);
