@@ -392,7 +392,13 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             <textarea className="form-control" id={item.id} placeholder={placeholder} defaultValue={content}></textarea>
             {SpanFonte}
           </div>
-        } else if(item.type == 'select'){
+        } else if (item.id == 'tx_resumo_osc'){
+         ContentElement =
+          <div className="input-box">
+            <textarea className="form-control" id={item.id} placeholder={placeholder} defaultValue={content} maxlength="500"></textarea>
+            {SpanFonte}
+          </div>
+       } else if(item.type == 'select'){
           var className = "input-box"+ custom_class;
           ContentElement =
           <div className={className}>
