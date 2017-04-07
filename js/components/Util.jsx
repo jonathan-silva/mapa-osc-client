@@ -400,7 +400,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             {SpanFonte}
           </div>
           }
-        } if(item.type == 'select'){
+        } else if(item.type == 'select'){
           var className = "input-box"+ custom_class;
           ContentElement =
           <div className={className}>
