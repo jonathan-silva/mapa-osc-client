@@ -7016,7 +7016,7 @@ input.outro {
 }
 
 #divcarousel .item img{
-  min-width: 100px;
+  min-width: auto;
   min-height: 20px;
   max-width: 300px;
   max-height: 50px;
