@@ -45,6 +45,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Minhas OSCs", "minhas-oscs.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));

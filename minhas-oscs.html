@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minhas OSCs</title>
+    <link rel="icon" href="img/fav.png"/>
+    <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Responsive-2.1.0/css/responsive.bootstrap.min.css"/>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+    <!-- header -->
+    <div id="barra-brasil"></div>
+    <div id="header"></div>
+    <!--Fim header-->
+
+    <div id="conteudo" class="section">
+      <div class="container">
+        <div class="row rastro-navegacao">
+          <a href="/">home</a>
+          <span> &gt; </span>
+          <a href="">Minhas OSCs</a>
+        </div>
+      </div>
+      <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-primary">Lista com as Minhas OSCs</h1>
+              <hr>
+            </div>
+          </div>
+
+          <div class="row" id="lista">
+            <table id="lista_minhas_oscs" class="display compact row-border tablesaw" width="100%">
+              <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
+            </table>
+          </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div id="modalMensagem" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div id="modalTitle"  class="modal-header negrito"></div>
+          <div  id="modalConteudo" class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="window.location.reload()">OK </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="rodape"></div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div id="footer-brasil"></div>
+      </div>
+    </footer>
+    <!--Fim footer-->
+
+    <!--SCRIPTS-->
+    <script src="js/libs/react-15.3.1/react.min.js"></script>
+    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+    <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/minhas-oscs.js"></script>
+    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
+
+
+  </body>
+</html>
