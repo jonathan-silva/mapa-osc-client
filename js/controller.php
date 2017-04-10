@@ -18,9 +18,9 @@
 
   if($flag!='' && $rota!=''){
 			$contextOptionsSSL = array(
-				"ssl"=>array(
-					"verify_peer"=> false,
-					"verify_peer_name"=> false,
+				'ssl' =>array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
 				),
 			);
 			
@@ -55,7 +55,10 @@
 									'header'=> "Content-Type: application/json\r\n",
 									'content' => json_encode($parametros)
 								),
-								$contextOptionsSSL
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
 							);
 
                             $context  = stream_context_create($opts);
@@ -75,7 +78,10 @@
 									),
 									'content' => json_encode($parametros) . " \r\n"
 								),
-								$contextOptionsSSL
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
 							);
 
                             $context  = stream_context_create($opts);
@@ -95,7 +101,10 @@
 									),
 									'content' => json_encode($parametros) . " \r\n"
 								),
-								$contextOptionsSSL
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
 							);
 
                             $context  = stream_context_create($opts);
