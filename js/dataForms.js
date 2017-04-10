@@ -413,7 +413,7 @@ class DataForms{
         {
           "id": "trabalhadores",
           "label": "Total de trabalhadores",
-          "content": relacoes_trabalho.nr_trabalhadores ? relacoes_trabalho.nr_trabalhadores : "Não constam informações nas bases de dados do Mapa.",
+          "content": relacoes_trabalho.nr_trabalhadores ? relacoes_trabalho.nr_trabalhadores :  "Não constam informações nas bases de dados do Mapa.",
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "p"
