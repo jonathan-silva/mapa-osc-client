@@ -59,8 +59,8 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas', 'datatables-respons
          for (var j = 0; j < data.representacao.length; j++){
              newData[i] = new Array(columns);
              newData[i][0] = data.representacao[j].tx_nome_osc !== null ? data.representacao[j].tx_nome_osc : txtVazioNulo;//tx_nome_osc;
-             newData[i][1] = '<button title="Clique para Detalhar" type="button" onclick="location.href=\'visualizar-osc.html#'+data.representacao[j].id_osc+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
-             newData[i][2] = '<button title="Clique para Editar" type="button" onclick="location.href=\'editar-osc.html#'+data.representacao[j].id_osc+'\';" class="btn btn-info"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>';
+             newData[i][1] = '<button title="Clique para Detalhar" type="button" onclick="location.href=\'visualizar-osc.html#/'+data.representacao[j].id_osc+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
+             newData[i][2] = '<button title="Clique para Editar" type="button" onclick="location.href=\'editar-osc.html#/'+data.representacao[j].id_osc+'\';" class="btn btn-info"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>';
              i++;
          }
 
