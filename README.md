@@ -12,7 +12,7 @@ Client do Mapa das Organizações da Sociedade Civil
 O [Mapa das Organizações da Sociedade Civil](https://www.mapaosc.ipea.gov.br/) é um portal de dados desenvolvido pelo [Instituto de Pesquisa Econômica Aplicada - Ipea](http://www.ipea.gov.br/) sobre as organizações da sociedade civil (OSCs) e seus principais objetivos são:
 * dar transparência à atuação das OSCs, principalmente ações executadas em parceria com a administração pública;
 * informar mais e melhor sobre a importância e diversidade de projetos e atividades conduzidas por essas organizações;
-* disponibilizar dados e fomentar pesquisas sobre OSCs;
+* disponibilizar dados e fomentar pesquisas sobre OSCs.
 * apoiar os gestores públicos a tomarem decisões sobre políticas públicas que já têm ou possam ter interface com OSCs.
 
 O portal também é parte do processo de implementação e consolidação da Lei 13.019/2014, conhecida como Marco Regulatório das OSCs, e está previsto no artigo 81 do [Decreto 8.726/2016](http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/Decreto/D8726.htm), que regulamenta aquela lei.
