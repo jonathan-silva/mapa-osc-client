@@ -408,7 +408,7 @@ table.tablesaw thead td {
 .tablesaw td,
 .tablesaw tbody th {
   vertical-align: middle;
-  font-size: 1.17em;
+  font-size: 13px;
   /* 19px */
 }
 
