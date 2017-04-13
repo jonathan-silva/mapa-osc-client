@@ -102,6 +102,141 @@ define('componenteResultadoDaConsulta', ['react'], function (React) {
   return ResultadoConsulta;
 });
 
+
+
+
+
+
+
+
+
+
+define('componenteTitulosCertificacoes', ['react','componenteDropdown'], function (React, Dropdown) {
+
+  //Var temporarias
+  var tiposTitulosCertificados = [
+    "Entidade Ambientalista",
+    "CEBAS - Educação",
+    "CEBAS - Saúde",
+    "OSCIP",
+    "Utilidade Pública Federal",
+    "CEBAS - Assistência Social",
+    "Utilidade Pública Estadual",
+    "Utilidade Pública Municipal" ];
+
+  var idSelectTitulosCertificados = "idSelectTitulosCertificados";
+
+  var AgrupadorTitulosCertificacoes = React.createClass({
+    renderListItems: function(){
+      var items=[];
+
+      for (var i=0; i<this.props.dados.length; i++){
+
+        // REFATORAR
+        var titleSpanFonte = "Informação preenchida pela Organização";
+        var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+        var botaoRemover = <button type="button" className="btn btn-danger" href="#" id="titulo_certificacao_botao_remover" >Remover</button>
+
+        if(this.props.dados[i].fonte != 'Representante' && this.props.dados[i].fonte != null && this.props.dados[i].fonte != false){
+          botaoRemover = ""
+          titleSpanFonte = "Informação oficial, Fonte " + this.props.dados[i].fonte;
+          SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
+        }else if (this.props.dados[i].fonte == false) {
+            SpanFonte = "";
+            botaoRemover = ""
+        }
+        // -- REFATORAR
+
+        items.push(
+          <tr id={"titulo_certificacao_"+i}>
+            <td><div className="input-box">{SpanFonte}{this.props.dados[i].label}</div></td>
+            <td>{this.props.dados[i].content}</td>
+            <td>
+              {botaoRemover}
+            </td>
+          </tr>
+        );
+      }
+      return items;
+    },
+    render: function() {
+      return (
+        <div>
+          <button className="btn-primary btn" id="novo_titulo_certificacao_botao" >Adicionar Novo Título/Certificado</button>
+          <br/><br/>
+          <table className="tablesaw table-hover hidden" id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
+            <tbody>
+             <tr>
+              <td><Dropdown list={tiposTitulosCertificados} id={idSelectTitulosCertificados}></Dropdown></td>
+              <td>
+                <div className="input-box">
+                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Escolha uma data de validade para o novo Título/Certificação" type="text" ></input>
+                </div>
+              </td>
+              <td><button type="button" className="btn btn-primary" href="perguntas-frequentes.html" >Adicionar</button></td>
+             </tr>
+             </tbody>
+          </table>
+          <br/><br/>
+          <table className="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
+            <thead>
+              <tr>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Título/Certificado</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Data de Validade</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+             {this.renderListItems()}
+             </tbody>
+         </table>
+       </div>
+
+        );
+    }
+  });
+
+  return AgrupadorTitulosCertificacoes;
+});
+
+
+
+define('componenteNovoTituloCertificacao', ['react'], function (React) {
+  var NovoTituloCertificacao = React.createClass({
+
+    render: function() {
+      return (
+        <div>
+          <br/><br/>
+          <table className="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
+            <tbody>
+             <tr>
+              <td>select</td>
+              <td>Data</td>
+              <td>Botao</td>
+             </tr>
+             </tbody>
+         </table>
+       </div>
+        );
+    }
+  });
+
+  return NovoTituloCertificacao;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 define('componenteLinksUteis', ['react'], function (React) {
 
   var LinksUteis = React.createClass({
