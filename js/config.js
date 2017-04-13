@@ -1,5 +1,6 @@
 require.config({
   baseUrl: "js/",
+  waitSeconds: 200,
   paths: {
     "react": "libs/react-15.3.1/react-with-addons.min",
     "jsx": "libs/jsxcompiler/jsx",
