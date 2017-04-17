@@ -48,7 +48,7 @@ class Projeto {
   montarProjeto(project, util, dadosForm,rotas){
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
-    var agrupadores = [];
+    var agrupadores = []; console.log(project);
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project)
     var project = util.validateObject(projet[0],projet);
@@ -156,6 +156,7 @@ class Projeto {
         },
         success: function(data){
           res.projeto = data;
+          console.log(data);
         }
       });
       agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);
