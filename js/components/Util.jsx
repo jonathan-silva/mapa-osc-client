@@ -113,72 +113,55 @@ define('componenteResultadoDaConsulta', ['react'], function (React) {
 
 define('componenteTitulosCertificacoes', ['react','componenteDropdown'], function (React, Dropdown) {
 
-  //Var temporarias
-  var tiposTitulosCertificados = [
-    "Entidade Ambientalista",
-    "CEBAS - Educação",
-    "CEBAS - Saúde",
-    "OSCIP",
-    "Utilidade Pública Federal",
-    "CEBAS - Assistência Social",
-    "Utilidade Pública Estadual",
-    "Utilidade Pública Municipal" ];
+  var TitulosCertificacoesLinhaTabela = React.createClass({
+    render: function() {
+      var titleSpanFonte = "Informação preenchida pela Organização";
+      var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+      var botaoRemover = <button type="button" className="btn btn-danger" href="#" id="titulo_certificacao_botao_remover" >Remover</button>
 
-  var idSelectTitulosCertificados = "idSelectTitulosCertificados";
-
-  var AgrupadorTitulosCertificacoes = React.createClass({
-    renderListItems: function(){
-      var items=[];
-
-      for (var i=0; i<this.props.dados.length; i++){
-
-        // REFATORAR
-        var titleSpanFonte = "Informação preenchida pela Organização";
-        var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
-        var botaoRemover = <button type="button" className="btn btn-danger" href="#" id="titulo_certificacao_botao_remover" >Remover</button>
-
-        if(this.props.dados[i].fonte != 'Representante' && this.props.dados[i].fonte != null && this.props.dados[i].fonte != false){
+      if(this.props.fonte != 'Representante' && this.props.fonte != null && this.props.fonte != false){
+        botaoRemover = ""
+        titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
+        SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
+      }else if (this.props.fonte == false) {
+          SpanFonte = "";
           botaoRemover = ""
-          titleSpanFonte = "Informação oficial, Fonte " + this.props.dados[i].fonte;
-          SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
-        }else if (this.props.dados[i].fonte == false) {
-            SpanFonte = "";
-            botaoRemover = ""
-        }
-        // -- REFATORAR
-
-        items.push(
-          <tr id={"titulo_certificacao_"+i}>
-            <td><div className="input-box">{SpanFonte}{this.props.dados[i].label}</div></td>
-            <td>{this.props.dados[i].content}</td>
-            <td>
-              {botaoRemover}
-            </td>
-          </tr>
-        );
       }
-      return items;
-    },
+
+      return (
+        <tr>
+          <td>
+            <div className="input-box">
+              {SpanFonte}
+              {this.props.nome_titulo}
+            </div>
+          </td>
+          <td>{this.props.data_validade}</td>
+          <td>
+            {botaoRemover}
+          </td>
+        </tr>
+        );
+    }
+  });
+
+  var TitulosCertificacoesTabela = React.createClass({
+    componentDidUpdate: function(){
+      $('#tabela_titulos_certificados').dataTable({
+        responsive: true,
+        processing: true,
+        paging: true,
+        destroy: true,
+        pageLength: 10,
+        deferLoading: 1000,
+        searching: false,
+        dom: 'Bfrtip',
+        "bSort": true,
+  		}).page('last');
+   	},
     render: function() {
       return (
-        <div>
-          <button className="btn-primary btn" id="novo_titulo_certificacao_botao" >Adicionar Novo Título/Certificado</button>
-          <br/><br/>
-          <table className="tablesaw table-hover hidden" id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
-            <tbody>
-             <tr>
-              <td><Dropdown list={tiposTitulosCertificados} id={idSelectTitulosCertificados}></Dropdown></td>
-              <td>
-                <div className="input-box">
-                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Escolha uma data de validade para o novo Título/Certificação" type="text" ></input>
-                </div>
-              </td>
-              <td><button type="button" className="btn btn-primary" href="perguntas-frequentes.html" >Adicionar</button></td>
-             </tr>
-             </tbody>
-          </table>
-          <br/><br/>
-          <table className="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
+          <table className="tablesaw table-hover" id="tabela_titulos_certificados" data-tablesaw-sortable data-tablesaw-sortable-switch>
             <thead>
               <tr>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Título/Certificado</th>
@@ -187,17 +170,164 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
               </tr>
             </thead>
             <tbody>
-             {this.renderListItems()}
-             </tbody>
+            {
+              this.props.dados_tabela.map(function(titulo){
+                  return <TitulosCertificacoesLinhaTabela nome_titulo={titulo.label} data_validade={titulo.content} fonte={titulo.fonte}  />
+              })
+            }
+            </tbody>
          </table>
-       </div>
-
         );
     }
   });
 
-  return AgrupadorTitulosCertificacoes;
+  var TitulosCertificacoesNovoTitulo = React.createClass({
+
+    render: function() {
+      //Var temporarias
+      var tiposTitulosCertificados = [
+        "Utilidade Pública Estadual",
+        "Utilidade Pública Municipal" ];
+
+      var idSelectTitulosCertificados = "idSelectTitulosCertificados";
+
+      return (
+        <div>
+          <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título/Certificado</button>
+          <br/>
+          <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
+            <tbody>
+             <tr>
+              <td>
+                <TitulosCertificacoes_dropdown
+                  list={tiposTitulosCertificados}
+                  id={idSelectTitulosCertificados}>
+                </TitulosCertificacoes_dropdown></td>
+              <td>
+                <div className="input-box">
+                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Escolha uma data de validade para o novo Título" type="text" ></input>
+                </div>
+              </td>
+              <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo} >Adicionar</button></td>
+             </tr>
+             </tbody>
+          </table>
+        </div>
+        );
+    }
+  });
+
+  var TitulosCertificacoes_dropdown = React.createClass({
+
+    render: function() {
+        return (
+          <div>
+           <select id={this.props.id} className="form-control">
+            <option value={-1} selected>Selecione uma opção...</option>
+            {
+             this.props.list.map(function(item){
+                return <option value={item}>{item}</option>
+             })
+            }
+            </select>
+          </div>
+        );
+      }
+  });
+
+
+  var TitulosCertificacoes = React.createClass({
+    getInitialState : function() {
+      return {
+        novoTitulo_Visivel : "hidden",
+        listaTitulosCertificados  : this.props.dados,
+      };
+    },
+    limpa_campos: function(){
+       document.getElementById('idSelectTitulosCertificados').value = "";
+       document.getElementById('novo_titulo_certificacao_data').value = "";
+    },
+    toggle_form_novo_titulo: function(e) {
+        this.setState( (this.state.novoTitulo_Visivel == "hidden") ? {novoTitulo_Visivel: ""} : {novoTitulo_Visivel: "hidden"} );
+    },
+    exclui_titulo: function() {
+      {/* Altera state.lista_titulos removendo o bichinho */}
+    },
+    inclui_titulo: function(e) {
+      var nova_lista_titulos = this.state.listaTitulosCertificados;
+      nova_lista_titulos.push(
+                                {
+                                  content: "Data de Validade: " + document.getElementById('novo_titulo_certificacao_data').value,
+                                  fonte:  "Representante",
+                                  label: document.getElementById('idSelectTitulosCertificados').value
+                                }
+                              );
+      $("#tabela_titulos_certificados").DataTable().destroy();
+      this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden"} );
+      this.limpa_campos();
+
+    },
+
+    componentDidMount: function(){
+   		var self = this;
+   		$('#tabela_titulos_certificados').dataTable({
+        responsive: true,
+        processing: true,
+        destroy: true,
+        paging: true,
+        pageLength: 3,
+        deferLoading: 1000,
+        searching: false,
+        dom: 'Bfrtip',
+        "bSort": true,
+  		  "fnDrawCallback": function() {
+              	self.forceUpdate();
+            },
+  		});
+ 	  },
+
+
+    render: function() {
+      return (
+          <div>
+            <br/>
+            <TitulosCertificacoesNovoTitulo
+              visivel={this.state.novoTitulo_Visivel}
+              toggle_exibe_novo_titulo={this.toggle_form_novo_titulo.bind(this)}
+              inclui_novo_titulo={this.inclui_titulo.bind(this)}
+              exclui_titulo_lista={this.exclui_titulo.bind(this)}
+            />
+            <br/><br/>
+            <TitulosCertificacoesTabela dados_tabela={this.state.listaTitulosCertificados} />
+          </div>
+        );
+    }
+  });
+
+  return TitulosCertificacoes;
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

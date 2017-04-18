@@ -32,18 +32,12 @@ class TitulosCertificacoes {
       }
     });
 
-    $("#novo_titulo_certificacao_botao").on('click', function() {
-      $('#novo_titulo_certificacao_form').toggleClass("hidden");
-    });
-
-    $("#titulo_certificacao_botao_remover").on('click', function() {
-        console.log("click_remover");
-        $(this).parent().parent().remove();
-    });
-
-
 
   }
+
+
+
+
 
   montarTitulosCertificacoes(json, util, React, ReactDOM, FormItem, AgrupadorTitulosCertificacoes, NovoTituloCertificacao){
     var headerPriority = '2';
