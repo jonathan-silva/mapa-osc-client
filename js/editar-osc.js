@@ -312,6 +312,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $("#nr_total_beneficiarios").find('input').mask('00000000');
 
           $($('#'+divId).find("div")[0]).attr("id", id_projeto_externo);
+
+          $('#tx_nome_abrangencia_projeto').change(function() {
+            localizacao($(this).find(":selected").text());
+          });
+
+
           if(proj){
             metasObjetivos(proj.projeto[0], id_projeto);
           } else {
@@ -1184,6 +1190,70 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
 
     });
+
+    function replaceSpecialChars(str){
+      str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+      str = str.replace(/[àáâãäå]/g,"a");
+      str = str.replace(/[ÉÈÊË]/g,"E");
+      str = str.replace(/[éèêë]/g,"e");
+      str = str.replace(/[ÍÌÎÏ]/g,"I");
+      str = str.replace(/[íìîï]/g,"i");
+      str = str.replace(/[ÓÒÔÕ]/g,"O");
+      str = str.replace(/[óòôõ]/g,"o");
+      str = str.replace(/[ÚÙÛÜ]/g,"U");
+      str = str.replace(/[úùûü]/g,"u");
+      str = str.replace(/[Ç]/g,"C");
+      str = str.replace(/[ç]/g,"c");
+      return str;
+    }
+
+    function localizacao(abrangencia){
+      var routes="";
+      var abrang=abrangencia.toLowerCase();
+      var limiteAutocomplete = 10;
+      var limiteAutocompleteCidade = 25;
+
+        $("#localizacao_projeto .form-control").autocomplete({
+          minLength: 3,
+          source: function (request, response) {
+            if ((abrang == 'estadual') || (abrang == 'municipal')){
+              routes = rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade);
+            }
+            else if ((abrang == 'regional')|| (abrang == 'nacional')){
+              routes = rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
+            }
+            if ( routes != "" ) {
+             $.ajax({
+                 url: urlController,//4204251
+                 type: 'GET',
+                 dataType: "json",
+                 data: {flag: 'autocomplete', rota: routes },
+                 success: function (data) {
+                   response($.map( data, function( item ) {
+                      if ((abrang == 'estadual') || (abrang == 'municipal')) {
+                       return {
+                          label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                          value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                          id: item.edmu_cd_municipio
+                      };
+                    }
+                    else if ((abrang == 'regional') || (abrang == 'nacional')){
+                      return {
+                          label: item.eduf_nm_uf,
+                          value: item.eduf_nm_uf,
+                          id: item.eduf_cd_uf
+                      };
+                    }
+                  }));
+                 },
+                 error: function (e) {
+                     response([]);
+                 }
+             });
+           }
+         }
+       });
+   }
 
     function salvarProjetos(){
       //console.log($(".projeto"));
