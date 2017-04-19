@@ -1056,15 +1056,6 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
-            /*;
-            if ( (item.title) && (id =="localizacao_projeto") ) {
-                console.log(item.title);
-              InputElement =
-                <div id={id} className="input-group">
-                {InputElement}
-                <FormButtonProjeto dados={buttons} inline={inline} disabled></FormButtonProjeto>
-                </div>
-          }*/
         }
         itens.push(
           InputElement
