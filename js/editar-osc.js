@@ -1027,8 +1027,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
 
            for (var i=0;i<lperiodicidadeReuniao.length;i++){
-           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao){
-             obj.conselho.cd_nome_periodicidade_reuniao = lperiodicidadeReuniao[i].cd_nome_periodicidade_reuniao;
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
+             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
              break;
             }
            }
@@ -1041,7 +1041,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              );
            } else {
              obj.conselho.cd_conselho = conselho_id;
-             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao") ) {
+             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
                obj.conselho[campo] = $(this).val();
              }
            }
@@ -1065,8 +1065,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
 
            for (var i=0;i<lperiodicidadeReuniao.length;i++){
-           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao){
-             obj.conselho.cd_nome_periodicidade_reuniao = lperiodicidadeReuniao[i].cd_nome_periodicidade_reuniao;
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
+             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
              break;
             }
            }

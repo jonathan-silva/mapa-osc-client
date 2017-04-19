@@ -82,7 +82,7 @@ class EspacosPartSocial {
       }
     });
     var lista_periodicidadeReuniao=[];
-    for (var i=0;i<lperiodicidadeReuniao.length;i++){ lista_periodicidadeReuniao[i] = lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao}
+    for (var i=0;i<lperiodicidadeReuniao.length;i++){ lista_periodicidadeReuniao[i] = lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho}
 
     $.ajax({
       url: controller,
@@ -138,7 +138,7 @@ class EspacosPartSocial {
     var nomeConselho = util.validateObject(json.participacao_social) ? "tx_nome_conselho-0" : null;
     var nomeTipoParticipacao = util.validateObject(json.participacao_social) ? "tx_nome_tipo_participacao-0" : null;
     var nomeRepresentanteConselho = util.validateObject(json.participacao_social) ? "tx_nome_representante_conselho-0" : null;
-    var periodicidade = util.validateObject(json.participacao_social) ? "tx_nome_periodicidade_reuniao-0" : null;
+    var periodicidade = util.validateObject(json.participacao_social) ? "tx_nome_periodicidade_reuniao_conselho-0" : null;
     var dataInicioConselho = util.validateObject(json.participacao_social) ? "dt_data_inicio_conselho-0" : null;
     var dataFimConselho = util.validateObject(json.participacao_social) ? "dt_data_fim_conselho-0" : null;
     var nomeConferencia = util.validateObject(json.participacao_social) ? "tx_nome_conferencia-0" : null;
@@ -158,7 +158,7 @@ class EspacosPartSocial {
       nomeConselho = "tx_nome_conselho-0";
       nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
       nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
-      periodicidade = "tx_nome_periodicidade_reuniao-0";
+      periodicidade = "tx_nome_periodicidade_reuniao_conselho-0";
       dataInicioConselho = "dt_data_inicio_conselho-0";
       dataFimConselho = "dt_data_fim_conselho-0";
       nomeConferencia = "tx_nome_conferencia-0";
@@ -181,7 +181,7 @@ class EspacosPartSocial {
               formItens.push(util.FormItens("tx_nome_conselho-"+conselhos[j].conselho.id_conselho, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "select",lista_conselho));
               formItens.push(util.FormItens("tx_nome_tipo_participacao-"+conselhos[j].conselho.id_conselho, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "select", lista_forma));
               formItens.push(util.FormItens("tx_nome_representante_conselho-"+conselhos[j].conselho.id_conselho, "Nome de representante", conselhos[j].representante ? conselhos[j].representante[0].tx_nome_representante_conselho : "" , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
-              formItens.push(util.FormItens("tx_nome_periodicidade_reuniao-"+conselhos[j].conselho.id_conselho, "Periodicidade da Reunião", conselhos[j].conselho.tx_nome_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "select", lista_periodicidadeReuniao));
+              formItens.push(util.FormItens("tx_nome_periodicidade_reuniao_conselho-"+conselhos[j].conselho.id_conselho, "Periodicidade da Reunião", conselhos[j].conselho.tx_nome_periodicidade_reuniao_conselho, conselhos[j].conselho.ft_periodicidade_reuniao, null, "select", lista_periodicidadeReuniao));
               formItens.push(util.FormItens("dt_data_inicio_conselho-"+conselhos[j].conselho.id_conselho, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
               formItens.push(util.FormItens("dt_data_fim_conselho-"+conselhos[j].conselho.id_conselho, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
             }
