@@ -33,7 +33,7 @@ class EspacosPartSocial {
     util.addItem('outros_part');
   }
 
-  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, formas){
+  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, periodicidadeReuniao, formas){
     var tx_sem_participacao_social = "Não há registros de participação social";
     var participacao_social_form = dadosForm.partSocial();
     var items = participacao_social_form.items;
@@ -44,10 +44,10 @@ class EspacosPartSocial {
       ), document.getElementById(items[0].target)
     );
 
-    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, formas);
+    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, periodicidadeReuniao, formas);
   }
 
-  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lforma){
+  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma){
     var controller = 'js/controller.php'
     $.ajax({
       url: controller,
@@ -66,6 +66,23 @@ class EspacosPartSocial {
     var lista_conselho=[];
     for (var i=0;i<lconselho.length;i++){ lista_conselho[i] = lconselho[i].tx_nome_conselho}
     lista_conselho[i] = "Outro";
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota: lperiodicidadeReuniao},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lperiodicidadeReuniao = data;
+      }
+    });
+    var lista_periodicidadeReuniao=[];
+    for (var i=0;i<lperiodicidadeReuniao.length;i++){ lista_periodicidadeReuniao[i] = lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao}
 
     $.ajax({
       url: controller,
@@ -121,7 +138,7 @@ class EspacosPartSocial {
     var nomeConselho = util.validateObject(json.participacao_social) ? "tx_nome_conselho-0" : null;
     var nomeTipoParticipacao = util.validateObject(json.participacao_social) ? "tx_nome_tipo_participacao-0" : null;
     var nomeRepresentanteConselho = util.validateObject(json.participacao_social) ? "tx_nome_representante_conselho-0" : null;
-    var periodicidade = util.validateObject(json.participacao_social) ? "tx_periodicidade_reuniao-0" : null;
+    var periodicidade = util.validateObject(json.participacao_social) ? "tx_nome_periodicidade_reuniao-0" : null;
     var dataInicioConselho = util.validateObject(json.participacao_social) ? "dt_data_inicio_conselho-0" : null;
     var dataFimConselho = util.validateObject(json.participacao_social) ? "dt_data_fim_conselho-0" : null;
     var nomeConferencia = util.validateObject(json.participacao_social) ? "tx_nome_conferencia-0" : null;
@@ -141,7 +158,7 @@ class EspacosPartSocial {
       nomeConselho = "tx_nome_conselho-0";
       nomeTipoParticipacao = "tx_nome_tipo_participacao-0";
       nomeRepresentanteConselho = "tx_nome_representante_conselho-0";
-      periodicidade = "tx_periodicidade_reuniao-0";
+      periodicidade = "tx_nome_periodicidade_reuniao-0";
       dataInicioConselho = "dt_data_inicio_conselho-0";
       dataFimConselho = "dt_data_fim_conselho-0";
       nomeConferencia = "tx_nome_conferencia-0";
@@ -164,7 +181,7 @@ class EspacosPartSocial {
               formItens.push(util.FormItens("tx_nome_conselho-"+conselhos[j].conselho.id_conselho, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "select",lista_conselho));
               formItens.push(util.FormItens("tx_nome_tipo_participacao-"+conselhos[j].conselho.id_conselho, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "select", lista_forma));
               formItens.push(util.FormItens("tx_nome_representante_conselho-"+conselhos[j].conselho.id_conselho, "Nome de representante", conselhos[j].representante ? conselhos[j].representante[0].tx_nome_representante_conselho : "" , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
-              formItens.push(util.FormItens("tx_periodicidade_reuniao-"+conselhos[j].conselho.id_conselho, "Periodicidade da Reunião", conselhos[j].conselho.tx_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "text"));
+              formItens.push(util.FormItens("tx_nome_periodicidade_reuniao-"+conselhos[j].conselho.id_conselho, "Periodicidade da Reunião", conselhos[j].conselho.tx_nome_periodicidade_reuniao, conselhos[j].conselho.ft_periodicidade_reuniao, null, "select", lista_periodicidadeReuniao));
               formItens.push(util.FormItens("dt_data_inicio_conselho-"+conselhos[j].conselho.id_conselho, "Data de início de vigência", conselhos[j].conselho.dt_data_inicio_conselho, conselhos[j].conselho.ft_data_inicio_conselho, null, "text", null, null, "date"));
               formItens.push(util.FormItens("dt_data_fim_conselho-"+conselhos[j].conselho.id_conselho, "Data de fim de vigência", conselhos[j].conselho.dt_data_fim_conselho, conselhos[j].conselho.ft_data_fim_conselho, null, "text", null, null, "date"));
             }
@@ -175,7 +192,7 @@ class EspacosPartSocial {
       formItens.push(util.FormItens(nomeConselho, "Nome do Conselho", null,null, "", "select",lista_conselho,"Insira o nome do conselho de política pública"));
       formItens.push(util.FormItens(nomeTipoParticipacao, "Titularidade", null,null, "", "select",lista_forma,"Diga se a OSCs ocupa vaga de titular ou suplente"));
       formItens.push(util.FormItens(nomeRepresentanteConselho, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
-      formItens.push(util.FormItens(periodicidade, "Periodicidade da Reunião", null,null, "Indique de quanto em quanto tempo as reuniões do Conselho ocorrem", "text"));
+      formItens.push(util.FormItens(periodicidade, "Periodicidade da Reunião", null,null, "", "select",lista_periodicidadeReuniao,"Indique de quanto em quanto tempo as reuniões do Conselho ocorrem"));
       formItens.push(util.FormItens(dataInicioConselho, "Data de início de vigência", null,null, "Insira a data em que se iniciou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
       formItens.push(util.FormItens(dataFimConselho, "Data de fim de vigência", null,null, "Insira a data em que se encerrou a atividade de representante da OSC no Conselho", "text", null, null, "date"));
       arraySecao.push(formItens);

@@ -4,9 +4,9 @@ class Rotas{
   }
 
   getBaseUrl(){
-     return "https://mapaosc-desenv.ipea.gov.br";
-  //  return "http://10.1.4.205";
-    //return "http://localhost";
+  //   return "https://mapaosc-desenv.ipea.gov.br";
+  //  return "https://10.1.4.205";
+    return "http://localhost";
   }
 
   //index.js
@@ -128,13 +128,16 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/osc/relacoestrabalhooutra/"+id;
   }
   ParticipacaoSocialConselho(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialconselho/"+id;
+    return this.getBaseUrl()+":8383/api/osc/periodicidade/"+id;
   }
   ParticipacaoSocialConferencia(id){
     return this.getBaseUrl()+":8383/api/osc/participacaosocialconferencia/"+id;
   }
   OutraParticipacaoSocial(id){
     return this.getBaseUrl()+":8383/api/osc/participacaosocialoutra/"+id;
+  }
+  PeriodicidadeReuniao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/periodicidade_reuniao/";
   }
   Conselho(){
     return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
