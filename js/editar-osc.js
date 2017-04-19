@@ -109,7 +109,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.FormaParticipacao());
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.FormaParticipacao());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
@@ -976,6 +976,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+        var lperiodicidadeReuniao =[];
+        $.ajax({
+          url: urlController,
+          type: 'GET',
+          async: false,
+          dataType: 'json',
+          data:{flag: "consulta", rota: rotas.PeriodicidadeReuniao()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            lperiodicidadeReuniao = data;
+          }
+        });
+
         var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
@@ -1004,6 +1020,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
            }
 
+           for (var i=0;i<lperiodicidadeReuniao.length;i++){
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao){
+             obj.conselho.cd_nome_periodicidade_reuniao = lperiodicidadeReuniao[i].cd_nome_periodicidade_reuniao;
+             break;
+            }
+           }
+
            if(campo === "tx_nome_representante_conselho"){
              obj.representante.push(
                {
@@ -1012,7 +1035,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              );
            } else {
              obj.conselho.cd_conselho = conselho_id;
-             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") ) {
+             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao") ) {
                obj.conselho[campo] = $(this).val();
              }
            }
@@ -1031,6 +1054,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            for (var i=0;i<lforma.length;i++){
            if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
              obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
+             break;
+            }
+           }
+
+           for (var i=0;i<lperiodicidadeReuniao.length;i++){
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao){
+             obj.conselho.cd_nome_periodicidade_reuniao = lperiodicidadeReuniao[i].cd_nome_periodicidade_reuniao;
              break;
             }
            }
