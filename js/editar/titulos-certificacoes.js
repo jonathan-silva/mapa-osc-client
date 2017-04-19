@@ -31,13 +31,7 @@ class TitulosCertificacoes {
         $(this).parents(".hidden").toggleClass('hidden');
       }
     });
-
-
   }
-
-
-
-
 
   montarTitulosCertificacoes(json, util, React, ReactDOM, FormItem, AgrupadorTitulosCertificacoes, NovoTituloCertificacao){
     var headerPriority = '2';
@@ -56,20 +50,15 @@ class TitulosCertificacoes {
       formItens.push(util.FormItens(null, null, tx_sem_titulos, "base", null, "p"));
     }
 
-
     res.push(formItens);
 
+    //monta estrutura de divs para renderizar os componentes
     var headerElement = React.createElement('div', { id: 'headerTitulosCertificacoes' });
-    var novoTituloCertificacaoElement = React.createElement('div', { id: 'novoTituloCertificacao' });
-    var autoElement = React.createElement('div', { id: 'auto' });
-    //var manualLabel = React.createElement('label', null, 'Utilidade pública');
-    var manualElement = React.createElement('div', { id: 'manual' });
-    //var root = React.createElement('div', { id: 'root' }, autoElement, manualLabel, manualElement);
-    var root = React.createElement('div', { id: 'root' }, headerElement,novoTituloCertificacaoElement,autoElement,manualElement);
-
+    var bodyElement = React.createElement('div', { id: 'bodyheaderTitulosCertificacoes' });
+    var root = React.createElement('div', { id: 'root' }, headerElement,bodyElement);
     ReactDOM.render(root, document.getElementById('certificacoes'));
 
-    //Header
+    //Renderiza o header "Títulos e Certificações"
     FormItem = React.createFactory(FormItem);
     ReactDOM.render(
       FormItem(
@@ -77,25 +66,15 @@ class TitulosCertificacoes {
       ), document.getElementById("headerTitulosCertificacoes")
     );
 
-    //Novo Titulo
-    //NovoTituloCertificacao = React.createFactory(NovoTituloCertificacao);
-    //ReactDOM.render(
-    //  NovoTituloCertificacao(), document.getElementById("novoTituloCertificacao")
-    //);
-
-
-    // Botao e Lista
+    //Renderiza os componentes de titulos e certificações"
     AgrupadorTitulosCertificacoes = React.createFactory(AgrupadorTitulosCertificacoes);
     ReactDOM.render(
       AgrupadorTitulosCertificacoes(
         {dados:res[0]}
-      ), document.getElementById("auto")
+      ), document.getElementById("bodyheaderTitulosCertificacoes")
     );
 
     res.push(formItens);
-
-
-
     this.carregarInteracoesTitCertif();
   }
 }

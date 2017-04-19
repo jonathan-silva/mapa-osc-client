@@ -102,23 +102,14 @@ define('componenteResultadoDaConsulta', ['react'], function (React) {
   return ResultadoConsulta;
 });
 
-
-
-
-
-
-
-
-
-
 define('componenteTitulosCertificacoes', ['react','componenteDropdown'], function (React, Dropdown) {
 
+  //// Componente para renderizar a linha da tabela contendo as informaçõe dos títulos
   var TitulosCertificacoesLinhaTabela = React.createClass({
     render: function() {
       var titleSpanFonte = "Informação preenchida pela Organização";
       var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
-      var botaoRemover = <button type="button" className="btn btn-danger" href="#" id="titulo_certificacao_botao_remover" >Remover</button>
-
+      var botaoRemover = <button type="button" className="btn btn-danger" href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
       if(this.props.fonte != 'Representante' && this.props.fonte != null && this.props.fonte != false){
         botaoRemover = ""
         titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
@@ -129,7 +120,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       }
 
       return (
-        <tr>
+        <tr >
           <td>
             <div className="input-box">
               {SpanFonte}
@@ -145,21 +136,20 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     }
   });
 
+  //// Componente para renderizar a tabela contendo as informaçõe dos títulos
   var TitulosCertificacoesTabela = React.createClass({
+    // Coso o componente seja atualizado ( state ), o datatable é recarregado
+
     componentDidUpdate: function(){
       $('#tabela_titulos_certificados').dataTable({
-        responsive: true,
-        processing: true,
-        paging: true,
-        destroy: true,
-        pageLength: 10,
-        deferLoading: 1000,
-        searching: false,
-        dom: 'Bfrtip',
-        "bSort": true,
-  		}).page('last');
+        responsive: true, processing: true, paging: true,
+        destroy: true, pageLength: 10, deferLoading: 1000,
+        searching: false, dom: 'Bfrtip', "bSort": true,
+  		});
    	},
+
     render: function() {
+      var function_remove_titulo = this.props.exclui_titulo_lista.bind(this);
       return (
           <table className="tablesaw table-hover" id="tabela_titulos_certificados" data-tablesaw-sortable data-tablesaw-sortable-switch>
             <thead>
@@ -171,8 +161,14 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
             </thead>
             <tbody>
             {
-              this.props.dados_tabela.map(function(titulo){
-                  return <TitulosCertificacoesLinhaTabela nome_titulo={titulo.label} data_validade={titulo.content} fonte={titulo.fonte}  />
+              this.props.dados_tabela.map(function(titulo, index){
+                  return <TitulosCertificacoesLinhaTabela
+                    nome_titulo={titulo.label}
+                    data_validade={titulo.content}
+                    fonte={titulo.fonte}
+                    id={index}
+                    remove_titulo={function_remove_titulo}
+                    key={titulo.id} />
               })
             }
             </tbody>
@@ -181,15 +177,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     }
   });
 
+  //// Componente para renderizar o formulario para inclusão de um novo título
+  //// de utilidade publica estadual ou municial
   var TitulosCertificacoesNovoTitulo = React.createClass({
-
     render: function() {
-      //Var temporarias
-      var tiposTitulosCertificados = [
-        "Utilidade Pública Estadual",
-        "Utilidade Pública Municipal" ];
-
-      var idSelectTitulosCertificados = "idSelectTitulosCertificados";
+      //Títulos permitidos para inclusão
+      var tiposTitulosCertificados = [ "Utilidade Pública Estadual", "Utilidade Pública Municipal" ];
 
       return (
         <div>
@@ -198,17 +191,13 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
              <tr>
-              <td>
-                <TitulosCertificacoes_dropdown
-                  list={tiposTitulosCertificados}
-                  id={idSelectTitulosCertificados}>
-                </TitulosCertificacoes_dropdown></td>
+              <td> <TitulosCertificacoes_dropdown list={tiposTitulosCertificados} /> </td>
               <td>
                 <div className="input-box">
                   <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Escolha uma data de validade para o novo Título" type="text" ></input>
                 </div>
               </td>
-              <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo} >Adicionar</button></td>
+              <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo}> Adicionar </button></td>
              </tr>
              </tbody>
           </table>
@@ -217,12 +206,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     }
   });
 
+  //// Componente para renderizar do dropbox com as opções de títulos
   var TitulosCertificacoes_dropdown = React.createClass({
-
     render: function() {
         return (
           <div>
-           <select id={this.props.id} className="form-control">
+           <select id="idSelectTitulosCertificados" className="form-control">
             <option value={-1} selected>Selecione uma opção...</option>
             {
              this.props.list.map(function(item){
@@ -235,57 +224,62 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       }
   });
 
-
+  //// Componente principal que renderiza todos os outros
   var TitulosCertificacoes = React.createClass({
+    //Set estados iniciais
     getInitialState : function() {
+
       return {
-        novoTitulo_Visivel : "hidden",
-        listaTitulosCertificados  : this.props.dados,
+        novoTitulo_Visivel : "hidden", //state botão "Inclui novo"
+        listaTitulosCertificados  : this.props.dados, //lista com os certificados
       };
     },
+
+    //reset dos campos de inclusão de novos títulos
     limpa_campos: function(){
        document.getElementById('idSelectTitulosCertificados').value = "";
        document.getElementById('novo_titulo_certificacao_data').value = "";
     },
+
+    //handler do botão "Incluir novo Título" - toggle visibility
     toggle_form_novo_titulo: function(e) {
         this.setState( (this.state.novoTitulo_Visivel == "hidden") ? {novoTitulo_Visivel: ""} : {novoTitulo_Visivel: "hidden"} );
     },
-    exclui_titulo: function() {
-      {/* Altera state.lista_titulos removendo o bichinho */}
+
+    exclui_titulo: function(id_item) {
+      var lista_atual = this.state.listaTitulosCertificados;
+      lista_atual.splice(id_item,1);
+      $("#tabela_titulos_certificados").DataTable().destroy();
+      this.setState( {listaTitulosCertificados: lista_atual  });
     },
+
+    //handler do botão "Incluir" que inclui o novo título na lista e renderiza
     inclui_titulo: function(e) {
       var nova_lista_titulos = this.state.listaTitulosCertificados;
-      nova_lista_titulos.push(
-                                {
-                                  content: "Data de Validade: " + document.getElementById('novo_titulo_certificacao_data').value,
+      // push do novo título
+      nova_lista_titulos.push({   content: "Data de Validade: " + document.getElementById('novo_titulo_certificacao_data').value,
                                   fonte:  "Representante",
-                                  label: document.getElementById('idSelectTitulosCertificados').value
-                                }
-                              );
-      $("#tabela_titulos_certificados").DataTable().destroy();
-      this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden"} );
-      this.limpa_campos();
-
+                                  label: document.getElementById('idSelectTitulosCertificados').value,
+                                  id: "NovoTitulo_" + Math.random()
+                              });
+      $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada
+      this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden"} ); // Set novos estados
+      this.limpa_campos(); // reset dos campos
     },
 
+    // Carrega o datatable.js após renderização do componente tabela
     componentDidMount: function(){
-   		var self = this;
+    	var self = this;
    		$('#tabela_titulos_certificados').dataTable({
-        responsive: true,
-        processing: true,
-        destroy: true,
-        paging: true,
-        pageLength: 3,
-        deferLoading: 1000,
-        searching: false,
-        dom: 'Bfrtip',
-        "bSort": true,
-  		  "fnDrawCallback": function() {
+        responsive: true, processing: true, destroy: true,
+        paging: true, pageLength: 3, deferLoading: 1000,
+        searching: false, dom: 'Bfrtip', "bSort": true,
+        "fnDrawCallback": function() {
               	self.forceUpdate();
             },
   		});
- 	  },
 
+ 	  },
 
     render: function() {
       return (
@@ -295,10 +289,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
               visivel={this.state.novoTitulo_Visivel}
               toggle_exibe_novo_titulo={this.toggle_form_novo_titulo.bind(this)}
               inclui_novo_titulo={this.inclui_titulo.bind(this)}
-              exclui_titulo_lista={this.exclui_titulo.bind(this)}
+
             />
             <br/><br/>
-            <TitulosCertificacoesTabela dados_tabela={this.state.listaTitulosCertificados} />
+            <TitulosCertificacoesTabela
+              dados_tabela={this.state.listaTitulosCertificados}
+              exclui_titulo_lista={this.exclui_titulo.bind(this)} />
           </div>
         );
     }
@@ -306,66 +302,6 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
 
   return TitulosCertificacoes;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-define('componenteNovoTituloCertificacao', ['react'], function (React) {
-  var NovoTituloCertificacao = React.createClass({
-
-    render: function() {
-      return (
-        <div>
-          <br/><br/>
-          <table className="tablesaw table-hover" data-tablesaw-sortable data-tablesaw-sortable-switch>
-            <tbody>
-             <tr>
-              <td>select</td>
-              <td>Data</td>
-              <td>Botao</td>
-             </tr>
-             </tbody>
-         </table>
-       </div>
-        );
-    }
-  });
-
-  return NovoTituloCertificacao;
-});
-
-
-
-
-
-
-
-
-
-
-
-
 
 define('componenteLinksUteis', ['react'], function (React) {
 
