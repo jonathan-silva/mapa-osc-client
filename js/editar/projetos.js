@@ -48,7 +48,7 @@ class Projeto {
   montarProjeto(project, util, dadosForm,rotas){
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
-    var agrupadores = []; console.log(project);
+    var agrupadores = [];
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project)
     var project = util.validateObject(projet[0],projet);
@@ -78,7 +78,7 @@ class Projeto {
       }
     }
     if (!(project.hasOwnProperty("fonte_de_recursos"))){
-      console.log("teste")
+      //console.log("teste")
     }
     /* Area de atuacao de projeto temporariamente escondida
     if (!(project.hasOwnProperty("area_atuacao"))){

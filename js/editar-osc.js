@@ -309,9 +309,61 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           $($('#'+divId).find("div")[0]).attr("id", id_projeto_externo);
 
+          $(".local button.btn-primary").click(function() {
+            localizacao($('#tx_nome_abrangencia_projeto').find(":selected").text());
+          });
+
           $('#tx_nome_abrangencia_projeto').change(function() {
             localizacao($(this).find(":selected").text());
           });
+
+          $(".osc_parceira button.btn-primary").click(function() {
+            osc_parceira();
+          })
+
+          $('#osc_parceira').find('input').autocomplete({
+          source: function (request, response) {
+            var cnpj = ($(this)[0].term);
+            var nome_osc ='';
+            var id_osc='';
+            $.ajax({
+                url: urlController,
+                type: 'GET',
+                dataType: "json",
+                data: {
+                    flag: 'autocomplete',
+                    rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
+                },
+              success: function(data) {
+                if (data == null){/*
+                    $('#entidadeLabel').addClass('hide');
+                    jQuery("#entidadeLabel").text('');
+                    $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+                    $id_osc = '';
+                    $cnpj_osc = '';
+                    jQuery("#modalTitle").text("Erro");
+                    jQuery("#modalConteudo").text('');
+                    jQuery("#modalConteudo").text("Entidade não cadastrada! ");
+                    $modal.modal('show');*/
+                    console.log("null");
+                    $('#osc_parceira').find('input').val = "Entidade não cadastrada! ";
+                }else{
+                  nome_osc = data[0].tx_nome_osc;
+                  id_osc = data[0].id_osc;
+                  console.log(nome_osc); console.log(id_osc);
+                  /*
+                   jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
+                   $('#entidadeLabel').removeClass('hide');
+                   $id_osc = data[0].id_osc;
+                   $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');*/
+                }
+              },
+              error: function(e) {
+                  response([]);
+              }
+          });
+        }
+      })
 
 
           if(proj){
@@ -1280,6 +1332,53 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }
        });
    }
+
+   function osc_parceira(){
+       /*var cnpj_osc = '';//$('#osc_parceira').val();*/
+       var nome_osc ='';
+       var id_osc='';
+       $('#osc_parceira').find('input').autocomplete({
+       source: function (request, response) {
+         var cnpj = ($(this)[0].term);
+         $.ajax({
+             url: urlController,
+             type: 'GET',
+             dataType: "json",
+             data: {
+                 flag: 'autocomplete',
+                 rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
+             },
+           success: function(data) {
+             if (data == null){/*
+                 $('#entidadeLabel').addClass('hide');
+                 jQuery("#entidadeLabel").text('');
+                 $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+                 $id_osc = '';
+                 $cnpj_osc = '';
+                 jQuery("#modalTitle").text("Erro");
+                 jQuery("#modalConteudo").text('');
+                 jQuery("#modalConteudo").text("Entidade não cadastrada! ");
+                 $modal.modal('show');*/
+                 console.log("null");
+                 $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada! ";
+             }else{
+               nome_osc = data[0].tx_nome_osc;
+               id_osc = data[0].id_osc;
+               $('#osc_parceira').find('input')[0].value = nome_osc;
+               /*
+                jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
+                $('#entidadeLabel').removeClass('hide');
+                $id_osc = data[0].id_osc;
+                $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');*/
+             }
+           },
+           error: function(e) {
+               response([]);
+           }
+       });
+     }
+   })
+ }
 
     function salvarProjetos(){
       //console.log($(".projeto"));

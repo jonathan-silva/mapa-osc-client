@@ -868,7 +868,7 @@ class DataForms{
       },
       "localizacao_projeto": {
         "header": "Local de execução",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-4 local",
         "removable": true,
         "type": "text",
         "options": null,
@@ -876,7 +876,7 @@ class DataForms{
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
-        "containerClass": "col-md-6",
+        "containerClass": "col-md-6 osc_parceira",
         "removable": true,
         "type": "text",
         "options": null
