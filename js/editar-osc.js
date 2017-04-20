@@ -857,27 +857,51 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
 
         //Certificacoes
-        var newJson = util.validateObject(old_json.certificacoes, {});
+        var newJson = util.validateObject(old_json.certificado, {});
         newJson.certificado = [];
-        $("#certificacoes .form-control").each(function(i){
+
+        $('#tabela_titulos_certificados tr').each(function(i){
           var cd_certificado = 0;
-          if($(this).attr("id").substring(18) === "estadual" && $(this).is(':visible')){
-            cd_certificado = 7;
+
+          switch($(".tipo_titulo_certificado",this).text()){
+            case "Utilidade Pública Estadual":
+              cd_certificado = 7;
+              break;
+            case "Utilidade Pública Municipal":
+              cd_certificado = 8;
+              break;
+            case "Entidade Ambientalista":
+              cd_certificado = 1;
+              break;
+            case "CEBAS - Educação":
+              cd_certificado = 2;
+              break;
+            case "CEBAS - Saúde":
+              cd_certificado = 3;
+              break;
+            case "OSCIP":
+              cd_certificado = 4;
+              break;
+            case "CEBAS - Assistência Social":
+              cd_certificado = 6;
+              break;
           }
-          if($(this).attr("id").substring(18) === "municipal" && $(this).is(':visible')){
-            cd_certificado = 8;
-          }
+
           var item = {};
+          var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
+
           //item.dt_inicio_certificado = null;
-          item.dt_fim_certificado = $(this).val();
-          item.ft_certificado = 'Representante'//authHeader.User;
-          item.ft_inicio_certificado = 'Representante'//authHeader.User;
-          item.ft_fim_certificado = 'Representante'//authHeader.User;
+          item.bo_oficial = (fonte_dados == "Representante") ? false : true;
+          item.dt_fim_certificado = $(".data_validade_titulo_certificado",this).text().substring(18);
+          item.ft_certificado = fonte_dados//authHeader.User;
+          item.ft_inicio_certificado = fonte_dados//authHeader.User;
+          item.ft_fim_certificado = fonte_dados//authHeader.User;
           item.cd_certificado = cd_certificado;
           if(cd_certificado > 0){
             newJson.certificado.push(item);
           }
         });
+
         if(newJson.certificado.length > 0){
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
@@ -887,6 +911,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         else {
           console.log('Nenhum certificado novo a ser inserido');
         }
+
         // Relações de trabalho
 
         //Governanca

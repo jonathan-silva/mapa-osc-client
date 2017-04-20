@@ -108,12 +108,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
   var TitulosCertificacoesLinhaTabela = React.createClass({
     render: function() {
       var titleSpanFonte = "Informação preenchida pela Organização";
-      var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
+      var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={this.props.fonte}><img className="imgDadoEditavel" title={titleSpanFonte} src="img/dado_representante.png"></img></span>
       var botaoRemover = <button type="button" className="btn btn-danger" href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
       if(this.props.fonte != 'Representante' && this.props.fonte != null && this.props.fonte != false){
         botaoRemover = ""
         titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
-        SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
+        SpanFonte = <span className="fonte-de-dados dado-oficial" title={this.props.fonte}><img className="imgDadoOficial"  title={titleSpanFonte} src="img/base_dados.png"></img></span>
       }else if (this.props.fonte == false) {
           SpanFonte = "";
           botaoRemover = ""
@@ -122,12 +122,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return (
         <tr >
           <td>
-            <div className="input-box">
+            <div className="input-box tipo_titulo_certificado">
               {SpanFonte}
               {this.props.nome_titulo}
             </div>
           </td>
-          <td>{this.props.data_validade}</td>
+          <td className="data_validade_titulo_certificado">{this.props.data_validade}</td>
           <td>
             {botaoRemover}
           </td>
@@ -186,7 +186,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
 
       return (
         <div>
-          <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título/Certificado</button>
+          <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título</button>
           <br/>
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
@@ -224,6 +224,11 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       }
   });
 
+    //// Componente para renderizar a mensagem(feedback) pro usuário
+  function Mensagem(props) {
+    return <p className={"label "+ props.msg_class }>{props.msg}</p>
+  }
+
   //// Componente principal que renderiza todos os outros
   var TitulosCertificacoes = React.createClass({
     //Set estados iniciais
@@ -232,6 +237,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return {
         novoTitulo_Visivel : "hidden", //state botão "Inclui novo"
         listaTitulosCertificados  : this.props.dados, //lista com os certificados
+        msg  : "", //mensagem para exibir ao usuario
+        msg_class  : "" //mensagem para exibir ao usuario
       };
     },
 
@@ -244,27 +251,36 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     //handler do botão "Incluir novo Título" - toggle visibility
     toggle_form_novo_titulo: function(e) {
         this.setState( (this.state.novoTitulo_Visivel == "hidden") ? {novoTitulo_Visivel: ""} : {novoTitulo_Visivel: "hidden"} );
+        this.setState({ mgs: "", msg_class: ""});
     },
 
     exclui_titulo: function(id_item) {
       var lista_atual = this.state.listaTitulosCertificados;
       lista_atual.splice(id_item,1);
       $("#tabela_titulos_certificados").DataTable().destroy();
-      this.setState( {listaTitulosCertificados: lista_atual  });
+      this.setState( {listaTitulosCertificados: lista_atual,  msg: "Título excluído com sucesso.",  msg_class: "label-success" });
     },
 
     //handler do botão "Incluir" que inclui o novo título na lista e renderiza
     inclui_titulo: function(e) {
       var nova_lista_titulos = this.state.listaTitulosCertificados;
+      var data_titulo = document.getElementById('novo_titulo_certificacao_data').value;
+      var tipo_titulo = document.getElementById('idSelectTitulosCertificados').value;
       // push do novo título
-      nova_lista_titulos.push({   content: "Data de Validade: " + document.getElementById('novo_titulo_certificacao_data').value,
-                                  fonte:  "Representante",
-                                  label: document.getElementById('idSelectTitulosCertificados').value,
-                                  id: "NovoTitulo_" + Math.random()
-                              });
-      $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada
-      this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden"} ); // Set novos estados
-      this.limpa_campos(); // reset dos campos
+
+      if((data_titulo && tipo_titulo) && (tipo_titulo != -1)){
+        // Inclui na tabela os novos valores
+        nova_lista_titulos.push({   content: "Data de Validade: " + data_titulo,
+                                    fonte:  "Representante",
+                                    label: tipo_titulo ,
+                                    id: "NovoTitulo_" + Math.random()
+                                });
+        $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada
+        this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden", msg: "Novo Título incluído com sucesso", msg_class: "label-success"} ); // Set novos estados
+        this.limpa_campos(); // reset dos campos
+      }else{
+        this.setState( {msg: "Novo Título não incluído. Favor verificar os dados inseridos.",msg_class: "label-danger" });
+      }
     },
 
     // Carrega o datatable.js após renderização do componente tabela
@@ -289,9 +305,10 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
               visivel={this.state.novoTitulo_Visivel}
               toggle_exibe_novo_titulo={this.toggle_form_novo_titulo.bind(this)}
               inclui_novo_titulo={this.inclui_titulo.bind(this)}
-
             />
-            <br/><br/>
+            <br/>
+            <Mensagem msg={this.state.msg} msg_class={this.state.msg_class} />
+            <br/>
             <TitulosCertificacoesTabela
               dados_tabela={this.state.listaTitulosCertificados}
               exclui_titulo_lista={this.exclui_titulo.bind(this)} />
