@@ -11,9 +11,12 @@
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
-  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();">
+
+  <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();" class="conteudo_loading">
+
     <div id="barra-brasil"></div>
     <div id="header"></div>
+    <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
 
     <div id="conteudo" class="section">
       <div class="container">
@@ -74,7 +77,7 @@
             <a href="#projetos" name="projetos" class="scroll">Projetos</a>
           </li>
           <li>
-            <a href="#recursos" name="recursos" class="scroll">Fonte de recursos</a>
+            <a href="#recursos" name="recursos" class="scroll">Fontes de Recursos</a>
           </li>
           <li>
             <div class="btnRelatorioAtividade"><a class="btn btn-info btn-sm" id="btnRelatorioAtividade" type="button" title="Clique para gerar o Relatorio de Atividades" onclick="abrirModalRelatorio('Relatório de Atividades');" ><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Relatório de Atividades</a></div>
@@ -201,7 +204,7 @@
                 </div>
               </div>
               <div class="form-group"  ng-if="ctrl.osc.area_atuacao.area_atuacao == null">
-                <label>Área de atuação do projeto, atividade ou programa: </label>
+                <label>Área(s) de atuação da OSC: </label>
                 <span class="form-control-static">Não informado</span>
               </div>
             </div>
@@ -389,7 +392,7 @@
                       </div>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_periodicidade_reuniao}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_nome_periodicidade_reuniao_conselho_conselho}}</span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.dt_data_inicio_conselho}}</span>
@@ -551,7 +554,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Link</div>
+                        <div class="header ">Link para o projeto</div>
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
                             <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
@@ -582,7 +585,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Valor Captado</div>
+                        <div class="header ">Valor Recebido</div>
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
@@ -592,7 +595,7 @@
                       </div>
 
                       <div class="col-md-3 ">
-                        <div class="header ">Tipo da Fonte de Recursos</div>
+                        <div class="header ">Tipo da Fontes de Recursos</div>
                         <div class="form-group"  ng-repeat="fonte_recursos in proj.fonte_recursos">
                           <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span>
                           <span ng-if="(fonte_recursos.ft_fonte_recursos_projeto != 'Representante' && fonte_recursos.ft_fonte_recursos_projeto != null)" title="Informação oficial. {{fonte_recursos.ft_fonte_recursos_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
@@ -704,7 +707,7 @@
 
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
-                        <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="https://nacoesunidas.org/pos2015" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
+                        <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
                         <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
@@ -761,7 +764,7 @@
         <div class="row">
           <div class="col-md-12 " id="recursos">
             <div class="project-header ">
-              <h2>Fonte de recursos anual da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fonte de recursos anual da OSC." onclick="abrirModalAjuda('Fonte de recursos anual da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
+              <h2>Fontes de recursos anuais da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Fontes de recursos anuais da OSC." onclick="abrirModalAjuda('Fontes de recursos anuais da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             </div>
             <div class="panel-group" id="accordionRec"  role="tablist" aria-multiselectable="true" ng-repeat="rec in ctrl.osc.recursos.recursos">
               <div class="panel panel-default">

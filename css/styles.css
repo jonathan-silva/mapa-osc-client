@@ -180,8 +180,8 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   filter: opacity(80%);
 }
 .img-apoio img {
-  max-width: 180px;
-  max-height: 50px;
+  max-width: 2400px;
+  max-height: 120px;
   display: block;
   margin: auto;
 }
@@ -408,7 +408,7 @@ table.tablesaw thead td {
 .tablesaw td,
 .tablesaw tbody th {
   vertical-align: middle;
-  font-size: 1.17em;
+  font-size: 13px;
   /* 19px */
 }
 
@@ -817,7 +817,7 @@ body.indisponivel {
   padding-right: 10px;
 }
 
-.editar h2, .editar h3, .visualizar h2, .visualizar h3{
+.editar h2, .editar h3, .visualizar h2, .visualizar h3, .consultaAvancada h2, .consultaAvancada h3{
   color: #337cbb;
 }
 
@@ -954,7 +954,40 @@ select{
   font-weight: bold;
   font-size: larger;
   color: darkred;
+}
+.vis{
+  margin-bottom: 5px;
+}
+
+.selectboxit-container .selectboxit, .selectboxit-container .selectboxit-options {
+  width: 100%; /* Width of the dropdown button */
+  max-height:300px;
+}
+
+.selectboxit-options .selectboxit-option .selectboxit-option-anchor {
+  white-space: normal;
+  min-height: 30px;
+  height: auto;
+}
+
+.selectboxit-option a {
+  text-indent: 0px;
+}
+
+.selectboxit-container {
+    width: 100%;
   }
-  .vis{
-    margin-bottom: 5px;
+
+.conteudo_loading .section{
+    visibility: hidden;
   }
+.no_pad{
+  padding: 0px;
+}
+.slider-consulta{
+  font-size: 12px;
+  height: 23px;
+  border:0;
+  color:#f6931f;
+  font-weight:bold;
+}

@@ -43,7 +43,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var newJson = {};
 
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
-  'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery'],
+  'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','jquery','select-boxit'],
   function(FormItem, Cabecalho, Checkbox, Section, Agrupador, FormItemButtons, AgrupadorInputProjeto, AgrupadorConferencia, AgrupadorConselhos){
 
     var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
@@ -109,7 +109,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.FormaParticipacao());
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.FormaParticipacao());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
@@ -127,7 +127,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 changeYear: true,
                 showButtonPanel: true,
                 dateFormat: 'yy',
-                yearRange: '1900:2050',
+                yearRange: '1900:2017',
                 onClose: function(dateText, inst) {
                     var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
                     $(this).datepicker('setDate', new Date(year, 1));
@@ -139,6 +139,40 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 $('.ui-datepicker-prev').hide();
                 $('.ui-datepicker-next').hide();
             });
+
+            $("#tx_telefone input.form-control").focusout(function(event){
+                var target, tel, element;
+                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                tel = target.value.replace(/\D/g, '');
+                element = $(target);
+                element.unmask();
+                if(tel.length === 11) {
+                  if(tel[0] == 0){
+                       element.mask("9999 999 9999")
+   				        } else {
+                      element.mask("(99) 99999-9999");
+                  }
+                }
+                else if(tel.length === 10) {
+                      element.mask("(99) 9999-9999");
+                }
+                else if(tel.length === 9) {
+                      element.mask("(99) 999-9999");
+                }
+                else if(tel.length === 8) {
+                    element.mask("9999-9999");
+                }
+                else if(tel.length === 7) {
+                    element.mask("999-9999");
+                }
+            });
+            $("#tx_telefone input.form-control").focusin(function(event){
+                var target, element;
+                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
+                element = $(target);
+                element.unmask();
+            });
+
         });
 
         function readURL(input) {
@@ -169,6 +203,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('input[type=file]').eq(0).val("");
         });
 
+        $("#loading").hide();
+        $(".conteudo_loading .section").css('visibility', 'visible');
       }
     });
 
@@ -225,12 +261,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
       '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
       '</span>');
+
+      $("#table_lista_projetos tbody td").each(function() {
+        $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+      });
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         salvarProjetos();
         table_lista_projetos.row.add([
           "-1",
-          "Novo Projeto"
+          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'
         ]).draw();
         proj_id_generator = 0;
         verificarContraste();
@@ -268,6 +308,63 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $("#nr_total_beneficiarios").find('input').mask('00000000');
 
           $($('#'+divId).find("div")[0]).attr("id", id_projeto_externo);
+
+          $(".local button.btn-primary").click(function() {
+            localizacao($('#tx_nome_abrangencia_projeto').find(":selected").text());
+          });
+
+          $('#tx_nome_abrangencia_projeto').change(function() {
+            localizacao($(this).find(":selected").text());
+          });
+
+
+          function conta(){
+            var i = 0;
+            $(".osc_parceira input").each(function(){
+              i=i+1;
+            });
+            return i-1;
+          }
+
+          $(".osc_parceira button.btn-primary").click(function() {
+            osc_parceira(conta());
+          })
+
+          $('#osc_parceira').find('input').autocomplete({
+          source: function (request, response) {
+            var cnpj = ($(this)[0].term);
+            var nome_osc ='';
+            var id_osc='';
+            if (!validaCNPJ(cnpj)) {
+              $('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
+            }
+            else {
+              $.ajax({
+                  url: urlController,
+                  type: 'GET',
+                  dataType: "json",
+                  data: {
+                      flag: 'autocomplete',
+                      rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
+                  },
+                success: function(data) {
+                  if (data == null){
+                      $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
+                  }else{
+                    nome_osc = data[0].tx_nome_osc;
+                    id_osc = data[0].id_osc;
+                    $('#osc_parceira').find('input')[0].value = nome_osc;
+                    }
+                },
+                error: function(e) {
+                    response([]);
+                }
+            });
+          }
+        }
+      })
+
+
           if(proj){
             metasObjetivos(proj.projeto[0], id_projeto);
           } else {
@@ -529,6 +626,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         },
         success: function(data){
           montarObjetivos(data, cd_objetivo);
+          $("#objetivos select").selectBoxIt({
+             theme: "default",
+             defaultText: "Selecione abaixo...",
+             autoWidth: false
+           });
         }
       });
 
@@ -539,7 +641,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosMetasProjeto.append('<div id="objetivos" class="objetivos"></div>');
 
       $divObjetivosProjeto = $divObjetivosMetasProjeto.find('#objetivos');
-      $divObjetivosProjeto.append('<div class="header">Objetivos do Desenvolvimento Sustentável - ODS - <a href=https://nacoesunidas.org/pos2015 target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjeto.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
       $divObjetivosProjeto.append('<div class="form-group"><div id="objetivos"><select class="form-control"></select></div></div>');
       $divObjetivosMetasProjeto.append('<div id="metas-'+id+'" class="metas"></div>');
 
@@ -931,6 +1033,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+        var lperiodicidadeReuniao =[];
+        $.ajax({
+          url: urlController,
+          type: 'GET',
+          async: false,
+          dataType: 'json',
+          data:{flag: "consulta", rota: rotas.PeriodicidadeReuniao()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            lperiodicidadeReuniao = data;
+          }
+        });
+
         var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
@@ -959,6 +1077,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
            }
 
+           for (var i=0;i<lperiodicidadeReuniao.length;i++){
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
+             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
+             break;
+            }
+           }
+
            if(campo === "tx_nome_representante_conselho"){
              obj.representante.push(
                {
@@ -967,7 +1092,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              );
            } else {
              obj.conselho.cd_conselho = conselho_id;
-             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") ) {
+             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
                obj.conselho[campo] = $(this).val();
              }
            }
@@ -986,6 +1111,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            for (var i=0;i<lforma.length;i++){
            if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
              obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
+             break;
+            }
+           }
+
+           for (var i=0;i<lperiodicidadeReuniao.length;i++){
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
+             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
              break;
             }
            }
@@ -1135,6 +1267,142 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
 
     });
+
+    function replaceSpecialChars(str){
+      str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+      str = str.replace(/[àáâãäå]/g,"a");
+      str = str.replace(/[ÉÈÊË]/g,"E");
+      str = str.replace(/[éèêë]/g,"e");
+      str = str.replace(/[ÍÌÎÏ]/g,"I");
+      str = str.replace(/[íìîï]/g,"i");
+      str = str.replace(/[ÓÒÔÕ]/g,"O");
+      str = str.replace(/[óòôõ]/g,"o");
+      str = str.replace(/[ÚÙÛÜ]/g,"U");
+      str = str.replace(/[úùûü]/g,"u");
+      str = str.replace(/[Ç]/g,"C");
+      str = str.replace(/[ç]/g,"c");
+      return str;
+    }
+
+    function localizacao(abrangencia){
+      var routes="";
+      var abrang=abrangencia.toLowerCase();
+      var limiteAutocomplete = 10;
+      var limiteAutocompleteCidade = 25;
+
+        $("#localizacao_projeto .form-control").autocomplete({
+          minLength: 3,
+          source: function (request, response) {
+            if ((abrang == 'estadual') || (abrang == 'municipal')){
+              routes = rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade);
+            }
+            else if ((abrang == 'regional')|| (abrang == 'nacional')){
+              routes = rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
+            }
+            if ( routes != "" ) {
+             $.ajax({
+                 url: urlController,//4204251
+                 type: 'GET',
+                 dataType: "json",
+                 data: {flag: 'autocomplete', rota: routes },
+                 success: function (data) {
+                   response($.map( data, function( item ) {
+                      if ((abrang == 'estadual') || (abrang == 'municipal')) {
+                       return {
+                          label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                          value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                          id: item.edmu_cd_municipio
+                      };
+                    }
+                    else if ((abrang == 'regional') || (abrang == 'nacional')){
+                      return {
+                          label: item.eduf_nm_uf,
+                          value: item.eduf_nm_uf,
+                          id: item.eduf_cd_uf
+                      };
+                    }
+                  }));
+                 },
+                 error: function (e) {
+                     response([]);
+                 }
+             });
+           }
+         }
+       });
+   }
+
+   function validaCNPJ(cnpj) {
+     cnpj = cnpj.toString().replace(/[^\d]+/g,"");
+     if((cnpj == '')|| (cnpj.length != 14)) return false;
+
+     // Valida DVs
+     tamanho = cnpj.length - 2
+     numeros = cnpj.substring(0,tamanho);
+     digitos = cnpj.substring(tamanho);
+     soma = 0;
+     pos = tamanho - 7;
+     for (i = tamanho; i >= 1; i--) {
+       soma += numeros.charAt(tamanho - i) * pos--;
+       if (pos < 2)
+             pos = 9;
+     }
+     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+     if (resultado != digitos.charAt(0))
+         return false;
+
+     tamanho = tamanho + 1;
+     numeros = cnpj.substring(0,tamanho);
+     soma = 0;
+     pos = tamanho - 7;
+     for (i = tamanho; i >= 1; i--) {
+       soma += numeros.charAt(tamanho - i) * pos--;
+       if (pos < 2)
+             pos = 9;
+     }
+     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+     if (resultado != digitos.charAt(1))
+           return false;
+
+     return true;
+   }
+
+   function osc_parceira(i){
+       /*var cnpj_osc = '';//$('#osc_parceira').val();*/
+       var nome_osc ='';
+       var id_osc='';
+       $('#osc_parceira').find('input').autocomplete({
+       source: function (request, response) {
+         var cnpj = ($(this)[0].term);
+         if (!validaCNPJ(cnpj)) {
+           $('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
+         }
+         else {
+           $.ajax({
+               url: urlController,
+               type: 'GET',
+               dataType: "json",
+               data: {
+                   flag: 'autocomplete',
+                   rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
+               },
+             success: function(data) {
+               if (data == null){
+                   $('#osc_parceira').find('input')[i].value = "Entidade não cadastrada! ";
+               }else{
+                 nome_osc = data[0].tx_nome_osc;
+                 id_osc = data[0].id_osc;
+                 $('#osc_parceira').find('input')[i].value = nome_osc;                 
+               }
+             },
+             error: function(e) {
+                 response([]);
+             }
+         });
+       }
+     }
+   })
+ }
 
     function salvarProjetos(){
       //console.log($(".projeto"));

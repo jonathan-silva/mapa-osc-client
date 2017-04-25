@@ -60,7 +60,7 @@ require(['react', 'jsx!components/Util'], function (React) {
                 "• Atualização do conteúdo do FAQ",
                 "• Atualização do conteúdo da página da versão",
                 "• Atualização do conteúdo do texto informativo de cadastro de representante de OSC",
-                "• Atualização do campo de fonte de recursos da página da OSC",
+                "• Atualização do campo de fontes de recursos da página da OSC",
                 "• Atualização dos dados de repasses da Finep no menu lateral e na página da OSC",
                 "• Atualização do serviço de dados do Siconv",
                 "• Atualização das marcas do Governo Federal e da Secretaria de Governo"

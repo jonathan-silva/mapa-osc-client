@@ -166,7 +166,7 @@ define(['react','rotas'], function(React) {
               };
 
               var rotas = new Rotas();
-              var urlController = 'js/controller.php';             
+              var urlController = 'js/controller.php';
               jQuery("#labelError").text(""); // Limpar dados
               $.ajax({
               url: urlController,
@@ -281,7 +281,7 @@ define(['react','rotas'], function(React) {
                 </form>
               </div>
               <div className="modal-footer">
-                <a type="submit" className="btn btn-success" onClick={this.getComponent.bind(this, 6)}><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> Entrar</a>
+                <a type="submit" className="btn btn-success" id="btn-logar-modal" onClick={this.getComponent.bind(this, 6)}><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> Entrar</a>
                 <a className="btn btn-danger" data-dismiss="modal"><span className="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</a>
                 <a type="button" className="btn btn-link" href="recuperar-senha.html">Esqueci a senha</a>
               </div>

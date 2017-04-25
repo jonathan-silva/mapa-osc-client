@@ -136,6 +136,9 @@ class Rotas{
   OutraParticipacaoSocial(id){
     return this.getBaseUrl()+":8383/api/osc/participacaosocialoutra/"+id;
   }
+  PeriodicidadeReuniao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/periodicidade_reuniao/";
+  }
   Conselho(){
     return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
   }

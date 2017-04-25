@@ -20,7 +20,7 @@ class Projeto {
     var headerProjeto = {
       "id": "lista_projetos",
       "priority": "2",
-      "text": "Projetos, atividade e programas"
+      "text": "Projetos, atividades e programas - PAP"
     };
     arraySecaoProjeto.push(headerProjeto);
 
@@ -78,7 +78,7 @@ class Projeto {
       }
     }
     if (!(project.hasOwnProperty("fonte_de_recursos"))){
-      console.log("teste")
+      //console.log("teste")
     }
     /* Area de atuacao de projeto temporariamente escondida
     if (!(project.hasOwnProperty("area_atuacao"))){
@@ -123,7 +123,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [
-       fonte, localizacao, publicoBeneficiado, financiadores
+       fonte, localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);
 
@@ -156,6 +156,7 @@ class Projeto {
         },
         success: function(data){
           res.projeto = data;
+          console.log(data);
         }
       });
       agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);

@@ -128,7 +128,7 @@ class DataForms{
         },
         {
           "id": "macro_area_1",
-          "label": "Macro Área 1",
+          "label": "Área de atuação",
           "content": null,
           "fonte": null,
           "placeholder": "Selecione a área de atuação da OSC",
@@ -157,7 +157,7 @@ class DataForms{
         },
         {
           "id": "macro_area_2",
-          "label": "Macro Área 2",
+          "label": "Área de atuação",
           "content": null,
           "fonte": null,
           "placeholder": "Selecione uma segunda área de atuação da OSC, se houver.",
@@ -291,13 +291,13 @@ class DataForms{
   modalAjuda(){
     var modalAjuda = {
     	"dados_gerais":{"Dados Gerais":"Os campos abaixo trazem informações mais gerais sobre a OSC. Essas informações podem ser preenchidas ou editadas pelo(a) representante da OSC cadastrado(a) no Mapa, com a exceção do endereço, que é informação oficial proveniente da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho."},
-     	"areas_de_atuacao":{"Áreas e Subáreas de Atuação da OSC":"A seção informa, em primeiro lugar, a atividade econômica da OSC proveniente da declaração da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho. Informações adicionais acerca de outras áreas e subáreas de atuação da organização podem ser adicionadas pelo representante da OSC."},
-     	"certificacoes":{"Descrição da OSC":"Aqui a OSC pode contar um pouco de sua história, identificar a sua missão e visão (quando houver) e finalidades (previstas no seu estatuto). Os campos podem ser preenchidos pelo(a) representante da OSC cadastrado(a) no Mapa."},
+     	"areas_de_atuacao":{"Áreas e Subáreas de Atuação da OSC":"A seção informa, em primeiro lugar, a atividade econômica da OSC proveniente da Classificação Nacional de Atividades Econômicas – CNAE, disponível na declaração da base RAIS do Ministério do Trabalho e Emprego. Informações adicionais acerca de outras áreas e subáreas de atuação da organização podem ser adicionadas pelo representante da OSC. Defina-as com zelo, pois estes campos podem para os usuários buscarem informações de OSCs, por áreas temáticas de atuação."},
+     	"certificacoes":{"Descrição da OSC":"Nesta seção a OSC pode contar um pouco de sua história, identificar a sua missão e visão (quando houver) e finalidades previstas em seu estatuto. A intenção é permitir à organização se mostrar aos cidadãos e indicar a razão de sua existência."},
      	"titulosCertificacoes":{"Títulos e Certificações":"Essa seção indica os títulos (Utilidade pública estadual ou municipal), qualificações (OSCIP) e certificações (CEBAS) concedidos pelo Poder Público à OSC.<br><br>Para saber mais sobre cada um dos títulos ou certificações, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
-     	"relacoesTrabalho":{"Relações de Trabalho e Governança":"Aqui o(a) representante da OSC pode indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da sua organização, além de preencher o número de trabalhadores voluntários da entidade. Isso garante transparência para quem busca informações sobre a OSC. Os campos relativos ao número de empregados formais provêm das informações lançadas na RAIS/MTE."},
-     	"espacos":{"Espaços de Participação Social":"Nesse espaço, o(a) representante da OSC pode indicar a participação em espaços colegiados com o Poder Público (conselhos de políticas públicas), as oportunidades que teve de integrar espaços que traçaram diretrizes de políticas (conferências de políticas públicas), bem como outros espaços de participação compartilhados com o Poder Público ou autoorganizados pela própria sociedade civil (fóruns, redes etc.).<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
-     	"projetos":{"Projetos, atividade e programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
-     	"fontes":{"Fonte de recursos anual da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."}
+     	"relacoesTrabalho":{"Relações de Trabalho e Governança":"Nesta seção você deve indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da organização e, se houver, indicar quantos são os trabalhadores voluntários atuando nela. Os campos relativos ao número de empregados formais provêm das informações da declaração da RAIS, do Ministério do Trabalho e Emprego."},
+     	"espacos":{"Espaços de Participação Social":"Você deve indicar aqui a participação em espaços colegiados com o poder público ou auto organizados pela própria sociedade civil (fóruns, redes etc.). Quanto mais detalhado for, mas será possível saber sobre a importância das instituições participativas no país.<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
+     	"projetos":{"Projetos, atividades e programas - PAP":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>."},
+     	"fontes":{"Fontes de recursos anuais da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."}
     };
 
     return modalAjuda;
@@ -306,13 +306,13 @@ class DataForms{
   jsonModalAjuda(){
     return {
       "Dados Gerais":"Os campos abaixo trazem informações mais gerais sobre a OSC. Essas informações podem ser preenchidas ou editadas pelo(a) representante da OSC cadastrado(a) no Mapa, com a exceção do endereço, que é informação oficial proveniente da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho.",
-      "Áreas e Subáreas de Atuação da OSC":"A seção informa, em primeiro lugar, a atividade econômica da OSC proveniente da declaração da RAIS (Relação Anual de Informações Sociais) do Ministério do Trabalho. Informações adicionais acerca de outras áreas e subáreas de atuação da organização podem ser adicionadas pelo representante da OSC.",
-      "Descrição da OSC":"Aqui a OSC pode contar um pouco de sua história, identificar a sua missão e visão (quando houver) e finalidades (previstas no seu estatuto). Os campos podem ser preenchidos pelo(a) representante da OSC cadastrado(a) no Mapa.",
+      "Áreas e Subáreas de Atuação da OSC":"A seção informa, em primeiro lugar, a atividade econômica da OSC proveniente da Classificação Nacional de Atividades Econômicas – CNAE, disponível na declaração da base RAIS do Ministério do Trabalho e Emprego. Informações adicionais acerca de outras áreas e subáreas de atuação da organização podem ser adicionadas pelo representante da OSC. Defina-as com zelo, pois estes campos podem para os usuários buscarem informações de OSCs, por áreas temáticas de atuação.",
+      "Descrição da OSC":"Nesta seção a OSC pode contar um pouco de sua história, identificar a sua missão e visão (quando houver) e finalidades previstas em seu estatuto. A intenção é permitir à organização se mostrar aos cidadãos e indicar a razão de sua existência.",
       "Títulos e Certificações":"Essa seção indica os títulos (Utilidade pública estadual ou municipal), qualificações (OSCIP) e certificações (CEBAS) concedidos pelo Poder Público à OSC.<br><br>Para saber mais sobre cada um dos títulos ou certificações, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
-      "Relações de Trabalho e Governança":"Aqui o(a) representante da OSC pode indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da sua organização, além de preencher o número de trabalhadores voluntários da entidade. Isso garante transparência para quem busca informações sobre a OSC. Os campos relativos ao número de empregados formais provêm das informações lançadas na RAIS/MTE.",
-      "Espaços de Participação Social":"Nesse espaço, o(a) representante da OSC pode indicar a participação em espaços colegiados com o Poder Público (conselhos de políticas públicas), as oportunidades que teve de integrar espaços que traçaram diretrizes de políticas (conferências de políticas públicas), bem como outros espaços de participação compartilhados com o Poder Público ou autoorganizados pela própria sociedade civil (fóruns, redes etc.).<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
-      "Projetos, atividade e programas":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
-      "Fonte de recursos anual da OSC":"Essa seção informa o somatório de todos os recursos por fonte autodeclarados pela OSC ano a ano."
+      "Relações de Trabalho e Governança":"Nesta seção você deve indicar nominalmente quem compõe o quadro de dirigentes e de conselheiros da organização e, se houver, indicar quantos são os trabalhadores voluntários atuando nela. Os campos relativos ao número de empregados formais provêm das informações da declaração da RAIS, do Ministério do Trabalho e Emprego.",
+      "Espaços de Participação Social":"Você deve indicar aqui a participação em espaços colegiados com o poder público ou auto organizados pela própria sociedade civil (fóruns, redes etc.). Quanto mais detalhado for, mas será possível saber sobre a importância das instituições participativas no país.<br><br>Para saber mais sobre cada um dos espaços de participação social, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+      "Projetos, atividades e programas - PAP":"Nesse espaço, o(a) representante da OSC pode trazer com riqueza de informações os trabalhos que a organização desenvolve (em projetos, atividades ou programas), especificando suas fontes de recursos, público envolvido, dentre outras informações. Aqui constarão também as informações oficiais de parcerias celebradas com o Poder Público, em respeito à Lei de Acesso à Informação.<br><br>Para saber mais sobre os termos referentes a parcerias e fontes de recursos das OSCs, visite o nosso <a href='glossario.html' class='' target='_blank' title='Link para glossário' >Glossário</a>.",
+      "Fontes de recursos anuais da OSC":"Você deve informar cada uma das fontes de recurso da OSCs ao longo do ano. Quando mais detalhado, mais transparente será a organização."
     };
   }
 
@@ -413,7 +413,7 @@ class DataForms{
         {
           "id": "trabalhadores",
           "label": "Total de trabalhadores",
-          "content": relacoes_trabalho.nr_trabalhadores,
+          "content": relacoes_trabalho.nr_trabalhadores ? relacoes_trabalho.nr_trabalhadores :  "Não constam informações nas bases de dados do Mapa.",
           "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "p"
@@ -421,7 +421,7 @@ class DataForms{
         {
           "id": "empregados",
           "label": "Empregados",
-          "content": relacoes_trabalho.nr_trabalhadores_vinculo,
+          "content": relacoes_trabalho.nr_trabalhadores_vinculo ? relacoes_trabalho.nr_trabalhadores_vinculo : "Não constam informações nas bases de dados do Mapa.",
           "fonte": relacoes_trabalho.ft_trabalhadores_vinculo,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "p"
@@ -543,7 +543,7 @@ class DataForms{
         {
             "id": "recursos_geral",
             "priority": "2",
-            "text": "Fonte de recursos anual da OSC"
+            "text": "Fontes de recursos anuais da OSC"
         },
         {
             "id": "recursos_proprios",
@@ -779,7 +779,7 @@ class DataForms{
         "placeholder": "Insira o data de fim do projeto"
       },
       "tx_link_projeto": {
-        "header": "Link",
+        "header": "Link para o projeto",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
@@ -803,15 +803,15 @@ class DataForms{
         "placeholder": "Insira o valor total do projeto"
       },
       "nr_valor_captado_projeto": {
-        "header": "Valor Captado",
+        "header": "Valor Recebido",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o valor captado do projeto"
+        "placeholder": "Insira o valor recebido do projeto"
       },
       "fonte_recursos": {
-        "header": "Fonte de Recursos",
+        "header": "Fontes de Recursos",
         "containerClass": "col-md-4",
         "removable": false,
         "type": "select",
@@ -820,7 +820,7 @@ class DataForms{
         ]
       },
       "fonte_de_recursos_publico": {
-        "header": "Fonte de Recursos Públicos",
+        "header": "Fontes de Recursos Públicos",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
@@ -868,7 +868,7 @@ class DataForms{
       },
       "localizacao_projeto": {
         "header": "Local de execução",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-4 local",
         "removable": true,
         "type": "text",
         "options": null,
@@ -876,7 +876,7 @@ class DataForms{
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
-        "containerClass": "col-md-6",
+        "containerClass": "col-md-6 osc_parceira",
         "removable": true,
         "type": "text",
         "options": null
@@ -890,24 +890,24 @@ class DataForms{
           "Rural", "Urbana"
         ]
       },
-      "tx_metodologia_monitoramento": {
-        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
-        "containerClass": "col-md-12",
-        "removable": false,
-        "type": "textarea",
-        "options": null,
-        "placeholder": "Insira a metodologia de monitoramento do projeto"
-      },
       "tx_descricao_projeto": {
         "header": "Descrição do Projeto, atividade e/ou programa",
         "containerClass": "col-md-12",
         "removable": false,
         "type": "textarea",
         "options": null,
-        "placeholder": "Insira a descrição do projeto"
+        "placeholder": "Descreva aqui qual sobre o que trata e qual o objetivo do projeto, atividade ou programa."
+      },
+      "tx_metodologia_monitoramento": {
+        "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
+        "containerClass": "col-md-12",
+        "removable": false,
+        "type": "textarea",
+        "options": null,
+        "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
       },
       "objetivos": {
-        "header": "Objetivos do Desenvolvimento Sustentável - ODS",//Objetivos do Desenvolvimento Sustentável - ODS - https://nacoesunidas.org/pos2015 (link externo)
+        "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
         "removable": false,
         "type": "select",
@@ -946,10 +946,10 @@ class DataForms{
       "ft_valor_total_projeto": "Usuário",
       "nr_valor_captado_projeto": null,
       "ft_valor_captado_projeto": "Usuário",
-      "tx_metodologia_monitoramento": null,
-      "ft_metodologia_monitoramento": "Usuário",
       "tx_descricao_projeto": null,
       "ft_descricao_projeto": "Usuário",
+      "tx_metodologia_monitoramento": null,
+      "ft_metodologia_monitoramento": "Usuário",
       "cd_abrangencia_projeto": null,
       "tx_nome_abrangencia_projeto": null,
       "ft_abrangencia_projeto": "Usuário",

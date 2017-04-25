@@ -17,8 +17,15 @@
   $isCacheEnabled = false;
 
   if($flag!='' && $rota!=''){
+			$contextOptionsSSL = array(
+				'ssl' =>array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+				),
+			);
+			
             if($flag == 'autocomplete'){
-                  $dadosJSON = file_get_contents($rota);
+                  $dadosJSON = file_get_contents($rota, FILE_TEXT, stream_context_create($contextOptionsSSL));
                   print_r($dadosJSON);
             }else{
                   switch ($flag) {
@@ -31,61 +38,77 @@
                                   if($valor!=""){
                                         print_r($valor);
                                   }else{
-                                        $dadosJSON = file_get_contents($rota);//"mockDadosGeograficos.php");
+                                        $dadosJSON = file_get_contents($rota, FILE_TEXT, stream_context_create($contextOptionsSSL));//"mockDadosGeograficos.php");
                                         $cache->setCoordenadas($chave, $dadosJSON);
                                         print_r($dadosJSON);
                                   }
                             }else{
-                                  $dadosJSON = file_get_contents($rota);
+                                  $dadosJSON = file_get_contents($rota, FILE_TEXT, stream_context_create($contextOptionsSSL));
                                   print_r($dadosJSON);
                             };
                             break;
                       case "login":
                             $parametros = isset($_POST['parametros']) ? $_POST['parametros'] : ''; // JSON DE PARAMETROS
                             $opts = array(
-                                 'http' => array(
-                                      'method'  => 'POST',
-                                      'header'=> "Content-Type: application/json\r\n",
-                                      'content' => json_encode($parametros)
-                              ));
+								'http' => array(
+									'method'  => 'POST',
+									'header'=> "Content-Type: application/json\r\n",
+									'content' => json_encode($parametros)
+								),
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
+							);
 
                             $context  = stream_context_create($opts);
-                            $result = file_get_contents($rota, null, $context);
-                            //print_r('$result');
+                            $result = file_get_contents($rota, FILE_TEXT, $context);
                             print_r($result);
                             break;
                       case "consultaPost":
                             $parametros = isset($_POST['parametros']) ? $_POST['parametros'] : ''; // JSON DE PARAMETROS
                             $authorization = isset($_POST['authorization']) ? $_POST['authorization'] : ''; //CHAVE DO USUARIO LOGADO
                             $opts = array(
-                                 'http' => array(
-                                      'method'  => 'POST',
-                                      'header'=> array("Content-Type: application/json",
-                                            "Authorization: $authorization" ,
-                                            "User: $user"),
-                                      'content' => json_encode($parametros) . " \r\n"
-                              ));
+								'http' => array(
+									'method'  => 'POST',
+									'header'=> array(
+										"Content-Type: application/json",
+										"Authorization: $authorization" ,
+										"User: $user"
+									),
+									'content' => json_encode($parametros) . " \r\n"
+								),
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
+							);
 
                             $context  = stream_context_create($opts);
-                            $result = file_get_contents($rota, null, $context);
-                            //print_r('$result');
+                            $result = file_get_contents($rota, FILE_TEXT, $context);
                             print_r($result);
                             break;
                       case "validaUsuario":
                             $parametros = isset($_GET['parametros']) ? $_GET['parametros'] : ''; // JSON DE PARAMETROS
                             $authorization = isset($_GET['authorization']) ? $_GET['authorization'] : ''; //CHAVE DO USUARIO LOGADO
-                            $opts = array(
-                                 'http' => array(
-                                      'method'  => 'GET',
-                                      'header'=> array("Content-Type: application/json",
-                                            "Authorization: $authorization" ,
-                                            "User: $user"),
-                                      'content' => json_encode($parametros) . " \r\n"
-                              ));
+							$opts = array(
+								'http' => array(
+									'method'  => 'GET',
+									'header'=> array(
+										"Content-Type: application/json",
+										"Authorization: $authorization" ,
+										"User: $user"
+									),
+									'content' => json_encode($parametros) . " \r\n"
+								),
+								'ssl' => array(
+									'verify_peer' => false,
+									'verify_peer_name' => false,
+								)
+							);
 
                             $context  = stream_context_create($opts);
-                            $result = file_get_contents($rota, null, $context);
-                            //print_r('$result');
+                            $result = file_get_contents($rota, FILE_TEXT, $context);
                             print_r($result);
                             break;
                       default:

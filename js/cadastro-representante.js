@@ -17,8 +17,6 @@ require(["jquery-ui"], function(React) {
 });
 
 require(['react', 'jsx!components/Util'], function(React) {
-
-
     require(['componenteFormItem'], function(FormItem) {
         function FormItens(id, label, type, obrigatorio) {
             this.id = id;
@@ -26,18 +24,6 @@ require(['react', 'jsx!components/Util'], function(React) {
             this.type = type;
             this.obrigatorio = obrigatorio;
             this.fonte = false;
-        }
-        //formulario 1
-        var hd = 'Verifique se a organização já está cadastrada no Mapa, informando o CNPJ.';
-        var id = ['nomeEntidade'];
-        var label = ['CNPJ da Entidade'];
-        var type = ['text'];
-        var obrigatorio = [true];
-
-        var formItens = [];
-
-        for (var i = 0; i < id.length; i++) {
-            formItens.push(new FormItens(id[i], label[i], type[i], obrigatorio[i]));
         }
 
         //formulario 2
@@ -54,10 +40,6 @@ require(['react', 'jsx!components/Util'], function(React) {
 
         FormItem = React.createFactory(FormItem);
         ReactDOM.render(FormItem({
-            header: hd,
-            dados: formItens
-        }), document.getElementById("form-org"));
-        ReactDOM.render(FormItem({
             header: hd2,
             dados: formItens2
         }), document.getElementById("form-dados"));
@@ -69,6 +51,7 @@ require(['react', 'jsx!components/Util'], function(React) {
     require(["jquery-ui", "rotas"], function(React) {
 
         var $id_osc = '';
+        var $cnpj_osc = '';
         var rotas = new Rotas();
         var $modal = $('#modalMensagem');
         var limiteAutocomplete = 10;
@@ -76,57 +59,49 @@ require(['react', 'jsx!components/Util'], function(React) {
         var controller = "js/controller.php";
 
 
-        $("#nomeEntidade.form-control").autocomplete({
-            minLength: 14,
-            source: function(request, response) {
-                $.ajax({
-                    url: controller,
-                    type: 'GET',
-                    dataType: "json",
-                    data: {
-                        flag: 'autocomplete',
-                        rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)
-                    },
-                    success: function(data) {
-                      if (data == null){
-                          $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
-                          jQuery("#modalTitle").text("Erro");
-                          jQuery("#modalConteudo").text('');
-                          jQuery("#modalConteudo").text("Entidade não existe! ");
-                          $modal.modal('show');
-                      }else{
-                        $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-                      }
-                      response($.map(data, function(item) {
-                          return {
-                              label: item.tx_nome_osc,
-                              value: item.tx_nome_osc,
-                              id:    item.id_osc
-                          };
-                      }));
-                    },
-                    error: function(e) {
-                        response([]);
+        $("#cnpj.form-control").blur(function(event, ui) {
+          $cnpj_osc = $('#cnpj').val();
+          if (!validaCNPJ($cnpj_osc)) {
+            jQuery("#modalTitle").text("Erro");
+            jQuery("#modalConteudo").text('');
+            jQuery("#modalConteudo").text("Valor de CNPJ inválido!");
+            $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+            $('#entidadeLabel').addClass('hide');
+            jQuery("#entidadeLabel").text('');
+            $modal.modal('show');
+          }else{
+              $.ajax({
+                  url: controller,
+                  type: 'GET',
+                  dataType: "json",
+                  data: {
+                      flag: 'autocomplete',
+                      rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars($cnpj_osc).replace(/ /g, '+'), limiteAutocomplete)
+                  },
+                  success: function(data) {
+                    if (data == null){
+                        $('#entidadeLabel').addClass('hide');
+                        jQuery("#entidadeLabel").text('');
+                        $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+                        $id_osc = '';
+                        $cnpj_osc = '';
+                        jQuery("#modalTitle").text("Erro");
+                        jQuery("#modalConteudo").text('');
+                        jQuery("#modalConteudo").text("Entidade não cadastrada! ");
+                        $modal.modal('show');
+                    }else{
+                       jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
+                       $('#entidadeLabel').removeClass('hide');
+                       $id_osc = data[0].id_osc;
+                       $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');
                     }
-                });
-            },
-            select: function(event, ui) {
-                $id_osc = ui.item.id;
-            }
+                  },
+                  error: function(e) {
+                      response([]);
+                  }
+              });
+          }//fim else
         });
-
-
-        /*
-        $("#nomeEntidade.form-control").blur(function(event, ui) {
-            var nomeEntidade = this.value;
-            if (nomeEntidade) {
-                $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-            } else {
-                $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
-            }
-        });
-        */
-
 
         $("#nome.form-control").blur(function(event, ui) {
             var nome = this.value;
@@ -180,6 +155,8 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
         });
 
+
+
         //inicio btn.btn-success.click
         var div = $(".form-group");
         div.find(".btn.btn-success").on("click", function() {
@@ -191,7 +168,6 @@ require(['react', 'jsx!components/Util'], function(React) {
             } else {
                 jQuery("#labelCaptcha").text("");
             }
-
 
             var nome = $('#nome').val();
             var email = $('#email').val();
@@ -210,10 +186,13 @@ require(['react', 'jsx!components/Util'], function(React) {
                 var newsletter = false;
             }
 
-            if (!isNaN($id_osc)) {
-                $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
-            } else {
-                $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            if ((!validaCNPJ($cnpj_osc))||(isNaN($id_osc))) {
+                $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+                jQuery("#modalTitle").text("Erro");
+                jQuery("#modalConteudo").text('');
+                jQuery("#modalConteudo").text("Entidade não existe!");
+                $modal.modal('show');
+                return false;
             };
 
             if (!validaNome(nome)) {
@@ -301,7 +280,7 @@ require(['react', 'jsx!components/Util'], function(React) {
             }); //final ajax
         });
         //final  btn.btn-success.click
-    });
+    }); //final require
 });
 
 
@@ -331,6 +310,41 @@ function validaEmail(email) {
     } else {
         return false;
     }
+}
+
+function validaCNPJ(cnpj) {
+  cnpj = cnpj.toString().replace(/[^\d]+/g,"");
+  if((cnpj == '')|| (cnpj.length != 14)) return false;
+
+  // Valida DVs
+  tamanho = cnpj.length - 2
+  numeros = cnpj.substring(0,tamanho);
+  digitos = cnpj.substring(tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  for (i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
+    if (pos < 2)
+          pos = 9;
+  }
+  resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+  if (resultado != digitos.charAt(0))
+      return false;
+
+  tamanho = tamanho + 1;
+  numeros = cnpj.substring(0,tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  for (i = tamanho; i >= 1; i--) {
+    soma += numeros.charAt(tamanho - i) * pos--;
+    if (pos < 2)
+          pos = 9;
+  }
+  resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+  if (resultado != digitos.charAt(1))
+        return false;
+
+  return true;
 }
 
 function validaCPF(cpf) {
