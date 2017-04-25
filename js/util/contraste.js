@@ -185,4 +185,8 @@ function deslogar(){
   return true;
 }
 
+function ativaEnterModalLogin(){
+    $('#senhaLogin').keypress(function(e) { if(e.keyCode == 13) { $('a#btn-logar-modal')[0].click(); } } );
+}
+
 verificarContraste();
