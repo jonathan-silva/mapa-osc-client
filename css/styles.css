@@ -991,3 +991,15 @@ select{
   color:#f6931f;
   font-weight:bold;
 }
+.min{
+  border: 1px solid #cccccc;
+}
+.max{
+  border: 1px solid #cccccc;
+}
+.de_ate{
+  font-size: x-small;
+}
+.flex{
+  display: flex;
+}

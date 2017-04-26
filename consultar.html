@@ -51,30 +51,34 @@
                     <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
                   </div>
                   <div class="form-group col-xs-6">
-                    <label class="control-label" for="ano">Ano de Fundação:</label>
-                    <input class="form-control slider-consulta" id="anoFundacao" type="text" readonly>
-                    <div id="slider-range-anoFundacao"></div>
-                  </div>
-                  <div class="form-group col-xs-6">
                     <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
                     <input class="form-control" id="naturezaJuridica" placeholder="Natureza Jurídica" type="text">
                   </div>
-                  <div class="form-group col-xs-6">
+
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
-                    <input class="form-control" id="situacaoImovel" type="text" placeholder="Situação do Imóvel">
+                    <select class="form-control" id="situacaoImovel">
+                      <option value="">Selecione o assunto</option>
+                    </select>
                   </div>
-                  <div class="form-group col-xs-6">
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="estado">Estado:</label>
                     <select class="form-control" id="estado">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6">
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="municipio">Município:</label>
                     <select class="form-control" id="municipio">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="ano">Ano de Fundação:</label>
+                    <input class="form-control slider-consulta" id="anoFundacao" type="text" readonly>
+                    <div id="slider-range-anoFundacao"></div>
+                  </div>
+
                 </div>
 
                 <div class="row">
@@ -100,15 +104,15 @@
                 <div class="row">
                   <hr>
                   <h3>Relações de Trabalho e Governança</h3>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="nomeDirigente">Nome do Dirigente:</label>
                     <input class="form-control" id="nomeDirigente" placeholder="Insira o nome do dirigente" type="text">
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="cargoDirigente">Cargo do Dirigente:</label>
                     <input class="form-control" id="cargoDirigente" placeholder="Insira o cargo do drigente" type="text">
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="nomeMembroConselhoFiscal">Nome do Membro do Conselho Fiscal:</label>
                     <input class="form-control" id="nomeMembroConselhoFiscal" placeholder="Insira o nome do conselheiro fiscal" type="text">
                   </div>
@@ -139,50 +143,53 @@
                 <div class="row">
                   <hr>
                   <h3>Espaços de Participação Social</h3>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-6">
                     <label class="control-label" for="nomeConselho" >Nome do Conselho:</label>
                     <select class="form-control" id="nomeConselho">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-6">
+                    <label class="control-label" for="nomeRepresentante" >Nome de representante:</label>
+                    <input class="form-control" id="nomeRepresentante" placeholder="Insira o nome do representante" type="text">
+                  </div>
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="titularidade" >Titularidade:</label>
                     <select class="form-control" id="titularidade">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="periodicidadeReuniao" >Periodicidade da Reunião:</label>
                     <select class="form-control" id="periodicidadeReuniao">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
-                    <label class="control-label" for="nomeRepresentante" >Nome de representante:</label>
-                    <input class="form-control" id="nomeRepresentante" placeholder="Insira o nome do representante" type="text">
-                  </div>
-                  <div class="form-group col-xs-6 col-md-4">
+
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="dataInicioVigencia" >Data de Início de Vigência:</label>
                     <input class="form-control" id="dataInicioVigencia">
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="dataFimVigencia" >Data de Fim de Vigência:</label>
                     <input class="form-control" id="dataFimVigencia">
                   </div>
-                  <div class="form-group col-xs-6 col-md-4">
+
+
+                  <div class="form-group col-xs-6 col-sm-6">
                     <label class="control-label" for="nomeConferencia" >Nome da Conferência:</label>
                     <select class="form-control" id="nomeConferencia">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
 
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-sm-4">
                     <label class="control-label" for="formaParticipacaoConferencia" >Forma de Participação na Conferência:</label>
                     <select class="form-control" id="formaParticipacaoConferencia">
                       <option value="">Selecione o assunto</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-sm-2">
                     <label class="control-label" for="ano" >Ano de Realização da Conferência:</label>
                     <input class="form-control slider-consulta" id="anoRealizacaoConferencia" type="text" readonly>
                     <div id="slider-range-ano-RealizacaoConferencia"></div>
@@ -192,22 +199,22 @@
                 <div class="row">
                   <hr>
                   <h3>Projetos</h3>
-                    <div class="form-group col-xs-12 col-md-9">
+                    <div class="form-group col-xs-12 col-sm-9">
                       <label class="control-label" for="nomeProjeto">Nome do Projeto:</label>
                       <input class="form-control" id="nomeProjeto" placeholder="Insira o nome do projeto" type="text">
                     </div>
-                    <div class="form-group col-xs-6 col-md-3">
+                    <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="situacaoProjeto" >Situação do projeto:</label>
                       <select class="form-control" id="situacaoProjeto">
                         <option value="">Selecione o assunto</option>
                       </select>
                     </div>
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="dataInicioProjeto" >Data de Início do Projeto:</label>
+                    <div class="form-group col-xs-6 col-sm-2">
+                      <label class="control-label" for="dataInicioProjeto" >Data de Início:</label>
                       <input class="form-control" id="dataInicioProjeto">
                     </div>
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="dataFimProjeto">Data de Fim do Projeto:</label>
+                    <div class="form-group col-xs-6 col-sm-2">
+                      <label class="control-label" for="dataFimProjeto">Data de Fim:</label>
                       <input class="form-control" id="dataFimProjeto">
                     </div>
 
@@ -217,27 +224,11 @@
                         <option value="">Selecione o assunto</option>
                       </select>
                     </div>
-                    <div class="form-group col-xs-6 col-sm-3">
+                    <div class="form-group col-xs-6 col-sm-2">
                       <label class="control-label" for="zonaAtuacao">Zona de Atuação:</label>
                       <select class="form-control" id="zonaAtuacao">
                         <option value="">Selecione o assunto</option>
                       </select>
-                    </div>
-
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="qtd_num">Total de Beneficiários:</label>
-                      <input class="form-control slider-consulta" id="totalBeneficiarios" type="text" readonly>
-                      <div id="slider-range-totalBeneficiarios"></div>
-                    </div>
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro">Valor Total:</label>
-                      <input class="form-control slider-consulta" id="valorTotal" type="text" readonly>
-                      <div id="slider-range-valorTotal"></div>
-                    </div>
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro">Valor Recebido:</label>
-                      <input class="form-control slider-consulta" id="valorRecebido" type="text" readonly>
-                      <div id="slider-range-valorRecebido"></div>
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="fontesRecursos">Fontes de Recursos:</label>
@@ -246,7 +237,8 @@
                       </select>
                     </div>
 
-                    <div class="form-group col-xs-6 col-sm-3">
+
+                    <div class="form-group col-xs-6 col-sm-6">
                       <label class="control-label" for="financiadoresProjeto">Financiadores do Projeto:</label>
                       <input class="form-control" id="financiadoresProjeto" placeholder="insira o financiador do projeto" type="text">
                     </div>
@@ -258,24 +250,43 @@
                       <label class="control-label" for="publicoBeneficiado">Público Beneficiado:</label>
                       <input class="form-control" id="publicoBeneficiado" placeholder="Insrira o público beneficiado" type="text">
                     </div>
-                      <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="oscParceirias">OSC Parceirias:</label>
-                      <input class="form-control" id="oscParceirias" placeholder="insira a Osc parceira" type="text">
+
+
+                    <div class="form-group col-xs-6 col-sm-9">
+                      <label class="control-label" for="oscParceiras">OSC Parceiras:</label>
+                      <input class="form-control" id="oscParceiras" placeholder="insira a Osc parceira" type="text">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="qtd_num">Total de Beneficiários:</label>
+                      <input class="form-control slider-consulta" id="totalBeneficiarios" type="text" readonly>
+                      <div id="slider-range-totalBeneficiarios"></div>
                     </div>
 
-                    <div class="form-group col-xs-6">
+                    <div class="form-group col-xs-6 col-sm-9">
                       <label class="control-label" for="objetivosDesenvolvimentoSustentavel">Objetivos do Desenvolvimento Sustentável - ODS:</label>
                       <select class="form-control" id="objetivosDesenvolvimentoSustentavel">
                         <option value="">Selecione o assunto</option>
                       </select>
                     </div>
 
-                    <div class="form-group col-xs-6">
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro">Valor Total:</label>
+                      <input class="form-control slider-consulta" id="valorTotal" type="text" readonly>
+                      <div id="slider-range-valorTotal"></div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-9">
                       <label class="control-label" for="metasRelacionadasODS">Metas Relacionadas ao ODS:</label>
                       <select class="form-control" id="metasRelacionadasODS">
                         <option value="">Selecione o assunto</option>
                       </select>
                     </div>
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro">Valor Recebido:</label>
+                      <input class="form-control slider-consulta" id="valorRecebido" type="text" readonly>
+                      <div id="slider-range-valorRecebido"></div>
+                    </div>
+
 
 
 
@@ -283,13 +294,227 @@
 
                 <div class="row">
                   <hr>
-                  <h3>Recursos Públicos</h3>
-                  <div class="form-group col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" contenteditable="true">Valor Repassado:</label>
-                    <input class="form-control slider-consulta" id="valorRepassdo" type="text" readonly>
-                    <div id="slider-range-valorRepassdo"></div>
-                  </div>
+                    <h3>Fontes de recursos anuais da OSC</h3>
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="ano" >Ano:</label>
+                      <input class="form-control slider-consulta" id="anoFonteRecurso" type="text" readonly>
+                      <div id="slider-range-anoFonteRecurso"></div>
+                    </div>
                 </div>
+
+                <div class="row">
+                  <h3>Recursos próprios</h3>
+
+                  <div class="form-group col-xs-6 col-sm-4">
+                    <label class="control-label" for="valor_dinheiro" >Rendimentos financeiros de reservas ou contas correntes próprias:</label>
+                    <input class="form-control slider-consulta" id="rendimentosFinanceirosReservasContasCorrentesProprias" type="text" readonly>
+                    <div id="slider-range-rendimentosFinanceirosReservasContasCorrentesProprias"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Rendimentos de fundos patrimoniais:</label>
+                    <input class="form-control slider-consulta" id="rendimentosFundosPatrimoniais" type="text" readonly>
+                    <div id="slider-range-rendimentosFundosPatrimoniais"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Mensalidades ou contribuições de associados:</label>
+                    <input class="form-control slider-consulta" id="mensalidadesContribuicoesAssociados" type="text" readonly>
+                    <div id="slider-range-mensalidadesContribuicoesAssociados"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-2">
+                    <label class="control-label" for="valor_dinheiro" >Venda de bens e direitos:</label>
+                    <input class="form-control slider-consulta" id="vendaBensDireitos" type="text" readonly>
+                    <div id="slider-range-vendaBensDireitos"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-2">
+                    <label class="control-label" for="valor_dinheiro" >Prêmios recebidos:</label>
+                    <input class="form-control slider-consulta" id="premiosRecebidos" type="text" readonly>
+                    <div id="slider-range-premiosRecebidos"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-2">
+                    <label class="control-label" for="valor_dinheiro" >Venda de produtos:</label>
+                    <input class="form-control slider-consulta" id="vendaProdutos" type="text" readonly>
+                    <div id="slider-range-vendaProdutos"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Prestação de serviços:</label>
+                    <input class="form-control slider-consulta" id="prestacaoServicos" type="text" readonly>
+                    <div id="slider-range-prestacaoServicos"></div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <h3>Recursos públicos</h3>
+
+                  <div class="form-group col-xs-6 col-sm-5">
+                    <label class="control-label" for="valor_dinheiro" >Empresas públicas ou sociedades de economia mista:</label>
+                    <input class="form-control slider-consulta" id="empresasPublicasSociedadesEconomiaMista" type="text" readonly>
+                    <div id="slider-range-empresasPublicasSociedadesEconomiaMista"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-4">
+                    <label class="control-label" for="valor_dinheiro" >Acordo com organismos multilaterais:</label>
+                    <input class="form-control slider-consulta" id="acordoOrganismosMultilaterais" type="text" readonly>
+                    <div id="slider-range-acordoOrganismosMultilaterais"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo federal:</label>
+                    <input class="form-control slider-consulta" id="parceriaGovernoFederal" type="text" readonly>
+                    <div id="slider-range-parceriaGovernoFederal"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-4">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo estadual:</label>
+                    <input class="form-control slider-consulta" id="parceriaGovernoEstadual" type="text" readonly>
+                    <div id="slider-range-parceriaGovernoEstadual"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-4">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo municipal:</label>
+                    <input class="form-control slider-consulta" id="parceriaGovernoMunicipal" type="text" readonly>
+                    <div id="slider-range-parceriaGovernoMunicipal"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-4">
+                    <label class="control-label" for="valor_dinheiro" >Acordo com governos estrangeiros:</label>
+                    <input class="form-control slider-consulta" id="acordoGovernosEstrangeiros" type="text" readonly>
+                    <div id="slider-range-acordoGovernosEstrangeiros"></div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <h3>Recursos privados</h3>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com OSCs brasileiras:</label>
+                    <input class="form-control slider-consulta" id="parceriaOscBrasileiras" type="text" readonly>
+                    <div id="slider-range-parceriaOscBrasileiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com OSCs estrangeiras:</label>
+                    <input class="form-control slider-consulta" id="parceriaOscEstrangeiras" type="text" readonly>
+                    <div id="slider-range-parceriaOscEstrangeiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas brasileiras:</label>
+                    <input class="form-control slider-consulta" id="parceriaOrganizacoesReligiosasBrasileiras" type="text" readonly>
+                    <div id="slider-range-parceriaOrganizacoesReligiosasBrasileiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas estrangeiras:</label>
+                    <input class="form-control slider-consulta" id="parceriaOrganizacoesReligiosasEstrangeiras" type="text" readonly>
+                    <div id="slider-range-parceriaOrganizacoesReligiosasEstrangeiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Empresas privadas brasileiras:</label>
+                    <input class="form-control slider-consulta" id="empresasPrivadasBrasileiras" type="text" readonly>
+                    <div id="slider-range-empresasPrivadasBrasileiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Empresas estrangeiras:</label>
+                    <input class="form-control slider-consulta" id="EmpresasEstrangeiras" type="text" readonly>
+                    <div id="slider-range-EmpresasEstrangeiras"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Doações de pessoa jurídica:</label>
+                    <input class="form-control slider-consulta" id="doacoesPessoaJuridica" type="text" readonly>
+                    <div id="slider-range-doacoesPessoaJuridica"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="valor_dinheiro" >Doações de pessoa física:</label>
+                    <input class="form-control slider-consulta" id="doacoesPessoaFisica" type="text" readonly>
+                    <div id="slider-range-doacoesPessoaFisica"></div>
+                  </div>
+
+                  <div class="form-group col-xs-6">
+                    <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (com NF):</label>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosComNFMIN" type="text">
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosComNFMAX" type="text" >
+                    </div>
+                    <div id="slider-range-doacoesRecebidasFormaProdutosServicosComNF"></div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <h3>Recursos não financeiros</h3>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro" >Voluntariado:</label>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="voluntariadoMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="voluntariadoMAX" type="text" >
+                      </div>
+                      <div id="slider-range-voluntariado"></div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro">Isenções:</label>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="isencoesMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="isencoesMAX" type="text" >
+                      </div>
+                      <div id="slider-range-isencoes"></div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro" >Imunidades:</label>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="imunidadesMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="imunidadesMAX" type="text" >
+                      </div>
+                      <div id="slider-range-imunidades"></div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label class="control-label" for="valor_dinheiro" >Bens recebidos em direito de uso:</label>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="bensRecebidosDireitoUsoMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="bensRecebidosDireitoUsoMAX" type="text" >
+                      </div>
+                      <div id="slider-range-bensRecebidosDireitoUso"></div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-6">
+                      <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (sem NF):</label>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosSemNFMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosSemNFMAX" type="text" >
+                      </div>
+                      <div id="slider-range-doacoesRecebidasFormaProdutosServicosSemNF"></div>
+                    </div>
+
+
+              </div>
+
 
                 <div class="row">
                   <hr>

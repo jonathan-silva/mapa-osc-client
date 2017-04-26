@@ -29,12 +29,13 @@ require(['react'], function (React) {
             animate: true,
             min: 0,
             max: 1000000,
+            step: 100,
             values: [ 0, 1000000 ],
             slide: function( event, ui ) {
-              $(event.target.previousElementSibling).val( "R$ " + ui.values[ 0 ] + " - R$ " + ui.values[ 1 ] );
+              $(event.target.previousElementSibling).find(".min").val( ui.values[ 0 ] );
+              $(event.target.previousElementSibling).find(".max").val(ui.values[ 1 ] );
             }
           });
-          $(input_id).val( "R$ " + $( this ).slider( "values", 0 ) + " - R$ " + $( this ).slider( "values", 1 ) );
         }
         else if(tipo == "ano")
         {
