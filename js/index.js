@@ -182,12 +182,11 @@ require(["jquery-ui", "rotas"], function (React) {
     val = replaceSpecialChars(val);
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?"+id+"="+val;
+      link = "./resultado-consulta.html?"+id+"="+val+"&similaridade=05";
       location.href=link;
     }
     else {
       val = $('.response').val();
-      console.log(val);
       if (val !== ''){
         link = "./resultado-consulta.html?"+id+"="+val;
         location.href=link;
@@ -239,7 +238,7 @@ require(["jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-     link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value).replace(/ /g, '+');
+     link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value).replace(/ /g, '+')+"&similaridade=99";
      location.href=link;
    }
  });
