@@ -221,7 +221,7 @@ require(["jquery-ui", "rotas"], function (React) {
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete, '05')},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
