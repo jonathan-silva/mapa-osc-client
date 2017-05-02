@@ -817,7 +817,7 @@ body.indisponivel {
   padding-right: 10px;
 }
 
-.editar h2, .editar h3, .visualizar h2, .visualizar h3{
+.editar h2, .editar h3, .visualizar h2, .visualizar h3, .consultaAvancada h2, .consultaAvancada h3{
   color: #337cbb;
 }
 
@@ -983,4 +983,11 @@ select{
   }
 .no_pad{
   padding: 0px;
+}
+.slider-consulta{
+  font-size: 12px;
+  height: 23px;
+  border:0;
+  color:#f6931f;
+  font-weight:bold;
 }

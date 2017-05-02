@@ -171,6 +171,9 @@ require(["jquery-ui", "rotas"], function (React) {
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
   var controller = "js/controller.php";
+  
+  var flagMultiplo = true;
+  var textoBusca = '';
 
   //botao de consulta
   var div = $(".tab-content");
@@ -182,12 +185,11 @@ require(["jquery-ui", "rotas"], function (React) {
     val = replaceSpecialChars(val);
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?"+id+"="+val;
+      link = "./resultado-consulta.html?"+id+"="+val+"&similaridade=05";
       location.href=link;
     }
     else {
       val = $('.response').val();
-      console.log(val);
       if (val !== ''){
         link = "./resultado-consulta.html?"+id+"="+val;
         location.href=link;
@@ -218,12 +220,22 @@ require(["jquery-ui", "rotas"], function (React) {
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
     source: function (request, response) {
-       $.ajax({
+	   textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '+');
+	   
+       $.ajax({   
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, '05')},
            success: function (data) {
+        	   if(data.constructor === Array){
+	        	   if(data.length == 1){
+	        		   if(!data[0].bo_multiple){
+	        			   flagMultiplo = false;
+	        		   }
+	        	   }
+        	   }
+        	   
              response($.map( data, function( item ) {
                 return {
                     label: item.tx_nome_osc,
@@ -239,8 +251,12 @@ require(["jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-     link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value).replace(/ /g, '+');
-     location.href=link;
+		if(flagMultiplo){
+			link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value.trim()).replace(/ /g, '+')+"&similaridade=99";
+		}else{
+			link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
+		}
+		location.href=link;
    }
  });
 

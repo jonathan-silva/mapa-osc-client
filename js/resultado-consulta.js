@@ -16,6 +16,16 @@ require(["jquery-ui"], function (React) {
   });
 
 });
+
+function getParameter( name, url ) {
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
+
 var urlRota;
 
 //require(['jquery','datatables-responsive', 'google'], function (React) {
@@ -83,9 +93,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var stringBuscada = valoresURL[1];
     stringBuscada = stringBuscada.replace(/\./g, "");
     stringBuscada = stringBuscada.split('#')[0];
-    if(tipoConsulta=="organizacao"){
-      urlRota = rotas.OSCByName(stringBuscada,0);
-      urlRotaMapa = rotas.OSCByNameInMap(stringBuscada);
+    if(window.location.href.indexOf('organizacao') > -1){
+      urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('similaridade'));
+      urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('similaridade'));
       isClusterVersion=false;
     }
     else if(tipoConsulta=="municipio"){

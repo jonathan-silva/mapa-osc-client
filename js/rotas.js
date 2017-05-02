@@ -4,14 +4,14 @@ class Rotas{
   }
 
   getBaseUrl(){
-     return "https://mapaosc-desenv.ipea.gov.br";
-  //  return "http://10.1.4.205";
-    //return "http://localhost";
+    return "https://mapaosc-desenv.ipea.gov.br";
+  //  return "https://10.1.4.205";
+  //  return "http://localhost";
   }
 
   //index.js
-  AutocompleteOSCByName(term, limit){
-    return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0";
+  AutocompleteOSCByName(term, limit, similarity = '05'){
+    return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
   }
   AutocompleteOSCByCnpj(term, limit){
     return this.getBaseUrl()+":8383/api/search/cnpj/autocomplete/"+term+"/"+limit+"/0";
@@ -33,8 +33,8 @@ class Rotas{
   OSCByID(id){
     return this.getBaseUrl()+":8383/api/osc/"+id;
   }
-  OSCByNameInMap(term){
-    return this.getBaseUrl()+":8383/api/search/osc/geo/"+term;
+  OSCByNameInMap(term, similarity = '05'){
+    return this.getBaseUrl()+":8383/api/search/osc/geo/"+term+"/0/0/"+similarity;
   }
   OSCByCountyInMap(term){
     return this.getBaseUrl()+":8383/api/search/municipio/geo/"+term;
@@ -49,8 +49,8 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/geo/osc/";
   }
 
-  OSCByName(term,offset){
-    return this.getBaseUrl()+":8484/api/search/osc/lista/"+term+"/10/"+offset;
+  OSCByName(term, offset, similarity = '05'){
+    return this.getBaseUrl()+":8484/api/search/osc/lista/"+term+"/10/"+offset+"/"+similarity;
   }
   OSCByCounty(term,offset){
     return this.getBaseUrl()+":8484/api/search/municipio/lista/"+term+"/10/"+offset;
@@ -135,6 +135,9 @@ class Rotas{
   }
   OutraParticipacaoSocial(id){
     return this.getBaseUrl()+":8383/api/osc/participacaosocialoutra/"+id;
+  }
+  PeriodicidadeReuniao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/periodicidade_reuniao/";
   }
   Conselho(){
     return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
