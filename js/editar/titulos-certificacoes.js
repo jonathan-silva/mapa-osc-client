@@ -43,14 +43,13 @@ class TitulosCertificacoes {
 
     if(items.length > 0){
       for (var j=0; j<items.length; j++){
-        var dataValidadeText = "Data de Validade: " + (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informada");
-        formItens.push(util.FormItens(items[j].id_certificado, items[j].tx_nome_certificado, dataValidadeText, items[j].ft_certificado, null, "p"));
+        items[j].dt_inicio_certificado = (items[j].dt_inicio_certificado?items[j].dt_inicio_certificado:"Não informado");
+        items[j].dt_fim_certificado = (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informado");
       }
     } else {
       formItens.push(util.FormItens(null, null, tx_sem_titulos, "base", null, "p"));
     }
-
-    res.push(formItens);
+    res.push(items);
 
     //monta estrutura de divs para renderizar os componentes
     var headerElement = React.createElement('div', { id: 'headerTitulosCertificacoes' });

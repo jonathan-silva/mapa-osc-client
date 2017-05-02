@@ -127,7 +127,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
               {this.props.nome_titulo}
             </div>
           </td>
-          <td className="data_validade_titulo_certificado">{this.props.data_validade}</td>
+          <td className="data_inicio_validade_titulo_certificado">{this.props.data_inicio}</td>
+          <td className="data_fim_validade_titulo_certificado">{this.props.data_validade}</td>
           <td>
             {botaoRemover}
           </td>
@@ -148,6 +149,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
   		});
    	},
 
+
     render: function() {
       var function_remove_titulo = this.props.exclui_titulo_lista.bind(this);
       return (
@@ -155,7 +157,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
             <thead>
               <tr>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Título/Certificado</th>
-                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Data de Validade</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Início da Validade</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fim da Validade</th>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"></th>
               </tr>
             </thead>
@@ -163,12 +166,13 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
             {
               this.props.dados_tabela.map(function(titulo, index){
                   return <TitulosCertificacoesLinhaTabela
-                    nome_titulo={titulo.label}
-                    data_validade={titulo.content}
-                    fonte={titulo.fonte}
+                    nome_titulo={titulo.tx_nome_certificado}
+                    data_validade={titulo.dt_fim_certificado}
+                    data_inicio={titulo.dt_inicio_certificado}
+                    fonte={titulo.ft_certificado}
                     id={index}
                     remove_titulo={function_remove_titulo}
-                    id_titulo={titulo.id} />
+                    id_titulo={titulo.id_certificado} />
               })
             }
             </tbody>
@@ -187,14 +191,19 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return (
         <div>
           <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título</button>
-          <br/>
+          <br/><br/>
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
              <tr>
               <td> <TitulosCertificacoes_dropdown list={tiposTitulosCertificados} /> </td>
               <td>
                 <div className="input-box">
-                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Escolha uma data de validade para o novo Título" type="text" ></input>
+                  <input className="form-control date"  id="novo_titulo_certificacao_data_inicio" placeholder="Data início da validade" type="text" ></input>
+                </div>
+              </td>
+              <td>
+                <div className="input-box">
+                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Data fim da validade" type="text" ></input>
                 </div>
               </td>
               <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo}> Adicionar </button></td>
@@ -246,6 +255,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     limpa_campos: function(){
        document.getElementById('idSelectTitulosCertificados').value = "";
        document.getElementById('novo_titulo_certificacao_data').value = "";
+       document.getElementById('novo_titulo_certificacao_data_inicio').value = "";
     },
 
     //handler do botão "Incluir novo Título" - toggle visibility
@@ -264,15 +274,18 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     //handler do botão "Incluir" que inclui o novo título na lista e renderiza
     inclui_titulo: function(e) {
       var nova_lista_titulos = this.state.listaTitulosCertificados;
-      var data_titulo = document.getElementById('novo_titulo_certificacao_data').value;
+      var data_inicio_titulo = (document.getElementById('novo_titulo_certificacao_data_inicio').value) ? document.getElementById('novo_titulo_certificacao_data_inicio').value : "Não informado" ;
+      var data_fim_titulo = document.getElementById('novo_titulo_certificacao_data').value;
       var tipo_titulo = document.getElementById('idSelectTitulosCertificados').value;
       // push do novo título
 
-      if((data_titulo && tipo_titulo) && (tipo_titulo != -1)){
+      if((data_inicio_titulo && tipo_titulo) && (tipo_titulo != -1)){
         // Inclui na tabela os novos valores
-        nova_lista_titulos.push({   content: "Data de Validade: " + data_titulo,
-                                    fonte:  "Representante",
-                                    label: tipo_titulo
+        nova_lista_titulos.push({
+                                    dt_inicio_certificado: data_inicio_titulo,
+                                    dt_fim_certificado: data_fim_titulo,
+                                    ft_certificado:  "Representante",
+                                    tx_nome_certificado: tipo_titulo
                                     //id: "NovoTitulo_" + Math.random()
                                 });
         $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada

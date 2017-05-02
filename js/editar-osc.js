@@ -948,7 +948,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
           //item.dt_inicio_certificado = null;
           item.bo_oficial = (fonte_dados == "Representante") ? false : true;
-          item.dt_fim_certificado = $(".data_validade_titulo_certificado",this).text().substring(18);
+          item.dt_inicio_certificado = ($(".data_inicio_validade_titulo_certificado",this).text() != 'Não informado') ? $(".data_inicio_validade_titulo_certificado",this).text() : '' ;
+          item.dt_fim_certificado = $(".data_fim_validade_titulo_certificado",this).text();
           item.ft_certificado = fonte_dados//authHeader.User;
           item.ft_inicio_certificado = fonte_dados//authHeader.User;
           item.ft_fim_certificado = fonte_dados//authHeader.User;
@@ -965,7 +966,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //if(newJson.certificado.length > 0){
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
-          console.log(newJson.certificado);
           success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
           console.log(success);
         //}
