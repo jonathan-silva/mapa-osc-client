@@ -860,15 +860,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var newJson = util.validateObject(old_json.certificado, {});
         newJson.certificado = [];
 
-        $('#tabela_titulos_certificados tr').each(function(i){
+        $('#tabela_titulos_certificados tbody tr').each(function(i){
           var cd_certificado = 0;
-
+          var cert = $(".tipo_titulo_certificado",this).text();
           switch($(".tipo_titulo_certificado",this).text()){
             case "Utilidade Pública Estadual":
               cd_certificado = 7;
               break;
             case "Utilidade Pública Municipal":
               cd_certificado = 8;
+              break;
+            case "Utilidade Pública Federal":
+              cd_certificado = 5;
               break;
             case "Entidade Ambientalista":
               cd_certificado = 1;
@@ -887,8 +890,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               break;
           }
 
+
           var item = {};
           var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
+
 
           //item.dt_inicio_certificado = null;
           item.bo_oficial = (fonte_dados == "Representante") ? false : true;
@@ -897,20 +902,25 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           item.ft_inicio_certificado = fonte_dados//authHeader.User;
           item.ft_fim_certificado = fonte_dados//authHeader.User;
           item.cd_certificado = cd_certificado;
+          item.id = $(this).prop("id");
+
           if(cd_certificado > 0){
             newJson.certificado.push(item);
           }
         });
 
-        if(newJson.certificado.length > 0){
+
+
+        //if(newJson.certificado.length > 0){
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+          console.log(newJson.certificado);
           success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
           console.log(success);
-        }
-        else {
-          console.log('Nenhum certificado novo a ser inserido');
-        }
+        //}
+        //else {
+          //console.log('Nenhum certificado novo a ser inserido');
+        //}
 
         // Relações de trabalho
 

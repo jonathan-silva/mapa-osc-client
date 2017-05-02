@@ -120,7 +120,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       }
 
       return (
-        <tr >
+        <tr id={this.props.id_titulo}>
           <td>
             <div className="input-box tipo_titulo_certificado">
               {SpanFonte}
@@ -168,7 +168,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
                     fonte={titulo.fonte}
                     id={index}
                     remove_titulo={function_remove_titulo}
-                    key={titulo.id} />
+                    id_titulo={titulo.id} />
               })
             }
             </tbody>
@@ -272,8 +272,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
         // Inclui na tabela os novos valores
         nova_lista_titulos.push({   content: "Data de Validade: " + data_titulo,
                                     fonte:  "Representante",
-                                    label: tipo_titulo ,
-                                    id: "NovoTitulo_" + Math.random()
+                                    label: tipo_titulo
+                                    //id: "NovoTitulo_" + Math.random()
                                 });
         $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada
         this.setState( {listaTitulosCertificados: nova_lista_titulos, novoTitulo_Visivel: "hidden", msg: "Novo Título incluído com sucesso", msg_class: "label-success"} ); // Set novos estados
