@@ -953,7 +953,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           item.ft_inicio_certificado = fonte_dados//authHeader.User;
           item.ft_fim_certificado = fonte_dados//authHeader.User;
           item.cd_certificado = cd_certificado;
-          item.id = $(this).prop("id");
+          item.id_certificado = $(this).prop("id");
 
           if(cd_certificado > 0){
             newJson.certificado.push(item);
@@ -1426,7 +1426,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                }else{
                  nome_osc = data[0].tx_nome_osc;
                  id_osc = data[0].id_osc;
-                 $('#osc_parceira').find('input')[i].value = nome_osc;                 
+                 $('#osc_parceira').find('input')[i].value = nome_osc;
                }
              },
              error: function(e) {
