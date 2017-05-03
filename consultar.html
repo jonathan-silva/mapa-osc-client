@@ -36,74 +36,120 @@
         <div class="row">
           <div class="col-md-12">
             <form role="form">
-              <div class="row">
-                  <h3>Dados gerais</h3>
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="nome">Nome:</label>
-                    <input class="form-control" id="nome" placeholder="Nome" type="text">
-                  </div>
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="nomeFantasia">Nome Fantasia:</label>
-                    <input class="form-control" id="nomeFantasia" placeholder="Nome fantasia" type="text">
-                  </div>
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="cnpj">CNPJ:</label>
-                    <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
-                  </div>
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
-                    <input class="form-control" id="naturezaJuridica" placeholder="Natureza Jurídica" type="text">
-                  </div>
 
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
-                    <select class="form-control" id="situacaoImovel">
-                      <option value="">Selecione o assunto</option>
-                    </select>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
+                  <div class="panel-heading" role="tab" id="heading-1">
+                    <h4 class="panel-title"><b>Dados Gerais</b></h4>
                   </div>
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="estado">Estado:</label>
-                    <select class="form-control" id="estado">
-                      <option value="">Selecione o assunto</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="municipio">Município:</label>
-                    <select class="form-control" id="municipio">
-                      <option value="">Selecione o assunto</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="ano">Ano de Fundação:</label>
-                    <input class="form-control slider-consulta" id="anoFundacao" type="text" readonly>
-                    <div id="slider-range-anoFundacao"></div>
-                  </div>
+                </a>
+                <div id="collapse-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-1">
+                  <div class="panel-body">
 
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                          <label class="control-label" for="nome">Nome:</label>
+                          <input class="form-control" id="nome" placeholder="Nome" type="text">
+                        </div>
+                        <div class="form-group col-xs-6">
+                          <label class="control-label" for="nomeFantasia">Nome Fantasia:</label>
+                          <input class="form-control" id="nomeFantasia" placeholder="Nome fantasia" type="text">
+                        </div>
+                        <div class="form-group col-xs-6">
+                          <label class="control-label" for="cnpj">CNPJ:</label>
+                          <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
+                        </div>
+                        <div class="form-group col-xs-6">
+                          <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
+                          <input class="form-control" id="naturezaJuridica" placeholder="Natureza Jurídica" type="text">
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
+                          <select class="form-control" id="situacaoImovel">
+                            <option value="">Selecione o assunto</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="estado">Estado:</label>
+                          <select class="form-control" id="estado">
+                            <option value="">Selecione o assunto</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="municipio">Município:</label>
+                          <select class="form-control" id="municipio">
+                            <option value="">Selecione o assunto</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="ano">Ano de Fundação:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="anoFundacaoMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="anoFundacaoMAX" type="text" >
+                          </div>
+                          <div id="slider-range-anoFundacao"></div>
+                        </div>
+
+                      </div>
+
+                  </div>
                 </div>
+              </div>
 
-                <div class="row">
-                  <hr>
-                  <h3>Áreas e Subáreas de Atuação</h3>
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="areaAtuacao">Área de Atuação:</label>
-                    <input class="form-control" id="areaAtuacao" placeholder="Área de Atuação" type="text">
+              <div class="panel panel-default">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
+                  <div class="panel-heading" role="tab" id="heading-2">
+                    <h4 class="panel-title"><b>Áreas e Subáreas de Atuação</b></h4>
                   </div>
-                </div>
+                </a>
+                <div id="collapse-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-2">
+                  <div class="panel-body">
 
-                <div class="row">
-                  <hr>
-                  <h3>Titulações e Certificações</h3>
-                  <div class="form-group col-xs-6">
-                    <div class="checkbox">
-                      <label><input id="utilidadePublicaEstadual" type="checkbox">Utilidade pública estadual</label>
-                      <label><input id="utilidadePublicaMunicipal" type="checkbox">Utilidade pública municipal</label>
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label class="control-label" for="areaAtuacao">Área de Atuação:</label>
+                        <input class="form-control" id="areaAtuacao" placeholder="Área de Atuação" type="text">
+                      </div>
                     </div>
+
                   </div>
+                 </div>
+               </div>
+               <div class="panel panel-default">
+                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+                   <div class="panel-heading" role="tab" id="heading-3">
+                   <h4 class="panel-title"><b>Titulações e Certificações</b></h4>
+                   </div>
+                 </a>
+                 <div id="collapse-3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-3">
+                   <div class="panel-body">
+
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <div class="checkbox">
+                          <label><input id="utilidadePublicaEstadual" type="checkbox">Utilidade pública estadual</label>
+                          <label><input id="utilidadePublicaMunicipal" type="checkbox">Utilidade pública municipal</label>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
+                <div class="panel-heading" role="tab" id="heading-4">
+                  <h4 class="panel-title"><b>Relações de Trabalho e Governança</b></h4>
                 </div>
+              </a>
+              <div id="collapse-4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-4">
+                <div class="panel-body">
 
                 <div class="row">
-                  <hr>
-                  <h3>Relações de Trabalho e Governança</h3>
                   <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="nomeDirigente">Nome do Dirigente:</label>
                     <input class="form-control" id="nomeDirigente" placeholder="Insira o nome do dirigente" type="text">
@@ -119,30 +165,60 @@
 
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="qtd_num">Total de Trabalhadores:</label>
-                    <input class="form-control slider-consulta" id="totalTrabalhadores" type="text" readonly>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="totalTrabalhadoresMIN" type="text" >
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="totalTrabalhadoresMAX" type="text" >
+                    </div>
                     <div id="slider-range-totalTrabalhadores"></div>
                   </div>
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="qtd_num">Total de Empregados:</label>
-                    <input class="form-control slider-consulta" id="totalEmpregados" type="text" readonly>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="totalEmpregadosMIN" type="text" >
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="totalEmpregadosMAX" type="text" >
+                    </div>
                     <div id="slider-range-totalEmpregados"></div>
                   </div>
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="qtd_num">Trabalhadores com Deficiência:</label>
-                    <input class="form-control slider-consulta" id="trabalhadoresDeficiencia" type="text" readonly>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="trabalhadoresDeficienciaMIN" type="text" >
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="trabalhadoresDeficienciaMAX" type="text" >
+                    </div>
                     <div id="slider-range-trabalhadorDeficiencia"></div>
                   </div>
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="qtd_num">Trabalhadores voluntários:</label>
-                    <input class="form-control slider-consulta" id="trabalhadoresVoluntarios" type="text" readonly>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="trabalhadoresVoluntariosMIN" type="text" >
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="trabalhadoresVoluntariosMAX" type="text" >
+                    </div>
                     <div id="slider-range-trabalhadoresVoluntarios"></div>
                   </div>
 
                 </div>
 
+              </div>
+            </div>
+            </div>
+            <div class="panel panel-default">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
+                <div class="panel-heading" role="tab" id="heading-5">
+                <h4 class="panel-title"><b>Espaços de Participação Social</b></h4>
+                </div>
+              </a>
+              <div id="collapse-5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-5">
+                <div class="panel-body">
+
                 <div class="row">
-                  <hr>
-                  <h3>Espaços de Participação Social</h3>
                   <div class="form-group col-xs-6 col-sm-6">
                     <label class="control-label" for="nomeConselho" >Nome do Conselho:</label>
                     <select class="form-control" id="nomeConselho">
@@ -191,14 +267,28 @@
                   </div>
                   <div class="form-group col-sm-2">
                     <label class="control-label" for="ano" >Ano de Realização da Conferência:</label>
-                    <input class="form-control slider-consulta" id="anoRealizacaoConferencia" type="text" readonly>
+                    <div class="flex">
+                      <label class="control-label de_ate">de:</label>
+                      <input class="form-control slider-consulta min" id="anoRealizacaoConferenciaMIN" type="text" >
+                      <label class="control-label de_ate">até:</label>
+                      <input class="form-control slider-consulta max" id="anoRealizacaoConferenciaMAX" type="text" >
+                    </div>
                     <div id="slider-range-ano-RealizacaoConferencia"></div>
                   </div>
                 </div>
+              </div>
+            </div>
+            </div>
+            <div class="panel panel-default">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-6" aria-expanded="false" aria-controls="collapse-6">
+                <div class="panel-heading" role="tab" id="heading-6">
+                <h4 class="panel-title"><b>Projetos</b></h4>
+                </div>
+              </a>
+              <div id="collapse-6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-6">
+                <div class="panel-body">
 
                 <div class="row">
-                  <hr>
-                  <h3>Projetos</h3>
                     <div class="form-group col-xs-12 col-sm-9">
                       <label class="control-label" for="nomeProjeto">Nome do Projeto:</label>
                       <input class="form-control" id="nomeProjeto" placeholder="Insira o nome do projeto" type="text">
@@ -258,7 +348,12 @@
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="qtd_num">Total de Beneficiários:</label>
-                      <input class="form-control slider-consulta" id="totalBeneficiarios" type="text" readonly>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="totalBeneficiariosMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="totalBeneficiariosMAX" type="text" >
+                      </div>
                       <div id="slider-range-totalBeneficiarios"></div>
                     </div>
 
@@ -271,7 +366,12 @@
 
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="valor_dinheiro">Valor Total:</label>
-                      <input class="form-control slider-consulta" id="valorTotal" type="text" readonly>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="valorTotalMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="valorTotalMAX" type="text" >
+                      </div>
                       <div id="slider-range-valorTotal"></div>
                     </div>
 
@@ -283,245 +383,373 @@
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="valor_dinheiro">Valor Recebido:</label>
-                      <input class="form-control slider-consulta" id="valorRecebido" type="text" readonly>
+                      <div class="flex">
+                        <label class="control-label de_ate">de:</label>
+                        <input class="form-control slider-consulta min" id="valorRecebidoMIN" type="text" >
+                        <label class="control-label de_ate">até:</label>
+                        <input class="form-control slider-consulta max" id="valorRecebidoMAX" type="text" >
+                      </div>
                       <div id="slider-range-valorRecebido"></div>
                     </div>
 
-
-
-
                 </div>
-
-                <div class="row">
-                  <hr>
-                    <h3>Fontes de recursos anuais da OSC</h3>
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="ano" >Ano:</label>
-                      <input class="form-control slider-consulta" id="anoFonteRecurso" type="text" readonly>
-                      <div id="slider-range-anoFonteRecurso"></div>
-                    </div>
-                </div>
-
-                <div class="row">
-                  <h3>Recursos próprios</h3>
-
-                  <div class="form-group col-xs-6 col-sm-4">
-                    <label class="control-label" for="valor_dinheiro" >Rendimentos financeiros de reservas ou contas correntes próprias:</label>
-                    <input class="form-control slider-consulta" id="rendimentosFinanceirosReservasContasCorrentesProprias" type="text" readonly>
-                    <div id="slider-range-rendimentosFinanceirosReservasContasCorrentesProprias"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Rendimentos de fundos patrimoniais:</label>
-                    <input class="form-control slider-consulta" id="rendimentosFundosPatrimoniais" type="text" readonly>
-                    <div id="slider-range-rendimentosFundosPatrimoniais"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Mensalidades ou contribuições de associados:</label>
-                    <input class="form-control slider-consulta" id="mensalidadesContribuicoesAssociados" type="text" readonly>
-                    <div id="slider-range-mensalidadesContribuicoesAssociados"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-2">
-                    <label class="control-label" for="valor_dinheiro" >Venda de bens e direitos:</label>
-                    <input class="form-control slider-consulta" id="vendaBensDireitos" type="text" readonly>
-                    <div id="slider-range-vendaBensDireitos"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-2">
-                    <label class="control-label" for="valor_dinheiro" >Prêmios recebidos:</label>
-                    <input class="form-control slider-consulta" id="premiosRecebidos" type="text" readonly>
-                    <div id="slider-range-premiosRecebidos"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-2">
-                    <label class="control-label" for="valor_dinheiro" >Venda de produtos:</label>
-                    <input class="form-control slider-consulta" id="vendaProdutos" type="text" readonly>
-                    <div id="slider-range-vendaProdutos"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Prestação de serviços:</label>
-                    <input class="form-control slider-consulta" id="prestacaoServicos" type="text" readonly>
-                    <div id="slider-range-prestacaoServicos"></div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <h3>Recursos públicos</h3>
-
-                  <div class="form-group col-xs-6 col-sm-5">
-                    <label class="control-label" for="valor_dinheiro" >Empresas públicas ou sociedades de economia mista:</label>
-                    <input class="form-control slider-consulta" id="empresasPublicasSociedadesEconomiaMista" type="text" readonly>
-                    <div id="slider-range-empresasPublicasSociedadesEconomiaMista"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-4">
-                    <label class="control-label" for="valor_dinheiro" >Acordo com organismos multilaterais:</label>
-                    <input class="form-control slider-consulta" id="acordoOrganismosMultilaterais" type="text" readonly>
-                    <div id="slider-range-acordoOrganismosMultilaterais"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo federal:</label>
-                    <input class="form-control slider-consulta" id="parceriaGovernoFederal" type="text" readonly>
-                    <div id="slider-range-parceriaGovernoFederal"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-4">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo estadual:</label>
-                    <input class="form-control slider-consulta" id="parceriaGovernoEstadual" type="text" readonly>
-                    <div id="slider-range-parceriaGovernoEstadual"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-4">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com o governo municipal:</label>
-                    <input class="form-control slider-consulta" id="parceriaGovernoMunicipal" type="text" readonly>
-                    <div id="slider-range-parceriaGovernoMunicipal"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-4">
-                    <label class="control-label" for="valor_dinheiro" >Acordo com governos estrangeiros:</label>
-                    <input class="form-control slider-consulta" id="acordoGovernosEstrangeiros" type="text" readonly>
-                    <div id="slider-range-acordoGovernosEstrangeiros"></div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <h3>Recursos privados</h3>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com OSCs brasileiras:</label>
-                    <input class="form-control slider-consulta" id="parceriaOscBrasileiras" type="text" readonly>
-                    <div id="slider-range-parceriaOscBrasileiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com OSCs estrangeiras:</label>
-                    <input class="form-control slider-consulta" id="parceriaOscEstrangeiras" type="text" readonly>
-                    <div id="slider-range-parceriaOscEstrangeiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas brasileiras:</label>
-                    <input class="form-control slider-consulta" id="parceriaOrganizacoesReligiosasBrasileiras" type="text" readonly>
-                    <div id="slider-range-parceriaOrganizacoesReligiosasBrasileiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas estrangeiras:</label>
-                    <input class="form-control slider-consulta" id="parceriaOrganizacoesReligiosasEstrangeiras" type="text" readonly>
-                    <div id="slider-range-parceriaOrganizacoesReligiosasEstrangeiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Empresas privadas brasileiras:</label>
-                    <input class="form-control slider-consulta" id="empresasPrivadasBrasileiras" type="text" readonly>
-                    <div id="slider-range-empresasPrivadasBrasileiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Empresas estrangeiras:</label>
-                    <input class="form-control slider-consulta" id="EmpresasEstrangeiras" type="text" readonly>
-                    <div id="slider-range-EmpresasEstrangeiras"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Doações de pessoa jurídica:</label>
-                    <input class="form-control slider-consulta" id="doacoesPessoaJuridica" type="text" readonly>
-                    <div id="slider-range-doacoesPessoaJuridica"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="valor_dinheiro" >Doações de pessoa física:</label>
-                    <input class="form-control slider-consulta" id="doacoesPessoaFisica" type="text" readonly>
-                    <div id="slider-range-doacoesPessoaFisica"></div>
-                  </div>
-
-                  <div class="form-group col-xs-6">
-                    <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (com NF):</label>
-                    <div class="flex">
-                      <label class="control-label de_ate">de:</label>
-                      <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosComNFMIN" type="text">
-                      <label class="control-label de_ate">até:</label>
-                      <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosComNFMAX" type="text" >
-                    </div>
-                    <div id="slider-range-doacoesRecebidasFormaProdutosServicosComNF"></div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <h3>Recursos não financeiros</h3>
-
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro" >Voluntariado:</label>
-                      <div class="flex">
-                        <label class="control-label de_ate">de:</label>
-                        <input class="form-control slider-consulta min" id="voluntariadoMIN" type="text" >
-                        <label class="control-label de_ate">até:</label>
-                        <input class="form-control slider-consulta max" id="voluntariadoMAX" type="text" >
-                      </div>
-                      <div id="slider-range-voluntariado"></div>
-                    </div>
-
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro">Isenções:</label>
-                      <div class="flex">
-                        <label class="control-label de_ate">de:</label>
-                        <input class="form-control slider-consulta min" id="isencoesMIN" type="text" >
-                        <label class="control-label de_ate">até:</label>
-                        <input class="form-control slider-consulta max" id="isencoesMAX" type="text" >
-                      </div>
-                      <div id="slider-range-isencoes"></div>
-                    </div>
-
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro" >Imunidades:</label>
-                      <div class="flex">
-                        <label class="control-label de_ate">de:</label>
-                        <input class="form-control slider-consulta min" id="imunidadesMIN" type="text" >
-                        <label class="control-label de_ate">até:</label>
-                        <input class="form-control slider-consulta max" id="imunidadesMAX" type="text" >
-                      </div>
-                      <div id="slider-range-imunidades"></div>
-                    </div>
-
-                    <div class="form-group col-xs-6 col-sm-3">
-                      <label class="control-label" for="valor_dinheiro" >Bens recebidos em direito de uso:</label>
-                      <div class="flex">
-                        <label class="control-label de_ate">de:</label>
-                        <input class="form-control slider-consulta min" id="bensRecebidosDireitoUsoMIN" type="text" >
-                        <label class="control-label de_ate">até:</label>
-                        <input class="form-control slider-consulta max" id="bensRecebidosDireitoUsoMAX" type="text" >
-                      </div>
-                      <div id="slider-range-bensRecebidosDireitoUso"></div>
-                    </div>
-
-                    <div class="form-group col-xs-6 col-sm-6">
-                      <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (sem NF):</label>
-                      <div class="flex">
-                        <label class="control-label de_ate">de:</label>
-                        <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosSemNFMIN" type="text" >
-                        <label class="control-label de_ate">até:</label>
-                        <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosSemNFMAX" type="text" >
-                      </div>
-                      <div id="slider-range-doacoesRecebidasFormaProdutosServicosSemNF"></div>
-                    </div>
-
 
               </div>
+            </div>
+            </div>
+            <div class="panel panel-default">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-7" aria-expanded="false" aria-controls="collapse-7">
+                <div class="panel-heading" role="tab" id="heading-7">
+                <h4 class="panel-title"><b>Fontes de Recursos</b></h4>
+                </div>
+              </a>
+              <div id="collapse-7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-7">
+                <div class="panel-body">
 
+                    <div class="row">
+                      <h4>Fontes de recursos anuais da OSC</h4>
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="ano" >Ano:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="anoFonteRecursoMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="anoFonteRecursoMAX" type="text" >
+                          </div>
+                          <div id="slider-range-anoFonteRecurso"></div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                      <hr>
+                      <h4>Recursos próprios</h4>
+
+                      <div class="form-group col-xs-6 col-sm-4">
+                        <label class="control-label" for="valor_dinheiro" >Rendimentos financeiros de reservas ou contas correntes próprias:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="rendimentosFinanceirosReservasContasCorrentesPropriasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="rendimentosFinanceirosReservasContasCorrentesPropriasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-rendimentosFinanceirosReservasContasCorrentesProprias"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Rendimentos de fundos patrimoniais:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="rendimentosFundosPatrimoniaisMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="rendimentosFundosPatrimoniaisMAX" type="text">
+                        </div>
+                        <div id="slider-range-rendimentosFundosPatrimoniais"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Mensalidades ou contribuições de associados:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="mensalidadesContribuicoesAssociadosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="mensalidadesContribuicoesAssociadosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-mensalidadesContribuicoesAssociados"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-2">
+                        <label class="control-label" for="valor_dinheiro" >Venda de bens e direitos:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="vendaBensDireitosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="vendaBensDireitosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-vendaBensDireitos"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-2">
+                        <label class="control-label" for="valor_dinheiro" >Prêmios recebidos:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="premiosRecebidosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="premiosRecebidosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-premiosRecebidos"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-2">
+                        <label class="control-label" for="valor_dinheiro" >Venda de produtos:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="vendaProdutosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="vendaProdutosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-vendaProdutos"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Prestação de serviços:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="prestacaoServicosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="prestacaoServicosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-prestacaoServicos"></div>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <hr>
+                      <h4>Recursos públicos</h4>
+
+                      <div class="form-group col-xs-6 col-sm-5">
+                        <label class="control-label" for="valor_dinheiro" >Empresas públicas ou sociedades de economia mista:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="empresasPublicasSociedadesEconomiaMistaMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="empresasPublicasSociedadesEconomiaMistaMAX" type="text" >
+                        </div>
+                        <div id="slider-range-empresasPublicasSociedadesEconomiaMista"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-4">
+                        <label class="control-label" for="valor_dinheiro" >Acordo com organismos multilaterais:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="acordoOrganismosMultilateraisMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="acordoOrganismosMultilateraisMAX" type="text" >
+                        </div>
+                        <div id="slider-range-acordoOrganismosMultilaterais"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com o governo federal:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaGovernoFederalMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaGovernoFederalMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaGovernoFederal"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-4">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com o governo estadual:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaGovernoEstadualMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaGovernoEstadualMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaGovernoEstadual"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-4">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com o governo municipal:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaGovernoMunicipalMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaGovernoMunicipalMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaGovernoMunicipal"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-4">
+                        <label class="control-label" for="valor_dinheiro" >Acordo com governos estrangeiros:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="acordoGovernosEstrangeirosMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="acordoGovernosEstrangeirosMAX" type="text" >
+                        </div>
+                        <div id="slider-range-acordoGovernosEstrangeiros"></div>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <hr>
+                      <h4>Recursos privados</h4>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com OSCs brasileiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaOscBrasileirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaOscBrasileirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaOscBrasileiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com OSCs estrangeiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaOscEstrangeirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaOscEstrangeirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaOscEstrangeiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas brasileiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaOrganizacoesReligiosasBrasileirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaOrganizacoesReligiosasBrasileirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaOrganizacoesReligiosasBrasileiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Parceria com organizações religiosas estrangeiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="parceriaOrganizacoesReligiosasEstrangeirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="parceriaOrganizacoesReligiosasEstrangeirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-parceriaOrganizacoesReligiosasEstrangeiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Empresas privadas brasileiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="empresasPrivadasBrasileirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="empresasPrivadasBrasileirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-empresasPrivadasBrasileiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Empresas estrangeiras:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="EmpresasEstrangeirasMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="EmpresasEstrangeirasMAX" type="text" >
+                        </div>
+                        <div id="slider-range-EmpresasEstrangeiras"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Doações de pessoa jurídica:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="doacoesPessoaJuridicaMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="doacoesPessoaJuridicaMAX" type="text" >
+                        </div>
+                        <div id="slider-range-doacoesPessoaJuridica"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label class="control-label" for="valor_dinheiro" >Doações de pessoa física:</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="doacoesPessoaFisicaMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="doacoesPessoaFisicaMAX" type="text" >
+                        </div>
+                        <div id="slider-range-doacoesPessoaFisica"></div>
+                      </div>
+
+                      <div class="form-group col-xs-6">
+                        <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (com NF):</label>
+                        <div class="flex">
+                          <label class="control-label de_ate">de:</label>
+                          <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosComNFMIN" type="text">
+                          <label class="control-label de_ate">até:</label>
+                          <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosComNFMAX" type="text" >
+                        </div>
+                        <div id="slider-range-doacoesRecebidasFormaProdutosServicosComNF"></div>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <hr>
+                      <h4>Recursos não financeiros</h4>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="valor_dinheiro" >Voluntariado:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="voluntariadoMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="voluntariadoMAX" type="text" >
+                          </div>
+                          <div id="slider-range-voluntariado"></div>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="valor_dinheiro">Isenções:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="isencoesMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="isencoesMAX" type="text" >
+                          </div>
+                          <div id="slider-range-isencoes"></div>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="valor_dinheiro" >Imunidades:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="imunidadesMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="imunidadesMAX" type="text" >
+                          </div>
+                          <div id="slider-range-imunidades"></div>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="valor_dinheiro" >Bens recebidos em direito de uso:</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="bensRecebidosDireitoUsoMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="bensRecebidosDireitoUsoMAX" type="text" >
+                          </div>
+                          <div id="slider-range-bensRecebidosDireitoUso"></div>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-6">
+                          <label class="control-label" for="valor_dinheiro" >Doações recebidas na forma de produtos e serviços (sem NF):</label>
+                          <div class="flex">
+                            <label class="control-label de_ate">de:</label>
+                            <input class="form-control slider-consulta min" id="doacoesRecebidasFormaProdutosServicosSemNFMIN" type="text" >
+                            <label class="control-label de_ate">até:</label>
+                            <input class="form-control slider-consulta max" id="doacoesRecebidasFormaProdutosServicosSemNFMAX" type="text" >
+                          </div>
+                          <div id="slider-range-doacoesRecebidasFormaProdutosServicosSemNF"></div>
+                        </div>
+                    </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <hr>
                   <div class="form-group">
                     <div class="col-sm-offset-0 text-center">
-                      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consultar</button>
-                      <button type="button" class="btn btn-warning" onclick="limparCampos()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Limpar</button>
+                      <button type="button" class="btn btn-success" id="btnConsultar"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consultar</button>
+                      <button type="button" class="btn btn-warning" id="btnLimpar"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Limpar</button>
                       <button type="button" class="btn btn-danger" onclick="window.location.href='/index.html'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button>
                     </div>
                   </div>

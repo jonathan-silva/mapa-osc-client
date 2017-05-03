@@ -817,7 +817,7 @@ body.indisponivel {
   padding-right: 10px;
 }
 
-.editar h2, .editar h3, .visualizar h2, .visualizar h3, .consultaAvancada h2, .consultaAvancada h3{
+.editar h2, .editar h3, .visualizar h2, .visualizar h3, .consultaAvancada h2{
   color: #337cbb;
 }
 
@@ -1002,4 +1002,8 @@ select{
 }
 .flex{
   display: flex;
+}
+.panel-body > .row h4{
+  margin-left: 15px;
+  color: #337cbb;
 }
