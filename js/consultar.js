@@ -2,6 +2,8 @@ require(['react'], function (React) {
 
   require(['jquery-ui','rotas'], function (React) {
 
+    var rotas = new Rotas();
+
     $(document).tooltip({
       position: {
         my: "center bottom-20",
@@ -65,6 +67,93 @@ require(['react'], function (React) {
         }
       });
     } );
+
+
+    // Inicio - popular select
+    var controller = 'js/controller.php'
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.Conselho()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+          if (data != null) {
+            var selectbox = $('#nomeConselho');
+            $.each(data, function (key, value) {
+                $('<option>').val(value.cd_conselho).text(value.tx_nome_conselho).appendTo(selectbox);
+            });
+          }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.PeriodicidadeReuniao()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#periodicidadeReuniao');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_periodicidade_reuniao_conselho).text(value.tx_nome_periodicidade_reuniao_conselho).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.FormaParticipacao()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#titularidade');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_tipo_participacao).text(value.tx_nome_tipo_participacao).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.Conferencia()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#nomeConferencia');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_conferencia).text(value.tx_nome_conferencia).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    // Fim - popular select
+
+
 
     //permite somente numeros
     $(".min, .max").keypress( function() {
