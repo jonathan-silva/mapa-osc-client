@@ -252,7 +252,7 @@ require(["jquery-ui", "rotas"], function (React) {
    },
    select: function(event, ui){
 		if(flagMultiplo){
-			link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value.trim()).replace(/ /g, '+')+"&similaridade=99";
+			link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g,"+")+"&similaridade=99";
 		}else{
 			link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
 		}
