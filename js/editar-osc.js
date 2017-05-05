@@ -2,6 +2,7 @@
 
 require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
 
+
   $(document).tooltip({
     position: {
       my: "center bottom-20",
@@ -176,9 +177,45 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         function readURL(input) {
           if (input.files && input.files[0] && input.files[0].type.match('image.*') && input.files[0].size < 1000000) {
+
+            var MAX_WIDTH = 300;
+            var MAX_HEIGHT = 225;
+
+            var img = document.createElement("img");
+            var canvas = document.createElement("canvas")
             var reader = new FileReader();
+
             reader.onload = function (e) {
-              $("#imagemLogo").attr('src', e.target.result)
+              img.src = e.target.result
+
+              img.onload = function(){
+
+                var width = img.width;
+                var height = img.height;
+
+                if (width > height) {
+                  if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                  }
+                } else {
+                  if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                  }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                //Cria imagem png base64
+                var dataurl = canvas.toDataURL("image/png");
+                //seta como sorce da imagem, a nova imagem base64
+                $("#imagemLogo").attr('src',dataurl);
+              };
             };
             reader.readAsDataURL(input.files[0]);
           }
@@ -188,11 +225,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         addBotaoimagem();
+
         $('.custom-file-upload').on("change", function(){
+
           $('.alert').addClass('hide');
+
           $('input[type=file]').each(function(index){
             if ($('input[type=file]').eq(index).val() != ""){
               readURL(this);
+              //readURL(this);
             }
           });
         });
@@ -223,6 +264,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(".btnVisualizar").append('<a id="btnVisualizar" type="button" title="Clique para Visualizar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Visualizar OSC</a>');
 		    $("#btnVisualizar").attr("href","visualizar-osc.html#/"+id);
     }
+
+
 
     function addBotaoimagem(){
         $("#btnInserirImg").append('<label class="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>');
