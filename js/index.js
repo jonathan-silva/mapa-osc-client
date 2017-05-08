@@ -181,17 +181,16 @@ require(["jquery-ui", "rotas"], function (React) {
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = val.replace(/ /g, '+');//troca espaços por '+'
-    val = replaceSpecialChars(val);
+    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?"+id+"="+val+"&similaridade=05";
+      link = "./resultado-consulta.html?" + id + "=" + val + "&similaridade=05";
       location.href=link;
     }
     else {
       val = $('.response').val();
       if (val !== ''){
-        link = "./resultado-consulta.html?"+id+"="+val;
+        link = "./resultado-consulta.html?" + id + "=" + val;
         location.href=link;
       }
       else{
@@ -252,9 +251,10 @@ require(["jquery-ui", "rotas"], function (React) {
    },
    select: function(event, ui){
 		if(flagMultiplo){
-			link = "./resultado-consulta.html?"+'organizacao'+"="+replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g,"+")+"&similaridade=99";
+			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=99';
 		}else{
-			link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
+			//link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
+			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=05';
 		}
 		location.href=link;
    }
