@@ -56,21 +56,7 @@
                           <label class="control-label" for="nomeFantasia">Nome Fantasia:</label>
                           <input class="form-control" id="nomeFantasia" placeholder="Nome fantasia" type="text">
                         </div>
-                        <div class="form-group col-xs-6">
-                          <label class="control-label" for="cnpj">CNPJ:</label>
-                          <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
-                        </div>
-                        <div class="form-group col-xs-6">
-                          <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
-                          <input class="form-control" id="naturezaJuridica" placeholder="Natureza Jurídica" type="text">
-                        </div>
 
-                        <div class="form-group col-xs-6 col-sm-3">
-                          <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
-                          <select class="form-control" id="situacaoImovel">
-                            <option value="">Qualquer</option>
-                          </select>
-                        </div>
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="estado">Estado:</label>
                           <select class="form-control" id="estado">
@@ -83,6 +69,12 @@
                             <option value="">Qualquer</option>
                           </select>
                         </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="cnpj">CNPJ:</label>
+                          <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
+                        </div>
+
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="ano">Ano de Fundação:</label>
                           <div class="flex">
@@ -92,6 +84,24 @@
                             <input class="form-control slider-consulta max" id="anoFundacaoMAX" type="text" >
                           </div>
                           <div id="slider-range-anoFundacao"></div>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
+                          <select class="form-control" id="situacaoImovel">
+                            <option value="">Qualquer</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-9">
+                          <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
+                            <div class="checkbox">
+                              <label><input id="associacaoPrivada" type="checkbox">Associação Privada</label>
+                              <label><input id="fundacaoPrivada" type="checkbox">Fundação Privada</label>
+                              <label><input id="organizacaoReligiosa" type="checkbox">Organização Religiosa</label>
+                              <label><input id="organizacaoSocial" type="checkbox">Organização Social</label>
+                              <label><input id="naturezaJuridicaOutra" type="checkbox">Outra</label>
+                            </div>
                         </div>
 
                       </div>
@@ -110,9 +120,16 @@
                   <div class="panel-body">
 
                     <div class="row">
-                      <div class="form-group col-xs-6">
+                      <div class="form-group col-xs-6 col-sm-6">
                         <label class="control-label" for="areaAtuacao">Área de Atuação:</label>
-                        <input class="form-control" id="areaAtuacao" placeholder="Área de Atuação" type="text">
+                        <select class="form-control" id="areaAtuacao">
+                          <option value="">Qualquer</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-6">
+                        <label class="control-label subareaAtuacao" for="subareaAtuacao">Subárea de Atuação:</label>
+                          <div class="checkbox" id="subareaAtuacao"></div>
                       </div>
                     </div>
 
@@ -133,6 +150,7 @@
                         <div class="checkbox">
                           <label><input id="utilidadePublicaEstadual" type="checkbox">Utilidade pública estadual</label>
                           <label><input id="utilidadePublicaMunicipal" type="checkbox">Utilidade pública municipal</label>
+                          <label><input id="oscip" type="checkbox">Oscip</label>
                         </div>
                       </div>
                     </div>
@@ -219,28 +237,26 @@
                 <div class="panel-body">
 
                 <div class="row">
-                  <div class="form-group col-xs-6 col-sm-6">
+                  <div class="form-group col-xs-6 col-sm-12">
                     <label class="control-label" for="nomeConselho" >Nome do Conselho:</label>
                     <select class="form-control" id="nomeConselho">
                       <option value="">Qualquer</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6 col-sm-6">
+
+                  <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="nomeRepresentante" >Nome de representante:</label>
                     <input class="form-control" id="nomeRepresentante" placeholder="Insira o nome do representante" type="text">
                   </div>
+
+
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="titularidade" >Titularidade:</label>
                     <select class="form-control" id="titularidade">
                       <option value="">Qualquer</option>
                     </select>
                   </div>
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="periodicidadeReuniao" >Periodicidade da Reunião:</label>
-                    <select class="form-control" id="periodicidadeReuniao">
-                      <option value="">Qualquer</option>
-                    </select>
-                  </div>
+
 
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="dataInicioVigencia" >Data de Início de Vigência:</label>
@@ -265,6 +281,7 @@
                       <option value="">Qualquer</option>
                     </select>
                   </div>
+
                   <div class="form-group col-sm-2">
                     <label class="control-label" for="ano" >Ano de Realização da Conferência:</label>
                     <div class="flex">
@@ -275,6 +292,7 @@
                     </div>
                     <div id="slider-range-ano-RealizacaoConferencia"></div>
                   </div>
+
                 </div>
               </div>
             </div>

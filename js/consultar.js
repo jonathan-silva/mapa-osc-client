@@ -19,6 +19,14 @@ require(['react'], function (React) {
       }
     });
 
+
+    $("#accordion .panel-heading").each(function () {
+      $(this).click(function() {
+        $(this).show();
+      });
+    });
+
+
     $( function() {
 
       $("div[id^='slider-range-']").each(function () {
@@ -71,6 +79,69 @@ require(['react'], function (React) {
 
     // Inicio - popular select
     var controller = 'js/controller.php'
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+          if (data != null) {
+            var selectbox = $('#areaAtuacao');
+            $.each(data, function (key, value) {
+                $('<option>').val(value.cd_area_atuacao).text(value.tx_nome_area_atuacao).appendTo(selectbox);
+            });
+          }
+      }
+    });
+
+    var sub_area_box;
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.SubAreaAtuacao()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+          sub_area_box = data;
+      }
+    });
+
+    $( "#areaAtuacao" ).change(function() {
+      var cd_area_atuacao = $(this).val();
+
+      if (sub_area_box != null) {
+        var selectbox = $('#subareaAtuacao');
+        var html = '';
+
+        $.each(sub_area_box, function (key, value) {
+          if(cd_area_atuacao == value.cd_area_atuacao ){
+            html += '<label><input id="subareaAtuacao-'+value.cd_subarea_atuacao+'" type="checkbox">'+value.tx_nome_subarea_atuacao+'</label>';
+          }
+        });
+
+        if(html == ''){
+          $(".subareaAtuacao").css('visibility','hidden');
+        }else{
+          $(".subareaAtuacao").css('visibility','visible');
+        }
+        selectbox.html(html);
+
+      }
+
+    });
+
+
+
     $.ajax({
       url: controller,
       type: 'GET',
@@ -91,25 +162,6 @@ require(['react'], function (React) {
       }
     });
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: false,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.PeriodicidadeReuniao()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#periodicidadeReuniao');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_periodicidade_reuniao_conselho).text(value.tx_nome_periodicidade_reuniao_conselho).appendTo(selectbox);
-          });
-        }
-      }
-    });
 
     $.ajax({
       url: controller,
