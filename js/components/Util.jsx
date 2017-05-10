@@ -387,12 +387,14 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             {SpanFonte}
           </div>
         } else if(item.type == 'textarea') {
-          if (item.id == 'tx_resumo_osc'){
-         ContentElement =
-          <div className="input-box">
-            <textarea className="form-control" id={item.id} placeholder={placeholder} defaultValue={content} maxlength="500"></textarea>
-            {SpanFonte}
-          </div>
+          if (item.id == "tx_resumo_osc"){
+           //console.log(item.id);
+           ContentElement =
+            <div className="input-box">
+              <textarea maxLength="500" className="form-control" id={item.id}
+              placeholder={placeholder} defaultValue={content}></textarea>
+              {SpanFonte}
+            </div>
           } else {
           ContentElement =
           <div className="input-box">
@@ -1018,6 +1020,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           </div>
           ;
           if ( (item.fonte) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
+            console.log(item.fonte);
             InputElement =
             <div id={id}>
               <textarea className="form-control" defaultValue={content} disabled></textarea>

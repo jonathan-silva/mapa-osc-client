@@ -24,22 +24,28 @@ class Projeto {
     };
     arraySecaoProjeto.push(headerProjeto);
 
-    var columns = 2;
+    var columns = 3;
     var sizeOfData = projects_list.length;
     var newData = new Array(sizeOfData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
       newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
       newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
+      newData[i][2] = "<span className='input-group-btn'>"+
+      "<button id='rem_projeto2' className='btn-danger btn'>Remover Projeto</button>"+
+      "</span>"
     }
     arraySecaoProjeto.push(newData);
-    var columns = 2;
+    var columns = 3;
     var sizeOfData = projects_list.length;
     var newData = new Array(sizeOfData);
     for (var i=0; i < projects_list.length; i++){
       newData[i] = new Array(columns);
       newData[i][0] = util.validateObject(projects_list[i].id_projeto, 1);
       newData[i][1] = util.validateObject(projects_list[i].tx_nome_projeto, "");
+      newData[i][2] = "<span className='input-group-btn'>"+
+      "<button id='rem_projeto2' className='btn-danger btn'>Remover Projeto</button>"+
+      "</span>"
     }
     arraySecaoProjeto.push(newData);
     return arraySecaoProjeto;
@@ -156,7 +162,7 @@ class Projeto {
         },
         success: function(data){
           res.projeto = data;
-          console.log(data);
+          //console.log(data);
         }
       });
       agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);

@@ -94,6 +94,9 @@ class Rotas{
   CriarProjectByID(id){
     return this.getBaseUrl()+":8383/api/osc/projeto/insert/"+id;
   }
+  RemoverProjectByID(id_proj,id_osc){
+    return this.getBaseUrl()+":8383/api/osc/projeto/"+id_proj+"/"+id_osc;
+  }
   Objetivos(){
     return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";
   }
