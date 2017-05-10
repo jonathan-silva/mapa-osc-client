@@ -34,7 +34,7 @@ require(['react'], function (React) {
 
     $("#accordion .panel-heading").each(function () {
       $(this).click(function() {
-        $(this).show();
+        $(this).parent().parent().children().last().toggle("slow");
       });
     });
 
@@ -344,9 +344,16 @@ require(['react'], function (React) {
         if (data != null) {
           var selectbox = $('#formaParticipacaoConferencia');
           $.each(data, function (key, value) {
-              $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
+              $('<option>').val(value.cd_forma_participacao_conferencia).text(value.tx_nome_forma_participacao_conferencia).appendTo(selectbox);
           });
         }
+
+        $("#formaParticipacaoConferencia").addClass('newSelectBox');
+        $("#formaParticipacaoConferencia").selectBoxIt({
+           theme: "default",
+           defaultText: "Qualquer",
+           autoWidth: false
+         });
       }
     });
 
@@ -418,14 +425,6 @@ require(['react'], function (React) {
 
       }
     });
-
-    // Forma de participacao Conferência
-    $("#formaParticipacaoConferencia").addClass('newSelectBox');
-    $("#formaParticipacaoConferencia").selectBoxIt({
-       theme: "default",
-       defaultText: "Qualquer",
-       autoWidth: false
-     });
     // Fim - popular select
 
 
