@@ -290,16 +290,45 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       var newData = projetosArray[1];
       var table_lista_projetos = montaTabelaListaProjetos(newData);
-      Section = React.createFactory(Section);
-      ReactDOM.render(
-        Section(
-          {dados:[headerProjeto]}
-        ), document.getElementById("projetos")
-      );
-      $( "#lista_projetos" ).append( '<table id="table_lista_projetos" class="table-striped"></table>' );
 
-      var newData = projetosArray[2];
-      var table_lista_projetos = montaTabelaListaProjetos(newData);
+
+      $("#table_lista_projetos tbody td").each(function(i) {
+        if (util.validateObject(newData[i])) {
+          var res = projeto.carregaProjeto(newData[i][0], dadosForm, rotas, util, false);
+          var fonte =res.projeto.projeto[0].ft_nome_projeto;
+          if (fonte == 'Representante'){
+          $(this).append(
+           '<button id="id_botao-projeto" attr="'+newData[i][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
+          );
+        }
+       }
+      });
+
+      /*$("#table_lista_projetos").append('<tbody id=tbody_remover></tbody>');
+       var tr = conta_tr();
+       for (var i=0;i<=tr;i++){
+         $("#tbody_remover").append('<tr><td><span class="input-group-btn">'+
+          '<button id="rem_projeto" class="btn-danger btn">Remover Projeto</button>'+
+          '</span></td></tr>');
+       }
+
+      /*$("#table_lista_projetos_wrapper").append( '<table id="table_remover_projetos" class="table-striped"></table>' );
+      $("#table_remover_projetos").append('<tbody id=tbody_remover></tbody>');
+       var tr = conta_tr();
+       for (var i=0;i<=tr;i++){
+         $("#table_remover_projetos").append('<tr><td><span class="input-group-btn">'+
+          '<button id="rem_projeto" class="btn-danger btn">Remover Projeto</button>'+
+          '</span></td></tr>');
+       }
+/*
+       $("#table_remover_projetos").append('<tbody id=tbody_remover></tbody>');
+         for(var i=0;i<conta_tr();i++){
+           $("#tbody_remover").append('<tr><td><span class="input-group-btn">'+
+          '<button id="rem_projeto" class="btn-danger btn">Remover Projeto'
+          +'</button></span></td></tr>');
+        }
+        //});*/
+
       $('#table_lista_projetos').append('<span class="input-group-btn">'+
       '<button id="add_projeto" class="btn-primary btn">Adicionar Projeto</button>'+
       '</span>');
@@ -307,12 +336,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#table_lista_projetos tbody td").each(function() {
         $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
       });
+
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         salvarProjetos();
         table_lista_projetos.row.add([
-          "-1",
-          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'
+          '-1',//''+proj_id_generator,
+          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'/*+//proj_id_generator+
+          '<button id="id_botao-projeto" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button>'
+          //'<button id="id_botao-projeto" attr="'+proj_id_generator+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'*/
         ]).draw();
         proj_id_generator = 0;
         verificarContraste();
@@ -321,10 +353,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var novo = false;
         var id_projeto = table_lista_projetos.row(this).data()[0];
         var projetos = $(this).next(".projeto");
-        if(id_projeto == "-1"){
+        if(id_projeto == '-1'){
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
+          //console.log(id_projeto); console.log(proj_id_generator);*/
         }
         if(projetos.length < 1){
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
@@ -373,57 +406,121 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           })
 
           $('#osc_parceira').find('input').autocomplete({
-          source: function (request, response) {
-            var cnpj = ($(this)[0].term);
-            var nome_osc ='';
-            var id_osc='';
-            if (!validaCNPJ(cnpj)) {
-              $('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
-            }
-            else {
-              $.ajax({
-                  url: urlController,
-                  type: 'GET',
-                  dataType: "json",
-                  data: {
-                      flag: 'autocomplete',
-                      rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
-                  },
-                success: function(data) {
-                  if (data == null){
-                      $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
-                  }else{
-                    nome_osc = data[0].tx_nome_osc;
-                    id_osc = data[0].id_osc;
-                    $('#osc_parceira').find('input')[0].value = nome_osc;
-                    }
-                },
-                error: function(e) {
-                    response([]);
+            source: function (request, response) {
+                var cnpj = ($(this)[0].term);
+                var nome_osc ='';
+                var id_osc='';
+                if (!validaCNPJ(cnpj)) {
+                  $('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
-            });
-          }
-        }
-      })
+                else {
+                  $.ajax({
+                      url: urlController,
+                      type: 'GET',
+                      dataType: "json",
+                      data: {
+                          flag: 'autocomplete',
+                          rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/)
+                      },
+                    success: function(data) {
+                      if (data == null){
+                          $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
+                      }else{
+                        nome_osc = data[0].tx_nome_osc;
+                        id_osc = data[0].id_osc;
+                        $('#osc_parceira').find('input')[0].value = nome_osc;
+                        }
+                    },
+                    error: function(e) {
+                        response([]);
+                    }
+                });
+              }
+            }
+        })
 
-
-          if(proj){
+        if(proj){
             metasObjetivos(proj.projeto[0], id_projeto);
-          } else {
+        } else {
             metasObjetivos({}, id_projeto);
-          }
+        }
           verificarContraste();
         } else {
           //console.log(projetos);
           var $divDadosProjeto = $(projetos[0]);
           $divDadosProjeto.toggleClass("hidden");
         }
-
       });
+
 
       $("#table_lista_projetos_paginate").click(function(e){
+        var ct_pag=$(".paginate_button.current").text();
+        ct_pag = (ct_pag-1)*10;
+
+        if( ($("#id_botao-projeto").length==0) ) {
+          $("#table_lista_projetos tbody td").each(function(i) {
+            if (util.validateObject(newData[i+ct_pag])) {
+              var res = projeto.carregaProjeto(newData[i+ct_pag][0], dadosForm, rotas, util, false);
+              var fonte =res.projeto.projeto[0].ft_nome_projeto;
+              if (fonte == 'Representante'){
+                $(this).append(
+                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
+                );
+                $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+              }
+            }
+          });
+        }
+        $('.botao-projeto').click(function(){
+          remove_projeto($(this).attr('attr'));
+        });
         verificarContraste();
       });
+
+      $('.botao-projeto').click(function(){
+        remove_projeto($(this).attr('attr'));
+        verificarContraste();
+      });
+
+      function remove_projeto(id_proj) {
+          var jsonRemoverSucesso;
+          var novo=false
+          if(id_proj == '-1'){
+            novo = true;
+          }
+          var res = projeto.carregaProjeto(id_proj, dadosForm, rotas, util, novo);
+          var fonte =res.projeto.projeto[0].ft_nome_projeto;
+          if (fonte == 'Representante'){
+          newJson = {};
+          newJson["headers"] = authHeader;
+          newJson["id_osc"] = idOsc;
+          success = util.carregaAjax(rotas.RemoverProjectByID(id_proj,idOsc), 'POST', newJson);
+          console.log(success);
+          if (success.msg == "Projeto excluído.") {
+            jsonRemoverSucesso = {"Removido com sucesso!":"Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
+            util.abrirModalAjuda("Removido com sucesso!", jsonRemoverSucesso);
+          }
+          else {
+            jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente já foi removido.<br> Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
+            util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
+          }
+          //salvarProjetos();
+        }
+        else {
+          jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente é um projeto de dados oficiais e não pode ser removido.<br> Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
+          util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
+        }
+      }
+
+      function conta_tr(){
+          var i = 0;
+          $("#table_lista_projetos tbody tr").each(function() {
+            i=i+1;
+          });
+          return i-1;
+      }
+
+
     }
 
     function montarAreasDeAtuacaoProjetos(sugestoes){
@@ -604,7 +701,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ],
         autoWidth: true,
         "oLanguage": dadosForm.oLanguageDataTable()
-      });
+      }
+    );
 
       return table_lista_projetos;
     }
@@ -1340,7 +1438,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(success);
       //});
 
-      jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(um) dia.<br><br>Obrigado!"};
+      jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
 
     });
@@ -1667,8 +1765,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson["id_projeto"] = idProjeto;
           newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
           //console.log(newJson);
-          success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
-          console.log(success);
+          if (true/*modificar*/) {
+            success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+          }
+          else /*deletar*/{
+            console.log(idProjeto);
+            console.log(idProjetoExterno);
+            //success = util.carregaAjax(rotas.RemoverProjectByID(idProjeto,idOsc), 'POST', newJson);
+            //console.log(success);
+          }
         }
         //listaProjetos.push(newJson);
       });
