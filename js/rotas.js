@@ -5,7 +5,7 @@ class Rotas{
 
   getBaseUrl(){
     return "https://mapaosc-desenv.ipea.gov.br";
-    //return "http://10.1.4.205";
+  //  return "https://10.1.4.205";
     //return "http://localhost";
   }
 
@@ -145,7 +145,7 @@ class Rotas{
   Conferencia(){
     return this.getBaseUrl()+":8383/api/menu/osc/conferencia/";
   }
-  FormaParticipacao(){
+  Titularidade(){
     return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
   }
   FontesRecursosById(){
@@ -210,6 +210,31 @@ class Rotas{
    //usuario
   AtivarUsuario(token){
     return this.getBaseUrl()+":8383/api/user/ativarcadastro/"+token;
+  }
+
+  //consulta avancada
+  SituacaoImovel(){
+    return this.getBaseUrl()+":8383/api/menu/osc/situacao_imovel/";
+  }
+
+  FontesRecursosProjeto(){
+    return this.getBaseUrl()+":8383/api/menu/osc/origem_fonte_recursos_projeto/";
+  }
+
+  ZonaAtuacaoProjeto(){
+    return this.getBaseUrl()+":8383/api/menu/osc/zona_atuacao_projeto/";
+  }
+
+  AbrangenciaProjeto(){
+    return this.getBaseUrl()+":8383/api/menu/osc/abrangencia_projeto/";
+  }
+
+  SituacaoProjeto(){
+    return this.getBaseUrl()+":8383/api/menu/osc/status_projeto/";
+  }
+
+  FormaParticipacaoConferencia(){
+    return this.getBaseUrl()+":8383/api/menu/osc/forma_participacao_conferencia/";
   }
 
 }

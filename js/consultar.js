@@ -214,7 +214,7 @@ require(['react'], function (React) {
       type: 'GET',
       async: true,
       dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.FormaParticipacao()},
+      data:{flag: 'consulta', rota:  rotas.Titularidade()},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -224,6 +224,127 @@ require(['react'], function (React) {
           var selectbox = $('#titularidade');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_tipo_participacao).text(value.tx_nome_tipo_participacao).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.SituacaoImovel()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#situacaoImovel');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_situacao_imovel).text(value.tx_nome_situacao_imovel).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.FontesRecursosProjeto()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#fontesRecursosProjeto');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_origem_fonte_recursos_projeto).text(value.tx_nome_origem_fonte_recursos_projeto).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.ZonaAtuacaoProjeto()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#zonaAtuacaoProjeto');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_zona_atuacao_projeto).text(value.tx_nome_zona_atuacao).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.AbrangenciaProjeto()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#abrangenciaAtuacaoProjeto');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_abrangencia_projeto).text(value.tx_nome_abrangencia_projeto).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.SituacaoProjeto()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#situacaoProjeto');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
+          });
+        }
+      }
+    });
+
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.FormaParticipacaoConferencia()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#formaParticipacaoConferencia');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
           });
         }
       }
