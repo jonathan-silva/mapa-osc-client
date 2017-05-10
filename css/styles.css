@@ -960,11 +960,15 @@ select{
   margin-bottom: 5px;
 }
 
-.selectboxit-container .selectboxit, .selectboxit-container .selectboxit-options {
+.selectboxit-container .selectboxit {
   width: 100%; /* Width of the dropdown button */
   max-height:300px;
+  max-width: 1080px;
 }
-
+.selectboxit-container .selectboxit-options{
+   width: 50%;
+   max-height:300px;
+}
 .selectboxit-options .selectboxit-option .selectboxit-option-anchor {
   white-space: normal;
   min-height: 30px;
@@ -978,7 +982,9 @@ select{
 .selectboxit-container {
     width: 100%;
   }
-
+.selectboxit-text{
+  float: none;
+}
 .conteudo_loading .section{
     visibility: hidden;
   }

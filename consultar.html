@@ -8,6 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/libs/select-boxit/jquery.selectBoxIt.css"/>
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
   </head>
@@ -48,31 +49,40 @@
                   <div class="panel-body">
 
                     <div class="row">
-                        <div class="form-group col-xs-6">
-                          <label class="control-label" for="nome">Nome:</label>
-                          <input class="form-control" id="nome" placeholder="Nome" type="text">
+                        <div class="form-group col-xs-6 col-sm-9">
+                          <label class="control-label" for="nome">Nome da OSC:</label>
+                          <input class="form-control" id="nomeOSC" placeholder="Nome da OSC" type="text">
                         </div>
-                        <div class="form-group col-xs-6">
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="Região">Região:</label>
+                          <input class="form-control" id="regiao" placeholder="Região" type="text">
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-9">
                           <label class="control-label" for="nomeFantasia">Nome Fantasia:</label>
                           <input class="form-control" id="nomeFantasia" placeholder="Nome fantasia" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="estado">Estado:</label>
-                          <select class="form-control" id="estado">
-                            <option value="">Qualquer</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-xs-6 col-sm-3">
-                          <label class="control-label" for="municipio">Município:</label>
-                          <select class="form-control" id="municipio">
-                            <option value="">Qualquer</option>
-                          </select>
+                          <input class="form-control" id="estado" placeholder="Estado" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="cnpj">CNPJ:</label>
                           <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
+                        </div>
+
+                        <div class="form-group col-xs-6 col-sm-3">
+                          <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
+                          <select class="form-control" id="situacaoImovel">
+                            <option value="">Qualquer</option>
+                            <option value="1">Próprio</option>
+                            <option value="2">Alugado</option>
+                            <option value="3">Cedido</option>
+                            <option value="4">Comodato</option>
+                          </select>
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
@@ -87,20 +97,18 @@
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
-                          <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
-                          <select class="form-control" id="situacaoImovel">
-                            <option value="">Qualquer</option>
-                          </select>
+                          <label class="control-label" for="municipio">Município:</label>
+                          <input class="form-control" id="municipio" placeholder="Município" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-9">
                           <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
                             <div class="checkbox">
-                              <label><input id="associacaoPrivada" type="checkbox">Associação Privada</label>
-                              <label><input id="fundacaoPrivada" type="checkbox">Fundação Privada</label>
-                              <label><input id="organizacaoReligiosa" type="checkbox">Organização Religiosa</label>
-                              <label><input id="organizacaoSocial" type="checkbox">Organização Social</label>
-                              <label><input id="naturezaJuridicaOutra" type="checkbox">Outra</label>
+                              <label><input id="naturezaJuridica_associacaoPrivada" type="checkbox">Associação Privada</label>
+                              <label><input id="naturezaJuridica_aundacaoPrivada" type="checkbox">Fundação Privada</label>
+                              <label><input id="naturezaJuridica_organizacaoReligiosa" type="checkbox">Organização Religiosa</label>
+                              <label><input id="naturezaJuridica_organizacaoSocial" type="checkbox">Organização Social</label>
+                              <label><input id="naturezaJuridica_outra" type="checkbox">Outra</label>
                             </div>
                         </div>
 
@@ -148,9 +156,9 @@
                     <div class="row">
                       <div class="form-group col-xs-6">
                         <div class="checkbox">
-                          <label><input id="utilidadePublicaEstadual" type="checkbox">Utilidade pública estadual</label>
-                          <label><input id="utilidadePublicaMunicipal" type="checkbox">Utilidade pública municipal</label>
-                          <label><input id="oscip" type="checkbox">Oscip</label>
+                          <label><input id="titulacao_utilidadePublicaEstadual" type="checkbox">Utilidade pública estadual</label>
+                          <label><input id="titulacao_utilidadePublicaMunicipal" type="checkbox">Utilidade pública municipal</label>
+                          <label><input id="titulacao_oscip" type="checkbox">Oscip</label>
                         </div>
                       </div>
                     </div>
@@ -279,6 +287,17 @@
                     <label class="control-label" for="formaParticipacaoConferencia" >Forma de Participação na Conferência:</label>
                     <select class="form-control" id="formaParticipacaoConferencia">
                       <option value="">Qualquer</option>
+                      <option value="1">Membro de comissão organizadora nacional</option>
+                      <option value="2">Membro de comissão organizadora estadual ou distrital</option>
+                      <option value="3">Membro de comissão organizadora municipal</option>
+                      <option value="4">Delegado para etapa nacional</option>
+                      <option value="5">Delegado para etapa estadual ou distrital</option>
+                      <option value="6">Participante de etapa municipal</option>
+                      <option value="7">Participante de conferência livre ou virtual</option>
+                      <option value="8">Palestrante ou convidado</option>
+                      <option value="9">Observador</option>
+                      <option value="10">Mediador, moderador ou relator</option>
+                      <option value="11">Outro</option>
                     </select>
                   </div>
 
@@ -315,6 +334,9 @@
                       <label class="control-label" for="situacaoProjeto" >Situação do projeto:</label>
                       <select class="form-control" id="situacaoProjeto">
                         <option value="">Qualquer</option>
+                        <option value="1">Em execução</option>
+                        <option value="2">Finalizado</option>
+                        <option value="3">Planejado</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-2">
@@ -330,18 +352,28 @@
                       <label class="control-label" for="AbrangenciaAtuacao">Abrangência de atuação:</label>
                       <select class="form-control" id="AbrangenciaAtuacao">
                         <option value="">Qualquer</option>
+                        <option value="1">Municipal</option>
+                        <option value="2">Estadual</option>
+                        <option value="3">Regional</option>
+                        <option value="4">Nacional</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-2">
                       <label class="control-label" for="zonaAtuacao">Zona de Atuação:</label>
                       <select class="form-control" id="zonaAtuacao">
                         <option value="">Qualquer</option>
+                        <option value="1">Rural</option>
+                        <option value="2">Urbana</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="fontesRecursos">Fontes de Recursos:</label>
                       <select class="form-control" id="fontesRecursos">
                         <option value="">Qualquer</option>
+                        <option value="1">Recursos públicos</option>
+                        <option value="2">Recursos privados</option>
+                        <option value="3">Recursos próprios</option>
+                        <option value="4">Outros</option>
                       </select>
                     </div>
 

@@ -1,24 +1,36 @@
+require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
+
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+        .addClass( "arrow" )
+        .addClass( feedback.vertical )
+        .addClass( feedback.horizontal )
+        .appendTo( this );
+      }
+    }
+  });
+
+  $(".scroll").click(function(event){
+      event.preventDefault();
+      $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+ });
+
+});
+
 require(['react'], function (React) {
 
-  require(['jquery-ui','rotas'], function (React) {
+  require(['jquery-ui','rotas','jquery', 'select-boxit'], function (React) {
 
+    var controller = 'js/controller.php'
     var rotas = new Rotas();
-
-    $(document).tooltip({
-      position: {
-        my: "center bottom-20",
-        at: "center top",
-        using: function( position, feedback ) {
-          $( this ).css( position );
-          $( "<div>" )
-            .addClass( "arrow" )
-            .addClass( feedback.vertical )
-            .addClass( feedback.horizontal )
-            .appendTo( this );
-        }
-      }
-    });
-
+    var limiteAutocomplete = 10;
+    var limiteAutocompleteCidade = 25;
 
     $("#accordion .panel-heading").each(function () {
       $(this).click(function() {
@@ -76,14 +88,48 @@ require(['react'], function (React) {
       });
     } );
 
-
     // Inicio - popular select
-    var controller = 'js/controller.php'
+
+    function loadMetas(cd_objetivo){
+      $.ajax({
+        url: controller,
+        type: 'GET',
+        async: true,
+        dataType: 'json',
+        data:{flag: "consulta", rota: rotas.MetaProjeto(cd_objetivo)},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          var selectbox = $('#metasRelacionadasODS');
+          var html = '<option value="">Qualquer</option>';
+
+          if (data != null) {
+            $.each(data, function (key, value) {
+                html +='<option value=' + value.cd_meta_projeto + '>'+ value.tx_nome_meta_projeto + '</option>';
+            });
+          }
+          selectbox.html(html);
+
+          $("#metasRelacionadasODS").addClass('newSelectBox');
+          $("#metasRelacionadasODS").selectBoxIt({
+             theme: "default",
+             defaultText: "Qualquer",
+             autoWidth: false
+           });
+           $("#metasRelacionadasODS").selectBoxIt("refresh");
+           verificarContraste();
+
+        }
+
+      });
+    }
 
     $.ajax({
       url: controller,
       type: 'GET',
-      async: false,
+      async: true,
       dataType: 'json',
       data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
       error:function(e){
@@ -104,7 +150,7 @@ require(['react'], function (React) {
     $.ajax({
       url: controller,
       type: 'GET',
-      async: false,
+      async: true,
       dataType: 'json',
       data:{flag: 'consulta', rota:  rotas.SubAreaAtuacao()},
       error:function(e){
@@ -145,7 +191,7 @@ require(['react'], function (React) {
     $.ajax({
       url: controller,
       type: 'GET',
-      async: false,
+      async: true,
       dataType: 'json',
       data:{flag: 'consulta', rota:  rotas.Conselho()},
       error:function(e){
@@ -166,7 +212,7 @@ require(['react'], function (React) {
     $.ajax({
       url: controller,
       type: 'GET',
-      async: false,
+      async: true,
       dataType: 'json',
       data:{flag: 'consulta', rota:  rotas.FormaParticipacao()},
       error:function(e){
@@ -186,7 +232,7 @@ require(['react'], function (React) {
     $.ajax({
       url: controller,
       type: 'GET',
-      async: false,
+      async: true,
       dataType: 'json',
       data:{flag: 'consulta', rota:  rotas.Conferencia()},
       error:function(e){
@@ -200,11 +246,166 @@ require(['react'], function (React) {
               $('<option>').val(value.cd_conferencia).text(value.tx_nome_conferencia).appendTo(selectbox);
           });
         }
+
+        $("#nomeConferencia").addClass('newSelectBox');
+        $("#nomeConferencia").selectBoxIt({
+           theme: "default",
+           defaultText: "Qualquer",
+           autoWidth: false
+         });
       }
     });
 
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota: rotas.Objetivos()},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        if (data != null) {
+          var selectbox = $('#objetivosDesenvolvimentoSustentavel');
+          $.each(data, function (key, value) {
+              $('<option>').val(value.cd_objetivo_projeto).text(value.tx_nome_objetivo_projeto).appendTo(selectbox);
+          });
+        }
+
+        $("#objetivosDesenvolvimentoSustentavel").addClass('newSelectBox');
+        $("#objetivosDesenvolvimentoSustentavel").selectBoxIt({
+           theme: "default",
+           defaultText: "Qualquer",
+           autoWidth: false
+         });
+      }
+    });
+
+    $("#objetivosDesenvolvimentoSustentavel").change(function() {
+      var cd_objetivo_projeto = $(this).val();
+
+      if(cd_objetivo_projeto != ""){
+        loadMetas(cd_objetivo_projeto);
+
+      }else{
+        var html = '<option value="">Qualquer</option>';
+        $('#metasRelacionadasODS').html(html);
+        $("#metasRelacionadasODS").selectBoxIt("refresh");
+        verificarContraste();
+
+      }
+    });
+
+    // Forma de participacao Conferência
+    $("#formaParticipacaoConferencia").addClass('newSelectBox');
+    $("#formaParticipacaoConferencia").selectBoxIt({
+       theme: "default",
+       defaultText: "Qualquer",
+       autoWidth: false
+     });
     // Fim - popular select
 
+
+    // Inicio autocomplete
+
+    function replaceSpecialChars(str){
+      str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+      str = str.replace(/[àáâãäå]/g,"a");
+      str = str.replace(/[ÉÈÊË]/g,"E");
+      str = str.replace(/[éèêë]/g,"e");
+      str = str.replace(/[ÍÌÎÏ]/g,"I");
+      str = str.replace(/[íìîï]/g,"i");
+      str = str.replace(/[ÓÒÔÕ]/g,"O");
+      str = str.replace(/[óòôõ]/g,"o");
+      str = str.replace(/[ÚÙÛÜ]/g,"U");
+      str = str.replace(/[úùûü]/g,"u");
+      str = str.replace(/[Ç]/g,"C");
+      str = str.replace(/[ç]/g,"c");
+      return str;
+    }
+
+    //autocomplete municipio
+    $("#municipio").autocomplete({
+        minLength: 1,
+        source: function (request, response) {
+           $.ajax({
+               url: controller,
+               type: 'GET',
+               async: true,
+               dataType: "json",
+               data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+               success: function (data) {
+                 response($.map( data, function( item ) {
+                    return {
+                        label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                        value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                        id: item.edmu_cd_municipio
+                    };
+                }));
+               },
+               error: function (e) {
+                   response([]);
+               }
+           });
+       }
+     });
+
+    //autocomplete estado
+    $("#estado").autocomplete({
+      minLength: 1,
+      source: function (request, response) {
+         $.ajax({
+             url: controller,
+             type: 'GET',
+             async: true,
+             dataType: "json",
+             data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+             success: function (data) {
+               response($.map( data, function( item ) {
+                  return {
+                      label: item.eduf_nm_uf,
+                      value: item.eduf_nm_uf,
+                      id: item.eduf_cd_uf
+                  };
+              }));
+             },
+             error: function () {
+                 response([]);
+             }
+         });
+     }
+   });
+
+   //autocomplete regiao
+   $("#regiao").autocomplete({
+     minLength: 1,
+     source: function (request, response) {
+        $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: "json",
+            data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+            success: function (data) {
+              response($.map( data, function( item ) {
+                 return {
+                     label: item.edre_nm_regiao,
+                     value: item.edre_nm_regiao,
+                     id: item.edre_cd_regiao
+                 };
+             }));
+            },
+            error: function () {
+                response([]);
+            }
+        });
+    }
+    });
+
+
+   //Fim de autocomplete
 
 
     //permite somente numeros
@@ -228,9 +429,18 @@ require(['react'], function (React) {
       $(".consultaAvancada input").each(function () {
         $(this).val('');
       });
+      $('input[type=checkbox]').each(function () {
+        $(this).attr('checked', false);
+        $(this).prop('checked', false);
+      });
 
       $(".consultaAvancada select").each(function () {
-        $(this).prop('selectedIndex',0);
+        if($(this).hasClass('newSelectBox')){
+          $(this).data("selectBox-selectBoxIt").selectOption("");
+        }
+        else{
+          $(this).prop('selectedIndex',0);
+        }
       });
 
       $("div[id^='slider-range-']").each(function () {
@@ -269,12 +479,14 @@ require(['react'], function (React) {
             });
 
          });
+
+         jsonConsulta;
   /*
         var rotas = new Rotas();
 
   		  $.ajax({
     			type: 'POST',
-    			url: 'js/controller.php',
+    			url: controller,
     			data:{flag: 'consultaAvancada', rota: rotas.consultaAvancada(), parametros: jsonConsulta},
     			dataType: 'json',
           success: function(data) {

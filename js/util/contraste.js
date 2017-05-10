@@ -133,6 +133,18 @@ function ativarCSSContraste() {
     }
   });
 
+  $(".selectboxit-list").css("background-color", "#337cbb");
+  $(".selectboxit-list li a").css("color", "#ffffff");
+
+  $(".selectboxit-list li a").on({
+    mouseover: function(){
+        $(this).css("color", "#fff331");
+    }, mouseout: function(){
+        $(this).css("color", "#ffffff");
+    }
+  });
+
+
 }
 
 function verificarContraste(){
