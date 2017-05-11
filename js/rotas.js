@@ -4,13 +4,13 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "https://mapaosc-desenv.ipea.gov.br";
+    //return "https://mapaosc-desenv.ipea.gov.br";
   //  return "https://10.1.4.205";
-    //return "http://localhost";
+    return "http://localhost";
   }
 
   //index.js
-  AutocompleteOSCByName(term, limit, similarity = '05'){
+  AutocompleteOSCByName(term, limit, similarity){
     return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
   }
   AutocompleteOSCByCnpj(term, limit){
@@ -33,7 +33,7 @@ class Rotas{
   OSCByID(id){
     return this.getBaseUrl()+":8383/api/osc/"+id;
   }
-  OSCByNameInMap(term, similarity = '05'){
+  OSCByNameInMap(term, similarity){
     return this.getBaseUrl()+":8383/api/search/osc/geo/"+term+"/0/0/"+similarity;
   }
   OSCByCountyInMap(term){
@@ -49,7 +49,7 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/geo/osc/";
   }
 
-  OSCByName(term, offset, similarity = '05'){
+  OSCByName(term, offset, similarity){
     return this.getBaseUrl()+":8484/api/search/osc/lista/"+term+"/10/"+offset+"/"+similarity;
   }
   OSCByCounty(term,offset){
