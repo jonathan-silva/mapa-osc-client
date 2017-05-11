@@ -570,53 +570,47 @@ require(['react'], function (React) {
 
     });
 
+    var jsonConsulta = {};
     $("#btnConsultar").on("click", function() {
-       var jsonConsulta = {};
-       $(".panel-default").each(function () {
-          var nomeSecao = $(this).find(".panel-title").text();
+      var criarJsonSecao = true;
 
-          if(jsonConsulta[nomeSecao] === undefined)
-          {
-            jsonConsulta[nomeSecao] = [];
-          }
+       $(".panel-default").each(function () {
+          var idSecao = $(this).find(".panel-title").attr('id');
 
           $(this).find("input[type=text], select").each(function () {
             if( $(this).val() != "")
             {
-              var obj = [];
+              if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+              {
+                jsonConsulta[idSecao] = [];
+                criarJsonSecao = false;
+              }
+              var obj = {};
               obj[$(this).attr('id')] = $(this).val();
-              jsonConsulta[nomeSecao].push(obj);
+              jsonConsulta[idSecao].push(obj);
             }
            });
 
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
              {
-               var obj = [];
+               if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+               {
+                 jsonConsulta[idSecao] = [];
+                 criarJsonSecao = false;
+               }
+               var obj = {};
                obj[$(this).attr('id')] = $(this).prop( "checked");
-               jsonConsulta[nomeSecao].push(obj);
+               jsonConsulta[idSecao].push(obj);
              }
             });
 
          });
 
-         jsonConsulta;
-  /*
-        var rotas = new Rotas();
+         var link = "./resultado-consulta.html?avancado="+JSON.stringify(jsonConsulta);
+         location.href=link;
 
-  		  $.ajax({
-    			type: 'POST',
-    			url: controller,
-    			data:{flag: 'consultaAvancada', rota: rotas.consultaAvancada(), parametros: jsonConsulta},
-    			dataType: 'json',
-          success: function(data) {
-              console.log(data.responseText);
-          },
-          error: function(e) {
-             console.log(e);
-          }
-  		  });
-        */
+
       }); //Final btn click
 
   });

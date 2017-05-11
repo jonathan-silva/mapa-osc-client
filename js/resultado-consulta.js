@@ -111,6 +111,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
       urlRota = rotas.OSCByRegion(stringBuscada,0);
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
+    else if(tipoConsulta=="avancado"){
+      urlRota = rotas.ConsultaAvancadaLista(stringBuscada);
+      urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
+    }
     else{
       console.log("ERRO de URL!");
     }
@@ -698,7 +702,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           'Satélite':googleHybrid,
           'Contraste': tilesGrayscale,
           'Mapa': tiles
-          }, { 'Mapa de calor':layerGroup },{collapsed:false}));//, "Clusters": clustersLayer
+          }, { 'Mapa de calor':layerGroup },{collapsed:false}));
         heatMap(pdfs, ids);
       }
     }
