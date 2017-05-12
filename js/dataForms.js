@@ -230,7 +230,7 @@ class DataForms{
           "content": descricao.tx_link_estatuto_osc ? descricao.tx_link_estatuto_osc : null,
           "fonte": descricao.ft_link_estatuto_osc ? descricao.ft_link_estatuto_osc : null,
           "placeholder": "Se houver, insira o link que leva ao estatuto da OSC",
-          "type": "text"
+          "type": "textarea"
         }
       ]
     }
