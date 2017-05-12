@@ -1050,7 +1050,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         //Certificacoes
         var newJson = util.validateObject(old_json.certificado, {});
-        newJson.certificado = [];
+        //newJson.certificado = [];
+        newJson["certificado"]=[];
 
         $('#tabela_titulos_certificados tbody tr').each(function(i){
           var cd_certificado = 0;
@@ -1107,6 +1108,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //if(newJson.certificado.length > 0){
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+
+          if(newJson['certificado'].length == 0){
+            newJson['certificado'] = null;
+          }
           success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
           console.log(success);
         //}
