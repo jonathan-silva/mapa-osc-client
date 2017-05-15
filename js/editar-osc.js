@@ -335,25 +335,30 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#table_lista_projetos tbody td").each(function() {
         $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+        $(this).wrapInner( "<div class='titulo-projeto'></div>" );
       });
 
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         salvarProjetos();
         table_lista_projetos.row.add([
-          '-1',//''+proj_id_generator,
-          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'/*+//proj_id_generator+
+          -1,
+          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto</div>'/*+//proj_id_generator+
           '<button id="id_botao-projeto" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button>'
           //'<button id="id_botao-projeto" attr="'+proj_id_generator+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'*/
-        ]).draw();
-        proj_id_generator = 0;
+        ]).draw(false);
+        //proj_id_generator = 0;
+
         verificarContraste();
       });
-      $("#table_lista_projetos").on('click', 'tr', function(){
+      $("#table_lista_projetos").on('click', '.titulo-projeto', function(){
+        var tr_projeto = $(this).parent().parent().get(0);
         var novo = false;
-        var id_projeto = table_lista_projetos.row(this).data()[0];
+        //console.log(table_lista_projetos.row(tr_projeto).data()[0]);
+        var id_projeto = table_lista_projetos.row(tr_projeto).data()[0];
+
         var projetos = $(this).next(".projeto");
-        if(id_projeto == '-1'){
+        if(id_projeto == -1 ){
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
@@ -389,7 +394,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
 
           $('#tx_nome_abrangencia_projeto').change(function() {
-            localizacao($(this).find(":selected").text());
+            localizacao($(tr_projeto).find(":selected").text());
           });
 
 
@@ -447,9 +452,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           verificarContraste();
         } else {
           //console.log(projetos);
-          var $divDadosProjeto = $(projetos[0]);
-          $divDadosProjeto.toggleClass("hidden");
+          //var $divDadosProjeto = $(projetos[0]);
+          //$divDadosProjeto.toggleClass("hidden");
+          $(this).next(".projeto").toggleClass('hidden');
+
         }
+      //fim $("#table_lista_projetos")...
       });
 
 
@@ -1741,44 +1749,45 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         return obj;
       }
+      //console.log($(".projeto"));
       $(".projeto").each(function(){
-        //console.log($(this));
-        var str = $(this).attr("id");
-        var id_projeto_text = str.substr(0,str.indexOf('-'));
-        var id_projeto = str.substr(str.indexOf('-')+1);
-        var idProjetoExterno = $($(this).find("div")[0]).attr("id");
-        idProjeto = Number(id_projeto);
-        idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
+        if(!$(this).hasClass("projeto-salvo")) {
+          var str = $(this).attr("id");
+          var id_projeto_text = str.substr(0,str.indexOf('-'));
+          var id_projeto = str.substr(str.indexOf('-')+1);
+          var idProjetoExterno = $($(this).find("div")[0]).attr("id");
+          idProjeto = Number(id_projeto);
+          idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
 
-        if(newJson["objetivo_meta"] === undefined){
-          newJson["objetivo_meta"] = null;
-        }
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        //console.log(idProjeto);
-        if(idProjeto === -1){
-          newJson["id_projeto"] = null;
-          newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          //console.log(newJson);
-          success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
-          console.log(success);
-        } else {
-          newJson["id_projeto"] = idProjeto;
-          newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          //console.log(newJson);
-          if (true/*modificar*/) {
+          if(newJson["objetivo_meta"] === undefined){
+            newJson["objetivo_meta"] = null;
+          }
+          newJson["headers"] = authHeader;
+          newJson["id_osc"] = idOsc;
+          //console.log(idProjeto);
+          if(idProjeto < 0){
+            newJson["id_projeto"] = null;
+            newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
+            //console.log(newJson);
+            success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+
+            if(success.msg === "Projeto adicionado."){
+              $(this).addClass("hidden");
+              $(this).addClass("projeto-salvo");
+              $(this).prev().append(" - " + newJson["tx_nome_projeto"]);
+            }
+
+          } else {
+            newJson["id_projeto"] = idProjeto;
+            newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
+            //console.log(newJson);
             success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
             console.log(success);
-          }
-          else /*deletar*/{
-            console.log(idProjeto);
-            console.log(idProjetoExterno);
-            //success = util.carregaAjax(rotas.RemoverProjectByID(idProjeto,idOsc), 'POST', newJson);
-            //console.log(success);
           }
         }
         //listaProjetos.push(newJson);
