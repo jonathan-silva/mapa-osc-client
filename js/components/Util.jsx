@@ -1232,13 +1232,14 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           content = "";
         }
 
+
         if(type == 'select'){
           var InputElement =
             <div id={id}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.fonte) && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
+            if ( (item.title != 'Representante') && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -1250,8 +1251,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.fonte) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
-            console.log(item.fonte);
+          if ( (item.title != 'Representante') && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
               <textarea className="form-control" defaultValue={content} disabled></textarea>
@@ -1315,7 +1315,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto', 'componenteFormButtonProjeto'], function (React, FormInputProjeto, FormButtonProjeto) {
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
-      var dados = this.props.dados;
+      var dados = this.props.dados; console.log(dados);
       //console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
@@ -1469,6 +1469,21 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 </div>
             }
           }
+
+        if(header === "Situação do projeto"){
+           var title = item.inputs[0].title;
+           if ((title != null) || (title != "Representante")) {console.log(item.inputs[0]);
+           ContainerElement =
+             <div className={containerClass}>
+               <div className="header">{header+" "}
+               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
+               </div>
+               <FormInputProjeto dados={inputs}></FormInputProjeto>
+               {ButtonElement}
+             </div>
+          }
+        }
+
           if(header === "Público Beneficiado"){
             ContainerElement =
               <div className={containerClass}>
@@ -1525,20 +1540,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
             }
           }
-
-        if(header === "Situação do projeto"){
-           var title = item.inputs[0].title;
-           if ((title != null) || (title != "Representante")) {
-           ContainerElement =
-             <div className={containerClass}>
-               <div className="header">{header+" "}
-               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
-               </div>
-               <FormInputProjeto dados={inputs}></FormInputProjeto>
-               {ButtonElement}
-             </div>
-          }
-        }
 
 
 
