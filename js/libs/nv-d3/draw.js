@@ -32,15 +32,6 @@ var svg = d3.select("#grafico-progress").append("svg")
 
 svg.call(tip);
 
-dataJson = { values: [{"id": "FIS", "order": 1, "score": 39, "weight": 0.5, "color": "#1c95c5", "label":"Dados Gerais"},
-{"id":"MAR", "order":1, "score":24, "weight": 0.5, "color":"#20ab6c", "label":"Projetos, atividades e/ou programas"},
-{"id":"TC", "order":1, "score":18, "weight": 0.3, "color":"#6A5ACD", "label":"Titulações e Certificações"},
-{"id":"AO", "order":1, "score":58, "weight": 0.8, "color":"#E1514B", "label":"Fontes de recursos anuais da OSC"},
-{"id":"NP", "order":1, "score":80, "weight": 1, "color": "#F47245","label":"Espaços de Participação Social"}]
-};
-
-perfil(dataJson['values']);
-
 function perfil(data) {
 
   data.forEach(function(d) {
