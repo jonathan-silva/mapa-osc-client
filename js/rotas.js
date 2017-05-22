@@ -4,9 +4,9 @@ class Rotas{
   }
 
   getBaseUrl(){
-  //return "https://mapaosc-desenv.ipea.gov.br";
+  return "https://mapaosc-desenv.ipea.gov.br";
   //  return "https://10.1.4.205";
-    return "http://localhost";
+  //  return "http://localhost";
   }
 
   //index.js
@@ -151,7 +151,7 @@ class Rotas{
   Titularidade(){
     return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
   }
-  FontesRecursosById(){
+  FontesRecursosById(id){
     return this.getBaseUrl()+":8383/api/osc/recursos/"+id;
   }
   FontesRecursos(){
