@@ -468,15 +468,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if( ($("#id_botao-projeto").length==0) ) {
           $("#table_lista_projetos tbody td").each(function(i) {
             if (util.validateObject(newData[i+ct_pag])) {
+
               var res = projeto.carregaProjeto(newData[i+ct_pag][0], dadosForm, rotas, util, false);
               var fonte =res.projeto.projeto[0].ft_nome_projeto;
+
               if (fonte == 'Representante'){
                 $(this).append(
-                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
-                );
+                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
               }
+
             }
+
+            if ($(this).find( ".glyphicon" ).length == 0){
+              $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+            }
+            
+            $(this).wrapInner( "<div class='titulo-projeto'></div>" );
           });
         }
         $('.botao-projeto').click(function(){
