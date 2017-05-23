@@ -58,7 +58,7 @@ class Projeto {
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project)
     var project = util.validateObject(projet[0],projet);
-    var title = util.validateObject(project.ft_identificador_projeto_externo,null);
+    var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas

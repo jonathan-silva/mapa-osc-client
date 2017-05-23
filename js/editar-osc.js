@@ -362,12 +362,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
-          //console.log(id_projeto); console.log(proj_id_generator);*/
         }
         if(projetos.length < 1){
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
           var result = res.agrupadores;
           var proj = res.projeto;
+          //console.log(proj);
           //console.log(res);
           var id_projeto_externo = proj ? proj.projeto[0].tx_identificador_projeto_externo : null;
 
@@ -375,7 +375,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
 
           agrupamento(result, id_projeto);
+          //console.log(agrupamento(result, id_projeto));
           montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);
+
 
           $("#nr_valor_total_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
           $("#nr_valor_total_projeto").find('input').addClass('with-pretext');
@@ -483,7 +485,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if ($(this).find( ".glyphicon" ).length == 0){
               $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
             }
-            
+
             $(this).wrapInner( "<div class='titulo-projeto'></div>" );
           });
         }
