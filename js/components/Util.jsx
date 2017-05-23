@@ -1228,7 +1228,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
-        if(content === undefined){
+        if(content === undefined || content === null ){
           content = "";
         }
 
@@ -1315,7 +1315,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto', 'componenteFormButtonProjeto'], function (React, FormInputProjeto, FormButtonProjeto) {
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
-      var dados = this.props.dados; console.log(dados);
+      var dados = this.props.dados; //console.log(dados);
       //console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
