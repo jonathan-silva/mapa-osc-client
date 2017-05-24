@@ -38,6 +38,29 @@ require(['react'], function (React) {
       });
     });
 
+    $( function() {
+
+        $( "#dataInicioVigencia" ).datepicker(
+          { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
+          onClose: function( selectedDate )
+        {	$( "#dataFimVigencia" ).datepicker( "option", "minDate", selectedDate );	}
+       });
+
+	      $( "#dataFimVigencia" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+          $( "#dataInicioVigencia" ).datepicker( "option", "maxDate", selectedDate ); } });
+
+        $( "#dataInicioProjeto" ).datepicker(
+          { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
+          onClose: function( selectedDate )
+        {	$( "#dataFimProjeto" ).datepicker( "option", "minDate", selectedDate );	}
+       });
+
+        $( "#dataFimProjeto" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+          $( "#dataInicioProjeto" ).datepicker( "option", "maxDate", selectedDate ); } });
+
+    } );
 
     $( function() {
 
