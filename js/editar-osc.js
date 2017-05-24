@@ -436,6 +436,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                         nome_osc = data[0].tx_nome_osc;
                         id_osc = data[0].id_osc;
                         $('#osc_parceira').find('input')[0].value = nome_osc;
+                        $('#osc_parceira').attr("id_osc_parceira",id_osc);
                         }
                     },
                     error: function(e) {
@@ -1591,6 +1592,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                  nome_osc = data[0].tx_nome_osc;
                  id_osc = data[0].id_osc;
                  $('#osc_parceira').find('input')[i].value = nome_osc;
+                 $('#osc_parceira').attr("id_osc_parceira",id_osc);
                }
              },
              error: function(e) {
@@ -1657,8 +1659,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               } else {
                 obj[$pai.attr("id")].push({
                   "cd_origem_fonte_recursos_projeto": valor
-                  }
+                }
                 );
+                console.log(obj);
               }
             }
           } else if( $pai.attr("id") === "area_atuacao_outra"){
@@ -1685,7 +1688,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if(valor === "Planejado"){
               cd_status_projeto = 1;
             }
-            if(valor === "Em execução"){
+            if(valor === "Em Execução"){
               cd_status_projeto = 2;
             }
             if(valor === "Finalizado"){
@@ -1753,7 +1756,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             });
             obj["financiador_projeto"] = financiadores.length > 0 ? financiadores : null;
-          } else {
+          } else if(($pai.attr("id") === "osc_parceira")){
+            var osc_parceiras = [];
+            var osc_parceira = {};
+            var $inputs = $pai.find("inputs");
+            //var $attr = $pai.find("attr");
+            $inputs.each(function(){
+              if($(this).val() !== ""){
+                osc_parceira = {};
+                osc_parceira.id_osc = $(this).val(); console.log(osc_parceira.id_osc);
+                osc_parceiras.push(osc_parceira);
+              }
+            });
+            obj["osc_parceira"] = osc_parceiras.length > 0 ? osc_parceiras : null;
+          }
+          else {
             obj[$pai.attr("id")] = valor;
           }
         });

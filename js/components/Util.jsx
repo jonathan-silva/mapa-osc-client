@@ -1472,7 +1472,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
 
         if(header === "Situação do projeto"){
            var title = item.inputs[0].title;
-           if ((title != null) || (title != "Representante")) {console.log(item.inputs[0]);
+           if ((title != null) || (title != "Representante")) {
            ContainerElement =
              <div className={containerClass}>
                <div className="header">{header+" "}
