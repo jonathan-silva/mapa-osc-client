@@ -418,7 +418,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 var nome_osc ='';
                 var id_osc='';
                 if (!validaCNPJ(cnpj)) {
-                  $('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
+                  //$('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
                 else {
                   $.ajax({
@@ -1573,7 +1573,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        source: function (request, response) {
          var cnpj = ($(this)[0].term);
          if (!validaCNPJ(cnpj)) {
-           $('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
+           //$('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
          }
          else {
            $.ajax({
