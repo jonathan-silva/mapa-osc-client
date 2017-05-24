@@ -593,9 +593,8 @@ require(['react'], function (React) {
 
     });
 
-    var jsonConsulta = {};
     $("#btnConsultar").on("click", function() {
-      var criarJsonSecao = true;
+      var jsonConsulta = {};
 
        $(".panel-default").each(function () {
           var idSecao = $(this).find(".panel-title").attr('id');
@@ -603,10 +602,9 @@ require(['react'], function (React) {
           $(this).find("input[type=text], select").each(function () {
             if( $(this).val() != "")
             {
-              if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+              if(jsonConsulta[idSecao] === undefined )
               {
                 jsonConsulta[idSecao] = [];
-                criarJsonSecao = false;
               }
               var obj = {};
               obj[$(this).attr('id')] = $(this).val();
@@ -617,10 +615,9 @@ require(['react'], function (React) {
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
              {
-               if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+               if(jsonConsulta[idSecao] === undefined )
                {
                  jsonConsulta[idSecao] = [];
-                 criarJsonSecao = false;
                }
                var obj = {};
                obj[$(this).attr('id')] = $(this).prop( "checked");
