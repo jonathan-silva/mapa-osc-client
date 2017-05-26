@@ -1415,13 +1415,24 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               if ((title != null) || (title != "Representante")) {
               ContainerElement =
                 <div className={containerClass}>
-                  <div className="header" title="Indque a estimativa de pessoas diretamente beneficiadas pelo PAP.">{header+" "}
+                  <div className="header" title="Indique a estimativa de pessoas diretamente beneficiadas pelo PAP.">{header+" "}
                   <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
                   </div>
                   <FormInputProjeto dados={inputs}></FormInputProjeto>
                   {ButtonElement}
                 </div>
             }
+          }
+          if(header === "OSCs Parceiras"){
+              var title = item.inputs[0].title;console.log(item);console.log(dados);
+              ContainerElement =
+                <div className={containerClass}>
+                  <div className="header" title="Insira os CNPJ de OSCs Parceiras.">{header+" "}
+                  <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
+                  </div>
+                  <FormInputProjeto dados={inputs}></FormInputProjeto>
+                  {ButtonElement}
+                </div>
           }
           if(header === "Local de execução"){
             ContainerElement =
