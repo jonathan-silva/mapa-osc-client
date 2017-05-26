@@ -92,6 +92,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
+
         //Cabeçalho
         cabecalhoObject.montarCabecalho(data, util, React, ReactDOM, Cabecalho);
         old_json = data;
@@ -1331,10 +1332,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            //newJson = Object.assign({}, newJson, obj);
          }
         });
-        console.log(JSON.stringify(newJson));
+        //console.log(JSON.stringify(newJson));
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
-        console.log("------------------")
+
 
         // Conferência
         var lista_forma_conferencia = [
@@ -1414,6 +1415,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
+        //console.log(JSON.stringify(newJson));
         console.log(success);
 
         // Outros espaços
