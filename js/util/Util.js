@@ -109,34 +109,34 @@ class Util {
       "dados": dados
     };
   }
-addOutro(idClass){
-  function addOutros(idClass){
-    $('.'+idClass).each(function(index, el) {
-      var $select = $(this).children().find('select').first();
-      var $outro = $select.find('option:last').val();
-      $select.change(function(){
-        var $element = $(this).parent().parent().parent();
-        if($(this).val() == $outro){
-            $element.find('#outro_'+idClass).remove();
-            $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
-                  +'<label class = "control-label">Novo Item:</label>'
-                    +'<div class="input-box">'
-                      +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" value="">'
-                      +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
-                        +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
-                      +'</span>'
-                    +'</div>'
-                  +'</div>');
-        }
-        else{
-          if($element.find('#outro_'+idClass)){
-            $element.find('#outro_'+idClass).remove();
+  addOutro(idClass){
+    function addOutros(idClass){
+      $('.'+idClass).each(function(index, el) {
+        var $select = $(this).children().find('select').first();
+        var $outro = $select.find('option:last').val();
+        $select.change(function(){
+          var $element = $(this).parent().parent().parent();
+          if($(this).val() == $outro){
+              $element.find('#outro_'+idClass).remove();
+              $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
+                    +'<label class = "control-label">Novo Item:</label>'
+                      +'<div class="input-box">'
+                        +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" id="outro-'+idClass+'_'+index+'" value="">'
+                        +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
+                          +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
+                        +'</span>'
+                      +'</div>'
+                    +'</div>');
           }
-        }
-      })
-    });
-  }
-  addOutros(idClass);
+          else{
+            if($element.find('#outro_'+idClass)){
+              $element.find('#outro_'+idClass).remove();
+            }
+          }
+        })
+      });
+    }
+    addOutros(idClass);
 }
   addItem(idDiv){
     function addItemm(idDiv){

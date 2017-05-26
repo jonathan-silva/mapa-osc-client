@@ -92,6 +92,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(e);
       },
       success: function(data){
+
         //Cabeçalho
         cabecalhoObject.montarCabecalho(data, util, React, ReactDOM, Cabecalho);
         old_json = data;
@@ -1256,12 +1257,52 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          var obj = {}
          obj.conselho = {};
          obj.representante = [];
-         var empty = false;
+         var empty = true;
+         var conselho_id  = 0;
+         var cd_conselho  = 0;
 
-         $(this).find("input").each(function(){
+         $(this).find("select").each(function(){
+
+           var split = $(this).attr("id").split("-");
+
+           for (var i=0;i<lconselho.length;i++){
+           if ($(this).val() === lconselho[i].tx_nome_conselho){
+             empty = false; //Existe
+             obj.conselho.cd_conselho = lconselho[i].cd_conselho;
+             conselho_id = parseInt($(this).attr("id").split("-")[1]);
+             cd_conselho = obj.conselho.cd_conselho;
+             obj.conselho.tx_nome_conselho = null; //Existe -- Depois será atribuído caso
+             break;
+            }
+           }
+           for (var i=0;i<lforma.length;i++){
+           if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
+             obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
+             break;
+            }
+           }
+
+           for (var i=0;i<lperiodicidadeReuniao.length;i++){
+           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
+             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
+             break;
+            }
+           }
+
+         });
+
+         if(conselho_id == 0){
+           obj.conselho.id_conselho = null;
+         }else{
+           obj.conselho.id_conselho = conselho_id;
+         }
+
+         $(this).find("input").each(function(index){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           var conselho_id = split[1];
+           if (campo == "outro"){
+              obj.conselho.tx_nome_conselho = $(this).val();
+           }
 
            for (var i=0;i<lconselho.length;i++){
            if ($(this).val() === lconselho[i].tx_nome_conselho){
@@ -1287,38 +1328,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              obj.representante.push(
                {
                 "tx_nome_representante_conselho": $(this).val()
-               }
-             );
+              });
            } else {
-             obj.conselho.cd_conselho = conselho_id;
+            // obj.conselho.cd_conselho = conselho_id;
              if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
+
                obj.conselho[campo] = $(this).val();
+
              }
-           }
-           if((conselho_id === "0") && ($(this).val() === "")){
-             empty = true;
-           }
-         });
-
-         $(this).find("select").each(function(){
-           for (var i=0;i<lconselho.length;i++){
-           if ($(this).val() === lconselho[i].tx_nome_conselho){
-             obj.conselho.cd_conselho = lconselho[i].cd_conselho;
-             break;
-            }
-           }
-           for (var i=0;i<lforma.length;i++){
-           if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
-             obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
-             break;
-            }
-           }
-
-           for (var i=0;i<lperiodicidadeReuniao.length;i++){
-           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
-             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
-             break;
-            }
            }
 
          });
@@ -1327,13 +1344,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            newJson.conselho.push(obj);
            //newJson = Object.assign({}, newJson, obj);
          }
-         else {
-           newJson.conselho.push(null);
-         }
         });
-        //console.log(newJson);
+        //console.log(JSON.stringify(newJson));
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
+
 
         // Conferência
         var lista_forma_conferencia = [
@@ -1413,6 +1428,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
+        //console.log(JSON.stringify(newJson));
         console.log(success);
 
         // Outros espaços
@@ -1421,6 +1437,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["id_osc"] = idOsc;
         newJson["outra"] = [];
         $("#outros_part").find("div").children(".form-group").each(function(){
+
           $(this).find("input").each(function(){
             var split = $(this).attr("id").split("-");
             var campo = split[0];

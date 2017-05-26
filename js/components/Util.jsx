@@ -1052,7 +1052,7 @@ define('componenteAgrupadorConselhos', ['react', 'componenteFormItem'], function
             </div>
           )
           group = [];
-        } else if((num % 6 == 0)){
+        } else if((num % 7 == 0)){
           itens.push(
             <div className="conselho">
               <FormItem dados={group}></FormItem>
