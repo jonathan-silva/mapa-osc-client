@@ -226,6 +226,7 @@ class EspacosPartSocial {
             if(property == "dt_ano_realizacao"){
               var dtAnoRealizacao = conferencias[j].dt_ano_realizacao;
               dtAnoRealizacao = dtAnoRealizacao ? dtAnoRealizacao.substring(6) : dtAnoRealizacao;
+              //console.log(dtAnoRealizacao);
               formItens.push(util.FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
             }
           }

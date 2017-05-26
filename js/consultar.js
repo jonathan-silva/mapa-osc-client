@@ -38,6 +38,29 @@ require(['react'], function (React) {
       });
     });
 
+    $( function() {
+
+        $( "#dataInicioVigencia" ).datepicker(
+          { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
+          onClose: function( selectedDate )
+        {	$( "#dataFimVigencia" ).datepicker( "option", "minDate", selectedDate );	}
+       });
+
+	      $( "#dataFimVigencia" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+          $( "#dataInicioVigencia" ).datepicker( "option", "maxDate", selectedDate ); } });
+
+        $( "#dataInicioProjeto" ).datepicker(
+          { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
+          onClose: function( selectedDate )
+        {	$( "#dataFimProjeto" ).datepicker( "option", "minDate", selectedDate );	}
+       });
+
+        $( "#dataFimProjeto" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+        onClose: function( selectedDate ) {
+          $( "#dataInicioProjeto" ).datepicker( "option", "maxDate", selectedDate ); } });
+
+    } );
 
     $( function() {
 
@@ -570,9 +593,8 @@ require(['react'], function (React) {
 
     });
 
-    var jsonConsulta = {};
     $("#btnConsultar").on("click", function() {
-      var criarJsonSecao = true;
+      var jsonConsulta = {};
 
        $(".panel-default").each(function () {
           var idSecao = $(this).find(".panel-title").attr('id');
@@ -580,10 +602,9 @@ require(['react'], function (React) {
           $(this).find("input[type=text], select").each(function () {
             if( $(this).val() != "")
             {
-              if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+              if(jsonConsulta[idSecao] === undefined )
               {
                 jsonConsulta[idSecao] = [];
-                criarJsonSecao = false;
               }
               var obj = {};
               obj[$(this).attr('id')] = $(this).val();
@@ -594,10 +615,9 @@ require(['react'], function (React) {
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
              {
-               if(jsonConsulta[idSecao] === undefined && criarJsonSecao)
+               if(jsonConsulta[idSecao] === undefined )
                {
                  jsonConsulta[idSecao] = [];
-                 criarJsonSecao = false;
                }
                var obj = {};
                obj[$(this).attr('id')] = $(this).prop( "checked");

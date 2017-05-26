@@ -198,12 +198,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
               <td> <TitulosCertificacoes_dropdown list={tiposTitulosCertificados} /> </td>
               <td>
                 <div className="input-box">
-                  <input className="form-control date"  id="novo_titulo_certificacao_data_inicio" placeholder="Data início da validade" type="text" ></input>
+                  <input maxLength="10" className="form-control date"  id="novo_titulo_certificacao_data_inicio" placeholder="Data início da validade" type="text" ></input>
                 </div>
               </td>
               <td>
                 <div className="input-box">
-                  <input className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Data fim da validade" type="text" ></input>
+                  <input maxLength="10" className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Data fim da validade" type="text" ></input>
                 </div>
               </td>
               <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo}> Adicionar </button></td>
@@ -629,7 +629,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           } else {
           ContentElement =
           <div className="input-box">
-            <textarea className="form-control" id={item.id} placeholder={placeholder} defaultValue={content}></textarea>
+            <textarea maxLength="500" className="form-control" id={item.id} placeholder={placeholder} defaultValue={content}></textarea>
             {SpanFonte}
           </div>
           }
@@ -643,7 +643,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
         } else if(item.id == "tx_endereco_eletronico_sugerido"){
           ContentElement =
           <div className="input-box">
-            <input className="form-control with-pretext" id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
+            <input maxLength="100" className="form-control with-pretext" id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             <span className="pre-text">{item.pretext}</span>
             {SpanFonte}
           </div>
@@ -676,14 +676,14 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
 
           ContentElement =
           <div className="input-box">
-            <input className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
+            <input maxLength="200" className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             {SpanFonte}
             <div className="checkboxList">{itensCheckBox}</div>
           </div>
         } else if (item.type == 'tel'){
          ContentElement =
          <div id={item.id}>
-           <input id={item.id} type="tel" className="form-control" placeholder={placeholder} defaultValue={content}></input>
+           <input maxLength="50" id={item.id} type="tel" className="form-control" placeholder={placeholder} defaultValue={content}></input>
          </div>
        } else {
           if(item.id.toString().substring(0,2) === "dt"){
@@ -696,7 +696,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           var className = "form-control "+custom_class;
           ContentElement =
           <div className="input-box">
-            <input className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
+            <input maxLength="100" className={className}  id={item.id} placeholder={placeholder} type={item.type} defaultValue={content}></input>
             {SpanFonte}
           </div>
         }
@@ -1228,9 +1228,10 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
-        if(content === undefined){
+        if(content === undefined || content === null ){
           content = "";
         }
+
 
         if(type == 'select'){
           var InputElement =
@@ -1238,7 +1239,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.fonte) && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
+            if ( (item.title != 'Representante') && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -1247,14 +1248,13 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         } else if (type == 'textarea'){
           InputElement =
           <div id={id}>
-            <textarea className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
+            <textarea maxLength="500" className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.fonte) && (id === "tx_descricao_projeto") /*&& (content)*/ ){
-            console.log(item.fonte);
+          if ( (item.title != 'Representante') && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
-              <textarea className="form-control" defaultValue={content} disabled></textarea>
+              <textarea maxLength="500" className="form-control" defaultValue={content} disabled></textarea>
             </div>
           }
 
@@ -1273,7 +1273,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           }
           var InputElement =
             <div id={id}>
-              <input className={class_string} defaultValue={content} placeholder={placeholder}></input>
+              <input maxLength="100" className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
             if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
@@ -1315,7 +1315,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto', 'componenteFormButtonProjeto'], function (React, FormInputProjeto, FormButtonProjeto) {
   var AgrupadorInputProjeto = React.createClass({
     renderListItems: function(){
-      var dados = this.props.dados;
+      var dados = this.props.dados; //console.log(dados);
       //console.log(dados);
       var itens = [];
       for (var i = 0; i < dados.length; i++) {
@@ -1469,6 +1469,21 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 </div>
             }
           }
+
+        if(header === "Situação do projeto"){
+           var title = item.inputs[0].title;
+           if ((title != null) || (title != "Representante")) {
+           ContainerElement =
+             <div className={containerClass}>
+               <div className="header">{header+" "}
+               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
+               </div>
+               <FormInputProjeto dados={inputs}></FormInputProjeto>
+               {ButtonElement}
+             </div>
+          }
+        }
+
           if(header === "Público Beneficiado"){
             ContainerElement =
               <div className={containerClass}>
@@ -1525,20 +1540,6 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               </div>
             }
           }
-
-        if(header === "Situação do projeto"){
-           var title = item.inputs[0].title;
-           if ((title != null) || (title != "Representante")) {
-           ContainerElement =
-             <div className={containerClass}>
-               <div className="header">{header+" "}
-               <span><img title={"informação oficial, fonte: "+title} className={className} src={src}></img></span>
-               </div>
-               <FormInputProjeto dados={inputs}></FormInputProjeto>
-               {ButtonElement}
-             </div>
-          }
-        }
 
 
 

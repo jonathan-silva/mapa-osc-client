@@ -336,34 +336,39 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#table_lista_projetos tbody td").each(function() {
         $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+        $(this).wrapInner( "<div class='titulo-projeto'></div>" );
       });
 
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
         salvarProjetos();
         table_lista_projetos.row.add([
-          '-1',//''+proj_id_generator,
-          '<span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'/*+//proj_id_generator+
+          -1,
+          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto</div>'/*+//proj_id_generator+
           '<button id="id_botao-projeto" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button>'
           //'<button id="id_botao-projeto" attr="'+proj_id_generator+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'*/
-        ]).draw();
-        proj_id_generator = 0;
+        ]).draw(false);
+        //proj_id_generator = 0;
+
         verificarContraste();
       });
-      $("#table_lista_projetos").on('click', 'tr', function(){
+      $("#table_lista_projetos").on('click', '.titulo-projeto', function(){
+        var tr_projeto = $(this).parent().parent().get(0);
         var novo = false;
-        var id_projeto = table_lista_projetos.row(this).data()[0];
+        //console.log(table_lista_projetos.row(tr_projeto).data()[0]);
+        var id_projeto = table_lista_projetos.row(tr_projeto).data()[0];
+
         var projetos = $(this).next(".projeto");
-        if(id_projeto == '-1'){
+        if(id_projeto == -1 ){
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
-          //console.log(id_projeto); console.log(proj_id_generator);*/
         }
         if(projetos.length < 1){
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
           var result = res.agrupadores;
           var proj = res.projeto;
+          //console.log(proj);
           //console.log(res);
           var id_projeto_externo = proj ? proj.projeto[0].tx_identificador_projeto_externo : null;
 
@@ -371,7 +376,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
 
           agrupamento(result, id_projeto);
+          //console.log(agrupamento(result, id_projeto));
           montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);
+
 
           $("#nr_valor_total_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
           $("#nr_valor_total_projeto").find('input').addClass('with-pretext');
@@ -390,7 +397,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
 
           $('#tx_nome_abrangencia_projeto').change(function() {
-            localizacao($(this).find(":selected").text());
+            localizacao($(tr_projeto).find(":selected").text());
           });
 
 
@@ -412,7 +419,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 var nome_osc ='';
                 var id_osc='';
                 if (!validaCNPJ(cnpj)) {
-                  $('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
+                  //$('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
                 else {
                   $.ajax({
@@ -430,6 +437,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                         nome_osc = data[0].tx_nome_osc;
                         id_osc = data[0].id_osc;
                         $('#osc_parceira').find('input')[0].value = nome_osc;
+                        $('#osc_parceira').attr("id_osc_parceira",id_osc);
                         }
                     },
                     error: function(e) {
@@ -448,9 +456,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           verificarContraste();
         } else {
           //console.log(projetos);
-          var $divDadosProjeto = $(projetos[0]);
-          $divDadosProjeto.toggleClass("hidden");
+          //var $divDadosProjeto = $(projetos[0]);
+          //$divDadosProjeto.toggleClass("hidden");
+          $(this).next(".projeto").toggleClass('hidden');
+
         }
+      //fim $("#table_lista_projetos")...
       });
 
 
@@ -461,15 +472,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if( ($("#id_botao-projeto").length==0) ) {
           $("#table_lista_projetos tbody td").each(function(i) {
             if (util.validateObject(newData[i+ct_pag])) {
+
               var res = projeto.carregaProjeto(newData[i+ct_pag][0], dadosForm, rotas, util, false);
               var fonte =res.projeto.projeto[0].ft_nome_projeto;
+
               if (fonte == 'Representante'){
                 $(this).append(
-                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
-                );
+                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
               }
+
             }
+
+            if ($(this).find( ".glyphicon" ).length == 0){
+              $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+            }
+
+            $(this).wrapInner( "<div class='titulo-projeto'></div>" );
           });
         }
         $('.botao-projeto').click(function(){
@@ -1572,7 +1591,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
        source: function (request, response) {
          var cnpj = ($(this)[0].term);
          if (!validaCNPJ(cnpj)) {
-           $('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
+           //$('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
          }
          else {
            $.ajax({
@@ -1590,6 +1609,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                  nome_osc = data[0].tx_nome_osc;
                  id_osc = data[0].id_osc;
                  $('#osc_parceira').find('input')[i].value = nome_osc;
+                 $('#osc_parceira').attr("id_osc_parceira",id_osc);
                }
              },
              error: function(e) {
@@ -1656,8 +1676,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               } else {
                 obj[$pai.attr("id")].push({
                   "cd_origem_fonte_recursos_projeto": valor
-                  }
+                }
                 );
+                console.log(obj);
               }
             }
           } else if( $pai.attr("id") === "area_atuacao_outra"){
@@ -1684,7 +1705,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if(valor === "Planejado"){
               cd_status_projeto = 1;
             }
-            if(valor === "Em execução"){
+            if(valor === "Em Execução"){
               cd_status_projeto = 2;
             }
             if(valor === "Finalizado"){
@@ -1752,50 +1773,65 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             });
             obj["financiador_projeto"] = financiadores.length > 0 ? financiadores : null;
-          } else {
+          } else if(($pai.attr("id") === "osc_parceira")){
+            var osc_parceiras = [];
+            var osc_parceira = {};
+            var $inputs = $pai.find("inputs");
+            //var $attr = $pai.find("attr");
+            $inputs.each(function(){
+              if($(this).val() !== ""){
+                osc_parceira = {};
+                osc_parceira.id_osc = $(this).val(); console.log(osc_parceira.id_osc);
+                osc_parceiras.push(osc_parceira);
+              }
+            });
+            obj["osc_parceira"] = osc_parceiras.length > 0 ? osc_parceiras : null;
+          }
+          else {
             obj[$pai.attr("id")] = valor;
           }
         });
         return obj;
       }
+      //console.log($(".projeto"));
       $(".projeto").each(function(){
-        //console.log($(this));
-        var str = $(this).attr("id");
-        var id_projeto_text = str.substr(0,str.indexOf('-'));
-        var id_projeto = str.substr(str.indexOf('-')+1);
-        var idProjetoExterno = $($(this).find("div")[0]).attr("id");
-        idProjeto = Number(id_projeto);
-        idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
+        if(!$(this).hasClass("projeto-salvo")) {
+          var str = $(this).attr("id");
+          var id_projeto_text = str.substr(0,str.indexOf('-'));
+          var id_projeto = str.substr(str.indexOf('-')+1);
+          var idProjetoExterno = $($(this).find("div")[0]).attr("id");
+          idProjeto = Number(id_projeto);
+          idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
-        newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
 
-        if(newJson["objetivo_meta"] === undefined){
-          newJson["objetivo_meta"] = null;
-        }
-        newJson["headers"] = authHeader;
-        newJson["id_osc"] = idOsc;
-        //console.log(idProjeto);
-        if(idProjeto === -1){
-          newJson["id_projeto"] = null;
-          newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          //console.log(newJson);
-          success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
-          console.log(success);
-        } else {
-          newJson["id_projeto"] = idProjeto;
-          newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-          //console.log(newJson);
-          if (true/*modificar*/) {
+          if(newJson["objetivo_meta"] === undefined){
+            newJson["objetivo_meta"] = null;
+          }
+          newJson["headers"] = authHeader;
+          newJson["id_osc"] = idOsc;
+          //console.log(idProjeto);
+          if(idProjeto < 0){
+            newJson["id_projeto"] = null;
+            newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
+            //console.log(newJson);
+            success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
+            console.log(success);
+
+            if(success.msg === "Projeto adicionado."){
+              $(this).addClass("hidden");
+              $(this).addClass("projeto-salvo");
+              $(this).prev().append(" - " + newJson["tx_nome_projeto"]);
+            }
+
+          } else {
+            newJson["id_projeto"] = idProjeto;
+            newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
+            //console.log(newJson);
             success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
             console.log(success);
-          }
-          else /*deletar*/{
-            console.log(idProjeto);
-            console.log(idProjetoExterno);
-            //success = util.carregaAjax(rotas.RemoverProjectByID(idProjeto,idOsc), 'POST', newJson);
-            //console.log(success);
           }
         }
         //listaProjetos.push(newJson);

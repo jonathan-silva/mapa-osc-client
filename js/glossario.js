@@ -117,12 +117,29 @@ require(['react', 'jsx!components/Util'], function (React) {
              "O IPEA tem alguns trabalhos já realizados em relação a esse assunto, tal como o relatório \"Conselhos Nacionais: Perfil e Atuação dos Conselheiros\", publicado em 2014."],
     },
     {
+    "topico":"Chamamento Público",
+    "desc": ["Procedimento destinado a selecionar organização da sociedade civil para firmar parceria por meio de termo de colaboração ou de fomento, no qual se garanta a observância dos princípios da isonomia, da legalidade, da impessoalidade, da moralidade, da igualdade, da publicidade, da probidade administrativa, da vinculação ao instrumento convocatório, do julgamento objetivo e dos que lhes são correlatos."],
+    },
+    {
+    "topico":"Contrapartida",
+    "desc": ["É a parte correspondente em bens e serviços com que a OSC poderá participar do valor total da parceria para a execução do objeto proposto.",
+            "Não será exigida contrapartida financeira como requisito para celebração de parceria, facultada a exigência de contrapartida em bens e serviços cuja expressão monetária será obrigatoriamente identificada no termo de colaboração ou de fomento. (Lei 13.019, art. 35, § 1°)"],
+    },
+    {
+    "topico":"Cronograma de Desembolso",
+    "desc": ["É o quadro demonstrativo que contém a previsão de datas para a liberação dos recursos dos termos de parceria."],
+    },
+    {
     "topico":"Dirigente",
     "desc": ["É a pessoa que detenha poderes de administração, gestão ou controle da organização da sociedade civil, habilitada a assinar termo de colaboração, termo de fomento ou acordo de cooperação com a administração pública para a consecução de finalidades de interesse público e recíproco, ainda que delegue essa competência a terceiros."],
     },
     {
     "topico":"Doações de Terceiros",
     "desc": ["Doação pode ser definida como o contrato em que uma pessoa, por liberalidade, transfere do seu patrimônio bens ou vantagens para o de outra, conforme dispõe o artigo 538 do Código Civil (Lei no 10.406/2002). Além da doação simples ou pura, há a possibilidade de doação modal ou com encargo. Esse tipo de doação prevê que o recebedor da doação tenha responsabilidades de fato, ficando obrigado a cumprir determinando encargo ou contrapartida. As doações podem ser recebidas na forma de produtos e serviços, com ou sem Nota Fiscal. Neste último caso, o valor das doações pode apenas ser estimado pela organização que as recebem"],
+    },
+    {
+    "topico":"Edital",
+    "desc": ["Instrumento formal que estabelece as normas que regerão determinado processo administrativo seletivo. Como exemplo, pode-se citar o edital de um chamamento público, bem como o edital de um processo licitatório."],
     },
     {
     "topico":"Empresas Públicas e Sociedades de Economia Mista",
@@ -160,6 +177,16 @@ require(['react', 'jsx!components/Util'], function (React) {
              "As entidades privadas sem fins lucrativos que receberem recursos públicos deverão apresentar em seu sítio na internet (que poderá ser dispensada caso a entidade não disponha de meio para realizá-la), além de arquivo físico na sua sede, três ordens de informações: 1 - cópia do estatuto social atualizado da entidade; 2- relação nominal atualizada dos dirigentes da entidade; e 3- cópia integral das parcerias realizadas com o Poder Executivo federal, respectivos aditivos, e relatórios finais de prestação de contas, na forma da legislação aplicável, desde a pactuação até 180 dias após a prestação de contas final."],
     },
     {
+    "topico":"Lei de Diretrizes Orçamentárias (LDO)",
+    "desc": ["Estabelece diretrizes para a confecção da Lei Orçamentária Anual (LOA), contendo metas e prioridades do governo federal, despesas de capital para o exercício financeiro seguinte, alterações na legislação tributária e política de aplicação nas agências financeiras de fomento. Também fixa limites para os orçamentos do Legislativo, Judiciário e Ministério Público e dispõe sobre gastos com pessoal e política fiscal, entre outros temas.",
+             "Tem que ser enviada pelo Executivo ao Congresso até 15 de abril e aprovada pelo Legislativo até 30 de junho. Se não for aprovada nesse período, o Congresso não pode ter recesso em julho."],
+    },
+    {
+    "topico":"Lei Orçamentária Anual (LOA)",
+    "desc": ["É o orçamento anual enviado pelo Executivo ao Congresso que estima a receita e fixa a despesa do exercício financeiro, ou seja, aponta como o governo vai arrecadar e gastar os recursos públicos. Contém os orçamentos fiscal, da seguridade social e de investimento das estatais.",
+            " O projeto de lei que trata do orçamento anual deve ser enviado pelo Executivo ao Congresso até o dia 31 de agosto. Pode ser aprovado até dezembro, mas essa prática não é obrigatória."],
+    },
+    {
     "topico":"Marco Regulatório das Organizações da Sociedade Civil (MROSC)",
     "desc": ["O novo Marco Regulatório das Organizações da Sociedade Civil, que já vale para a União, estados e Distrito Federal, criou três instrumentos jurídicos de parceria próprios para as OSCs: o Termo de Fomento, Termo de Colaboração e o Acordo de Cooperação, que apenas poderão ser celebrados por pessoas jurídicas de direito privado sem fins lucrativos. Algumas OSCs que possuem titulações específicas, como Organizações Sociais (OSs) e Organizações da Sociedade Civil de Interesse Público (OSCIP), poderão celebrar esses três instrumentos de parceria e outros instrumentos previstos em suas legislações específicas (como contrato de gestão, para as OSs, e os termos de parceria, para as OSCIPs).",
              "A entrada em vigor do novo MROSC implica ainda no fim da utilização do convênio como instrumento de parceria com entidades privadas, ficando este restrito às parcerias entre entes federados e à participação de OSCs em serviços de saúde de forma complementar ao SUS, nos termos do artigo 199, §1º, da Constituição Federal.",
@@ -183,6 +210,15 @@ require(['react', 'jsx!components/Util'], function (React) {
     "topico":"Natureza Jurídica",
     "desc": ["A natureza jurídica diz respeito à identidade dos institutos no mundo do Direito. A partir da verificação dos elementos que o compõem e que o diferenciam em face de outros institutos que existem, estabelece-se sua existência com consequências no mundo jurídico, garantindo direitos e poderes, de um lado, e estabelecendo obrigações.",
              "No que diz respeito ao Mapa das OSCs, temos a presença de 4 naturezas jurídicas, todas com verbetes específicos no presente glossário: fundação privada, associação privada, organização religiosa e a organização social (OS), sendo essa última, na verdade, um título que as pessoas jurídicas podem receber, diante do preenchimento de alguns requisitos. Esse critério de classificação abrange as fundações privadas e associações, tal como já utilizado na pesquisa Fasfil/IBGE, e inclui ainda as Organizações Sociais presentes na Tabela de Natureza Jurídica de 2014."],
+    },
+    {
+    "topico":"Objetivos de Desenvolvimento Sustentável (ODS)",
+    "desc": ["São uma agenda mundial onde estão previstas ações mundiais em quatro dimensões principais:",
+             "1- Social: relacionada às necessidades humanas, de saúde, educação, melhoria da qualidade de vida e justiça;",
+             "2- Ambiental: trata da preservação e conservação do meio ambiente, com ações que vão da reversão do desmatamento, proteção das florestas e da biodiversidade, combate à desertificação, uso sustentável dos oceanos e recursos marinhos até a adoção de medidas efetivas contra mudanças climáticas;",
+             "3- Econômica: aborda o uso e o esgotamento dos recursos naturais, a produção de resíduos, o consumo de energia, entre outros;",
+             "4-Institucional: diz respeito às capacidades de colocar em prática os ODS.",
+             "A agenda foi adotada durante a Cúpula das Nações Unidas sobre o Desenvolvimento Sustentável em setembro de 2015 composta por 17 objetivos e 169 metas a serem atingidos até 2030."],
     },
     {
     "topico":"Organização da Sociedade Civil (OSC)",
@@ -217,6 +253,14 @@ require(['react', 'jsx!components/Util'], function (React) {
     {
     "topico":"Parceria com Governo",
     "desc": ["As parcerias voluntárias entre a administração pública dos níveis federal, estadual e municipal e as organizações civis compreendem as transferências voluntárias (auxílios, contribuições e subvenções), os instrumentos de parceria vigente previstos em lei (convênio, contrato de repasse, termo de parceria, contrato de gestão, termo de fomento, termo de colaboração) e os recursos provenientes de incentivos fiscais a empresas privadas e destinados a projetos realizados pelas organizações civis."],
+    },
+    {
+    "topico":"Plano de Trabalho",
+    "desc": ["É o instrumento programático e integrante do termo de parceria a ser celebrado, independente de sua transcrição, que evidencia o detalhamento das responsabilidades assumidas pela OSC e pela administração pública. Não podem ser elaborados de forma genérica, devendo trazer, de forma clara e sucinta, todas as informações suficientes para a identificação do projeto, atividade ou evento de duração certa."],
+    },
+    {
+    "topico":"Plano Plurianual (PPA)",
+    "desc": ["É o planejamento das ações do governo para um período de quatro anos. Deve ser enviado pelo Executivo ao Congresso até o dia 31 de agosto. O PPA é encaminhado pelo presidente da República no primeiro ano do governo e corresponde ao período que vai do segundo ano de sua administração até o primeiro ano do mandato de seu sucessor."],
     },
     {
     "topico":"Prestação de Contas",

@@ -10,6 +10,8 @@
     <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
     <link href="css/base.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/perfil-grafico.css" rel="stylesheet" type="text/css">
+
   </head>
 
   <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();" class="conteudo_loading">
@@ -28,13 +30,13 @@
       </div>
       <div class="container">
         <div class="row">
-          <div ng-if="(ctrl.osc.cabecalho.im_logo == null || ctrl.osc.cabecalho.im_logo =='' )" class="divImg">
+          <div ng-if="(ctrl.osc.cabecalho.im_logo == null || ctrl.osc.cabecalho.im_logo =='' )" class="divImg col-xs-6 col-sm-4">
             <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
-          <div ng-if="(ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' )" class="divImg">
+          <div ng-if="(ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' )" class="divImg col-xs-6 col-sm-4">
             <img src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
           </div>
-          <div>
+          <div class="cabecalho col-xs-6 col-sm-8">
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
               <span ng-if="(ctrl.osc.cabecalho.ft_razao_social_osc != 'Representante' && ctrl.osc.cabecalho.ft_razao_social_osc != null)" title="Informação oficial. {{ctrl.osc.cabecalho.ft_razao_social_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
               <span ng-if="(ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
@@ -48,6 +50,8 @@
               <span ng-if="(ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </h3>
           </div>
+          <div class="chart-container col-xs-6 col-sm-2" id="grafico-progress"><h3>Transparência</h3></div>
+
         </div>
       </div>
     </div>
@@ -1085,6 +1089,11 @@
   <script type="text/javascript" src="js/libs/angular-locale_pt-br.js"></script>
   <script type="text/javascript" src="js/rotas.js"></script>
   <script type="text/javascript" src="js/visualizar-osc.js"></script>
+
+  <script src="js/libs/nv-d3/d3.v3.js"></script>
+  <script src="js/libs/nv-d3/d3.tip.v0.6.3.js"></script>
+  <script src="js/libs/nv-d3/draw.js" ></script>
+
   <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 
   </body>
