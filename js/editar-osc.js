@@ -1246,7 +1246,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
            var split = $(this).attr("id").split("-");
 
-
            for (var i=0;i<lconselho.length;i++){
            if ($(this).val() === lconselho[i].tx_nome_conselho){
              empty = false; //Existe
@@ -1278,7 +1277,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          }else{
            obj.conselho.id_conselho = conselho_id;
          }
-
 
          $(this).find("input").each(function(index){
            var split = $(this).attr("id").split("-");
@@ -1321,11 +1319,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
            }
 
-
-
          });
-
-
 
          if(!empty){
            newJson.conselho.push(obj);
