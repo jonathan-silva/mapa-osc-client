@@ -437,7 +437,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                         nome_osc = data[0].tx_nome_osc;
                         id_osc = data[0].id_osc;
                         $('#osc_parceira').find('input')[0].value = nome_osc;
-                        $('#osc_parceira').attr("id_osc_parceira",id_osc);
+                        $('#osc_parceira').find('input')[0].id_osc_parceira=id_osc;
                         }
                     },
                     error: function(e) {
@@ -1586,7 +1586,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
    function osc_parceira(i){
        /*var cnpj_osc = '';//$('#osc_parceira').val();*/
        var nome_osc ='';
-       var id_osc='';
+       var id_osc_parceira='';
        $('#osc_parceira').find('input').autocomplete({
        source: function (request, response) {
          var cnpj = ($(this)[0].term);
@@ -1607,9 +1607,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                    $('#osc_parceira').find('input')[i].value = "Entidade não cadastrada! ";
                }else{
                  nome_osc = data[0].tx_nome_osc;
-                 id_osc = data[0].id_osc;
+                 id_osc_parceira = data[0].id_osc;
                  $('#osc_parceira').find('input')[i].value = nome_osc;
-                 $('#osc_parceira').attr("id_osc_parceira",id_osc);
+                 //var $inputs = $('#osc_parceira').find("input");console.log($inputs);
+                 $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
                }
              },
              error: function(e) {
@@ -1776,16 +1777,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           } else if(($pai.attr("id") === "osc_parceira")){
             var osc_parceiras = [];
             var osc_parceira = {};
-            var $inputs = $pai.find("inputs");
-            //var $attr = $pai.find("attr");
+            var $inputs = $pai.find("input");
             $inputs.each(function(){
               if($(this).val() !== ""){
-                osc_parceira = {};
-                osc_parceira.id_osc = $(this).val(); console.log(osc_parceira.id_osc);
+                osc_parceira = {};//console.log($(this)[i]);
+                osc_parceira.id_osc = $(this)[0].id_osc_parceira ? $(this)[0].id_osc_parceira : null;
                 osc_parceiras.push(osc_parceira);
               }
             });
-            obj["osc_parceira"] = osc_parceiras.length > 0 ? osc_parceiras : null;
+            if (osc_parceiras[0].id_osc == null) {
+              obj["osc_parceira"] = null;
+            }
+            else{
+              obj["osc_parceira"] = osc_parceiras.length > 0 ? osc_parceiras : null;
+            }
           }
           else {
             obj[$pai.attr("id")] = valor;
