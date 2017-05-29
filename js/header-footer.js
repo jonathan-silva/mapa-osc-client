@@ -84,9 +84,9 @@ require(['react', 'jsx!components/Footer','bootstrap'], function(React, Footer) 
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
   //Carrossel do rodapé
-  var imgList = [["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_pnud.png"],
-                 ["http://www.secretariadegoverno.gov.br/","http://www.justica.gov.br/","http://www.br.undp.org/"],
-                 ["Link externo para Secretaria de Governo","Link externo para Ministério da Justiça e Cidadania","Link externo para Programa das Nações Unidas para o Desenvolvimento"]];
+  var imgList = [["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_ods.png"],
+                 ["http://www.secretariadegoverno.gov.br/","http://www.justica.gov.br/","http://agenda2030.com.br/"],
+                 ["Link externo para Secretaria de Governo","Link externo para Ministério da Justiça e Cidadania","Link externo para Plataforma Agenda 2030"]];
 
   function FooterObject(blocks, imgsAltRealizacao, imgList){
     this.blocks =blocks;
