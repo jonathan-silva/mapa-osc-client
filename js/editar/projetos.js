@@ -56,7 +56,7 @@ class Projeto {
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
-    var projet = util.validateObject(project.projeto,project)
+    var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
@@ -120,6 +120,12 @@ class Projeto {
 
     var oscParceira = util.validateObject(project.osc_parceira, []);
     var parceiras =  util.getTipoProjeto("osc_parceira", oscParceira);
+
+    var id_osc_parceira = [];
+    var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
+    for (var i = 0; i < tam_osc_parc ; i++) {
+      id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
+    }
 
     var valorMeta = "";
     var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";

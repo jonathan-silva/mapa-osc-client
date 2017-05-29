@@ -1261,7 +1261,8 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           /*  $("#recursos_publicos-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
             $("#recursos_publicos-"+ano).find('input').addClass('with-pretext');
             $("#recursos_publicos-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');*/
-        } else {
+        }
+        else {
           var class_string = "form-control ";
           if(id.substring(0,2) === "dt"){
             codigo = id;
@@ -1291,7 +1292,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <div id={id} className="input-group">
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
-            </div>
+            </div>            
         }
         itens.push(
           InputElement
