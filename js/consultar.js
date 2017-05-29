@@ -604,11 +604,9 @@ require(['react'], function (React) {
             {
               if(jsonConsulta[idSecao] === undefined )
               {
-                jsonConsulta[idSecao] = [];
+                jsonConsulta[idSecao] = {};
               }
-              var obj = {};
-              obj[$(this).attr('id')] = $(this).val();
-              jsonConsulta[idSecao].push(obj);
+              jsonConsulta[idSecao][$(this).attr('id')] = $(this).val();
             }
            });
 
@@ -617,11 +615,9 @@ require(['react'], function (React) {
              {
                if(jsonConsulta[idSecao] === undefined )
                {
-                 jsonConsulta[idSecao] = [];
+                 jsonConsulta[idSecao] = {};
                }
-               var obj = {};
-               obj[$(this).attr('id')] = $(this).prop( "checked");
-               jsonConsulta[idSecao].push(obj);
+               jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
              }
             });
 
