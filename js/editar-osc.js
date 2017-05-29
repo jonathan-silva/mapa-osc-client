@@ -450,8 +450,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         if(proj){
             metasObjetivos(proj.projeto[0], id_projeto);
+            //id_osc_parceira(proj.projeto[0], id_projeto);
         } else {
-            metasObjetivos({}, id_projeto);
+          //id_osc_parceira({}, id_projeto);
+          metasObjetivos({}, id_projeto);
         }
           verificarContraste();
         } else {
@@ -758,11 +760,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
+    function id_osc_parceira(project, id){
+      //id_osc_parceira
+      var id_osc_parceira = [];
+      var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
+      for (var i = 0; i < tam_osc_parc ; i++) {
+        id_osc_parceira[i] = util.validateObject(project.osc_parceira[i].id_osc,null);
+      }
+      /*function
+      $("#osc_parceira").find('input').attr("id_osc_parceira="+id_osc_parceira[i]);*/
+    }
+
     function metasObjetivos(project, id){
       //metas e objetivos
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
-      var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
+      var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1); console.log(objetivo);
       var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
       var cd_metas = [];
       var metas = [];
@@ -788,9 +801,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           montarObjetivos(data, cd_objetivo);
           $("#objetivos select").selectBoxIt({
              theme: "default",
-             defaultText: "Selecione abaixo...",
+             //defaultText: "Selecione abaixo...",
              autoWidth: false
            });
+            $("#objetivos select").selectBoxIt("refresh");
         }
       });
 
@@ -820,7 +834,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarObjetivos(json, cd_objetivo){
       var options = json;
       var $selectObjetivos = $divObjetivosProjeto.find("select");
-      $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      if (cd_objetivo == -1 ) {
+        $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
+      else {
+        $selectObjetivos.append('<option value=-1 id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
       for (var i = 0; i < options.length; i++) {
         if(options[i].cd_objetivo_projeto === cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -1378,57 +1397,74 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["conferencia"] = [];
+
+
         $(".conferencia").each(function(){
+         var empty = true;
          var obj = {};
          obj["cd_conferencia"] = 0;
          obj["cd_forma_participacao_conferencia"] = 0;
          obj["dt_ano_realizacao"] = 0 ;
-         $(this).find("input").each(function(){
-           for (var i=0;i<lconferencia.length;i++){
-           if ($(this).val() === lconferencia[i].tx_nome_conferencia){
-             obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
-             break;
-            }
-           }
 
-         for (var i=0;i<lista_forma_conferencia.length;i++){
-         if ($(this).val() === lista_forma_conferencia[i]){
-           obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
-           break;
-          }
-        }
-           if ( util.contains("19",$(this).val()) ||  util.contains("20",$(this).val()) ){
-            obj["dt_ano_realizacao"] = $(this).val();
-          }
-         });
+         // Busca nos selects
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
            for (var i=0;i<lconferencia.length;i++){
+
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
+             empty = false;
              obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
+             conferencia_id = parseInt($(this).attr("id").split("-")[1]);
+             obj.tx_nome_conferencia = null; //Existe -- Depois será atribuído caso
              break;
             }
            }
 
            for (var i=0;i<lista_forma_conferencia.length;i++){
-           if ($(this).val() === lista_forma_conferencia[i]){
-             obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
-             break;
-            }
+             if ($(this).val() === lista_forma_conferencia[i]){
+               obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
+               break;
+              }
           }
          });
-         //if(!(obj.cd_conferencia === "-1") && !(obj.cd_forma_participacao_conferencia === "-1") && !(obj.dt_ano_realizacao == "")){
-         if ( (util.validateObject(obj.cd_conferencia,true))  && obj.cd_conferencia !== undefined ){
-           newJson.conferencia.push(obj);
-         }
-         else {
-           newJson["conferencia"].push(null);
-         }
+
+         // Busca nos inputs
+         $(this).find("input").each(function(){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           if (campo == "outro"){
+              obj.tx_nome_conferencia = $(this).val();
+           }
+
+           for (var i=0;i<lconferencia.length;i++){
+             // Código Conferência
+             if ($(this).val() === lconferencia[i].tx_nome_conferencia){
+               obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
+               break;
+              }
+           }
+           for (var i=0;i<lista_forma_conferencia.length;i++){
+             // Forma de Participação
+             if ($(this).val() === lista_forma_conferencia[i]){
+               obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
+               break;
+              }
+          }
+          if ( util.contains("19",$(this).val()) ||  util.contains("20",$(this).val()) ){
+             // Data Participaçao
+            obj["dt_ano_realizacao"] = $(this).val();
+          }
         });
-        //console.log(newJson);
+
+          if(!empty){
+            newJson.conferencia.push(obj);
+          }
+
+        });
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
-        //console.log(JSON.stringify(newJson));
+        console.log(JSON.stringify(newJson));
         console.log(success);
 
         // Outros espaços
