@@ -1007,7 +1007,7 @@ define('componenteAgrupadorConferencia', ['react', 'componenteFormItem'], functi
             </div>
           )
           group = [];
-        } else if((num % 3 == 0)){
+        } else if((num % 4 == 0)){
           itens.push(
             <div className="conferencia">
               <FormItem dados={group}></FormItem>
