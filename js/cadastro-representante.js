@@ -96,8 +96,8 @@ require(['react', 'jsx!components/Util'], function(React) {
                        $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');
                     }
                   },
-                  error: function(e) {
-                      response([]);
+                  error: function (jqXHR, exception) {
+                        console.log(getErrorMessage(jqXHR, exception));
                   }
               });
           }//fim else
@@ -369,6 +369,28 @@ function validaCPF(cpf) {
     } else {
         return true;
     }
+}
+
+
+
+function getErrorMessage(jqXHR, exception) {
+    var msg = '';
+    if (jqXHR.status === 0) {
+        msg = 'Not connect.\n Verify Network.';
+    } else if (jqXHR.status == 404) {
+        msg = 'Requested page not found. [404]';
+    } else if (jqXHR.status == 500) {
+        msg = 'Internal Server Error [500].';
+    } else if (exception === 'parsererror') {
+        msg = 'Requested JSON parse failed.';
+    } else if (exception === 'timeout') {
+        msg = 'Time out error.';
+    } else if (exception === 'abort') {
+        msg = 'Ajax request aborted.';
+    } else {
+        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+    }
+    return msg;
 }
 
 
