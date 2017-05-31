@@ -1292,7 +1292,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <div id={id} className="input-group">
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
-            </div>            
+            </div>
         }
         itens.push(
           InputElement
@@ -1425,7 +1425,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
             }
           }
           if(header === "OSCs Parceiras"){
-              var title = item.inputs[0].title;console.log(item);console.log(dados);
+              var title = item.inputs[0].title;//console.log(item);console.log(dados);
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header" title="Insira os CNPJ de OSCs Parceiras.">{header+" "}
