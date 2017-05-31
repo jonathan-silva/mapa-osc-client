@@ -344,8 +344,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         salvarProjetos();
         table_lista_projetos.row.add([
           -1,
-          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto</div>'/*+//proj_id_generator+
-          '<button id="id_botao-projeto" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button>'
+          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'+/*+//proj_id_generator+*/
+          '<button id="id_botao-proj" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button></div>'
           //'<button id="id_botao-projeto" attr="'+proj_id_generator+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'*/
         ]).draw(false);
         //proj_id_generator = 0;
@@ -511,7 +511,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             novo = true;
           }
           var res = projeto.carregaProjeto(id_proj, dadosForm, rotas, util, novo);
-          var fonte =res.projeto.projeto[0].ft_nome_projeto;
+          var fonte = res.projeto ? res.projeto.projeto[0].ft_nome_projeto : "";
           if (fonte == 'Representante'){
           newJson = {};
           newJson["headers"] = authHeader;
@@ -529,10 +529,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //salvarProjetos();
         }
         else {
-          jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente é um projeto de dados oficiais e não pode ser removido.<br> Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
-          util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
-        }
+          if(id_proj != '-1'){
+            jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente é um projeto de dados oficiais e não pode ser removido.<br> Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
+            util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
+          }
+          else {
+            jsonRemoverSucesso = {"null":"Problema ao remover projeto!"}
+            util.abrirModalAjuda("Novo projeto!",jsonRemoverSucesso);
+          }
       }
+    }
 
       function conta_tr(){
           var i = 0;
@@ -767,21 +773,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       for (var i = 0; i < tam_osc_parc ; i++) {
         id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
         $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
-        console.log(id_osc_parceira);
       }
-      /*$('#osc_parceira').find('input').each(function(i){
-        $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
-      });*/
-      console.log(i);
-      console.log(tam_osc_parc);
-
     }
 
     function metasObjetivos(project, id){
       //metas e objetivos
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
-      var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1); console.log(objetivo);
+      var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
       var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
       var cd_metas = [];
       var metas = [];
@@ -1827,7 +1826,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 osc_parceiras.push(osc_parceira);
               }
             });
-            if (osc_parceiras[0].id_osc == null) {
+            if (osc_parceiras == null) {
               obj["osc_parceira"] = null;
             }
             else{
