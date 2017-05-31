@@ -5,25 +5,20 @@ var absUrl;
 controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
 	absUrl = $location.$$absUrl;
 	var self = this;
-	var rotas = new Rotas();//rotas.js
-	//createCookie('ppkcookie','2',7);
- //console.log(readCookie('cookieDetalhar'));
+	var rotas = new Rotas();
 	self.carregarDadosGerais = function(){
-		idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
-
+		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
+		
 		$http({
 		     url: 'js/controller.php',
 		     method: "GET",
 		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
 		}).then(function(response) {
-      //console.log(response);
 			if(response.data.msg == undefined){
 				self.osc = response.data;
 	    	self.msg = '';
-        //console.log(self.osc);
 			}else{
 				self.msg = response.data.msg;
-        //console.log(self.msg);
 			}
 		});
 	};
