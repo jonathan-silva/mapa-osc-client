@@ -449,10 +449,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         })
 
         if(proj){
-            metasObjetivos(proj.projeto[0], id_projeto);
-            //id_osc_parceira(proj.projeto[0], id_projeto);
+          id_osc_parceira(proj.projeto[0], id_projeto);
+          metasObjetivos(proj.projeto[0], id_projeto);
         } else {
-          //id_osc_parceira({}, id_projeto);
+          id_osc_parceira({}, id_projeto);
           metasObjetivos({}, id_projeto);
         }
           verificarContraste();
@@ -762,13 +762,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function id_osc_parceira(project, id){
       //id_osc_parceira
-      var id_osc_parceira = [];
+      var id_osc_parceira;
       var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
       for (var i = 0; i < tam_osc_parc ; i++) {
-        id_osc_parceira[i] = util.validateObject(project.osc_parceira[i].id_osc,null);
+        id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
+        $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
+        console.log(id_osc_parceira);
       }
-      /*function
-      $("#osc_parceira").find('input').attr("id_osc_parceira="+id_osc_parceira[i]);*/
+      /*$('#osc_parceira').find('input').each(function(i){
+        $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
+      });*/
+      console.log(i);
+      console.log(tam_osc_parc);
+
     }
 
     function metasObjetivos(project, id){
