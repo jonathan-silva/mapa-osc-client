@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^([a-zA-Z0-9])+/?$ /visualizar-osc.html#/$1 [NC]
+</IfModule>

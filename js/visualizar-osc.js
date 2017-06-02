@@ -138,7 +138,7 @@ function abrirModalRelatorio(titulo) {
 	var	corpo = "<fieldset id='escolhaImpressao'><legend>Escolha quais seções para imprimir</legend>";
 	corpo += "<label><input type='checkbox' name='escolha' value='tudo' checked> Todas Seções</label><br><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais</label><br>";
-  corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança</label><br>";
