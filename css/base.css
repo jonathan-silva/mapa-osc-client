@@ -4129,6 +4129,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     max-height: 200px;
   }
 }
+
+@media (max-device-width: 357px)  {
+  .micro{
+    margin-top: -10px !important;
+  }
+}
 .container > .navbar-header,
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
@@ -4255,6 +4261,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus {
     background-image: none;
+  }
+  .navbar-static-top{
+    height: 0px !important;
   }
 }
 @media (min-width: 768px) {
@@ -6452,6 +6461,9 @@ button.close {
 
     .col-3-dados, .col-9-dados {
         width: 100% !important;
+    }
+    .logoMapa{
+      height: 80px !important;
     }
 }
 @media (min-width: 768px) and (max-width: 991px) {
