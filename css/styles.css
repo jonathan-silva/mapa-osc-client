@@ -1039,3 +1039,6 @@ select{
 .menuHeader{
     margin-top: 40px !important;
 }
+#buscarPerfil .tab-pane a {
+    color: #FFFFFF;
+  }

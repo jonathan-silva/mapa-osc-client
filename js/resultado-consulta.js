@@ -41,6 +41,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
   var urlController = 'js/controller.php';
+  var limiteAutocomplete = 10;
+  var limiteAutocompleteCidade = 25;
+  var flagMultiplo = true;
+  var textoBusca = '';
   var zoomMaximo = 18;
   var mapOptions = {
     center: new L.LatLng(-16.55555555, -60.55555555),
@@ -86,6 +90,190 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
   var tipoConsulta;
+
+  //botao de consulta
+  var div = $("#buscarPerfil .tab-content");
+  div.find(".btn.btn-primary").on("click", function(){
+    var tabAtiva = div.find('.tab-pane.fade.active.in');
+    var id = tabAtiva.attr("id");
+    var val = tabAtiva.find(".form-control").val();
+    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
+    var link;
+    if (id == 'organizacao' && val !== ''){
+      link = "./resultado-consulta.html?" + id + "=" + val + "&similaridade=05";
+      location.href=link;
+    }
+    else {
+      val = $('.response').val();
+      if (val !== ''){
+        link = "./resultado-consulta.html?" + id + "=" + val;
+        location.href=link;
+      }
+      else{
+        $('#errorLabel').removeClass('hide');
+      }
+    }
+  });
+
+  function replaceSpecialChars(str){
+    str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+    str = str.replace(/[àáâãäå]/g,"a");
+    str = str.replace(/[ÉÈÊË]/g,"E");
+    str = str.replace(/[éèêë]/g,"e");
+    str = str.replace(/[ÍÌÎÏ]/g,"I");
+    str = str.replace(/[íìîï]/g,"i");
+    str = str.replace(/[ÓÒÔÕ]/g,"O");
+    str = str.replace(/[óòôõ]/g,"o");
+    str = str.replace(/[ÚÙÛÜ]/g,"U");
+    str = str.replace(/[úùûü]/g,"u");
+    str = str.replace(/[Ç]/g,"C");
+    str = str.replace(/[ç]/g,"c");
+    return str;
+  }
+
+  //autocomplete organizacao
+  $("#organizacao .form-control").autocomplete({
+    minLength: 3,
+    source: function (request, response) {
+     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '+');
+
+       $.ajax({
+           url: urlController,
+           type: 'GET',
+           dataType: "json",
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, '05')},
+           success: function (data) {
+             if(data.constructor === Array){
+               if(data.length == 1){
+                 if(!data[0].bo_multiple){
+                   flagMultiplo = false;
+                 }
+               }
+             }
+
+             response($.map( data, function( item ) {
+                return {
+                    label: item.tx_nome_osc,
+                    value: item.tx_nome_osc,
+                    id: item.id_osc
+                };
+            }));
+           },
+           error: function (e) {
+             //console.log(e);
+               response([]);
+           }
+       });
+   },
+   select: function(event, ui){
+    if(flagMultiplo){
+      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=99';
+    }else{
+      //link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
+      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=05';
+    }
+    location.href=link;
+   }
+ });
+
+  //autocomplete municipio
+  $("#municipio .form-control").autocomplete({
+    minLength: 3,
+    source: function (request, response) {
+       $.ajax({
+           url: urlController,//4204251
+           type: 'GET',
+           dataType: "json",
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+           success: function (data) {
+             response($.map( data, function( item ) {
+                return {
+                    label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                    value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                    id: item.edmu_cd_municipio
+                };
+            }));
+           },
+           error: function (e) {
+               response([]);
+           }
+       });
+   },
+   select: function(event, ui){
+     $('.response').val(ui.item.id);
+     link = "./resultado-consulta.html?"+'municipio'+"="+ui.item.id;
+     location.href=link;
+   }
+ });
+
+ //autocomplete estado
+ $("#estado .form-control").autocomplete({
+   minLength: 3,
+   source: function (request, response) {
+      $.ajax({
+          url: urlController,//4204251
+          type: 'GET',
+          dataType: "json",
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+          success: function (data) {
+            response($.map( data, function( item ) {
+               return {
+                   label: item.eduf_nm_uf,
+                   value: item.eduf_nm_uf,
+                   id: item.eduf_cd_uf
+               };
+           }));
+          },
+          error: function () {
+              response([]);
+          }
+      });
+  },
+  select: function(event, ui){
+    $('.response').val(ui.item.id);
+    link = "./resultado-consulta.html?"+'estado'+"="+ui.item.id;
+    location.href=link;
+  }
+});
+
+//autocomplete regiao
+$("#regiao .form-control").autocomplete({
+  minLength: 3,
+  source: function (request, response) {
+     $.ajax({
+         url: urlController,//4204251
+         type: 'GET',
+         dataType: "json",
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+         success: function (data) {
+           response($.map( data, function( item ) {
+              return {
+                  label: item.edre_nm_regiao,
+                  value: item.edre_nm_regiao,
+                  id: item.edre_cd_regiao
+              };
+          }));
+         },
+         error: function () {
+             response([]);
+         }
+     });
+ },
+ select: function(event, ui){
+   $('.response').val(ui.item.id);
+   link = "./resultado-consulta.html?"+'regiao'+"="+ui.item.id;
+   location.href=link;
+  }
+ });
+
+ $('.ui-autocomplete-input').keypress(function(e) {
+   var key = e.which;
+   if(key == 13){
+     $('.btn-primary').click();
+     $('.ui-menu-item').hide();
+     return false;
+   }
+ });
 
   if(valoresURL!==null){
     //consulta baseado na escolha da tela anterior
