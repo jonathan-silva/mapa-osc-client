@@ -8,7 +8,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	var rotas = new Rotas();
 	self.carregarDadosGerais = function(){
 		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
-		
+
 		$http({
 		     url: 'js/controller.php',
 		     method: "GET",
@@ -88,6 +88,10 @@ require(["jquery-ui"], function (React) {
     $(".scroll").click(function(event){
         event.preventDefault();
         $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+	   });
+
+		 $("#voltaPagAnterior").on("click", function(){
+	     history.go(-1);
 	   });
 
 		 setTimeout(function(){ verificarContraste(); }, 3000);
@@ -254,6 +258,16 @@ function verificarBotaoEditar(id){
 
 function addLinkVoltar(id){
 		$("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
+		urlPagAnterior = document.referrer;
+		if(urlPagAnterior.indexOf("minhas-oscs")==-1) {
+			if(urlPagAnterior.indexOf("editar-osc")==-1) {
+				$("#voltaPagAnterior").text('Mapa');
+			}else {
+				$("#voltaPagAnterior").text('Editar');
+			}
+		 } else {
+				 $("#voltaPagAnterior").text('Minhas OSCs');
+		 }
 }
 
 function verificarPermissaoBotao(id){
