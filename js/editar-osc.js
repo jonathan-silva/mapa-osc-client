@@ -275,7 +275,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function addLinkVoltar(id){
         $("#voltaEditar").attr("href","editar-osc.html#/"+id);
-		    $("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
+
+        urlPagAnterior = document.referrer;
+        if(urlPagAnterior.indexOf("minhas-oscs") == -1)
+        {
+          $("#voltaPagAnterior").text('Visualizar');
+          $("#voltaPagAnterior").attr("href","visualizar-osc.html#/"+id);
+
+         } else {
+             $("#voltaPagAnterior").text('Lista de OSCs');
+             $("#voltaPagAnterior").attr("href","minhas-oscs.html");
+         }
     }
 
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){

@@ -266,7 +266,7 @@ function addLinkVoltar(id){
 				$("#voltaPagAnterior").text('Editar');
 			}
 		 } else {
-				 $("#voltaPagAnterior").text('Minhas OSCs');
+				 $("#voltaPagAnterior").text('Lista de OSCs');
 		 }
 }
 
