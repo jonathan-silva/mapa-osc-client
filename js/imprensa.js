@@ -37,11 +37,8 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = "<div><span class=\"glyphicon glyphicon-search\" aria-hidden=\"true\"></span>"+data[i].dt_noticia+"<\div>";
-      newData[i][1] = "<ul class=\"media-list\"><li class=\"media\"><a class=\"pull-left\" href=\"./noticia.html#/"+data[i].cd_noticia+" target=\"_self\">
-                        <img class=\"media-object img-circle\" src=\"img/noticia/"+data[i].tx_link_img_noticia+" height=\"64\" width=\"64\"></a>
-                        <div class=\"media-body\"><h4 class=\"media-heading\"><a class=\"btn-link\" href=\"./noticia.html#/"+data[i].cd_noticia+" target=\"_self\">"+data[i].tx_titulo_noticia+"</a>
-                        </h4><p>"+data[i].tx_resumo_noticia+"</p></div></li></ul>";
+      newData[i][0] = '<div><span class="glyphicon glyphicon-search" aria-hidden="true"></span>'+data[i].dt_noticia+'<\div>';
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-circle" src="img/noticia/'+data[i].tx_link_img_noticia+'" height="64" width="64"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
     }
     return newData;
   }
@@ -54,11 +51,8 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = "<div><span class=\"glyphicon glyphicon-calendar\" aria-hidden=\"true\"></span>"+data[i].dt_video+"<\div>";
-      newData[i][1] = "<ul class=\"media-list\"><li class=\"media\"><a class=\"pull-left\" href=\"./video.html#/"+data[i].cd_video+" target=\"_self\">
-                        <img class=\"media-object img-rounded\" src=\"img/video/"+data[i].tx_link_img_video+" height=\"64\" width=\"64\"></a>
-                        <div class=\"media-body\"><h4 class=\"media-heading\"><a class=\"btn-link\" href=\"./video.html#/"+data[i].cd_video+" target=\"_self\">"+data[i].tx_titulo_video+"</a>
-                        </h4><p>"+data[i].tx_resumo_video+"</p></div></li></ul>";
+      newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>'+data[i].dt_video+'<\div>';
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./video.html#/'+data[i].cd_video+'" target="_self"><img class="media-object img-rounded" src="img/video/'+data[i].tx_link_img_video+'" height="64" width="64"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./video.html#/'+data[i].cd_video+'" target="_self">'+data[i].tx_titulo_video+'</a></h4><p>'+data[i].tx_resumo_video+'</p></div></li></ul>';
     }
     return newData;
   }
@@ -73,9 +67,9 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       data: newData,
       dom: 'Bfrtip',
       "bSort": true,
-      "aaSorting": [[ 1, 'asc' ]],
+      "aaSorting": [[ 0, 'desc' ]],
       columns: [
-               {title: "", "width": "5%"},
+               {title: "", "width": "50px"},
                {title: ""},
            ]
      });
@@ -90,22 +84,25 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     data: {flag: 'consulta', rota: rotas.Imprensa()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        tabela('#noticia_formato_dados','','');
+        tabela('#video_formato_dados','','');
+        $('.loading').addClass('hide');
     },
     success: function(data){
       var txtVazioNulo = 'Dado não informado.';
       if(data!==undefined){
         if (data.noticia){
-        tabela('#noticia_formato_dados', popularDadosNoticia(data.noticias));
+          tabela('#noticia_formato_dados', popularDadosNoticia(data.noticias));
         }
         else {
-          tabela('#noticia_formato_dados','','')
+          tabela('#noticia_formato_dados','','');
         }
 
         if (data.video){
-        tabela('#video_formato_dados', popularDadosVideo(data.videos));
+          tabela('#video_formato_dados', popularDadosVideo(data.videos));
         }
         else {
-          tabela('#video_formato_dados','','')
+          tabela('#video_formato_dados','','');
         }
       }
 
