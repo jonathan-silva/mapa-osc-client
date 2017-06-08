@@ -75,6 +75,91 @@
             <h1 class="text-primary">Resultado da Consulta</h1>
             <hr>
           </div>
+
+          <div class="col-md-12">
+
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1">
+                <div class="panel-heading" role="tab" id="heading-1">
+                  <h4 class="panel-title" id="novaConsulta"><b>Nova Consulta</b></h4>
+                </div>
+              </a>
+              <div id="collapse-1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-1">
+                <div class="panel-body">
+
+                    <div id="buscarPerfil" class="row">
+                      <div class="col-md-offset-3 col-md-6">
+                        <ul class="nav nav-pills">
+                          <li class="active">
+                            <a data-toggle="pill" title="Buscar pelo Nome ou CNPJ." href="#organizacao">Organização</a>
+                          </li>
+                          <li>
+                            <a data-toggle="pill" title="Buscar pelo Nome do Município." href="#municipio">Município</a>
+                          </li>
+                          <li>
+                            <a data-toggle="pill" title="Buscar pelo Nome do Estado." href="#estado">Estado</a>
+                          </li>
+                          <li>
+                            <a data-toggle="pill" title="Buscar pelo Nome da Região." href="#regiao">Região</a>
+                          </li>
+                        </ul>
+                        <div class="tab-content">
+                          <div id="organizacao" class="tab-pane fade in active">
+                            <form role="form">
+                              <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                  <input type="text" class="form-control" placeholder="Digite o Nome ou CNPJ.">
+                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
+                                  <div class="response"></div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div id="municipio" class="tab-pane fade">
+                            <form role="form">
+                              <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                  <input type="text" class="form-control" placeholder="Digite o Nome do Município.">
+                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div id="estado" class="tab-pane fade">
+                            <form role="form">
+                              <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                  <input type="text" class="form-control" placeholder="Digite o Nome do Estado.">
+                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div id="regiao" class="tab-pane fade">
+                            <form role="form">
+                              <div class="form-group">
+                                <div class="input-group input-group-lg">
+                                  <input type="text" class="form-control" placeholder="Digite o Nome da Região.">
+                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="alert alert-danger fade in hide" id="errorLabel">
+                              <a href="#" class="close" onclick="$('.alert').addClass('hide')">&times;</a>
+                              <strong>Erro!</strong> É necessário digitar um valor no campo ou selecioná-lo na lista.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         </div>
         <div class="row">
           <div class="col-md-12">

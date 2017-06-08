@@ -275,7 +275,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function addLinkVoltar(id){
         $("#voltaEditar").attr("href","editar-osc.html#/"+id);
-		    $("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
+
+        urlPagAnterior = document.referrer;
+        if(urlPagAnterior.indexOf("minhas-oscs") == -1)
+        {
+          $("#voltaPagAnterior").text('Visualizar');
+          $("#voltaPagAnterior").attr("href","visualizar-osc.html#/"+id);
+
+         } else {
+             $("#voltaPagAnterior").text('Lista de OSCs');
+             $("#voltaPagAnterior").attr("href","minhas-oscs.html");
+         }
     }
 
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
@@ -344,7 +354,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         salvarProjetos();
         table_lista_projetos.row.add([
           -1,
-          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'+/*+//proj_id_generator+*/
+          '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'/*+//proj_id_generator+
           '<button id="id_botao-proj" attr=-1 class="btn-danger btn botao-projeto">Remover Projeto</button></div>'
           //'<button id="id_botao-projeto" attr="'+proj_id_generator+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'*/
         ]).draw(false);
@@ -534,8 +544,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
           }
           else {
-            jsonRemoverSucesso = {"null":"Problema ao remover projeto!"}
-            util.abrirModalAjuda("Novo projeto!",jsonRemoverSucesso);
+            jsonRemoverSucesso = {"Novo Projeto!":"Esse projeto possivelmente foi inseriodo agora!"}
+            util.abrirModalAjuda("Erro ao remover projeto!",jsonRemoverSucesso);
           }
       }
     }

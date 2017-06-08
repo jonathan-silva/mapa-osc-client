@@ -8,7 +8,7 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 	var rotas = new Rotas();
 	self.carregarDadosGerais = function(){
 		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
-		
+
 		$http({
 		     url: 'js/controller.php',
 		     method: "GET",
@@ -90,6 +90,10 @@ require(["jquery-ui"], function (React) {
         $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
 
+		 $("#voltaPagAnterior").on("click", function(){
+	     history.go(-1);
+	   });
+
 		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
@@ -138,7 +142,7 @@ function abrirModalRelatorio(titulo) {
 	var	corpo = "<fieldset id='escolhaImpressao'><legend>Escolha quais seções para imprimir</legend>";
 	corpo += "<label><input type='checkbox' name='escolha' value='tudo' checked> Todas Seções</label><br><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais</label><br>";
-  corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança</label><br>";
@@ -254,6 +258,16 @@ function verificarBotaoEditar(id){
 
 function addLinkVoltar(id){
 		$("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
+		urlPagAnterior = document.referrer;
+		if(urlPagAnterior.indexOf("minhas-oscs")==-1) {
+			if(urlPagAnterior.indexOf("editar-osc")==-1) {
+				$("#voltaPagAnterior").text('Mapa');
+			}else {
+				$("#voltaPagAnterior").text('Editar');
+			}
+		 } else {
+				 $("#voltaPagAnterior").text('Lista de OSCs');
+		 }
 }
 
 function verificarPermissaoBotao(id){

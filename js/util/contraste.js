@@ -143,7 +143,8 @@ function ativarCSSContraste() {
         $(this).css("color", "#ffffff");
     }
   });
-
+  
+  $( ".logoMapa" ).attr({src: "img/logo_contraste.png"});
 
 }
 

@@ -250,4 +250,15 @@ class Rotas{
 
   }
 
+  //Imprensa
+  Imprensa(){
+    return this.getBaseUrl()+":8383/api/imprensa/";
+  }
+  NoticiaByID(id){
+    return this.getBaseUrl()+":8383/api/noticia/"+id;
+  }
+  VideoByID(id){
+    return this.getBaseUrl()+":8383/api/video/"+id;
+  }
+
 }
