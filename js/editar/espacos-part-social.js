@@ -121,6 +121,7 @@ class EspacosPartSocial {
       },
       success: function(data){
         lforma = data;
+
       }
     });
     var lista_forma=[];
@@ -218,7 +219,7 @@ class EspacosPartSocial {
         for (var property in conferencias[j]) {
           if (conferencias[j].hasOwnProperty(property)) {
             if(property == "tx_nome_conferencia"){
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "select", lista_conferencia));
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "select", lista_conferencia));
             }
 
             if (property == "tx_nome_conferencia_outro"){
@@ -230,13 +231,13 @@ class EspacosPartSocial {
             }
 
             if(property == "tx_nome_forma_participacao_conferencia"){
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "select",lista_forma_conferencia));
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "select",lista_forma_conferencia));
             }
             if(property == "dt_ano_realizacao"){
               var dtAnoRealizacao = conferencias[j].dt_ano_realizacao;
               dtAnoRealizacao = dtAnoRealizacao ? dtAnoRealizacao.substring(6) : dtAnoRealizacao;
               //console.log(dtAnoRealizacao);
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
             }
           }
         }

@@ -1303,9 +1303,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            if ($(this).val() === lconselho[i].tx_nome_conselho){
              empty = false; //Existe
              obj.conselho.cd_conselho = lconselho[i].cd_conselho;
-             conselho_id = parseInt($(this).attr("id").split("-")[1]);
              cd_conselho = obj.conselho.cd_conselho;
-             obj.conselho.tx_nome_conselho = null; //Existe -- Depois será atribuído caso
+             conselho_id = parseInt($(this).attr("id").split("-")[1]);
+             if(cd_conselho != 104){
+               obj.conselho.tx_nome_conselho = null; //Existe -- Depois será atribuído caso
+             }
+
              break;
             }
            }
@@ -1335,7 +1338,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            var split = $(this).attr("id").split("-");
            var campo = split[0];
            if (campo == "outro"){
+             console.log(campo);
               obj.conselho.tx_nome_conselho = $(this).val();
+              console.log(obj.conselho.tx_nome_conselho);
            }
 
            for (var i=0;i<lconselho.length;i++){
@@ -1368,12 +1373,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
 
                obj.conselho[campo] = $(this).val();
+               console.log(campo + " - " + $(this).val()  );
 
              }
            }
 
          });
-
+         console.log(empty);
          if(!empty){
            newJson.conselho.push(obj);
            //newJson = Object.assign({}, newJson, obj);
@@ -1431,7 +1437,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              empty = false;
              obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
              conferencia_id = parseInt($(this).attr("id").split("-")[1]);
-             obj.tx_nome_conferencia = null; //Existe -- Depois será atribuído caso
+             obj.tx_nome_conferencia = ""; //Existe -- Depois será atribuído caso
              break;
             }
            }
@@ -1473,13 +1479,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
           if(!empty){
+
+            if (conferencia_id != 0) {
+              obj["id_conferencia"] = conferencia_id;
+            }else {
+              obj["id_conferencia"] = null;
+            }
             newJson.conferencia.push(obj);
           }
 
         });
 
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
-        console.log(JSON.stringify(newJson));
+        //console.log(JSON.stringify(newJson));
         console.log(success);
 
         // Outros espaços
