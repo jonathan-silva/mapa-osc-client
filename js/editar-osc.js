@@ -1338,9 +1338,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            var split = $(this).attr("id").split("-");
            var campo = split[0];
            if (campo == "outro"){
-             console.log(campo);
               obj.conselho.tx_nome_conselho = $(this).val();
-              console.log(obj.conselho.tx_nome_conselho);
            }
 
            for (var i=0;i<lconselho.length;i++){
@@ -1369,23 +1367,19 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 "tx_nome_representante_conselho": $(this).val()
               });
            } else {
-            // obj.conselho.cd_conselho = conselho_id;
              if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
-
                obj.conselho[campo] = $(this).val();
-               console.log(campo + " - " + $(this).val()  );
-
              }
            }
 
          });
-         console.log(empty);
+         
          if(!empty){
            newJson.conselho.push(obj);
-           //newJson = Object.assign({}, newJson, obj);
+         }else{
+        	 newJson.conselho = null;
          }
         });
-        //console.log(JSON.stringify(newJson));
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1479,19 +1473,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
 
           if(!empty){
-
             if (conferencia_id != 0) {
               obj["id_conferencia"] = conferencia_id;
             }else {
               obj["id_conferencia"] = null;
             }
+            
             newJson.conferencia.push(obj);
+          }else{
+        	  newJson.conferencia = null;
           }
 
         });
 
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
-        //console.log(JSON.stringify(newJson));
         console.log(success);
 
         // Outros espaços
