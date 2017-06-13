@@ -369,11 +369,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var id_projeto = table_lista_projetos.row(tr_projeto).data()[0];
 
         var projetos = $(this).next(".projeto");
-        if(id_projeto == -1 ){
+        if(id_projeto == -1 ){ //projeto nove
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
         }
+
         if(projetos.length < 1){
           var res = projeto.carregaProjeto(id_projeto, dadosForm, rotas, util, novo);
           var result = res.agrupadores;
@@ -389,16 +390,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           //console.log(agrupamento(result, id_projeto));
           montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);
 
+          $("#" + divId + " #nr_valor_total_projeto input" ).mask('000.000.000.000.000,00', {reverse: true});
+          $("#" + divId + " #nr_valor_total_projeto input" ).addClass('with-pretext');
+          $("#" + divId + " #nr_valor_total_projeto input" ).before('<span class="pretext">R$</span>');
 
-          $("#nr_valor_total_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
-          $("#nr_valor_total_projeto").find('input').addClass('with-pretext');
-          $("#nr_valor_total_projeto").find('input').before('<span class="pretext">R$</span>');
+          $("#" + divId + " #nr_valor_captado_projeto input" ).mask('000.000.000.000.000,00', {reverse: true});
+          $("#" + divId + " #nr_valor_captado_projeto input" ).addClass('with-pretext');
+          $("#" + divId + " #nr_valor_captado_projeto input" ).before('<span class="pretext">R$</span>');
 
-          $("#nr_valor_captado_projeto").find('input').mask('000.000.000.000.000,00', {reverse: true});
-          $("#nr_valor_captado_projeto").find('input').addClass('with-pretext');
-          $("#nr_valor_captado_projeto").find('input').before('<span class="pretext">R$</span>');
-
-          $("#nr_total_beneficiarios").find('input').mask('00000000');
+          $("#" + divId + " #nr_total_beneficiarios input" ).mask('00000000');
 
           $($('#'+divId).find("div")[0]).attr("id", id_projeto_externo);
 
@@ -500,7 +500,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
             }
 
-            $(this).wrapInner( "<div class='titulo-projeto'></div>" );
+            //$(this).wrapInner( "<div class='titulo-projeto'></div>" );
           });
         }
         $('.botao-projeto').click(function(){
