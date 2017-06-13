@@ -500,7 +500,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
             }
 
-            $(this).wrapInner( "<div class='titulo-projeto'></div>" );
+            //$(this).wrapInner( "<div class='titulo-projeto'></div>" );
           });
         }
         $('.botao-projeto').click(function(){
