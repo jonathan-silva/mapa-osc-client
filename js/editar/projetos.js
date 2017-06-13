@@ -134,7 +134,7 @@ class Projeto {
     // var multipleInputs = [
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
-    var multipleInputs = [
+    var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
        fonte//, localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);

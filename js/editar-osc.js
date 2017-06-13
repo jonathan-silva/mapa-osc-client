@@ -1877,7 +1877,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if(idProjeto < 0){
             newJson["id_projeto"] = null;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-            arrayCampos = ['localizacao_projeto', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
+            arrayCampos = ['localizacao', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
             arrayCampos.map(function(index){
               if (!newJson.hasOwnProperty(index)){
                 newJson[index] = null;
@@ -1895,7 +1895,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           } else {
             newJson["id_projeto"] = idProjeto;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-            arrayCampos = ['localizacao_projeto', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
+            arrayCampos = ['localizacao', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
             arrayCampos.map(function(index){
               if (!newJson.hasOwnProperty(index)){
                 newJson[index] = null;
