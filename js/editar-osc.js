@@ -1478,12 +1478,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }else {
               obj["id_conferencia"] = null;
             }
-            
             newJson.conferencia.push(obj);
           }else{
         	  newJson.conferencia = null;
           }
-
         });
 
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
