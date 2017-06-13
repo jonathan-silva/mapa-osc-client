@@ -135,7 +135,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [
-       fonte, localizacao, publicoBeneficiado, financiadores, parceiras
+       fonte//, localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);
 

@@ -782,7 +782,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
       for (var i = 0; i < tam_osc_parc ; i++) {
         id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
-        $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
+        //$('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
       }
     }
 
@@ -1373,7 +1373,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
 
          });
-         
+
          if(!empty){
            newJson.conselho.push(obj);
          }else{
@@ -1735,7 +1735,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   "cd_origem_fonte_recursos_projeto": valor
                 }
                 );
-                console.log(obj);
+                //console.log(obj);
               }
             }
           } else if( $pai.attr("id") === "area_atuacao_outra"){
@@ -1877,7 +1877,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if(idProjeto < 0){
             newJson["id_projeto"] = null;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-            //console.log(newJson);
+            arrayCampos = ['localizacao_projeto', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
+            arrayCampos.map(function(index){
+              if (!newJson.hasOwnProperty(index)){
+                newJson[index] = null;
+              }
+            });
             success = util.carregaAjax(rotas.CriarProjectByID(idOsc), 'POST', newJson);
             console.log(success);
 
@@ -1890,7 +1895,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           } else {
             newJson["id_projeto"] = idProjeto;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-            //console.log(newJson);
+            arrayCampos = ['localizacao_projeto', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
+            arrayCampos.map(function(index){
+              if (!newJson.hasOwnProperty(index)){
+                newJson[index] = null;
+              }
+            });
+            //console.log(JSON.stringify(newJson));
             success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
             console.log(success);
           }
