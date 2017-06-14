@@ -332,12 +332,13 @@ $("#regiao .form-control").autocomplete({
         newData = new Array(sizeOfData);
         var i = 0;
         var txtVazioNulo = 'Dado não informado.';
-
+        var srcPadrao = 'img/camera.jpg';
         for (var j in data){
           if(j=="0") continue;
           else{
             newData[i] = new Array(columns);
-            newData[i][0] = "<img class='img-circle media-object' src='img/camera.jpg' height='64' width='64'>";
+            srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
+            newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
             newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
             newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
             newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
