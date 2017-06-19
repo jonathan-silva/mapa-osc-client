@@ -280,7 +280,7 @@ $("#regiao .form-control").autocomplete({
     tipoConsulta = valoresURL[0];
     var stringBuscada = valoresURL[1];
     stringBuscada = stringBuscada.replace(/\./g, "");
-    stringBuscada = stringBuscada.split('#')[0];
+    stringBuscada = stringBuscada.split('&')[0];
     if(window.location.href.indexOf('organizacao') > -1){
       urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('similaridade'));
       urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('similaridade'));
@@ -775,7 +775,7 @@ $("#regiao .form-control").autocomplete({
     var offset = parseInt(pageNumber) * 10 - 10;
     var newUrlRota = urlRota.split('/');
     var offsetField = newUrlRota.length;
-    newUrlRota[offsetField-1] = offset;
+    newUrlRota[offsetField-2] = offset;
     urlRota = '';
     for(var i = 0; i < newUrlRota.length; i++){
       urlRota += newUrlRota[i]+'/';
