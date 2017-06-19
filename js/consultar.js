@@ -40,25 +40,25 @@ require(['react'], function (React) {
 
     $( function() {
 
-        $( "#dataInicioVigencia" ).datepicker(
+        $( "#dt_data_inicio_conselho" ).datepicker(
           { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
           onClose: function( selectedDate )
-        {	$( "#dataFimVigencia" ).datepicker( "option", "minDate", selectedDate );	}
+        {	$( "#dt_data_fim_conselho" ).datepicker( "option", "minDate", selectedDate );	}
        });
 
-	      $( "#dataFimVigencia" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+	      $( "#dt_data_fim_conselho" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
         onClose: function( selectedDate ) {
-          $( "#dataInicioVigencia" ).datepicker( "option", "maxDate", selectedDate ); } });
+          $( "#dt_data_inicio_conselho" ).datepicker( "option", "maxDate", selectedDate ); } });
 
-        $( "#dataInicioProjeto" ).datepicker(
+        $( "#dt_data_inicio_projeto" ).datepicker(
           { defaultDate: "+1w", changeYear: true, changeMonth: true, numberOfMonths: 1,
           onClose: function( selectedDate )
-        {	$( "#dataFimProjeto" ).datepicker( "option", "minDate", selectedDate );	}
+        {	$( "#dt_data_fim_projeto" ).datepicker( "option", "minDate", selectedDate );	}
        });
 
-        $( "#dataFimProjeto" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
+        $( "#dt_data_fim_projeto" ).datepicker({	defaultDate: "+1w",	changeMonth: true, changeYear: true, numberOfMonths: 1,
         onClose: function( selectedDate ) {
-          $( "#dataInicioProjeto" ).datepicker( "option", "maxDate", selectedDate ); } });
+          $( "#dt_data_inicio_projeto" ).datepicker( "option", "maxDate", selectedDate ); } });
 
     } );
 
@@ -125,7 +125,7 @@ require(['react'], function (React) {
           console.log(e);
         },
         success: function(data){
-          var selectbox = $('#metasRelacionadasODS');
+          var selectbox = $('#cd_meta_projeto');
           var html = '<option value="">Qualquer</option>';
 
           if (data != null) {
@@ -135,13 +135,13 @@ require(['react'], function (React) {
           }
           selectbox.html(html);
 
-          $("#metasRelacionadasODS").addClass('newSelectBox');
-          $("#metasRelacionadasODS").selectBoxIt({
+          $("#cd_meta_projeto").addClass('newSelectBox');
+          $("#cd_meta_projeto").selectBoxIt({
              theme: "default",
              defaultText: "Qualquer",
              autoWidth: false
            });
-           $("#metasRelacionadasODS").selectBoxIt("refresh");
+           $("#cd_meta_projeto").selectBoxIt("refresh");
            verificarContraste();
 
         }
@@ -161,7 +161,7 @@ require(['react'], function (React) {
       },
       success: function(data){
           if (data != null) {
-            var selectbox = $('#areaAtuacao');
+            var selectbox = $('#cd_area_atuacao');
             $.each(data, function (key, value) {
                 $('<option>').val(value.cd_area_atuacao).text(value.tx_nome_area_atuacao).appendTo(selectbox);
             });
@@ -185,16 +185,16 @@ require(['react'], function (React) {
       }
     });
 
-    $( "#areaAtuacao" ).change(function() {
+    $( "#cd_area_atuacao" ).change(function() {
       var cd_area_atuacao = $(this).val();
 
       if (sub_area_box != null) {
-        var selectbox = $('#subareaAtuacao');
+        var selectbox = $('#cd_subarea_atuacao');
         var html = '';
 
         $.each(sub_area_box, function (key, value) {
           if(cd_area_atuacao == value.cd_area_atuacao ){
-            html += '<label><input id="subareaAtuacao-'+value.cd_subarea_atuacao+'" type="checkbox">'+value.tx_nome_subarea_atuacao+'</label>';
+            html += '<label><input id="cd_subarea_atuacao-'+value.cd_subarea_atuacao+'" type="checkbox">'+value.tx_nome_subarea_atuacao+'</label>';
           }
         });
 
@@ -223,7 +223,7 @@ require(['react'], function (React) {
       },
       success: function(data){
           if (data != null) {
-            var selectbox = $('#nomeConselho');
+            var selectbox = $('#cd_conselho');
             $.each(data, function (key, value) {
                 $('<option>').val(value.cd_conselho).text(value.tx_nome_conselho).appendTo(selectbox);
             });
@@ -244,7 +244,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#titularidade');
+          var selectbox = $('#cd_tipo_participacao');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_tipo_participacao).text(value.tx_nome_tipo_participacao).appendTo(selectbox);
           });
@@ -284,7 +284,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#fontesRecursosProjeto');
+          var selectbox = $('#cd_origem_fonte_recursos_projeto');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_origem_fonte_recursos_projeto).text(value.tx_nome_origem_fonte_recursos_projeto).appendTo(selectbox);
           });
@@ -304,7 +304,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#zonaAtuacaoProjeto');
+          var selectbox = $('#cd_zona_atuacao_projeto');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_zona_atuacao_projeto).text(value.tx_nome_zona_atuacao).appendTo(selectbox);
           });
@@ -324,7 +324,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#abrangenciaAtuacaoProjeto');
+          var selectbox = $('#cd_abrangencia_projeto');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_abrangencia_projeto).text(value.tx_nome_abrangencia_projeto).appendTo(selectbox);
           });
@@ -344,7 +344,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#situacaoProjeto');
+          var selectbox = $('#cd_status_projeto');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
           });
@@ -365,14 +365,14 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#formaParticipacaoConferencia');
+          var selectbox = $('#cd_forma_participacao_conferencia');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_forma_participacao_conferencia).text(value.tx_nome_forma_participacao_conferencia).appendTo(selectbox);
           });
         }
 
-        $("#formaParticipacaoConferencia").addClass('newSelectBox');
-        $("#formaParticipacaoConferencia").selectBoxIt({
+        $("#cd_forma_participacao_conferencia").addClass('newSelectBox');
+        $("#cd_forma_participacao_conferencia").selectBoxIt({
            theme: "default",
            defaultText: "Qualquer",
            autoWidth: false
@@ -392,14 +392,14 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#nomeConferencia');
+          var selectbox = $('#cd_conferencia');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_conferencia).text(value.tx_nome_conferencia).appendTo(selectbox);
           });
         }
 
-        $("#nomeConferencia").addClass('newSelectBox');
-        $("#nomeConferencia").selectBoxIt({
+        $("#cd_conferencia").addClass('newSelectBox');
+        $("#cd_conferencia").selectBoxIt({
            theme: "default",
            defaultText: "Qualquer",
            autoWidth: false
@@ -419,14 +419,14 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#objetivosDesenvolvimentoSustentavel');
+          var selectbox = $('#cd_objetivo_projeto');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_objetivo_projeto).text(value.tx_nome_objetivo_projeto).appendTo(selectbox);
           });
         }
 
-        $("#objetivosDesenvolvimentoSustentavel").addClass('newSelectBox');
-        $("#objetivosDesenvolvimentoSustentavel").selectBoxIt({
+        $("#cd_objetivo_projeto").addClass('newSelectBox');
+        $("#cd_objetivo_projeto").selectBoxIt({
            theme: "default",
            defaultText: "Qualquer",
            autoWidth: false
@@ -434,7 +434,7 @@ require(['react'], function (React) {
       }
     });
 
-    $("#objetivosDesenvolvimentoSustentavel").change(function() {
+    $("#cd_objetivo_projeto").change(function() {
       var cd_objetivo_projeto = $(this).val();
 
       if(cd_objetivo_projeto != ""){
@@ -442,8 +442,8 @@ require(['react'], function (React) {
 
       }else{
         var html = '<option value="">Qualquer</option>';
-        $('#metasRelacionadasODS').html(html);
-        $("#metasRelacionadasODS").selectBoxIt("refresh");
+        $('#cd_meta_projeto').html(html);
+        $("#cd_meta_projeto").selectBoxIt("refresh");
         verificarContraste();
 
       }
@@ -470,7 +470,7 @@ require(['react'], function (React) {
     }
 
     //autocomplete municipio
-    $("#municipio").autocomplete({
+    $("#tx_nome_municipio").autocomplete({
         minLength: 1,
         source: function (request, response) {
            $.ajax({
@@ -496,7 +496,7 @@ require(['react'], function (React) {
      });
 
     //autocomplete estado
-    $("#estado").autocomplete({
+    $("#tx_nome_uf").autocomplete({
       minLength: 1,
       source: function (request, response) {
          $.ajax({
