@@ -264,7 +264,7 @@ require(['react'], function (React) {
       },
       success: function(data){
         if (data != null) {
-          var selectbox = $('#situacaoImovel');
+          var selectbox = $('#cd_situacao_imovel_osc');
           $.each(data, function (key, value) {
               $('<option>').val(value.cd_situacao_imovel).text(value.tx_nome_situacao_imovel).appendTo(selectbox);
           });
@@ -522,7 +522,7 @@ require(['react'], function (React) {
    });
 
    //autocomplete regiao
-   $("#regiao").autocomplete({
+   $("#tx_nome_regiao").autocomplete({
      minLength: 1,
      source: function (request, response) {
         $.ajax({
