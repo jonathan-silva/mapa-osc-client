@@ -2,10 +2,20 @@ var controller = angular.module('oscApp', []);
 var idOsc;
 var absUrl;
 
-controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
+controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
 	absUrl = $location.$$absUrl;
 	var self = this;
 	var rotas = new Rotas();
+
+	if ($scope.currentPage == undefined) {
+			 $scope.currentPage = 0;
+	 };
+
+  $scope.pageSize = 10;
+	$scope.projs = []
+  $scope.q = '';
+
+
 	self.carregarDadosGerais = function(){
 		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
 
@@ -15,14 +25,49 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
 		}).then(function(response) {
 			if(response.data.msg == undefined){
-				self.osc = response.data;
+				self.osc = response.data
+				$scope.projs = response.data.projeto.projeto // PROJETOS
 	    	self.msg = '';
 			}else{
 				self.msg = response.data.msg;
 			}
 		});
 	};
+
+	$scope.getData = function () {
+		 return $filter('filter')($scope.projs, $scope.q)
+	 }
+
+	 $scope.numberOfPages=function(){
+        return Math.ceil($scope.getData().length/$scope.pageSize);
+   }
+
+	 $scope.range = function() {
+		 	 var paginacao = [];
+			 for (var i = 1; i <= $scope.numberOfPages(); i++) {
+   	 		paginacao.push(i);
+			 }
+			 return paginacao;
+	 };
+
+	  $scope.novaPagina=function(n){
+			$scope.currentPage = n -1;
+		};
+
+		$scope.paginaCorrente=function(n){
+			var pagina = n -1
+			return $scope.currentPage == pagina  ? true: false ;
+		};
+
 }]);
+
+controller.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
 
 controller.filter('tel', function() {
 	return function(input) {

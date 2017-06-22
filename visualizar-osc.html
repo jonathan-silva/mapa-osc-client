@@ -506,7 +506,7 @@
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Projetos, atividades e/ou programas." onclick="abrirModalAjuda('Projetos, atividades e/ou programas');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             </div>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in projs | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
               <div class="panel panel-default" >
 
                 <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
@@ -742,7 +742,17 @@
 
               </div>
             </div>
+            <div class="paginacao_projetos">
+              <a class="paginate_button previous" ng-class="{true: 'hidden'}[currentPage == 0]" ng-click="currentPage=currentPage-1">
+                Anterior
+              </a>
 
+              <a ng-repeat="indice in range()" ng-class="{true: 'current'}[paginaCorrente(indice)]" class="paginate_button" ng-click="novaPagina(indice)">{{indice}} </a>
+
+              <a class="paginate_button next "  ng-class="{true: 'hidden'}[currentPage >= getData().length/pageSize - 1]"  ng-click="currentPage=currentPage+1">
+                Próximo
+              </a>
+            </div>
             <div ng-if="ctrl.osc.projeto == null">
               <div class="form-group">
                 <span class="form-control-static" >Não informado</span>
