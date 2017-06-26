@@ -567,7 +567,7 @@ body.indisponivel {
   top: 3px;
   width: 30px;
   height: 30px;
-  z-index: 9;
+  z-index: 1;
   background-repeat: no-repeat;
   background-position: top;
   font-size: 0;
