@@ -1376,6 +1376,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
          if(!empty){
            newJson.conselho.push(obj);
+         }else{
+           newJson.conselho = null;
          }
         });
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
@@ -1477,6 +1479,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               obj["id_conferencia"] = null;
             }
             newJson.conferencia.push(obj);
+          }else{
+        	  newJson.conferencia = null;
           }
         });
 
