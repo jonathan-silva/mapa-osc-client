@@ -1291,9 +1291,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          var obj = {}
          obj.conselho = {};
          obj.representante = [];
-         var empty = true;
-         var conselho_id  = 0;
-         var cd_conselho  = 0;
+         var conselho_id = 0;
+         var cd_conselho = 0;
 
          $(this).find("select").each(function(){
 
@@ -1301,7 +1300,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
            for (var i=0;i<lconselho.length;i++){
            if ($(this).val() === lconselho[i].tx_nome_conselho){
-             empty = false; //Existe
              obj.conselho.cd_conselho = lconselho[i].cd_conselho;
              cd_conselho = obj.conselho.cd_conselho;
              conselho_id = parseInt($(this).attr("id").split("-")[1]);
@@ -1374,12 +1372,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
          });
 
-         if(!empty){
-           newJson.conselho.push(obj);
-         }else{
+         if(Object.keys(obj.conselho).length === 0 && obj.representante.length === 0){
            newJson.conselho = null;
+         }else{
+           newJson.conselho.push(obj);
          }
         });
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1413,13 +1412,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["id_osc"] = idOsc;
         newJson["conferencia"] = [];
 
-
         $(".conferencia").each(function(){
-         var empty = true;
          var obj = {};
-         obj["cd_conferencia"] = 0;
-         obj["cd_forma_participacao_conferencia"] = 0;
-         obj["dt_ano_realizacao"] = 0 ;
 
          // Busca nos selects
          $(this).find("select").each(function(){
@@ -1428,7 +1422,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            for (var i=0;i<lconferencia.length;i++){
 
            if ($(this).val() === lconferencia[i].tx_nome_conferencia){
-             empty = false;
              obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
              conferencia_id = parseInt($(this).attr("id").split("-")[1]);
              obj.tx_nome_conferencia = ""; //Existe -- Depois será atribuído caso
@@ -1472,15 +1465,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
-          if(!empty){
-            if (conferencia_id != 0) {
-              obj["id_conferencia"] = conferencia_id;
-            }else {
-              obj["id_conferencia"] = null;
-            }
-            newJson.conferencia.push(obj);
+          if (conferencia_id != 0) {
+            obj["id_conferencia"] = conferencia_id;
+          }else {
+            obj["id_conferencia"] = null;
+          }
+
+          if(Object.keys(obj).length === 0){
+            newJson.conferencia = null;
           }else{
-        	  newJson.conferencia = null;
+            newJson.conferencia.push(obj);
           }
         });
 
@@ -1530,7 +1524,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           })
 
         });
-        //console.log(newJson);
+        
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
         console.log(success);
       //});
