@@ -302,8 +302,7 @@ $("#regiao .form-control").autocomplete({
     else if(tipoConsulta=="avancado"){
       if(stringBuscada == '{}'){
         //consulta tudo
-        tipoConsulta="regiao";
-        //console.log(tipoConsulta);
+        tipoConsulta="todos";
         urlRotaMapa = rotas.ClusterPais();
         urlRota = rotas.AllOSC(0);
       }
@@ -319,8 +318,7 @@ $("#regiao .form-control").autocomplete({
   }
   else{
     //consulta tudo
-    tipoConsulta="regiao";
-    //console.log(tipoConsulta);
+    tipoConsulta="todos";
     urlRotaMapa = rotas.ClusterPais();
     urlRota = rotas.AllOSC(0);
   }
@@ -461,7 +459,7 @@ $("#regiao .form-control").autocomplete({
     if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
       var marker;
 
-      if(tipoCluster=="regiao"){
+      if(tipoCluster=="regiao" || tipoCluster=="todos"){
         marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterRegiao);
       }
       else if(tipoCluster=="estado"){
@@ -640,7 +638,7 @@ $("#regiao .form-control").autocomplete({
 
   function carregaMapaCluster(dados, level){
     var classNameLevel;
-    if(level=="regiao") classNameLevel = "labelClassRegiao";
+    if(level=="regiao" || level == "todos") classNameLevel = "labelClassRegiao";
     else if(level=="estado") classNameLevel = "labelClassEstado";
     for(var k in dados){
       var markerGroup = [];
@@ -655,7 +653,7 @@ $("#regiao .form-control").autocomplete({
       if(level=="estado") {
         clayers[dados[k].id_regiao]=layerPoint;
       }
-      else if (level=="regiao") {
+      else if (level=="regiao" || level == "todos") {
         rlayers[dados[k].id_regiao]=layerPoint;
       }
     }
@@ -788,17 +786,23 @@ $("#regiao .form-control").autocomplete({
 
     if(tipoConsulta == "avancado"){
       urlRota = rotas.ConsultaAvancadaLista(stringBuscada,offset);
-    }else{
-      var newUrlRota = urlRota.split('/');
-      var offsetField = newUrlRota.length;
-      newUrlRota[offsetField-2] = offset;
-
-      urlRota = '';
-      for(var i = 0; i < newUrlRota.length; i++){
-        urlRota += newUrlRota[i]+'/';
-      }
-      urlRota = urlRota.substring(0,urlRota.length-1);
     }
+    else if(tipoConsulta == "municipio"){
+      urlRota = rotas.OSCByCounty(stringBuscada,offset);
+    }
+    else if(tipoConsulta == "estado"){
+      urlRota = rotas.OSCByState(stringBuscada,offset);
+    }
+    else if(tipoConsulta == "regiao"){
+      urlRota = rotas.OSCByRegion(stringBuscada,offset);
+    }
+    else if(tipoConsulta == "todos"){
+      urlRota = rotas.AllOSC(offset);
+    }
+    else if(tipoConsulta == "organizacao"){
+      urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('similaridade'));
+    }
+
     tabela(urlRota);
   }
 
