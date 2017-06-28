@@ -300,8 +300,18 @@ $("#regiao .form-control").autocomplete({
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else if(tipoConsulta=="avancado"){
-      urlRota = rotas.ConsultaAvancadaLista(stringBuscada,0);
-      urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
+      if(stringBuscada == '{}'){
+        //consulta tudo
+        tipoConsulta="regiao";
+        //console.log(tipoConsulta);
+        urlRotaMapa = rotas.ClusterPais();
+        urlRota = rotas.AllOSC(0);
+      }
+      else{
+        urlRota = rotas.ConsultaAvancadaLista(stringBuscada,0);
+        urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
+        isClusterVersion=false;
+      }
     }
     else{
       console.log("ERRO de URL!");
@@ -318,6 +328,8 @@ $("#regiao .form-control").autocomplete({
   //*** Methods
   function tabela(urlRota){
     $('#loading').removeClass('hide');
+    $('#resultadoconsulta_formato_dados').hide();
+
     $.ajax({
       url: "js/controller.php",
       type: 'GET',
@@ -377,7 +389,7 @@ $("#regiao .form-control").autocomplete({
            });
            datatable.destroy();
            datatable.draw();
-
+           $('#resultadoconsulta_formato_dados').show();
            $('#loading').addClass('hide');
        }
        else {
@@ -773,15 +785,21 @@ $("#regiao .form-control").autocomplete({
       pageNumber = 0;
     }
     var offset = parseInt(pageNumber) * 10 - 10;
-    var newUrlRota = urlRota.split('/');
-    var offsetField = newUrlRota.length;
-    newUrlRota[offsetField-2] = offset;
-    urlRota = '';
-    for(var i = 0; i < newUrlRota.length; i++){
-      urlRota += newUrlRota[i]+'/';
-    }
+
+    if(tipoConsulta == "avancado"){
+      urlRota = rotas.ConsultaAvancadaLista(stringBuscada,offset);
+    }else{
+      var newUrlRota = urlRota.split('/');
+      var offsetField = newUrlRota.length;
+      newUrlRota[offsetField-2] = offset;
+
+      urlRota = '';
+      for(var i = 0; i < newUrlRota.length; i++){
+        urlRota += newUrlRota[i]+'/';
+      }
       urlRota = urlRota.substring(0,urlRota.length-1);
-      tabela(urlRota);
+    }
+    tabela(urlRota);
   }
 
   function clickClusterEstado(e){

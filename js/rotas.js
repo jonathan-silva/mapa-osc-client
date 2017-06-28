@@ -241,11 +241,11 @@ class Rotas{
   }
 
   ConsultaAvancadaLista(term, offset){
-    return this.getBaseUrl()+":8484/api/search/consultaAvancada/lista/"+term+"/10/"+offset;
+    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset+"?avancado="+term;
   }
 
   ConsultaAvancadaMapa(term){
-    return this.getBaseUrl()+":8383/api/search/consultaAvancada/mapa/"+term;
+    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0?avancado="+term;
 
   }
 
