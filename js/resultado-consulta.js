@@ -300,7 +300,7 @@ $("#regiao .form-control").autocomplete({
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else if(tipoConsulta=="avancado"){
-      urlRota = rotas.ConsultaAvancadaLista(stringBuscada);
+      urlRota = rotas.ConsultaAvancadaLista(stringBuscada,0);
       urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
     }
     else{

@@ -1090,3 +1090,9 @@ select{
     background: -o-linear-gradient(top, #fff 0%, #dcdcdc 100%);
     background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
 }
+.consultaAvancada{
+  margin-bottom: 5px;
+}
+.panel-default .btn-info{
+    color: #ffffff;
+}
