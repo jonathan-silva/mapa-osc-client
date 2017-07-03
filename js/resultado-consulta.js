@@ -877,9 +877,12 @@ $("#regiao .form-control").autocomplete({
             count += data[i].nr_quantidade_osc_regiao;
           }
           paginar(count);
+          $("#legenda p").append(count);
+
         }
         else{
           paginar(Object.keys(data).length-1);
+          $("#legenda p").append(Object.keys(data).length-1);
         }
 
         if(isClusterVersion){
@@ -917,6 +920,7 @@ $("#regiao .form-control").autocomplete({
         heatMap(pdfs, ids);
       }
     }
+
   });
 
   map.on('zoomend', apagaMapaDeCalor);
