@@ -110,7 +110,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var formItens = relacoesGovernanca.montarRelacoesGovernanca(data, util, dadosForm);
         relacoesGovernanca.ativarTrabalhoGovernanca(dadosForm, formItens, React, ReactDOM, Section, Agrupador, FormItem, FormItemButtons, util);
         // Espaços participacao social
-        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.Titularidade());
+        var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.Titularidade(),rotas.FormaParticipacaoConferencia());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
         //Projetos
         ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
@@ -1332,15 +1332,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            obj.conselho.id_conselho = conselho_id;
          }
 
-         $(this).find("input").each(function(index){
+         $(this).find("select").each(function(index){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
            if (campo == "outro"){
               obj.conselho.tx_nome_conselho = $(this).val();
            }
 
-           for (var i=0;i<lconselho.length;i++){
-           if ($(this).val() === lconselho[i].tx_nome_conselho){
+          for (var i=0;i<lconselho.length;i++){
+           if ($(this).val() == lconselho[i].tx_nome_conselho){
              obj.conselho.cd_conselho = lconselho[i].cd_conselho;
              break;
             }
@@ -1358,26 +1358,36 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              break;
             }
            }
-
-           if(campo === "tx_nome_representante_conselho"){
-             obj.representante.push(
-               {
-                "tx_nome_representante_conselho": $(this).val()
-              });
-           } else {
-             if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao") && (campo !== "tx_nome_periodicidade_reuniao_conselho") ) {
-               obj.conselho[campo] = $(this).val();
-             }
-           }
-
          });
 
-         if(Object.keys(obj.conselho).length === 0 && obj.representante.length === 0){
-           newJson.conselho = null;
-         }else{
-           newJson.conselho.push(obj);
+         $(this).find("input").each(function(index){
+           var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           if(cd_conselho !== 0){
+             if (campo == "outro" && $(this).val() != ''){
+                obj.conselho.tx_nome_conselho = $(this).val();
+             }
+             if(campo === "tx_nome_representante_conselho" && $(this).val() != ''){
+               obj.representante.push(
+                 {
+                  "tx_nome_representante_conselho": $(this).val()
+                });
+             } else {
+               if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao")) {
+                 obj.conselho[campo] = $(this).val();
+               }
+             }
+           }
+         });
+
+         if(obj.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
+          newJson.conselho.push(obj);
          }
         });
+
+        if(Object.keys(newJson.conselho).length === 0){
+          newJson.conselho = null;
+        }
 
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
@@ -1414,7 +1424,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         $(".conferencia").each(function(){
          var obj = {};
-
+         var conferencia_id = 0;
          // Busca nos selects
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
@@ -1478,6 +1488,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+        //console.log(JSON.stringify(newJson));
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1524,7 +1535,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           })
 
         });
-        
+
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
         console.log(success);
       //});

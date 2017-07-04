@@ -35,7 +35,7 @@ class EspacosPartSocial {
     util.addItem('outros_part');
   }
 
-  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, periodicidadeReuniao, formas){
+  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, periodicidadeReuniao, formas, formasPartConfe){
     var tx_sem_participacao_social = "Não há registros de participação social";
     var participacao_social_form = dadosForm.partSocial();
     var items = participacao_social_form.items;
@@ -45,10 +45,10 @@ class EspacosPartSocial {
         {dados:items}
       ), document.getElementById(items[0].target)
     );
-    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, periodicidadeReuniao, formas);
+    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, periodicidadeReuniao, formas, formasPartConfe);
   }
 
-  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma){
+  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma, lformaPartConfe){
     var controller = 'js/controller.php'
     $.ajax({
       url: controller,
@@ -206,10 +206,29 @@ class EspacosPartSocial {
       arraySecao.push(formItens);
     };
 
-    var lista_forma_conferencia = [
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota: lformaPartConfe},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lformaPartConfe = data;
+
+      }
+    });
+    var lista_forma_conferencia=[];
+    for (var i=0;i<lformaPartConfe.length;i++){ lista_forma_conferencia[i] = lformaPartConfe[i].tx_nome_forma_participacao_conferencia}
+
+    /*var lista_forma_conferencia = [
     'Membro de comissão organizadora nacional', 'Membro de comissão organizadora estadual ou distrital', 'Membro de comissão organizadora municipal',
 'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
-'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outra'];
+'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outra'];*/
     var formItens = [];//
     //console.log(conferencias);
     if (conferencias.length) {
