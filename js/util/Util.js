@@ -154,11 +154,14 @@ class Util {
       if($(this).hasClass('btn-primary')){
         var $cloneDiv = ($(this).parent());
         var $input = $cloneDiv.find('input[type=text]');
+        var $select = $cloneDiv.find('select');
         var values = new Array();
         $input.parent().removeClass('has-error');
+        $select.parent().removeClass('has-error');
         $('.alert-danger').remove();
+
         $input.each(function(i){
-          if($(this).val() !== "" ){
+          if($(this).val().trim() !== "" ){
             values[i] = true;
           }
           else {
@@ -166,9 +169,22 @@ class Util {
             $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
           }
         });
+
+        $select.each(function(i){
+          if($(this).val() !== '-1' ){
+            values[i] = true;
+          }
+          else {
+            values[i] = false;
+            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+          }
+        });
+
         if(values.every(isTrue)){
           $input.parent().removeClass('has-error');
+          $select.parent().removeClass('has-error');
           $input.after().find('span').remove();
+          $select.after().find('span').remove();
           var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
           var $cloneChildren = $('#'+idDiv).children();
           $cloneDiv.clone().appendTo($cloneChildren);
