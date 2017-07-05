@@ -67,12 +67,13 @@ class Util {
     }
   }
 
-  AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+  AgrupadorDeInputs(id, containerClass, header, inputs, buttons, select){
     return{
       "id" : id,
       "containerClass" : containerClass,
       "header" : header,
       "inputs" : inputs,
+      "options" : select,
       "buttons" : buttons
     };
   }

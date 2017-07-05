@@ -1147,7 +1147,7 @@ define('componenteFormItemProjeto', ['react', 'componenteFormItemButtons'], func
               {ButtonElement}
             </div>
           </div>
-        )
+        );
       }
 
       return itens;

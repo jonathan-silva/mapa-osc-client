@@ -410,7 +410,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             localizacao($(tr_projeto).find(":selected").text());
           });
 
-
           function conta(){
             var i = 0;
             $(".osc_parceira input").each(function(){
@@ -763,16 +762,36 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $('#projeto-'+id).find(".btn-primary").bind("click", function(){
-        $(this).parent().siblings(".form-group").append(
-          '<div class="input-group">'+
-          '<div>'+
-          '<input class="form-control" placeholder="Insira a informação"></input>'+
-          '</div>'+
-          '<span class="input-group-btn">'+
-          '<button class="btn-danger btn">Remover</button>'+
-          '</span>'+
-          '</div>'
-        );
+        var parente = $(this).parent()["0"].parentElement.className;
+        if ( util.contains('fonte_recursos',parente)  ) {
+            $(this).parent().siblings(".form-group").append(
+              '<div class="input-group">'+
+              '<div>'+
+              "<select class='form-control'>\
+              <option value='-1'>Selecione uma opção...</option>\
+              <option value='Recursos públicos'>Recursos públicos</option>\
+              <option value='Recursos privados'>Recursos privados</option>\
+              <option value='Recursos próprios'>Recursos próprios</option>\
+              <option value='Outros'>Outros</option></select>"+
+              '</div>'+
+              '<span class="input-group-btn">'+
+              '<button class="btn-danger btn">Remover</button>'+
+              '</span>'+
+              '</div>'
+          );
+        }
+        else {
+          $(this).parent().siblings(".form-group").append(
+            '<div class="input-group">'+
+            '<div>'+
+            '<input class="form-control" placeholder="Insira a informação"></input>'+
+            '</div>'+
+            '<span class="input-group-btn">'+
+            '<button class="btn-danger btn">Remover</button>'+
+            '</span>'+
+            '</div>'
+          );
+        }
       });
     }
 
@@ -1714,30 +1733,36 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if(obj[$pai.attr("id")] === undefined){
               obj[$pai.attr("id")] = [];
             }
-            var tipo = $(this).parent().parent().attr("id");
-            if(tipo === "fonte_recursos"){
-              if(valor === "Recursos públicos"){
-                valor = 1;
-              }
-              if(valor === "Recursos privados"){
-                valor = 2;
-              }
-              if(valor === "Recursos próprios"){
-                valor = 3;
-              }
-              if(valor === "Outros"){
-                valor = 4;
-              }
-              if(valor === ""){
-                obj[$pai.attr("id")] = null;
-              } else {
-                obj[$pai.attr("id")].push({
-                  "cd_origem_fonte_recursos_projeto": valor
+              $(this).parent().parent().find("select").each(function(i){
+                valor = $(this).parent().parent().find("select")[i].value;
+                if(valor === "Recursos públicos"){
+                  valor = 1;
+                  obj[$pai.attr("id")].push({
+                    "cd_origem_fonte_recursos_projeto": valor
+                  });
                 }
-                );
-                //console.log(obj);
-              }
-            }
+                if(valor === "Recursos privados"){
+                  valor = 2;
+                  obj[$pai.attr("id")].push({
+                    "cd_origem_fonte_recursos_projeto": valor
+                  });
+                }
+                if(valor === "Recursos próprios"){
+                  valor = 3;
+                  obj[$pai.attr("id")].push({
+                    "cd_origem_fonte_recursos_projeto": valor
+                  });
+                }
+                if(valor === "Outros"){
+                  valor = 4;
+                  obj[$pai.attr("id")].push({
+                    "cd_origem_fonte_recursos_projeto": valor
+                  });
+                }
+                if(valor === ""){
+                  obj[$pai.attr("id")] = null;
+                }
+            })
           } else if( $pai.attr("id") === "area_atuacao_outra"){
             if(Array.isArray(obj[$pai.attr("id")])){
               obj[$pai.attr("id")].push({

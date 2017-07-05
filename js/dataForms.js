@@ -813,8 +813,8 @@ class DataForms{
       },
       "fonte_recursos": {
         "header": "Fontes de Recursos",
-        "containerClass": "col-md-4",
-        "removable": false,
+        "containerClass": "col-md-4 fonte_recursos",
+        "removable": true,
         "type": "select",
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
