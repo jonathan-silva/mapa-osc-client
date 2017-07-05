@@ -1389,6 +1389,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.conselho = null;
         }
 
+        console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
         console.log(success);
 
@@ -1475,20 +1476,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+
+
+        if (!$.isEmptyObject(obj))
+        {
           if (conferencia_id != 0) {
             obj["id_conferencia"] = conferencia_id;
           }else {
             obj["id_conferencia"] = null;
           }
-
-          if(Object.keys(obj).length === 0){
-            newJson.conferencia = null;
-          }else{
             newJson.conferencia.push(obj);
-          }
+        }
+
         });
 
-        //console.log(JSON.stringify(newJson));
+        //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
         console.log(success);
 
