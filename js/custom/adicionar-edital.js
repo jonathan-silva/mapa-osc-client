@@ -1,0 +1,1 @@
+"use strict";require(["bootstrap"],function(t){$("#datepicker").datepicker({showOtherMonths:!0,selectOtherMonths:!0})});
