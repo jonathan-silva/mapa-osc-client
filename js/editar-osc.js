@@ -797,11 +797,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function id_osc_parceira(project, id){
 	// OSC Parceiras
-      var id_osc_parceira;
+      var id_osc_parc;
       var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
       for (var i = 0; i < tam_osc_parc ; i++) {
-        id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
-        //$('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
+        id_osc_parc = util.validateObject(project.osc_parceira[i].id_osc,null);
+        $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parc;
       }
     }
 
@@ -1868,7 +1868,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var $inputs = $pai.find("input");
             $inputs.each(function(){
               if($(this).val() !== ""){
-                osc_parceira = {};//console.log($(this)[i]);
+                osc_parceira = {};
                 osc_parceira.id_osc = $(this)[0].id_osc_parceira ? $(this)[0].id_osc_parceira : null;
                 osc_parceiras.push(osc_parceira);
               }
