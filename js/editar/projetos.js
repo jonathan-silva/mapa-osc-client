@@ -52,12 +52,26 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
+
+
+    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
+    project.projeto[0]["cd_tipo_parceria"] = 1;
+    project.projeto[0]["ft_tipo_parceria"] = "Representante";
+    project.projeto[0]["tx_nome_tipo_parceria_projeto"] = "Outro";
+    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
+
+
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
+
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project);
+    //console.log("Projet");
+    console.log(projet);
     var project = util.validateObject(projet[0],projet);
+    //console.log("Project");
+    //console.log(project);
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) {
@@ -65,8 +79,11 @@ class Projeto {
       if((property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
         if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
 
+
+
           var sectionId = property;
           var value = project[property];
+
           var header = labelMap[property].header;
           var containerClass = labelMap[property].containerClass;
           var removable = labelMap[property].removable;
@@ -75,7 +92,24 @@ class Projeto {
           var placeholder = labelMap[property].placeholder;
           var buttons = null;
           var buttonsInLine = false;
+          if(property == "tx_nome_tipo_parceria_projeto"){
+            console.log("tipo_parceria");
+            console.log(value);
+            console.log(value === null);
+
+          }
+          if(property == "tx_nome_status_projeto"){
+
+            //console.log("tx_nome_status_projeto");
+            //console.log(value);
+            //console.log(value === null);
+
+          }
+
+
+
           if((value === null) || (value.constructor !== Array)){
+
             var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
             agrupadores.push(agrupadorInputProjeto);
@@ -83,6 +117,7 @@ class Projeto {
         }
       }
     }
+    //console.log(agrupadores);
     if (!(project.hasOwnProperty("fonte_de_recursos"))){
       //console.log("teste")
     }
@@ -150,6 +185,8 @@ class Projeto {
   }
 
   carregaProjeto(id, dadosForm, rotas, util, novo){
+    //console.log(dadosForm);
+    //console.log(novo);
     var res = {};
     var agrupadores=null;
     if(novo){
@@ -174,7 +211,7 @@ class Projeto {
       agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);
       res.agrupadores = agrupadores;
     }
-
+    //console.log(res);
     return res;
   }
 

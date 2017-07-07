@@ -813,7 +813,7 @@ class DataForms{
       },
       "fonte_recursos": {
         "header": "Fontes de Recursos",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
@@ -844,6 +844,13 @@ class DataForms{
         "options": null,
         "placeholder": "Selecione a área de atuação do projeto"
       },
+      "tx_nome_tipo_parceria_projeto": {
+        "header": "Tipo de Parceria",
+        "containerClass": "col-md-3",
+        "removable": false,
+        "type": "select",
+        "options": [ "Termo de Fomento", "Termo de Colaboração", "Termo de Parceria", "Contrato de Gestão", "Convênio", "Outro" ]
+      },
       "area_atuacao_outra": {
         "header": "Outras áreas de atuação do projeto, atividade ou programa",
         "containerClass": "col-md-3",
@@ -860,7 +867,7 @@ class DataForms{
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
@@ -884,7 +891,7 @@ class DataForms{
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
@@ -961,6 +968,7 @@ class DataForms{
       "area_atuacao": [],
       "area_atuacao_outra": [],
       "localizacao_projeto": [],
+      "tipo_parceria": [],
       "osc_parceira": [],
       "financiador_projeto": [],
       "objetivo_meta": [],
