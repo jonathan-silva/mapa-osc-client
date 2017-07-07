@@ -77,18 +77,21 @@ require(['react'], function (React) {
             step: 100,
             values: [ 0, 1000000 ],
             slide: function( event, ui ) {
-              $(event.target.previousElementSibling).find(".min").val( ui.values[ 0 ] );
-              $(event.target.previousElementSibling).find(".max").val(ui.values[ 1 ] );
+              $(event.target.previousElementSibling).find(".min").val(  ui.values[ 0 ].toLocaleString("pt-BR", { minimumFractionDigits: 2 }));
+              $(event.target.previousElementSibling).find(".max").val(ui.values[ 1 ].toLocaleString("pt-BR", { minimumFractionDigits: 2 }) );
             }
           });
         }
         else if(tipo == "ano")
         {
+          var data = new Date();
+          var ano = data.getFullYear();
+          
           $( this ).slider({
             range: true,
             min: 1600,
-            max: 2100,
-            values: [ 1600, 2100 ],
+            max: ano,
+            values: [ 1600, ano ],
             slide: function( event, ui ) {
               $(event.target.previousElementSibling).find(".min").val( ui.values[ 0 ] );
               $(event.target.previousElementSibling).find(".max").val(ui.values[ 1 ] );
@@ -548,25 +551,26 @@ require(['react'], function (React) {
     });
 
 
-   //Fim de autocomplete
-
+    //Fim de autocomplete
 
     //permite somente numeros
     $(".min, .max").keypress( function() {
       evt = window.event;
       var tecla = evt.keyCode;
       if(!(tecla > 47 && tecla < 58)){
-         evt.preventDefault();
+        evt.preventDefault();
       }
     });
 
-    $(".min").keyup( function() {
-      $(this).parent().parent().find("div[id^='slider-range-']").slider("values", 0, $(this).val());
+    $(".min").change( function() {
+      $(this).parent().parent().find("div[id^='slider-range-']").slider("values", 0, $(this).val().replace(/[.]/g,"").split(",")[0]);
     });
 
-    $(".max").keyup( function() {
-      $(this).parent().parent().find("div[id^='slider-range-']").slider("values", 1, $(this).val());
+    $(".max").change( function() {
+      $(this).parent().parent().find("div[id^='slider-range-']").slider("values", 1, $(this).val().replace(/[.]/g,"").split(",")[0]);
     });
+
+    $("label[for='valor_dinheiro']").parent().find('.min, .max').mask('000.000.000.000.000,00', {reverse: true});
 
     $("#btnLimpar").on("click", function() {
       $(".consultaAvancada input").each(function () {

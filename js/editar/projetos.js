@@ -170,7 +170,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
-       fonte//, localizacao, publicoBeneficiado, financiadores, parceiras
+       fonte, localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);
 
@@ -253,6 +253,7 @@ class Projeto {
         //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
           if(sectionId == "fonte_recursos"){
+            removable = true;
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
               value = object.dados[i][property];
               options = labelMap[object.id].options;
@@ -276,7 +277,7 @@ class Projeto {
       buttonsInput = [buttonRemove];
       buttonsAgrupador = [buttonAdd];
     }
-    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
+    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options);
     return agrupadorInputProjeto;
   }
 
