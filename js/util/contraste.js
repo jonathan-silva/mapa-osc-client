@@ -194,7 +194,7 @@ function deslogar(){
   $(".menuLogado").addClass("logado");
   $("#btnEntrar").removeClass("logado");
   $("#btnCadastrar").removeClass("logado");
-  location.reload();
+  window.location="index.html";
   return true;
 }
 
