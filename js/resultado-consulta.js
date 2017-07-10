@@ -281,7 +281,7 @@ $("#regiao .form-control").autocomplete({
     var stringBuscada = valoresURL[1];
     stringBuscada = stringBuscada.replace(/\./g, "");
     stringBuscada = stringBuscada.split('&')[0];
-    if(window.location.href.indexOf('organizacao') > -1){
+    if(tipoConsulta == "organizacao"){
       urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('similaridade'));
       urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('similaridade'));
       isClusterVersion=false;
