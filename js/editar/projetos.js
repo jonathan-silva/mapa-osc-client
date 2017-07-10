@@ -12,6 +12,22 @@ class Projeto {
     return objFonte;
   }
 
+  getTipoParceria(proj){
+    var resultado = null;
+    if (proj.hasOwnProperty("fonte_recursos")){
+      var fontes_recurso = proj.fonte_recursos;
+      if(Object.keys(fontes_recurso).length != 0){
+        for (var i = 0; i < fontes_recurso.length; i++) {
+          if (fontes_recurso[i]["tx_nome_tipo_parceria_projeto"] != null) {
+            resultado = fontes_recurso[i]["tx_nome_tipo_parceria_projeto"];
+            break;
+          }
+        }
+      }
+    }
+    return resultado;
+  }
+
   montarProjetos(json, util){
     var arraySecaoProjeto = [];
 
@@ -53,13 +69,10 @@ class Projeto {
 
   montarProjeto(project, util, dadosForm,rotas){
 
+    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
+    
 
     // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
-    project.projeto[0]["cd_tipo_parceria"] = 1;
-    project.projeto[0]["ft_tipo_parceria"] = "Representante";
-    project.projeto[0]["tx_nome_tipo_parceria_projeto"] = "Outro";
-    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
-
 
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
 
@@ -67,19 +80,17 @@ class Projeto {
     var agrupadores = [];
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project);
-    //console.log("Projet");
-    console.log(projet);
     var project = util.validateObject(projet[0],projet);
-    //console.log("Project");
-    //console.log(project);
+
+    project["tx_nome_tipo_parceria_projeto"] = this.getTipoParceria(project); //GAMBI
+    // AGORA TEM QUE DAR HIDE NOS VAZIOS VIA JQUERY E TB CRIAR A FUNCAO DE UNHIDE QUANDO FOR PUBLICO
+
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
       if((property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
         if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
-
-
 
           var sectionId = property;
           var value = project[property];
@@ -92,20 +103,6 @@ class Projeto {
           var placeholder = labelMap[property].placeholder;
           var buttons = null;
           var buttonsInLine = false;
-          if(property == "tx_nome_tipo_parceria_projeto"){
-            console.log("tipo_parceria");
-            console.log(value);
-            console.log(value === null);
-
-          }
-          if(property == "tx_nome_status_projeto"){
-
-            //console.log("tx_nome_status_projeto");
-            //console.log(value);
-            //console.log(value === null);
-
-          }
-
 
 
           if((value === null) || (value.constructor !== Array)){
@@ -143,6 +140,7 @@ class Projeto {
 
     var projectlocalizacao = util.validateObject(project.localizacao, []);
     var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
+
     var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
     fonte.dados = util.validateObject(project.fonte_recursos, []);
 

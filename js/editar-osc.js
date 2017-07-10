@@ -1742,33 +1742,44 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
               $(this).parent().parent().find("select").each(function(i){
                 valor = $(this).parent().parent().find("select")[i].value;
+
                 if(valor === "Recursos públicos"){
                   valor = 1;
                   obj[$pai.attr("id")].push({
-                    "cd_origem_fonte_recursos_projeto": valor
+                    "cd_origem_fonte_recursos_projeto": valor,
+                    "cd_tipo_parceria": null, // NOT NULL
+                    "tx_nome_tipo_parceria": null // NOT NULL
                   });
                 }
                 if(valor === "Recursos privados"){
                   valor = 2;
                   obj[$pai.attr("id")].push({
-                    "cd_origem_fonte_recursos_projeto": valor
+                    "cd_origem_fonte_recursos_projeto": valor,
+                    "cd_tipo_parceria": null,
+                    "tx_nome_tipo_parceria": null
                   });
                 }
                 if(valor === "Recursos próprios"){
                   valor = 3;
                   obj[$pai.attr("id")].push({
-                    "cd_origem_fonte_recursos_projeto": valor
+                    "cd_origem_fonte_recursos_projeto": valor,
+                    "cd_tipo_parceria": null,
+                    "tx_nome_tipo_parceria": null
                   });
                 }
                 if(valor === "Outros"){
                   valor = 4;
                   obj[$pai.attr("id")].push({
-                    "cd_origem_fonte_recursos_projeto": valor
+                    "cd_origem_fonte_recursos_projeto": valor,
+                    "cd_tipo_parceria": null,
+                    "tx_nome_tipo_parceria": null
                   });
                 }
                 if(valor === ""){
                   obj[$pai.attr("id")] = null;
                 }
+
+                console.log(obj);
             })
           } else if( $pai.attr("id") === "area_atuacao_outra"){
             if(Array.isArray(obj[$pai.attr("id")])){
