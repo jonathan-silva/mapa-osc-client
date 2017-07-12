@@ -69,8 +69,18 @@ class Projeto {
 
   montarProjeto(project, util, dadosForm,rotas){
 
-    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
     
+
+    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
+    if (project.projeto[0].hasOwnProperty("fonte_recursos")){
+      if (project.projeto[0].fonte_recursos[0]["tx_nome_origem_fonte_recursos_projeto"] == "Recursos públicos" ){
+        project.projeto[0].fonte_recursos[0]["cd_tipo_parceria"] = 1;
+        project.projeto[0].fonte_recursos[0]["tx_nome_tipo_parceria_projeto"] = "Outro";
+      }else{
+        project.projeto[0].fonte_recursos[0]["cd_tipo_parceria"] = null;
+        project.projeto[0].fonte_recursos[0]["tx_nome_tipo_parceria_projeto"] = null;
+      }
+    }
 
     // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
 
@@ -143,6 +153,7 @@ class Projeto {
 
     var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
     fonte.dados = util.validateObject(project.fonte_recursos, []);
+    //console.log(fonte);
 
     var projectPublicoFinanciado = util.validateObject(project.publico_beneficiado, []);
     var publicoBeneficiado =  util.getTipoProjeto("publico_beneficiado", projectPublicoFinanciado);
@@ -232,6 +243,7 @@ class Projeto {
     var type = util.validateObject(element)?element.type:"";
     var options = util.validateObject(element)?element.options:"";
     var suboptions = null;
+    var cc = util.validateObject(element)?element.custom_class:"";
     var buttonsInput = null;
     var buttonsInLine = false;
     if(removable){
@@ -242,7 +254,7 @@ class Projeto {
     if(object.dados.length === 0){
       var inputId = sectionId;
       value = "";
-      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
       inputs.push(inputProjeto);
     }
     for (var i = 0; i < object.dados.length; i++) {
@@ -255,13 +267,13 @@ class Projeto {
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
               value = object.dados[i][property];
               options = labelMap[object.id].options;
-              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
               inputs.push(inputProjeto);
             }
           } else if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd);
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd, cc);
             inputs.push(inputProjeto);
           }
         }
@@ -275,7 +287,7 @@ class Projeto {
       buttonsInput = [buttonRemove];
       buttonsAgrupador = [buttonAdd];
     }
-    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options);
+    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options, cc);
     return agrupadorInputProjeto;
   }
 

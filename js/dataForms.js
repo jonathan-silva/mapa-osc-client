@@ -814,6 +814,7 @@ class DataForms{
       "fonte_recursos": {
         "header": "Fontes de Recursos",
         "containerClass": "col-md-3 fonte_recursos",
+        "custom_class": "fonte_recurso",
         "removable": true,
         "type": "select",
         "options": [
@@ -823,6 +824,7 @@ class DataForms{
       "fonte_de_recursos_publico": {
         "header": "Fontes de Recursos Públicos",
         "containerClass": "col-md-3",
+        "custom_class": "fonte_recurso",
         "removable": false,
         "type": "select",
         "options": [
@@ -846,7 +848,7 @@ class DataForms{
       },
       "tx_nome_tipo_parceria_projeto": {
         "header": "Tipo de Parceria",
-        "containerClass": "col-md-3",
+        "containerClass": "col-md-3 tipo_parceria_projeto",
         "removable": false,
         "type": "select",
         "options": [ "Termo de Fomento", "Termo de Colaboração", "Termo de Parceria", "Contrato de Gestão", "Convênio", "Outro" ]
