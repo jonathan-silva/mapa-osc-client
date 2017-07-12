@@ -193,8 +193,8 @@ function deslogar(){
   $(".menuLogado .dropdown-toggle").html('');
   $(".menuLogado").addClass("logado");
   $("#btnEntrar").removeClass("logado");
-  $("#btnCadastrar").removeClass("logado");
-  window.location="index.html";
+  $("#btnCadastrar").removeClass("logado");  
+  window.location= "index.html";
   return true;
 }
 
