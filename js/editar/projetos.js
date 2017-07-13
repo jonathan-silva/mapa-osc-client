@@ -18,8 +18,8 @@ class Projeto {
       var fontes_recurso = proj.fonte_recursos;
       if(Object.keys(fontes_recurso).length != 0){
         for (var i = 0; i < fontes_recurso.length; i++) {
-          if (fontes_recurso[i]["tx_nome_tipo_parceria_projeto"] != null) {
-            resultado = fontes_recurso[i]["tx_nome_tipo_parceria_projeto"];
+          if (fontes_recurso[i]["tx_nome_tipo_parceria"] != null) {
+            resultado = fontes_recurso[i]["tx_nome_tipo_parceria"];
             break;
           }
         }
@@ -68,32 +68,16 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
-
-    
-
-    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
-    if (project.projeto[0].hasOwnProperty("fonte_recursos")){
-      if (project.projeto[0].fonte_recursos[0]["tx_nome_origem_fonte_recursos_projeto"] == "Recursos públicos" ){
-        project.projeto[0].fonte_recursos[0]["cd_tipo_parceria"] = 1;
-        project.projeto[0].fonte_recursos[0]["tx_nome_tipo_parceria_projeto"] = "Outro";
-      }else{
-        project.projeto[0].fonte_recursos[0]["cd_tipo_parceria"] = null;
-        project.projeto[0].fonte_recursos[0]["tx_nome_tipo_parceria_projeto"] = null;
-      }
-    }
-
-    // MOCK DO CAMPO QUE AINDA NÃO EXISTE NO DB
-
+  
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
-
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
 
+    // VAI TER QUE ALTERAR O NOME POIS NO JSON ESTA VINDO COISA DIFERENTE
     project["tx_nome_tipo_parceria_projeto"] = this.getTipoParceria(project); //GAMBI
-    // AGORA TEM QUE DAR HIDE NOS VAZIOS VIA JQUERY E TB CRIAR A FUNCAO DE UNHIDE QUANDO FOR PUBLICO
 
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);

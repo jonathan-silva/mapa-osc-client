@@ -410,6 +410,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             localizacao($(tr_projeto).find(":selected").text());
           });
 
+          console.log($('#'+divId+' .tipo_parceria_projeto select').val());
+
           $('.tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto select').val()));
 
           function conta(){
@@ -467,7 +469,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $('#' + divId + ' #fonte_recursos').on('change', '.fonte_recurso select', function(e) {
           var pub = false ;
           $('#' + divId + ' #fonte_recursos .fonte_recurso select').each(function() {
-            if ($(this).val() == "Recursos públicos")
+            if ($(this).val() == "Recursos públicos" || $(this).val() == "Recursos Públicos" )
             pub = true;
           });
 
@@ -779,7 +781,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function tipo_parceria_recurso(varlor_recurso){
-      if (varlor_select != "Recursos públicos"){
+      if (varlor_select != "Recursos públicos" || varlor_select != "Recursos Públicos"){
         return "hidden"
       }else{
         return ""
@@ -1803,25 +1805,26 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   var cod_tipo_parceria = null;
 
                  $("div#tx_nome_tipo_parceria_projeto.form-group").parent().find("select").each(function(i){
+                   console.log("ENTROU");
                    tipo_parceria = $(this).parent().parent().find("select").val();
 
                    switch(tipo_parceria) {
-                      case "Termo de Fomento":
+                      case "Termo de fomento":
                           cod_tipo_parceria = 0;
                           break;
-                      case "Termo de Colaboração":
+                      case "Termo de colaboração":
                           cod_tipo_parceria = 1;
                           break;
-                      case "Termo de Parceria":
+                      case "Termo de parceria":
                           cod_tipo_parceria = 2;
                           break;
-                      case "Contrato de Gestão":
+                      case "Contrato de gestão":
                           cod_tipo_parceria = 3;
                           break;
                       case "Convênio":
                           cod_tipo_parceria = 4;
                           break;
-                      case "Acordo de Cooperação Técnica":
+                      case "Acordo de cooperação técnica":
                           cod_tipo_parceria = 5;
                           break;
                       case "Outro":

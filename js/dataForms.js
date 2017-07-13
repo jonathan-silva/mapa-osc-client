@@ -846,13 +846,7 @@ class DataForms{
         "options": null,
         "placeholder": "Selecione a área de atuação do projeto"
       },
-      "tx_nome_tipo_parceria_projeto": {
-        "header": "Tipo de Parceria",
-        "containerClass": "col-md-3 tipo_parceria_projeto",
-        "removable": false,
-        "type": "select",
-        "options": [ "Termo de Fomento", "Termo de Colaboração", "Termo de Parceria", "Contrato de Gestão", "Convênio", "Outro" ]
-      },
+
       "area_atuacao_outra": {
         "header": "Outras áreas de atuação do projeto, atividade ou programa",
         "containerClass": "col-md-3",
@@ -915,6 +909,13 @@ class DataForms{
         "type": "textarea",
         "options": null,
         "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
+      },
+      "tx_nome_tipo_parceria_projeto": {
+        "header": "Tipo de Parceria",
+        "containerClass": "col-md-3 tipo_parceria_projeto",
+        "removable": false,
+        "type": "select",
+        "options": [ "Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
       },
       "objetivos": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
