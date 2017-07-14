@@ -908,7 +908,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       carregaEventoMetas();
+
     }
+
 
     function montarObjetivos(json, cd_objetivo){
       var options = json;
@@ -964,6 +966,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       	if(parseInt(cd_objetivo) !== 0){
       		loadMetas(cd_objetivo, []);
       	}
+
               verificarContraste();
       });
     }
@@ -1022,6 +1025,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("selectable-"+cd_objetivo)
         );*/
       }
+      $divObjetivosMetasProjeto.find(".input-group-btn").remove();
+      $divObjetivosMetasProjeto.append('<span class="input-group-btn">'+
+      '<button id="add_projeto" class="btn-primary btn">Adicionar Objetivo</button>'+
+      '</span>');
+      $divObjetivosMetasProjeto.append('<span class="input-group-btn"><button class="btn-danger btn">Remover Objetivo</button></span>')
     }
 
     function carregaMetas($divObjetivosMetasProjeto){
