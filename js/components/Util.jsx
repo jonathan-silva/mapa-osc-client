@@ -602,7 +602,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
-        else if (item.fonte == false) {
+        else if (item.fonte == false || item.fonte == null) {
             SpanFonte = "";
         }
 
