@@ -143,7 +143,7 @@ function ativarCSSContraste() {
         $(this).css("color", "#ffffff");
     }
   });
-  
+
   $( ".logoMapa" ).attr({src: "img/logo_contraste.png"});
 
 }
@@ -165,10 +165,11 @@ function verificarLogado(){
     if(!setLogin)
     {
       $(".menuLogado").removeClass("logado");
+      $("#btnEditarOSCs").removeClass("logado");
       $("#btnEntrar").addClass("logado");
       $("#btnCadastrar").addClass("logado");
       $(".menuLogado .dropdown-toggle").append(nome);
-      $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+      $(".menuLogado .dropdown-toggle").append(" <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
     }
     setLogin = true;
     return true;
@@ -177,6 +178,7 @@ function verificarLogado(){
     {
       $(".menuLogado .dropdown-toggle").html('');
       $(".menuLogado").addClass("logado");
+      $("#btnEditarOSCs").addClass("logado");
       $("#btnEntrar").removeClass("logado");
       $("#btnCadastrar").removeClass("logado");
     }
@@ -192,8 +194,9 @@ function deslogar(){
   window.localStorage.removeItem('Osc');
   $(".menuLogado .dropdown-toggle").html('');
   $(".menuLogado").addClass("logado");
+  $("#btnEditarOSCs").addClass("logado");
   $("#btnEntrar").removeClass("logado");
-  $("#btnCadastrar").removeClass("logado");  
+  $("#btnCadastrar").removeClass("logado");
   window.location= "index.html";
   return true;
 }

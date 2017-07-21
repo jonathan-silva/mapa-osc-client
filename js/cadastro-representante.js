@@ -272,9 +272,9 @@ require(['react', 'jsx!components/Util'], function(React) {
                     $modal.modal('show');
                 },
                 success: function(data) {
-                    jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
+                    jQuery("#modalTitle").text("Cadastro de Representante");
                     jQuery("#modalConteudo").text('');
-                    jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+                    jQuery("#modalConteudo").text(data.msg);
                     $modal.modal('show');
                 }
             }); //final ajax

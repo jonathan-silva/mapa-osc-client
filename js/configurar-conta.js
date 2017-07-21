@@ -263,7 +263,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
                 window.localStorage.setItem('Nome', data.token.tx_nome_usuario);
                 $(".menuLogado .dropdown-toggle").html('');
                 $(".menuLogado .dropdown-toggle").append(data.token.tx_nome_usuario);
-                $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+                $(".menuLogado .dropdown-toggle").append(" <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
 
               },
               error: function(e) {

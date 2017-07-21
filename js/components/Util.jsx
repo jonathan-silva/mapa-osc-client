@@ -602,7 +602,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
-        else if (item.fonte == false) {
+        else if (item.fonte == false || item.fonte == null) {
             SpanFonte = "";
         }
 
@@ -1228,14 +1228,17 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
+        var custom_class = item.cc;
         if(content === undefined || content === null ){
           content = "";
         }
-
+        if(custom_class === undefined || custom_class === null ){
+          custom_class = "";
+        }
 
         if(type == 'select'){
           var InputElement =
-            <div id={id}>
+            <div id={id} className={custom_class}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;

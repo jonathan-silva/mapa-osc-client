@@ -170,6 +170,31 @@
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
+
+              <div class="form-group">
+                <label>Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>:</label>
+                <div class="form-group" ng-repeat="objetivo in ctrl.osc.dados_gerais.objetivo_metas | unique: 'cd_objetivo_osc' | orderBy: 'cd_objetivo_osc' ">
+                  <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
+                  <span ng-if="(objetivo.ft_objetivo_osc != 'Representante' && objetivo.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="(objetivo.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                </div>
+                <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                  <span class="form-control-static">Não informado</span>
+                </div>
+              </div>
+
+              <div class="form-group ">
+                  <label>Metas Relacionadas ao ODS:</label>
+                  <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
+                    <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
+                    <span ng-if="(objetivo_meta.ft_objetivo_osc != 'Representante' && objetivo_meta.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="(objetivo_meta.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                  </div>
+                  <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                    <span class="form-control-static">Não informado</span>
+                  </div>
+              </div>
+
             </div>
 
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -713,7 +738,7 @@
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
                         <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
-                        <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
+                        <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | unique: 'cd_objetivo_projeto' | orderBy: 'cd_objetivo_projeto' ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(objetivo.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
@@ -727,7 +752,7 @@
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
                         <div class="header">Metas Relacionadas ao ODS</div>
-                        <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta">
+                        <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta | orderBy: 'cd_objetivo_projeto'">
                           <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo_meta.ft_objetivo_projeto != 'Representante' && objetivo_meta.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(objetivo_meta.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>

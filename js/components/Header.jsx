@@ -74,7 +74,10 @@ define(['react','rotas'], function(React) {
           items.push(<li><a id="btnEntrar" className="btn-link"  data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
           items.push(<li id="dropdown-menu-header" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
         }
-        else if(i == this.props.headerObject.menuList.length-2){//Posição do cadastrar
+        else if(i == this.props.headerObject.menuList.length-2){//Posição do editar OSC
+          items.push(<li><a id="btnEditarOSCs" className="logado" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        }
+        else if(i == this.props.headerObject.menuList.length-3){//Posição do cadastrar
           items.push(<li><a id="btnCadastrar" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
         else{

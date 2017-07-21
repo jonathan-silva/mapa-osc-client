@@ -22,6 +22,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
   menuList.push(new MenuListObject("Cadastre-se", "cadastro-representante.html"));
+  menuList.push(new MenuListObject("Editar OSCs", "minhas-oscs.html"));
   menuList.push(new MenuListObject("Entrar", ""));
 
   var linksSubmenu = [];
@@ -45,7 +46,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
-  linksUsuarioLogado.push(new MenuDropDownObject("Editar Página OSC", "minhas-oscs.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Editar OSCs", "minhas-oscs.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
