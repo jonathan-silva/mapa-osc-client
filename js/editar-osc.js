@@ -42,6 +42,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
+  var qtdObjODS = 2;
+  var limiteObjetivos = 3;
+  var numODS = 2;
 
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','componenteTitulosCertificacoes', 'jquery','select-boxit'],
@@ -97,7 +100,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         cabecalhoObject.montarCabecalho(data, util, React, ReactDOM, Cabecalho);
         old_json = data;
         // Dados Gerais
-        dadosGerais.montarDadosGerais(data, util, dadosForm, React, ReactDOM, FormItem);
+        dadosGerais.montarDadosGerais(data, util, dadosForm, React, ReactDOM, FormItem, Checkbox);
+        //ODS Dados gerais
+        metasObjetivosOsc(data, Checkbox);
+
         //Áreas de atuação
         var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc, "") ;
         var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc, "");
@@ -286,6 +292,221 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              $("#voltaPagAnterior").text('Lista de OSCs');
              $("#voltaPagAnterior").attr("href","minhas-oscs.html");
          }
+    }
+    function metasObjetivosOsc(data, Checkbox){
+      var rotas = new Rotas();
+
+      //metas e objetivos
+      var objetivo_metas = util.validateObject(data.dados_gerais.objetivo_metas, "");
+      var objetivos = {};
+      for (var i = 0; i < objetivo_metas.length; i++) {
+        var cd_objetivo = objetivo_metas[i].cd_objetivo_osc;
+        objetivos[cd_objetivo] = objetivo_metas[i].tx_nome_objetivo_osc ;
+      }
+
+      var $divDadosGerais = $('#dados_gerais');
+      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
+      $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
+      $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
+
+      $.ajax({
+          url: 'js/controller.php',
+          type: 'GET',
+          dataType: 'json',
+          data:{flag: "consulta", rota: rotas.Objetivos()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if(objetivo_metas == ""){
+              criarObjetivosOsc(data,"",-1,-1,Checkbox);
+            }
+            else{
+              for(var k in objetivos){
+                var objetivo = util.validateObject(objetivos[k], -1);
+                criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
+              }
+            }
+          }
+        });
+
+        $("#add_objetivo_ods").click(function(){
+          if(qtdObjODS <= limiteObjetivos)
+          {
+
+            $.ajax({
+                url: 'js/controller.php',
+                type: 'GET',
+                dataType: 'json',
+                data:{flag: "consulta", rota: rotas.Objetivos()},
+                error:function(e){
+                  console.log("Erro no ajax: ");
+                  console.log(e);
+                },
+                success: function(data){
+                    criarObjetivosOsc(data,"",-1,-numODS,Checkbox);
+                    qtdObjODS++;
+                    numODS++;
+                }
+              });
+            }
+        });
+    }
+
+    function criarObjetivosOsc(data, objetivo_metas, objetivo, cd_objetivo, Checkbox){
+      $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:</label>');
+      $("#objetivosOsc-metas").append('<div id="objetivosOsc" class="objetivosOsc-'+cd_objetivo+'"></div>');
+
+      $(".objetivosOsc-"+cd_objetivo).append('<div class="form-group"><div id="objetivosOsc-'+cd_objetivo+'" for="'+cd_objetivo+'"><select class="form-control"></select></div></div>');
+      $("#objetivosOsc-"+cd_objetivo).append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+
+      var $divMetasOsc = $("#objetivosOsc-metas").find("#metas-"+cd_objetivo);
+      if(cd_objetivo <= -1){
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto" style="display:none">Metas Relacionadas ao ODS definido:</label><br>');
+      }
+      else{
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:</label><br>');
+      }
+      $divMetasOsc.append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+
+      montarObjetivosOsc(data, cd_objetivo);
+      $("#objetivosOsc-"+cd_objetivo+" select").selectBoxIt({
+         theme: "default",
+         //defaultText: "Selecione abaixo...",
+         autoWidth: false
+       });
+      $("#objetivosOsc-"+cd_objetivo+" select").selectBoxIt("refresh");
+
+      var cd_metas = [];
+      if(objetivo !== -1){
+        for (var i = 0; i < objetivo_metas.length; i++) {
+          if(cd_objetivo == objetivo_metas[i].cd_objetivo_osc){
+            var cd_meta = objetivo_metas[i].cd_meta_osc;
+            cd_metas.push(cd_meta);
+          }
+        }
+        loadMetasOsc(cd_objetivo, cd_metas, Checkbox);
+      }
+      carregaEventoMetasOsc(cd_objetivo, Checkbox);
+
+    }
+
+    function montarObjetivosOsc(json, cd_objetivo){
+      var options = json;
+      var $selectObjetivos = $('#objetivosOsc-'+cd_objetivo).find("select");
+      if (cd_objetivo == -1 ) {
+        $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
+      else {
+        $selectObjetivos.append('<option value=-1 id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
+
+      for (var i = 0; i < options.length; i++) {
+        if(options[i].cd_objetivo_projeto === cd_objetivo){
+          $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+        } else {
+          $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
+        }
+      }
+    }
+
+    function loadMetasOsc(cd_objetivo, cd_metas, Checkbox){
+      var rotas = new Rotas();
+
+      $.ajax({
+        url: 'js/controller.php',
+        type: 'GET',
+        dataType: 'json',
+        data:{flag: "consulta", rota: rotas.MetaProjeto(cd_objetivo)},
+        error:function(e){
+          console.log("Erro no ajax: ");
+          console.log(e);
+        },
+        success: function(data){
+          montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox);
+        }
+      });
+    }
+
+    function montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox){
+      if (util.validateObject(data, false)){
+        var checkboxItems = [];
+        function CheckboxItem(id, label, value, type, checked){
+          this.id = id;
+          this.label = label;
+          this.value = value;
+          this.type = type;
+          this.checked = checked;
+        }
+
+        items = data;
+
+        for (var i=0; i<items.length; i++){
+          var checkboxItem = null;
+          if(cd_metas.includes(items[i].cd_meta_projeto)){
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", true);
+            checkboxItems.push(checkboxItem);
+          } else {
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", false);
+            checkboxItems.push(checkboxItem);
+          }
+        }
+        Checkbox = React.createFactory(Checkbox);
+        ReactDOM.render(
+          Checkbox(
+            {dados:checkboxItems}
+          ), document.getElementById("selectable-"+cd_objetivo)
+        );
+
+      }
+      var $divObjetivosMetasOsc = $('#metas-'+cd_objetivo);
+      $divObjetivosMetasOsc.append('<span class="input-group-btn"><button id="remover_objetivo_ods-'+cd_objetivo+'" for="'+cd_objetivo+'" class="btn-danger btn">Remover Objetivo</button></span>')
+      $divObjetivosMetasOsc.append('<hr>');
+
+      $("#remover_objetivo_ods-"+cd_objetivo).click(function(){
+        var cd_objetivo = $(this).attr('for');
+        $('.label-objetivosOsc-'+cd_objetivo).remove();
+        $('.objetivosOsc-'+cd_objetivo).remove();
+        $('#metas-'+cd_objetivo).remove();
+        qtdObjODS--;
+      });
+    }
+
+    function carregaEventoMetasOsc(cd_objetivo, Checkbox){
+      $("#objetivosOsc-"+cd_objetivo).find('select').on('change', function(){
+        cd_objetivo = $(this).children(":selected").attr("id")
+        var contemObjetivo = false;
+        $("#objetivosOsc").each(function() {
+          if($( this ).hasClass( 'objetivosOsc-'+cd_objetivo )){
+            contemObjetivo = true;
+          }
+        });
+
+        if(contemObjetivo){
+          id_cd_objetivo = $(this).parent().attr('for');
+          $('#metas-'+id_cd_objetivo).remove();
+
+        }
+        else {
+          id_cd_objetivo = $(this).parent().attr('for');
+          $(this).parent().attr('for', cd_objetivo);
+          $('.label-objetivosOsc-'+id_cd_objetivo).removeClass('label-objetivosOsc-'+id_cd_objetivo).addClass('label-objetivosOsc-'+cd_objetivo);
+          $('.objetivosOsc-'+id_cd_objetivo).removeClass('objetivosOsc-'+id_cd_objetivo).addClass('objetivosOsc-'+cd_objetivo);
+
+          $('#metas-'+id_cd_objetivo).remove();
+          $(this).parent().append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
+          $('#metas-'+cd_objetivo).append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</label><br>');
+          $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+
+          if(parseInt(cd_objetivo) !== 0){
+            loadMetasOsc(cd_objetivo, [], Checkbox);
+          }
+        }
+        verificarContraste();
+
+      });
+
     }
 
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
@@ -1091,6 +1312,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson[key] = value;
         }
       });
+
+      newJson["objetivo_metas"] = [];
+      $("#objetivosOsc-metas :input[type='checkbox']").each(function(){
+        if($(this).prop("checked")){
+          var codigo = $(this).attr('value');
+          newJson["objetivo_metas"].push({
+            "cd_meta_osc": codigo,
+          });
+        }
+      });
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
