@@ -376,6 +376,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          //defaultText: "Selecione abaixo...",
          autoWidth: false
        });
+
       $("#objetivosOsc-"+cd_objetivo+" select").selectBoxIt("refresh");
 
       var cd_metas = [];
@@ -403,7 +404,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       for (var i = 0; i < options.length; i++) {
-        if(options[i].cd_objetivo_projeto === cd_objetivo){
+        if(options[i].cd_objetivo_projeto == cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         } else {
           $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
@@ -1143,7 +1144,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $selectObjetivos.append('<option value=-1 id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
       }
       for (var i = 0; i < options.length; i++) {
-        if(options[i].cd_objetivo_projeto === cd_objetivo){
+        if(options[i].cd_objetivo_projeto == cd_objetivo){
           $selectObjetivos.append('<option selected id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
         } else {
           $selectObjetivos.append('<option id="' + options[i].cd_objetivo_projeto + '">' + options[i].tx_nome_objetivo_projeto + '</option>');
