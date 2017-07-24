@@ -42,9 +42,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var fonteRecurso = new FonteRecurso();
   var old_json = null;
   var newJson = {};
-  var qtdObjODS = 2;
+  var qtdObjODS = 0;
   var limiteObjetivos = 3;
-  var numODS = 2;
+  var numODS = 1;
 
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','componenteTitulosCertificacoes', 'jquery','select-boxit'],
@@ -305,7 +305,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       var $divDadosGerais = $('#dados_gerais');
-      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
+      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU. Máximo três objetivos.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
       $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
       $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
 
@@ -321,18 +321,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           success: function(data){
             if(objetivo_metas == ""){
               criarObjetivosOsc(data,"",-1,-1,Checkbox);
+              qtdObjODS++;
+              numODS++;
             }
             else{
               for(var k in objetivos){
                 var objetivo = util.validateObject(objetivos[k], -1);
                 criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
+                qtdObjODS++;
               }
             }
           }
         });
 
         $("#add_objetivo_ods").click(function(){
-          if(qtdObjODS <= limiteObjetivos)
+          if(qtdObjODS < limiteObjetivos)
           {
 
             $.ajax({
