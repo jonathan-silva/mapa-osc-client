@@ -571,6 +571,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     }
 
+
     function ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes){
       var projetosArray = projeto.montarProjetos(data, util);
       var headerProjeto = projetosArray[0];
