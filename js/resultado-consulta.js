@@ -337,81 +337,65 @@ $("#regiao .form-control").autocomplete({
         console.log("Erro no ajax: "+e);
       },
       success: function(data){
-        if(data !== "Nenhuma Organização encontrada!"){
-          var columns = 6;
-          var sizeOfData = data.length;
-          newData = new Array(sizeOfData);
-          var i = 0;
-          var txtVazioNulo = 'Dado não informado.';
-          var srcPadrao = 'img/camera.jpg';
-          for (var j in data){
-            if(j=="0") continue;
-            else{
-              newData[i] = new Array(columns);
-              srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
-              newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
-              newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
-              newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
-              newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
-              newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
-              newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
-              i++;
-            }
+        var columns = 6;
+        var sizeOfData = data.length;
+        newData = new Array(sizeOfData);
+        var i = 0;
+        var txtVazioNulo = 'Dado não informado.';
+        var srcPadrao = 'img/camera.jpg';
+        for (var j in data){
+          if(j=="0") continue;
+          else{
+            newData[i] = new Array(columns);
+            srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
+            newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
+            newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
+            newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
+            newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
+            newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
+            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
+            i++;
           }
-          //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
-          if(typeof newData[0] !== "undefined"){
-            var datatable = $('#resultadoconsulta_formato_dados').DataTable({
-              responsive: true,
-              processing: true,
-              deferLoading: 1000,
-              deferRender: true,
-              searching: false,
-              data: newData,
-              dom: 'Bfrtip',
-              "bPaginate": false,
-              "bSort": true,
-              "aaSorting": [[ 1, 'asc' ]],
-               columns: [
-                       {title: "", width: 50},
-                       {title: "Nome da OSC", width: 200},
-                       {title: "CNPJ"},
-                       {title: "Natureza Jurídica"},
-                       {title: "Endereço"},
-                       {title: "Detalhar"}
-                   ],
-               aoColumnDefs: [
-                 {bSortable :false, aTargets: [0]},
-                 {bSortable :false, aTargets: [5]},
-                 {bSortable :false, aTargets: [4]}
-               ],
-               autoWidth: true
-             });
-             datatable.destroy();
-             datatable.draw();
-             $('#resultadoconsulta_formato_dados').show();
-             $('#loading').addClass('hide');
-         }
-         else {
-            $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
-            $('#modalTitle').text('Nenhuma OSC encontrada!');
-            if(tipoConsulta !== "avancado"){
-              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
-            }else {
-              $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
-            }
-            $('#modalMensagem').modal('show');
-         }
         }
-        else {
-           $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
-           $('#modalTitle').text('Nenhuma OSC encontrada!');
-           if(tipoConsulta !== "avancado"){
-             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
-           }else {
-             $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
-           }
-           $('#modalMensagem').modal('show');
-        }
+        //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
+        if(typeof newData[0] !== "undefined"){
+          var datatable = $('#resultadoconsulta_formato_dados').DataTable({
+            responsive: true,
+            processing: true,
+            deferLoading: 1000,
+            deferRender: true,
+            searching: false,
+            data: newData,
+            dom: 'Bfrtip',
+            "bPaginate": false,
+            "bSort": true,
+            "aaSorting": [[ 1, 'asc' ]],
+             columns: [
+                     {title: "", width: 50},
+                     {title: "Nome da OSC", width: 200},
+                     {title: "CNPJ"},
+                     {title: "Natureza Jurídica"},
+                     {title: "Endereço"},
+                     {title: "Detalhar"}
+                 ],
+             aoColumnDefs: [
+               {bSortable :false, aTargets: [0]},
+               {bSortable :false, aTargets: [5]},
+               {bSortable :false, aTargets: [4]}
+             ],
+             autoWidth: true
+           });
+           datatable.destroy();
+           datatable.draw();
+           $('#resultadoconsulta_formato_dados').show();
+           $('#loading').addClass('hide');
+       }
+       else {
+          $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+          $('#modalTitle').text('Nenhuma OSC encontrada');
+          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+          $('#modalMensagem').modal('show');
+       }
       }
      });
 
@@ -885,7 +869,7 @@ $("#regiao .form-control").autocomplete({
     },
     success: function(data){
 
-      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!"){
+      if(data!==undefined){
         tabela(urlRota);
         if(typeof data.length !== 'undefined'){
           var count = 0;
@@ -907,15 +891,6 @@ $("#regiao .form-control").autocomplete({
         else{
           carregaMapa(data);
         }
-      }else{
-        $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
-        $('#modalTitle').text('Nenhuma OSC encontrada!');
-        if(tipoConsulta !== "avancado"){
-          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
-        }else {
-          $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
-        }
-        $('#modalMensagem').modal('show');
       }
     }
   });
