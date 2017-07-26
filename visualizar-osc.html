@@ -293,17 +293,22 @@
 
           <div class="col-md-12 " id="titulacao">
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
-            <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
-              <label>{{certificado.tx_nome_certificado}} - </label>
-            <!-- ver MOSC-1030
-              <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
-                {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
-              -->
-              <span ng-if="(certificado.ft_certificado != 'Representante' && certificado.ft_certificado != null)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <span ng-if="(certificado.ft_certificado == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+            <div ng-if="(!ctrl.osc.certificado.bo_nao_possui_certificacoes)">
+              <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
+                <label>{{certificado.tx_nome_certificado}} - </label>
+              <!-- ver MOSC-1030
+                <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
+                  {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
+                -->
+                <span ng-if="(certificado.ft_certificado != 'Representante' && certificado.ft_certificado != null)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="(certificado.ft_certificado == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+              </div>
+              <div ng-if="(ctrl.osc.certificado.certificado == null )">
+                <span class="form-control-static">Não informado.</span>
+              </div>
             </div>
-            <div ng-if="(ctrl.osc.certificado.certificado == null)">
-              <span class="form-control-static">Não possui Títulos ou Certificações</span>
+            <div ng-if="(ctrl.osc.certificado.bo_nao_possui_certificacoes)">
+              <span class="form-control-static">Não possui Títulos ou Certificações.</span>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
@@ -393,7 +398,7 @@
 
             <div class="col-md-12">
               <h3>Conselhos de Políticas Públicas</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_conselhos)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -454,10 +459,13 @@
                 </tbody>
               </table>
               </div>
+              <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_conselhos)">
+                <span class="form-control-static">Não possui conselhos de políticas públicas.</span>
+              </div>
             </div>
             <div class="col-md-12">
               <h3>Conferências de Políticas Públicas</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_conferencias)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -493,10 +501,13 @@
                 </tbody>
               </table>
               </div>
+              <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_conferencias)">
+                <span class="form-control-static">Não possui conferências de políticas públicas.</span>
+              </div>
             </div>
             <div class="col-md-12">
               <h3>Outros espaços de participação social</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_outros_part)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -516,6 +527,9 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_outros_part)">
+              <span class="form-control-static">Não possui outros espaços de participação social.</span>
             </div>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -816,7 +830,7 @@
                 </a>
 
                 <div id="{{'collapseRec'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'headingRec'+ $index }}">
-                  <div class="panel-body no-padding ">
+                  <div ng-if="(!rec.bo_nao_possui)" class="panel-body no-padding ">
 
                   <h3>Recursos próprios</h3>
 
@@ -1077,6 +1091,9 @@
                       <span class="form-control-static" >Não informado</span>
                     </div>
                   </div>
+                </div>
+                <div ng-if="(rec.bo_nao_possui)" class="panel-body no-padding " >
+                  <span class="form-control-static">Não possui recursos para este ano.</span>
                 </div>
               </div>
             </div>

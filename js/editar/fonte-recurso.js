@@ -3,7 +3,7 @@ class FonteRecurso {
 
   }
 
-  montarPorAno(ano, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
+  montarPorAno(ano, nao_possui, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
     var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
     var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
@@ -102,6 +102,13 @@ class FonteRecurso {
 
     $("#recursos_geral-"+ano).append('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para este ano.</label></div>');
 
+    if(nao_possui){
+      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', true);
+    }
+    else{
+      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', false);
+    }
+
     $('#recursos_geral-'+ano+' input[type="checkbox"]').change(function() {
       if($(this).is(':checked')){
         $(this).prop('checked', true);
@@ -138,7 +145,7 @@ class FonteRecurso {
     var fontesRecursos = this.carregaFontes(rotas);
     //console.log(json);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
-      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
+      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, json.recursos.recursos[j].bo_nao_possui, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
 
     // interacoes da selecao de anos

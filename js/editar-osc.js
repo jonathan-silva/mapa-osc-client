@@ -301,7 +301,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
       var certificacoes = util.validateObject(data.certificado, 0);
-      $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.nao_possui);
+      $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
 
       $('#certificacoes input[type="checkbox"]').change(function() {
         if($(this).is(':checked')){
@@ -1397,7 +1397,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
       console.log(success);
-      
+
       //Áreas de atuação
       // if(util.validateObject(old_json.area_atuacao)){
       //   newJson = old_json.area_atuacao;
