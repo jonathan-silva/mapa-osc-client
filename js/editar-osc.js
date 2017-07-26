@@ -118,10 +118,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Espaços participacao social
         var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.Titularidade(),rotas.FormaParticipacaoConferencia());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
+        checkbox_nao_possui(data);
+
         //Projetos
         ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
         //Fonte de recurso
         fonteRecurso.montarFontedeRecursos(data, util, rotas, dadosForm, React, ReactDOM, Section, FormItem);
+
         //Acessibilidade
         verificarContraste();
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
@@ -293,6 +296,60 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              $("#voltaPagAnterior").attr("href","minhas-oscs.html");
          }
     }
+
+    function checkbox_nao_possui(data){
+
+      $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
+      var certificacoes = util.validateObject(data.certificado, 0);
+      $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.nao_possui);
+
+      $('#certificacoes input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
+      $("#conselhos").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui conselhos de políticas públicas.</label></div>');
+      $("#conferencias").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui conferências de políticas públicas.</label></div>');
+      $("#outros_part").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui outros espaços de participação social.</label></div>');
+
+      var participacao_social = util.validateObject(data.participacao_social, 0);
+      $('#conselhos input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conselhos);
+      $('#conferencias input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conferencias);
+      $('#outros_part input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_outros_part);
+
+
+      $('#conselhos input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
+      $('#conferencias input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
+      $('#outros_part input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+    }
+
     function metasObjetivosOsc(data, Checkbox){
       var rotas = new Rotas();
 
@@ -1337,9 +1394,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       else{
           newJson["im_logo"] = imgSrc;
       }
-      //console.log(newJson);
-      success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
+      success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
+      console.log(success);
+      
       //Áreas de atuação
       // if(util.validateObject(old_json.area_atuacao)){
       //   newJson = old_json.area_atuacao;
@@ -1470,6 +1528,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //if(newJson.certificado.length > 0){
           newJson["headers"] = authHeader;
           newJson["id_osc"] = idOsc;
+          newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
           if(newJson['certificado'].length == 0){
             newJson['certificado'] = null;
@@ -1595,6 +1654,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["conselho"] = [];
+        newJson["bo_nao_possui_conselhos"] = $('#conselhos input[type="checkbox"]').is(':checked');
+
         $(".conselho").each(function(){
          var obj = {}
          obj.conselho = {};
@@ -1730,6 +1791,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["conferencia"] = [];
+        newJson["bo_nao_possui_conferencias"] = $('#conferencias input[type="checkbox"]').is(':checked');
 
         $(".conferencia").each(function(){
          var obj = {};
@@ -1807,6 +1869,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
         newJson["outra"] = [];
+        newJson["bo_nao_possui_outros_part"] = $('#outros_part input[type="checkbox"]').is(':checked');
+
         $("#outros_part").find("div").children(".form-group").each(function(){
 
           $(this).find("input").each(function(){
@@ -1836,9 +1900,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["fonte_recursos"] = [];
         $("#recursos").children().each(function(){
           var ano = $(this).find("select").val();
-          $(this).find("input").each(function(){
+          var nao_possui = $('#recursos_geral-'+ano+' input[type="checkbox"]').is(':checked');
+          $(this).find('input:not([type="checkbox"])').each(function(){
             var obj = {};
             obj.dt_ano_recursos_osc = ano;
+            obj.bo_nao_possui = nao_possui;
             obj.cd_fonte_recursos_osc = $(this).attr("id");
             obj.nr_valor_recursos_osc = $(this).val();
             newJson.fonte_recursos.push(obj);

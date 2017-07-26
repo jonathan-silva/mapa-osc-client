@@ -9,6 +9,7 @@ class FonteRecurso {
     var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
     var recursos_nao_financeiros = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 3; });
     $("#recursos").append('<div id='+ano+'></div>');
+
     if(index !== 0){
       $('#'+ano).toggleClass("hidden");
     }
@@ -98,6 +99,17 @@ class FonteRecurso {
     $("#recursos_nao_financeiros-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
     $("#recursos_nao_financeiros-"+ano).find('input').addClass('with-pretext');
     $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+
+    $("#recursos_geral-"+ano).append('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para este ano.</label></div>');
+
+    $('#recursos_geral-'+ano+' input[type="checkbox"]').change(function() {
+      if($(this).is(':checked')){
+        $(this).prop('checked', true);
+      }
+      else{
+        $(this).prop('checked', false);
+      }
+    });
   }
 
   carregaFontes(rotas){

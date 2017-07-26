@@ -191,7 +191,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return (
         <div>
           <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título</button>
-          <br/><br/>
+          <br/>
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
              <tr>
