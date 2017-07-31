@@ -251,13 +251,13 @@ class Rotas{
 
   //Imprensa
   Imprensa(){
-    return this.getBaseUrl()+":8383/api/imprensa/";
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";
   }
   NoticiaByID(id){
-    return this.getBaseUrl()+":8383/api/noticia/"+id;
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id;
   }
   VideoByID(id){
-    return this.getBaseUrl()+":8383/api/video/"+id;
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/videoByID/"+id;
   }
 
 }

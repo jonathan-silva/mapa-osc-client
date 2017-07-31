@@ -30,16 +30,6 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
   		$("#voltaVideo").attr("href","video.html#/"+id);
   }
 
-  function abrirModalVideo(titulo, corpo)
-  {
-    $("#modalTitulo").html("");
-    $("#modalTitulo").html(titulo);
-    $("#corpoModal").html("");
-    $("#corpoModal").html(corpo);
-    $("#modalVideo").modal('show');
-    verificarContraste();
-  }
-
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
   var idVideo = "";
@@ -47,6 +37,15 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
   if(valoresURL !== null){
     idVideo = valoresURL[0];
     addLinkVoltar(idVideo);
+  }
+
+  function abrirModalVideo(titulo, corpo){
+    $("#modalTitulo").html("");
+    $("#modalTitulo").html(titulo);
+    $("#corpoModal").html("");
+    $("#corpoModal").html(corpo);
+    $("#modalVideo").modal('show');
+    verificarContraste();
   }
 
   $.ajax({
@@ -60,14 +59,19 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     success: function(data){
 
       html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_video+'</h3>';
-      html += '<span class="glyphicon glyphicon-calendar" aria-hidden="true">'+data.dt_video+'</span>';
-      html += '<div><center><iframe width="853" height="480" src="'+data.tx_link_video+'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>';
+      html += '<span class="glyphicon glyphicon-calendar" aria-hidden="true"> '+data.dt_video+'</span>';
+      var link_video = data.tx_link_video.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
+      html += '<div><center><iframe width="853" height="480" src="'+link_video+'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>';
       html += '<div class="text-justify txtBloco">';
-      html += '<h5>'+data.tx_resumo_video+'<a id="versaoTexto" class="btn-item" data-toggle="modal" title="Versão em Texto." onclick="abrirModalVideo('+data.tx_titulo_video+','+data.tx_descricao_video+');"> Versão em texto.</a></h5>';
+      html += '<h5>'+data.tx_resumo_video+'<a id="versaoTexto" class="btn-item" data-toggle="modal" title="Versão em Texto."> Versão em texto.</a></h5>';
       html += '</div>';
 
       $('#video').append(html);
       $('.loading').addClass('hide');
+
+      $("#versaoTexto").click(function(){
+          abrirModalVideo(data.tx_titulo_video,data.tx_descricao_video);
+      });
     }
   });
 
