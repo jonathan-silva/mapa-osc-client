@@ -1096,3 +1096,7 @@ select{
 .panel-default .btn-info{
     color: #ffffff;
 }
+
+.txtCenter{
+  text-align: center;
+}

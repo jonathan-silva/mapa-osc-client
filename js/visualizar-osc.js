@@ -161,14 +161,14 @@ require(["jquery-ui"], function (React) {
 				 verificarContraste();
 		 };
 
-		 dataJson = { values: [{"id": "DG", "order": 1, "score": 39, "weight": 0.5, "color": "#9E0041", "label":"Dados Gerais"},
-		 {"id":"ASAO", "order":1, "score":37, "weight": 0.5, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
-		 {"id":"DO", "order":1, "score":45, "weight": 0.5, "color":"#F47245", "label":"Descrição da OSC"},
-		 {"id":"TC", "order":1, "score":63, "weight": 1, "color":"#FB9F59", "label":"Titulações e Certificações"},
-		 {"id":"RTG", "order":1, "score":29, "weight": 0.5, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
-		 {"id":"EPS", "order":1, "score":18, "weight": 0.3, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
-		 {"id":"PAP", "order":1, "score":58, "weight": 0.8, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
-		 {"id":"FRAO", "order":1, "score":80, "weight": 1, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
+		 dataJson = { values: [{"id": "DG", "order": 1, "score": 30, "weight": 0.2, "color": "#9E0041", "label":"Dados Gerais"},
+		 {"id":"ASAO", "order":1, "score":30, "weight": 0.15, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
+		 {"id":"DO", "order":1, "score":20, "weight": 0.1, "color":"#F47245", "label":"Descrição da OSC"},
+		 {"id":"TC", "order":1, "score":40, "weight": 0.05, "color":"#FB9F59", "label":"Titulações e Certificações"},
+		 {"id":"RTG", "order":1, "score":50, "weight": 0.15, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
+		 {"id":"EPS", "order":1, "score":72, "weight": 0.1, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
+		 {"id":"PAP", "order":1, "score":20, "weight": 0.2, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
+		 {"id":"FRAO", "order":1, "score":10, "weight": 0.05, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
 		 };
 
 		 perfil(dataJson['values']);
