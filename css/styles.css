@@ -1100,3 +1100,7 @@ select{
 .txtCenter{
   text-align: center;
 }
+
+.txtData{
+  margin-bottom: 20px;
+}
