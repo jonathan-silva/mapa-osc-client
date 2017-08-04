@@ -1136,13 +1136,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var pro ;
     var ido ;
     var dat;
+    var cd_objetivo;
+
     function metasObjetivos(project, id){
       //metas e objetivos
       pro = project; ido = id;
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
       var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
-      var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
+      cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
       var cd_metas = [];
       var metas = [];
       if(objetivo !== -1){
@@ -1173,6 +1175,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            });
             $("#objetivos select").selectBoxIt("refresh");
         }
+        /*success: function(data){
+          if(objetivo_metas == ""){
+            criarObjetivosOsc(data,"",-1,-1,Checkbox);
+          }
+          else{
+            for(var k in objetivos){
+              var objetivo = util.validateObject(objetivos[k], -1);
+              criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
+            }
+          }
+        }*/
       });
 
       var $divProjeto = $('#projeto-'+id);
@@ -1197,6 +1210,39 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       carregaEventoMetas();
 
+      $divMetasProjeto.append(''+
+        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
+        ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+
+      $divMetasProjeto.find(".botao-add-objetivo").on('click',function(){
+        add_objetivo(pro,ido);
+      });
+      $divMetasProjeto.find(".botao-rem-objetivo").on('click',function(){
+        rem_objetivo($(this),ido);
+      });
+
+    }
+    function rem_objetivo(thi,id){
+      if (util.contains('objetivo',thi.parent()[0].id)) {
+        thi.parent().remove();
+      } else {
+        thi.parent().parent().remove();
+      }
+
+      if ( $("#projeto-"+id).find(".botao-rem-objetivo").length ) {
+        console.log($("#projeto-"+id).find(".botao-rem-objetivo").length);
+      }
+      else {
+        console.log($("#projeto-"+id).find(".botao-rem-objetivo").length);
+        $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas">'+
+        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button></div>');
+
+        $('#projeto-'+id).find(".botao-add-objetivo").on('click',function(){
+          cd_objetivo = -1 ;
+          add_objetivo($('#projeto-'+id),id);
+        });
+      }
+
     }
 
     function add_objetivo(project, id){
@@ -1204,40 +1250,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     var objetivo_meta = util.validateObject(project.objetivo_meta, "");
     var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
     var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
-    var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
     var cd_metas = [];
     var metas = [];
-
-    var $divObjetivosMetasProjetoClone = $divObjetivosMetasProjeto.clone();
-
-    $divObjetivosMetasProjetoClone.find('.selectboxit-text').remove();
-    $divObjetivosMetasProjetoClone.find('select').selectBoxIt();
-    //$divObjetivosMetasProjetoClone.find('.selectboxit-text').remove();
-
-    $('#projeto-'+id).append($divObjetivosMetasProjetoClone);
-
-
-    /*
-    $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas-'+-1+'" </div>'+
-      '<div id="objetivos'+-1+'" class="objetivos"></div>'+
-      '<div class="header" title="Indique se o PAP se relaciona com alguns dos '+
-      'objetivos do desenvolvimento sustentável, da ONU.">Objetivos do '+
-      'Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" '+
-      'target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" '+
-      'height="11" alt="Site Externo." title="Site Externo." /></a> </div>'+
-      '<div class="form-group"><div id="objetivos-'+-1+'"><select id="'+-1+'" class="form-control">'+
-      '<option value=-1 selected id="' + 0 + '">Selecione uma opção...</option>'+
-      '</select></div></div>'+
-      '<div id="metas-'+-1+'" class="metas"></div>'+
-      '<br><div class="header" title="Marque as metas que se enquadram neste projeto">'+
-      'Metas Relacionadas ao ODS definido</div><br>'+
-      '<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>'+
-      '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
-      '<button id="id_botao-rem-objetivo" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
-
-      for (var i = 0; i < dat.length; i++) {
-            $('#objetivos-'+-1).find('select').append('<option id="' + dat[i].cd_objetivo_projeto + '">' + dat[i].tx_nome_objetivo_projeto + '</option>');
-        };*/
 
     if(objetivo !== -1){
       for (var i = 0; i < objetivo_meta.length; i++) {
@@ -1248,43 +1262,70 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     }
 
+    $('#projeto-'+id).find('.botao-add-objetivo').remove();
 
+    $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
+    var $divObjetivosProjetoClone = $('#projeto-'+id).find("#objetivos-metas-"+cd_objetivo);
+    $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+    $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos-'+cd_objetivo+'"><select class="form-control"></select></div></div>');
+
+      var $selectObjetivos = $divObjetivosProjetoClone.find("select");
+      if (cd_objetivo == -1 ) {
+        $selectObjetivos.append('<option value=-1 selected id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
+      else {
+        $selectObjetivos.append('<option value=-1 id="' + 0 + '">' + "Selecione uma opção..." + '</option>');
+      }
+      for (var i = 0; i < dat.length; i++) {
+        if(dat[i].cd_objetivo_projeto == cd_objetivo){
+          $selectObjetivos.append('<option selected id="' + dat[i].cd_objetivo_projeto + '">' + dat[i].tx_nome_objetivo_projeto + '</option>');
+        } else {
+          $selectObjetivos.append('<option id="' + dat[i].cd_objetivo_projeto + '">' + dat[i].tx_nome_objetivo_projeto + '</option>');
+        }
+      }
+
+    //$('#projeto-'+id).append($divObjetivosProjetoClone);
+    $divObjetivosProjetoClone.find("#objetivos-"+cd_objetivo+" select").selectBoxIt();
 
     if(cd_objetivo){
       loadMetas(cd_objetivo, cd_metas);
     }
 
-    carregaEventoMetas();
-    $('#projeto-'+id).find(".botao-add-objetivo").remove();
+      $divObjetivosProjetoClone.find('select').on('change', function(){
+      	cd_objetivo = $(this).children(":selected").attr("id");
+        //$divObjetivosProjetoClone = $(this).parents("#objetivos-metas");
+      	$divObjetivosProjetoClone.find(".metas").each(function(){
+      		if(!$(this).hasClass('hidden')){
+      			$(this).toggleClass('hidden');
+      		}
+      	});
+        //console.log($divObjetivosMetasProjeto);
+        //$divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).remove();
+      	$divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
+      	$divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+      	$divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+      	if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
+      		$divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
+      	}
+      	if(parseInt(cd_objetivo) !== 0){
+      		loadMetas(cd_objetivo, []);
+      	}
 
-          /*var dados = this.props.dados;
-          var group = [];
-          var itens = [];
-          for (var i = 0; i < dados.length; i++) {
-            var item = dados[i];
-            var num = i+1;
-            group.push(item);
-            if(num == dados.length){
-              $divObjetivosMetasProjeto.append(''+
-                '<div className="objetivos">'+
-                  '<FormItem dados={group}></FormItem>'+
-                  '<button className="btn-primary btn">Adicionar</button>'+
-                  '<hr/>'+
-                '</div>'
-              )/*
-              group = [];
-            } else if((num % 4 == 0)){
-              $divObjetivosMetasProjeto.append(''+
-                '<div className="objetivos">'+
-                  '<FormItem dados={group}></FormItem>'+
-                  '<button className="btn-danger btn">Remover</button>'+
-                  '<hr/>'+
-                '</div>'
-              )
-              group = [];
-            }
-          }*/
-      };
+        $divObjetivosProjetoClone.append(''+
+          '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
+          ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+          $divObjetivosProjetoClone.find(".botao-add-objetivo").on('click',function(){
+            add_objetivo(pro,ido);
+          });
+          $divObjetivosProjetoClone.find(".botao-rem-objetivo").on('click',function(){
+              rem_objetivo($(this),ido);
+          });
+      });
+
+    $('#projeto-'+id).append($divObjetivosProjetoClone);
+    verificarContraste();
+
+  };
 
     function montarObjetivos(json, cd_objetivo){
       var options = json;
@@ -1334,6 +1375,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       	$divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
       	$('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
       	$('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+        $('#metas-'+cd_objetivo).append(''+
+        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
+        ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+        $('#metas-'+cd_objetivo).find(".botao-add-objetivo").on('click',function(){
+          add_objetivo(pro,ido);
+        });
+        $('#metas-'+cd_objetivo).find(".botao-rem-objetivo").on('click',function(){
+          rem_objetivo($(this),ido);
+        });
       	if($('#metas-'+cd_objetivo).hasClass('hidden')){
       		$('#metas-'+cd_objetivo).toggleClass('hidden');
       	}
@@ -1399,23 +1449,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("selectable-"+cd_objetivo)
         );*/
       }
-      $divObjetivosMetasProjeto.find(".btn").remove();
-      $divObjetivosMetasProjeto.append(''+
-      '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
-      '');
-      $divObjetivosMetasProjeto.append('<button id="id_botao-rem-objetivo" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
-
-      $divObjetivosMetasProjeto.find(".btn-primary").on('click',function(){
-        add_objetivo(pro,ido);
-      });/*
-
-      $divObjetivosMetasProjeto.find(".input-group-btn").remove();
-      $divObjetivosMetasProjeto.append('<span class="input-group-btn">'+
-      '<button id="add_projeto" class="btn-primary btn">Adicionar Objetivo</button>'+
-      '</span>');
-      $divObjetivosMetasProjeto.append('<span class="input-group-btn"><button class="btn-danger btn">Remover Objetivo</button></span>')*/
-    }
-
+  }
+/*
     function carregaMetas($divObjetivosMetasProjeto){
       $('.objetivos').find('select').on('change', function(){
         cd_objetivo = $(this).children(":selected").attr("id")
@@ -1434,9 +1469,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(parseInt(cd_objetivo) !== 0){
           loadMetas(cd_objetivo, []);
         }
+          $('#metas-'+cd_objetivo).append(''+
+          '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
+          ''+'<button id="id_botao-rem-objetivo" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+          $('#metas-'+cd_objetivo).find(".botao-add-objetivo").on('click',function(){
+          add_objetivo(pro,ido);
+        });
+        .find(".botao-rem-objetivo").on('click',function(){
+          rem_objetivo(pro,ido);
+        });
       });
     }
-
+*/
     function clique(){
       var jsonModalAjuda = dadosForm.jsonModalAjuda();
       $(".ajuda").on("click", function(){
@@ -2278,7 +2322,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                     "tx_nome_tipo_parceria": null
                   });
                 }
-                if(valor === ""){
+                if(valor == -1){
                   obj[$pai.attr("id")] = null;
                 }
 
