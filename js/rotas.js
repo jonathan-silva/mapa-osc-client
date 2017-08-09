@@ -260,4 +260,13 @@ class Rotas{
     return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/videoByID/"+id;
   }
 
+  //MROSC
+  MenuMrosc(){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";// Falta colocar rota verdadeira
+  }
+  ConteudoMroscByID(id){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id; // Falta colocar rota verdadeira
+  }
+
+
 }

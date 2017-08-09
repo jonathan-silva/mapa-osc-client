@@ -264,6 +264,30 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   max-width: 250px;
 }
 
+/*Página Mrosc*/
+.col-2-mrosc{
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 16.66666667%;
+}
+.col-10-mrosc{
+  width: 83.33333333%
+}
+.col-6-dados{
+  width: 100%
+}
+
+#tabMrosc{
+  height: 100%;
+  box-shadow: 0px 1px 5px gray;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#tabMrosc a{
+  cursor: pointer;
+}
+
 /*Página Dados e Indicadores*/
 .col-3-dados{
   padding-left: 0px;
@@ -285,7 +309,6 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
 #grafico-1 svg, #grafico-2 svg, #grafico-3 svg, #grafico-4 svg, #grafico-5 svg,
 #grafico-6 svg, #grafico-7 svg, #grafico-8 svg, #grafico-9 svg, #grafico-10 svg,
 #grafico-11 svg, #grafico-12 svg, #grafico-13 svg,
@@ -779,6 +802,9 @@ body.indisponivel {
 
 #tabGrafico a{
   font-size: 12px;
+}
+#tabMrosc a{
+  font-size: 14px;
 }
 .colabore{
   float: left;

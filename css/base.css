@@ -6459,6 +6459,14 @@ button.close {
         height: 110px !important;
     }
 
+    #tabMrosc a {
+      padding: 3px 3px !important;
+    }
+
+    #tabMrosc{
+        height: 110px !important;
+    }
+
     .col-3-dados, .col-9-dados {
         width: 100% !important;
     }
