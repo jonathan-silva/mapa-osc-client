@@ -15,7 +15,6 @@
   </head>
 
   <body ng-controller="OscCtrl as ctrl" ng-init="ctrl.carregarDadosGerais();" class="conteudo_loading">
-
     <div id="barra-brasil"></div>
     <div id="header"></div>
     <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
@@ -24,6 +23,8 @@
       <div class="container">
         <div class="row rastro-navegacao vis">
           <a href="/">Home</a>
+          <span> &gt; </span>
+          <a id="voltaPagAnterior" href=""></a>
           <span> &gt; </span>
           <a id="voltaVisualizar" href="">Visualizar</a>
         </div>
@@ -50,7 +51,10 @@
               <span ng-if="(ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
             </h3>
           </div>
-          <div class="chart-container col-xs-6 col-sm-2" id="grafico-progress"><h3>Transparência</h3></div>
+          <div class="col-xs-6 col-sm-2">
+              <div class="chart-container txtCenter" id="grafico-progress"><h4>Índice de Transparência</h4></div>
+              <div class="txtCenter" ><a href="metodologia.html"><h5>Metodologia <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></h5></a></div>
+          </div>
 
         </div>
       </div>
@@ -169,6 +173,31 @@
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_telefone == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
+
+              <div class="form-group">
+                <label>Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>:</label>
+                <div class="form-group" ng-repeat="objetivo in ctrl.osc.dados_gerais.objetivo_metas | unique: 'cd_objetivo_osc' | orderBy: 'cd_objetivo_osc' ">
+                  <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
+                  <span ng-if="(objetivo.ft_objetivo_osc != 'Representante' && objetivo.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                  <span ng-if="(objetivo.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                </div>
+                <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                  <span class="form-control-static">Não informado</span>
+                </div>
+              </div>
+
+              <div class="form-group ">
+                  <label>Metas Relacionadas ao ODS:</label>
+                  <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
+                    <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
+                    <span ng-if="(objetivo_meta.ft_objetivo_osc != 'Representante' && objetivo_meta.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                    <span ng-if="(objetivo_meta.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                  </div>
+                  <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                    <span class="form-control-static">Não informado</span>
+                  </div>
+              </div>
+
             </div>
 
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -267,17 +296,22 @@
 
           <div class="col-md-12 " id="titulacao">
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
-            <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
-              <label>{{certificado.tx_nome_certificado}} - </label>
-            <!-- ver MOSC-1030
-              <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
-                {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
-              -->
-              <span ng-if="(certificado.ft_certificado != 'Representante' && certificado.ft_certificado != null)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <span ng-if="(certificado.ft_certificado == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+            <div ng-if="(!ctrl.osc.certificado.bo_nao_possui_certificacoes)">
+              <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
+                <label>{{certificado.tx_nome_certificado}} - </label>
+              <!-- ver MOSC-1030
+                <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
+                  {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
+                -->
+                <span ng-if="(certificado.ft_certificado != 'Representante' && certificado.ft_certificado != null)" title="Informação oficial. {{certificado.ft_certificado}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
+                <span ng-if="(certificado.ft_certificado == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+              </div>
+              <div ng-if="(ctrl.osc.certificado.certificado == null )">
+                <span class="form-control-static">Não informado.</span>
+              </div>
             </div>
-            <div ng-if="(ctrl.osc.certificado.certificado == null)">
-              <span class="form-control-static">Não possui Títulos ou Certificações</span>
+            <div ng-if="(ctrl.osc.certificado.bo_nao_possui_certificacoes)">
+              <span class="form-control-static">Não possui Títulos ou Certificações.</span>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
@@ -367,7 +401,7 @@
 
             <div class="col-md-12">
               <h3>Conselhos de Políticas Públicas</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_conselhos)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -396,7 +430,7 @@
                       </div>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_nome_periodicidade_reuniao_conselho_conselho}}</span>
+                      <span class="form-control-static">{{conselho.conselho.tx_nome_periodicidade_reuniao_conselho}}</span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.dt_data_inicio_conselho}}</span>
@@ -428,10 +462,13 @@
                 </tbody>
               </table>
               </div>
+              <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_conselhos)">
+                <span class="form-control-static">Não possui conselhos de políticas públicas.</span>
+              </div>
             </div>
             <div class="col-md-12">
               <h3>Conferências de Políticas Públicas</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_conferencias)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -467,10 +504,13 @@
                 </tbody>
               </table>
               </div>
+              <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_conferencias)">
+                <span class="form-control-static">Não possui conferências de políticas públicas.</span>
+              </div>
             </div>
             <div class="col-md-12">
               <h3>Outros espaços de participação social</h3>
-              <div class="table-responsive">
+              <div ng-if="(!ctrl.osc.participacao_social.bo_nao_possui_outros_part)" class="table-responsive">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -491,6 +531,9 @@
                 </tbody>
               </table>
             </div>
+            <div ng-if="(ctrl.osc.participacao_social.bo_nao_possui_outros_part)">
+              <span class="form-control-static">Não possui outros espaços de participação social.</span>
+            </div>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
           </div>
@@ -505,7 +548,7 @@
             <div class="project-header ">
               <h2>Projetos, atividades e/ou programas<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Projetos, atividades e/ou programas." onclick="abrirModalAjuda('Projetos, atividades e/ou programas');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             </div>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in ctrl.osc.projeto.projeto">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-repeat="proj in projs | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
               <div class="panel panel-default" >
 
                 <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
@@ -712,7 +755,7 @@
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
                         <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
-                        <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | limitTo :1 ">
+                        <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | unique: 'cd_objetivo_projeto' | orderBy: 'cd_objetivo_projeto' ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo.ft_objetivo_projeto != 'Representante' && objetivo.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(objetivo.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
@@ -726,7 +769,7 @@
                     <div class="col-md-12 ">
                       <div class="col-md-12 ">
                         <div class="header">Metas Relacionadas ao ODS</div>
-                        <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta">
+                        <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta | orderBy: 'cd_objetivo_projeto'">
                           <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
                           <span ng-if="(objetivo_meta.ft_objetivo_projeto != 'Representante' && objetivo_meta.ft_objetivo_projeto != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                           <span ng-if="(objetivo_meta.ft_objetivo_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
@@ -741,7 +784,17 @@
 
               </div>
             </div>
+            <div class="paginacao_projetos">
+              <a class="paginate_button previous" ng-class="{true: 'hidden'}[currentPage == 0]" ng-click="currentPage=currentPage-1">
+                Anterior
+              </a>
 
+              <a ng-repeat="indice in range()" ng-class="{true: 'current'}[paginaCorrente(indice)]" class="paginate_button" ng-click="novaPagina(indice)">{{indice}} </a>
+
+              <a class="paginate_button next "  ng-class="{true: 'hidden'}[currentPage >= getData().length/pageSize - 1]"  ng-click="currentPage=currentPage+1">
+                Próximo
+              </a>
+            </div>
             <div ng-if="ctrl.osc.projeto == null">
               <div class="form-group">
                 <span class="form-control-static" >Não informado</span>
@@ -780,7 +833,7 @@
                 </a>
 
                 <div id="{{'collapseRec'+ $index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{'headingRec'+ $index }}">
-                  <div class="panel-body no-padding ">
+                  <div ng-if="(!rec.bo_nao_possui)" class="panel-body no-padding ">
 
                   <h3>Recursos próprios</h3>
 
@@ -1041,6 +1094,9 @@
                       <span class="form-control-static" >Não informado</span>
                     </div>
                   </div>
+                </div>
+                <div ng-if="(rec.bo_nao_possui)" class="panel-body no-padding " >
+                  <span class="form-control-static">Não possui recursos para este ano.</span>
                 </div>
               </div>
             </div>

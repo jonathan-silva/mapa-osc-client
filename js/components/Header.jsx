@@ -21,10 +21,9 @@ define(['react','rotas'], function(React) {
       return (
         <div>
           <a href="index.html" className="navbar-brand brand-master-style" contenteditable="true">
-            <img src="img/simbolo.png" className="brand-style"></img>
-            <span className="brand-text-style">{tituloLogo}</span>
+            <img src="img/logo.png" className="brand-style logoMapa"></img>
           </a>
-          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+          <button type="button" className="navbar-toggle micro" data-toggle="collapse" data-target="#navbar-ex-collapse">
             <span className="sr-only">Toggle navigation</span>
             {this.renderListItems()}
           </button>
@@ -75,7 +74,10 @@ define(['react','rotas'], function(React) {
           items.push(<li><a id="btnEntrar" className="btn-link"  data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
           items.push(<li id="dropdown-menu-header" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
         }
-        else if(i == this.props.headerObject.menuList.length-2){//Posição do cadastrar
+        else if(i == this.props.headerObject.menuList.length-2){//Posição do editar OSC
+          items.push(<li><a id="btnEditarOSCs" className="logado" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        }
+        else if(i == this.props.headerObject.menuList.length-3){//Posição do cadastrar
           items.push(<li><a id="btnCadastrar" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
         else{
@@ -255,7 +257,7 @@ define(['react','rotas'], function(React) {
         <div className="navbar navbar-default navbar-static-top">
           <div className="container">
             <div id="menu-mobile" className="navbar-header"><BotaoResponsivo/></div>
-            <div className="collapse navbar-collapse" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
+            <div className="collapse navbar-collapse menuHeader" id="navbar-ex-collapse"><Menu headerObject={headerObject}/></div>
           </div>
         </div>
         <div className="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

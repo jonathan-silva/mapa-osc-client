@@ -2,32 +2,89 @@ var controller = angular.module('oscApp', []);
 var idOsc;
 var absUrl;
 
-controller.controller('OscCtrl', ['$http', '$location', function($http, $location) {
+controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
 	absUrl = $location.$$absUrl;
 	var self = this;
-	var rotas = new Rotas();//rotas.js
-	//createCookie('ppkcookie','2',7);
- //console.log(readCookie('cookieDetalhar'));
+	var rotas = new Rotas();
+
+	if ($scope.currentPage == undefined) {
+			 $scope.currentPage = 0;
+	 };
+
+  $scope.pageSize = 10;
+	$scope.projs = []
+  $scope.q = '';
+
+
 	self.carregarDadosGerais = function(){
-		idOsc = $location.path().split('/')[1];//readCookie('cookieDetalhar');
+		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
 
 		$http({
 		     url: 'js/controller.php',
 		     method: "GET",
 		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
 		}).then(function(response) {
-      //console.log(response);
 			if(response.data.msg == undefined){
-				self.osc = response.data;
+				self.osc = response.data
+				$scope.projs = response.data.projeto.projeto // PROJETOS
 	    	self.msg = '';
-        //console.log(self.osc);
 			}else{
 				self.msg = response.data.msg;
-        //console.log(self.msg);
 			}
 		});
 	};
+
+	$scope.getData = function () {
+		 return $filter('filter')($scope.projs, $scope.q)
+	 }
+
+	 $scope.numberOfPages=function(){
+        return Math.ceil($scope.getData().length/$scope.pageSize);
+   }
+
+	 $scope.range = function() {
+		 	 var paginacao = [];
+			 for (var i = 1; i <= $scope.numberOfPages(); i++) {
+   	 		paginacao.push(i);
+			 }
+			 return paginacao;
+	 };
+
+	  $scope.novaPagina=function(n){
+			$scope.currentPage = n -1;
+		};
+
+		$scope.paginaCorrente=function(n){
+			var pagina = n -1
+			return $scope.currentPage == pagina  ? true: false ;
+		};
+
 }]);
+
+controller.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
+controller.filter('unique', function() {
+   return function(collection, keyname) {
+      var output = [],
+          keys = [];
+
+      angular.forEach(collection, function(item) {
+          var key = item[keyname];
+          if(keys.indexOf(key) === -1) {
+              keys.push(key);
+              output.push(item);
+          }
+      });
+
+      return output;
+   };
+});
+
 
 controller.filter('tel', function() {
 	return function(input) {
@@ -95,19 +152,23 @@ require(["jquery-ui"], function (React) {
         $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
 	   });
 
+		 $("#voltaPagAnterior").on("click", function(){
+	     history.go(-1);
+	   });
+
 		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
 		 };
 
-		 dataJson = { values: [{"id": "DG", "order": 1, "score": 39, "weight": 0.5, "color": "#9E0041", "label":"Dados Gerais"},
-		 {"id":"ASAO", "order":1, "score":37, "weight": 0.5, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
-		 {"id":"DO", "order":1, "score":45, "weight": 0.5, "color":"#F47245", "label":"Descrição da OSC"},
-		 {"id":"TC", "order":1, "score":63, "weight": 1, "color":"#FB9F59", "label":"Titulações e Certificações"},
-		 {"id":"RTG", "order":1, "score":29, "weight": 0.5, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
-		 {"id":"EPS", "order":1, "score":18, "weight": 0.3, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
-		 {"id":"PAP", "order":1, "score":58, "weight": 0.8, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
-		 {"id":"FRAO", "order":1, "score":80, "weight": 1, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
+		 dataJson = { values: [{"id": "DG", "order": 1, "score": 30, "weight": 0.2, "color": "#9E0041", "label":"Dados Gerais"},
+		 {"id":"ASAO", "order":1, "score":30, "weight": 0.15, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
+		 {"id":"DO", "order":1, "score":20, "weight": 0.1, "color":"#F47245", "label":"Descrição da OSC"},
+		 {"id":"TC", "order":1, "score":40, "weight": 0.05, "color":"#FB9F59", "label":"Titulações e Certificações"},
+		 {"id":"RTG", "order":1, "score":50, "weight": 0.15, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
+		 {"id":"EPS", "order":1, "score":72, "weight": 0.1, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
+		 {"id":"PAP", "order":1, "score":20, "weight": 0.2, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
+		 {"id":"FRAO", "order":1, "score":10, "weight": 0.05, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
 		 };
 
 		 perfil(dataJson['values']);
@@ -143,7 +204,7 @@ function abrirModalRelatorio(titulo) {
 	var	corpo = "<fieldset id='escolhaImpressao'><legend>Escolha quais seções para imprimir</legend>";
 	corpo += "<label><input type='checkbox' name='escolha' value='tudo' checked> Todas Seções</label><br><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='dados_gerais' checked> Dados Gerais</label><br>";
-  corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='areas_de_atuacao' checked> Áreas e Subáreas de Atuação da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='descricao' checked> Descrição da OSC</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='titulacao' checked> Titulações e Certificações</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='relacao_trabalho' checked> Relações de Trabalho e Governança</label><br>";
@@ -259,6 +320,16 @@ function verificarBotaoEditar(id){
 
 function addLinkVoltar(id){
 		$("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
+		urlPagAnterior = document.referrer;
+		if(urlPagAnterior.indexOf("minhas-oscs")==-1) {
+			if(urlPagAnterior.indexOf("editar-osc")==-1) {
+				$("#voltaPagAnterior").text('Mapa');
+			}else {
+				$("#voltaPagAnterior").text('Editar');
+			}
+		 } else {
+				 $("#voltaPagAnterior").text('Lista de OSCs');
+		 }
 }
 
 function verificarPermissaoBotao(id){

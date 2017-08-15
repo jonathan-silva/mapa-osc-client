@@ -29,7 +29,7 @@ require(['jquery-ui'], function (React) {
 
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"1- Distribuição das OSCs por número de Empregados e Região",
+  var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"1- Distribuição de OSCs por número de empregados e região, Brasil - 2014",
   series:[
     {key: "0", values: [{"label" : "Sudeste", "value" : 127866 }, {"label" : "Sul", "value" : 73278 }, {"label" : "Nordeste", "value" : 75689 }, {"label" : "Centro-Oeste", "value" : 17885 }, {"label" : "Norte", "value" : 15844 }]},
     {key: "1 a 4", values: [{"label" : "Sudeste", "value" : 22644 }, {"label" : "Sul", "value" : 9100 }, {"label" : "Nordeste", "value" : 6798 }, {"label" : "Centro-Oeste", "value" : 3943 }, {"label" : "Norte", "value" : 1943 }]},
@@ -38,15 +38,15 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "100 ou mais", values: [{"label" : "Sudeste", "value" : 2210 }, {"label" : "Sul", "value" : 661 }, {"label" : "Nordeste", "value" : 488 }, {"label" : "Centro-Oeste", "value" : 241 }, {"label" : "Norte", "value" : 126 }]}
     ]}];
 
-    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Número de empregos formais nas OSCs, por região", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
-    var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"3- Atividade econômica das OSCs", key: "Grafico 3", values: [
+    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Número de empregos formais nas OSCs por região, Brasil - 2014", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
+    var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"3- Distribuição de OSCs por área de atuação, Brasil - 2014", key: "Grafico 3", values: [
       {"label": "Outras atividades de serviços", "value" : 318663 }, {"label": "Artes, cultura, esporte e recreação", "value" : 27842 },
       {"label": "Saúde humana e serviços sociais", "value" : 18774}, {"label": "Educação", "value" : 16682},
       { "label": "Outras", "value" : 9410}
     ]}];
-    var jsonGrafico4 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"4- OSCs com parcerias com o Governo Federal, por região", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8628 }, {"label" : "Nordeste", "value" : 5038 } ,{ "label" : "Sul" , "value" : 4414 }, {"label" : "Centro-Oeste", "value" : 1430}, {"label" : "Norte", "value" : 1253}]}];
+    var jsonGrafico4 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"4- Número de OSCs com parcerias com o Governo Federal por região, Brasil - 2014", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8628 }, {"label" : "Nordeste", "value" : 5038 } ,{ "label" : "Sul" , "value" : 4414 }, {"label" : "Centro-Oeste", "value" : 1430}, {"label" : "Norte", "value" : 1253}]}];
 
-    var jsonGrafico5 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"5- Evolução anual de OSCs com parcerias com o Governo Federal, por instrumento de parceria",
+    var jsonGrafico5 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"5- Evolução anual de OSCs com parcerias com o Governo Federal por instrumento de parceria, Brasil - 2009-2017",
       series:[
         {
           values: [{"x" : 2009, "y" : 142 }, {"x" : 2010, "y" : 195 }, {"x" : 2011, "y" : 86 },
@@ -104,7 +104,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-      var jsonGrafico6 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tipo_valor":"$","tituloColuna":["Tipo", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"6- Evolução anual dos repasses federais para OSCs, por instrumento de parceria",
+      var jsonGrafico6 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tipo_valor":"$","tituloColuna":["Tipo", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"6- Evolução anual dos repasses federais para OSCs por instrumento de parceria, Brasil - 2009-2017",
       series:[
         {
           "tipo_valor":"$",
@@ -171,7 +171,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-      var jsonGrafico7 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Divisão", "Ano da Parceria", "Total OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).","titulo":"7- Evolução anual de OSCs com parcerias com o Governo Federal, por tamanho da OSC",
+      var jsonGrafico7 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Divisão", "Ano da Parceria", "Total OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016).A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"7- Evolução anual de OSCs com parcerias com o Governo Federal por tamanho da OSC, Brasil - 2009-2017",
         series:[
           {
             values: [{"x" : 2009, "y" : 376 }, {"x" : 2010, "y" : 457 }, {"x" : 2011, "y" : 13100 },
@@ -205,7 +205,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-        var jsonGrafico8 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"8- Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 6)",
+        var jsonGrafico8 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"8- Evolução anual do volume de repasses federais para OSCs por tamanho da OSC, Brasil - 2009-2017",
         series:[
           {
             "tipo_valor":"$",
@@ -244,19 +244,19 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-    var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013).","titulo":"9- OSCs de Assistência Social, por serviço prestado", key: "Grafico 9", values: [
+    var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013), Ministério do Trabalho (2014).","titulo":"9- Distribuição de OSCs de assistência social por tipo de serviço prestado, Brasil - 2014", key: "Grafico 9", values: [
     {"label" : "Proteção Básica", "value" : 7906 }, {"label" : "Proteção Especial - Alta Complexidade", "value" : 1975 },
     { "label" : "Assessoramento, Defesa e Garantia de Direitos" , "value" : 1652 }, {"label" : "Proteção Especial - Média Complexidade", "value" : 1147},
     {"label" : "Outras Ofertas", "value" : 975}, {"label" : "Benefícios Eventuais", "value" : 206}
     ]}];
 
-    var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"10- OSCs de Saúde, por tipo de estabelecimento de Saúde", key: "Grafico 10", values: [
+    var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"10- Distribuição de OSCs de saúde por tipo de estabelecimento de saúde, Brasil - 2014", key: "Grafico 10", values: [
     {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 },
     { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia", "value" : 350 },
     {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188}, {"label": "Outras", "value" : 284 }
     ]}];
 
-  var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016).","titulo":"11- OSCs de Saúde, por região e tipo de gestão do estabelecimento de Saúde",
+  var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"11- Distribuição de OSCs de saúde por região e tipo de gestão, Brasil - 2014",
   series:[
     {key: "Municipal", values: [{"label" : "Sudeste", "value" : 1932 }, {"label" : "Sul", "value" : 726 }, {"label" : "Nordeste", "value" : 497 }, {"label" : "Centro-Oeste", "value" : 180 }, {"label" : "Norte", "value" : 86 }]},
     {key: "Estadual", values: [{"label" : "Sudeste", "value" : 240 }, {"label" : "Sul", "value" : 403 }, {"label" : "Nordeste", "value" : 58 }, {"label" : "Centro-Oeste", "value" : 75 }, {"label" : "Norte", "value" : 22 }]},
@@ -264,7 +264,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     ]}];
 
 
-  var jsonGrafico12 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"12- OSCs de Economia Solidária, por região e tipo de vínculo com outras entidades",
+  var jsonGrafico12 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Ministério do Trabalho (2014).","titulo":"12- Distribuição de OSCs de economia solidária por região e tipo de vínculo com outras entidades, Brasil - 2014",
   series:[
     {key: "Não possui vínculo", values: [{"label" : "Sudeste", "value" : 19 }, {"label" : "Sul", "value" : 15 }, {"label" : "Nordeste", "value" : 17 }, {"label" : "Centro-Oeste", "value" : 1 }, {"label" : "Norte", "value" : 7 }]},
     {key: "Federação de órgãos sociais", values: [{"label" : "Sudeste", "value" : 0 }, {"label" : "Sul", "value" : 0 }, {"label" : "Nordeste", "value" : 11 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 3 }]},
@@ -273,7 +273,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Instituição de ensino e/ou pesquisa", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 7 }, {"label" : "Nordeste", "value" : 0 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 0 }]}
     ]}];
 
-  var jsonGrafico13 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016).","titulo":"13- OSCs de Economia Solidária, por região e abrangência da atuação",
+  var jsonGrafico13 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Ministério do Trabalho (2014).","titulo":"13- Distribuição de OSCs de economia solidária por região e abrangência da atuação, Brasil - 2014",
   series:[
     {key: "Estadual e/ou inter-estadual", values: [{"label" : "Sudeste", "value" : 26 }, {"label" : "Sul", "value" : 28 }, {"label" : "Nordeste", "value" : 30 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 50 }]},
     {key: "Nacional", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 11 }, {"label" : "Nordeste", "value" : 15 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 7 }]},

@@ -4,7 +4,7 @@ class Rotas{
   }
 
   getBaseUrl(){
-  return "https://mapaosc-desenv.ipea.gov.br";
+    return "https://mapaosc-desenv.ipea.gov.br";
   //  return "https://10.1.4.205";
   //  return "http://localhost";
   }
@@ -240,14 +240,33 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/menu/osc/forma_participacao_conferencia/";
   }
 
-  ConsultaAvancadaLista(term){
-    return this.getBaseUrl()+":8383/api/search/osc/lista/consultaAvancada/"+term;
-
+  ConsultaAvancadaLista(term, offset){
+    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset+"?avancado="+term;
   }
 
   ConsultaAvancadaMapa(term){
-    return this.getBaseUrl()+":8383/api/search/osc/geo/consultaAvancada/"+term;
+    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0?avancado="+term;
 
   }
+
+  //Imprensa
+  Imprensa(){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";
+  }
+  NoticiaByID(id){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id;
+  }
+  VideoByID(id){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/videoByID/"+id;
+  }
+
+  //MROSC
+  MenuMrosc(){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";// Falta colocar rota verdadeira
+  }
+  ConteudoMroscByID(id){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id; // Falta colocar rota verdadeira
+  }
+
 
 }

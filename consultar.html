@@ -51,32 +51,32 @@
                     <div class="row">
                         <div class="form-group col-xs-6 col-sm-9">
                           <label class="control-label" for="nome">Nome da OSC:</label>
-                          <input class="form-control" id="nomeOSC" placeholder="Nome da OSC" type="text">
+                          <input class="form-control" id="tx_razao_social_osc" placeholder="Nome da OSC" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="Região">Região:</label>
-                          <input class="form-control" id="regiao" placeholder="Região" type="text">
+                          <input class="form-control" id="tx_nome_regiao" placeholder="Região" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-9">
                           <label class="control-label" for="nomeFantasia">Nome Fantasia:</label>
-                          <input class="form-control" id="nomeFantasia" placeholder="Nome fantasia" type="text">
+                          <input class="form-control" id="tx_nome_fantasia_osc" placeholder="Nome fantasia" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="estado">Estado:</label>
-                          <input class="form-control" id="estado" placeholder="Estado" type="text">
+                          <input class="form-control" id="tx_nome_uf" placeholder="Estado" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="cnpj">CNPJ:</label>
-                          <input class="form-control" id="cnpj" placeholder="CNPJ" type="text">
+                          <input class="form-control" id="cd_identificador_osc" placeholder="CNPJ" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="situacaoImovel">Situação do Imóvel:</label>
-                          <select class="form-control" id="situacaoImovel">
+                          <select class="form-control" id="cd_situacao_imovel_osc">
                             <option value="">Qualquer</option>
                           </select>
                         </div>
@@ -94,14 +94,14 @@
 
                         <div class="form-group col-xs-6 col-sm-3">
                           <label class="control-label" for="municipio">Município:</label>
-                          <input class="form-control" id="municipio" placeholder="Município" type="text">
+                          <input class="form-control" id="tx_nome_municipio" placeholder="Município" type="text">
                         </div>
 
                         <div class="form-group col-xs-6 col-sm-9">
                           <label class="control-label" for="naturezaJuridica">Natureza Jurídica:</label>
                             <div class="checkbox">
                               <label><input id="naturezaJuridica_associacaoPrivada" type="checkbox">Associação Privada</label>
-                              <label><input id="naturezaJuridica_aundacaoPrivada" type="checkbox">Fundação Privada</label>
+                              <label><input id="naturezaJuridica_fundacaoPrivada" type="checkbox">Fundação Privada</label>
                               <label><input id="naturezaJuridica_organizacaoReligiosa" type="checkbox">Organização Religiosa</label>
                               <label><input id="naturezaJuridica_organizacaoSocial" type="checkbox">Organização Social</label>
                               <label><input id="naturezaJuridica_outra" type="checkbox">Outra</label>
@@ -117,7 +117,7 @@
               <div class="panel panel-default">
                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"  aria-expanded="false" aria-controls="collapse-2">
                   <div class="panel-heading" role="tab" id="heading-2">
-                    <h4 class="panel-title" id="areasSubareasAtuação"><b>Áreas e Subáreas de Atuação</b></h4>
+                    <h4 class="panel-title" id="areasSubareasAtuacao"><b>Áreas e Subáreas de Atuação</b></h4>
                   </div>
                 </a>
                 <div id="collapse-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-2">
@@ -126,14 +126,14 @@
                     <div class="row">
                       <div class="form-group col-xs-6 col-sm-6">
                         <label class="control-label" for="areaAtuacao">Área de Atuação:</label>
-                        <select class="form-control" id="areaAtuacao">
+                        <select class="form-control" id="cd_area_atuacao">
                           <option value="">Qualquer</option>
                         </select>
                       </div>
 
                       <div class="form-group col-xs-6 col-sm-6">
                         <label class="control-label subareaAtuacao" for="subareaAtuacao">Subárea de Atuação:</label>
-                          <div class="checkbox" id="subareaAtuacao"></div>
+                          <div class="checkbox" id="cd_subarea_atuacao"></div>
                       </div>
                     </div>
 
@@ -174,15 +174,15 @@
                 <div class="row">
                   <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="nomeDirigente">Nome do Dirigente:</label>
-                    <input class="form-control" id="nomeDirigente" placeholder="Insira o nome do dirigente" type="text">
+                    <input class="form-control" id="tx_nome_dirigente" placeholder="Insira o nome do dirigente" type="text">
                   </div>
                   <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="cargoDirigente">Cargo do Dirigente:</label>
-                    <input class="form-control" id="cargoDirigente" placeholder="Insira o cargo do drigente" type="text">
+                    <input class="form-control" id="tx_cargo_dirigente" placeholder="Insira o cargo do drigente" type="text">
                   </div>
                   <div class="form-group col-xs-6 col-sm-4">
                     <label class="control-label" for="nomeMembroConselhoFiscal">Nome do Membro do Conselho Fiscal:</label>
-                    <input class="form-control" id="nomeMembroConselhoFiscal" placeholder="Insira o nome do conselheiro fiscal" type="text">
+                    <input class="form-control" id="tx_nome_conselheiro" placeholder="Insira o nome do conselheiro fiscal" type="text">
                   </div>
 
                   <div class="form-group col-xs-6 col-sm-3">
@@ -241,52 +241,51 @@
                 <div class="panel-body">
 
                 <div class="row">
-                  <div class="form-group col-xs-6 col-sm-12">
+                  <div class="form-group col-xs-6 col-sm-9">
                     <label class="control-label" for="nomeConselho" >Nome do Conselho:</label>
-                    <select class="form-control" id="nomeConselho">
+                    <select class="form-control" id="cd_conselho">
                       <option value="">Qualquer</option>
                     </select>
                   </div>
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="nomeRepresentante" >Nome de representante:</label>
-                    <input class="form-control" id="nomeRepresentante" placeholder="Insira o nome do representante" type="text">
-                  </div>
-
-
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="titularidade" >Titularidade:</label>
-                    <select class="form-control" id="titularidade">
-                      <option value="">Qualquer</option>
-                    </select>
-                  </div>
-
 
                   <div class="form-group col-xs-6 col-sm-3">
                     <label class="control-label" for="dataInicioVigencia" >Data de Início de Vigência:</label>
-                    <input class="form-control" id="dataInicioVigencia">
+                    <input maxlength="10" type="text" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" data-mask="00/00/0000" placeholder="__/__/____" class="form-control" id="dt_data_inicio_conselho">
                   </div>
-                  <div class="form-group col-xs-6 col-sm-3">
-                    <label class="control-label" for="dataFimVigencia" >Data de Fim de Vigência:</label>
-                    <input class="form-control" id="dataFimVigencia">
-                  </div>
-
 
                   <div class="form-group col-xs-6 col-sm-6">
+                    <label class="control-label" for="nomeRepresentante" >Nome de representante:</label>
+                    <input class="form-control" id="tx_nome_representante_conselho" placeholder="Insira o nome do representante" type="text">
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="titularidade" >Titularidade:</label>
+                    <select class="form-control" id="cd_tipo_participacao">
+                      <option value="">Qualquer</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-xs-6 col-sm-3">
+                    <label class="control-label" for="dataFimVigencia" >Data de Fim de Vigência:</label>
+                    <input maxlength="10" type="text" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" data-mask="00/00/0000" placeholder="__/__/____" class="form-control" id="dt_data_fim_conselho">
+                  </div>
+
+
+                  <div class="form-group col-xs-6 col-sm-9">
                     <label class="control-label" for="nomeConferencia" >Nome da Conferência:</label>
-                    <select class="form-control" id="nomeConferencia">
+                    <select class="form-control" id="cd_conferencia">
+                      <option value="">Qualquer</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-sm-5">
+                    <label class="control-label" for="formaParticipacaoConferencia" >Forma de Participação na Conferência:</label>
+                    <select class="form-control" id="cd_forma_participacao_conferencia">
                       <option value="">Qualquer</option>
                     </select>
                   </div>
 
                   <div class="form-group col-sm-4">
-                    <label class="control-label" for="formaParticipacaoConferencia" >Forma de Participação na Conferência:</label>
-                    <select class="form-control" id="formaParticipacaoConferencia">
-                      <option value="">Qualquer</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group col-sm-2">
                     <label class="control-label" for="ano" >Ano de Realização da Conferência:</label>
                     <div class="flex">
                       <label class="control-label de_ate">de:</label>
@@ -313,38 +312,38 @@
                 <div class="row">
                     <div class="form-group col-xs-12 col-sm-9">
                       <label class="control-label" for="nomeProjeto">Nome do Projeto:</label>
-                      <input class="form-control" id="nomeProjeto" placeholder="Insira o nome do projeto" type="text">
+                      <input class="form-control" id="tx_nome_projeto" placeholder="Insira o nome do projeto" type="text">
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="situacaoProjeto" >Situação do projeto:</label>
-                      <select class="form-control" id="situacaoProjeto">
+                      <select class="form-control" id="cd_status_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-2">
                       <label class="control-label" for="dataInicioProjeto" >Data de Início:</label>
-                      <input class="form-control" id="dataInicioProjeto">
+                      <input maxlength="10" type="text" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" data-mask="00/00/0000" placeholder="__/__/____" class="form-control" id="dt_data_inicio_projeto">
                     </div>
                     <div class="form-group col-xs-6 col-sm-2">
                       <label class="control-label" for="dataFimProjeto">Data de Fim:</label>
-                      <input class="form-control" id="dataFimProjeto">
+                      <input maxlength="10" type="text" pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$" data-mask="00/00/0000" placeholder="__/__/____" class="form-control" id="dt_data_fim_projeto">
                     </div>
 
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="abrangenciaAtuacaoProjeto">Abrangência de atuação:</label>
-                      <select class="form-control" id="abrangenciaAtuacaoProjeto">
+                      <select class="form-control" id="cd_abrangencia_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-2">
                       <label class="control-label" for="zonaAtuacaoProjeto">Zona de Atuação:</label>
-                      <select class="form-control" id="zonaAtuacaoProjeto">
+                      <select class="form-control" id="cd_zona_atuacao_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="fontesRecursosProjeto">Fontes de Recursos:</label>
-                      <select class="form-control" id="fontesRecursosProjeto">
+                      <select class="form-control" id="cd_origem_fonte_recursos_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>
@@ -352,21 +351,21 @@
 
                     <div class="form-group col-xs-6 col-sm-6">
                       <label class="control-label" for="financiadoresProjeto">Financiadores do Projeto:</label>
-                      <input class="form-control" id="financiadoresProjeto" placeholder="insira o financiador do projeto" type="text">
+                      <input class="form-control" id="tx_nome_financiador" placeholder="insira o financiador do projeto" type="text">
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="localExecucao">Local de Execução:</label>
-                      <input class="form-control" id="localExecucao" placeholder="Insrira o local de execução" type="text">
+                      <input class="form-control" id="tx_nome_regiao_localizacao_projeto" placeholder="Insrira o local de execução" type="text">
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="publicoBeneficiado">Público Beneficiado:</label>
-                      <input class="form-control" id="publicoBeneficiado" placeholder="Insrira o público beneficiado" type="text">
+                      <input class="form-control" id="tx_nome_publico_beneficiado" placeholder="Insrira o público beneficiado" type="text">
                     </div>
 
 
                     <div class="form-group col-xs-6 col-sm-9">
                       <label class="control-label" for="oscParceiras">OSC Parceiras:</label>
-                      <input class="form-control" id="oscParceiras" placeholder="insira a Osc parceira" type="text">
+                      <input class="form-control" id="tx_nome_osc_parceira_projeto" placeholder="insira a Osc parceira" type="text">
                     </div>
                     <div class="form-group col-xs-6 col-sm-3">
                       <label class="control-label" for="qtd_num">Total de Beneficiários:</label>
@@ -381,7 +380,7 @@
 
                     <div class="form-group col-xs-6 col-sm-9">
                       <label class="control-label" for="objetivosDesenvolvimentoSustentavel">Objetivos do Desenvolvimento Sustentável - ODS:</label>
-                      <select class="form-control" id="objetivosDesenvolvimentoSustentavel">
+                      <select class="form-control" id="cd_objetivo_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>
@@ -399,7 +398,7 @@
 
                     <div class="form-group col-xs-6 col-sm-9">
                       <label class="control-label" for="metasRelacionadasODS">Metas Relacionadas ao ODS:</label>
-                      <select class="form-control" id="metasRelacionadasODS">
+                      <select class="form-control" id="cd_meta_projeto">
                         <option value="">Qualquer</option>
                       </select>
                     </div>

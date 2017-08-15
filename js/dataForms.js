@@ -581,11 +581,12 @@ class DataForms{
         {
           "id": "ano",
           "label": "Ano",
-          "content": "2016",
+          "content": "2017",
           "fonte": null,
           "placeholder":"",
           "type": "select",
           "options": [
+            "2017",
             "2016",
             "2015",
             "2014"
@@ -812,8 +813,9 @@ class DataForms{
       },
       "fonte_recursos": {
         "header": "Fontes de Recursos",
-        "containerClass": "col-md-4",
-        "removable": false,
+        "containerClass": "col-md-3 fonte_recursos",
+        "custom_class": "fonte_recurso",
+        "removable": true,
         "type": "select",
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
@@ -822,6 +824,7 @@ class DataForms{
       "fonte_de_recursos_publico": {
         "header": "Fontes de Recursos Públicos",
         "containerClass": "col-md-3",
+        "custom_class": "fonte_recurso",
         "removable": false,
         "type": "select",
         "options": [
@@ -843,6 +846,7 @@ class DataForms{
         "options": null,
         "placeholder": "Selecione a área de atuação do projeto"
       },
+
       "area_atuacao_outra": {
         "header": "Outras áreas de atuação do projeto, atividade ou programa",
         "containerClass": "col-md-3",
@@ -859,7 +863,7 @@ class DataForms{
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
@@ -883,7 +887,7 @@ class DataForms{
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",
-        "containerClass": "col-md-4",
+        "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
         "options": [
@@ -906,6 +910,13 @@ class DataForms{
         "options": null,
         "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
       },
+      "tx_nome_tipo_parceria_projeto": {
+        "header": "Tipo de Parceria",
+        "containerClass": "col-md-3 tipo_parceria_projeto",
+        "removable": false,
+        "type": "select",
+        "options": [ "Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
+      },
       "objetivos": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
@@ -916,7 +927,7 @@ class DataForms{
       "objetivo_meta": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
-        "removable": false,
+        "removable": true,
         "type": "select",
         "options": null
       }
@@ -960,6 +971,7 @@ class DataForms{
       "area_atuacao": [],
       "area_atuacao_outra": [],
       "localizacao_projeto": [],
+      "tipo_parceria": [],
       "osc_parceira": [],
       "financiador_projeto": [],
       "objetivo_meta": [],

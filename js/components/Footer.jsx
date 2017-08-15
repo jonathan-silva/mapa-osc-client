@@ -1,7 +1,8 @@
 /*** RODAPÉ ***/
 define(['react'], function(React) {
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
-  var ano = 2016;
+  var data = new Date();
+  var ano = data.getFullYear();
 
   //Componentes individuais
   var Carousel = React.createClass({

@@ -12,6 +12,22 @@ class Projeto {
     return objFonte;
   }
 
+  getTipoParceria(proj){
+    var resultado = null;
+    if (proj.hasOwnProperty("fonte_recursos")){
+      var fontes_recurso = proj.fonte_recursos;
+      if(Object.keys(fontes_recurso).length != 0){
+        for (var i = 0; i < fontes_recurso.length; i++) {
+          if (fontes_recurso[i]["tx_nome_tipo_parceria"] != null) {
+            resultado = fontes_recurso[i]["tx_nome_tipo_parceria"];
+            break;
+          }
+        }
+      }
+    }
+    return resultado;
+  }
+
   montarProjetos(json, util){
     var arraySecaoProjeto = [];
 
@@ -52,13 +68,18 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
+  
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];
     var projectId = project.id_projeto;
-    var projet = util.validateObject(project.projeto,project)
+    var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
-    var title = util.validateObject(project.ft_identificador_projeto_externo,null);
+
+    // VAI TER QUE ALTERAR O NOME POIS NO JSON ESTA VINDO COISA DIFERENTE
+    project["tx_nome_tipo_parceria_projeto"] = this.getTipoParceria(project); //GAMBI
+
+    var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
@@ -67,6 +88,7 @@ class Projeto {
 
           var sectionId = property;
           var value = project[property];
+
           var header = labelMap[property].header;
           var containerClass = labelMap[property].containerClass;
           var removable = labelMap[property].removable;
@@ -75,7 +97,10 @@ class Projeto {
           var placeholder = labelMap[property].placeholder;
           var buttons = null;
           var buttonsInLine = false;
+
+
           if((value === null) || (value.constructor !== Array)){
+
             var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
             agrupadores.push(agrupadorInputProjeto);
@@ -83,6 +108,7 @@ class Projeto {
         }
       }
     }
+    //console.log(agrupadores);
     if (!(project.hasOwnProperty("fonte_de_recursos"))){
       //console.log("teste")
     }
@@ -108,8 +134,10 @@ class Projeto {
 
     var projectlocalizacao = util.validateObject(project.localizacao, []);
     var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
+
     var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
     fonte.dados = util.validateObject(project.fonte_recursos, []);
+    //console.log(fonte);
 
     var projectPublicoFinanciado = util.validateObject(project.publico_beneficiado, []);
     var publicoBeneficiado =  util.getTipoProjeto("publico_beneficiado", projectPublicoFinanciado);
@@ -121,6 +149,12 @@ class Projeto {
     var oscParceira = util.validateObject(project.osc_parceira, []);
     var parceiras =  util.getTipoProjeto("osc_parceira", oscParceira);
 
+    var id_osc_parceira = [];
+    var tam_osc_parc = project.osc_parceira ? project.osc_parceira.length : 0;
+    for (var i = 0; i < tam_osc_parc ; i++) {
+      id_osc_parceira = util.validateObject(project.osc_parceira[i].id_osc,null);
+    }
+
     var valorMeta = "";
     var idObjetivo = util.validateObject(project.objetivo_meta) ? project.objetivo_meta.id_objetivo_projeto : "";
 
@@ -128,7 +162,7 @@ class Projeto {
     // var multipleInputs = [
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
-    var multipleInputs = [
+    var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
        fonte, localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);
@@ -144,6 +178,8 @@ class Projeto {
   }
 
   carregaProjeto(id, dadosForm, rotas, util, novo){
+    //console.log(dadosForm);
+    //console.log(novo);
     var res = {};
     var agrupadores=null;
     if(novo){
@@ -168,7 +204,7 @@ class Projeto {
       agrupadores = this.montarProjeto(res.projeto, util, dadosForm,rotas);
       res.agrupadores = agrupadores;
     }
-
+    //console.log(res);
     return res;
   }
 
@@ -191,6 +227,7 @@ class Projeto {
     var type = util.validateObject(element)?element.type:"";
     var options = util.validateObject(element)?element.options:"";
     var suboptions = null;
+    var cc = util.validateObject(element)?element.custom_class:"";
     var buttonsInput = null;
     var buttonsInLine = false;
     if(removable){
@@ -201,7 +238,7 @@ class Projeto {
     if(object.dados.length === 0){
       var inputId = sectionId;
       value = "";
-      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
       inputs.push(inputProjeto);
     }
     for (var i = 0; i < object.dados.length; i++) {
@@ -210,16 +247,17 @@ class Projeto {
         //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
           if(sectionId == "fonte_recursos"){
+            removable = true;
             if(property === "tx_nome_origem_fonte_recursos_projeto"){
               value = object.dados[i][property];
               options = labelMap[object.id].options;
-              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine);
+              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
               inputs.push(inputProjeto);
             }
           } else if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd);
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd, cc);
             inputs.push(inputProjeto);
           }
         }
@@ -233,7 +271,7 @@ class Projeto {
       buttonsInput = [buttonRemove];
       buttonsAgrupador = [buttonAdd];
     }
-    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador);
+    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options, cc);
     return agrupadorInputProjeto;
   }
 

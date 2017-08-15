@@ -22,6 +22,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
   menuList.push(new MenuListObject("Cadastre-se", "cadastro-representante.html"));
+  menuList.push(new MenuListObject("Editar OSCs", "minhas-oscs.html"));
   menuList.push(new MenuListObject("Entrar", ""));
 
   var linksSubmenu = [];
@@ -34,6 +35,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   linksSubmenu.push(new MenuDropDownObject("Tutoriais", "tutoriais.html"));
   linksSubmenu.push(new MenuDropDownObject("Perguntas frequentes", "perguntas-frequentes.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
+  linksSubmenu.push(new MenuDropDownObject("Imprensa", "imprensa.html"));
   linksSubmenu.push(new MenuDropDownObject("Editais para OSCs", "editais.html"));
   linksSubmenu.push(new MenuDropDownObject("Colabore", "colabore.html"));
   linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
@@ -45,7 +47,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
-  linksUsuarioLogado.push(new MenuDropDownObject("Minhas OSCs", "minhas-oscs.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("Editar OSCs", "minhas-oscs.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
 //  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
@@ -77,16 +79,16 @@ require(['react', 'jsx!components/Footer','bootstrap'], function(React, Footer) 
   }
   // links do menu inferior
   var blocks = [];
-  blocks.push(new BlockFooterObject("Portal das OCSs", ["metodologia.html", "termos-uso.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"], "_self"));
+  blocks.push(new BlockFooterObject("Mapa das OCSs", ["metodologia.html", "termos-uso.html","cadastro-representante.html", "contato.html"], ["Metodologia", "Termos de Uso", "Cadastro de Representante", "Contato e Sugestões"], "_self"));
   blocks.push(new BlockFooterObject("Ajuda", ["glossario.html", "perguntas-frequentes.html", "tutoriais.html", "mapa-do-site.html"], ["Glossário", "Perguntas Frequentes", "Tutoriais", "Mapa do Site"], "_self"));
   blocks.push(new BlockFooterObject("IPEA", ["http://portal.convenios.gov.br/", "http://ivs.ipea.gov.br/", "http://www.ipea.gov.br/extrator/","http://www.ipea.gov.br/participacao/"], ["Portal dos Convênios", "Atlas da Vulnerabilidade Social", "Extrator de Dados do Ipea","Participação em Foco"],"_blank"));
 
   // src e alt, respectivamente, da parte de "realização" normal e com contraste
   var imgsAltRealizacao = ["img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada", "img\\ipea-realizacao.png", "Instituto de Pesquisa Economica Aplicada"];
   //Carrossel do rodapé
-  var imgList = [["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_pnud.png"],
-                 ["http://www.secretariadegoverno.gov.br/","http://www.justica.gov.br/","http://www.br.undp.org/"],
-                 ["Link externo para Secretaria de Governo","Link externo para Ministério da Justiça e Cidadania","Link externo para Programa das Nações Unidas para o Desenvolvimento"]];
+  var imgList = [["img\\logo_secretaria.png", "img\\logo-mj.png", "img\\logo_ods.png"],
+                 ["http://www.secretariadegoverno.gov.br/","http://www.justica.gov.br/","http://agenda2030.com.br/"],
+                 ["Link externo para Secretaria de Governo","Link externo para Ministério da Justiça e Cidadania","Link externo para Plataforma Agenda 2030"]];
 
   function FooterObject(blocks, imgsAltRealizacao, imgList){
     this.blocks =blocks;

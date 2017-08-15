@@ -28,6 +28,9 @@
                 <li data-target="#carousel-topo" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-topo" data-slide-to="1"></li>
                 <li data-target="#carousel-topo" data-slide-to="2"></li>
+                <li data-target="#carousel-topo" data-slide-to="3"></li>
+                <li data-target="#carousel-topo" data-slide-to="4"></li>
+
               </ol>
               <!-- Wrapper for slides -->
               <div class="carousel-inner" role="listbox">
@@ -46,6 +49,18 @@
                 <div class="item">
                   <a class="btn-item" href="cadastro-representante.html">
                     <img src="img\item3.png" alt="Contém vários circulos e um texto." title="link para o cadastro de representante.">
+                    <div class="carousel-caption"></div>
+                  </a>
+                </div>
+                <div class="item">
+                  <a class="btn-item" href="colabore.html">
+                    <img src="img\item4.png" alt="Contém vários circulos e um texto." title="link para colaborar com o Mapa.">
+                    <div class="carousel-caption"></div>
+                  </a>
+                </div>
+                <div class="item">
+                  <a class="btn-item" href="http://www.agenda2030.org.br/">
+                    <img src="img\item5.png" alt="Contém vários circulos e um texto." title="link para Agenda 2030.">
                     <div class="carousel-caption"></div>
                   </a>
                 </div>
@@ -125,6 +140,7 @@
                   </div>
                 </form>
               </div>
+              <div class="consultaAvancada"><a class="btn btn-info btn-sm" href="consultar.html" title="Link para consulta avançada."><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consulta Avançada</a></div>
               <div class="alert alert-danger fade in hide" id="errorLabel">
                   <a href="#" class="close" onclick="$('.alert').addClass('hide')">&times;</a>
                   <strong>Erro!</strong> É necessário digitar um valor no campo ou selecioná-lo na lista.
@@ -137,39 +153,37 @@
     <div  id="itemHome" class="section no_pad">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="resultado-consulta.html" title="Link para o Mapa das OSC.">
               <img src="img/mapa_osc.png" class="center-block img-thumbnail img-responsive " alt="Mostra a localidade das OSCs através de circulos no mapa do Brasil." >
               <h3 class="text-center">Mapa das OSCs</h3>
             </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="dados-indicadores.html" title="Link para os indicadores.">
                 <img src="img/indicadores.png" class="center-block img-thumbnail img-responsive" alt="Desenho de um gráfico." >
               <h3 class="text-center">Indicadores</h3>
             </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="editais.html" title="Link para editais para OSCs.">
               <img src="img/editais_publicos.png" class="center-block img-thumbnail img-responsive" alt="Desenho de três folhas de papel." >
               <h3 class="text-center">Editais para OSCs</h3>
             </a>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="http://atlasbrasil.org.br/" title="Link site externo Atlas do Desenvolvimento Humano no Brasil." target="_blank">
             <img src="img/atlas_brasil.png" class="center-block img-thumbnail img-responsive " alt="Site Externo." >
             <h3 class="text-center">Atlas do Desenvolvimento Humano no Brasil <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></h3>
           </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="http://www.participa.br/OSC" title="Link site externo marco Regulatório das OSCs." target="_blank" >
               <img src="img/mrosc.png" class="center-block img-thumbnail img-responsive" alt="Site Externo." >
             <h3 class="text-center">Marco Regulatório das OSCs <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></h3>
           </a>
           </div>
-          <div class="col-md-4">
+          <div class="col-xs-12 col-sm-4 col-md-4">
             <a class="btn-item" href="http://www.ipea.gov.br/extrator/" title="Link site externo extrator de dados." target="_blank">
             <img src="img/extrator.png" class="center-block img-thumbnail img-responsive" alt="Site Externo."  >
             <h3 class="text-center">Extrator de Dados <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></h3>
@@ -184,7 +198,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h2 class="text-center">Evolução do número de OSCs em atuação no país</h2>
+            <h2 class="text-center">Evolução do número de OSCs ativas, Brasil - 2009-2014</h2>
           </div>
         </div>
         <div class="row">
@@ -195,7 +209,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="chart-container" id="graficoMain-5"><svg></svg></div>
-            <h5>Fonte: Ministério do Trabalho (2014). <a id="tabelaMain-5" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+            <h5>Fonte: Ministério do Trabalho (2009-2014). <a id="tabelaMain-5" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
         <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -204,7 +218,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h2 class="text-center">Natureza jurídica das OSCs, por região</h2>
+            <h2 class="text-center">Número de OSCs por natureza jurídica e região, Brasil - 2014</h2>
           </div>
         </div>
         <div class="row">
@@ -224,7 +238,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h2 class="text-center">Evolução anual dos repasses federais para as OSCs</h2>
+            <h2 class="text-center">Evolução anual dos repasses federais para as OSCs, Brasil - 2009-2017</h2>
           </div>
         </div>
         <div class="row">
@@ -235,7 +249,7 @@
         <div class="row">
           <div class="col-md-12">
               <div class="chart-container" id="graficoMain-2"><svg></svg></div>
-              <h5>Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. <a id="tabelaMain-2"  class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+              <h5>Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016. <a id="tabelaMain-2"  class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
         <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -244,7 +258,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h2 class="text-center">Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 8)</h2>
+            <h2 class="text-center">Evolução anual dos repasses federais para as OSCs por área de atuação (Top 8), Brasil - 2009-2017</h2>
           </div>
         </div>
         <div class="row">
@@ -255,7 +269,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="chart-container" id="graficoMain-3"><svg></svg></div>
-            <h5>Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. <a id="tabelaMain-3" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
+            <h5>Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016. <a id="tabelaMain-3" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>
           </div>
         </div>
         <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -264,7 +278,7 @@
         <div class="row">
           <div class="col-md-12">
             <hr>
-            <h2 class="text-center">Títulos e certificações das OSCs</h2>
+            <h2 class="text-center">Número de organizações civis com títulos e certificações, Brasil - 2014</h2>
           </div>
         </div>
         <div class="row">

@@ -35,7 +35,7 @@ class EspacosPartSocial {
     util.addItem('outros_part');
   }
 
-  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, periodicidadeReuniao, formas){
+  iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, conselhos, conferencias, periodicidadeReuniao, formas, formasPartConfe){
     var tx_sem_participacao_social = "Não há registros de participação social";
     var participacao_social_form = dadosForm.partSocial();
     var items = participacao_social_form.items;
@@ -45,11 +45,10 @@ class EspacosPartSocial {
         {dados:items}
       ), document.getElementById(items[0].target)
     );
-
-    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, periodicidadeReuniao, formas);
+    return this.montarEspacosParticipacaoSocial(data, util, participacao_social_form, conselhos, conferencias, periodicidadeReuniao, formas, formasPartConfe);
   }
 
-  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma){
+  montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma, lformaPartConfe){
     var controller = 'js/controller.php'
     $.ajax({
       url: controller,
@@ -122,6 +121,7 @@ class EspacosPartSocial {
       },
       success: function(data){
         lforma = data;
+
       }
     });
     var lista_forma=[];
@@ -168,7 +168,9 @@ class EspacosPartSocial {
 
     var participacao_social = util.validateObject(json.participacao_social, "");
     var conselhos=util.validateObject(participacao_social.conselho, '0');
+    //var conselhos_outro=util.validateObject(participacao_social.conselho_outro, '0');
     var conferencias = util.validateObject(participacao_social.conferencia, '0');
+    //var conferencias_outro = util.validateObject(participacao_social.conferencia_outra, '0');
     var outras = util.validateObject(participacao_social.outra, '0');
     var formItens = [];
 
@@ -179,6 +181,11 @@ class EspacosPartSocial {
           if (conselhos[j].hasOwnProperty(property)) {
             if(property == "conselho"){
               formItens.push(util.FormItens("tx_nome_conselho-"+conselhos[j].conselho.id_conselho, "Nome do Conselho", conselhos[j].conselho.tx_nome_conselho, conselhos[j].conselho.ft_conselho, null, "select",lista_conselho));
+              if (conselhos[j].conselho.tx_nome_conselho_outro){
+                formItens.push(util.FormItens("outro-conselho-"+conselhos[j].conselho.id_conselho, "Identificação do Conselho", conselhos[j].conselho.tx_nome_conselho_outro ? conselhos[j].conselho.tx_nome_conselho_outro  : "" , conselhos[j].conselho.ft_conselho, null, "text"));
+              }else{
+                  formItens.push(util.FormItens("outro-conselho-empty-"+conselhos[j].conselho.id_conselho, "Identificação do Conselho", conselhos[j].conselho.tx_nome_conselho_outro ? conselhos[j].conselho.tx_nome_conselho_outro  : "" , conselhos[j].conselho.ft_conselho, null, "text", null, null,null, true));
+              }
               formItens.push(util.FormItens("tx_nome_tipo_participacao-"+conselhos[j].conselho.id_conselho, "Titularidade", conselhos[j].conselho.tx_nome_tipo_participacao, conselhos[j].conselho.ft_tipo_participacao, null, "select", lista_forma));
               formItens.push(util.FormItens("tx_nome_representante_conselho-"+conselhos[j].conselho.id_conselho, "Nome de representante", conselhos[j].representante ? conselhos[j].representante[0].tx_nome_representante_conselho : "" , conselhos[j].conselho.ft_nome_representante_conselho, null, "text"));
               formItens.push(util.FormItens("tx_nome_periodicidade_reuniao_conselho-"+conselhos[j].conselho.id_conselho, "Periodicidade da Reunião", conselhos[j].conselho.tx_nome_periodicidade_reuniao_conselho, conselhos[j].conselho.ft_periodicidade_reuniao, null, "select", lista_periodicidadeReuniao));
@@ -189,6 +196,7 @@ class EspacosPartSocial {
         }
       }
 
+
       formItens.push(util.FormItens(nomeConselho, "Nome do Conselho", null,null, "", "select",lista_conselho,"Insira o nome do conselho de política pública"));
       formItens.push(util.FormItens(nomeTipoParticipacao, "Titularidade", null,null, "", "select",lista_forma,"Diga se a OSCs ocupa vaga de titular ou suplente"));
       formItens.push(util.FormItens(nomeRepresentanteConselho, "Nome de representante", null,null, "Insira o nome do representante da OSC no Conselho", "text"));
@@ -198,28 +206,57 @@ class EspacosPartSocial {
       arraySecao.push(formItens);
     };
 
-    var lista_forma_conferencia = [
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data:{flag: 'consulta', rota: lformaPartConfe},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+        lformaPartConfe = data;
+
+      }
+    });
+    var lista_forma_conferencia=[];
+    for (var i=0;i<lformaPartConfe.length;i++){ lista_forma_conferencia[i] = lformaPartConfe[i].tx_nome_forma_participacao_conferencia}
+
+    /*var lista_forma_conferencia = [
     'Membro de comissão organizadora nacional', 'Membro de comissão organizadora estadual ou distrital', 'Membro de comissão organizadora municipal',
 'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
-'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outra'];
+'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outra'];*/
     var formItens = [];//
     //console.log(conferencias);
     if (conferencias.length) {
+
       var conferencia = participacao_social_form.items;
       for (var j=0; j<conferencias.length; j++){
         for (var property in conferencias[j]) {
           if (conferencias[j].hasOwnProperty(property)) {
             if(property == "tx_nome_conferencia"){
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "select", lista_conferencia));
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "select", lista_conferencia));
             }
+
+            if (property == "tx_nome_conferencia_outro"){
+                if ( conferencias[j].tx_nome_conferencia_outro ){
+                    formItens.push(util.FormItens("outro-conferencia-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outro ? conferencias[j].tx_nome_conferencia_outro  : "" , conferencias[j].ft_conferencia, null, "text"));
+                }else{
+                        formItens.push(util.FormItens("outro-conferencia-empty-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outro ? conferencias[j].tx_nome_conferencia_outro  : "" , conferencias[j].ft_conferencia, null, "text", null, null,null, true));
+                }
+            }
+
             if(property == "tx_nome_forma_participacao_conferencia"){
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "select",lista_forma_conferencia));
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia, "Forma de participação na conferência", conferencias[j].tx_nome_forma_participacao_conferencia, conferencias[j].ft_forma_participacao_conferencia, null, "select",lista_forma_conferencia));
             }
             if(property == "dt_ano_realizacao"){
               var dtAnoRealizacao = conferencias[j].dt_ano_realizacao;
               dtAnoRealizacao = dtAnoRealizacao ? dtAnoRealizacao.substring(6) : dtAnoRealizacao;
-              console.log(dtAnoRealizacao);
-              formItens.push(util.FormItens(property+"-"+conferencias[j].id , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
+              //console.log(dtAnoRealizacao);
+              formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia , "Ano de realização da conferência", dtAnoRealizacao, conferencias[j].ft_ano_realizacao, null, "text", null, null, "ano"));
             }
           }
         }
@@ -228,7 +265,6 @@ class EspacosPartSocial {
       formItens.push(util.FormItens(nomeConferencia, "Nome da Conferência", null,null, "", "select",lista_conferencia,"Caso a OSC tenha participado, indique aqui o nome da conferência de política pública"));
       formItens.push(util.FormItens(anoRealizacao, "Ano de realização da conferência", null,null, "Indique o ano em que se realizou a Conferência", "text", null, null, "ano"));
       formItens.push(util.FormItens(nomeFormaParticipacao, "Forma de participação na conferência", null,null, "", "select",lista_forma_conferencia,"Indique qual foi a forma de atuação da OSC nesta Conferência"));
-
 
       arraySecao.push(formItens);
       /*console.log(nomeFormaParticipacao);

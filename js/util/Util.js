@@ -67,13 +67,15 @@ class Util {
     }
   }
 
-  AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+  AgrupadorDeInputs(id, containerClass, header, inputs, buttons, select, cc){
     return{
       "id" : id,
       "containerClass" : containerClass,
       "header" : header,
       "inputs" : inputs,
-      "buttons" : buttons
+      "options" : select,
+      "buttons" : buttons,
+      "custom_class": cc
     };
   }
 
@@ -88,7 +90,7 @@ class Util {
     verificarContraste();
   }
 
-  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd){
+  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd, cc){
     return {
       "id" : id,
       "content" : content,
@@ -99,7 +101,8 @@ class Util {
       "buttonsInLine" : buttonsInLine,
       "placeholder" : placeholder,
       "title": title,
-      "cd": cd
+      "cd": cd,
+      "cc": cc
     };
   }
 
@@ -109,34 +112,34 @@ class Util {
       "dados": dados
     };
   }
-addOutro(idClass){
-  function addOutros(idClass){
-    $('.'+idClass).each(function(index, el) {
-      var $select = $(this).children().find('select').first();
-      var $outro = $select.find('option:last').val();
-      $select.change(function(){
-        var $element = $(this).parent().parent().parent();
-        if($(this).val() == $outro){
-            $element.find('#outro_'+idClass).remove();
-            $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
-                  +'<label class = "control-label">Novo Item:</label>'
-                    +'<div class="input-box">'
-                      +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" value="">'
-                      +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
-                        +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
-                      +'</span>'
-                    +'</div>'
-                  +'</div>');
-        }
-        else{
-          if($element.find('#outro_'+idClass)){
-            $element.find('#outro_'+idClass).remove();
+  addOutro(idClass){
+    function addOutros(idClass){
+      $('.'+idClass).each(function(index, el) {
+        var $select = $(this).children().find('select').first();
+        var $outro = $select.find('option:last').val();
+        $select.change(function(){
+          var $element = $(this).parent().parent().parent();
+          if($(this).val() == $outro){
+              $element.find('#outro_'+idClass).remove();
+              $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
+                    +'<label class = "control-label">Novo Item:</label>'
+                      +'<div class="input-box">'
+                        +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" id="outro-'+idClass+'_'+index+'" value="">'
+                        +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
+                          +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
+                        +'</span>'
+                      +'</div>'
+                    +'</div>');
           }
-        }
-      })
-    });
-  }
-  addOutros(idClass);
+          else{
+            if($element.find('#outro_'+idClass)){
+              $element.find('#outro_'+idClass).remove();
+            }
+          }
+        })
+      });
+    }
+    addOutros(idClass);
 }
   addItem(idDiv){
     function addItemm(idDiv){
@@ -154,11 +157,14 @@ addOutro(idClass){
       if($(this).hasClass('btn-primary')){
         var $cloneDiv = ($(this).parent());
         var $input = $cloneDiv.find('input[type=text]');
+        var $select = $cloneDiv.find('select');
         var values = new Array();
         $input.parent().removeClass('has-error');
+        $select.parent().removeClass('has-error');
         $('.alert-danger').remove();
+
         $input.each(function(i){
-          if($(this).val() !== "" ){
+          if($(this).val().trim() !== "" ){
             values[i] = true;
           }
           else {
@@ -166,9 +172,22 @@ addOutro(idClass){
             $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
           }
         });
+
+        $select.each(function(i){
+          if($(this).val() !== '-1' ){
+            values[i] = true;
+          }
+          else {
+            values[i] = false;
+            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+          }
+        });
+
         if(values.every(isTrue)){
           $input.parent().removeClass('has-error');
+          $select.parent().removeClass('has-error');
           $input.after().find('span').remove();
+          $select.after().find('span').remove();
           var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
           var $cloneChildren = $('#'+idDiv).children();
           $cloneDiv.clone().appendTo($cloneChildren);
