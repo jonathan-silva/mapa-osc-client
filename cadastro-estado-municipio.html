@@ -37,14 +37,14 @@
           <div class="col-md-12">
             <h3>Sendo um representante de um Estado e Município, você poderá</h3>
             <ul>
-              <li>Informar todos os dados das organizações do Estado e Município.</li>
-              <li>Importar os dados nos formatos CSV e JSON.</li>
+              <li>Encaminhar os dados das parcerias celebradas entre o governo que representa e as OSCs. Dessa forma, seu governo poderá dar transparência a essas parcerias, sem qualquer custo.</li>
+              <li>Clique para acessar o <a href="./pdf/tutorial_para_formatacao_dados.pdf" title="Baixar o Tutorial para Formatação dos Dados">Tutorial para Formatação dos Dados - PDF (285KB)<img src="img/botao_pdf.png" height="18" width="18"></a> sobre que informações devem constar no banco de dados a ser enviado.</li>
             </ul>
           </div>
 
           <div class="form-group col-xs-6 col-sm-12">
             <label class="control-label" for="nome_representante">Nome do Representante:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control" id="tx_nome_representante" placeholder="Nome do Representante" type="text">
+            <input class="form-control" id="tx_nome_representante" placeholder="Nome do servidor público responsável por carregar o banco de dados no Mapa das OSCs" type="text">
           </div>
 
           <div class="form-group col-xs-6 col-sm-6">
@@ -58,15 +58,14 @@
           </div>
 
           <div class="form-group col-xs-6 col-sm-9">
-            <label class="control-label" for="orgao_responsavel">Orgão Responsável:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control" id="tx_orgao_responsavel" placeholder="Orgão Responsável" type="text">
+            <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_orgao_trabalha" placeholder="Órgão em que Trabalha" type="text">
           </div>
 
           <div class="form-group col-xs-6 col-sm-3">
             <label class="control-label" for="telefone">Telefone:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control" id="tx_telefone" placeholder="Telefone" type="text">
+            <input class="form-control cel-sp-mask" id="tx_telefone"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
           </div>
-
           <div class="form-group col-xs-6 col-sm-6">
             <label class="control-label" for="senha">Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_senha" placeholder="Senha" type="password">
@@ -78,20 +77,23 @@
           </div>
 
           <div class="form-group col-xs-12 col-sm-12">
-            <h4 class="tipo_representacao">Tipo de Representação</h4>
+            <h4 class="unidade_administrativa">Unidade Administrativa</h4>
             <label class="control-label">Estado</label>
-            <input type="radio" name="tipo_representacao" checked="checked" value="0">
+            <input type="radio" name="unidade_administrativa" checked="checked" value="0">
             <label class="control-label">Município</label>
-            <input type="radio" name="tipo_representacao" value="1">
+            <input type="radio" name="unidade_administrativa" value="1">
           </div>
           <div class="form-group col-xs-6 col-sm-4">
             <label class="control-label" for="estado">Estado:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control ui-autocomplete-input" id="tx_nome_uf" placeholder="Estado" type="text">
+            <input class="form-control" id="cd_uf_id" type="hidden" >
           </div>
 
           <div class="form-group col-xs-6 col-sm-4" style="display: none;">
             <label class="control-label" for="municipio">Município:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control ui-autocomplete-input" id="tx_nome_municipio" placeholder="Município" type="text">
+            <input class="form-control" id="cd_municipio_id" type="hidden" >
+
           </div>
 
           <div class="form-group col-xs-6 col-sm-12">
@@ -103,6 +105,9 @@
             </div>
             <div class="checkbox">
               <label><input id="newsletter" type="checkbox">Desejo receber e-mail sobre as novidades do Mapa das Organizações da Sociedade Civil.</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="pedido_atualizacao" type="checkbox">Desejo ser informado quando este município estiver a mais de um ano sem atualizar o banco de dados no Mapa.</label>
             </div>
           </div>
 

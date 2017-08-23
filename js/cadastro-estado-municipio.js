@@ -14,12 +14,14 @@ require(["jquery-ui"], function(React) {
             }
         }
     });
+
+
 });
 
 require(['react', 'jsx!components/Util'], function(React) {
 
     //carregar dependendias e outras funcoes definidas
-    require(["jquery-ui", "rotas"], function(React) {
+    require(["jquery-ui", "rotas", 'jquery', 'libs/jquery-mask/jquery.mask.min'], function(React) {
 
         var $id_osc = '';
         var $cnpj_osc = '';
@@ -104,10 +106,19 @@ require(['react', 'jsx!components/Util'], function(React) {
                     }));
                    },
                    error: function (e) {
-                       response([]);
+                     $("#tx_nome_municipio").val("");
+                     $("#cd_municipio_id").val("");
+                     $("#tx_nome_municipio").closest('.form-group').removeClass('has-success').addClass('has-error');
                    }
                });
-           }
+           },
+            select: function( event, ui ) {
+              $("#tx_nome_municipio").val( ui.item.value );
+              $("#cd_municipio_id").val( ui.item.id );
+              $("#tx_nome_municipio").closest('.form-group').removeClass('has-error').addClass('has-success');
+
+              return false;
+            }
          });
 
         //autocomplete estado
@@ -130,11 +141,46 @@ require(['react', 'jsx!components/Util'], function(React) {
                   }));
                  },
                  error: function () {
-                     response([]);
+                       $("#tx_nome_uf").val("");
+                       $("#cd_uf_id").val("");
+                       $("#tx_nome_uf").closest('.form-group').removeClass('has-success').addClass('has-error');
                  }
              });
+         },
+          select: function( event, ui ) {
+            $("#tx_nome_uf").val( ui.item.value );
+            $("#cd_uf_id").val( ui.item.id );
+            $("#tx_nome_uf").closest('.form-group').removeClass('has-error').addClass('has-success');
+
+            return false;
+          }
+       });
+
+
+
+
+       $("input:radio").change(function () {
+         if($(this).val() == 0){
+           $("#tx_nome_uf").parent().show();
+           $("#tx_nome_municipio").parent().hide();
+         }
+         else {
+           $("#tx_nome_municipio").parent().show();
+           $("#tx_nome_uf").parent().hide();
          }
        });
+
+
+        var SPMaskBehavior = function (val) {
+          return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        spOptions = {
+          onKeyPress: function(val, e, field, options) {
+              field.mask(SPMaskBehavior.apply({}, arguments), options);
+            }
+        };
+
+        $('#tx_telefone').mask(SPMaskBehavior, spOptions);
 
 
         //inicio btn.btn-success.click
@@ -170,6 +216,12 @@ require(['react', 'jsx!components/Util'], function(React) {
                 newsletter = false;
             }
 
+            var pedido_atualizacao = false;
+            if ($('#pedido_atualizacao').is(":checked")) {
+                pedido_atualizacao = true;
+            } else {
+                pedido_atualizacao = false;
+            }
 
             if (!validaNome(nome)) {
                 id_attr = "#" + $("#tx_nome_representante.form-control").attr("id") + "1";
@@ -223,10 +275,11 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "tx_senha_usuario": senha,
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
+                "cd_nome_uf": cd_uf_id,
+                "cd_municipio": cd_municipio_id,
                 "bo_lista_email": newsletter,
-                "representacao": [{
-                    "id_osc": $id_osc
-                }]
+                "bo_lista_pedido_atualizacao": pedido_atualizacao,
+                "representacao": [{"tx_nome_uf": tx_nome_uf}]
             };
 
 
@@ -257,21 +310,6 @@ require(['react', 'jsx!components/Util'], function(React) {
         });
         //final  btn.btn-success.click
     }); //final require
-});
-
-
-require(['jquery'], function (React) {
-
-  $("input:radio").change(function () {
-    if($(this).val() == 0){
-      $("#tx_nome_uf").parent().show();
-      $("#tx_nome_municipio").parent().hide();
-    }
-    else {
-      $("#tx_nome_municipio").parent().show();
-      $("#tx_nome_uf").parent().hide();
-    }
-  });
 });
 
 //FUNCOES DE VALIDACAO
