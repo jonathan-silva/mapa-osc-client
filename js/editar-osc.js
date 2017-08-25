@@ -52,7 +52,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     if(valoresURL !== null){
       idOsc = valoresURL[0];
       if(!util.verificarPermissao(idOsc)){
-        window.location.href = "visualizar-osc.html#/"+id;
+        window.location.href = "visualizar-osc.html#/"+idOsc;
       }
       addBotaoVisualizar(idOsc);
       addLinkVoltar(idOsc);
@@ -74,7 +74,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         url: urlController,
         type: 'GET',
         dataType: 'json',
-        conselhos:{flag: "consulta", rota: urlRota},
+        data:{flag: "consulta", rota: urlRota},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
@@ -84,6 +84,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function ajaxAutoComplete(urlController, urlRota, returnFunction){
+      $.ajax({
         url: urlController,
         type: 'GET',
         dataType: "json",
@@ -91,10 +92,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             flag: 'autocomplete',
             rota: urlRota
         },
-      success: function(data) {return returnFunction(data)},
-      error: function(e) {
-          response([]);
-      }
+        success: function(data) {return returnFunction(data)},
+        error: function(e) {
+            response([]);
+        }
+      });
     }
 
     $.ajax({
@@ -1278,7 +1280,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
       var success="";//guarda mensagens dos saves das secoes da pagina
       //Dados Gerais
-      newJson["dados_gerais"] = util.validateObject(old_json.dados_gerais, {});
+      newJson["dados_gerais"] = util.validateObject(old_json.dados_gerais, []);
 
       $("#dados_gerais :input").each(function(){
         var key = $(this).attr("id");
@@ -1357,6 +1359,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             subareas = null;
           }
           obj_area_atuacao.subarea_atuacao = subareas;
+          console.log(newJson);
+          console.log(newJson.area_atuacao);
           newJson.area_atuacao.push(obj_area_atuacao);
         });
         if(newJson.area_atuacao.length == 0){
