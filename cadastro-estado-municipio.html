@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Representante de Estado e Município</title>
+    <link rel="icon" href="img/fav.png"/>
+    <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+    <!-- header -->
+    <div id="barra-brasil"></div>
+    <div id="header"></div>
+    <!--Fim header-->
+
+    <div id="conteudo" class="section">
+      <div class="container">
+        <div class="row rastro-navegacao">
+          <a href="/">Home</a>
+          <span> &gt; </span>
+          <a href="">Cadastro de Representante de Estado e Município</a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-primary">Cadastro de Representante de Estado e Município</h1>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Sendo um representante de um Estado e Município, você poderá</h3>
+            <ul>
+              <li>Encaminhar os dados das parcerias celebradas entre o governo que representa e as OSCs. Dessa forma, seu governo poderá dar transparência a essas parcerias, sem qualquer custo.</li>
+              <li>Clique para acessar o <a href="./pdf/tutorial_para_formatacao_dados.pdf" title="Baixar o Tutorial para Formatação dos Dados">Tutorial para Formatação dos Dados - PDF (285KB)<img src="img/botao_pdf.png" height="18" width="18"></a> sobre que informações devem constar no banco de dados a ser enviado.</li>
+            </ul>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="nome_representante">Nome do Representante:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_nome_representante" placeholder="Nome do servidor público responsável por carregar o banco de dados no Mapa das OSCs" type="text">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="email">Email:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_email" placeholder="Email" type="email">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="cpf">CPF:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_cpf" placeholder="CPF" type="text">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-9">
+            <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_orgao_trabalha" placeholder="Órgão em que Trabalha" type="text">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-3">
+            <label class="control-label" for="telefone">Telefone:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control cel-sp-mask" id="tx_telefone"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
+          </div>
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="senha">Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_senha" placeholder="Senha" type="password">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="confirmar_senha">Confirmar Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_confirmar_senha" placeholder="Confirmar Senha" type="password">
+          </div>
+
+          <div class="form-group col-xs-12 col-sm-12">
+            <h4 class="unidade_administrativa">Unidade Administrativa</h4>
+            <label class="control-label">Estado</label>
+            <input type="radio" name="unidade_administrativa" checked="checked" value="0">
+            <label class="control-label">Município</label>
+            <input type="radio" name="unidade_administrativa" value="1">
+          </div>
+          <div class="form-group col-xs-6 col-sm-4">
+            <label class="control-label" for="estado">Estado:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control ui-autocomplete-input" id="tx_nome_uf" placeholder="Estado" type="text">
+            <input class="form-control" id="cd_uf_id" type="hidden" >
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-4" style="display: none;">
+            <label class="control-label" for="municipio">Município:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control ui-autocomplete-input" id="tx_nome_municipio" placeholder="Município" type="text">
+            <input class="form-control" id="cd_municipio_id" type="hidden" >
+
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="checkbox">
+              <label>
+                <input id="termoUso" type="checkbox">Concordo com os
+                <a target="_blank" href="termos-uso.html">Termos de Uso</a>
+              </label>
+            </div>
+            <div class="checkbox">
+              <label><input id="newsletter" type="checkbox">Desejo receber e-mail sobre as novidades do Mapa das Organizações da Sociedade Civil.</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="pedido_atualizacao" type="checkbox">Desejo ser informado quando este município estiver a mais de um ano sem atualizar o banco de dados no Mapa.</label>
+            </div>
+          </div>
+
+          <!-- Modal -->
+          <div id="modalMensagem" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div id="modalTitle"  class="modal-header negrito"></div>
+                <div  id="modalConteudo" class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-dismiss="modal">OK </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="captcha">
+              <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
+              <span id="labelCaptcha" class="label label-danger"></span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="col-sm-offset-0 text-center">
+              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Enviar</button>
+              <button type="submit" class="btn btn-danger" onclick="window.location.href='/index.html'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="rodape"></div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div id="footer-brasil"></div>
+      </div>
+    </footer>
+    <!--Fim footer-->
+
+    <!--SCRIPTS-->
+    <script src="js/libs/react-15.3.1/react.min.js"></script>
+    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+    <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/cadastro-estado-municipio.js"></script>
+    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
+
+  </body>
+</html>
