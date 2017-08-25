@@ -1,6 +1,7 @@
 var controller = angular.module('oscApp', []);
 var idOsc;
 var absUrl;
+var util = new Util();
 
 controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
 	absUrl = $location.$$absUrl;
@@ -301,18 +302,8 @@ function imprimir(){
 
 }
 
-function validateObject(obj){
-  if(obj === null){
-    return false;
-  }
-  if(Object.keys(obj).length === 0 && obj.constructor === Object){
-    return false;
-  }
-  return true;
-}
-
 function verificarBotaoEditar(id){
-	if(verificarPermissaoBotao(id)){
+	if(util.verificarPermissao(id)){
 		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar OSC</a>');
 		$("#btnEditar").attr("href","editar-osc.html#/"+id);
 	}
@@ -330,16 +321,4 @@ function addLinkVoltar(id){
 		 } else {
 				 $("#voltaPagAnterior").text('Lista de OSCs');
 		 }
-}
-
-function verificarPermissaoBotao(id){
-	var osc  = JSON.parse(window.localStorage.getItem('Osc'));
-	if(osc != "undefined" && osc !== null){
-		for (var i = 0; i < osc.length; i++) {
-			if (osc[i] == id) {
-     		return true;
-   		}
-		}
-	}
-	return false;
 }
