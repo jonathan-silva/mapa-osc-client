@@ -268,5 +268,11 @@ class Rotas{
     return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id; // Falta colocar rota verdadeira
   }
 
+  BarraTransparencia(id_osc){
+    return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;
+
+  }
+
+
 
 }
