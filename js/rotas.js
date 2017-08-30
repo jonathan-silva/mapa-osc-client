@@ -186,6 +186,19 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/";
   }
 
+  //cadastro-estado-municipio.js
+  CadastroRepresentanteEstadoMunicipio(){
+    return this.getBaseUrl()+":8383/api/user/";
+  }
+
+  ValidarEstado(cod_estado){
+    return this.getBaseUrl()+":8383/api/user/"+cod_estado;
+  }
+
+  ValidarMunicipio(cod_municipio){
+    return this.getBaseUrl()+":8383/api/user/"+cod_municipio;
+  }
+
   //contato.js
   Contato(){
     return this.getBaseUrl()+":8383/api/user/contato/";
@@ -265,7 +278,7 @@ class Rotas{
     return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/menuMrosc";
   }
   ConteudoMroscByID(id){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/conteudoMroscByID/"+id; 
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/conteudoMroscByID/"+id;
   }
 
   BarraTransparencia(id_osc){
