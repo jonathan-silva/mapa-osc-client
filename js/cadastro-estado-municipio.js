@@ -344,12 +344,11 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "bo_lista_pedido_atualizacao_trimestral": pedido_atualizacao_trimestral,
             };
 
-            json["representacao"] = [];
             if($("input:radio:checked").val() == 0){
-                json["representacao"].append({"cd_nome_uf":cd_uf_id});
+                json["localidade"] = cd_uf_id;
             }
             else{
-              json["representacao"].append({"cd_municipio":cd_municipio_id});
+              json["localidade"] = cd_municipio_id;
             }
 
             $.ajax({

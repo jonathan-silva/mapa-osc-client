@@ -188,15 +188,15 @@ class Rotas{
 
   //cadastro-estado-municipio.js
   CadastroRepresentanteEstadoMunicipio(){
-    return this.getBaseUrl()+":8383/api/user/";
+    return this.getBaseUrl()+":8383/api/user/governo/";
   }
 
   ValidarEstado(cod_estado){
-    return this.getBaseUrl()+":8383/api/user/"+cod_estado;
+    return this.getBaseUrl()+":8383/api/user/"+cod_estado; // faltar colocar a verdaeira
   }
 
   ValidarMunicipio(cod_municipio){
-    return this.getBaseUrl()+":8383/api/user/"+cod_municipio;
+    return this.getBaseUrl()+":8383/api/user/"+cod_municipio;// faltar colocar a verdaeira
   }
 
   //contato.js
