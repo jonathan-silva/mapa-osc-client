@@ -191,12 +191,8 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/governo/";
   }
 
-  ValidarEstado(cod_estado){
-    return this.getBaseUrl()+":8383/api/user/"+cod_estado; // faltar colocar a verdaeira
-  }
-
-  ValidarMunicipio(cod_municipio){
-    return this.getBaseUrl()+":8383/api/user/"+cod_municipio;// faltar colocar a verdaeira
+  ValidarLocalidade(cod_localidade){
+    return this.getBaseUrl()+":8383/api/user/governo/ativo/localidade/"+cod_localidade;
   }
 
   //contato.js

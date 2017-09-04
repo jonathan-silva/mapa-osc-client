@@ -30,6 +30,8 @@ require(['react', 'jsx!components/Util'], function(React) {
         var limiteAutocomplete = 10;
         var limiteAutocompleteCidade = 25;
         var controller = "js/controller.php";
+        var localidadeAtiva = false;
+        var erroLocalidade = false;
 
         $("#tx_nome_representante.form-control").blur(function(event, ui) {
             var nome = this.value;
@@ -113,12 +115,12 @@ require(['react', 'jsx!components/Util'], function(React) {
                });
            },
             select: function( event, ui ) {
-              var cod_municipio = ui.item.id;
               var id_attr = '';
-              if (validaMunicipio(cod_municipio)) {
-                  $("#tx_nome_municipio").val( ui.item.value );
-                  $("#cd_municipio_id").val( cod_municipio );
+              $("#tx_nome_municipio").val( ui.item.value );
+              $("#cd_municipio_id").val( ui.item.id );
 
+              validarLocalidade(ui.item.id);
+              if (!localidadeAtiva && !erroLocalidade) {
                   id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
                   $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                   $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
@@ -127,8 +129,6 @@ require(['react', 'jsx!components/Util'], function(React) {
                   $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                   $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
               }
-
-              return false;
             }
          });
 
@@ -159,13 +159,12 @@ require(['react', 'jsx!components/Util'], function(React) {
              });
          },
           select: function( event, ui ) {
-            var cod_estado = ui.item.id;
             var id_attr = '';
+            $("#tx_nome_uf").val( ui.item.value );
+            $("#cd_uf_id").val( ui.item.id );
 
-            if (validaEstado(cod_estado)) {
-                $("#tx_nome_uf").val( ui.item.value );
-                $("#cd_uf_id").val( cod_estado );
-
+            validarLocalidade(ui.item.id);
+            if (!localidadeAtiva && !erroLocalidade) {
                 id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
                 $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
@@ -174,8 +173,6 @@ require(['react', 'jsx!components/Util'], function(React) {
                 $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
             }
-
-            return false;
           }
        });
 
@@ -195,9 +192,13 @@ require(['react', 'jsx!components/Util'], function(React) {
        });
 
        $("#tx_nome_uf.form-control").blur(function(event, ui) {
-           var cod_estado = this.value;
+           if(this.value == ""){
+            $("#cd_uf_id").val("");
+           }
+           var cod_estado = $("#cd_uf_id").val();
+           validarLocalidade(cod_estado);
            var id_attr = '';
-           if (validaEstado(cod_estado)) {
+           if (!localidadeAtiva && !erroLocalidade) {
                id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
                $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
@@ -209,9 +210,13 @@ require(['react', 'jsx!components/Util'], function(React) {
        });
 
        $("#tx_nome_municipio.form-control").blur(function(event, ui) {
-           var cod_municipio = this.value;
+           if(this.value == ""){
+            $("#cd_municipio_id").val("");
+           }
+           var cod_municipio = $('#cd_municipio_id').val();
+           validarLocalidade(cod_municipio);
            var id_attr = '';
-           if (validaMunicipio(cod_municipio)) {
+           if (!localidadeAtiva && !erroLocalidade) {
                id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
                $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
@@ -379,32 +384,19 @@ require(['react', 'jsx!components/Util'], function(React) {
         //final  btn.btn-success.click
 
         //FUNCOES DE VALIDACAO usando ajax
-        function validaEstado(cod_estado) {
+        function validarLocalidade(cod_localidade) {
           $.ajax({
             url: 'js/controller.php',
             type: 'GET',
+            async: false,
             dataType: 'json',
-            data: {flag: 'consulta', rota: rotas.ValidarEstado(cod_estado)},
+            data: {flag: 'consulta', rota: rotas.ValidarLocalidade(cod_localidade)},
             error: function(e){
-              return false;
+              erroLocalidade = true;
             },
             success: function(data){
-              return true;
-            }
-          });
-        }
-
-        function validaMunicipio(cod_municipio) {
-          $.ajax({
-            url: 'js/controller.php',
-            type: 'GET',
-            dataType: 'json',
-            data: {flag: 'consulta', rota: rotas.ValidarMunicipio(cod_municipio)},
-            error: function(e){
-              return false;
-            },
-            success: function(data){
-              return true;
+              erroLocalidade = false;
+              localidadeAtiva = data.resultado;
             }
           });
         }
