@@ -276,13 +276,6 @@ require(['react', 'jsx!components/Util'], function(React) {
                 newsletter = false;
             }
 
-            var pedido_atualizacao_anual = false;
-            if ($('#pedido_atualizacao_anual').is(":checked")) {
-                pedido_atualizacao_anual = true;
-            } else {
-                pedido_atualizacao_anual = false;
-            }
-
             var pedido_atualizacao_trimestral = false;
             if ($('#pedido_atualizacao_trimestral').is(":checked")) {
                 pedido_atualizacao_trimestral = true;
@@ -345,7 +338,6 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "tx_telefone_1": tel1,
                 "tx_telefone_2": tel2,
                 "bo_lista_email": newsletter,
-                "bo_lista_pedido_atualizacao_anual": pedido_atualizacao_anual,
                 "bo_lista_pedido_atualizacao_trimestral": pedido_atualizacao_trimestral,
             };
 
