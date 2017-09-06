@@ -258,11 +258,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
                 $('#modalMensagem').modal('show');
 
                 //atualizar nome Usuário e ids das OSCs permetidas para edição.
-                window.localStorage.setItem('Authorization', data.token.access_token);
-                window.localStorage.setItem('Osc', data.token.representacao);
-                window.localStorage.setItem('Nome', data.token.tx_nome_usuario);
+                window.localStorage.setItem('Authorization', data.access_token);
+                window.localStorage.setItem('Osc', data.representacao);
+                window.localStorage.setItem('Nome', data.tx_nome_usuario);
                 $(".menuLogado .dropdown-toggle").html('');
-                $(".menuLogado .dropdown-toggle").append(data.token.tx_nome_usuario);
+                $(".menuLogado .dropdown-toggle").append(data.tx_nome_usuario);
                 $(".menuLogado .dropdown-toggle").append(" <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
 
               },

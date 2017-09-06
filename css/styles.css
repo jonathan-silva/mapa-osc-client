@@ -238,7 +238,7 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 
 /*Página contato.html*/
 #assunto{
-    max-width: 200px;
+    max-width: 300px;
   }
 #nome{
     max-width: 600px;
@@ -1130,4 +1130,7 @@ select{
 .txtData{
   color: #e43f54;
   margin-bottom: 20px;
+}
+.metodologia li{
+  margin-bottom: 5px;
 }

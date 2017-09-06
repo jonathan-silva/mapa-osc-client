@@ -123,8 +123,10 @@ function abrirProjeto(e) {
 }
 
 
-require(["jquery-ui"], function (React) {
+require(["jquery-ui", 'rotas'], function (React) {
 
+	var controller = 'js/controller.php'
+	var rotas = new Rotas();
 
   $(document).tooltip({
     position: {
@@ -162,18 +164,40 @@ require(["jquery-ui"], function (React) {
 				 verificarContraste();
 		 };
 
-		 dataJson = { values: [{"id": "DG", "order": 1, "score": 30, "weight": 0.2, "color": "#9E0041", "label":"Dados Gerais"},
-		 {"id":"ASAO", "order":1, "score":30, "weight": 0.15, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
-		 {"id":"DO", "order":1, "score":20, "weight": 0.1, "color":"#F47245", "label":"Descrição da OSC"},
-		 {"id":"TC", "order":1, "score":40, "weight": 0.05, "color":"#FB9F59", "label":"Titulações e Certificações"},
-		 {"id":"RTG", "order":1, "score":50, "weight": 0.15, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
-		 {"id":"EPS", "order":1, "score":72, "weight": 0.1, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
-		 {"id":"PAP", "order":1, "score":20, "weight": 0.2, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
-		 {"id":"FRAO", "order":1, "score":10, "weight": 0.05, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
-		 };
+		 $.ajax({
+			 url: controller,
+			 type: 'GET',
+			 async: true,
+			 dataType: 'json',
+			 data:{flag: 'consulta', rota: rotas.BarraTransparencia(idOsc)},
+			 error:function(e){
+				 console.log("Erro no ajax: ");
+				 console.log(e);
+				 $('#grafico-progress').parent().hide();
+			 },
+			 success: function(data){
 
-		 perfil(dataJson['values']);
-		 $('#grafico-progress').hide();
+				 if (data != null) {
+
+					 dataJson = { values: [{"id": "DG", "order": 1, "score": data.transparencia_dados_gerais, "weight": data.peso_dados_gerais, "color": "#9E0041", "label":"Dados Gerais"},
+					 {"id":"ASAO", "order":1, "score":data.transparencia_area_atuacao, "weight": data.peso_area_atuacao, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
+					 {"id":"DO", "order":1, "score":data.transparencia_descricao, "weight": data.peso_descricao_osc, "color":"#F47245", "label":"Descrição da OSC"},
+					 {"id":"TC", "order":1, "score":data.transparencia_titulos_certificacoes, "weight": data.peso_titulos_certificacoes, "color":"#FB9F59", "label":"Titulações e Certificações"},
+					 {"id":"RTG", "order":1, "score":data.transparencia_relacoes_trabalho_governanca, "weight": data.peso_relacoes_trabalho_governanca, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
+					 {"id":"EPS", "order":1, "score":data.transparencia_espacos_participacao_social, "weight": data.peso_espacos_participacao_social, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
+					 {"id":"PAP", "order":1, "score":data.transparencia_projetos_atividades_programas, "weight": data.peso_projetos_atividades_programas, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
+					 {"id":"FRAO", "order":1, "score":data.transparencia_fontes_recursos, "weight": data.peso_fontes_recursos, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
+					 };
+
+	 				 perfil(dataJson['values']);
+					 $('#grafico-progress').parent().hide();
+
+				}
+			}
+
+		 });
+
+
 
 
 	});

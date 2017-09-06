@@ -30,16 +30,18 @@ require(['react', 'jsx!components/Util'], function(React) {
         var limiteAutocomplete = 10;
         var limiteAutocompleteCidade = 25;
         var controller = "js/controller.php";
+        var localidadeAtiva = false;
+        var erroLocalidade = false;
 
         $("#tx_nome_representante.form-control").blur(function(event, ui) {
             var nome = this.value;
             var id_attr = '';
             if (validaNome(nome)) {
-                id_attr = "#" + $("#tx_nome_representante.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_nome_representante.form-control").attr("id");
                 $("#tx_nome_representante.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
             } else {
-                id_attr = "#" + $("#tx_nome_representante.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_nome_representante.form-control").attr("id");
                 $("#tx_nome_representante.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
             }
@@ -49,11 +51,11 @@ require(['react', 'jsx!components/Util'], function(React) {
             var email = this.value;
             var id_attr = '';
             if (validaEmail(email)) {
-                id_attr = "#" + $("#tx_email.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_email.form-control").attr("id");
                 $("#tx_email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
             } else {
-                id_attr = "#" + $("#tx_email.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_email.form-control").attr("id");
                 $("#tx_email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
             }
@@ -64,20 +66,20 @@ require(['react', 'jsx!components/Util'], function(React) {
             var cpf = this.value;
             var id_attr = '';
             if (validaCPF(cpf)) {
-                id_attr = "#" + $("#tx_cpf.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_cpf.form-control").attr("id");
                 $("#tx_cpf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
             } else {
-                id_attr = "#" + $("#cpf.form-control").attr("id") + "1";
+                id_attr = "#" + $("#tx_cpf.form-control").attr("id");
                 $("#tx_cpf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
             }
         });
 
         $("#tx_confirmar_senha.form-control").blur(function(event, ui) {
-            var confirmarSenha = this.value;
+            var confirmar_senha = this.value;
             var senha = $('#tx_senha').val();
-            if (confirmarSenha == senha) {
+            if (confirmar_senha == senha) {
                 $("#tx_senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $("#tx_confirmar_senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
             } else {
@@ -113,11 +115,20 @@ require(['react', 'jsx!components/Util'], function(React) {
                });
            },
             select: function( event, ui ) {
+              var id_attr = '';
               $("#tx_nome_municipio").val( ui.item.value );
               $("#cd_municipio_id").val( ui.item.id );
-              $("#tx_nome_municipio").closest('.form-group').removeClass('has-error').addClass('has-success');
 
-              return false;
+              validarLocalidade(ui.item.id);
+              if (!localidadeAtiva && !erroLocalidade) {
+                  id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
+                  $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+                  $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+              } else {
+                  id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
+                  $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                  $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+              }
             }
          });
 
@@ -148,28 +159,73 @@ require(['react', 'jsx!components/Util'], function(React) {
              });
          },
           select: function( event, ui ) {
+            var id_attr = '';
             $("#tx_nome_uf").val( ui.item.value );
             $("#cd_uf_id").val( ui.item.id );
-            $("#tx_nome_uf").closest('.form-group').removeClass('has-error').addClass('has-success');
 
-            return false;
+            validarLocalidade(ui.item.id);
+            if (!localidadeAtiva && !erroLocalidade) {
+                id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
+                $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+                $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+            } else {
+                id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
+                $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+            }
           }
        });
-
-
-
 
        $("input:radio").change(function () {
          if($(this).val() == 0){
            $("#tx_nome_uf").parent().show();
            $("#tx_nome_municipio").parent().hide();
+           $("#tx_nome_municipio").val('');
+           $('#cd_municipio_id').val('');
          }
          else {
            $("#tx_nome_municipio").parent().show();
            $("#tx_nome_uf").parent().hide();
+           $('#tx_nome_uf').val('');
+           $('#cd_uf_id').val('');
          }
        });
 
+       $("#tx_nome_uf.form-control").blur(function(event, ui) {
+           if(this.value == ""){
+            $("#cd_uf_id").val("");
+           }
+           var cod_estado = $("#cd_uf_id").val();
+           validarLocalidade(cod_estado);
+           var id_attr = '';
+           if (!localidadeAtiva && !erroLocalidade) {
+               id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
+               $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+               $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+           } else {
+               id_attr = "#" + $("#tx_nome_uf.form-control").attr("id");
+               $("#tx_nome_uf.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+               $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+           }
+       });
+
+       $("#tx_nome_municipio.form-control").blur(function(event, ui) {
+           if(this.value == ""){
+            $("#cd_municipio_id").val("");
+           }
+           var cod_municipio = $('#cd_municipio_id').val();
+           validarLocalidade(cod_municipio);
+           var id_attr = '';
+           if (!localidadeAtiva && !erroLocalidade) {
+               id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
+               $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+               $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+           } else {
+               id_attr = "#" + $("#tx_nome_municipio.form-control").attr("id");
+               $("#tx_nome_municipio.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+               $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+           }
+       });
 
         var SPMaskBehavior = function (val) {
           return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
@@ -180,8 +236,8 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
         };
 
-        $('#tx_telefone').mask(SPMaskBehavior, spOptions);
-
+        $('#tx_telefone1').mask(SPMaskBehavior, spOptions);
+        $('#tx_telefone2').mask(SPMaskBehavior, spOptions);
 
         //inicio btn.btn-success.click
         var div = $(".form-group");
@@ -194,13 +250,17 @@ require(['react', 'jsx!components/Util'], function(React) {
             } else {
                 jQuery("#labelCaptcha").text("");
             }
-
+            var id_attr = '';
             var nome = $('#tx_nome_representante').val();
             var email = $('#tx_email').val();
             var cpf = $('#tx_cpf').val();
+            var orgao_trabalha = $('#tx_orgao_trabalha').val();
+            var tel1 = $('#tx_telefone1').val();
+            var tel2 = $('#tx_telefone2').val();
             var senha = $('#tx_senha').val();
-            var confirmarSenha = $('#tx_confirmar_senha').val();
-            var id_attr = '';
+            var confirmar_senha = $('#tx_confirmar_senha').val();
+            var cd_municipio_id = $('#cd_municipio_id').val();
+            var cd_uf_id = $('#cd_uf_id').val();
 
             var termoUso = false;
             if ($('#termoUso').is(":checked")) {
@@ -216,11 +276,11 @@ require(['react', 'jsx!components/Util'], function(React) {
                 newsletter = false;
             }
 
-            var pedido_atualizacao = false;
-            if ($('#pedido_atualizacao').is(":checked")) {
-                pedido_atualizacao = true;
+            var pedido_atualizacao_trimestral = false;
+            if ($('#pedido_atualizacao_trimestral').is(":checked")) {
+                pedido_atualizacao_trimestral = true;
             } else {
-                pedido_atualizacao = false;
+                pedido_atualizacao_trimestral = false;
             }
 
             if (!validaNome(nome)) {
@@ -244,7 +304,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             }
 
-            if ((senha == "") || (senha != confirmarSenha)) {
+            if ((senha == "") || (senha != confirmar_senha)) {
                 id_attr = "#" + $("#tx_senha.form-control").attr("id") + "1";
                 $("#tx_senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
@@ -269,25 +329,30 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             }
 
-
             var json = {
                 "tx_email_usuario": email,
                 "tx_senha_usuario": senha,
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
-                "cd_nome_uf": cd_uf_id,
-                "cd_municipio": cd_municipio_id,
+                "tx_orgao_trabalha": orgao_trabalha,
+                "tx_telefone_1": tel1,
+                "tx_telefone_2": tel2,
                 "bo_lista_email": newsletter,
-                "bo_lista_pedido_atualizacao": pedido_atualizacao,
-                "representacao": [{"tx_nome_uf": tx_nome_uf}]
+                "bo_lista_pedido_atualizacao_trimestral": pedido_atualizacao_trimestral,
             };
 
+            if($("input:radio:checked").val() == 0){
+                json["localidade"] = cd_uf_id;
+            }
+            else{
+              json["localidade"] = cd_municipio_id;
+            }
 
             $.ajax({
                 url: controller,
                 type: 'POST',
                 dataType: 'json',
-                data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
+                data: {flag: 'consultaPost', rota: rotas.CadastroRepresentanteEstadoMunicipio(), parametros: json},
                 error: function(data) {
                     if (data.status == 200){
                         jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
@@ -309,6 +374,25 @@ require(['react', 'jsx!components/Util'], function(React) {
             }); //final ajax
         });
         //final  btn.btn-success.click
+
+        //FUNCOES DE VALIDACAO usando ajax
+        function validarLocalidade(cod_localidade) {
+          $.ajax({
+            url: 'js/controller.php',
+            type: 'GET',
+            async: false,
+            dataType: 'json',
+            data: {flag: 'consulta', rota: rotas.ValidarLocalidade(cod_localidade)},
+            error: function(e){
+              erroLocalidade = true;
+            },
+            success: function(data){
+              erroLocalidade = false;
+              localidadeAtiva = data.resultado;
+            }
+          });
+        }
+
     }); //final require
 });
 
@@ -333,7 +417,9 @@ function validaEmail(email) {
         (dominio.search(" ") == -1) &&
         (dominio.search(".") != -1) &&
         (dominio.indexOf(".") >= 1) &&
-        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+        (dominio.lastIndexOf(".") < dominio.length - 1) &&
+        (dominio.indexOf("gov") != -1)
+      ) {
         return true;
     } else {
         return false;
