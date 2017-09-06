@@ -1827,7 +1827,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var idProjeto = 0;
 
       function getDataFromForm($elementos){
-        var obj = {};
+        var obj = [];
         var auxArr = [];
         $elementos.each(function() {
           var $pai = $(this).closest(".form-group");
