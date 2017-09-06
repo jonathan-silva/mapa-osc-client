@@ -67,7 +67,7 @@ class FonteRecurso {
 
       for (var i=0; i<items.length; i++){
         var value = items[i].content;
-        if(value !== ""){
+        if(value !== "" && value!==null){
           if(value.indexOf('.') === -1){
             value += "00";
           }

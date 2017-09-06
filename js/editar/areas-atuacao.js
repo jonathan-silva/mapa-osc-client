@@ -53,7 +53,7 @@ class AreaAtuacao {
         if(util.validateObject(areas_atuacao[0], false)){
           if (areas_atuacao[0].tx_nome_area_atuacao === "Outros") {
               if(items[j].id === "macro_area_1_outros"){
-                items[j].content = (areas_atuacao[0].tx_nome_area_atuacao_outra)?areas_atuacao[0].tx_nome_area_atuacao_outra:""; console.log(items[j].content);
+                items[j].content = (areas_atuacao[0].tx_nome_area_atuacao_outra)?areas_atuacao[0].tx_nome_area_atuacao_outra:"";
               }
               if(items[j].id === "sub_area_1_outros"){
                 var tamanho = (areas_atuacao[0].subarea_atuacao)?areas_atuacao[0].subarea_atuacao.length:0;
