@@ -162,6 +162,7 @@ require(["jquery-ui", 'rotas'], function (React) {
 		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
+				 $(".social iframe").attr('title', '');
 		 };
 
 		 $.ajax({
@@ -181,7 +182,7 @@ require(["jquery-ui", 'rotas'], function (React) {
 
 					 dataJson = { values: [{"id": "DG", "order": 1, "score": data.transparencia_dados_gerais, "weight": data.peso_dados_gerais, "color": "#9E0041", "label":"Dados Gerais"},
 					 {"id":"ASAO", "order":1, "score":data.transparencia_area_atuacao, "weight": data.peso_area_atuacao, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
-					 {"id":"DO", "order":1, "score":data.transparencia_descricao, "weight": data.peso_descricao_osc, "color":"#F47245", "label":"Descrição da OSC"},
+					 {"id":"DO", "order":1, "score":data.transparencia_descricao, "weight": data.peso_descricao, "color":"#F47245", "label":"Descrição da OSC"},
 					 {"id":"TC", "order":1, "score":data.transparencia_titulos_certificacoes, "weight": data.peso_titulos_certificacoes, "color":"#FB9F59", "label":"Titulações e Certificações"},
 					 {"id":"RTG", "order":1, "score":data.transparencia_relacoes_trabalho_governanca, "weight": data.peso_relacoes_trabalho_governanca, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
 					 {"id":"EPS", "order":1, "score":data.transparencia_espacos_participacao_social, "weight": data.peso_espacos_participacao_social, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
