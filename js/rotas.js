@@ -279,9 +279,15 @@ class Rotas{
 
   BarraTransparencia(id_osc){
     return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;
-
   }
 
+  RecuperarOscPorLocalidadeAreaAtuacao(id_area_atuacao, cod_localidade){
+    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+  }
+
+  RecuperarOscAtualizacao(){
+    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+  }
 
 
 }

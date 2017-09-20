@@ -1,3 +1,29 @@
+require(["jquery-ui"], function (React) {
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+          .addClass( "arrow" )
+          .addClass( feedback.vertical )
+          .addClass( feedback.horizontal )
+          .appendTo( this );
+      }
+    }
+  });
+
+  jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){
+          event.preventDefault();
+          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+     });
+  });
+
+});
+
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
   var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2014",
@@ -142,158 +168,8 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   });
 
 } );
-require(["bootstrap", "rotas"], function (React) {
 
-/*
-    $('.multi-item-carousel .item').each(function(){
-      var next = $(this).next();
-      if (!next.length) {
-        next = $(this).siblings(':first');
-      }
-      next.children(':first-child').clone().appendTo($(this));
-
-      if (next.next().length>0) {
-        next.next().children(':first-child').clone().appendTo($(this));
-      } else {
-      	$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-      }
-    });
-*/
-
-$(document).ready(function () {
-    var itemsMainDiv = ('.MultiCarousel');
-    var itemsDiv = ('.MultiCarousel-inner');
-    var itemWidth = "";
-
-    $('.leftLst, .rightLst').click(function () {
-        var condition = $(this).hasClass("leftLst");
-        if (condition)
-            click(0, this);
-        else
-            click(1, this)
-    });
-
-    ResCarouselSize();
-
-    $(window).resize(function () {
-        ResCarouselSize();
-    });
-
-    //this function define the size of the items
-    function ResCarouselSize() {
-        var incno = 0;
-        var dataItems = ("data-items");
-        var itemClass = ('.item');
-        var id = 0;
-        var btnParentSb = '';
-        var itemsSplit = '';
-        var sampwidth = $(itemsMainDiv).width();
-        var bodyWidth = $('body').width();
-        $(itemsDiv).each(function () {
-            id = id + 1;
-            var itemNumbers = $(this).find(itemClass).length;
-            btnParentSb = $(this).parent().attr(dataItems);
-            itemsSplit = btnParentSb.split(',');
-            $(this).parent().attr("id", "MultiCarousel" + id);
-
-            if (bodyWidth >= 1200) {
-                incno = itemsSplit[3];
-                itemWidth = 30 + (sampwidth / incno) ;
-            }
-            else if (bodyWidth >= 992) {
-                incno = itemsSplit[2];
-                itemWidth = ( sampwidth / incno);
-            }
-            else if (bodyWidth >= 768) {
-                incno = itemsSplit[2];
-                itemWidth = (sampwidth / incno);
-            }
-            else if (bodyWidth >= 400) {
-                incno = itemsSplit[1];
-                itemWidth = (sampwidth / incno);
-            }
-            else {
-                incno = itemsSplit[0];
-                itemWidth = (sampwidth / incno);
-            }
-            $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
-            $(this).find(itemClass).each(function () {
-                $(this).outerWidth(itemWidth);
-            });
-
-            $(".leftLst").addClass("over");
-            $(".rightLst").removeClass("over");
-
-        });
-    }
-
-
-    //this function used to move the items
-    function ResCarousel(e, el, s) {
-        var leftBtn = ('.leftLst');
-        var rightBtn = ('.rightLst');
-        var translateXval = '';
-        var divStyle = $(el + ' ' + itemsDiv).css('transform');
-        var values = divStyle.match(/-?[\d\.]+/g);
-        var xds = Math.abs(values[4]);
-        if (e == 0) {
-            translateXval = parseInt(xds) - parseInt(itemWidth * s);
-            $(el + ' ' + rightBtn).removeClass("over");
-
-            if (translateXval <= itemWidth / 2) {
-                translateXval = 0;
-                $(el + ' ' + leftBtn).addClass("over");
-            }
-        }
-        else if (e == 1) {
-            var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
-            translateXval = parseInt(xds) + parseInt(itemWidth * s);
-            $(el + ' ' + leftBtn).removeClass("over");
-
-            if (translateXval >= itemsCondition - itemWidth / 2) {
-                translateXval = itemsCondition;
-                $(el + ' ' + rightBtn).addClass("over");
-            }
-        }
-        $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
-    }
-
-    //It is used to get some elements from btn
-    function click(ell, ee) {
-        var Parent = "#" + $(ee).parent().attr("id");
-        var slide = $(Parent).attr("data-slide");
-        ResCarousel(ell, Parent, slide);
-    }
-
-});
-
-
-});
-
-require(["jquery-ui", "rotas"], function (React) {
-
-
-  $(document).tooltip({
-    position: {
-      my: "center bottom-20",
-      at: "center top",
-      using: function( position, feedback ) {
-        $( this ).css( position );
-        $( "<div>" )
-          .addClass( "arrow" )
-          .addClass( feedback.vertical )
-          .addClass( feedback.horizontal )
-          .appendTo( this );
-      }
-    }
-  });
-
-  jQuery(document).ready(function($) {
-      $(".scroll").click(function(event){
-          event.preventDefault();
-          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
-     });
-  });
+require(["bootstrap","jquery-ui", "rotas"], function (React) {
 
   var rotas = new Rotas();
   var limiteAutocomplete = 10;
@@ -479,14 +355,243 @@ $("#regiao .form-control").autocomplete({
  });
 
  $(document).ready(function() {
-   $('.ui-autocomplete-input').keypress(function(e) {
-     var key = e.which;
-     if(key == 13){
-       $('.btn-primary').click();
-       $('.ui-menu-item').hide();
-       return false;
-     }
-   });
+
+     $('.ui-autocomplete-input').keypress(function(e) {
+       var key = e.which;
+       if(key == 13){
+         $('.btn-primary').click();
+         $('.ui-menu-item').hide();
+         return false;
+       }
+     });
+
+     $("#itemLista").hide();
+
+     $.ajax({
+       url: controller,
+       type: 'GET',
+       async: true,
+       dataType: 'json',
+       data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
+       error: function(e){
+         console.log("Erro no ajax: ");
+         console.log(e);
+       },
+       success: function(data){
+
+         if(data != null && typeof data.length !== 'undefined'){
+           corpo = "";
+           for(var i = 0; i < data.length; i++){
+             if(data[i].cd_area_atuacao != 10 && data[i].tx_nome_area_atuacao != "Outros"){
+                if(i == 0){
+                  corpo += '<div class="item active">';
+                  id_area_atuacao = data[i].cd_area_atuacao;
+                  nome_area_atuacao = data[i].tx_nome_area_atuacao;
+                  cod_localidade = "cod_localidade";
+
+                }else{
+                  corpo += '<div class="item">';
+                }
+                corpo += '<div class="col-xs-12"><a class="btn-item" data-btn='+data[i].cd_area_atuacao+' <center>';
+                corpo += '<img class="imgAreaAtuacao" src="img/area_atuacao_'+data[i].cd_area_atuacao+'.png" >';
+                corpo += '<h5><b>'+data[i].tx_nome_area_atuacao+'</b></h5></center></a></div></div>';
+             }
+           }
+           $(".MultiCarousel-inner").append(corpo);
+
+           var itemsMainDiv = ('.MultiCarousel');
+           var itemsDiv = ('.MultiCarousel-inner');
+           var itemWidth = "";
+
+           $('.leftLst, .rightLst').click(function () {
+               var condition = $(this).hasClass("leftLst");
+               if (condition)
+                   click(0, this);
+               else
+                   click(1, this)
+           });
+
+           ResCarouselSize();
+
+           $(window).resize(function () {
+               ResCarouselSize();
+           });
+
+           //this function define the size of the items
+           function ResCarouselSize() {
+               var incno = 0;
+               var dataItems = ("data-items");
+               var itemClass = ('.item');
+               var id = 0;
+               var btnParentSb = '';
+               var itemsSplit = '';
+               var sampwidth = $(itemsMainDiv).width();
+               var bodyWidth = $('body').width();
+               $(itemsDiv).each(function () {
+                   id = id + 1;
+                   var itemNumbers = $(this).find(itemClass).length;
+                   btnParentSb = $(this).parent().attr(dataItems);
+                   itemsSplit = btnParentSb.split(',');
+                   $(this).parent().attr("id", "MultiCarousel" + id);
+
+                   if (bodyWidth >= 1200) {
+                       incno = itemsSplit[3];
+                       itemWidth = 30 + (sampwidth / incno) ;
+                   }
+                   else if (bodyWidth >= 992) {
+                       incno = itemsSplit[2];
+                       itemWidth = ( sampwidth / incno);
+                   }
+                   else if (bodyWidth >= 768) {
+                       incno = itemsSplit[2];
+                       itemWidth = (sampwidth / incno);
+                   }
+                   else if (bodyWidth >= 400) {
+                       incno = itemsSplit[1];
+                       itemWidth = (sampwidth / incno);
+                   }
+                   else {
+                       incno = itemsSplit[0];
+                       itemWidth = (sampwidth / incno);
+                   }
+                   $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                   $(this).find(itemClass).each(function () {
+                       $(this).outerWidth(itemWidth);
+                   });
+
+                   $(".leftLst").addClass("over");
+                   $(".rightLst").removeClass("over");
+
+               });
+           }
+
+
+           //this function used to move the items
+           function ResCarousel(e, el, s) {
+               var leftBtn = ('.leftLst');
+               var rightBtn = ('.rightLst');
+               var translateXval = '';
+               var divStyle = $(el + ' ' + itemsDiv).css('transform');
+               var values = divStyle.match(/-?[\d\.]+/g);
+               var xds = Math.abs(values[4]);
+               if (e == 0) {
+                   translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                   $(el + ' ' + rightBtn).removeClass("over");
+
+                   if (translateXval <= itemWidth / 2) {
+                       translateXval = 0;
+                       $(el + ' ' + leftBtn).addClass("over");
+                   }
+               }
+               else if (e == 1) {
+                   var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                   translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                   $(el + ' ' + leftBtn).removeClass("over");
+
+                   if (translateXval >= itemsCondition - itemWidth / 2) {
+                       translateXval = itemsCondition;
+                       $(el + ' ' + rightBtn).addClass("over");
+                   }
+               }
+               $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+           }
+
+           //It is used to get some elements from btn
+           function click(ell, ee) {
+               var Parent = "#" + $(ee).parent().attr("id");
+               var slide = $(Parent).attr("data-slide");
+               ResCarousel(ell, Parent, slide);
+           }
+
+           function recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade) {
+
+             $.ajax({
+               url: controller,
+               type: 'GET',
+               async: false,
+               dataType: 'json',
+               data: {flag: 'consulta', rota: rotas.RecuperarOscPorLocalidadeAreaAtuacao(id_area_atuacao, cod_localidade)},
+               error: function(e){
+                 console.log("Erro no ajax: ");
+                 console.log(e);
+               },
+               success: function(data){
+
+                 if(data != null && typeof data.length !== 'undefined'){
+
+                   tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+                   tabela += '<div class="table-responsive">';
+                   tabela += '<table class="table table-hover">';
+                   corpo = '<tbody>';
+
+                   for(var i = 0; i < data.length && i < 5; i++){
+                      num_row = i + 1;
+                      corpo += '<tr>';
+                      corpo += '<th scope="row">'+num_row+'</th>';
+                      corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+                      corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+                      corpo += '</tr>';
+                   }
+                   corpo += '</tbody>';
+                   tabela += corpo +'</table></div>';
+
+                   $("#top_5_area_atuacao").html(tabela);
+
+                 }
+               }
+             });
+
+           }
+
+
+           //botao de consulta top 5
+           $(".MultiCarousel .item a").on("click", function(){
+             id_area_atuacao = $(this).attr("data-btn");
+             nome_area_atuacao = $(this).text();
+             cod_localidade = "cod_localidade";
+             recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade);
+           });
+
+           recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade);
+         }
+       }
+     });
+
+     $.ajax({
+       url: controller,
+       type: 'GET',
+       async: false,
+       dataType: 'json',
+       data: {flag: 'consulta', rota: rotas.RecuperarOscAtualizacao()},
+       error: function(e){
+         console.log("Erro no ajax: ");
+         console.log(e);
+       },
+       success: function(data){
+
+         if(data != null && typeof data.length !== 'undefined'){
+
+           tabela = '<div class="table-responsive">';
+           tabela += '<table class="table table-hover">';
+           corpo = '<tbody>';
+
+           for(var i = 0; i < data.length && i < 10; i++){
+              num_row = i + 1;
+              corpo += '<tr>';
+              corpo += '<th scope="row">'+num_row+'</th>';
+              corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+              corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+              corpo += '</tr>';
+           }
+           corpo += '</tbody>';
+           tabela += corpo +'</table></div>';
+
+           $("#top_10_atualizacao").html(tabela);
+
+         }
+       }
+     });
+
  });
 
 });

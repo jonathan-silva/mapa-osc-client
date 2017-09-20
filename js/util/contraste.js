@@ -157,6 +157,11 @@ function verificarContraste(){
 setLogin = false;
 function verificarLogado(){
 
+  var nome_localidade = window.localStorage.getItem('nome_localidade');
+  if(nome_localidade != undefined && nome_localidade != ""){
+    $("#btn-localidade").text(nome_localidade);
+  }
+
   var user = window.localStorage.getItem('User');
   var aut  = window.localStorage.getItem('Authorization');
   var nome  = window.localStorage.getItem('Nome');
@@ -203,6 +208,10 @@ function deslogar(){
 
 function ativaEnterModalLogin(){
     $('#senhaLogin').keypress(function(e) { if(e.keyCode == 13) { $('a#btn-logar-modal')[0].click(); } } );
+}
+
+function ativaEnterModalLocalidade(){
+    $('#localidade').keypress(function(e) { if(e.keyCode == 13) { $('a#btn-localidade-modal')[0].click(); } } );
 }
 
 verificarContraste();

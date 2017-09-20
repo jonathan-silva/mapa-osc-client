@@ -225,7 +225,78 @@ define(['react','rotas'], function(React) {
         $('html, body').stop().animate({ scrollTop: posicao }, 800);
 
       }
+      else if (index == 10) {
+
+        var rotas = new Rotas();
+        var controller = 'js/controller.php';
+        var limiteAutocompleteCidade = 10;
+
+        function replaceSpecialChars(str){
+          str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+          str = str.replace(/[àáâãäå]/g,"a");
+          str = str.replace(/[ÉÈÊË]/g,"E");
+          str = str.replace(/[éèêë]/g,"e");
+          str = str.replace(/[ÍÌÎÏ]/g,"I");
+          str = str.replace(/[íìîï]/g,"i");
+          str = str.replace(/[ÓÒÔÕ]/g,"O");
+          str = str.replace(/[óòôõ]/g,"o");
+          str = str.replace(/[ÚÙÛÜ]/g,"U");
+          str = str.replace(/[úùûü]/g,"u");
+          str = str.replace(/[Ç]/g,"C");
+          str = str.replace(/[ç]/g,"c");
+          return str;
+        }
+
+
+        //autocomplete municipio
+        $("#localidade").autocomplete({
+            minLength: 1,
+            source: function (request, response) {
+               $.ajax({
+                   url: controller,
+                   type: 'GET',
+                   async: true,
+                   dataType: "json",
+                   data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+                   success: function (data) {
+                     response($.map( data, function( item ) {
+                        return {
+                            label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                            value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                            id: item.edmu_cd_municipio
+                        };
+                    }));
+                   },
+                   error: function (e) {
+                     $("#localidade").val("");
+                     $("#cd_municipio_id_localidade").val("");
+                     $("#localidade").closest('.form-group').removeClass('has-success').addClass('has-error');
+                     jQuery("#labelErrorLocalidade").text("Nome do Município inválido.");
+                   }
+               });
+           },
+            select: function( event, ui ) {
+              var id_attr = '';
+              $("#localidade").val( ui.item.value );
+              $("#cd_municipio_id_localidade").val( ui.item.id );
+
+              id_attr = "#" + $("#localidade.form-control").attr("id");
+              $("#localidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+              $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+
+            }
+         });
+      }
+      else if (index == 11) {
+
+        window.localStorage.setItem('cod_localidade',   $("#cd_municipio_id_localidade").val());
+        window.localStorage.setItem('nome_localidade',   $("#localidade").val());
+        $("#btn-localidade").text($("#localidade").val())
+        $('#modalLocalidade').modal('hide');
+        location.reload();
+      }
       else if (index == 0) {
+
       }
 
   },
@@ -251,8 +322,48 @@ define(['react','rotas'], function(React) {
               <a data-toggle="tooltip" data-placement="bottom" title="Aumentar fonte" className="inc-font cursor" onClick={this.getComponent.bind(this, 3)}><b> A+</b></a>
               <a data-toggle="tooltip" data-placement="bottom" title="Fonte padrão" className="res-font cursor" onClick={this.getComponent.bind(this, 4)}><b> A</b></a>
               <a data-toggle="tooltip" data-placement="bottom" title="Diminuir fonte" className="dec-font cursor" onClick={this.getComponent.bind(this, 5)}><b> A-</b></a></li>
+              <li>
+                <a id="btn-localidade" data-toggle="tooltip" data-placement="bottom" title="Escolha seu Município" className="cursor" data-toggle="modal" data-target="#modalLocalidade">Minha localidade</a>
+              </li>
             </ul>
           </div>
+
+
+
+          <div className="modal fade" id="modalLocalidade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 className="modal-title" id="modalLocalidade">Escolha seu Município</h4>
+                </div>
+
+                <div className="modal-body">
+                  <form className="form-login">
+                    <div className="form-group">
+                      <label className="control-label">Município</label>
+                      <input className="form-control" id="localidade" placeholder="Inserir o nome do seu Município" type="text" onClick={this.getComponent.bind(this, 10)}></input>
+                      <input className="form-control" id="cd_municipio_id_localidade" type="hidden" ></input>
+
+                    </div>
+                    <div className="form-group row-centered">
+                      <span id="labelErrorLocalidade" className="label label-danger centered"></span>
+                    </div>
+                  </form>
+                </div>
+
+                <div className="modal-footer">
+                  <a type="submit" className="btn btn-success" id="btn-localidade-modal" onClick={this.getComponent.bind(this, 11)} ><span className="glyphicon glyphicon-log-in" aria-hidden="true"></span> Confirmar</a>
+                  <a className="btn btn-danger" data-dismiss="modal"><span className="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
         </div>
         <div className="navbar navbar-default navbar-static-top">
           <div className="container">
