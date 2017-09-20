@@ -1134,6 +1134,7 @@ select{
 .metodologia li{
   margin-bottom: 5px;
 }
+
 .div_social{
   padding-right: 10px;
 }
@@ -1148,3 +1149,31 @@ select{
   float: right;
   display: flex;
 )
+
+
+
+
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; padding-top: 5px; padding-bottom: 0px; width: 100%; position:relative; }
+.MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+.MultiCarousel .MultiCarousel-inner .item { float: left;}
+.MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px;   padding-top: 0px; padding-bottom: 0px; margin:10px; margin-top: 5px; margin-bottom: 0px; color:#666;}
+.MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
+.MultiCarousel .leftLst { left:0;  }
+.MultiCarousel .rightLst { right:0; }
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
+.MultiCarousel .MultiCarousel-inner .item h5{ margin-bottom: 0px;}
+
+.imgAreaAtuacao{
+  width: 50px;
+  height: 50px;
+}
+#top_5_area_atuacao th, #top_10_atualizacao th{
+  width: 30px;
+}
+.top_5{
+  padding-top: 5px;
+}
+
+.ui-front{
+  z-index: 2000;
+}

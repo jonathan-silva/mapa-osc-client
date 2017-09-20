@@ -61,6 +61,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
 
   ativaEnterModalLogin();
+  ativaEnterModalLocalidade();
   verificarLogado();
   verificarContraste();
   document.getElementById("navCont").accessKey = "1";
