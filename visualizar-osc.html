@@ -197,7 +197,7 @@
                   <span ng-if="(objetivo.ft_objetivo_osc != 'Representante' && objetivo.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                   <span ng-if="(objetivo.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                 </div>
-                <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                   <span class="form-control-static">Não informado</span>
                 </div>
               </div>
@@ -209,7 +209,7 @@
                     <span ng-if="(objetivo_meta.ft_objetivo_osc != 'Representante' && objetivo_meta.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                     <span ng-if="(objetivo_meta.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                   </div>
-                  <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null">
+                  <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                     <span class="form-control-static">Não informado</span>
                   </div>
               </div>
