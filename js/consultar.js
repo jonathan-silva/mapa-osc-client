@@ -86,7 +86,7 @@ require(['react'], function (React) {
         {
           var data = new Date();
           var ano = data.getFullYear();
-          
+
           $( this ).slider({
             range: true,
             min: 1600,
@@ -495,7 +495,11 @@ require(['react'], function (React) {
                    response([]);
                }
            });
-       }
+       },
+        select: function( event, ui ) {
+          $("#tx_nome_municipio").val( ui.item.value );
+          $("#cd_municipio").val( ui.item.id );
+        }
      });
 
     //autocomplete estado
@@ -521,6 +525,10 @@ require(['react'], function (React) {
                  response([]);
              }
          });
+     },
+     select: function( event, ui ) {
+       $("#tx_nome_uf").val( ui.item.value );
+       $("#cd_uf").val( ui.item.id );
      }
    });
 
@@ -547,7 +555,11 @@ require(['react'], function (React) {
                 response([]);
             }
         });
-    }
+    },
+     select: function( event, ui ) {
+       $("#tx_nome_regiao").val( ui.item.value );
+       $("#cd_regiao").val( ui.item.id );
+     }
     });
 
 
@@ -613,6 +625,18 @@ require(['react'], function (React) {
               jsonConsulta[idSecao][$(this).attr('id')] = $(this).val();
             }
            });
+
+           $(this).find("input[type=hidden]").each(function () {
+             if( $(this).val() != "")
+             {
+               if(jsonConsulta[idSecao] === undefined )
+               {
+                 jsonConsulta[idSecao] = {};
+               }
+               jsonConsulta[idSecao][$(this).attr('id')] = $(this).val();
+             }
+            });
+
 
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
