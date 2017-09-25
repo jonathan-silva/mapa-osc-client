@@ -61,6 +61,20 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
         });
 
+        $("#tx_email_confirmacao.form-control").blur(function(event, ui) {
+            var email = this.value;
+            var id_attr = '';
+            if (validaEmailGov(email)) {
+                id_attr = "#" + $("#tx_email_confirmacao.form-control").attr("id");
+                $("#tx_email_confirmacao.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+                $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
+            } else {
+                id_attr = "#" + $("#tx_email_confirmacao.form-control").attr("id");
+                $("#tx_email_confirmacao.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+                $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
+            }
+        });
+
 
         $("#tx_cpf.form-control").blur(function(event, ui) {
             var cpf = this.value;
@@ -261,6 +275,8 @@ require(['react', 'jsx!components/Util'], function(React) {
             var confirmar_senha = $('#tx_confirmar_senha').val();
             var cd_municipio_id = $('#cd_municipio_id').val();
             var cd_uf_id = $('#cd_uf_id').val();
+            var email_confirmacao = $('#tx_email_confirmacao').val();
+            var registro_institucional = $('#tx_registro_institucional').val();
 
             var termoUso = false;
             if ($('#termoUso').is(":checked")) {
@@ -339,6 +355,8 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "tx_telefone_2": tel2,
                 "bo_lista_email": newsletter,
                 "bo_lista_pedido_atualizacao_trimestral": pedido_atualizacao_trimestral,
+                "tx_registro_institucional":registro_institucional,
+                "tx_email_confirmacao":email_confirmacao,
             };
 
             if($("input:radio:checked").val() == 0){
@@ -406,6 +424,26 @@ function validaNome(nome) {
 }
 
 function validaEmail(email) {
+    usuario = email.substring(0, email.indexOf("@"));
+    dominio = email.substring(email.indexOf("@") + 1, email.length);
+
+    if ((usuario.length >= 1) &&
+        (dominio.length >= 3) &&
+        (usuario.search("@") == -1) &&
+        (dominio.search("@") == -1) &&
+        (usuario.search(" ") == -1) &&
+        (dominio.search(" ") == -1) &&
+        (dominio.search(".") != -1) &&
+        (dominio.indexOf(".") >= 1) &&
+        (dominio.lastIndexOf(".") < dominio.length - 1)
+      ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validaEmailGov(email) {
     usuario = email.substring(0, email.indexOf("@"));
     dominio = email.substring(email.indexOf("@") + 1, email.length);
 
@@ -487,4 +525,31 @@ function replaceSpecialChars(str) {
     str = str.replace(/[Ç]/g, "C");
     str = str.replace(/[ç]/g, "c");
     return str;
+}
+
+var jsonModalAjuda = {
+	"Email de Confirmação":"texto para fazer.",
+ 	"Registro Institucional":"texto para fazer.",
+ 	"Órgão em que Trabalha":"texto para fazer.",
+ 	"Email":"texto para fazer.",
+};
+
+function abrirModalAjuda(titulo) {
+
+  var	corpo = jsonModalAjuda[titulo];
+  var tituloCompleto = "Ajuda - "+titulo;
+  var btn = "<button type='button' class='btn btn-danger' data-dismiss='modal'>Fechar</button>";
+
+  acionarModalAjuda(tituloCompleto, corpo, btn);
+}
+
+function acionarModalAjuda(titulo, corpo, btn) {
+  $("#modalTitulo").html("");
+  $("#modalTitulo").html(titulo);
+  $("#corpoModal").html("");
+  $("#corpoModal").html(corpo);
+	$("#btnFooter").html("");
+	$("#btnFooter").html(btn);
+  $("#modalAjuda").modal('show');
+  verificarContraste();
 }

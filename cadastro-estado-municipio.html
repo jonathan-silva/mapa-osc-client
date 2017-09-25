@@ -42,14 +42,18 @@
               <li>Atender exigências da <a href="http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm" title="Link Externo para a Lei 13.019/2014." target="_blank">Lei 13.019/2014<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>.</li>              <li><a href="./pdf/tutorial_para_formatacao_dados.pdf" title="Baixar o Tutorial para Formatação dos Dados">Clique para acessar o Tutorial - PDF (285KB)<img src="img/botao_pdf.png" height="18" width="18"></a> de informações que devem constar no banco de dados a ser enviado.</li>
             </ul>
           </div>
+        </div>
 
+        <div class="row">
           <div class="form-group col-xs-6 col-sm-12">
             <label class="control-label" for="nome_representante">Nome do Representante:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_nome_representante" placeholder="Nome do servidor público responsável por carregar o banco de dados no Mapa das OSCs" type="text">
           </div>
+        </div>
 
+        <div class="row">
           <div class="form-group col-xs-6 col-sm-6">
-            <label class="control-label" for="email">Email:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <label class="control-label" for="email">Email:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o email" onclick="abrirModalAjuda('Email');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_email" placeholder="Email" type="email">
           </div>
 
@@ -57,9 +61,11 @@
             <label class="control-label" for="cpf">CPF:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_cpf" placeholder="CPF" type="text">
           </div>
+         </div>
 
+        <div class="row">
           <div class="form-group col-xs-6 col-sm-6">
-            <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o Órgão em que Trabalha" onclick="abrirModalAjuda('Órgão em que Trabalha');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_orgao_trabalha" placeholder="Órgão em que Trabalha" type="text">
           </div>
 
@@ -69,19 +75,38 @@
           </div>
 
           <div class="form-group col-xs-6 col-sm-3">
-            <label class="control-label" for="telefone2">Telefone 2:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <label class="control-label" for="telefone2">Telefone 2:</label>
             <input class="form-control cel-sp-mask" id="tx_telefone2"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
           </div>
+        </div>
+
+        <div class="row">
           <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="email">Email de Confirmação:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o email de confirmação" onclick="abrirModalAjuda('Email de Confirmação');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
+            <input class="form-control" id="tx_email_confirmacao" placeholder="Email" type="email">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="email">Registro Institucional:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o registro institucional" onclick="abrirModalAjuda('Registro Institucional');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
+            <input class="form-control" id="tx_registro_institucional" placeholder="Registro Institucional" type="text">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-4 col-4">
             <label class="control-label" for="senha">Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_senha" placeholder="Senha" type="password">
           </div>
+        </div>
 
-          <div class="form-group col-xs-6 col-sm-6">
+        <div class="row">
+          <div class="form-group col-xs-4 col-sm-4">
             <label class="control-label" for="confirmar_senha">Confirmar Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_confirmar_senha" placeholder="Confirmar Senha" type="password">
           </div>
+        </div>
 
+        <div class="row">
           <div class="form-group col-xs-12 col-sm-12">
             <h4>Unidade Administrativa</h4>
             <label class="control-label">Estado</label>
@@ -143,6 +168,21 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Ajuda-->
+    <div class="modal fade" id="modalAjuda" tabindex="-1" role="dialog" aria-labelledby="modalTitulo" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title bold" id="modalTitulo"></h4>
+          </div>
+          <div id="corpoModal" class="modal-body">
+          </div>
+          <div class="modal-footer" id="btnFooter"></div>
         </div>
       </div>
     </div>
