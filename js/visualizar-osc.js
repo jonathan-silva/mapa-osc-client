@@ -240,7 +240,8 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fontes de recursos anuais da OSC</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label></div>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2017'> 2017</label></div>";
 	corpo += "</fieldset>";
 
 	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
