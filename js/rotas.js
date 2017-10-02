@@ -281,12 +281,16 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;
   }
 
-  RecuperarOscPorLocalidadeAreaAtuacao(id_area_atuacao, cod_localidade){
-    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+  RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_municipio){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/municipio/"+cd_municipio;
+  }
+
+  RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, latitude, longitude){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/geolocalizacao/"+latitude+"/"+longitude;
   }
 
   RecuperarOscAtualizacao(){
-    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+    return this.getBaseUrl()+":8383/api/osc/listaatualizadas/";
   }
 
 

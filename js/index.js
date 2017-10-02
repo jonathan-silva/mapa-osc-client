@@ -365,7 +365,7 @@ $("#regiao .form-control").autocomplete({
        }
      });
 
-     $("#itemLista").hide();
+    // $("#itemLista").hide();
 
      $.ajax({
        url: controller,
@@ -381,14 +381,13 @@ $("#regiao .form-control").autocomplete({
 
          if(data != null && typeof data.length !== 'undefined'){
            corpo = "";
+           cd_localidade = window.localStorage.getItem('cd_localidade');
            for(var i = 0; i < data.length; i++){
              if(data[i].cd_area_atuacao != 10 && data[i].tx_nome_area_atuacao != "Outros"){
                 if(i == 0){
                   corpo += '<div class="item active">';
-                  id_area_atuacao = data[i].cd_area_atuacao;
+                  cd_area_atuacao = data[i].cd_area_atuacao;
                   nome_area_atuacao = data[i].tx_nome_area_atuacao;
-                  cod_localidade = "cod_localidade";
-
                 }else{
                   corpo += '<div class="item">';
                 }
@@ -397,6 +396,7 @@ $("#regiao .form-control").autocomplete({
                 corpo += '<h5><b>'+data[i].tx_nome_area_atuacao+'</b></h5></center></a></div></div>';
              }
            }
+
            $(".MultiCarousel-inner").append(corpo);
 
            var itemsMainDiv = ('.MultiCarousel');
@@ -503,26 +503,27 @@ $("#regiao .form-control").autocomplete({
                ResCarousel(ell, Parent, slide);
            }
 
-           function recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade) {
+           function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade) {
 
              $.ajax({
                url: controller,
                type: 'GET',
                async: false,
                dataType: 'json',
-               data: {flag: 'consulta', rota: rotas.RecuperarOscPorLocalidadeAreaAtuacao(id_area_atuacao, cod_localidade)},
+               data: {flag: 'consulta', rota: rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade)},
                error: function(e){
                  console.log("Erro no ajax: ");
                  console.log(e);
                },
                success: function(data){
 
-                 if(data != null && typeof data.length !== 'undefined'){
+                 $("#loading_top_5").hide();
 
-                   tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
-                   tabela += '<div class="table-responsive">';
-                   tabela += '<table class="table table-hover">';
-                   corpo = '<tbody>';
+                 tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+                 tabela += '<div class="table-responsive">';
+                 tabela += '<table class="table table-hover">';
+                 corpo = '<tbody>';
+                 if(data != null && data.length !== 0 ){
 
                    for(var i = 0; i < data.length && i < 5; i++){
                       num_row = i + 1;
@@ -533,11 +534,14 @@ $("#regiao .form-control").autocomplete({
                       corpo += '</tr>';
                    }
                    corpo += '</tbody>';
-                   tabela += corpo +'</table></div>';
-
-                   $("#top_5_area_atuacao").html(tabela);
-
                  }
+                 else{
+                   corpo += '<tr>';
+                   corpo += '<th scope="row"><center>Nenhuma OSC encontrada.</center></th>';
+                   corpo += '</tr>';
+                 }
+                 tabela += corpo +'</table></div>';
+                 $("#top_5_area_atuacao").html(tabela);
                }
              });
 
@@ -546,13 +550,13 @@ $("#regiao .form-control").autocomplete({
 
            //botao de consulta top 5
            $(".MultiCarousel .item a").on("click", function(){
-             id_area_atuacao = $(this).attr("data-btn");
+             cd_area_atuacao = $(this).attr("data-btn");
              nome_area_atuacao = $(this).text();
-             cod_localidade = "cod_localidade";
-             recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade);
+             cd_localidade = window.localStorage.getItem('cd_localidade');
+             recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade);
            });
 
-           recuperarOscLocalidadeAreaAtuacao(id_area_atuacao, nome_area_atuacao, cod_localidade);
+           recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade);
          }
        }
      });
@@ -569,6 +573,7 @@ $("#regiao .form-control").autocomplete({
        },
        success: function(data){
 
+         $("#loading_top_10").hide();
          if(data != null && typeof data.length !== 'undefined'){
 
            tabela = '<div class="table-responsive">';

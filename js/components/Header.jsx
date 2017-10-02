@@ -289,7 +289,7 @@ define(['react','rotas'], function(React) {
       }
       else if (index == 11) {
 
-        window.localStorage.setItem('cod_localidade',   $("#cd_municipio_id_localidade").val());
+        window.localStorage.setItem('cd_localidade',   $("#cd_municipio_id_localidade").val());
         window.localStorage.setItem('nome_localidade',   $("#localidade").val());
         $("#btn-localidade").text($("#localidade").val())
         $('#modalLocalidade').modal('hide');
