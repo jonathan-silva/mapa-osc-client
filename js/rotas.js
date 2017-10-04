@@ -293,5 +293,12 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/osc/listaatualizadas/";
   }
 
+  RecuperarMunicipio(latitude, longitude){
+    return this.getBaseUrl()+":8383/api/geo/localidade/municipio/"+latitude+"/"+longitude;
+  }
+
+  RecuperarOscPorAreaAtuacao(cd_area_atuacao){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao;
+  }
 
 }

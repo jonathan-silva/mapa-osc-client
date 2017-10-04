@@ -355,211 +355,269 @@ $("#regiao .form-control").autocomplete({
  });
 
  $(document).ready(function() {
+  var itemWidth = "";
 
-     $('.ui-autocomplete-input').keypress(function(e) {
-       var key = e.which;
-       if(key == 13){
-         $('.btn-primary').click();
-         $('.ui-menu-item').hide();
-         return false;
-       }
-     });
+  if (navigator.geolocation){
+       navigator.geolocation.getCurrentPosition(showPosition,showError);
+  }else{
+    verificarLocalidade();
+  }
 
-    // $("#itemLista").hide();
+  function showPosition(position){
+    window.localStorage.setItem('cd_latitude',   position.coords.latitude);
+    window.localStorage.setItem('cd_longitude',  position.coords.longitude);
 
-     $.ajax({
-       url: controller,
-       type: 'GET',
-       async: true,
-       dataType: 'json',
-       data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
-       error: function(e){
-         console.log("Erro no ajax: ");
-         console.log(e);
-       },
-       success: function(data){
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: true,
+      dataType: 'json',
+      data:{flag: 'consulta', rota:  rotas.RecuperarMunicipio(position.coords.latitude, position.coords.longitude)},
+      error: function(e){
+        verificarLocalidade();
+      },
+      success: function(data){
+        if(data != null &&  data.length !== 0){
+          window.localStorage.setItem('cd_localidade',  data[0].cd_localidade);
+          window.localStorage.setItem('nome_localidade',  data[0].tx_nome_localidade);
+          $("#btn-localidade").text(data[0].tx_nome_localidade);
+        }
+        mostrarAreaAtuacaoPersonalizada();
+      }
+    });
+  }
 
-         if(data != null && typeof data.length !== 'undefined'){
-           corpo = "";
-           cd_localidade = window.localStorage.getItem('cd_localidade');
-           for(var i = 0; i < data.length; i++){
-             if(data[i].cd_area_atuacao != 10 && data[i].tx_nome_area_atuacao != "Outros"){
-                if(i == 0){
-                  corpo += '<div class="item active">';
-                  cd_area_atuacao = data[i].cd_area_atuacao;
-                  nome_area_atuacao = data[i].tx_nome_area_atuacao;
-                }else{
-                  corpo += '<div class="item">';
-                }
-                corpo += '<div class="col-xs-12"><a class="btn-item" data-btn='+data[i].cd_area_atuacao+' <center>';
-                corpo += '<img class="imgAreaAtuacao" src="img/area_atuacao_'+data[i].cd_area_atuacao+'.png" >';
-                corpo += '<h5><b>'+data[i].tx_nome_area_atuacao+'</b></h5></center></a></div></div>';
+  function showError(error){
+    verificarLocalidade();
+  }
+
+  function verificarLocalidade(){
+    cd_localidade = window.localStorage.getItem('cd_localidade');
+    if(cd_localidade == ""){
+      $('#modalLocalidade').modal('show');
+    }
+    mostrarAreaAtuacaoPersonalizada();
+  }
+
+  $('.ui-autocomplete-input').keypress(function(e) {
+     var key = e.which;
+     if(key == 13){
+       $('.btn-primary').click();
+       $('.ui-menu-item').hide();
+       return false;
+     }
+  });
+
+  function ResCarouselSize() {
+      var itemsMainDiv = ('.MultiCarousel');
+      var itemsDiv = ('.MultiCarousel-inner');
+
+      var incno = 0;
+      var dataItems = ("data-items");
+      var itemClass = ('.item');
+      var id = 0;
+      var btnParentSb = '';
+      var itemsSplit = '';
+      var sampwidth = $(itemsMainDiv).width();
+      var bodyWidth = $('body').width();
+
+      $(itemsDiv).each(function () {
+         id = id + 1;
+         var itemNumbers = $(this).find(itemClass).length;
+         btnParentSb = $(this).parent().attr(dataItems);
+         itemsSplit = btnParentSb.split(',');
+         $(this).parent().attr("id", "MultiCarousel" + id);
+
+         if (bodyWidth >= 1200) {
+             incno = itemsSplit[3];
+             itemWidth = 30 + (sampwidth / incno) ;
+         }
+         else if (bodyWidth >= 992) {
+             incno = itemsSplit[2];
+             itemWidth = ( sampwidth / incno);
+         }
+         else if (bodyWidth >= 768) {
+             incno = itemsSplit[2];
+             itemWidth = (sampwidth / incno);
+         }
+         else if (bodyWidth >= 400) {
+             incno = itemsSplit[1];
+             itemWidth = (sampwidth / incno);
+         }
+         else {
+             incno = itemsSplit[0];
+             itemWidth = (sampwidth / incno);
+         }
+         $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+         $(this).find(itemClass).each(function () {
+             $(this).outerWidth(itemWidth);
+         });
+
+         $(".leftLst").addClass("over");
+         $(".rightLst").removeClass("over");
+
+      });
+    }
+
+     //this function used to move the items
+     function ResCarousel(e, el, s) {
+         var itemsDiv = ('.MultiCarousel-inner');
+
+         var leftBtn = ('.leftLst');
+         var rightBtn = ('.rightLst');
+         var translateXval = '';
+         var divStyle = $(el + ' ' + itemsDiv).css('transform');
+         var values = divStyle.match(/-?[\d\.]+/g);
+         var xds = Math.abs(values[4]);
+         if (e == 0) {
+             translateXval = parseInt(xds) - parseInt(itemWidth * s);
+             $(el + ' ' + rightBtn).removeClass("over");
+
+             if (translateXval <= itemWidth / 2) {
+                 translateXval = 0;
+                 $(el + ' ' + leftBtn).addClass("over");
              }
+         }
+         else if (e == 1) {
+             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+             translateXval = parseInt(xds) + parseInt(itemWidth * s);
+             $(el + ' ' + leftBtn).removeClass("over");
+
+             if (translateXval >= itemsCondition - itemWidth / 2) {
+                 translateXval = itemsCondition;
+                 $(el + ' ' + rightBtn).addClass("over");
+             }
+         }
+         $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+     }
+
+     //It is used to get some elements from btn
+     function click(ell, ee) {
+         var Parent = "#" + $(ee).parent().attr("id");
+         var slide = $(Parent).attr("data-slide");
+         ResCarousel(ell, Parent, slide);
+     }
+
+    function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
+      cd_localidade = window.localStorage.getItem('cd_localidade');
+      cd_latitude = window.localStorage.getItem('cd_latitude');
+      cd_longitude = window.localStorage.getItem('cd_longitude');
+      var rotaEscolhida;
+
+      if(cd_latitude != "" && cd_longitude != "" ){
+        rotaEscolhida = rotas.RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, cd_latitude, cd_longitude);
+      }
+      else if(cd_localidade != "" ){
+        rotaEscolhida = rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade);
+      }else{
+        rotaEscolhida = rotas.RecuperarOscPorAreaAtuacao(cd_area_atuacao);
+      }
+
+      return rotaEscolhida;
+    }
+
+     function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
+
+       $.ajax({
+         url: controller,
+         type: 'GET',
+         async: false,
+         dataType: 'json',
+         data: {flag: 'consulta', rota: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao)},
+         error: function(e){
+           console.log("Erro no ajax: ");
+           console.log(e);
+         },
+         success: function(data){
+
+           $("#loading_top_5").hide();
+
+           tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+           tabela += '<div class="table-responsive">';
+           tabela += '<table class="table table-hover">';
+           corpo = '<tbody>';
+           if(data != null && data.length !== 0 ){
+
+             for(var i = 0; i < data.length && i < 5; i++){
+                num_row = i + 1;
+                corpo += '<tr>';
+                corpo += '<th scope="row">'+num_row+'</th>';
+                corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+                corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+                corpo += '</tr>';
+             }
+             corpo += '</tbody>';
            }
-
-           $(".MultiCarousel-inner").append(corpo);
-
-           var itemsMainDiv = ('.MultiCarousel');
-           var itemsDiv = ('.MultiCarousel-inner');
-           var itemWidth = "";
-
-           $('.leftLst, .rightLst').click(function () {
-               var condition = $(this).hasClass("leftLst");
-               if (condition)
-                   click(0, this);
-               else
-                   click(1, this)
-           });
-
-           ResCarouselSize();
-
-           $(window).resize(function () {
-               ResCarouselSize();
-           });
-
-           //this function define the size of the items
-           function ResCarouselSize() {
-               var incno = 0;
-               var dataItems = ("data-items");
-               var itemClass = ('.item');
-               var id = 0;
-               var btnParentSb = '';
-               var itemsSplit = '';
-               var sampwidth = $(itemsMainDiv).width();
-               var bodyWidth = $('body').width();
-               $(itemsDiv).each(function () {
-                   id = id + 1;
-                   var itemNumbers = $(this).find(itemClass).length;
-                   btnParentSb = $(this).parent().attr(dataItems);
-                   itemsSplit = btnParentSb.split(',');
-                   $(this).parent().attr("id", "MultiCarousel" + id);
-
-                   if (bodyWidth >= 1200) {
-                       incno = itemsSplit[3];
-                       itemWidth = 30 + (sampwidth / incno) ;
-                   }
-                   else if (bodyWidth >= 992) {
-                       incno = itemsSplit[2];
-                       itemWidth = ( sampwidth / incno);
-                   }
-                   else if (bodyWidth >= 768) {
-                       incno = itemsSplit[2];
-                       itemWidth = (sampwidth / incno);
-                   }
-                   else if (bodyWidth >= 400) {
-                       incno = itemsSplit[1];
-                       itemWidth = (sampwidth / incno);
-                   }
-                   else {
-                       incno = itemsSplit[0];
-                       itemWidth = (sampwidth / incno);
-                   }
-                   $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
-                   $(this).find(itemClass).each(function () {
-                       $(this).outerWidth(itemWidth);
-                   });
-
-                   $(".leftLst").addClass("over");
-                   $(".rightLst").removeClass("over");
-
-               });
+           else{
+             corpo += '<tr>';
+             corpo += '<th scope="row"><center>Nenhuma OSC encontrada.</center></th>';
+             corpo += '</tr>';
            }
+           tabela += corpo +'</table></div>';
+           $("#top_5_area_atuacao").html(tabela);
+         }
+       });
+     }
 
+    function mostrarAreaAtuacaoPersonalizada() {
 
-           //this function used to move the items
-           function ResCarousel(e, el, s) {
-               var leftBtn = ('.leftLst');
-               var rightBtn = ('.rightLst');
-               var translateXval = '';
-               var divStyle = $(el + ' ' + itemsDiv).css('transform');
-               var values = divStyle.match(/-?[\d\.]+/g);
-               var xds = Math.abs(values[4]);
-               if (e == 0) {
-                   translateXval = parseInt(xds) - parseInt(itemWidth * s);
-                   $(el + ' ' + rightBtn).removeClass("over");
+       $.ajax({
+         url: controller,
+         type: 'GET',
+         async: true,
+         dataType: 'json',
+         data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
+         error: function(e){
+           console.log("Erro no ajax: ");
+           console.log(e);
+         },
+         success: function(data){
 
-                   if (translateXval <= itemWidth / 2) {
-                       translateXval = 0;
-                       $(el + ' ' + leftBtn).addClass("over");
-                   }
+           if(data != null && typeof data.length !== 'undefined'){
+             corpo = "";
+             for(var i = 0; i < data.length; i++){
+               if(data[i].cd_area_atuacao != 10 && data[i].tx_nome_area_atuacao != "Outros"){
+                  if(i == 0){
+                    corpo += '<div class="item active">';
+                    cd_area_atuacao = data[i].cd_area_atuacao;
+                    nome_area_atuacao = data[i].tx_nome_area_atuacao;
+                  }else{
+                    corpo += '<div class="item">';
+                  }
+                  corpo += '<div class="col-xs-12"><a class="btn-item" data-btn='+data[i].cd_area_atuacao+' <center>';
+                  corpo += '<img class="imgAreaAtuacao" src="img/area_atuacao_'+data[i].cd_area_atuacao+'.png" >';
+                  corpo += '<h5><b>'+data[i].tx_nome_area_atuacao+'</b></h5></center></a></div></div>';
                }
-               else if (e == 1) {
-                   var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
-                   translateXval = parseInt(xds) + parseInt(itemWidth * s);
-                   $(el + ' ' + leftBtn).removeClass("over");
+             }
 
-                   if (translateXval >= itemsCondition - itemWidth / 2) {
-                       translateXval = itemsCondition;
-                       $(el + ' ' + rightBtn).addClass("over");
-                   }
-               }
-               $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
-           }
-
-           //It is used to get some elements from btn
-           function click(ell, ee) {
-               var Parent = "#" + $(ee).parent().attr("id");
-               var slide = $(Parent).attr("data-slide");
-               ResCarousel(ell, Parent, slide);
-           }
-
-           function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade) {
-
-             $.ajax({
-               url: controller,
-               type: 'GET',
-               async: false,
-               dataType: 'json',
-               data: {flag: 'consulta', rota: rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade)},
-               error: function(e){
-                 console.log("Erro no ajax: ");
-                 console.log(e);
-               },
-               success: function(data){
-
-                 $("#loading_top_5").hide();
-
-                 tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
-                 tabela += '<div class="table-responsive">';
-                 tabela += '<table class="table table-hover">';
-                 corpo = '<tbody>';
-                 if(data != null && data.length !== 0 ){
-
-                   for(var i = 0; i < data.length && i < 5; i++){
-                      num_row = i + 1;
-                      corpo += '<tr>';
-                      corpo += '<th scope="row">'+num_row+'</th>';
-                      corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
-                      corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
-                      corpo += '</tr>';
-                   }
-                   corpo += '</tbody>';
+             $(".MultiCarousel-inner").append(corpo);
+             $('.leftLst, .rightLst').click(function () {
+                 var condition = $(this).hasClass("leftLst");
+                 if (condition){
+                     click(0, this);
+                 }else{
+                    click(1, this);
                  }
-                 else{
-                   corpo += '<tr>';
-                   corpo += '<th scope="row"><center>Nenhuma OSC encontrada.</center></th>';
-                   corpo += '</tr>';
-                 }
-                 tabela += corpo +'</table></div>';
-                 $("#top_5_area_atuacao").html(tabela);
-               }
+            });
+
+             ResCarouselSize();
+
+             $(window).resize(function () {
+                 ResCarouselSize();
              });
 
+             //botao de consulta top 5
+             $(".MultiCarousel .item a").on("click", function(){
+               cd_area_atuacao = $(this).attr("data-btn");
+               nome_area_atuacao = $(this).text();
+               recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao);
+             });
+
+             recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao);
            }
-
-
-           //botao de consulta top 5
-           $(".MultiCarousel .item a").on("click", function(){
-             cd_area_atuacao = $(this).attr("data-btn");
-             nome_area_atuacao = $(this).text();
-             cd_localidade = window.localStorage.getItem('cd_localidade');
-             recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade);
-           });
-
-           recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao, cd_localidade);
          }
-       }
-     });
+       });
+     }
 
      $.ajax({
        url: controller,

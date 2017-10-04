@@ -270,6 +270,8 @@ define(['react','rotas'], function(React) {
                    error: function (e) {
                      $("#localidade").val("");
                      $("#cd_municipio_id_localidade").val("");
+                     window.localStorage.setItem('cd_localidade', "");
+                     window.localStorage.setItem('nome_localidade', "");
                      $("#localidade").closest('.form-group').removeClass('has-success').addClass('has-error');
                      jQuery("#labelErrorLocalidade").text("Nome do Município inválido.");
                    }
@@ -283,17 +285,29 @@ define(['react','rotas'], function(React) {
               id_attr = "#" + $("#localidade.form-control").attr("id");
               $("#localidade.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
               $(id_attr).removeClass('glyphicon-remove').addClass('glyphicon-ok');
-
+              jQuery("#labelErrorLocalidade").text("");
+              $("#btn-localidade-modal").show();
             }
          });
       }
       else if (index == 11) {
+        var nome_localidade = $("#localidade").val();
+        var cd_localidade = $("#cd_municipio_id_localidade").val();
 
-        window.localStorage.setItem('cd_localidade',   $("#cd_municipio_id_localidade").val());
-        window.localStorage.setItem('nome_localidade',   $("#localidade").val());
-        $("#btn-localidade").text($("#localidade").val())
+        if(cd_localidade != undefined && cd_localidade != ""){
+          window.localStorage.setItem('cd_localidade', cd_localidade);
+          window.localStorage.setItem('nome_localidade', nome_localidade);
+          window.localStorage.setItem('cd_latitude',   "");
+          window.localStorage.setItem('cd_longitude',  "");
+          $("#btn-localidade").text(nome_localidade);
+        }
+        else{
+          window.localStorage.setItem('cd_localidade', "");
+          window.localStorage.setItem('nome_localidade', "");
+        }
         $('#modalLocalidade').modal('hide');
-        location.reload();
+        recuperarOscLocalidadeAreaAtuacao(2, "Saúde");
+
       }
       else if (index == 0) {
 
@@ -427,4 +441,68 @@ function validaEmail(email){
   }else{
     return false;
   }
+}
+
+function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
+  var rotas = new Rotas();
+
+  cd_localidade = window.localStorage.getItem('cd_localidade');
+  cd_latitude = window.localStorage.getItem('cd_latitude');
+  cd_longitude = window.localStorage.getItem('cd_longitude');
+  var rotaEscolhida;
+
+  if(cd_latitude != "" && cd_longitude != "" ){
+    rotaEscolhida = rotas.RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, cd_latitude, cd_longitude);
+  }
+  else if(cd_localidade != "" ){
+    rotaEscolhida = rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade);
+  }else{
+    rotaEscolhida = rotas.RecuperarOscPorAreaAtuacao(cd_area_atuacao);
+  }
+
+  return rotaEscolhida;
+}
+
+function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
+  var controller = 'js/controller.php';
+
+  $.ajax({
+    url: controller,
+    type: 'GET',
+    async: false,
+    dataType: 'json',
+    data: {flag: 'consulta', rota: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao)},
+    error: function(e){
+      console.log("Erro no ajax: ");
+      console.log(e);
+    },
+    success: function(data){
+
+      $("#loading_top_5").hide();
+
+      tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+      tabela += '<div class="table-responsive">';
+      tabela += '<table class="table table-hover">';
+      corpo = '<tbody>';
+      if(data != null && data.length !== 0 ){
+
+        for(var i = 0; i < data.length && i < 5; i++){
+           num_row = i + 1;
+           corpo += '<tr>';
+           corpo += '<th scope="row">'+num_row+'</th>';
+           corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+           corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+           corpo += '</tr>';
+        }
+        corpo += '</tbody>';
+      }
+      else{
+        corpo += '<tr>';
+        corpo += '<th scope="row"><center>Nenhuma OSC encontrada.</center></th>';
+        corpo += '</tr>';
+      }
+      tabela += corpo +'</table></div>';
+      $("#top_5_area_atuacao").html(tabela);
+    }
+  });
 }

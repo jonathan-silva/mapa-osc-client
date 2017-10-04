@@ -157,8 +157,9 @@ function verificarContraste(){
 setLogin = false;
 function verificarLogado(){
 
-  var nome_localidade = window.localStorage.getItem('nome_localidade');
-  if(nome_localidade != undefined && nome_localidade != ""){
+  var cd_localidade = window.localStorage.getItem('cd_localidade');
+  if(cd_localidade != undefined && cd_localidade != ""){
+    var nome_localidade = window.localStorage.getItem('nome_localidade');
     $("#btn-localidade").text(nome_localidade);
   }
 
