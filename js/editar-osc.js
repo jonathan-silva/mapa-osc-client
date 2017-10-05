@@ -1280,7 +1280,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     $("#salvar").click(function(){
       var success="";//guarda mensagens dos saves das secoes da pagina
       //Dados Gerais
-      newJson["dados_gerais"] = util.validateObject(old_json.dados_gerais, []);
+      var newJson = {};
+
+      newJson = util.validateObject(old_json.dados_gerais, []);
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
 
       $("#dados_gerais :input").each(function(){
         var key = $(this).attr("id");
@@ -1324,7 +1328,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação
-      newJson["area_atuacao"] = util.validateObject(old_json.area_atuacao, []);
+      newJson = util.validateObject(old_json.area_atuacao, []);
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
+      newJson["area_atuacao"] = [];
 
       var suggestions = dadosForm.getSuggestions();
       $("#areas_de_atuacao .autocomplete").each(function(){
@@ -1359,9 +1366,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             subareas = null;
           }
           obj_area_atuacao.subarea_atuacao = subareas;
-          console.log(newJson);
-          console.log(newJson.area_atuacao);
           newJson.area_atuacao.push(obj_area_atuacao);
+          //newJson.area_atuacao
         });
         if(newJson.area_atuacao.length == 0){
           newJson.area_atuacao.push({
@@ -1371,17 +1377,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
         }
       });
+      
       success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
 
       //Descricao
       newJson["descricao"] = util.validateObject(old_json.descricao, []);
+
       $("#descricao .form-control").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
       success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
 
       //Certificacoes
-      newJson["certificado"] = util.validateObject(old_json.certificado, []);
+      newJson = util.validateObject(old_json.certificado, []);
+      //newJson["headers"] = authHeader;
+      //newJson["id_osc"] = idOsc;
+      newJson["certificado"] = [];
 
       $('#tabela_titulos_certificados tbody tr').each(function(i){
         var cd_certificado = 0;
@@ -1429,13 +1440,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.certificado.push(item);
         }
       });
-
+      
       newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
       if(newJson['certificado'].length == 0){
         newJson['certificado'] = null;
       }
-      success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
+      var certificado_json = {"certificado":newJson, "headers": authHeader, "id_osc": idOsc};
+
+      console.log(certificado_json);
+      success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', certificado_json);
 
         // Relações de trabalho
         //Governanca
@@ -1497,6 +1511,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), returnFunction);
 
         //conselho
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["conselho"] = [];
         newJson["bo_nao_possui_conselhos"] = $('#conselhos input[type="checkbox"]').is(':checked');
 
@@ -1611,6 +1628,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ajaxConsulta(urlController, rotas.Conferencia(), returnFunction);
 
         //conferencia
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["conferencia"] = [];
         newJson["bo_nao_possui_conferencias"] = $('#conferencias input[type="checkbox"]').is(':checked');
 
@@ -1676,6 +1696,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               newJson.conferencia.push(obj);
           }
         });
+        console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
@@ -1715,6 +1736,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             newJson.fonte_recursos.push(obj);
           })
         });
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
       jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
