@@ -188,7 +188,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
     val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?" + id + "=" + val + "&similaridade=05";
+      link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
       location.href=link;
     }
     else {
@@ -229,7 +229,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, '05')},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
            success: function (data) {
         	   if(data.constructor === Array){
 	        	   if(data.length == 1){
@@ -255,10 +255,9 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
    },
    select: function(event, ui){
 		if(flagMultiplo){
-			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=99';
+			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&tipoBusca=1';
 		}else{
-			//link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
-			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=05';
+			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&tipoBusca=0';
 		}
 		location.href=link;
    }
