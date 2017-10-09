@@ -306,8 +306,10 @@ define(['react','rotas'], function(React) {
           window.localStorage.setItem('nome_localidade', "");
         }
         $('#modalLocalidade').modal('hide');
-        recuperarOscLocalidadeAreaAtuacao(2, "Saúde");
 
+        if(window.location.pathname == "/index.html"){
+          recuperarOscLocalidadeAreaAtuacao(2, "Saúde");
+        }
       }
       else if (index == 0) {
 
@@ -446,9 +448,9 @@ function validaEmail(email){
 function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
   var rotas = new Rotas();
 
-  cd_localidade = window.localStorage.getItem('cd_localidade');
-  cd_latitude = window.localStorage.getItem('cd_latitude');
-  cd_longitude = window.localStorage.getItem('cd_longitude');
+  var cd_localidade = window.localStorage.getItem('cd_localidade');
+  var cd_latitude = window.localStorage.getItem('cd_latitude');
+  var cd_longitude = window.localStorage.getItem('cd_longitude');
   var rotaEscolhida;
 
   if(cd_latitude != "" && cd_longitude != "" ){
@@ -480,10 +482,10 @@ function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
 
       $("#loading_top_5").hide();
 
-      tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+      var tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
       tabela += '<div class="table-responsive">';
       tabela += '<table class="table table-hover">';
-      corpo = '<tbody>';
+      var corpo = '<tbody>';
       if(data != null && data.length !== 0 ){
 
         for(var i = 0; i < data.length && i < 5; i++){

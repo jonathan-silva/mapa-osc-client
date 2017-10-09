@@ -87,7 +87,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 	// add fullscreen control to the map
 	map.addControl(fsControl);
 
-  var parametros='';
   var newData, urlRotaMapa;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
