@@ -651,7 +651,8 @@ require(['react'], function (React) {
 
          });
 
-         var link = "./resultado-consulta.html?avancado="+JSON.stringify(jsonConsulta);
+         var link = "./resultado-consulta.html?avancado=";
+         window.localStorage.setItem('params_busca_avancada', JSON.stringify(jsonConsulta));
          location.href=link;
 
 

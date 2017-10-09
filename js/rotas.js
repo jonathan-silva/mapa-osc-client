@@ -249,12 +249,12 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/menu/osc/forma_participacao_conferencia/";
   }
 
-  ConsultaAvancadaLista(term, offset){
-    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset+"?avancado="+term;
+  ConsultaAvancadaLista(offset){
+    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset;
   }
 
   ConsultaAvancadaMapa(term){
-    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0?avancado="+term;
+    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0";
 
   }
 

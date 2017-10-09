@@ -40,6 +40,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
+  var consulta_avancada = false;
+  var params = {};
   var urlController = 'js/controller.php';
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
@@ -300,16 +302,18 @@ $("#regiao .form-control").autocomplete({
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else if(tipoConsulta=="avancado"){
-      if(stringBuscada == '{}'){
+      params["avancado"] = window.localStorage.getItem('params_busca_avancada');
+      if(params["avancado"] == '{}'){
         //consulta tudo
         tipoConsulta="todos";
         urlRotaMapa = rotas.ClusterPais();
         urlRota = rotas.AllOSC(0);
       }
       else{
-        urlRota = rotas.ConsultaAvancadaLista(stringBuscada,0);
-        urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
+        urlRota = rotas.ConsultaAvancadaLista(0);
+        urlRotaMapa=rotas.ConsultaAvancadaMapa();
         isClusterVersion=false;
+        consulta_avancada = true;
       }
     }
     else{
@@ -324,15 +328,22 @@ $("#regiao .form-control").autocomplete({
   }
 
   //*** Methods
-  function tabela(urlRota){
+  function tabela(urlRota, consulta_avancada){
     $('#loading').removeClass('hide');
     $('#resultadoconsulta_formato_dados').hide();
+    if(consulta_avancada){
+      type_http = "POST";
+      data_tipo = {flag: 'consultaPost', rota: urlRota, parametros: params};
+    }else{
+      type_http = "GET";
+      data_tipo = {flag: 'consulta', rota: urlRota};
+    }
 
     $.ajax({
       url: "js/controller.php",
-      type: 'GET',
+      type: type_http,
       dataType: 'json',
-      data:{flag: "consulta", rota: urlRota},
+      data:data_tipo,
       error:function(e){
         console.log("Erro no ajax: "+e);
       },
@@ -395,7 +406,7 @@ $("#regiao .form-control").autocomplete({
             $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
             $('#modalTitle').text('Nenhuma OSC encontrada!');
             if(tipoConsulta !== "avancado"){
-              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
             }else {
               $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
             }
@@ -406,7 +417,7 @@ $("#regiao .form-control").autocomplete({
            $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
            $('#modalTitle').text('Nenhuma OSC encontrada!');
            if(tipoConsulta !== "avancado"){
-             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
            }else {
              $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
            }
@@ -693,7 +704,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -724,7 +735,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -759,7 +770,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -801,7 +812,8 @@ $("#regiao .form-control").autocomplete({
     var offset = parseInt(pageNumber) * 10 - 10;
 
     if(tipoConsulta == "avancado"){
-      urlRota = rotas.ConsultaAvancadaLista(stringBuscada,offset);
+      urlRota = rotas.ConsultaAvancadaLista(offset);
+      consulta_avancada = true;
     }
     else if(tipoConsulta == "municipio"){
       urlRota = rotas.OSCByCounty(stringBuscada,offset);
@@ -819,7 +831,7 @@ $("#regiao .form-control").autocomplete({
       urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('similaridade'));
     }
 
-    tabela(urlRota);
+    tabela(urlRota, consulta_avancada);
   }
 
   function clickClusterEstado(e){
@@ -836,7 +848,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -874,11 +886,19 @@ $("#regiao .form-control").autocomplete({
   //*** MAIN ***\\
   $("#loadingMapModal").show();
 
+  if(consulta_avancada){
+    type_http = "POST";
+    data_tipo_mapa = {flag: 'consultaPost', rota: urlRotaMapa, parametros: params};
+  }else{
+    type_http = "GET";
+    data_tipo_mapa = {flag: 'consulta', rota: urlRotaMapa};
+  }
+
   $.ajax({
     url: urlController,
-    type: 'GET',
+    type: type_http,
     dataType: 'json',
-    data: {flag: 'consulta', rota: urlRotaMapa},
+    data: data_tipo_mapa,
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         //console.log(urlRotaMapa);
@@ -886,7 +906,7 @@ $("#regiao .form-control").autocomplete({
     success: function(data){
 
       if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!"){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -911,7 +931,7 @@ $("#regiao .form-control").autocomplete({
         $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
         $('#modalTitle').text('Nenhuma OSC encontrada!');
         if(tipoConsulta !== "avancado"){
-          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
         }else {
           $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
         }
