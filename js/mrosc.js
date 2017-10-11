@@ -77,7 +77,7 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
         success: function(data){
 
           html =  '<div class="tab-pane active" >';
-          html += '<div class="text-justify txtBloco">'+data.tx_descricao_conteudo+'</div>';
+          html += '<div class="text-justify txtBloco">'+data[0].conteudoMrosc.tx_descricao_conteudo+'</div>';
           html += '<h5>Fonte: <a href="http://www.participa.br" title="Link Externo para www.participa.br." target="_blank">www.participa.br<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></h5>';
           html += '</div>';
 
