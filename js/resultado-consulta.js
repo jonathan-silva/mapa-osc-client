@@ -404,7 +404,7 @@ $("#regiao .form-control").autocomplete({
             $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
             $('#modalTitle').text('Nenhuma OSC encontrada!');
             if(tipoConsulta !== "avancado"){
-              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
+              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
             }else {
               $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
             }
@@ -415,7 +415,7 @@ $("#regiao .form-control").autocomplete({
            $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
            $('#modalTitle').text('Nenhuma OSC encontrada!');
            if(tipoConsulta !== "avancado"){
-             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
+             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
            }else {
              $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
            }
@@ -903,7 +903,7 @@ $("#regiao .form-control").autocomplete({
     },
     success: function(data){
 
-      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!"){
+      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" && Object.keys(data).length > 1 ){
         tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
@@ -929,7 +929,7 @@ $("#regiao .form-control").autocomplete({
         $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
         $('#modalTitle').text('Nenhuma OSC encontrada!');
         if(tipoConsulta !== "avancado"){
-          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(params["avancado"]) + '" não retornou nenhuma OSC.');
+          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
         }else {
           $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
         }
