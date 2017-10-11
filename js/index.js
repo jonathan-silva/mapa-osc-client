@@ -574,9 +574,10 @@ $("#regiao .form-control").autocomplete({
 
            if(data != null && typeof data.length !== 'undefined'){
              corpo = "";
+             var cd_area_atuacao;
              for(var i = 0; i < data.length; i++){
-               if(data[i].cd_area_atuacao != 10 && data[i].tx_nome_area_atuacao != "Outros"){
-                  if(i == 0){
+               if(data[i].cd_area_atuacao != 1 && data[i].cd_area_atuacao != 10 ){
+                  if(data[i].cd_area_atuacao == 2){
                     corpo += '<div class="item active">';
                     cd_area_atuacao = data[i].cd_area_atuacao;
                     nome_area_atuacao = data[i].tx_nome_area_atuacao;
