@@ -528,10 +528,10 @@ function replaceSpecialChars(str) {
 }
 
 var jsonModalAjuda = {
-	"Email de Confirmação":"texto para fazer.",
- 	"Registro Institucional":"texto para fazer.",
- 	"Órgão em que Trabalha":"texto para fazer.",
- 	"Email":"texto para fazer.",
+	"Email de Confirmação":'Email institucional (gov.br) da chefia imediata ou de superior mais próximo que possua email <b>".gov.br"</b>.<br>Caso o Estado ou Município não possua email institucional, informe pelo email mapaosc@ipea.com.br.',
+ 	"Registro Institucional":"Um registro que comprove a vinculação do representante do Estado ou Município com o ente federativo. Sugere-se utilizar o número de matrícula do servidor ou identificador similar. Não Obrigatório.",
+ 	"Órgão em que Trabalha":"Informar o setor que trabalha e a Secretaria Estadual ou Municipal à qual está vinculado/a.",
+ 	"Email":'Email institucional do/a responsável por encaminhar ao Mapa das OSCs o banco de dados com as parcerias entre OSCs e o governo estadual/municipal. Solicitamos, preferencialmente, um contato institucional terminado em <b>".gov.br"</b>.<br>Caso não seja possível, pode-se utilizar o email pessoal para efetuar o cadastro.',
 };
 
 function abrirModalAjuda(titulo) {
