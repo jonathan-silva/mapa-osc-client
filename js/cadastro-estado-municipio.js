@@ -90,10 +90,19 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
         });
 
+        $("#tx_senha.form-control").blur(function(event, ui) {
+            var senha = this.value;
+            if (senha.length >= 6) {
+                $("#tx_senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
+            } else {
+                $("#tx_senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
+            }
+        });
+
         $("#tx_confirmar_senha.form-control").blur(function(event, ui) {
             var confirmar_senha = this.value;
             var senha = $('#tx_senha').val();
-            if (confirmar_senha == senha) {
+            if (confirmar_senha == senha && confirmar_senha.length >= 6) {
                 $("#tx_senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $("#tx_confirmar_senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
             } else {
@@ -253,6 +262,18 @@ require(['react', 'jsx!components/Util'], function(React) {
         $('#tx_telefone1').mask(SPMaskBehavior, spOptions);
         $('#tx_telefone2').mask(SPMaskBehavior, spOptions);
 
+        $("#btnLimpar").on("click", function() {
+          $("#conteudo input").each(function () {
+            $(this).val('');
+          });
+
+          $('input[type=checkbox]').each(function () {
+            $(this).attr('checked', false);
+            $(this).prop('checked', false);
+          });
+
+        });
+
         //inicio btn.btn-success.click
         var div = $(".form-group");
         div.find(".btn.btn-success").on("click", function() {
@@ -320,7 +341,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             }
 
-            if ((senha == "") || (senha != confirmar_senha)) {
+            if ((senha == "") || (senha != confirmar_senha) || (senha.length < 6)) {
                 id_attr = "#" + $("#tx_senha.form-control").attr("id") + "1";
                 $("#tx_senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
@@ -330,7 +351,12 @@ require(['react', 'jsx!components/Util'], function(React) {
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
 
                 jQuery("#modalTitle").text("Problema no cadastro!");
-                jQuery("#modalConteudo").text("Os valores da senha e da confirmação são diferentes.");
+                if(senha.length < 6){
+                  jQuery("#modalConteudo").text("Senha deve conter mínimo 6 caracteres.");
+                }
+                else{
+                  jQuery("#modalConteudo").text("Os valores da senha e da confirmação são diferentes.");
+                }
                 $modal.modal('show');
                 return false;
             }
@@ -532,6 +558,7 @@ var jsonModalAjuda = {
  	"Registro Institucional":"Um registro que comprove a vinculação do representante do Estado ou Município com o ente federativo. Sugere-se utilizar o número de matrícula do servidor ou identificador similar. Não Obrigatório.",
  	"Órgão em que Trabalha":"Informar o setor que trabalha e a Secretaria Estadual ou Municipal à qual está vinculado/a.",
  	"Email":'Email institucional do/a responsável por encaminhar ao Mapa das OSCs o banco de dados com as parcerias entre OSCs e o governo estadual/municipal. Solicitamos, preferencialmente, um contato institucional terminado em <b>".gov.br"</b>.<br>Caso não seja possível, pode-se utilizar o email pessoal para efetuar o cadastro.',
+  "Senha":'A senha deve conter no mínimo <b>6</b> caracteres.'
 };
 
 function abrirModalAjuda(titulo) {
