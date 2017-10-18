@@ -1445,14 +1445,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       if(newJson['certificado'].length == 0){
         newJson['certificado'] = null;
+        //newJson['certificado'] = [];
       }
-      var certificado_json = {"certificado":newJson, "headers": authHeader, "id_osc": idOsc};
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
+      //var certificado_json = {"certificado":newJson, "headers": authHeader, "id_osc": idOsc};
 
-      console.log(certificado_json);
-      success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', certificado_json);
+      console.log(newJson);
+      success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
 
         // Relações de trabalho
         //Governanca
+        newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["governanca"] = [];
         var item = {};
         $("#dirigentes").find("input").each(function(i){
@@ -1473,8 +1479,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson['governanca'] = null;
         }
         success = util.carregaAjax(rotas.Dirigente(idOsc), 'POST', newJson);
-
+        //console.log(newJson);
         //Conselho Fiscal
+        newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["conselho_fiscal"] = [];
 
         $("#conselho_fiscal").find("input").each(function(){
