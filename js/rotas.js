@@ -301,4 +301,8 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao;
   }
 
+  EnviarArquivoEstadoMunicipio(){
+    return this.getBaseUrl()+":8383/api/gov/carregararquivoparcerias";
+  }
+
 }

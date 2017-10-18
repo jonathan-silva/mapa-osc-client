@@ -28,32 +28,34 @@
     </div>
     <div class="container" id="container">
     <div class="row">
-      <div class="col-md-12">
+      <div >
         <h1 class="text-primary">Entrada de Dados</h1>
         <hr>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <h4>Verifique as regras para o envio dos dados<a class="btn-item" data-toggle="modal" data-target="#modalFormatoDados"> clicando aqui.</a></h4>
+      <div class="col-xs-6 col-sm-12">
+        <h4>Verifique as regras para o envio dos dados:</h4>
+        <h4><a href="./pdf/tutorial_para_formatacao_dados.pdf" title="Baixar o Tutorial para Formatação dos Dados" target="_blank">Clique para acessar o Tutorial - PDF (285KB)<img src="img/botao_pdf.png" height="18" width="18"></a> de informações que devem constar no banco de dados a ser enviado.</h4>
+
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-xs-6 col-sm-12">
         <h4 class="tipo_entrada">TIPO DE ENTRADA</h4>
-        <label class="control-label">Web Service</label>
-        <input type="radio" name="tipo_entrada" checked="checked" value="web_service">
+      <!--  <label class="control-label">Web Service</label>
+        <input type="radio" name="tipo_entrada" value="web_service"> -->
         <label class="control-label">Arquivo</label>
-        <input type="radio" name="tipo_entrada" value="arquivo">
+        <input type="radio" name="tipo_entrada" checked="checked" value="arquivo">
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-xs-6 col-sm-12">
         <form role="form">
 
           <!--Formulario Web Service-->
-          <div id="web_service" style="display:block;">
+          <div id="web_service" class="col-xs-6 col-sm-12" style="display:none;">
             <div class="form-group">
               <h4>Indique o endereço de acesso(url) do webservice</h4>
               <label class="control-label">Endereço do Serviço: </label>
@@ -74,27 +76,57 @@
           </div>
 
           <!--Formulario Arquivo-->
-          <div id="arquivo" style="display:none;">
+          <div id="arquivo" class="col-xs-6 col-sm-12" style="display:block;">
             <div class="form-group">
-              <h4>Selecione o arquivo a ser enviado</h4>
-              <label class="control-label">Arquivo Enviado:</label>
-              <input class="form-control" type="file" >
+              <h4>Selecione o arquivo a ser enviado:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o arquivo a ser enviado." onclick="abrirModalAjuda('Selecione o arquivo a ser enviado');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h4>
+              <label class="control-label">Arquivo Enviado:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+              <input class="form-control" id="fileUpload" name="fileUpload" type="file" accept=".csv,.json">
+              <span id="labelFile" class="label label-danger"></span>
             </div>
             <div class="form-group">
-              <label class="control-label">Tipo de Arquivo: </label>
+              <label class="control-label">Tipo de Arquivo:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
               <div class="tipo_arquivo" id="tipo_arquivo_dropdown"></div>
             </div>
           </div>
 
-          <div class="form-group">
-            <div class="captcha">
-              <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
+          <!-- Modal -->
+          <div id="modalMensagem" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div id="modalTitle"  class="modal-header negrito"></div>
+                <div  id="modalConteudo" class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-dismiss="modal">OK </button>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="form-group">
-            <div class="col-sm-offset-0">
-              <button type="submit" class="btn btn-success">Enviar Dados</button>
-              <button type="submit" class="btn btn-danger">Cancelar</button>
+
+          <!-- Modal Ajuda-->
+          <div class="modal fade" id="modalAjuda" tabindex="-1" role="dialog" aria-labelledby="modalTitulo" style="display: none;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title bold" id="modalTitulo"></h4>
+                </div>
+                <div id="corpoModal" class="modal-body">
+                </div>
+                <div class="modal-footer" id="btnFooter"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="captcha">
+              <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
+              <span id="labelCaptcha" class="label label-danger"></span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="col-sm-offset-0 text-center">
+              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Enviar Dados</button>
+              <button type="submit" class="btn btn-danger" onclick="window.location.href='/index.html'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button>
             </div>
           </div>
       </form>
@@ -104,23 +136,6 @@
   </div>
 </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="modalFormatoDados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Formatos dos Dados para Enviar</h4>
-        </div>
-        <div class="modal-body">
-          <div id="bloco_texto_formato_dados"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- footer -->
   <div id="rodape"></div>

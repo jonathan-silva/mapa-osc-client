@@ -194,8 +194,11 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 #bloco_texto_formato_dados h5{
   font-weight: bold;
 }
-.periodicidade, .arquivo_retornado, .tipo_arquivo {
+.periodicidade, .arquivo_retornado {
   display: inline-table;
+}
+.tipo_arquivo{
+  display:flex;
 }
 .formPeriodicidade{
   display: inline-table;
