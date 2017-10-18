@@ -5,6 +5,7 @@ define(['react','rotas'], function(React) {
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
   var tituloPortal = "O Portal";
   var tituloDados = "Dados";
+  var tituloCadastro = "Cadastre-se";
   var usuarioLogado = "";
 
   //Componentes individuais
@@ -63,22 +64,24 @@ define(['react','rotas'], function(React) {
 
       for (var i = 0; i < this.props.headerObject.menuList.length; i++) {
         if(i==1){//posição em que o dropdown do Portal deve aparecer
-          items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.dropdown} titulo={tituloPortal}/></li>);
+          items.push(<li id="dropdown-menu-header1" className="dropdown"><DropdownMenu submenu={this.props.headerObject.dropdown} titulo={tituloPortal}/></li>);
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
         else if(i==2){//posição em que o dropdown do Dados deve aparecer
-          items.push(<li id="dropdown-menu-header" className="dropdown"><DropdownMenu submenu={this.props.headerObject.menuDados} titulo={tituloDados}/></li>);
+          items.push(<li id="dropdown-menu-header2" className="dropdown"><DropdownMenu submenu={this.props.headerObject.menuDados} titulo={tituloDados}/></li>);
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+          items.push(<li id="dropdown-menu-header3" className="dropdown btnCadastrar"><DropdownMenu submenu={this.props.headerObject.menuCadastro} titulo={tituloCadastro}/></li>);
         }
         else if(i == this.props.headerObject.menuList.length-1){//posição em que o dropdown do Usuario Logado deve aparecer
           items.push(<li><a id="btnEntrar" className="btn-link"  data-toggle="modal" data-target="#modalLogin">{this.props.headerObject.menuList[i].text}</a></li>);
-          items.push(<li id="dropdown-menu-header" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
+          items.push(<li id="dropdown-menu-header4" className="dropdown logado menuLogado"><DropdownMenu submenu={this.props.headerObject.menuLogado} titulo={usuarioLogado}/></li>);
+          items.push(<li id="dropdown-menu-header5" className="dropdown logado menuLogado_EM"><DropdownMenu submenu={this.props.headerObject.menuLogadoEstadoMunicipio} titulo={usuarioLogado}/></li>);
         }
-        else if(i == this.props.headerObject.menuList.length-2){//Posição do editar OSC
+        else if(i == 3){//Posição do editar OSC
           items.push(<li><a id="btnEditarOSCs" className="logado" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
-        else if(i == this.props.headerObject.menuList.length-3){//Posição do cadastrar
-          items.push(<li><a id="btnCadastrar" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
+        else if(i == 4){//Posição do entrada-dados
+          items.push(<li><a id="btnEnviarDados" className="logado" href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
         }
         else{
           items.push(<li><a href={this.props.headerObject.menuList[i].link}>{this.props.headerObject.menuList[i].text}</a></li>);
@@ -180,6 +183,7 @@ define(['react','rotas'], function(React) {
                   window.localStorage.setItem('Authorization', data.access_token);
                   window.localStorage.setItem('Nome', data.tx_nome_usuario);
                   window.localStorage.setItem('Osc', data.representacao);
+                  window.localStorage.setItem('Perfil', data.cd_tipo_usuario);
                   $('#modalLogin').modal('hide');
                   verificarLogado();
                   location.reload();
@@ -190,6 +194,8 @@ define(['react','rotas'], function(React) {
                       window.localStorage.setItem('Authorization', data.responseText.access_token);
                       window.localStorage.setItem('Nome', data.responseText.tx_nome_usuario);
                       window.localStorage.setItem('Osc', data.responseText.representacao);
+                      window.localStorage.setItem('Perfil', data.responseText.cd_tipo_usuario);
+
                       $('#modalLogin').modal('hide');
                       verificarLogado();
                       location.reload();

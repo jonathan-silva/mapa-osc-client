@@ -5,11 +5,13 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
     this.text = text;
     this.link = link;
   }
-  function Menu(dropdown, menuList, menuLogado, menuDados){
+  function Menu(dropdown, menuList, menuLogado, menuDados, menuCadastro, menuLogadoEstadoMunicipio){
     this.dropdown = dropdown;
     this.menuList = menuList;
     this.menuLogado = menuLogado;
     this.menuDados = menuDados;
+    this.menuCadastro = menuCadastro;
+    this.menuLogadoEstadoMunicipio = menuLogadoEstadoMunicipio;
   }
 
   function MenuListObject(text, link){
@@ -21,8 +23,8 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   menuList.push(new MenuListObject("Home", "index.html"));
   menuList.push(new MenuListObject("Mapa", "resultado-consulta.html"));
   menuList.push(new MenuListObject("Contato", "contato.html"));
-  menuList.push(new MenuListObject("Cadastre-se", "cadastro-representante.html"));
   menuList.push(new MenuListObject("Editar OSCs", "minhas-oscs.html"));
+  menuList.push(new MenuListObject("Enviar Dados", "entrada-dados.html"));
   menuList.push(new MenuListObject("Entrar", ""));
 
   var linksSubmenu = [];
@@ -41,24 +43,31 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
   linksSubmenu.push(new MenuDropDownObject("Links", "links-uteis.html"));
 
+  var linksSubmenuCadastro = [];
+  linksSubmenuCadastro.push(new MenuDropDownObject("Representante OSC", "cadastro-representante.html"));
+  linksSubmenuCadastro.push(new MenuDropDownObject("Estado/Município", "cadastro-estado-municipio.html"));
+
   var linksSubmenuDados = [];
   linksSubmenuDados.push(new MenuDropDownObject("Base de Dados", "base-dados.html"));
   linksSubmenuDados.push(new MenuDropDownObject("Dados e Indicadores", "dados-indicadores.html"));
 
   var linksUsuarioLogado = [];
   linksUsuarioLogado.push(new MenuDropDownObject("Configurar Conta", "configurar-conta.html"));
+  linksUsuarioLogado.push(new MenuDropDownObject("",""));
   linksUsuarioLogado.push(new MenuDropDownObject("Editar OSCs", "minhas-oscs.html"));
   linksUsuarioLogado.push(new MenuDropDownObject("",""));
-//  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Dados", "entrada-dados.html"));
-//  linksUsuarioLogado.push(new MenuDropDownObject("Adicionar Edital", "adicionar-edital.html"));
-  linksUsuarioLogado.push(new MenuDropDownObject("",""));
-
   linksUsuarioLogado.push(new MenuDropDownObject("Sair", "javascript: deslogar();void(0);"));
 
+  var linksUsuarioLogadoEstadoMunicipio = [];
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Configurar Conta", "configurar-conta-estado-municipio.html"));
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("",""));
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Enviar Dados", "entrada-dados.html"));
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("",""));
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Sair", "javascript: deslogar();void(0);"));
 
 
   Header = React.createFactory(Header);
-  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados)}), document.getElementById("header"));
+  ReactDOM.render(Header({headerObject: new Menu(linksSubmenu, menuList, linksUsuarioLogado, linksSubmenuDados, linksSubmenuCadastro, linksUsuarioLogadoEstadoMunicipio)}), document.getElementById("header"));
 
   ativaEnterModalLogin();
   ativaEnterModalLocalidade();
