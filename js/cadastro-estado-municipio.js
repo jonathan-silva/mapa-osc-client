@@ -14,6 +14,13 @@ require(["jquery-ui"], function(React) {
             }
         }
     });
+    
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+       });
+    });
 
 
 });
@@ -558,7 +565,8 @@ var jsonModalAjuda = {
  	"Registro Institucional":"Um registro que comprove a vinculação do representante do Estado ou Município com o ente federativo. Sugere-se utilizar o número de matrícula do servidor ou identificador similar. Não Obrigatório.",
  	"Órgão em que Trabalha":"Informar o setor que trabalha e a Secretaria Estadual ou Municipal à qual está vinculado/a.",
  	"Email":'Email institucional do/a responsável por encaminhar ao Mapa das OSCs o banco de dados com as parcerias entre OSCs e o governo estadual/municipal. Solicitamos, preferencialmente, um contato institucional terminado em <b>".gov.br"</b>.<br>Caso não seja possível, pode-se utilizar o email pessoal para efetuar o cadastro.',
-  "Senha":'A senha deve conter no mínimo <b>6</b> caracteres.'
+  "Senha":'A senha deve conter no mínimo <b>6</b> caracteres.',
+  "Unidade Administrativa":'Informe o Estado ou Município a qual representa.<br>Primeiro passo: escolha entre Estado ou município.<br>Segundo passo: Digite o nome da unidade federativa. Após digitar, selecione o nome da sua unidade federativa.'
 };
 
 function abrirModalAjuda(titulo) {

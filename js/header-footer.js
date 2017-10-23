@@ -59,7 +59,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   linksUsuarioLogado.push(new MenuDropDownObject("Sair", "javascript: deslogar();void(0);"));
 
   var linksUsuarioLogadoEstadoMunicipio = [];
-  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Configurar Conta", "configurar-conta-estado-municipio.html"));
+  linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Configurar Conta", "configurar-conta-perfil.html"));
   linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("",""));
   linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("Enviar Dados", "entrada-dados.html"));
   linksUsuarioLogadoEstadoMunicipio.push(new MenuDropDownObject("",""));

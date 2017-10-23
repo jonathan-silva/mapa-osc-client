@@ -220,6 +220,10 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/"+id;
    }
 
+   UpdateUsuarioGov(id){
+     return this.getBaseUrl()+":8383/api/user/governo/"+id;
+    }
+
    //usuario
   AtivarUsuario(token){
     return this.getBaseUrl()+":8383/api/user/ativarcadastro/"+token;

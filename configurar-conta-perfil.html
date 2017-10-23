@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro de Representante de Estado e Município</title>
+    <title>Configuração de Conta</title>
     <link rel="icon" href="img/fav.png"/>
     <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -23,26 +23,34 @@
         <div class="row rastro-navegacao">
           <a href="/">Home</a>
           <span> &gt; </span>
-          <a href="">Cadastro de Representante de Estado e Município</a>
+          <a href="">Configuração de Conta</a>
         </div>
       </div>
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="text-primary">Cadastro de Representante de Estado e Município</h1>
+            <h1 class="text-primary">Configuração de Conta</h1>
             <hr>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-md-12">
-            <h3>Representante de Estado ou Município, pode:</h3>
-            <ul>
-              <li>Encaminhar os dados das parcerias celebradas entre a cidade ou estado e as OSCs.</li>
-              <li>Dar publicidade e promover transparência a essas parcerias, sem qualquer custo.</li>
-              <li>Atender exigências da <a href="http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm" title="Link Externo para a Lei 13.019/2014." target="_blank">Lei 13.019/2014<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>.</li>
-              <li><a href="./pdf/tutorial_para_formatacao_dados.pdf" title="Baixar o Tutorial para Formatação dos Dados">Clique para acessar o Tutorial - PDF (285KB)<img src="img/botao_pdf.png" height="18" width="18"></a> de informações que devem constar no banco de dados a ser enviado.</li>
-            </ul>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="estado">Unidade Administrativa Representada:</label>
+            <span class="form-control-static" id="tx_localidade"></span>
           </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="estado">Email utilizado para Confirmação:</label>
+            <span class="form-control-static" id="tx_email_confirmacao"></span>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="cpf">CPF:</label>
+            <span class="form-control-static" id="tx_cpf"></span>
+          </div>
+
         </div>
 
         <div class="row">
@@ -59,12 +67,10 @@
           </div>
 
           <div class="form-group col-xs-6 col-sm-6">
-            <label class="control-label" for="cpf">CPF:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control" id="tx_cpf" placeholder="CPF" type="text">
+            <label class="control-label" for="email">Registro Institucional:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o registro institucional" onclick="abrirModalAjuda('Registro Institucional');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
+            <input class="form-control" id="tx_registro_institucional" placeholder="Registro Institucional" type="text">
           </div>
-         </div>
 
-        <div class="row">
           <div class="form-group col-xs-6 col-sm-6">
             <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o Órgão em que Trabalha" onclick="abrirModalAjuda('Órgão em que Trabalha');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
             <input class="form-control" id="tx_orgao_trabalha" placeholder="Órgão em que Trabalha" type="text">
@@ -79,19 +85,9 @@
             <label class="control-label" for="telefone2">Telefone 2:</label>
             <input class="form-control cel-sp-mask" id="tx_telefone2"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
           </div>
+
         </div>
 
-        <div class="row">
-          <div class="form-group col-xs-6 col-sm-6">
-            <label class="control-label" for="email">Email de Confirmação:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o email de confirmação" onclick="abrirModalAjuda('Email de Confirmação');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
-            <input class="form-control" id="tx_email_confirmacao" placeholder="Email" type="email">
-          </div>
-
-          <div class="form-group col-xs-6 col-sm-6">
-            <label class="control-label" for="email">Registro Institucional:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o registro institucional" onclick="abrirModalAjuda('Registro Institucional');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
-            <input class="form-control" id="tx_registro_institucional" placeholder="Registro Institucional" type="text">
-          </div>
-        </div>
 
         <div class="row">
           <div class="form-group col-xs-4 col-4">
@@ -108,33 +104,8 @@
         </div>
 
         <div class="row">
-          <div class="form-group col-xs-12 col-sm-12">
-            <h4>Unidade Administrativa<a class="btn-item ajuda" type="button" title="Clique para informações sobre a Unidade Administrativa" onclick="abrirModalAjuda('Unidade Administrativa');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h4>
-            <label class="control-label">Estado</label>
-            <input type="radio" name="unidade_administrativa" checked="checked" value="0">
-            <label class="control-label">Município</label>
-            <input type="radio" name="unidade_administrativa" value="1">
-          </div>
-          <div class="form-group col-xs-6 col-sm-4">
-            <label class="control-label" for="estado">Estado:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control ui-autocomplete-input" id="tx_nome_uf" placeholder="Estado" type="text">
-            <input class="form-control" id="cd_uf_id" type="hidden" >
-          </div>
-
-          <div class="form-group col-xs-6 col-sm-4" style="display: none;">
-            <label class="control-label" for="municipio">Município:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
-            <input class="form-control ui-autocomplete-input" id="tx_nome_municipio" placeholder="Município" type="text">
-            <input class="form-control" id="cd_municipio_id" type="hidden" >
-
-          </div>
 
           <div class="form-group col-xs-6 col-sm-12">
-            <div class="checkbox">
-              <label>
-                <input id="termoUso" type="checkbox">Concordo com os
-                <a target="_blank" href="termos-uso.html">Termos de Uso</a>
-              </label>
-            </div>
             <div class="checkbox">
               <label><input id="newsletter" type="checkbox">Desejo receber e-mail sobre as novidades do Mapa das Organizações da Sociedade Civil.</label>
             </div>
@@ -142,6 +113,10 @@
               <label><input id="pedido_atualizacao_trimestral" type="checkbox">Desejo ser informado quando este município/estado estiver há mais de <b>90 dias</b> sem atualizar o banco de dados no Mapa.</label>
             </div>
           </div>
+
+
+
+
 
           <!-- Modal -->
           <div id="modalMensagem" class="modal fade" role="dialog">
@@ -164,8 +139,7 @@
           </div>
           <div class="form-group col-xs-6 col-sm-12">
             <div class="col-sm-offset-0 text-center">
-              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-paste" aria-hidden="true"></span> Enviar</button>
-              <button type="button" class="btn btn-warning" id="btnLimpar"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Limpar</button>
+              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar</button>
               <button type="submit" class="btn btn-danger" onclick="window.location.href='/index.html'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button>
             </div>
           </div>
@@ -203,7 +177,7 @@
     <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
     <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
     <script src="js/config.js"></script>
-    <script type="text/javascript" src="js/cadastro-estado-municipio.js"></script>
+    <script type="text/javascript" src="js/configurar-conta-perfil.js"></script>
     <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
     <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
 
