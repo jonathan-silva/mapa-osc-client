@@ -300,7 +300,7 @@ define(['react','rotas'], function(React) {
         var nome_localidade = $("#localidade").val();
         var cd_localidade = $("#cd_municipio_id_localidade").val();
 
-        if(cd_localidade != undefined && cd_localidade != ""){
+        if(cd_localidade != undefined && cd_localidade != null && cd_localidade != ""){
           window.localStorage.setItem('cd_localidade', cd_localidade);
           window.localStorage.setItem('nome_localidade', nome_localidade);
           window.localStorage.setItem('cd_latitude',   "");
@@ -459,10 +459,10 @@ function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
   var cd_longitude = window.localStorage.getItem('cd_longitude');
   var rotaEscolhida;
 
-  if(cd_latitude != "" && cd_longitude != "" ){
+  if(cd_latitude != undefined && cd_latitude != null && cd_latitude != "" && cd_longitude != undefined && cd_longitude != null && cd_longitude != ""  ){
     rotaEscolhida = rotas.RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, cd_latitude, cd_longitude);
   }
-  else if(cd_localidade != "" ){
+  else if(cd_localidade != undefined && cd_localidade != null && cd_localidade != ""  ){
     rotaEscolhida = rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade);
   }else{
     rotaEscolhida = rotas.RecuperarOscPorAreaAtuacao(cd_area_atuacao);
