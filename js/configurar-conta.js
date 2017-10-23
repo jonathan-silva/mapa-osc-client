@@ -245,7 +245,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
           newJson['representacao'] = tagValue;
           newJson['id_usuario'] = user;
-          //console.log(newJson);
+
           $.ajax({
               url: 'js/controller.php',
               type: 'POST',
