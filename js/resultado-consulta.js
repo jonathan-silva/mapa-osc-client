@@ -98,7 +98,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
+    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
     var link;
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
@@ -136,7 +136,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
     source: function (request, response) {
-     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '+');
+     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_');
 
        $.ajax({
            url: urlController,
@@ -144,14 +144,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            dataType: "json",
            data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
            success: function (data) {
-             if(data.constructor === Array){
-               if(data.length == 1){
-                 if(!data[0].bo_multiple){
-                   flagMultiplo = false;
-                 }
-               }
-             }
-
              response($.map( data, function( item ) {
                 return {
                     label: item.tx_nome_osc,
@@ -167,11 +159,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
        });
    },
    select: function(event, ui){
-    if(flagMultiplo){
-      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&tipoBusca=1';
-    }else{
-      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&tipoBusca=0';
-    }
+    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
     location.href=link;
    }
  });
@@ -184,7 +172,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            url: urlController,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -214,7 +202,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           url: urlController,//4204251
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -244,7 +232,7 @@ $("#regiao .form-control").autocomplete({
          url: urlController,//4204251
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
