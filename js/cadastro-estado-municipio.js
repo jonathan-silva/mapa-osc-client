@@ -14,7 +14,7 @@ require(["jquery-ui"], function(React) {
             }
         }
     });
-    
+
     jQuery(document).ready(function($) {
         $(".scroll").click(function(event){
             event.preventDefault();
@@ -22,7 +22,7 @@ require(["jquery-ui"], function(React) {
        });
     });
 
-
+    $(".captcha iframe").attr('title', '');
 });
 
 require(['react', 'jsx!components/Util'], function(React) {
