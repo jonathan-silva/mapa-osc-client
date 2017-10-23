@@ -363,27 +363,35 @@ $("#regiao .form-control").autocomplete({
   }
 
   function showPosition(position){
-    window.localStorage.setItem('cd_latitude',   position.coords.latitude);
-    window.localStorage.setItem('cd_longitude',  position.coords.longitude);
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.RecuperarMunicipio(position.coords.latitude, position.coords.longitude)},
-      error: function(e){
-        verificarLocalidade();
-      },
-      success: function(data){
-        if(data != null &&  data.length !== 0){
-          window.localStorage.setItem('cd_localidade',  data[0].cd_localidade);
-          window.localStorage.setItem('nome_localidade',  data[0].tx_nome_localidade);
-          $("#btn-localidade").text(data[0].tx_nome_localidade);
+    if(lat != undefined && lat != null && lat != "" && long != undefined && long != null && long != ""){
+
+      window.localStorage.setItem('cd_latitude', lat);
+      window.localStorage.setItem('cd_longitude', long);
+
+      $.ajax({
+        url: controller,
+        type: 'GET',
+        async: true,
+        dataType: 'json',
+        data:{flag: 'consulta', rota:  rotas.RecuperarMunicipio(lat, long)},
+        error: function(e){
+          verificarLocalidade();
+        },
+        success: function(data){
+          if(data != null &&  data.length !== 0){
+            window.localStorage.setItem('cd_localidade',  data[0].cd_localidade);
+            window.localStorage.setItem('nome_localidade',  data[0].tx_nome_localidade);
+            $("#btn-localidade").text(data[0].tx_nome_localidade);
+          }
+          mostrarAreaAtuacaoPersonalizada();
         }
-        mostrarAreaAtuacaoPersonalizada();
-      }
-    });
+      });
+    } else{
+      verificarLocalidade();
+    }
   }
 
   function showError(error){
@@ -392,7 +400,7 @@ $("#regiao .form-control").autocomplete({
 
   function verificarLocalidade(){
     cd_localidade = window.localStorage.getItem('cd_localidade');
-    if(cd_localidade == ""){
+    if(cd_localidade == "" || cd_localidade == null || cd_localidade == undefined){
       $('#modalLocalidade').modal('show');
     }
     mostrarAreaAtuacaoPersonalizada();
@@ -503,10 +511,10 @@ $("#regiao .form-control").autocomplete({
       cd_longitude = window.localStorage.getItem('cd_longitude');
       var rotaEscolhida;
 
-      if(cd_latitude != "" && cd_longitude != "" ){
+      if(cd_latitude != undefined && cd_latitude != null && cd_latitude != "" && cd_longitude != undefined && cd_longitude != null && cd_longitude != ""){
         rotaEscolhida = rotas.RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, cd_latitude, cd_longitude);
       }
-      else if(cd_localidade != "" ){
+      else if(cd_localidade != undefined && cd_localidade != null && cd_localidade != "" ){
         rotaEscolhida = rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade);
       }else{
         rotaEscolhida = rotas.RecuperarOscPorAreaAtuacao(cd_area_atuacao);
