@@ -148,6 +148,7 @@ require(["jquery-ui", 'rotas'], function (React) {
 		$("#loading").hide();
 		$(".conteudo_loading .section").css('visibility', 'visible');
 		$(".fb-share-button").attr('data-href',window.location.href);
+		//$(".g-plusone").attr('data-href',window.location.href);
 
 		verificarBotaoEditar(idOsc);
 		addLinkVoltar(idOsc);
@@ -163,7 +164,9 @@ require(["jquery-ui", 'rotas'], function (React) {
 		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
-				 $(".social iframe").attr('title', '');
+				 $(".social iframe").each(function() {
+					 $(this).attr('title', '');
+				 });
 		 };
 
 		 $.ajax({
