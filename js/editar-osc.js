@@ -1445,13 +1445,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       if(newJson['certificado'].length == 0){
         newJson['certificado'] = null;
-        //newJson['certificado'] = [];
       }
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
-      //var certificado_json = {"certificado":newJson, "headers": authHeader, "id_osc": idOsc};
 
-      console.log(newJson);
       success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
 
         // Relações de trabalho
@@ -1479,7 +1476,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson['governanca'] = null;
         }
         success = util.carregaAjax(rotas.Dirigente(idOsc), 'POST', newJson);
-        //console.log(newJson);
+        
         //Conselho Fiscal
         newJson = {};
         newJson["headers"] = authHeader;
@@ -1627,14 +1624,28 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
-        var lista_forma_conferencia = ['Membro de comissão organizadora nacional', 'Membro de comissão organizadora estadual ou distrital', 'Membro de comissão organizadora municipal',
-        'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
-        'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outro'];
+        var lista_forma_conferencia = [
+        'Membro de comissão organizadora nacional', 'Membro de comissão organizadora estadual ou distrital', 'Membro de comissão organizadora municipal',
+  'Delegado para etapa nacional','Delegado para etapa estadual ou distrital','Participante de etapa municipal','Participante de conferência livre ou virtual',
+  'Palestrante ou convidado','Observador','Mediador, moderador ou relator','Outro'];
         var lista_forma_conferencia_id = [1,2,3,4,5,6,7,8,9,10,11];
 
         var lconferencia ={};
-        function returnFunction(data){lconferencia = data;}
-        ajaxConsulta(urlController, rotas.Conferencia(), returnFunction);
+
+        $.ajax({
+          url: urlController,
+          type: 'GET',
+          async: false,
+          dataType: 'json',
+          data:{flag: 'consulta', rota: rotas.Conferencia()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            lconferencia = data;
+          }
+        });
 
         //conferencia
         var newJson = {};
@@ -1705,10 +1716,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               newJson.conferencia.push(obj);
           }
         });
-        console.log(newJson);
+        
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["outra"] = [];
         newJson["bo_nao_possui_outros_part"] = $('#outros_part input[type="checkbox"]').is(':checked');
 
@@ -1732,6 +1746,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Projetos
         salvarProjetos();
         // Fonte de recursos
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
         newJson["fonte_recursos"] = [];
         $("#recursos").children().each(function(){
           var ano = $(this).find("select").val();
@@ -1748,7 +1765,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
-      jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
+      jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
     });
 
