@@ -147,6 +147,7 @@ require(["jquery-ui", 'rotas'], function (React) {
 
 		$("#loading").hide();
 		$(".conteudo_loading .section").css('visibility', 'visible');
+		$(".fb-share-button").attr('data-href',window.location.href);
 
 		verificarBotaoEditar(idOsc);
 		addLinkVoltar(idOsc);
