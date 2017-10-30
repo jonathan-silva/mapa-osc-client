@@ -54,8 +54,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       if(!util.verificarPermissao(idOsc)){
         window.location.href = "visualizar-osc.html#/"+idOsc;
       }
-      addBotaoVisualizar(idOsc);
-      addLinkVoltar(idOsc);
+      util.addBotaoVisualizar(idOsc);
+      util.addLinkVoltar(idOsc);
       urlRota = rotas.OSCByID_no_project(idOsc);
     }
 
@@ -68,37 +68,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     newJson["headers"] = authHeader;
     newJson["id_osc"] = idOsc;
-
-    function ajaxConsulta(urlController, urlRota, returnFunction){
-      $.ajax({
-        url: urlController,
-        type: 'GET',
-        dataType: 'json',
-        data:{flag: "consulta", rota: urlRota},
-        error:function(e){
-          console.log("Erro no ajax: ");
-          console.log(e);
-        },
-        success: function(data){return returnFunction(data)}
-      });
-    }
-
-    function ajaxAutoComplete(urlController, urlRota, returnFunction){
-      $.ajax({
-        url: urlController,
-        type: 'GET',
-        dataType: "json",
-        data: {
-            flag: 'autocomplete',
-            rota: urlRota
-        },
-        success: function(data) {return returnFunction(data)},
-        error: function(e) {
-            response([]);
-        }
-      });
-    }
-
+    //carregamento inicial dos dados
     $.ajax({
       url: urlController,
       type: 'GET',
@@ -115,9 +85,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Dados Gerais
         dadosGerais.montarDadosGerais(data, util, dadosForm, React, ReactDOM, FormItem, Checkbox);
         //ODS Dados gerais
-        metasObjetivosOsc(data, Checkbox);
+        dadosGerais.metasObjetivosOsc(data, Checkbox, rotas, urlController, util);
         //Áreas de atuação
-        var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc, "") ;
+        var txtAtvEconomica = util.validateObject(data.dados_gerais.tx_nome_atividade_economica_osc, "");
         var fonteAtvEconomica = util.validateObject(data.dados_gerais.ft_atividade_economica_osc, "");
         var areas_atuacao_sugestoes = areasAtuacao.montarAreasDeAtuacao(data, util, dadosForm, rotas, txtAtvEconomica, fonteAtvEconomica, React, ReactDOM, FormItem);
         //Descrição
@@ -130,7 +100,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Espaços participacao social
         var arrayObj = espacosPartSocial.iniciarEspacosPartSoc(data, util, dadosForm, Section, React, ReactDOM, rotas.Conselho(),rotas.Conferencia(),rotas.PeriodicidadeReuniao(),rotas.Titularidade(),rotas.FormaParticipacaoConferencia());
         espacosPartSocial.ativarEspacosPart(arrayObj, util, React, ReactDOM, Agrupador, AgrupadorConselhos, AgrupadorConferencia, FormItemButtons);
-        checkbox_nao_possui(data);
+        util.checkbox_nao_possui(data);
         //Projetos
         ativarProjetos(data, util, dadosForm, areas_atuacao_sugestoes);
         //Fonte de recurso
@@ -138,242 +108,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //Acessibilidade
         verificarContraste();
         //função para contornar a não renderização de eventos (onclick, onmouseover...) pelo react
-        clique();
+        util.clique(dadosForm);
         //Datas
         $(".date").datepicker({ dateFormat: 'dd-mm-yy',changeYear: true });
         //Seleção anual como opção do date picker
-        $(function() {
-            $('.ano').datepicker({
-                changeYear: true,
-                showButtonPanel: true,
-                dateFormat: 'yy',
-                yearRange: '1900:2017',
-                onClose: function(dateText, inst) {
-                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                    $(this).datepicker('setDate', new Date(year, 1));
-                }
-            });
-          	$(".ano").focus(function () {
-                $(".ui-datepicker-calendar").hide();
-                $('.ui-datepicker-month').hide();
-                $('.ui-datepicker-prev').hide();
-                $('.ui-datepicker-next').hide();
-            });
-
-            $("#tx_telefone input.form-control").focusout(function(event){
-                var target, tel, element;
-                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-                tel = target.value.replace(/\D/g, '');
-                element = $(target);
-                element.unmask();
-                if(tel.length === 11) {
-                  if(tel[0] == 0){
-                       element.mask("9999 999 9999")
-   				        } else {
-                      element.mask("(99) 99999-9999");
-                  }
-                }
-                else if(tel.length === 10) {
-                      element.mask("(99) 9999-9999");
-                }
-                else if(tel.length === 9) {
-                      element.mask("(99) 999-9999");
-                }
-                else if(tel.length === 8) {
-                    element.mask("9999-9999");
-                }
-                else if(tel.length === 7) {
-                    element.mask("999-9999");
-                }
-            });
-            $("#tx_telefone input.form-control").focusin(function(event){
-                var target, element;
-                target = (event.currentTarget) ? event.currentTarget : event.srcElement;
-                element = $(target);
-                element.unmask();
-            });
-        });
-
-        function readURL(input) {
-          if (input.files && input.files[0] && input.files[0].type.match('image.*') && input.files[0].size < 1000000) {
-            var MAX_WIDTH = 300;
-            var MAX_HEIGHT = 225;
-            var img = document.createElement("img");
-            var canvas = document.createElement("canvas")
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-              img.src = e.target.result
-              img.onload = function(){
-                var width = img.width;
-                var height = img.height;
-
-                if (width > height) {
-                  if (width > MAX_WIDTH) {
-                    height *= MAX_WIDTH / width;
-                    width = MAX_WIDTH;
-                  }
-                } else {
-                  if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height;
-                    height = MAX_HEIGHT;
-                  }
-                }
-
-                canvas.width = width;
-                canvas.height = height;
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, width, height);
-
-                //Cria imagem png base64
-                var dataurl = canvas.toDataURL("image/png");
-                //seta como sorce da imagem, a nova imagem base64
-                $("#imagemLogo").attr('src',dataurl);
-              };
-            };
-            reader.readAsDataURL(input.files[0]);
-          }
-          else {
-            $('#errorLabel').removeClass('hide');
-          }
-        }
-
-        addBotaoimagem();
-
-        $('.custom-file-upload').on("change", function(){
-          $('.alert').addClass('hide');
-          $('input[type=file]').each(function(index){
-            if ($('input[type=file]').eq(index).val() != ""){
-              readURL(this);
-              //readURL(this);
-            }
-          });
-        });
-
-        $("#btnRemoverLogo").click(function(){
-          $("#imagemLogo").attr('src',"img/camera.jpg");
-          $('input[type=file]').eq(0).val("");
-        });
-
-        $("#loading").hide();
-        $(".conteudo_loading .section").css('visibility', 'visible');
+        util.selecaoAnualDatePicker();
+        //configuração inicial da imagem e seus botões
+        util.imagemConfig();
       }
     });
-
-    function addBotaoVisualizar(id){
-        $(".btnVisualizar").append('<a id="btnVisualizar" type="button" title="Clique para Visualizar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Visualizar OSC</a>');
-		    $("#btnVisualizar").attr("href","visualizar-osc.html#/"+id);
-    }
-
-    function addBotaoimagem(){
-        $("#btnInserirImg").append('<label class="custom-file-upload btn btn-info" title="Clique para Inserir o Logo da OSC"><input id="inserirLogo" type="file" accept="image/x-png,image/gif,image/jpeg" /><i class="fa fa-cloud-upload"></i>Inserir Logo</label>');
-        $("#btnRemoverImg").append('<a class="btn btn-danger btn-sm" id="btnRemoverLogo" type="button" title="Clique para Remover o Logo da OSC" ><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remover Logo</a>');
-    }
-
-    function addLinkVoltar(id){
-        $("#voltaEditar").attr("href","editar-osc.html#/"+id);
-        urlPagAnterior = document.referrer;
-        if(urlPagAnterior.indexOf("minhas-oscs") == -1){
-          $("#voltaPagAnterior").text('Visualizar');
-          $("#voltaPagAnterior").attr("href","visualizar-osc.html#/"+id);
-
-         } else {
-             $("#voltaPagAnterior").text('Lista de OSCs');
-             $("#voltaPagAnterior").attr("href","minhas-oscs.html");
-         }
-    }
-
-    function checkbox_nao_possui(data){
-      $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
-      var certificacoes = util.validateObject(data.certificado, 0);
-      $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
-
-      $('#certificacoes input[type="checkbox"]').change(function() {
-        if($(this).is(':checked')){
-          $(this).prop('checked', true);
-        }
-        else{
-          $(this).prop('checked', false);
-        }
-      });
-
-      $("#conselhos").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui conselhos de políticas públicas.</label></div>');
-      $("#conferencias").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui conferências de políticas públicas.</label></div>');
-      $("#outros_part").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui outros espaços de participação social.</label></div>');
-
-      var participacao_social = util.validateObject(data.participacao_social, 0);
-      $('#conselhos input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conselhos);
-      $('#conferencias input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conferencias);
-      $('#outros_part input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_outros_part);
-
-      $('#conselhos input[type="checkbox"]').change(function() {
-        if($(this).is(':checked')){
-          $(this).prop('checked', true);
-        }
-        else{
-          $(this).prop('checked', false);
-        }
-      });
-
-      $('#conferencias input[type="checkbox"]').change(function() {
-        if($(this).is(':checked')){
-          $(this).prop('checked', true);
-        }
-        else{
-          $(this).prop('checked', false);
-        }
-      });
-
-      $('#outros_part input[type="checkbox"]').change(function() {
-        if($(this).is(':checked')){
-          $(this).prop('checked', true);
-        }
-        else{
-          $(this).prop('checked', false);
-        }
-      });
-    }
-
-    function metasObjetivosOsc(data, Checkbox){
-      var objetivo_metas = util.validateObject(data.dados_gerais.objetivo_metas, "");
-      var objetivos = {};
-      for (var i = 0; i < objetivo_metas.length; i++) {
-        var cd_objetivo = objetivo_metas[i].cd_objetivo_osc;
-        objetivos[cd_objetivo] = objetivo_metas[i].tx_nome_objetivo_osc ;
-      }
-
-      var $divDadosGerais = $('#dados_gerais');
-      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU. Máximo três objetivos.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
-      $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
-      $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
-
-        function returnFunctionObjetivoMetas(data){
-          if(objetivo_metas == ""){
-            criarObjetivosOsc(data,"",-1,-1,Checkbox);
-            qtdObjODS++;
-            numODS++;
-          }
-          else{
-            for(var k in objetivos){
-              var objetivo = util.validateObject(objetivos[k], -1);
-              criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
-              qtdObjODS++;
-            }
-          }
-        }
-        ajaxConsulta(urlController, rotas.Objetivos(), returnFunctionObjetivoMetas)
-
-        $("#add_objetivo_ods").click(function(){
-          if(qtdObjODS < limiteObjetivos){
-              function returnFunctionObjetivoMetasLimite(data){
-                criarObjetivosOsc(data,"",-1,-numODS,Checkbox);
-                qtdObjODS++;
-                numODS++;
-              }
-              ajaxConsulta(urlController, rotas.Objetivos(), returnFunctionObjetivoMetasLimite)
-            }
-        });
-    }
+    //fim carregamento inicial dos dados
 
     function criarObjetivosOsc(data, objetivo_metas, objetivo, cd_objetivo, Checkbox){
       $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:</label>');
@@ -435,7 +179,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       function returnFunctionMontarMetas(data){
         montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox);
       }
-      ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), returnFunctionMontarMetas)
+      util.ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), returnFunctionMontarMetas)
     }
 
     function montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox){
@@ -632,7 +376,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                       $('#osc_parceira').find('input')[0].id_osc_parceira=id_osc;
                     }
                   }
-                  ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), returnFunction)
+                  util.ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), returnFunction)
               }
             }
         })
@@ -1020,7 +764,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
         add_botao_objetivo(id);
       }
-      ajaxConsulta(urlController, rotas.Objetivos(), returnFunction);
+      util.ajaxConsulta(urlController, rotas.Objetivos(), returnFunction);
     }
 
     function add_botao_objetivo(id) {
@@ -1195,7 +939,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       function returnFunctionMontarMetas(data){
         montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox);
       }
-      ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), returnFunctionMontarMetas)
+      util.ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), returnFunctionMontarMetas)
     }
 
     function carregaEventoMetas(){
@@ -1262,13 +1006,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           ), document.getElementById("selectable-"+cd_objetivo)
         );
       }
-    }
-
-    function clique(){
-      var jsonModalAjuda = dadosForm.jsonModalAjuda();
-      $(".ajuda").on("click", function(){
-        util.abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
-      });
     }
 
     // Cancelar
@@ -1506,15 +1243,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Conselho
         var lforma = [];
         function returnFunction(data){lforma = data;}
-        ajaxConsulta(urlController, rotas.Titularidade(), returnFunction);
+        util.ajaxConsulta(urlController, rotas.Titularidade(), returnFunction);
 
         var lconselho =[];
         function returnFunction(data){lconselho = data;}
-        ajaxConsulta(urlController, rotas.Conselho(), returnFunction);
+        util.ajaxConsulta(urlController, rotas.Conselho(), returnFunction);
 
         var lperiodicidadeReuniao =[];
         function returnFunction(data){lperiodicidadeReuniao = data;}
-        ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), returnFunction);
+        util.ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), returnFunction);
 
         //conselho
         var newJson = {};
@@ -1621,6 +1358,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length === 0){
           newJson.conselho = null;
         }
+        console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
@@ -1803,7 +1541,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 }
               }));
            }
-           ajaxAutoComplete(urlController, routes, returnFunction);
+           util.ajaxAutoComplete(urlController, routes, returnFunction);
          }
        }
      });
@@ -1863,7 +1601,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
              }
            }
-           ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), returnFunction);
+           util.ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), returnFunction);
          }
        }
      })

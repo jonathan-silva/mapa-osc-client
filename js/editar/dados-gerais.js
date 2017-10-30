@@ -38,4 +38,45 @@ class DadosGerais {
     );
   }
 
+  metasObjetivosOsc(data, Checkbox, rotas, urlController, util){
+    var objetivo_metas = util.validateObject(data.dados_gerais.objetivo_metas, "");
+    var objetivos = {};
+    for (var i = 0; i < objetivo_metas.length; i++) {
+      var cd_objetivo = objetivo_metas[i].cd_objetivo_osc;
+      objetivos[cd_objetivo] = objetivo_metas[i].tx_nome_objetivo_osc ;
+    }
+
+    var $divDadosGerais = $('#dados_gerais');
+    $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU. Máximo três objetivos.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
+    $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
+    $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
+
+      function returnFunctionObjetivoMetas(data){
+        if(objetivo_metas == ""){
+          criarObjetivosOsc(data,"",-1,-1,Checkbox);
+          qtdObjODS++;
+          numODS++;
+        }
+        else{
+          for(var k in objetivos){
+            var objetivo = util.validateObject(objetivos[k], -1);
+            criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
+            qtdObjODS++;
+          }
+        }
+      }
+      util.ajaxConsulta(urlController, rotas.Objetivos(), returnFunctionObjetivoMetas)
+
+      $("#add_objetivo_ods").click(function(){
+        if(qtdObjODS < limiteObjetivos){
+            function returnFunctionObjetivoMetasLimite(data){
+              criarObjetivosOsc(data,"",-1,-numODS,Checkbox);
+              qtdObjODS++;
+              numODS++;
+            }
+            util.ajaxConsulta(urlController, rotas.Objetivos(), returnFunctionObjetivoMetasLimite)
+          }
+      });
+  }
+
 }
