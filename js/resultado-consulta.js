@@ -485,9 +485,11 @@ $("#regiao .form-control").autocomplete({
 
   function carregaMapa(dados){
     for(var k in dados){
-      var point = loadPoint(k, dados[k][0], dados[k][1]);
-      if(point!==null){
-        map.addLayer(point);
+      if(k != "0"){
+        var point = loadPoint(k, dados[k][0], dados[k][1]);
+        if(point!==null){
+          map.addLayer(point);
+        }
       }
     }
 
@@ -887,30 +889,30 @@ $("#regiao .form-control").autocomplete({
     data: data_tipo_mapa,
     error: function(e){
         console.log("ERRO no AJAX :" + e);
-        //console.log(urlRotaMapa);
     },
     success: function(data){
 
-      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" && Object.keys(data).length > 1 ){
+      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" ){
         tabela(urlRota, consulta_avancada);
-        if(typeof data.length !== 'undefined'){
-          var count = 0;
-          for(var i = 0; i < data.length; i++){
-            count += data[i].nr_quantidade_osc_regiao;
+        var count = 0;
+
+        if(isClusterVersion){
+          if(typeof data.length !== 'undefined'){
+            for(var i = 0; i < data.length; i++){
+              count += data[i].nr_quantidade_osc_regiao;
+            }
           }
+
           paginar(count);
           $("#legenda p").append(count);
 
-        }
-        else{
-          paginar(Object.keys(data).length-1);
-          $("#legenda p").append(Object.keys(data).length-1);
-        }
-
-        if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
         else{
+          count = Object.keys(data).length-1;
+          paginar(count);
+          $("#legenda p").append(count);
+
           carregaMapa(data);
         }
       }else{
