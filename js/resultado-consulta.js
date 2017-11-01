@@ -391,7 +391,7 @@ $("#regiao .form-control").autocomplete({
          else {
             $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
             $('#modalTitle').text('Nenhuma OSC encontrada!');
-            if(tipoConsulta !== "avancado"){
+            if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
               $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
             }else {
               $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
@@ -402,7 +402,7 @@ $("#regiao .form-control").autocomplete({
         else {
            $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
            $('#modalTitle').text('Nenhuma OSC encontrada!');
-           if(tipoConsulta !== "avancado"){
+           if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
            }else {
              $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
@@ -918,7 +918,7 @@ $("#regiao .form-control").autocomplete({
       }else{
         $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
         $('#modalTitle').text('Nenhuma OSC encontrada!');
-        if(tipoConsulta !== "avancado"){
+        if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
           $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
         }else {
           $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
