@@ -267,14 +267,18 @@ class Util {
   }
 
   verificarPermissao(id){
-    var osc  = JSON.parse(window.localStorage.getItem('Osc'));
-    if(osc != "undefined" && osc !== null){
-      for (var i = 0; i < osc.length; i++) {
-        if (osc[i] == id) {
-          return true;
+    var cache_osc = window.localStorage.getItem('Osc');
+    if(cache_osc != "undefined"){
+      var osc  = JSON.parse(cache_osc);
+      if(osc != "undefined" && osc !== null){
+        for (var i = 0; i < osc.length; i++) {
+          if (osc[i] == id) {
+            return true;
+          }
         }
       }
     }
+
     return false;
   }
 
