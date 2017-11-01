@@ -27,7 +27,14 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 		}).then(function(response) {
 			if(response.data.msg == undefined){
 				self.osc = response.data
-				$scope.projs = response.data.projeto.projeto // PROJETOS
+				var projeto_array = response.data.projeto
+				if(projeto_array != undefined){
+					$scope.projs = projeto_array.projeto // PROJETOS
+				}
+				else {
+					$scope.projs = "";
+				}
+
 	    	self.msg = '';
 			}else{
 				self.msg = response.data.msg;
