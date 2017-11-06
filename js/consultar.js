@@ -89,9 +89,9 @@ require(['react'], function (React) {
 
           $( this ).slider({
             range: true,
-            min: 1600,
+            min: 1900,
             max: ano,
-            values: [ 1600, ano ],
+            values: [ 1900, ano ],
             slide: function( event, ui ) {
               $(event.target.previousElementSibling).find(".min").val( ui.values[ 0 ] );
               $(event.target.previousElementSibling).find(".max").val(ui.values[ 1 ] );
