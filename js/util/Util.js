@@ -428,7 +428,7 @@ class Util {
   }
 
   imagemConfig(){
-    addBotaoimagem();
+    this.addBotaoimagem();
     $('.custom-file-upload').on("change", function(){
       $('.alert').addClass('hide');
       $('input[type=file]').each(function(index){
@@ -454,7 +454,7 @@ class Util {
 
   addLinkVoltar(id){
     $("#voltaEditar").attr("href","editar-osc.html#/"+id);
-    urlPagAnterior = document.referrer;
+    var urlPagAnterior = document.referrer;
     if(urlPagAnterior.indexOf("minhas-oscs") == -1){
       $("#voltaPagAnterior").text('Visualizar');
       $("#voltaPagAnterior").attr("href","visualizar-osc.html#/"+id);
@@ -467,7 +467,7 @@ class Util {
 
   checkbox_nao_possui(data){
     $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
-    var certificacoes = validateObject(data.certificado, 0);
+    var certificacoes = this.validateObject(data.certificado, 0);
     $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
 
     $('#certificacoes input[type="checkbox"]').change(function() {
@@ -483,7 +483,7 @@ class Util {
     $("#conferencias").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui conferências de políticas públicas.</label></div>');
     $("#outros_part").prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui outros espaços de participação social.</label></div>');
 
-    var participacao_social = validateObject(data.participacao_social, 0);
+    var participacao_social = this.validateObject(data.participacao_social, 0);
     $('#conselhos input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conselhos);
     $('#conferencias input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_conferencias);
     $('#outros_part input[type="checkbox"]').prop('checked', participacao_social.bo_nao_possui_outros_part);
@@ -520,6 +520,49 @@ class Util {
     var jsonModalAjuda = dadosForm.jsonModalAjuda();
     $(".ajuda").on("click", function(){
       abrirModalAjuda($(this).attr("data"), jsonModalAjuda);
+    });
+  }
+
+  montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox){
+    if (this.validateObject(data, false)){
+      var checkboxItems = [];
+      function CheckboxItem(id, label, value, type, checked){
+        this.id = id;
+        this.label = label;
+        this.value = value;
+        this.type = type;
+        this.checked = checked;
+      }
+
+      var items = data;
+
+      for (var i=0; i<items.length; i++){
+        var checkboxItem = null;
+        if(cd_metas.includes(items[i].cd_meta_projeto)){
+          checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", true);
+          checkboxItems.push(checkboxItem);
+        } else {
+          checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", false);
+          checkboxItems.push(checkboxItem);
+        }
+      }
+      Checkbox = React.createFactory(Checkbox);
+      ReactDOM.render(
+        Checkbox(
+          {dados:checkboxItems}
+        ), document.getElementById("selectableOsc-"+cd_objetivo)
+      );
+    }
+    var $divObjetivosMetasOsc = $('#metasOsc-'+cd_objetivo);
+    $divObjetivosMetasOsc.append('<span class="input-group-btn"><button id="remover_objetivo_ods-'+cd_objetivo+'" for="'+cd_objetivo+'" class="btn-danger btn">Remover Objetivo</button></span>')
+    $divObjetivosMetasOsc.append('<hr>');
+
+    $("#remover_objetivo_ods-"+cd_objetivo).click(function(){
+      var cd_objetivo = $(this).attr('for');
+      $('.label-objetivosOsc-'+cd_objetivo).remove();
+      $('.objetivosOsc-'+cd_objetivo).remove();
+      $('#metasOsc-'+cd_objetivo).remove();
+      qtdObjODS--;
     });
   }
 

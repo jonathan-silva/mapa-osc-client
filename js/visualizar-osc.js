@@ -27,6 +27,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 		}).then(function(response) {
 			if(response.data.msg == undefined){
 				self.osc = response.data
+				print(response)
 				$scope.projs = response.data.projeto.projeto // PROJETOS
 	    	self.msg = '';
 			}else{
