@@ -329,11 +329,15 @@ define(['react','rotas'], function(React) {
       <div>
         <div className="container extensao">
           <div id="topo_acessibilidade">
+            <div>
             <ul id="nav1">
               <li>Ir para o <a id="navCont" name="conteudo" className="cursor" onClick={this.getComponent.bind(this, 7)}>Conteúdo [1]</a></li>
               <li>Ir para o <a id="navMenu" name="navbar-ex-collapse" className="cursor"  onClick={this.getComponent.bind(this, 8)}>Menu [2]</a></li>
               <li>Ir para o <a id="navRoda" name="rodape" className="cursor" onClick={this.getComponent.bind(this, 9)}>Rodapé [3]</a></li>
             </ul>
+            </div>
+
+            <div>
             <ul id="nav2">
               <li><a href="acessibilidade.html" target="_self">Acessibilidade</a></li>
               <li id="contraste">
@@ -348,6 +352,15 @@ define(['react','rotas'], function(React) {
                 <a id="btn-localidade" data-toggle="tooltip" data-placement="bottom" title="Escolha seu Município" className="cursor" data-toggle="modal" data-target="#modalLocalidade">Minha localidade</a>
               </li>
             </ul>
+            </div>
+            <div>
+            <ul id="nav3">
+              <li><a href="http://www.ipea.gov.br" title="Link Externo para o IPEA." className="logoIpea" contenteditable="true">
+                <img src="img/logo_ipea.png" className="normal"></img></a>
+              </li>
+            </ul>
+            </div>
+
           </div>
 
 

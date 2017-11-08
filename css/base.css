@@ -3890,7 +3890,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 7px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -6440,7 +6440,7 @@ button.close {
     border-radius: 1em;
     max-height: 400px;
   }
-  
+
   #nav1 {
       padding-left: 0px;
       width: 50%;
@@ -6530,10 +6530,10 @@ button.close {
     width: 230px;
   }
   .nav > li > a {
-    padding: 14px 7px !important;
+    padding: 13px 4px !important;
   }
   .navbar-right{
-    font-size: 12px;
+    font-size: 11px;
   }
   .dropdown-toggle{
     padding: 10px 5px !important;

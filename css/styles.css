@@ -21,10 +21,10 @@
   padding-right: 0px;
   display: table;
 }
-#nav1 li, #nav2 li {
+#nav1 li, #nav2 li, #nav3 li {
   display: inline-block;
 }
-#nav1 li {
+#nav1 li, #nav3 li {
   margin-right: 10px;
   font-size: .9em;
 }
@@ -35,8 +35,19 @@
 #nav1{
   float:left;
   font-size: 12px;
+  padding-left: 20px;
+}
+#nav3{
+  float:left;
+  font-size: 12px;
+  padding-left: 50px;
+}
+#nav3 img{
+  height: 50px;
+  margin-top: -10px;
 }
 #nav2{
+  padding-left: 20px;
   float:right;
   font-size: 12px;
 }
@@ -1059,8 +1070,8 @@ select{
   border-color: #ac2925 !important;
 }
 .logoMapa{
-  height: 100px;
-  margin-top: -20px;
+  height:80px;
+  margin-top: -10px;
 }
 .navbar-static-top{
   height: 110px;
