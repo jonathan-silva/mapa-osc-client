@@ -562,8 +562,35 @@ require(['react'], function (React) {
      }
     });
 
+    //autocomplete atividade economica
+    $("#tx_atividade_economica").autocomplete({
+        minLength: 1,
+        source: function (request, response) {
+           $.ajax({
+               url: controller,
+               type: 'GET',
+               async: true,
+               dataType: "json",
+               data: {flag: 'autocomplete', rota: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+               success: function (data) {
+                 response($.map( data, function( item ) {
+                    return {
+                        label: item.edmu_tx_atividade_economica,
+                        value: item.edmu_tx_atividade_economica,
+                    };
+                }));
+               },
+               error: function (e) {
+                   response([]);
+               }
+           });
+       },
+        select: function( event, ui ) {
+          $("#tx_atividade_economica").val( ui.item.value );
+        }
+     });
 
-    //Fim de autocomplete
+     //Fim de autocomplete
 
     //permite somente numeros
     $(".min, .max").keypress( function() {
