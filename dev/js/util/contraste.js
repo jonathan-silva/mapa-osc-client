@@ -143,13 +143,13 @@ function ativarCSSContraste() {
         $(this).css("color", "#ffffff");
     }
   });
-  
+
   $( ".logoMapa" ).attr({src: "img/logo_contraste.png"});
 
 }
 
 function verificarContraste(){
-  	if(readCookie("contraste") == "true"){
+    if(readCookie("contraste") == "true"){
       ativarCSSContraste();
     }
 }
@@ -157,28 +157,53 @@ function verificarContraste(){
 setLogin = false;
 function verificarLogado(){
 
+  var cd_localidade = window.localStorage.getItem('cd_localidade');
+  if(cd_localidade != undefined && cd_localidade != ""){
+    var nome_localidade = window.localStorage.getItem('nome_localidade');
+    $("#btn-localidade").text(nome_localidade);
+  }
+
   var user = window.localStorage.getItem('User');
   var aut  = window.localStorage.getItem('Authorization');
   var nome  = window.localStorage.getItem('Nome');
+  var perfil  = window.localStorage.getItem('Perfil');
+  var divMenu;
 
   if (user){
     if(!setLogin)
     {
-      $(".menuLogado").removeClass("logado");
+      if(perfil == 2){
+        divMenu = ".menuLogado";
+        $(divMenu).removeClass("logado");
+        $("#btnEditarOSCs").removeClass("logado");
+      }else if(perfil == 3 || perfil == 4){
+        divMenu = ".menuLogado_EM";
+        $(divMenu).removeClass("logado");
+        $("#btnEnviarDados").removeClass("logado");
+      }
       $("#btnEntrar").addClass("logado");
-      $("#btnCadastrar").addClass("logado");
-      $(".menuLogado .dropdown-toggle").append(nome);
-      $(".menuLogado .dropdown-toggle").append("<span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
+      $(".btnCadastrar").addClass("logado");
+      $(divMenu + " .dropdown-toggle").append(nome);
+      $(divMenu + " .dropdown-toggle").append(" <span class=\"glyphicon glyphicon-cog\" aria-hidden=\"true\"></span>");
     }
     setLogin = true;
     return true;
   }else{
     if(setLogin)
     {
-      $(".menuLogado .dropdown-toggle").html('');
-      $(".menuLogado").addClass("logado");
+      if(perfil == 2){
+        divMenu = ".menuLogado";
+        $("#btnEditarOSCs").addClass("logado");
+      }else if(perfil == 3 || perfil == 4){
+        divMenu = ".menuLogado_EM";
+        $("#btnEnviarDados").addClass("logado");
+      }
+
+      $(divMenu + " .dropdown-toggle").html('');
+      $(divMenu).addClass("logado");
+
       $("#btnEntrar").removeClass("logado");
-      $("#btnCadastrar").removeClass("logado");
+      $(".btnCadastrar").removeClass("logado");
     }
     setLogin = false;
     return false;
@@ -190,16 +215,23 @@ function deslogar(){
   window.localStorage.removeItem('Authorization');
   window.localStorage.removeItem('Nome');
   window.localStorage.removeItem('Osc');
+  window.localStorage.removeItem('Perfil');
   $(".menuLogado .dropdown-toggle").html('');
   $(".menuLogado").addClass("logado");
+  $("#btnEditarOSCs").addClass("logado");
+  $("#btnEnviarDados").addClass("logado");
   $("#btnEntrar").removeClass("logado");
-  $("#btnCadastrar").removeClass("logado");
-  location.reload();
+  $(".btnCadastrar").removeClass("logado");
+  window.location= "index.html";
   return true;
 }
 
 function ativaEnterModalLogin(){
     $('#senhaLogin').keypress(function(e) { if(e.keyCode == 13) { $('a#btn-logar-modal')[0].click(); } } );
+}
+
+function ativaEnterModalLocalidade(){
+    $('#localidade').keypress(function(e) { if(e.keyCode == 13) { $('a#btn-localidade-modal')[0].click(); } } );
 }
 
 verificarContraste();

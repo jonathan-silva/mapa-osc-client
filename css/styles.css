@@ -8,7 +8,7 @@
 #header{
   box-shadow: 0px 1px 10px gray;
 }
-#dropdown-menu-header{
+#dropdown-menu-header1, #dropdown-menu-header2, #dropdown-menu-header3, #dropdown-menu-header4, #dropdown-menu-header5{
     padding-top: 15px;
 }
 #topo_acessibilidade {
@@ -194,8 +194,11 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 #bloco_texto_formato_dados h5{
   font-weight: bold;
 }
-.periodicidade, .arquivo_retornado, .tipo_arquivo {
+.periodicidade, .arquivo_retornado {
   display: inline-table;
+}
+.tipo_arquivo{
+  display:flex;
 }
 .formPeriodicidade{
   display: inline-table;
@@ -238,7 +241,7 @@ div.dropdown-container > div.dropdown-list > div > div > span {
 
 /*Página contato.html*/
 #assunto{
-    max-width: 200px;
+    max-width: 300px;
   }
 #nome{
     max-width: 600px;
@@ -264,6 +267,30 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   max-width: 250px;
 }
 
+/*Página Mrosc*/
+.col-2-mrosc{
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 16.66666667%;
+}
+.col-10-mrosc{
+  width: 83.33333333%
+}
+.col-6-dados{
+  width: 100%
+}
+
+#tabMrosc{
+  height: 100%;
+  box-shadow: 0px 1px 5px gray;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#tabMrosc a{
+  cursor: pointer;
+}
+
 /*Página Dados e Indicadores*/
 .col-3-dados{
   padding-left: 0px;
@@ -285,7 +312,6 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
 #grafico-1 svg, #grafico-2 svg, #grafico-3 svg, #grafico-4 svg, #grafico-5 svg,
 #grafico-6 svg, #grafico-7 svg, #grafico-8 svg, #grafico-9 svg, #grafico-10 svg,
 #grafico-11 svg, #grafico-12 svg, #grafico-13 svg,
@@ -780,6 +806,9 @@ body.indisponivel {
 #tabGrafico a{
   font-size: 12px;
 }
+#tabMrosc a{
+  font-size: 14px;
+}
 .colabore{
   float: left;
   margin-right: 10px;
@@ -1095,4 +1124,56 @@ select{
 }
 .panel-default .btn-info{
     color: #ffffff;
+}
+
+.txtCenter{
+  text-align: center;
+}
+
+.txtData{
+  color: #e43f54;
+  margin-bottom: 20px;
+}
+.metodologia li{
+  margin-bottom: 5px;
+}
+
+.div_social{
+  padding-right: 10px;
+}
+.selecao{
+  padding-bottom: 10px;
+}
+.data_atual{
+  font-size: 12px;
+  padding-top: 0px;
+}
+.social{
+  float: right;
+  display: flex;
+}
+.MultiCarousel { float: left; overflow: hidden; padding: 15px; padding-top: 5px; padding-bottom: 0px; width: 100%; position:relative; }
+.MultiCarousel .MultiCarousel-inner { transition: 1s ease all; float: left; }
+.MultiCarousel .MultiCarousel-inner .item { float: left;}
+.MultiCarousel .MultiCarousel-inner .item > div { text-align: center; padding:10px; padding-top: 0px; padding-bottom: 0px; margin:10px; margin-top: 5px; margin-bottom: 0px; color:#666;}
+.MultiCarousel .leftLst, .MultiCarousel .rightLst { position:absolute; border-radius:50%;top:calc(50% - 20px); }
+.MultiCarousel .leftLst { left:0;  }
+.MultiCarousel .rightLst { right:0; }
+.MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over { pointer-events: none; background:#ccc; }
+.MultiCarousel .MultiCarousel-inner .item h5{ margin-bottom: 0px;}
+
+.imgAreaAtuacao{
+  width: 50px;
+  height: 50px;
+}
+
+#top_5_area_atuacao th, #top_10_atualizacao th{
+  width: 30px;
+}
+.top_5{
+  padding-top: 5px;
+}
+
+.ui-front{
+  z-index: 2000;
 }

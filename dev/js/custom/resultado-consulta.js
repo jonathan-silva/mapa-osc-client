@@ -40,6 +40,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
+  var consulta_avancada = false;
+  var params = {};
   var urlController = 'js/controller.php';
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
@@ -85,7 +87,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 	// add fullscreen control to the map
 	map.addControl(fsControl);
 
-  var parametros='';
   var newData, urlRotaMapa;
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
@@ -97,10 +98,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
+    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?" + id + "=" + val + "&similaridade=05";
+      link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
       location.href=link;
     }
     else {
@@ -135,22 +136,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
     source: function (request, response) {
-     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '+');
+     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_');
 
        $.ajax({
            url: urlController,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, '05')},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
            success: function (data) {
-             if(data.constructor === Array){
-               if(data.length == 1){
-                 if(!data[0].bo_multiple){
-                   flagMultiplo = false;
-                 }
-               }
-             }
-
              response($.map( data, function( item ) {
                 return {
                     label: item.tx_nome_osc,
@@ -166,12 +159,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
        });
    },
    select: function(event, ui){
-    if(flagMultiplo){
-      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=99';
-    }else{
-      //link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
-      link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=05';
-    }
+    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
     location.href=link;
    }
  });
@@ -184,7 +172,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            url: urlController,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -214,7 +202,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           url: urlController,//4204251
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -244,7 +232,7 @@ $("#regiao .form-control").autocomplete({
          url: urlController,//4204251
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
@@ -281,9 +269,9 @@ $("#regiao .form-control").autocomplete({
     var stringBuscada = valoresURL[1];
     stringBuscada = stringBuscada.replace(/\./g, "");
     stringBuscada = stringBuscada.split('&')[0];
-    if(window.location.href.indexOf('organizacao') > -1){
-      urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('similaridade'));
-      urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('similaridade'));
+    if(tipoConsulta == "organizacao"){
+      urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('tipoBusca'));
+      urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('tipoBusca'));
       isClusterVersion=false;
     }
     else if(tipoConsulta=="municipio"){
@@ -300,16 +288,18 @@ $("#regiao .form-control").autocomplete({
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
     }
     else if(tipoConsulta=="avancado"){
-      if(stringBuscada == '{}'){
+      params["avancado"] = window.localStorage.getItem('params_busca_avancada');
+      if(params["avancado"] == '{}'){
         //consulta tudo
         tipoConsulta="todos";
         urlRotaMapa = rotas.ClusterPais();
         urlRota = rotas.AllOSC(0);
       }
       else{
-        urlRota = rotas.ConsultaAvancadaLista(stringBuscada,0);
-        urlRotaMapa=rotas.ConsultaAvancadaMapa(stringBuscada);
+        urlRota = rotas.ConsultaAvancadaLista(0);
+        urlRotaMapa=rotas.ConsultaAvancadaMapa();
         isClusterVersion=false;
+        consulta_avancada = true;
       }
     }
     else{
@@ -324,78 +314,101 @@ $("#regiao .form-control").autocomplete({
   }
 
   //*** Methods
-  function tabela(urlRota){
+  function tabela(urlRota, consulta_avancada){
     $('#loading').removeClass('hide');
     $('#resultadoconsulta_formato_dados').hide();
+    if(consulta_avancada){
+      type_http = "POST";
+      data_tipo = {flag: 'consultaPost', rota: urlRota, parametros: params};
+    }else{
+      type_http = "GET";
+      data_tipo = {flag: 'consulta', rota: urlRota};
+    }
 
     $.ajax({
       url: "js/controller.php",
-      type: 'GET',
+      type: type_http,
       dataType: 'json',
-      data:{flag: "consulta", rota: urlRota},
+      data:data_tipo,
       error:function(e){
         console.log("Erro no ajax: "+e);
       },
       success: function(data){
-        var columns = 6;
-        var sizeOfData = data.length;
-        newData = new Array(sizeOfData);
-        var i = 0;
-        var txtVazioNulo = 'Dado não informado.';
-        var srcPadrao = 'img/camera.jpg';
-        for (var j in data){
-          if(j=="0") continue;
-          else{
-            newData[i] = new Array(columns);
-            srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
-            newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
-            newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
-            newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
-            newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
-            newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
-            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
-            i++;
+        if(data !== "Nenhuma Organização encontrada!"){
+          var columns = 6;
+          var sizeOfData = data.length;
+          newData = new Array(sizeOfData);
+          var i = 0;
+          var txtVazioNulo = 'Dado não informado.';
+          var srcPadrao = 'img/camera.jpg';
+          for (var j in data){
+            if(j=="0") continue;
+            else{
+              newData[i] = new Array(columns);
+              srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
+              newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
+              newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
+              newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
+              newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
+              newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
+              newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
+              i++;
+            }
           }
+          //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
+          if(typeof newData[0] !== "undefined"){
+            var datatable = $('#resultadoconsulta_formato_dados').DataTable({
+              responsive: true,
+              processing: true,
+              deferLoading: 1000,
+              deferRender: true,
+              searching: false,
+              data: newData,
+              dom: 'Bfrtip',
+              "bPaginate": false,
+              "bSort": true,
+              "aaSorting": [[ 1, 'asc' ]],
+               columns: [
+                       {title: "", width: 50},
+                       {title: "Nome da OSC", width: 200},
+                       {title: "CNPJ"},
+                       {title: "Natureza Jurídica"},
+                       {title: "Endereço"},
+                       {title: "Detalhar"}
+                   ],
+               aoColumnDefs: [
+                 {bSortable :false, aTargets: [0]},
+                 {bSortable :false, aTargets: [5]},
+                 {bSortable :false, aTargets: [4]}
+               ],
+               autoWidth: true
+             });
+             datatable.destroy();
+             datatable.draw();
+             $('#resultadoconsulta_formato_dados').show();
+             $('#loading').addClass('hide');
+         }
+         else {
+            $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+            $('#modalTitle').text('Nenhuma OSC encontrada!');
+            if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
+              $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+            }else {
+              $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
+            }
+            $('#modalMensagem').modal('show');
+         }
         }
-        //Se a pesquisa for alguma palavra que não tem referencia com nenhuma OSC
-        if(typeof newData[0] !== "undefined"){
-          var datatable = $('#resultadoconsulta_formato_dados').DataTable({
-            responsive: true,
-            processing: true,
-            deferLoading: 1000,
-            deferRender: true,
-            searching: false,
-            data: newData,
-            dom: 'Bfrtip',
-            "bPaginate": false,
-            "bSort": true,
-            "aaSorting": [[ 1, 'asc' ]],
-             columns: [
-                     {title: "", width: 50},
-                     {title: "Nome da OSC", width: 200},
-                     {title: "CNPJ"},
-                     {title: "Natureza Jurídica"},
-                     {title: "Endereço"},
-                     {title: "Detalhar"}
-                 ],
-             aoColumnDefs: [
-               {bSortable :false, aTargets: [0]},
-               {bSortable :false, aTargets: [5]},
-               {bSortable :false, aTargets: [4]}
-             ],
-             autoWidth: true
-           });
-           datatable.destroy();
-           datatable.draw();
-           $('#resultadoconsulta_formato_dados').show();
-           $('#loading').addClass('hide');
-       }
-       else {
-          $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
-          $('#modalTitle').text('Nenhuma OSC encontrada');
-          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
-          $('#modalMensagem').modal('show');
-       }
+        else {
+           $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+           $('#modalTitle').text('Nenhuma OSC encontrada!');
+           if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
+             $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+           }else {
+             $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
+           }
+           $('#modalMensagem').modal('show');
+        }
       }
      });
 
@@ -425,12 +438,12 @@ $("#regiao .form-control").autocomplete({
           var txtVazioNulo = 'Dado não informado.';
           var div = '<div class="mapa_organizacao clearfix">' +
                     '<span id="spantitle" class="magneticTooltip">'+
-                    '<button id="title" class="btn-link" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'">'+
+                    '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#'+ id +'">'+
                     '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
                     '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
                     '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
                     '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
-                    '<div align="center"><button type = button class="btn btn-info" title="Clique para Detalhar" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
+                    '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
                     '</div></div></div>';
           leafletMarker.bindPopup(div).openPopup();
         }
@@ -472,9 +485,11 @@ $("#regiao .form-control").autocomplete({
 
   function carregaMapa(dados){
     for(var k in dados){
-      var point = loadPoint(k, dados[k][0], dados[k][1]);
-      if(point!==null){
-        map.addLayer(point);
+      if(k != "0"){
+        var point = loadPoint(k, dados[k][0], dados[k][1]);
+        if(point!==null){
+          map.addLayer(point);
+        }
       }
     }
 
@@ -677,7 +692,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -708,7 +723,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -743,7 +758,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -785,7 +800,8 @@ $("#regiao .form-control").autocomplete({
     var offset = parseInt(pageNumber) * 10 - 10;
 
     if(tipoConsulta == "avancado"){
-      urlRota = rotas.ConsultaAvancadaLista(stringBuscada,offset);
+      urlRota = rotas.ConsultaAvancadaLista(offset);
+      consulta_avancada = true;
     }
     else if(tipoConsulta == "municipio"){
       urlRota = rotas.OSCByCounty(stringBuscada,offset);
@@ -800,10 +816,10 @@ $("#regiao .form-control").autocomplete({
       urlRota = rotas.AllOSC(offset);
     }
     else if(tipoConsulta == "organizacao"){
-      urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('similaridade'));
+      urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('tipoBusca'));
     }
 
-    tabela(urlRota);
+    tabela(urlRota, consulta_avancada);
   }
 
   function clickClusterEstado(e){
@@ -820,7 +836,7 @@ $("#regiao .form-control").autocomplete({
           console.log("ERRO no AJAX :" + e);
       },
       success: function(data){
-        tabela(urlRota);
+        tabela(urlRota, consulta_avancada);
         if(typeof data.length !== 'undefined'){
           var count = 0;
           for(var i = 0; i < data.length; i++){
@@ -858,39 +874,56 @@ $("#regiao .form-control").autocomplete({
   //*** MAIN ***\\
   $("#loadingMapModal").show();
 
+  if(consulta_avancada){
+    type_http = "POST";
+    data_tipo_mapa = {flag: 'consultaPost', rota: urlRotaMapa, parametros: params};
+  }else{
+    type_http = "GET";
+    data_tipo_mapa = {flag: 'consulta', rota: urlRotaMapa};
+  }
+
   $.ajax({
     url: urlController,
-    type: 'GET',
+    type: type_http,
     dataType: 'json',
-    data: {flag: 'consulta', rota: urlRotaMapa},
+    data: data_tipo_mapa,
     error: function(e){
         console.log("ERRO no AJAX :" + e);
-        //console.log(urlRotaMapa);
     },
     success: function(data){
 
-      if(data!==undefined){
-        tabela(urlRota);
-        if(typeof data.length !== 'undefined'){
-          var count = 0;
-          for(var i = 0; i < data.length; i++){
-            count += data[i].nr_quantidade_osc_regiao;
+      if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" ){
+        tabela(urlRota, consulta_avancada);
+        var count = 0;
+
+        if(isClusterVersion){
+          if(typeof data.length !== 'undefined'){
+            for(var i = 0; i < data.length; i++){
+              count += data[i].nr_quantidade_osc_regiao;
+            }
           }
+
           paginar(count);
           $("#legenda p").append(count);
 
-        }
-        else{
-          paginar(Object.keys(data).length-1);
-          $("#legenda p").append(Object.keys(data).length-1);
-        }
-
-        if(isClusterVersion){
           carregaMapaCluster(data, tipoConsulta);
         }
         else{
+          count = Object.keys(data).length-1;
+          paginar(count);
+          $("#legenda p").append(count);
+
           carregaMapa(data);
         }
+      }else{
+        $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+        $('#modalTitle').text('Nenhuma OSC encontrada!');
+        if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
+          $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+        }else {
+          $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
+        }
+        $('#modalMensagem').modal('show');
       }
     }
   });

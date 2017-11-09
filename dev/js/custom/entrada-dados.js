@@ -1,31 +1,36 @@
+require(["jquery-ui"], function(React) {
+
+    $(document).tooltip({
+        position: {
+            my: "center bottom-20",
+            at: "center top",
+            using: function(position, feedback) {
+                $(this).css(position);
+                $("<div>")
+                    .addClass("arrow")
+                    .addClass(feedback.vertical)
+                    .addClass(feedback.horizontal)
+                    .appendTo(this);
+            }
+        }
+    });
+
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+       });
+    });
+
+    $(".captcha iframe").attr('title', '');
+
+});
+
 require(['react', 'jsx!components/Util'], function (React) {
 
-  require(['componenteBlocoDeTexto'], function(BlocoTexto){
-    function BlocoDeTexto(titulo, formato){
-      this.titulo = titulo;
-      this.formato = formato;
-    }
-
-    var csv = "O formato CSV(Comma Separated Values) é um dos formatos mais utilizados para a troca de dados entre duas bases. Sua utilização tão abrangente se deve ao fato de poder ser lido, editado e gerado a partir tanto de bases de dados no formato SQL quanto de arquivos do Excel. A principal característica do formato é o fato de ser formado imitando uma tabela, com um cabeçalho contendo o nome das colunas, seguido de uma tripa de dados de um registro a cada linha. Como o nome já indica cada par de valores, tanto no cabeçalho quanto nas colunas, é separado por vírgulas(,) ou pontos e vírgulas(;) portanto é necessário que esses caracteres não apareçam nas variáveis do arquivo. Para utilizar esse formato é necessário que se utilize o modelo apresentado a seguir: Modelo CSV Esse formato pode ser utilizado com ambos os tipos de envio.";
-    var xls = "Formato padrão do Microsoft Excel, o XLS(XmL Spreadsheet) tem uma qualidade razoável e é simples de ser gerado pela ubiquidade do microsoft office. Esse formato é exclusivo para uso com Upload de Arquivo. Para utilizar esse formato é necessário que se utilize o modelo apresentado a seguir: Modelo XLS";
-    var xml = "O formato XML (eXtensible Markup Language) é popularmente utilizado para a tranferência de dados binários nos quais é necessária um maior controle do dado recebido. Foi substituído pelo JSON para boa parte das aplicações mais simples já que adicionava uma complexidade alta e por vezes desnecessária ao processo. Sua principal vantagem é a quantidade de maneiras através das quais é possível verificar a veracidade do dado disponível. Esse formato é exclusivo para uso com WebServices. Para utilizar esse formato é necessário que se utilize o modelo apresentado a seguir: Modelo XML";
-    var json = "O formato JSON (JavaScript Object Notation) é um formato de transferência de dados que apresenta cada elemento como um objeto com diversos atributos. Sua utilização cresce bastante ao longo do tempo, em especial pela sua simplicidade e fácil compreensão. Uma outra vantagem é que para os formatos utilizados em WebServices ele é mais leve que o outro formato popular, o xml. Esse formato é exclusivo para uso com WebServices. Para utilizar esse formato é necessário que se utilize o modelo apresentado a seguir: Modelo JSON";
-    var titulos = ["CSV", "XLS", "XML", "JSON"];
-    var formatos = [csv, xls, xml, json];
-
-    var blocosDeTexto = [];
-    for (var i=0; i<titulos.length; i++){
-      blocosDeTexto.push(new BlocoDeTexto(titulos[i], formatos[i]));
-    }
-
-    BlocoTexto = React.createFactory(BlocoTexto);
-    ReactDOM.render(BlocoTexto({dados:blocosDeTexto}), document.getElementById("bloco_texto_formato_dados"));
-  });
-
-
   require(['componenteDropdown'], function(Dropdown){
-    var arquivosRetornados, arquivosEnviados;
-    arquivosRetornados = arquivosEnviados = ["XML", "JSON", "CSV"];
+    var arquivosRetornados, arquivosEnviados ;
+    arquivosRetornados = arquivosEnviados = ["JSON", "CSV"];
     var periodicidade = ["Dia(s)", "Semana(s)", "Mês(es)"];
 
     Dropdown = React.createFactory(Dropdown);
@@ -33,10 +38,25 @@ require(['react', 'jsx!components/Util'], function (React) {
     ReactDOM.render(Dropdown({list: arquivosRetornados}), document.getElementById("arquivo_retornado_dropdown"));
     ReactDOM.render(Dropdown({list:periodicidade}), document.getElementById("periodicidade_dropdown"));
     ReactDOM.render(Dropdown({list:arquivosEnviados}), document.getElementById("tipo_arquivo_dropdown"));
+
    });
 });
 
-require(['jquery'], function (React) {
+require(['react', 'jsx!components/Util','jquery-ui','rotas'], function (React) {
+
+  var user = window.localStorage.getItem('User');
+  var auth  = window.localStorage.getItem('Authorization');
+
+  var authHeader = {
+    "User": user,
+    "Authorization": auth
+  };
+  var json = {};
+  json['headers'] = authHeader;
+
+  var rotas = new Rotas();
+  var modal = $('#modalMensagem');
+  var controller = "js/controller.php";
 
   $("input:radio").change(function () {
     if($(this).val() === "web_service"){
@@ -48,4 +68,86 @@ require(['jquery'], function (React) {
       $("#web_service").hide();
     }
   });
+
+  var formdata;
+  $('#fileUpload').change(function (event) {
+      formdata = new FormData();
+      formdata.append('fileUpload', event.target.files[0]);
+      $("#labelFile").text("");
+  });
+
+  var div = $(".form-group");
+  div.find(".btn.btn-success").on("click", function() {
+      //Captcha
+      if (grecaptcha.getResponse().length == 0) {
+          $("#labelCaptcha").text("Resolver o Captcha.");
+          return false;
+      } else {
+          $("#labelCaptcha").text("");
+      }
+
+      if( $("#fileUpload").val() == ""){
+        $("#labelFile").text("Nenhum arquivo selecionado.");
+        return false;
+      }
+      else{
+        $("#labelFile").text("");
+      }
+
+      json['arquivo'] = formdata.getAll('fileUpload')[0];
+      json['tipo_arquivo'] = $("#tipo_arquivo_dropdown select").val();
+
+      $.ajax({
+          dataType: 'json',
+          type: 'POST',
+          url: controller,
+          cache : false,
+          processData: false,
+          data: {flag: 'consultaPost', rota: rotas.EnviarArquivoEstadoMunicipio(), parametros: json},
+          error: function(e) {
+              if (e.status == 200){
+                  $("#modalTitle").text("Solicitação realizada com sucesso!");
+                  $("#modalConteudo").text('');
+                  $("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+              }else{
+                  $("#modalTitle").text("Problema no cadastro!");
+                  $("#modalConteudo").text('');
+                  $("#modalConteudo").text(JSON.parse(e.responseText).msg);
+              }
+             modal.modal('show');
+          },
+          success: function(data) {
+              $("#modalTitle").text("Cadastro de Representante");
+              $("#modalConteudo").text('');
+              $("#modalConteudo").text(data.msg);
+              modal.modal('show');
+          }
+      });
+
+  });
+
 });
+
+var jsonModalAjuda = {
+	"Selecione o arquivo a ser enviado":'Os arquivos enviados para o Mapa das OSCs devem ser enviados em dois formatos <b>CSV</b> ou <b>JSON</b>.',
+ };
+
+function abrirModalAjuda(titulo) {
+
+  var	corpo = jsonModalAjuda[titulo];
+  var tituloCompleto = "Ajuda - "+titulo;
+  var btn = "<button type='button' class='btn btn-danger' data-dismiss='modal'>Fechar</button>";
+
+  acionarModalAjuda(tituloCompleto, corpo, btn);
+}
+
+function acionarModalAjuda(titulo, corpo, btn) {
+  $("#modalTitulo").html("");
+  $("#modalTitulo").html(titulo);
+  $("#corpoModal").html("");
+  $("#corpoModal").html(corpo);
+	$("#btnFooter").html("");
+	$("#btnFooter").html(btn);
+  $("#modalAjuda").modal('show');
+  verificarContraste();
+}

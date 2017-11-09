@@ -3,12 +3,13 @@ class FonteRecurso {
 
   }
 
-  montarPorAno(ano, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
+  montarPorAno(ano, nao_possui, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
     var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
     var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
     var recursos_nao_financeiros = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 3; });
     $("#recursos").append('<div id='+ano+'></div>');
+
     if(index !== 0){
       $('#'+ano).toggleClass("hidden");
     }
@@ -66,7 +67,7 @@ class FonteRecurso {
 
       for (var i=0; i<items.length; i++){
         var value = items[i].content;
-        if(value !== ""){
+        if(value !== "" && value!==null){
           if(value.indexOf('.') === -1){
             value += "00";
           }
@@ -98,6 +99,24 @@ class FonteRecurso {
     $("#recursos_nao_financeiros-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
     $("#recursos_nao_financeiros-"+ano).find('input').addClass('with-pretext');
     $("#recursos_nao_financeiros-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');
+
+    $("#recursos_geral-"+ano).append('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para este ano.</label></div>');
+
+    if(nao_possui){
+      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', true);
+    }
+    else{
+      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', false);
+    }
+
+    $('#recursos_geral-'+ano+' input[type="checkbox"]').change(function() {
+      if($(this).is(':checked')){
+        $(this).prop('checked', true);
+      }
+      else{
+        $(this).prop('checked', false);
+      }
+    });
   }
 
   carregaFontes(rotas){
@@ -126,7 +145,7 @@ class FonteRecurso {
     var fontesRecursos = this.carregaFontes(rotas);
     //console.log(json);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
-      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
+      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, json.recursos.recursos[j].bo_nao_possui, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
 
     // interacoes da selecao de anos

@@ -67,18 +67,20 @@ class Util {
     }
   }
 
-  AgrupadorDeInputs(id, containerClass, header, inputs, buttons){
+  AgrupadorDeInputs(id, containerClass, header, inputs, buttons, select, cc){
     return{
       "id" : id,
       "containerClass" : containerClass,
       "header" : header,
       "inputs" : inputs,
-      "buttons" : buttons
+      "options" : select,
+      "buttons" : buttons,
+      "custom_class": cc
     };
   }
 
   abrirModalAjuda(titulo, jsonModalAjuda) {
-  	var	corpo = jsonModalAjuda[titulo];
+    var corpo = jsonModalAjuda[titulo];
 
     $("#modalTitulo").html("");
     $("#modalTitulo").html(titulo);
@@ -88,7 +90,7 @@ class Util {
     verificarContraste();
   }
 
-  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd){
+  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd, cc){
     return {
       "id" : id,
       "content" : content,
@@ -99,7 +101,8 @@ class Util {
       "buttonsInLine" : buttonsInLine,
       "placeholder" : placeholder,
       "title": title,
-      "cd": cd
+      "cd": cd,
+      "cc": cc
     };
   }
 
@@ -137,68 +140,87 @@ class Util {
       });
     }
     addOutros(idClass);
-}
+  }
   addItem(idDiv){
     function addItemm(idDiv){
 
-    function isTrue(obj){
-      if(obj){
-        return true;
+      function isTrue(obj){
+        if(obj){
+          return true;
+        }
+        else {
+          return false;
+        }
       }
-      else {
-        return false;
-      }
-    }
 
-    $('#'+idDiv+' button').on('click', function(){
-      if($(this).hasClass('btn-primary')){
-        var $cloneDiv = ($(this).parent());
-        var $input = $cloneDiv.find('input[type=text]');
-        var $select = $cloneDiv.find('select');
-        var values = new Array();
-        $input.parent().removeClass('has-error');
-        $select.parent().removeClass('has-error');
-        $('.alert-danger').remove();
-
-        $input.each(function(i){
-          if($(this).val().trim() !== "" ){
-            values[i] = true;
-          }
-          else {
-            values[i] = false;
-            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-          }
-        });
-
-        $select.each(function(i){
-          if($(this).val() !== '-1' ){
-            values[i] = true;
-          }
-          else {
-            values[i] = false;
-            $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
-          }
-        });
-
-        if(values.every(isTrue)){
+      $('#'+idDiv+' button').on('click', function(){
+        if($(this).hasClass('btn-primary')){
+          var $cloneDiv = ($(this).parent());
+          var $input = $cloneDiv.find('input[type=text]');
+          var $select = $cloneDiv.find('select');
+          var values = new Array();
           $input.parent().removeClass('has-error');
           $select.parent().removeClass('has-error');
-          $input.after().find('span').remove();
-          $select.after().find('span').remove();
-          var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
-          var $cloneChildren = $('#'+idDiv).children();
-          $cloneDiv.clone().appendTo($cloneChildren);
-          $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
-          $cloneDiv.parent().children().last().find('input[type=text]').val('');
+          $('.alert-danger').remove();
 
-          var date_inputs = $cloneDiv.parent().children().last().find(".date");
-          var ano_inputs = $cloneDiv.parent().children().last().find(".ano");
-          var cloneDiv_date_inputs = $cloneDiv.parent().children().last().prev().find(".date");
-          var cloneDiv_ano_inputs = $cloneDiv.parent().children().last().prev().find(".ano");
+          $input.each(function(i){
+            if($(this).val().trim() !== "" ){
+              values[i] = true;
+            }
+            else {
+              values[i] = false;
+              $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+            }
+          });
 
-          for (var i = 0; i < date_inputs.length; i++) {
-            var date_input = date_inputs[i];
-            var cloneDiv_date_input = cloneDiv_date_inputs[i];
+          $select.each(function(i){
+            if($(this).val() !== '-1' ){
+              values[i] = true;
+            }
+            else {
+              values[i] = false;
+              $(this).parent().addClass('has-error').after('<span class = "alert-danger">É necessário que os campos estejam preenchidos.</span>');
+            }
+          });
+
+          if(values.every(isTrue)){
+            $input.parent().removeClass('has-error');
+            $select.parent().removeClass('has-error');
+            $input.after().find('span').remove();
+            $select.after().find('span').remove();
+            var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
+            var $cloneChildren = $('#'+idDiv).children();
+            $cloneDiv.clone().appendTo($cloneChildren);
+            $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
+            $cloneDiv.parent().children().last().find('input[type=text]').val('');
+
+            var date_inputs = $cloneDiv.parent().children().last().find(".date");
+            var ano_inputs = $cloneDiv.parent().children().last().find(".ano");
+            var cloneDiv_date_inputs = $cloneDiv.parent().children().last().prev().find(".date");
+            var cloneDiv_ano_inputs = $cloneDiv.parent().children().last().prev().find(".ano");
+
+            for (var i = 0; i < date_inputs.length; i++) {
+              var date_input = date_inputs[i];
+              var cloneDiv_date_input = cloneDiv_date_inputs[i];
+              var cloneDiv_id_string = $(cloneDiv_date_input).attr("id");
+              var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+              var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
+              var date_input_id_string = $(date_input).attr("id");
+              var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
+              var id_clone_div = Number(cloneDiv_id);
+              var id_clone_div_text = date_input_text;
+              id_clone_div--;
+              $(date_input).removeClass('hasDatepicker');
+              $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
+              $(date_input).datepicker({ dateFormat: 'dd-mm-yy', changeYear: true });
+            }
+            this.addOutros = new Util();
+            if(idDiv == 'conselhos'){
+              this.addOutros.addOutro('conselho');
+            }
+            if (idDiv == "conferencias") {
+            var date_input = ano_inputs[0];
+            var cloneDiv_date_input = cloneDiv_ano_inputs;
             var cloneDiv_id_string = $(cloneDiv_date_input).attr("id");
             var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
             var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
@@ -209,57 +231,70 @@ class Util {
             id_clone_div--;
             $(date_input).removeClass('hasDatepicker');
             $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
-            $(date_input).datepicker({ dateFormat: 'dd-mm-yy', changeYear: true });
+            $(date_input).datepicker({
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'yy',
+                yearRange: '1950:2050',
+                onClose: function(dateText, inst) {
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, 1));
+                } });
+                $(date_input).focus(function () {
+                    $(".ui-datepicker-calendar").hide();
+                    $('.ui-datepicker-month').hide();
+                    $('.ui-datepicker-prev').hide();
+                    $('.ui-datepicker-next').hide();
+                });
+            this.addOutros.addOutro('conferencia');
           }
-          this.addOutros = new Util();
-          if(idDiv == 'conselhos'){
-            this.addOutros.addOutro('conselho');
-          }
-          if (idDiv == "conferencias") {
-          var date_input = ano_inputs[0];
-          var cloneDiv_date_input = cloneDiv_ano_inputs;
-          var cloneDiv_id_string = $(cloneDiv_date_input).attr("id");
-          var cloneDiv_id_text = cloneDiv_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
-          var cloneDiv_id = cloneDiv_id_string.substr(cloneDiv_id_string.indexOf('-')+1);
-          var date_input_id_string = $(date_input).attr("id");
-          var date_input_text = date_input_id_string.substr(0,cloneDiv_id_string.indexOf('-'));
-          var id_clone_div = Number(cloneDiv_id);
-          var id_clone_div_text = date_input_text;
-          id_clone_div--;
-          $(date_input).removeClass('hasDatepicker');
-          $(date_input).attr("id", id_clone_div_text+"-"+id_clone_div);
-          $(date_input).datepicker({
-              changeYear: true,
-              showButtonPanel: true,
-              dateFormat: 'yy',
-              yearRange: '1950:2050',
-              onClose: function(dateText, inst) {
-                  var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                  $(this).datepicker('setDate', new Date(year, 1));
-              } });
-              $(date_input).focus(function () {
-                  $(".ui-datepicker-calendar").hide();
-                  $('.ui-datepicker-month').hide();
-                  $('.ui-datepicker-prev').hide();
-                  $('.ui-datepicker-next').hide();
-              });
-          this.addOutros.addOutro('conferencia');
-        }
-          $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
-          //$(".ano").datepicker({ dateFormat: 'yy' });
-          if($cloneDiv.parent().children().last().find('#outro_conselho')){
-            $cloneDiv.parent().children().last().find('#outro_conselho').remove();
-          }
-          if($cloneDiv.parent().children().last().find('#outro_conferencia')){
-            $cloneDiv.parent().children().last().find('#outro_conferencia').remove();
+            $(".date").datepicker({ dateFormat: 'dd-mm-yy' });
+            //$(".ano").datepicker({ dateFormat: 'yy' });
+            if($cloneDiv.parent().children().last().find('#outro_conselho')){
+              $cloneDiv.parent().children().last().find('#outro_conselho').remove();
+            }
+            if($cloneDiv.parent().children().last().find('#outro_conferencia')){
+              $cloneDiv.parent().children().last().find('#outro_conferencia').remove();
+            }
           }
         }
-      }
-      else {
-        $(this).parent().remove();
-      }
-    });
+        else {
+          $(this).parent().remove();
+        }
+      });
+    }
+    addItemm(idDiv);
   }
-  addItemm(idDiv);
-}
+
+  verificarPermissao(id){
+    var cache_osc = window.localStorage.getItem('Osc');
+    if(cache_osc != "undefined"){
+      var osc  = JSON.parse(cache_osc);
+      if(osc != "undefined" && osc !== null){
+        for (var i = 0; i < osc.length; i++) {
+          if (osc[i] == id) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  replaceSpecialChars(str){
+    str = str.replace(/[ÀÁÂÃÄÅ]/g,"A");
+    str = str.replace(/[àáâãäå]/g,"a");
+    str = str.replace(/[ÉÈÊË]/g,"E");
+    str = str.replace(/[éèêë]/g,"e");
+    str = str.replace(/[ÍÌÎÏ]/g,"I");
+    str = str.replace(/[íìîï]/g,"i");
+    str = str.replace(/[ÓÒÔÕ]/g,"O");
+    str = str.replace(/[óòôõ]/g,"o");
+    str = str.replace(/[ÚÙÛÜ]/g,"U");
+    str = str.replace(/[úùûü]/g,"u");
+    str = str.replace(/[Ç]/g,"C");
+    str = str.replace(/[ç]/g,"c");
+    return str;
+  }
 }

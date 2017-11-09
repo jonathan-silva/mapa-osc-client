@@ -14,6 +14,9 @@ require(["jquery-ui"], function(React) {
             }
         }
     });
+
+    $(".captcha iframe").attr('title', '');
+
 });
 
 require(['react', 'jsx!components/Util'], function(React) {
@@ -79,7 +82,12 @@ require(['react', 'jsx!components/Util'], function(React) {
                       rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars($cnpj_osc).replace(/ /g, '+'), limiteAutocomplete)
                   },
                   success: function(data) {
-                    if (data == null){
+                    if (data[0]){
+                       jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
+                       $('#entidadeLabel').removeClass('hide');
+                       $id_osc = data[0].id_osc;
+                       $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');
+                    }else{
                         $('#entidadeLabel').addClass('hide');
                         jQuery("#entidadeLabel").text('');
                         $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -87,13 +95,8 @@ require(['react', 'jsx!components/Util'], function(React) {
                         $cnpj_osc = '';
                         jQuery("#modalTitle").text("Erro");
                         jQuery("#modalConteudo").text('');
-                        jQuery("#modalConteudo").text("Entidade não cadastrada! ");
+                        jQuery("#modalConteudo").text("Essa organização não se encontra em nosso mapa! ");
                         $modal.modal('show');
-                    }else{
-                       jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
-                       $('#entidadeLabel').removeClass('hide');
-                       $id_osc = data[0].id_osc;
-                       $("#cnpj").closest('.form-group').removeClass('has-error').addClass('has-success');
                     }
                   },
                   error: function (jqXHR, exception) {
@@ -272,9 +275,9 @@ require(['react', 'jsx!components/Util'], function(React) {
                     $modal.modal('show');
                 },
                 success: function(data) {
-                    jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
+                    jQuery("#modalTitle").text("Cadastro de Representante");
                     jQuery("#modalConteudo").text('');
-                    jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+                    jQuery("#modalConteudo").text(data.msg);
                     $modal.modal('show');
                 }
             }); //final ajax

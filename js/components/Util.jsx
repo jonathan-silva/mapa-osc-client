@@ -191,7 +191,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return (
         <div>
           <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título</button>
-          <br/><br/>
+          <br/>
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
              <tr>
@@ -602,7 +602,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
-        else if (item.fonte == false) {
+        else if (item.fonte == false || item.fonte == null) {
             SpanFonte = "";
         }
 
@@ -1147,7 +1147,7 @@ define('componenteFormItemProjeto', ['react', 'componenteFormItemButtons'], func
               {ButtonElement}
             </div>
           </div>
-        )
+        );
       }
 
       return itens;
@@ -1228,14 +1228,17 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
+        var custom_class = item.cc;
         if(content === undefined || content === null ){
           content = "";
         }
-
+        if(custom_class === undefined || custom_class === null ){
+          custom_class = "";
+        }
 
         if(type == 'select'){
           var InputElement =
-            <div id={id}>
+            <div id={id} className={custom_class}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;

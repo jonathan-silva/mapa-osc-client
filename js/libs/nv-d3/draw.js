@@ -11,7 +11,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([0, 0])
   .html(function(d) {
-    return d.data.label + ": <span style='color:orangered'>" + d.data.score + "</span>";
+    return d.data.label + ": <span style='color:orangered'>" + d.data.score + "%</span>";
   });
 
 var arc = d3.svg.arc()

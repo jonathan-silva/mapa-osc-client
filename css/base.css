@@ -6430,6 +6430,17 @@ button.close {
   .visible-xs-inline-block {
     display: inline-block !important;
   }
+  .menuHeader {
+    margin-top: 40px !important;
+    max-width: 190px;
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 1px 10px;
+    background-color: white;
+    width: 70%;
+    border: solid thick #5bc0de;
+    border-radius: 1em;
+    max-height: 400px;
+  }
+  
   #nav1 {
       padding-left: 0px;
       width: 50%;
@@ -6456,6 +6467,14 @@ button.close {
     }
 
     #tabGrafico{
+        height: 110px !important;
+    }
+
+    #tabMrosc a {
+      padding: 3px 3px !important;
+    }
+
+    #tabMrosc{
         height: 110px !important;
     }
 

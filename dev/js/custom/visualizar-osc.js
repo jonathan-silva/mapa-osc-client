@@ -1,6 +1,7 @@
 var controller = angular.module('oscApp', []);
 var idOsc;
 var absUrl;
+var util = new Util();
 
 controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
 	absUrl = $location.$$absUrl;
@@ -26,7 +27,14 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 		}).then(function(response) {
 			if(response.data.msg == undefined){
 				self.osc = response.data
-				$scope.projs = response.data.projeto.projeto // PROJETOS
+				var projeto_array = response.data.projeto
+				if(projeto_array != undefined){
+					$scope.projs = projeto_array.projeto // PROJETOS
+				}
+				else {
+					$scope.projs = "";
+				}
+
 	    	self.msg = '';
 			}else{
 				self.msg = response.data.msg;
@@ -68,6 +76,23 @@ controller.filter('startFrom', function() {
     }
 });
 
+controller.filter('unique', function() {
+   return function(collection, keyname) {
+      var output = [],
+          keys = [];
+
+      angular.forEach(collection, function(item) {
+          var key = item[keyname];
+          if(keys.indexOf(key) === -1) {
+              keys.push(key);
+              output.push(item);
+          }
+      });
+
+      return output;
+   };
+});
+
 
 controller.filter('tel', function() {
 	return function(input) {
@@ -105,8 +130,10 @@ function abrirProjeto(e) {
 }
 
 
-require(["jquery-ui"], function (React) {
+require(["jquery-ui", 'rotas'], function (React) {
 
+	var controller = 'js/controller.php'
+	var rotas = new Rotas();
 
   $(document).tooltip({
     position: {
@@ -127,6 +154,8 @@ require(["jquery-ui"], function (React) {
 
 		$("#loading").hide();
 		$(".conteudo_loading .section").css('visibility', 'visible');
+		$(".fb-share-button").attr('data-href',window.location.href);
+		//$(".g-plusone").attr('data-href',window.location.href);
 
 		verificarBotaoEditar(idOsc);
 		addLinkVoltar(idOsc);
@@ -142,20 +171,45 @@ require(["jquery-ui"], function (React) {
 		 setTimeout(function(){ verificarContraste(); }, 3000);
 		 window.onload = function () {
 				 verificarContraste();
+				 $(".social iframe").each(function() {
+					 $(this).attr('title', '');
+				 });
 		 };
 
-		 dataJson = { values: [{"id": "DG", "order": 1, "score": 39, "weight": 0.5, "color": "#9E0041", "label":"Dados Gerais"},
-		 {"id":"ASAO", "order":1, "score":37, "weight": 0.5, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
-		 {"id":"DO", "order":1, "score":45, "weight": 0.5, "color":"#F47245", "label":"Descrição da OSC"},
-		 {"id":"TC", "order":1, "score":63, "weight": 1, "color":"#FB9F59", "label":"Titulações e Certificações"},
-		 {"id":"RTG", "order":1, "score":29, "weight": 0.5, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
-		 {"id":"EPS", "order":1, "score":18, "weight": 0.3, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
-		 {"id":"PAP", "order":1, "score":58, "weight": 0.8, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
-		 {"id":"FRAO", "order":1, "score":80, "weight": 1, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
-		 };
+		 $.ajax({
+			 url: controller,
+			 type: 'GET',
+			 async: true,
+			 dataType: 'json',
+			 data:{flag: 'consulta', rota: rotas.BarraTransparencia(idOsc)},
+			 error:function(e){
+				 console.log("Erro no ajax: ");
+				 console.log(e);
+				 $('#grafico-progress').parent().hide();
+			 },
+			 success: function(data){
 
-		 perfil(dataJson['values']);
-		 $('#grafico-progress').hide();
+				 if (data != null) {
+
+					 dataJson = { values: [{"id": "DG", "order": 1, "score": data.transparencia_dados_gerais, "weight": data.peso_dados_gerais, "color": "#9E0041", "label":"Dados Gerais"},
+					 {"id":"ASAO", "order":1, "score":data.transparencia_area_atuacao, "weight": data.peso_area_atuacao, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
+					 {"id":"DO", "order":1, "score":data.transparencia_descricao, "weight": data.peso_descricao, "color":"#F47245", "label":"Descrição da OSC"},
+					 {"id":"TC", "order":1, "score":data.transparencia_titulos_certificacoes, "weight": data.peso_titulos_certificacoes, "color":"#FB9F59", "label":"Titulações e Certificações"},
+					 {"id":"RTG", "order":1, "score":data.transparencia_relacoes_trabalho_governanca, "weight": data.peso_relacoes_trabalho_governanca, "color":"#6CC4A4", "label":"Relações de Trabalho e Governança"},
+					 {"id":"EPS", "order":1, "score":data.transparencia_espacos_participacao_social, "weight": data.peso_espacos_participacao_social, "color":"#4D9DB4", "label":"Espaços de Participação Social"},
+					 {"id":"PAP", "order":1, "score":data.transparencia_projetos_atividades_programas, "weight": data.peso_projetos_atividades_programas, "color":"#4776B4", "label":"Projetos, atividades e/ou programas"},
+					 {"id":"FRAO", "order":1, "score":data.transparencia_fontes_recursos, "weight": data.peso_fontes_recursos, "color": "#5E4EA1","label":"Fontes de recursos anuais da OSC"}]
+					 };
+
+	 				 perfil(dataJson['values']);
+					 $('#grafico-progress').parent().hide();
+
+				}
+			}
+
+		 });
+
+
 
 
 	});
@@ -197,7 +251,8 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fontes de recursos anuais da OSC</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label></div>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2017'> 2017</label></div>";
 	corpo += "</fieldset>";
 
 	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
@@ -284,18 +339,8 @@ function imprimir(){
 
 }
 
-function validateObject(obj){
-  if(obj === null){
-    return false;
-  }
-  if(Object.keys(obj).length === 0 && obj.constructor === Object){
-    return false;
-  }
-  return true;
-}
-
 function verificarBotaoEditar(id){
-	if(verificarPermissaoBotao(id)){
+	if(util.verificarPermissao(id)){
 		$(".btnEditar").append('<a id="btnEditar" type="button" title="Clique para Editar"  class="btn btn-info btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar OSC</a>');
 		$("#btnEditar").attr("href","editar-osc.html#/"+id);
 	}
@@ -313,16 +358,4 @@ function addLinkVoltar(id){
 		 } else {
 				 $("#voltaPagAnterior").text('Lista de OSCs');
 		 }
-}
-
-function verificarPermissaoBotao(id){
-	var osc  = JSON.parse(window.localStorage.getItem('Osc'));
-	if(osc != "undefined" && osc !== null){
-		for (var i = 0; i < osc.length; i++) {
-			if (osc[i] == id) {
-     		return true;
-   		}
-		}
-	}
-	return false;
 }

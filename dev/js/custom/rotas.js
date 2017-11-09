@@ -5,8 +5,9 @@ class Rotas{
 
   getBaseUrl(){
     return "https://mapaosc-desenv.ipea.gov.br";
-  //  return "https://10.1.4.205";
-  //  return "http://localhost";
+    //return "https://10.1.4.110";
+    //return "https://10.1.4.205";
+    //return "http://localhost";
   }
 
   //index.js
@@ -151,7 +152,7 @@ class Rotas{
   Titularidade(){
     return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
   }
-  FontesRecursosById(){
+  FontesRecursosById(id){
     return this.getBaseUrl()+":8383/api/osc/recursos/"+id;
   }
   FontesRecursos(){
@@ -186,6 +187,15 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/user/";
   }
 
+  //cadastro-estado-municipio.js
+  CadastroRepresentanteEstadoMunicipio(){
+    return this.getBaseUrl()+":8383/api/user/governo/";
+  }
+
+  ValidarLocalidade(cod_localidade){
+    return this.getBaseUrl()+":8383/api/user/governo/ativo/localidade/"+cod_localidade;
+  }
+
   //contato.js
   Contato(){
     return this.getBaseUrl()+":8383/api/user/contato/";
@@ -209,6 +219,10 @@ class Rotas{
   UpdateUsuario(id){
     return this.getBaseUrl()+":8383/api/user/"+id;
    }
+
+   UpdateUsuarioGov(id){
+     return this.getBaseUrl()+":8383/api/user/governo/"+id;
+    }
 
    //usuario
   AtivarUsuario(token){
@@ -240,24 +254,60 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/menu/osc/forma_participacao_conferencia/";
   }
 
-  ConsultaAvancadaLista(term, offset){
-    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset+"?avancado="+term;
+  ConsultaAvancadaLista(offset){
+    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset;
   }
 
   ConsultaAvancadaMapa(term){
-    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0?avancado="+term;
+    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0";
 
   }
 
   //Imprensa
   Imprensa(){
-    return this.getBaseUrl()+":8383/api/imprensa/";
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";
   }
   NoticiaByID(id){
-    return this.getBaseUrl()+":8383/api/noticia/"+id;
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id;
   }
   VideoByID(id){
-    return this.getBaseUrl()+":8383/api/video/"+id;
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/videoByID/"+id;
+  }
+
+  //MROSC
+  MenuMrosc(){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/menuMrosc";
+  }
+  ConteudoMroscByID(id){
+    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/conteudoMroscByID/"+id;
+  }
+
+  BarraTransparencia(id_osc){
+    return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;
+  }
+
+  RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_municipio){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/municipio/"+cd_municipio;
+  }
+
+  RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, latitude, longitude){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/geolocalizacao/"+latitude+"/"+longitude;
+  }
+
+  RecuperarOscAtualizacao(){
+    return this.getBaseUrl()+":8383/api/osc/listaatualizadas/";
+  }
+
+  RecuperarMunicipio(latitude, longitude){
+    return this.getBaseUrl()+":8383/api/geo/localidade/municipio/"+latitude+"/"+longitude;
+  }
+
+  RecuperarOscPorAreaAtuacao(cd_area_atuacao){
+    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao;
+  }
+
+  EnviarArquivoEstadoMunicipio(){
+    return this.getBaseUrl()+":8383/api/gov/carregararquivoparcerias";
   }
 
 }

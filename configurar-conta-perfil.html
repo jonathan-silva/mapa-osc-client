@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Configuração de Conta</title>
+    <link rel="icon" href="img/fav.png"/>
+    <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+    <!-- header -->
+    <div id="barra-brasil"></div>
+    <div id="header"></div>
+    <!--Fim header-->
+
+    <div id="conteudo" class="section">
+      <div class="container">
+        <div class="row rastro-navegacao">
+          <a href="/">Home</a>
+          <span> &gt; </span>
+          <a href="">Configuração de Conta</a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-primary">Configuração de Conta</h1>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="estado">Unidade Administrativa Representada:</label>
+            <span class="form-control-static" id="tx_localidade"></span>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="estado">Email utilizado para Confirmação:</label>
+            <span class="form-control-static" id="tx_email_confirmacao"></span>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="cpf">CPF:</label>
+            <span class="form-control-static" id="tx_cpf"></span>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-6 col-sm-12">
+            <label class="control-label" for="nome_representante">Nome do Representante:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_nome_representante" placeholder="Nome do servidor público responsável por carregar o banco de dados no Mapa das OSCs" type="text">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="email">Email:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o email" onclick="abrirModalAjuda('Email');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_email" placeholder="Email" type="email">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="email">Registro Institucional:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o registro institucional" onclick="abrirModalAjuda('Registro Institucional');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></label>
+            <input class="form-control" id="tx_registro_institucional" placeholder="Registro Institucional" type="text">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-6">
+            <label class="control-label" for="orgao_trabalha">Órgão em que Trabalha:<a class="btn-item ajuda" type="button" title="Clique para informações sobre o Órgão em que Trabalha" onclick="abrirModalAjuda('Órgão em que Trabalha');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_orgao_trabalha" placeholder="Órgão em que Trabalha" type="text">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-3">
+            <label class="control-label" for="telefone1">Telefone 1:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control cel-sp-mask" id="tx_telefone1"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-3">
+            <label class="control-label" for="telefone2">Telefone 2:</label>
+            <input class="form-control cel-sp-mask" id="tx_telefone2"  placeholder="Ex.: (00) 00000-0000" type="text" required="required">
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="form-group col-xs-4 col-4">
+            <label class="control-label" for="senha">Senha:<a class="btn-item ajuda" type="button" title="Clique para informações sobre as regras para senha" onclick="abrirModalAjuda('Senha');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_senha" placeholder="Senha" type="password">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-xs-4 col-sm-4">
+            <label class="control-label" for="confirmar_senha">Confirmar Senha:<span class="obrigatorio glyphicon-asterisk">(Campo Obrigatório)</span></label>
+            <input class="form-control" id="tx_confirmar_senha" placeholder="Confirmar Senha" type="password">
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="checkbox">
+              <label><input id="newsletter" type="checkbox">Desejo receber e-mail sobre as novidades do Mapa das Organizações da Sociedade Civil.</label>
+            </div>
+            <div class="checkbox">
+              <label><input id="pedido_atualizacao_trimestral" type="checkbox">Desejo ser informado quando este município/estado estiver há mais de <b>90 dias</b> sem atualizar o banco de dados no Mapa.</label>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- Modal -->
+          <div id="modalMensagem" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div id="modalTitle"  class="modal-header negrito"></div>
+                <div  id="modalConteudo" class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-dismiss="modal">OK </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="captcha">
+              <div class="g-recaptcha" data-sitekey="6Le2sCITAAAAAIzr5bltVOTTvPItoANjdutql0zm"></div>
+              <span id="labelCaptcha" class="label label-danger"></span>
+            </div>
+          </div>
+          <div class="form-group col-xs-6 col-sm-12">
+            <div class="col-sm-offset-0 text-center">
+              <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar</button>
+              <button type="submit" class="btn btn-danger" onclick="window.location.href='/index.html'"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Ajuda-->
+    <div class="modal fade" id="modalAjuda" tabindex="-1" role="dialog" aria-labelledby="modalTitulo" style="display: none;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title bold" id="modalTitulo"></h4>
+          </div>
+          <div id="corpoModal" class="modal-body">
+          </div>
+          <div class="modal-footer" id="btnFooter"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div id="rodape"></div>
+    <footer class="section section-primary">
+      <div class="container">
+        <div id="footer-brasil"></div>
+      </div>
+    </footer>
+    <!--Fim footer-->
+
+    <!--SCRIPTS-->
+    <script src="js/libs/react-15.3.1/react.min.js"></script>
+    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+    <script type="text/javascript" data-main="js/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
+    <script src="js/config.js"></script>
+    <script type="text/javascript" src="js/configurar-conta-perfil.js"></script>
+    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=pt-BR"></script>
+
+  </body>
+</html>

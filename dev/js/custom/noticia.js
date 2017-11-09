@@ -50,7 +50,7 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     success: function(data){
 
       html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_noticia+'</h3>';
-      html += '<span class="glyphicon glyphicon-calendar" aria-hidden="true">'+data.dt_noticia+'</span>';
+      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_noticia+'</span>';
       html += '<div class="text-justify txtBloco">'+data.tx_descricao_noticia+'</div>';
 
       $('#noticia').append(html);

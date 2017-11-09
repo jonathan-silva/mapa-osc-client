@@ -1,6 +1,32 @@
+require(["jquery-ui"], function (React) {
+
+  $(document).tooltip({
+    position: {
+      my: "center bottom-20",
+      at: "center top",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+          .addClass( "arrow" )
+          .addClass( feedback.vertical )
+          .addClass( feedback.horizontal )
+          .appendTo( this );
+      }
+    }
+  });
+
+  jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){
+          event.preventDefault();
+          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
+     });
+  });
+
+});
+
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Natureza jurídica das OSCs, por região",
+  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2014",
   series:[
     {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 139613 }, {"label" : "SUL", "value" : 81134 }, {"label" : "NORDESTE", "value" : 78358 }, {"label" : "CENTRO-OESTE", "value" : 20869 }, {"label" : "NORTE", "value" : 16331 }]},
     {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 27133 }, {"label" : "SUL", "value" : 6780 }, {"label" : "NORDESTE", "value" : 6704 }, {"label" : "CENTRO-OESTE", "value" : 2930 }, {"label" : "NORTE", "value" : 2437 }]},
@@ -8,7 +34,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 414 }, {"label" : "SUL", "value" : 172 }, {"label" : "NORDESTE", "value" : 214 }, {"label" : "CENTRO-OESTE", "value" : 75 }, {"label" : "NORTE", "value" : 29 }]}
     ]}];
 
-  var jsonGrafico2 = [{"config":[",f",1000000," M",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"Evolução anual dos repasses federais para as OSCs",
+  var jsonGrafico2 = [{"config":[",f",1000000," M",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"Evolução anual dos repasses federais para as OSCs, Brasil - 2009-2017",
   series:[
         {
           "key" : "Número OSC Parcerias" ,
@@ -32,7 +58,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
         ]}];
 
-      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"Evolução anual dos repasses federais para as OSCs, por área de atuação (Top 8)",
+      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"Evolução anual dos repasses federais para as OSCs por área de atuação (Top 8), Brasil - 2009-2017",
       series:[
         {
           "tipo_valor":"$",
@@ -92,11 +118,11 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Títulos e certificações das OSCs", key: "GraficoMain 4",
+  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2014", key: "GraficoMain 4",
   values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } ,
             { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
 
-  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Evolução do número de OSCs em atuação no país",
+  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2009-2014).","titulo":"Evolução do número de OSCs ativas, Brasil - 2009-2014",
   series:[
         {
           "key" : "Número de OSCs" ,
@@ -143,35 +169,13 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
 } );
 
-require(["jquery-ui", "rotas"], function (React) {
-
-  $(document).tooltip({
-    position: {
-      my: "center bottom-20",
-      at: "center top",
-      using: function( position, feedback ) {
-        $( this ).css( position );
-        $( "<div>" )
-          .addClass( "arrow" )
-          .addClass( feedback.vertical )
-          .addClass( feedback.horizontal )
-          .appendTo( this );
-      }
-    }
-  });
-
-  jQuery(document).ready(function($) {
-      $(".scroll").click(function(event){
-          event.preventDefault();
-          $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
-     });
-  });
+require(["bootstrap","jquery-ui", "rotas"], function (React) {
 
   var rotas = new Rotas();
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
   var controller = "js/controller.php";
-  
+
   var flagMultiplo = true;
   var textoBusca = '';
 
@@ -181,10 +185,10 @@ require(["jquery-ui", "rotas"], function (React) {
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+');
+    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
     var link;
     if (id == 'organizacao' && val !== ''){
-      link = "./resultado-consulta.html?" + id + "=" + val + "&similaridade=05";
+      link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
       location.href=link;
     }
     else {
@@ -219,22 +223,14 @@ require(["jquery-ui", "rotas"], function (React) {
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
     source: function (request, response) {
-	   textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '+');
-	   
-       $.ajax({   
+	   textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_');
+
+       $.ajax({
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, '05')},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
            success: function (data) {
-        	   if(data.constructor === Array){
-	        	   if(data.length == 1){
-	        		   if(!data[0].bo_multiple){
-	        			   flagMultiplo = false;
-	        		   }
-	        	   }
-        	   }
-        	   
              response($.map( data, function( item ) {
                 return {
                     label: item.tx_nome_osc,
@@ -250,12 +246,7 @@ require(["jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-		if(flagMultiplo){
-			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=99';
-		}else{
-			//link = "./resultado-consulta.html?"+'organizacao'+"="+textoBusca+"&similaridade=05";
-			link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '+').replace(/\+{2,}/g, '+') + '&similaridade=05';
-		}
+		link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
 		location.href=link;
    }
  });
@@ -268,7 +259,7 @@ require(["jquery-ui", "rotas"], function (React) {
            url: controller,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -298,7 +289,7 @@ require(["jquery-ui", "rotas"], function (React) {
           url: controller,//4204251
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -328,7 +319,7 @@ $("#regiao .form-control").autocomplete({
          url: controller,//4204251
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
@@ -351,14 +342,315 @@ $("#regiao .form-control").autocomplete({
  });
 
  $(document).ready(function() {
-   $('.ui-autocomplete-input').keypress(function(e) {
+  var itemWidth = "";
+
+  if (navigator.geolocation){
+       navigator.geolocation.getCurrentPosition(showPosition,showError);
+  }else{
+    verificarLocalidade();
+  }
+
+  function showPosition(position){
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+
+    if(lat != undefined && lat != null && lat != "" && long != undefined && long != null && long != ""){
+
+      window.localStorage.setItem('cd_latitude', lat);
+      window.localStorage.setItem('cd_longitude', long);
+
+      $.ajax({
+        url: controller,
+        type: 'GET',
+        async: true,
+        dataType: 'json',
+        data:{flag: 'consulta', rota:  rotas.RecuperarMunicipio(lat, long)},
+        error: function(e){
+          verificarLocalidade();
+        },
+        success: function(data){
+          if(data != null &&  data.length !== 0){
+            window.localStorage.setItem('cd_localidade',  data[0].cd_localidade);
+            window.localStorage.setItem('nome_localidade',  data[0].tx_nome_localidade);
+            $("#btn-localidade").text(data[0].tx_nome_localidade);
+          }
+          mostrarAreaAtuacaoPersonalizada();
+        }
+      });
+    } else{
+      verificarLocalidade();
+    }
+  }
+
+  function showError(error){
+    verificarLocalidade();
+  }
+
+  function verificarLocalidade(){
+    cd_localidade = window.localStorage.getItem('cd_localidade');
+    if(cd_localidade == "" || cd_localidade == null || cd_localidade == undefined){
+      $('#modalLocalidade').modal('show');
+    }
+    mostrarAreaAtuacaoPersonalizada();
+  }
+
+  $('.ui-autocomplete-input').keypress(function(e) {
      var key = e.which;
      if(key == 13){
        $('.btn-primary').click();
        $('.ui-menu-item').hide();
        return false;
      }
-   });
+  });
+
+  function ResCarouselSize() {
+      var itemsMainDiv = ('.MultiCarousel');
+      var itemsDiv = ('.MultiCarousel-inner');
+
+      var incno = 0;
+      var dataItems = ("data-items");
+      var itemClass = ('.item');
+      var id = 0;
+      var btnParentSb = '';
+      var itemsSplit = '';
+      var sampwidth = $(itemsMainDiv).width();
+      var bodyWidth = $('body').width();
+
+      $(itemsDiv).each(function () {
+         id = id + 1;
+         var itemNumbers = $(this).find(itemClass).length;
+         btnParentSb = $(this).parent().attr(dataItems);
+         itemsSplit = btnParentSb.split(',');
+         $(this).parent().attr("id", "MultiCarousel" + id);
+
+         if (bodyWidth >= 1200) {
+             incno = itemsSplit[3];
+             itemWidth = 30 + (sampwidth / incno) ;
+         }
+         else if (bodyWidth >= 992) {
+             incno = itemsSplit[2];
+             itemWidth = ( sampwidth / incno);
+         }
+         else if (bodyWidth >= 768) {
+             incno = itemsSplit[2];
+             itemWidth = (sampwidth / incno);
+         }
+         else if (bodyWidth >= 400) {
+             incno = itemsSplit[1];
+             itemWidth = (sampwidth / incno);
+         }
+         else {
+             incno = itemsSplit[0];
+             itemWidth = (sampwidth / incno);
+         }
+         $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+         $(this).find(itemClass).each(function () {
+             $(this).outerWidth(itemWidth);
+         });
+
+         $(".leftLst").addClass("over");
+         $(".rightLst").removeClass("over");
+
+      });
+    }
+
+     //this function used to move the items
+     function ResCarousel(e, el, s) {
+         var itemsDiv = ('.MultiCarousel-inner');
+
+         var leftBtn = ('.leftLst');
+         var rightBtn = ('.rightLst');
+         var translateXval = '';
+         var divStyle = $(el + ' ' + itemsDiv).css('transform');
+         var values = divStyle.match(/-?[\d\.]+/g);
+         var xds = Math.abs(values[4]);
+         if (e == 0) {
+             translateXval = parseInt(xds) - parseInt(itemWidth * s);
+             $(el + ' ' + rightBtn).removeClass("over");
+
+             if (translateXval <= itemWidth / 2) {
+                 translateXval = 0;
+                 $(el + ' ' + leftBtn).addClass("over");
+             }
+         }
+         else if (e == 1) {
+             var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+             translateXval = parseInt(xds) + parseInt(itemWidth * s);
+             $(el + ' ' + leftBtn).removeClass("over");
+
+             if (translateXval >= itemsCondition - itemWidth / 2) {
+                 translateXval = itemsCondition;
+                 $(el + ' ' + rightBtn).addClass("over");
+             }
+         }
+         $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+     }
+
+     //It is used to get some elements from btn
+     function click(ell, ee) {
+         var Parent = "#" + $(ee).parent().attr("id");
+         var slide = $(Parent).attr("data-slide");
+         ResCarousel(ell, Parent, slide);
+     }
+
+    function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
+      cd_localidade = window.localStorage.getItem('cd_localidade');
+      cd_latitude = window.localStorage.getItem('cd_latitude');
+      cd_longitude = window.localStorage.getItem('cd_longitude');
+      var rotaEscolhida;
+
+      if(cd_latitude != undefined && cd_latitude != null && cd_latitude != "" && cd_longitude != undefined && cd_longitude != null && cd_longitude != ""){
+        rotaEscolhida = rotas.RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, cd_latitude, cd_longitude);
+      }
+      else if(cd_localidade != undefined && cd_localidade != null && cd_localidade != "" ){
+        rotaEscolhida = rotas.RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_localidade);
+      }else{
+        rotaEscolhida = rotas.RecuperarOscPorAreaAtuacao(cd_area_atuacao);
+      }
+
+      return rotaEscolhida;
+    }
+
+     function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
+
+       $.ajax({
+         url: controller,
+         type: 'GET',
+         async: false,
+         dataType: 'json',
+         data: {flag: 'consulta', rota: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao)},
+         error: function(e){
+           console.log("Erro no ajax: ");
+           console.log(e);
+         },
+         success: function(data){
+
+           $("#loading_top_5").hide();
+
+           tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+           tabela += '<div class="table-responsive">';
+           tabela += '<table class="table table-hover">';
+           corpo = '<tbody>';
+           if(data != null && data.length !== 0 ){
+
+             for(var i = 0; i < data.length && i < 5; i++){
+                num_row = i + 1;
+                corpo += '<tr>';
+                corpo += '<th scope="row">'+num_row+'</th>';
+                corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+                corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+                corpo += '</tr>';
+             }
+             corpo += '</tbody>';
+           }
+           else{
+             corpo += '<tr>';
+             corpo += '<th scope="row"><center>Nenhuma OSC encontrada.</center></th>';
+             corpo += '</tr>';
+           }
+           tabela += corpo +'</table></div>';
+           $("#top_5_area_atuacao").html(tabela);
+         }
+       });
+     }
+
+    function mostrarAreaAtuacaoPersonalizada() {
+
+       $.ajax({
+         url: controller,
+         type: 'GET',
+         async: true,
+         dataType: 'json',
+         data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
+         error: function(e){
+           console.log("Erro no ajax: ");
+           console.log(e);
+         },
+         success: function(data){
+
+           if(data != null && typeof data.length !== 'undefined'){
+             corpo = "";
+             var cd_area_atuacao;
+             for(var i = 0; i < data.length; i++){
+               if(data[i].cd_area_atuacao != 1 && data[i].cd_area_atuacao != 10 ){
+                  if(data[i].cd_area_atuacao == 2){
+                    corpo += '<div class="item active">';
+                    cd_area_atuacao = data[i].cd_area_atuacao;
+                    nome_area_atuacao = data[i].tx_nome_area_atuacao;
+                  }else{
+                    corpo += '<div class="item">';
+                  }
+                  corpo += '<div class="col-xs-12"><a class="btn-item" data-btn='+data[i].cd_area_atuacao+' <center>';
+                  corpo += '<img class="imgAreaAtuacao" src="img/area_atuacao_'+data[i].cd_area_atuacao+'.png" >';
+                  corpo += '<h5><b>'+data[i].tx_nome_area_atuacao+'</b></h5></center></a></div></div>';
+               }
+             }
+
+             $(".MultiCarousel-inner").append(corpo);
+             $('.leftLst, .rightLst').click(function () {
+                 var condition = $(this).hasClass("leftLst");
+                 if (condition){
+                     click(0, this);
+                 }else{
+                    click(1, this);
+                 }
+            });
+
+             ResCarouselSize();
+
+             $(window).resize(function () {
+                 ResCarouselSize();
+             });
+
+             //botao de consulta top 5
+             $(".MultiCarousel .item a").on("click", function(){
+               cd_area_atuacao = $(this).attr("data-btn");
+               nome_area_atuacao = $(this).text();
+               recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao);
+             });
+
+             recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao);
+           }
+         }
+       });
+     }
+
+     $.ajax({
+       url: controller,
+       type: 'GET',
+       async: false,
+       dataType: 'json',
+       data: {flag: 'consulta', rota: rotas.RecuperarOscAtualizacao()},
+       error: function(e){
+         console.log("Erro no ajax: ");
+         console.log(e);
+       },
+       success: function(data){
+
+         $("#loading_top_10").hide();
+         if(data != null && typeof data.length !== 'undefined'){
+
+           tabela = '<div class="table-responsive">';
+           tabela += '<table class="table table-hover">';
+           corpo = '<tbody>';
+
+           for(var i = 0; i < data.length && i < 10; i++){
+              num_row = i + 1;
+              corpo += '<tr>';
+              corpo += '<th scope="row">'+num_row+'</th>';
+              corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
+              corpo += '  <th scope="row"><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>';
+              corpo += '</tr>';
+           }
+           corpo += '</tbody>';
+           tabela += corpo +'</table></div>';
+
+           $("#top_10_atualizacao").html(tabela);
+
+         }
+       }
+     });
+
  });
 
 });

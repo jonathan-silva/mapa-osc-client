@@ -40,6 +40,7 @@ PHP
 * Rafael Lage
 * Raphael Moraes
 * Raul Sena Ferreira
+* Rodrigo Maia de Oliveira Barros
 * Tiago Nascimento
 * Vagner Praia
 

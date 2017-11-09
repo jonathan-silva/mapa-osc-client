@@ -34,11 +34,20 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     var columns = 2;
     var newData = new Array(sizeOfData);
     var txtVazioNulo = 'Dado não informado.';
+    var src_link = '';
+    var link_erro = "this.src='img/noticia_icon.png'";
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = '<div><span class="glyphicon glyphicon-search" aria-hidden="true"></span>'+data[i].dt_noticia+'<\div>';
-      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-circle" src="img/noticia/'+data[i].tx_link_img_noticia+'" height="64" width="64"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
+      newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> '+data[i].dt_noticia+'<\div>';
+
+      if(data[i].tx_link_img_noticia != null && data[i].tx_link_img_noticia != ""){
+        src_link = '/mapa-osc-cms/imagens/noticias/xs-'+data[i].tx_link_img_noticia;
+      }
+      else{
+        src_link = 'img/noticia_icon.png';
+      }
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-rounded" src="'+src_link+'" height="80" width="120" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
     }
     return newData;
   }
@@ -48,11 +57,19 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     var columns = 2;
     var newData = new Array(sizeOfData);
     var txtVazioNulo = 'Dado não informado.';
+    var src_link = '';
+    var link_erro = "this.src='img/video_icon.png'";
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
-      newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>'+data[i].dt_video+'<\div>';
-      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./video.html#/'+data[i].cd_video+'" target="_self"><img class="media-object img-rounded" src="img/video/'+data[i].tx_link_img_video+'" height="64" width="64"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./video.html#/'+data[i].cd_video+'" target="_self">'+data[i].tx_titulo_video+'</a></h4><p>'+data[i].tx_resumo_video+'</p></div></li></ul>';
+      newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> '+data[i].dt_video+'<\div>';
+      if(data[i].tx_link_img_video != null && data[i].tx_link_img_video != ""){
+        src_link = '/mapa-osc-cms/imagens/videos/xs-'+data[i].tx_link_img_video;
+      }
+      else{
+        src_link = 'img/video_icon.png';
+      }
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./video.html#/'+data[i].cd_video+'" target="_self"><img class="media-object img-rounded" src="'+src_link+'" height="80" width="120" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./video.html#/'+data[i].cd_video+'" target="_self">'+data[i].tx_titulo_video+'</a></h4><p>'+data[i].tx_resumo_video+'</p></div></li></ul>';
     }
     return newData;
   }
@@ -69,7 +86,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       "bSort": true,
       "aaSorting": [[ 0, 'desc' ]],
       columns: [
-               {title: "", "width": "50px"},
+               {title: "", "width": "80px"},
                {title: ""},
            ]
      });
@@ -90,16 +107,16 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     },
     success: function(data){
       var txtVazioNulo = 'Dado não informado.';
-      if(data!==undefined){
-        if (data.noticia){
-          tabela('#noticia_formato_dados', popularDadosNoticia(data.noticias));
+      if(data !== undefined && data[0] !== undefined){
+        if (data[0].noticias){
+          tabela('#noticia_formato_dados', popularDadosNoticia(data[0].noticias));
         }
         else {
           tabela('#noticia_formato_dados','','');
         }
 
-        if (data.video){
-          tabela('#video_formato_dados', popularDadosVideo(data.videos));
+        if (data[0].videos){
+          tabela('#video_formato_dados', popularDadosVideo(data[0].videos));
         }
         else {
           tabela('#video_formato_dados','','');
@@ -107,18 +124,19 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       }
 
       $('.loading').addClass('hide');
+
+      $('#noticia_formato_dados').on( 'draw.dt', function () {
+        verificarContraste();
+      });
+
+      $('#video_formato_dados').on( 'draw.dt', function () {
+        verificarContraste();
+      });
+
+      $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+          $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+      } );
     }
   });
 
-  $('#noticia_formato_dados').on( 'draw.dt', function () {
-    verificarContraste();
-  });
-
-  $('#video_formato_dados').on( 'draw.dt', function () {
-    verificarContraste();
-  });
-
-  $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-      $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-  } );
 });
