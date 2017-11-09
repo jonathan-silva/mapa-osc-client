@@ -154,7 +154,7 @@ function verificarContraste(){
     }
 }
 
-setLogin = false;
+var setLogin = false;
 function verificarLogado(){
 
   var cd_localidade = window.localStorage.getItem('cd_localidade');
