@@ -696,7 +696,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       function remove_projeto(id_proj) {
           var jsonRemoverSucesso;
-          var novo=false
+          var novo=false;
           if(id_proj == '-1'){
             novo = true;
           }
@@ -704,7 +704,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var fonte = res.projeto ? res.projeto.projeto[0].ft_nome_projeto : "";
           if (fonte == 'Representante'){
             success = util.carregaAjax(rotas.RemoverProjectByID(id_proj,idOsc), 'POST', newJson);
-
+            console.log(success);
             if (success.msg == "Projeto excluído.") {
               jsonRemoverSucesso = {"Removido com sucesso!":"Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
               util.abrirModalAjuda("Removido com sucesso!", jsonRemoverSucesso);
@@ -1708,7 +1708,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               newJson.conferencia.push(obj);
           }
         });
-        
+      
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
@@ -1754,7 +1754,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             newJson.fonte_recursos.push(obj);
           })
         });
-        
+        console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
       var jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
