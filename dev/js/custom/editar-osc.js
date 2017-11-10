@@ -40,6 +40,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
   var qtdObjODS = 0;
   var limiteObjetivos = 3;
   var numODS = 1;
+  var success;
+  var cd_objetivo;
 
   require(['componenteFormItem', 'componenteCabecalho', 'componenteCheckbox', 'componenteSection',
   'componenteAgrupador', 'componenteFormItemButtons','componenteAgrupadorInputProjeto','componenteAgrupadorConferencia','componenteAgrupadorConselhos','componenteTitulosCertificacoes', 'jquery','select-boxit'],
@@ -71,22 +73,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function ajaxConsulta(urlController, urlRota){
       var result = "";
-    $.ajax({
-    url: urlController,
-    async: false,
-    type: 'GET',
-    dataType: 'json',
-    data:{flag: "consulta", rota: urlRota},
-    error:function(e){
-      console.log("Erro no ajax: ");
-      console.log(e);
-    },
-    success: function(data){result = data;}
-    });
-    return result;
+      $.ajax({
+      url: urlController,
+      async: false,
+      type: 'GET',
+      dataType: 'json',
+      data:{flag: "consulta", rota: urlRota},
+      error:function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){result = data;}
+      });
+      return result;
     }
 
     function ajaxAutoComplete(urlController, urlRota){
+      var result = "";
       $.ajax({
         url: urlController,
         async: false,
@@ -738,7 +741,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     function montarAreasDeAtuacaoProjetos(sugestoes){
       var sugestoesAreas = sugestoes[0];
       var sugestoesSubAreas = sugestoes[1];
-      $divAreaAtuacaoProjeto = $(".projeto #area_atuacao input");
+      var $divAreaAtuacaoProjeto = $(".projeto #area_atuacao input");
       var areaAtuacao = new AreaAtuacao();
 
       var id_suggestion = 0;
@@ -1065,7 +1068,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divMetasProjeto = $("#projeto-"+id).find("#metas-"+id+cd_objetivo);
       $divMetasProjeto.append('<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
       $divMetasProjeto.find(".botao-add-objetivo").on('click',function(){
-        add_objetivo(project, id, data);
+        add_objetivo(project, id, data, cd_objetivo);
       });
       $divMetasProjeto.find(".botao-rem-objetivo").on('click',function(){
         rem_objetivo($(this), id, data);
@@ -1089,7 +1092,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     //-- Adicionar Objetivo Projeto--
-    function add_objetivo(project, id, data){
+    function add_objetivo(project, id, data, cd_objetivo){
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
       var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
@@ -1152,7 +1155,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         $divObjetivosProjetoClone.append('<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button><button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
           $divObjetivosProjetoClone.find(".botao-add-objetivo").on('click',function(){
-            add_objetivo(project, id, data);
+            add_objetivo(project, id, data, cd_objetivo);
           });
           $divObjetivosProjetoClone.find(".botao-rem-objetivo").on('click',function(){
               rem_objetivo($(this), id, data);
@@ -1191,8 +1194,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function carregaEventoMetas(project, id, data){
       $('.objetivos').find('select').on('change', function(){
-        cd_objetivo = $(this).children(":selected").attr("id")
-        $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
+        var cd_objetivo = $(this).children(":selected").attr("id");
+        var $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
         $divObjetivosMetasProjeto.find(".metas").each(function(){
           if(!$(this).hasClass('hidden')){
             $(this).toggleClass('hidden');
@@ -1207,7 +1210,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
         ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
         $('#metas-'+cd_objetivo).find(".botao-add-objetivo").on('click',function(){
-          add_objetivo(project, id, data);
+          add_objetivo(project, id, data, cd_objetivo);
         });
         $('#metas-'+cd_objetivo).find(".botao-rem-objetivo").on('click',function(){
           rem_objetivo($(this), id, data);
@@ -1754,7 +1757,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             newJson.fonte_recursos.push(obj);
           })
         });
-        console.log(newJson);
+        
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
       var jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
@@ -1803,17 +1806,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
      cnpj = cnpj.toString().replace(/[^\d]+/g,"");
      if((cnpj == '')|| (cnpj.length != 14)) return false;
      // Valida DVs
-     tamanho = cnpj.length - 2
-     numeros = cnpj.substring(0,tamanho);
-     digitos = cnpj.substring(tamanho);
-     soma = 0;
-     pos = tamanho - 7;
-     for (i = tamanho; i >= 1; i--) {
+     var tamanho = cnpj.length - 2
+     var numeros = cnpj.substring(0,tamanho);
+     var digitos = cnpj.substring(tamanho);
+     var soma = 0;
+     var pos = tamanho - 7;
+     for (var i = tamanho; i >= 1; i--) {
        soma += numeros.charAt(tamanho - i) * pos--;
        if (pos < 2)
           pos = 9;
      }
-     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+     var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
      if (resultado != digitos.charAt(0))
          return false;
 
@@ -1821,7 +1824,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
      numeros = cnpj.substring(0,tamanho);
      soma = 0;
      pos = tamanho - 7;
-     for (i = tamanho; i >= 1; i--) {
+     for (var i = tamanho; i >= 1; i--) {
        soma += numeros.charAt(tamanho - i) * pos--;
        if (pos < 2)
           pos = 9;
@@ -2014,7 +2017,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             });
             obj["localizacao"] = localizacoes.length > 0 ? localizacoes : null;
           } else if(($pai.attr("id") === "publico_beneficiado")){
-            publicos_beneficiados = [];
+            var publicos_beneficiados = [];
             var publico_beneficiado = {};
             var $inputs = $pai.find("input");
             $inputs.each(function(){
@@ -2081,7 +2084,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if(idProjeto < 0){
             newJson["id_projeto"] = null;
             newJson["tx_identificador_projeto_externo"] = idProjetoExterno;
-            arrayCampos = ['localizacao', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
+            var arrayCampos = ['localizacao', 'publico_beneficiado', 'financiador_projeto', 'osc_parceira'];
             arrayCampos.map(function(index){
               if (!newJson.hasOwnProperty(index)){
                 newJson[index] = null;

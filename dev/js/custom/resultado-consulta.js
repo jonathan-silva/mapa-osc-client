@@ -27,16 +27,16 @@ function getParameter( name, url ) {
 }
 
 var urlRota;
-
+var type_http;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
   var geojson;
   var mapState = {};
   var mapRegion = {};
-  llayers = {}; //layers do mapa de calor
-  clayers = {}; //layers dos estados
-  rlayers = {}; //layers das regiões
-  clustersLayer = L.layerGroup();
+  var llayers = {}; //layers do mapa de calor
+  var clayers = {}; //layers dos estados
+  var rlayers = {}; //layers das regiões
+  var clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
@@ -53,7 +53,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     zoom: 4,
     minZoom: 4 //18 niveis de zoom
   };
-  map = new L.Map('map', mapOptions);
+  var map = new L.Map('map', mapOptions);
 
   var leafletView = new PruneClusterForLeaflet();//Prune Cluster library version
   //var leafletView = L.markerClusterGroup();//Marker Cluster library version
@@ -315,6 +315,7 @@ $("#regiao .form-control").autocomplete({
 
   //*** Methods
   function tabela(urlRota, consulta_avancada){
+    var data_tipo;
     $('#loading').removeClass('hide');
     $('#resultadoconsulta_formato_dados').hide();
     if(consulta_avancada){
@@ -345,7 +346,7 @@ $("#regiao .form-control").autocomplete({
             if(j=="0") continue;
             else{
               newData[i] = new Array(columns);
-              srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
+              var srcImg = data[j][4] !== null ? data[j][4] : srcPadrao;
               newData[i][0] = '<img class="img-circle media-object" src=' + srcImg + ' height="64" width="64">';
               newData[i][1] = data[j][0] !== null ? data[j][0] : txtVazioNulo;//tx_nome_osc;
               newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
@@ -530,6 +531,7 @@ $("#regiao .form-control").autocomplete({
   }
 
   function heatMap(arrayPDF, arrayID){
+      var nomeEstado;
       $.each(statesData.features , function(i){
           nomeEstado = statesData.features[i].properties.Name;
           statesData.features[i].properties.density = arrayPDF[nomeEstado];
@@ -873,7 +875,7 @@ $("#regiao .form-control").autocomplete({
 
   //*** MAIN ***\\
   $("#loadingMapModal").show();
-
+  var data_tipo_mapa;
   if(consulta_avancada){
     type_http = "POST";
     data_tipo_mapa = {flag: 'consultaPost', rota: urlRotaMapa, parametros: params};
