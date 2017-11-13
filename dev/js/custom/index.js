@@ -387,7 +387,7 @@ $("#regiao .form-control").autocomplete({
   }
 
   function verificarLocalidade(){
-    cd_localidade = window.localStorage.getItem('cd_localidade');
+    var cd_localidade = window.localStorage.getItem('cd_localidade');
     if(cd_localidade == "" || cd_localidade == null || cd_localidade == undefined){
       $('#modalLocalidade').modal('show');
     }
@@ -494,9 +494,9 @@ $("#regiao .form-control").autocomplete({
      }
 
     function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
-      cd_localidade = window.localStorage.getItem('cd_localidade');
-      cd_latitude = window.localStorage.getItem('cd_latitude');
-      cd_longitude = window.localStorage.getItem('cd_longitude');
+      var cd_localidade = window.localStorage.getItem('cd_localidade');
+      var cd_latitude = window.localStorage.getItem('cd_latitude');
+      var cd_longitude = window.localStorage.getItem('cd_longitude');
       var rotaEscolhida;
 
       if(cd_latitude != undefined && cd_latitude != null && cd_latitude != "" && cd_longitude != undefined && cd_longitude != null && cd_longitude != ""){
@@ -527,14 +527,14 @@ $("#regiao .form-control").autocomplete({
 
            $("#loading_top_5").hide();
 
-           tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
+           var tabela = '<center><h5 style="padding-top: 0px;"><b>'+nome_area_atuacao+'</b></h5></center>';
            tabela += '<div class="table-responsive">';
            tabela += '<table class="table table-hover">';
-           corpo = '<tbody>';
+           var corpo = '<tbody>';
            if(data != null && data.length !== 0 ){
 
              for(var i = 0; i < data.length && i < 5; i++){
-                num_row = i + 1;
+                var num_row = i + 1;
                 corpo += '<tr>';
                 corpo += '<th scope="row">'+num_row+'</th>';
                 corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
@@ -567,9 +567,10 @@ $("#regiao .form-control").autocomplete({
            console.log(e);
          },
          success: function(data){
+          var nome_area_atuacao = "";
 
            if(data != null && typeof data.length !== 'undefined'){
-             corpo = "";
+             var corpo = "";
              var cd_area_atuacao;
              for(var i = 0; i < data.length; i++){
                if(data[i].cd_area_atuacao != 1 && data[i].cd_area_atuacao != 10 ){
@@ -630,12 +631,12 @@ $("#regiao .form-control").autocomplete({
          $("#loading_top_10").hide();
          if(data != null && typeof data.length !== 'undefined'){
 
-           tabela = '<div class="table-responsive">';
+           var tabela = '<div class="table-responsive">';
            tabela += '<table class="table table-hover">';
-           corpo = '<tbody>';
+           var corpo = '<tbody>';
 
            for(var i = 0; i < data.length && i < 10; i++){
-              num_row = i + 1;
+              var num_row = i + 1;
               corpo += '<tr>';
               corpo += '<th scope="row">'+num_row+'</th>';
               corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
