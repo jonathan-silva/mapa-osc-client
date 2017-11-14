@@ -297,8 +297,8 @@ function validaNome(nome) {
 }
 
 function validaEmail(email) {
-    usuario = email.substring(0, email.indexOf("@"));
-    dominio = email.substring(email.indexOf("@") + 1, email.length);
+    var usuario = email.substring(0, email.indexOf("@"));
+    var dominio = email.substring(email.indexOf("@") + 1, email.length);
 
     if ((usuario.length >= 1) &&
         (dominio.length >= 3) &&
@@ -316,21 +316,21 @@ function validaEmail(email) {
 }
 
 function validaCNPJ(cnpj) {
-  cnpj = cnpj.toString().replace(/[^\d]+/g,"");
+  var cnpj = cnpj.toString().replace(/[^\d]+/g,"");
   if((cnpj == '')|| (cnpj.length != 14)) return false;
 
   // Valida DVs
-  tamanho = cnpj.length - 2
-  numeros = cnpj.substring(0,tamanho);
-  digitos = cnpj.substring(tamanho);
-  soma = 0;
-  pos = tamanho - 7;
-  for (i = tamanho; i >= 1; i--) {
+  var tamanho = cnpj.length - 2
+  var numeros = cnpj.substring(0,tamanho);
+  var digitos = cnpj.substring(tamanho);
+  var soma = 0;
+  var pos = tamanho - 7;
+  for (var i = tamanho; i >= 1; i--) {
     soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2)
           pos = 9;
   }
-  resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+  var resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
   if (resultado != digitos.charAt(0))
       return false;
 
@@ -338,7 +338,7 @@ function validaCNPJ(cnpj) {
   numeros = cnpj.substring(0,tamanho);
   soma = 0;
   pos = tamanho - 7;
-  for (i = tamanho; i >= 1; i--) {
+  for (var i = tamanho; i >= 1; i--) {
     soma += numeros.charAt(tamanho - i) * pos--;
     if (pos < 2)
           pos = 9;
@@ -351,14 +351,14 @@ function validaCNPJ(cnpj) {
 }
 
 function validaCPF(cpf) {
-    exp = /\.|\-/g
+    var exp = /\.|\-/g
     cpf = cpf.toString().replace(exp, "");
     var digitoDigitado = eval(cpf.charAt(9) + cpf.charAt(10));
     var soma1 = 0,
         soma2 = 0;
     var vlr = 11;
 
-    for (i = 0; i < 9; i++) {
+    for (var i = 0; i < 9; i++) {
         soma1 += eval(cpf.charAt(i) * (vlr - 1));
         soma2 += eval(cpf.charAt(i) * vlr);
         vlr--;

@@ -52,7 +52,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas', 'datatables-respons
 
          var columns = 3;
          var sizeOfData = data.representacao.length;
-         newData = new Array(sizeOfData);
+         var newData = new Array(sizeOfData);
          var i = 0;
          var txtVazioNulo = 'Dado não informado.';
 
