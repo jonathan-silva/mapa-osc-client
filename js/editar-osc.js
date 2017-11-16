@@ -951,7 +951,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               <option value='Outros'>Outros</option></select>"+
               '</div>'+
               '<span class="input-group-btn">'+
-              '<button class="btn-danger btn">Remover</button>'+
+              '<button class="btn-danger btn">Remover 1</button>'+
               '</span>'+
               '</div>'
           );
@@ -963,7 +963,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             '<input class="form-control" placeholder="Insira a informação"></input>'+
             '</div>'+
             '<span class="input-group-btn">'+
-            '<button class="btn-danger btn">Remover</button>'+
+            '<button class="btn-danger btn">Remover 2</button>'+
             '</span>'+
             '</div>'
           );
@@ -1014,39 +1014,22 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          dat=data;
+          
           if (objetivos != ""){
             for(var k in objetivos){
               //var objetivo = util.validateObject(objetivos[k], -1);
               cd_objetivo = k;
               criarObjetivos(id,objetivos[k],k,cd_metas,data);
-              carregaEventoMetas();
+              carregaEventoMetas(project, id, data);
             }
           } else {
             criarObjetivos(id,"",cd_objetivo,cd_metas,data);
-            carregaEventoMetas();
+            carregaEventoMetas(project, id, data);
           }
           add_botao_objetivo(id, data);
-          /*montarObjetivos(data, cd_objetivo);
-          dat = data; console.log(dat);
-          $("#objetivos select").selectBoxIt({
-             theme: "default",
-             //defaultText: "Selecione abaixo...",
-             autoWidth: false
-           });
-            $("#objetivos select").selectBoxIt("refresh");*/
+          
         }
-        /*success: function(data){
-          if(objetivo_metas == ""){
-            criarObjetivosOsc(data,"",-1,-1,Checkbox);
-          }
-          else{
-            for(var k in objetivos){
-              var objetivo = util.validateObject(objetivos[k], -1);
-              criarObjetivosOsc(data, objetivo_metas, objetivo, k,Checkbox);
-            }
-          }
-        }*/
+        
       });
     }
 
@@ -1082,12 +1065,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         $divObjetivosProjetoClone.find("#objetivos-"+cd_objetivo+" select").selectBoxIt();
         if(cd_objetivo){
-          loadMetas(cd_objetivo, cd_metas);
+          loadMetas(cd_objetivo, cd_metas, id);
         }
 
-          //$divObjetivosProjetoClone.find('select').on('change', function(){
-            //cd_objetivo = $(this).children(":selected").attr("id");
-            //$divObjetivosProjetoClone = $(this).parents("#objetivos-metas");
+          
             $divObjetivosProjetoClone.find(".metas").each(function(){
               if(!$(this).hasClass('hidden')){
                 $(this).toggleClass('hidden');
@@ -1096,7 +1077,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
             $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
             $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
-            $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+            $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo +'" class="selectable"></ol><br>');
             if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
               $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
             }
@@ -1149,7 +1130,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       project.find('.botao-add-objetivo').remove();
-      //console.log("3 e 4: "+cd_objetivo);
       project.append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
       var $divObjetivosProjetoClone = project.find("#objetivos-metas-"+cd_objetivo);
       $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
@@ -1174,7 +1154,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divObjetivosProjetoClone.find("#objetivos-"+cd_objetivo+" select").selectBoxIt();
 
       if(cd_objetivo){
-        loadMetas(cd_objetivo, cd_metas, Checkbox);
+        loadMetas(cd_objetivo, cd_metas, id);
       }
 
       $divObjetivosProjetoClone.find('select').on('change', function(){
@@ -1189,12 +1169,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
-        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo +'" class="selectable"></ol><br>');
         if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
           $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
         }
         if(parseInt(cd_objetivo) !== 0){
-          loadMetas(cd_objetivo, [], Checkbox);
+          loadMetas(cd_objetivo, [], id);
         }
 
         $divObjetivosProjetoClone.append('<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button><button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
@@ -1228,7 +1208,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
     }
 
-    function loadMetas(cd_objetivo, cd_metas){
+    function loadMetas(cd_objetivo, cd_metas, project_id){
       var id = cd_objetivo;
       if(cd_objetivo<1){
         id = "";
@@ -1243,7 +1223,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          montarMetas(data, cd_objetivo, cd_metas);
+          montarMetas(data, cd_objetivo, cd_metas, project_id);
           /* trava os ODS já salvos por conta de bug que faz com que 
              as metas não sejam atualizadas quando se troca um ODS anteriormente salvo*/
         $('#objetivos-'+cd_objetivo).attr("disabled"); 
@@ -1251,7 +1231,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
     }
 
-    function carregaEventoMetas(project, id, data, Checkbox){
+    function carregaEventoMetas(project, id, data){
       $('.objetivos').find('select').on('change', function(){
         var cd_objetivo = $(this).children(":selected").attr("id");
         var $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
@@ -1264,7 +1244,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $divObjetivosMetasProjeto.find(".metas").remove();
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
-        $('#metas-'+cd_objetivo).append('<ol id="selectable-'+cd_objetivo +'" class="selectable"></ol><br>');
+        $('#metas-'+cd_objetivo).append('<ol id="selectable-'+id+"-"+cd_objetivo +'" class="selectable"></ol><br>');
         $('#metas-'+cd_objetivo).append(''+
         '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
         ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
@@ -1278,14 +1258,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('#metas-'+cd_objetivo).toggleClass('hidden');
         }
         if(parseInt(cd_objetivo) !== 0){
-          loadMetas(cd_objetivo, [], Checkbox);
+          loadMetas(cd_objetivo, [], id);
         }
 
         verificarContraste();
       });
     }
 
-    function montarMetas(data, cd_objetivo, cd_metas){
+    function montarMetas(data, cd_objetivo, cd_metas, project_id){
       if (util.validateObject(data, false)){
         var checkboxItems = [];
         function CheckboxItem(id, label, value, type, checked){
@@ -1314,7 +1294,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ReactDOM.render(
           Checkbox(
             {dados:checkboxItems}
-          ), document.getElementById("selectable-"+cd_objetivo)
+          ), document.getElementById("selectable-"+project_id+"-"+cd_objetivo)
         );
         
       }
