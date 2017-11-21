@@ -65,8 +65,8 @@ require(['react'], function (React) {
     $( function() {
 
       $("div[id^='slider-range-']").each(function () {
-        input_id = $( this ).parent().find("input");
-        tipo = $( this ).parent().find('label').attr('for');
+        var input_id = $( this ).parent().find("input");
+        var tipo = $( this ).parent().find('label').attr('for');
 
         if(tipo == "valor_dinheiro"){
           $( this ).slider({
@@ -144,7 +144,7 @@ require(['react'], function (React) {
              defaultText: "Qualquer",
              autoWidth: false
            });
-           $("#cd_meta_projeto").selectBoxIt("refresh");
+           $("#cd_meta_projeto").selectBoxIt();
            verificarContraste();
 
         }
@@ -446,7 +446,7 @@ require(['react'], function (React) {
       }else{
         var html = '<option value="">Qualquer</option>';
         $('#cd_meta_projeto').html(html);
-        $("#cd_meta_projeto").selectBoxIt("refresh");
+        $("#cd_meta_projeto").selectBoxIt();
         verificarContraste();
 
       }
@@ -567,7 +567,7 @@ require(['react'], function (React) {
 
     //permite somente numeros
     $(".min, .max").keypress( function() {
-      evt = window.event;
+      var evt = window.event;
       var tecla = evt.keyCode;
       if(!(tecla > 47 && tecla < 58)){
         evt.preventDefault();

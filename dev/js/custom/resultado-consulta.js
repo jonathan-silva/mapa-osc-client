@@ -31,6 +31,7 @@ var type_http;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
   var geojson;
+  var link;
   var mapState = {};
   var mapRegion = {};
   var llayers = {}; //layers do mapa de calor
@@ -99,7 +100,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
     val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
-    var link;
+    
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
       location.href=link;

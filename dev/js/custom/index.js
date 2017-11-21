@@ -246,7 +246,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-		link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+		var link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
 		location.href=link;
    }
  });
@@ -276,7 +276,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
    },
    select: function(event, ui){
      $('.response').val(ui.item.id);
-     link = "./resultado-consulta.html?"+'municipio'+"="+ui.item.id;
+     var link = "./resultado-consulta.html?"+'municipio'+"="+ui.item.id;
      location.href=link;
    }
  });
@@ -306,7 +306,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
   },
   select: function(event, ui){
     $('.response').val(ui.item.id);
-    link = "./resultado-consulta.html?"+'estado'+"="+ui.item.id;
+    var link = "./resultado-consulta.html?"+'estado'+"="+ui.item.id;
     location.href=link;
   }
 });
@@ -336,7 +336,7 @@ $("#regiao .form-control").autocomplete({
  },
  select: function(event, ui){
    $('.response').val(ui.item.id);
-   link = "./resultado-consulta.html?"+'regiao'+"="+ui.item.id;
+   var link = "./resultado-consulta.html?"+'regiao'+"="+ui.item.id;
    location.href=link;
   }
  });
@@ -419,7 +419,7 @@ $("#regiao .form-control").autocomplete({
       $(itemsDiv).each(function () {
          id = id + 1;
          var itemNumbers = $(this).find(itemClass).length;
-         btnParentSb = $(this).parent().attr(dataItems);
+         var btnParentSb = $(this).parent().attr(dataItems);
          itemsSplit = btnParentSb.split(',');
          $(this).parent().attr("id", "MultiCarousel" + id);
 

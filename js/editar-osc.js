@@ -1234,6 +1234,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function carregaEventoMetas(project, id, data){
+      //qtdOdsSecaoProjeto++;
       $('.objetivos').find('select').on('change', function(){
         var cd_objetivo = $(this).children(":selected").attr("id");
         var $divObjetivosMetasProjeto = $(this).parents("#objetivos-metas");
