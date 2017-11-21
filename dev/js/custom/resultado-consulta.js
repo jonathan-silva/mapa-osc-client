@@ -339,7 +339,7 @@ $("#regiao .form-control").autocomplete({
         if(data !== "Nenhuma Organização encontrada!"){
           var columns = 6;
           var sizeOfData = data.length;
-          newData = new Array(sizeOfData);
+          var newData = new Array(sizeOfData);
           var i = 0;
           var txtVazioNulo = 'Dado não informado.';
           var srcPadrao = 'img/camera.jpg';

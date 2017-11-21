@@ -15,9 +15,9 @@ function formatarDinheiro(numero) {
 }
 
 function createTabela_Bar_Donut(json) {
-  tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
+  var tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
-  cabecalho = '<thead><tr>';
+  var cabecalho = '<thead><tr>';
   for(var i in json[0].tituloColuna)
   {
     cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
@@ -25,7 +25,7 @@ function createTabela_Bar_Donut(json) {
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
 
-  corpo = '<tbody>';
+  var corpo = '<tbody>';
   for(var j in json[0].values){
     corpo += '<tr><td>' + json[0].values[j].label + '</td>';
 
@@ -47,9 +47,9 @@ function createTabela_Bar_Donut(json) {
 // Line = false ->  createMultiBarChart - LinePlusBarChart - StackedAreaChart - MultiBarHorizontalChart
 // Line = true -> lineChart
 function createTabela_MultBar_Line(json, line) {
-  tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
+  var tabela = '<table class="table table-hover table-striped table-bordered table-responsive">';
 
-  cabecalho = '<thead><tr>';
+  var cabecalho = '<thead><tr>';
   for(var i in json[0].tituloColuna)
   {
     cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
@@ -57,7 +57,7 @@ function createTabela_MultBar_Line(json, line) {
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
 
-  corpo = '<tbody>';
+  var corpo = '<tbody>';
   for(i = 0; i < json[0].series.length; i++)
   {
     for(var j in json[0].series[i].values)
