@@ -53,7 +53,7 @@ require(["jquery-ui","rotas"], function (React) {
         $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
     }
 
-    var json = {"tx_nome_assinante": $nome, "tx_email_assinante": $email};
+    var json = {"tx_nome_usuario": $nome, "tx_email_usuario": $email};
     var rotas = new Rotas();
 
     $('#loading').show();
