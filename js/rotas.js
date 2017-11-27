@@ -260,8 +260,12 @@ class Rotas{
 
   ConsultaAvancadaMapa(term){
     return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0";
-
   }
+
+  AutocompleteAtividadeEconomica(term, limit){
+    return this.getBaseUrl()+":8383/api/search/atividade_economica/autocomplete/"+term+"/"+limit;
+  }
+
 
   //Imprensa
   Imprensa(){
