@@ -263,7 +263,7 @@ class Rotas{
   }
 
   AutocompleteAtividadeEconomica(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/estado/"+term+"/"+limit+"/0";
+    return this.getBaseUrl()+":8383/api/search/atividade_economica/autocomplete/"+term+"/"+limit;
   }
 
 
