@@ -575,8 +575,8 @@ require(['react'], function (React) {
                success: function (data) {
                  response($.map( data, function( item ) {
                     return {
-                        label: item.edmu_tx_atividade_economica,
-                        value: item.edmu_tx_atividade_economica,
+                        label: item.tx_atividade_economica,
+                        value: item.tx_atividade_economica,
                     };
                 }));
                },
