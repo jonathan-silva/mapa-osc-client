@@ -35,21 +35,27 @@
 #nav1{
   float:left;
   font-size: 12px;
-  padding-left: 20px;
+  padding-left: 0px;
 }
 #nav3{
   float:left;
   font-size: 12px;
-  padding-left: 50px;
+  padding-left: 00px;
 }
 #nav3 img{
   height: 50px;
   margin-top: -10px;
 }
 #nav2{
-  padding-left: 20px;
+  padding-left: 0px;
   float:right;
   font-size: 12px;
+}
+.centerNav{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 .btn-link{
   cursor: pointer;

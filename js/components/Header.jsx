@@ -353,7 +353,7 @@ define(['react','rotas'], function(React) {
               </li>
             </ul>
             </div>
-            <div>
+            <div className="centerNav">
             <ul id="nav3">
               <li><a href="http://www.ipea.gov.br" title="Link Externo para o IPEA." className="logoIpea" contenteditable="true">
                 <img src="img/logo_ipea.png" className="normal"></img></a>
