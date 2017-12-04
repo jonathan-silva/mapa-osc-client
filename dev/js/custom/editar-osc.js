@@ -1799,6 +1799,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             obj.dt_ano_recursos_osc = ano;
             obj.bo_nao_possui = nao_possui;
             obj.cd_fonte_recursos_osc = $(this).attr("id");
+            console.log("aqui"+$(this).val());
             obj.nr_valor_recursos_osc = $(this).val();
             newJson.fonte_recursos.push(obj);
           })
