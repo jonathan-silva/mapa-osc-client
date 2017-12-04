@@ -7,7 +7,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 	absUrl = $location.$$absUrl;
 	var self = this;
 	var rotas = new Rotas();
-
+	idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
 	if ($scope.currentPage == undefined) {
 			 $scope.currentPage = 0;
 	 };
@@ -18,7 +18,6 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 
 
 	self.carregarDadosGerais = function(){
-		idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
 
 		$http({
 		     url: 'js/controller.php',
@@ -191,7 +190,7 @@ require(["jquery-ui", 'rotas'], function (React) {
 
 				 if (data != null) {
 
-					 dataJson = { values: [{"id": "DG", "order": 1, "score": data.transparencia_dados_gerais, "weight": data.peso_dados_gerais, "color": "#9E0041", "label":"Dados Gerais"},
+					 var dataJson = { values: [{"id": "DG", "order": 1, "score": data.transparencia_dados_gerais, "weight": data.peso_dados_gerais, "color": "#9E0041", "label":"Dados Gerais"},
 					 {"id":"ASAO", "order":1, "score":data.transparencia_area_atuacao, "weight": data.peso_area_atuacao, "color":"#E1514B", "label":"Áreas e Subáreas de Atuação da OSC"},
 					 {"id":"DO", "order":1, "score":data.transparencia_descricao, "weight": data.peso_descricao, "color":"#F47245", "label":"Descrição da OSC"},
 					 {"id":"TC", "order":1, "score":data.transparencia_titulos_certificacoes, "weight": data.peso_titulos_certificacoes, "color":"#FB9F59", "label":"Titulações e Certificações"},
@@ -348,7 +347,7 @@ function verificarBotaoEditar(id){
 
 function addLinkVoltar(id){
 		$("#voltaVisualizar").attr("href","visualizar-osc.html#/"+id);
-		urlPagAnterior = document.referrer;
+		var urlPagAnterior = document.referrer;
 		if(urlPagAnterior.indexOf("minhas-oscs")==-1) {
 			if(urlPagAnterior.indexOf("editar-osc")==-1) {
 				$("#voltaPagAnterior").text('Mapa');
