@@ -1,72 +1,78 @@
 var controller = angular.module('oscApp', []);
 var idOsc;
 var absUrl;
+var rotas;
 var util = new Util();
 
 controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
-	absUrl = $location.$$absUrl;
-	var self = this;
-	var rotas = new Rotas();
-	idOsc = $location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
-	if ($scope.currentPage == undefined) {
-			 $scope.currentPage = 0;
-	 };
+	
+		absUrl = $location.$$absUrl;
+		var self = this;
+		
+		idOsc = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);//$location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
+		
+		if ($scope.currentPage == undefined) {
+				 $scope.currentPage = 0;
+		 };
 
-  $scope.pageSize = 10;
-	$scope.projs = []
-  $scope.q = '';
+	  	$scope.pageSize = 10;
+		$scope.projs = []
+	  	$scope.q = '';
 
+		rotas = new Rotas();
+	
+		self.carregarDadosGerais = function(){
 
-	self.carregarDadosGerais = function(){
+			$http({
+			     url: 'js/controller.php',
+			     method: "GET",
+			     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
+			}).then(function(response) {
+				if(response.data.msg == undefined){
+					self.osc = response.data
+					var projeto_array = response.data.projeto
+					if(projeto_array != undefined){
+						$scope.projs = projeto_array.projeto // PROJETOS
+					}
+					else {
+						$scope.projs = "";
+					}
 
-		$http({
-		     url: 'js/controller.php',
-		     method: "GET",
-		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
-		}).then(function(response) {
-			if(response.data.msg == undefined){
-				self.osc = response.data
-				var projeto_array = response.data.projeto
-				if(projeto_array != undefined){
-					$scope.projs = projeto_array.projeto // PROJETOS
+		    	self.msg = '';
+				}else{
+					self.msg = response.data.msg;
 				}
-				else {
-					$scope.projs = "";
-				}
-
-	    	self.msg = '';
-			}else{
-				self.msg = response.data.msg;
-			}
-		});
-	};
-
-	$scope.getData = function () {
-		 return $filter('filter')($scope.projs, $scope.q)
-	 }
-
-	 $scope.numberOfPages=function(){
-        return Math.ceil($scope.getData().length/$scope.pageSize);
-   }
-
-	 $scope.range = function() {
-		 	 var paginacao = [];
-			 for (var i = 1; i <= $scope.numberOfPages(); i++) {
-   	 		paginacao.push(i);
-			 }
-			 return paginacao;
-	 };
-
-	  $scope.novaPagina=function(n){
-			$scope.currentPage = n -1;
+			});
 		};
+		
 
-		$scope.paginaCorrente=function(n){
-			var pagina = n -1
-			return $scope.currentPage == pagina  ? true: false ;
-		};
+		$scope.getData = function () {
+			 return $filter('filter')($scope.projs, $scope.q)
+		 }
 
-}]);
+		 $scope.numberOfPages=function(){
+	        return Math.ceil($scope.getData().length/$scope.pageSize);
+	   }
+
+		 $scope.range = function() {
+			 	 var paginacao = [];
+				 for (var i = 1; i <= $scope.numberOfPages(); i++) {
+	   	 		paginacao.push(i);
+				 }
+				 return paginacao;
+		 };
+
+		  $scope.novaPagina=function(n){
+				$scope.currentPage = n -1;
+			};
+
+			$scope.paginaCorrente=function(n){
+				var pagina = n -1
+				return $scope.currentPage == pagina  ? true: false ;
+			};
+
+	}]);
+
 
 controller.filter('startFrom', function() {
     return function(input, start) {
@@ -150,7 +156,7 @@ require(["jquery-ui", 'rotas'], function (React) {
   });
 
 	jQuery(document).ready(function($) {
-
+		idOsc = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 		$("#loading").hide();
 		$(".conteudo_loading .section").css('visibility', 'visible');
 		$(".fb-share-button").attr('data-href',window.location.href);
