@@ -1016,9 +1016,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           console.log(e);
         },
         success: function(data){
-          
+
           if (objetivos != ""){
-            
+
             for(var k in objetivos){
               criarObjetivos(id,objetivos[k],k,cd_metas,data);
               carregaEventoMetas(project, id, data);
@@ -1029,9 +1029,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             carregaEventoMetas(project, id, data);
           }
           add_botao_objetivo(id, data);
-          
+
         }
-        
+
       });
     }
 
@@ -1072,7 +1072,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           loadMetas(cd_objetivo, cd_metas, id);
         }
 
-          
+
         $divObjetivosProjetoClone.find(".metas").each(function(){
           if(!$(this).hasClass('hidden')){
             $(this).toggleClass('hidden');
@@ -1300,7 +1300,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             {dados:checkboxItems}
           ), document.getElementById("selectable-"+project_id+"-"+cd_objetivo+"-"+qtdOdsSecaoProjeto)
         );
-        
+
       }
   }
 
@@ -1365,7 +1365,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       else{
           newJson["im_logo"] = imgSrc;
       }
-      
+
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação
@@ -1418,7 +1418,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
         }
       });
-      
+
       success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
 
       //Descricao
@@ -1481,7 +1481,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           newJson.certificado.push(item);
         }
       });
-      
+
       newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
       if(newJson['certificado'].length == 0){
@@ -1518,7 +1518,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         success = util.carregaAjax(rotas.Dirigente(idOsc), 'POST', newJson);
-        
+
         //Conselho Fiscal
         newJson = {};
         newJson["headers"] = authHeader;
@@ -1661,7 +1661,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length === 0){
           newJson.conselho = null;
         }
-        
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
@@ -1757,7 +1757,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               newJson.conferencia.push(obj);
           }
         });
-      
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
@@ -1794,16 +1794,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#recursos").children().each(function(){
           var ano = $(this).find("select").val();
           var nao_possui = $('#recursos_geral-'+ano+' input[type="checkbox"]').is(':checked');
-          $(this).find('input:not([type="checkbox"])').each(function(){
-            var obj = {};
-            obj.dt_ano_recursos_osc = ano;
-            obj.bo_nao_possui = nao_possui;
-            obj.cd_fonte_recursos_osc = $(this).attr("id");
-            obj.nr_valor_recursos_osc = $(this).val();
-            newJson.fonte_recursos.push(obj);
-          })
+
+          var obj = {};
+          obj.dt_ano_recursos_osc = ano;
+          obj.bo_nao_possui = nao_possui;
+          obj.recursos = [];
+
+          if(!nao_possui){
+            $(this).find('input:not([type="checkbox"])').each(function(){
+              var obj2 = {};
+              obj2.cd_fonte_recursos_osc = $(this).attr("id");
+              obj2.nr_valor_recursos_osc = $(this).val();
+              obj.recursos.push(obj2);
+            })
+          }
+          newJson.fonte_recursos.push(obj);
         });
-        
+
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
       var jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
@@ -1901,7 +1908,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              $('#osc_parceira').find('input')[i].value = nome_osc;
              $('#osc_parceira').find('input')[i].id_osc_parceira=id_osc_parceira;
            }
-           
+
          }
        }
      })
