@@ -489,7 +489,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function carregaEventoMetasOsc(cd_objetivo, Checkbox){
       $("#objetivosOsc-"+cd_objetivo).find('select').on('change', function(){
-        cd_objetivo = $(this).children(":selected").attr("id");
+        var cd_objetivo = $(this).children(":selected").attr("id");
         var contemObjetivo = false;
         $(".objetivosOsc").each(function() {
           if($( this ).hasClass( 'objetivosOsc-'+cd_objetivo )){
@@ -985,11 +985,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
-      pro = project; ido = id;
+      var pro = project; ido = id;
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
       var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
-      cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
+      var cd_objetivo = util.validateObject(objetivo_meta_inicial.cd_objetivo_projeto, -1);
       var cd_metas = [];
       var metas = [];
       if(objetivo !== -1){
@@ -1803,14 +1803,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if(!nao_possui){
             $(this).find('input:not([type="checkbox"])').each(function(){
               var obj2 = {};
+              var valorRecurso = $(this).val().replace(/\./g,"");
+              valorRecurso = valorRecurso.replace(/,/g,"\.");
               obj2.cd_fonte_recursos_osc = $(this).attr("id");
-              obj2.nr_valor_recursos_osc = $(this).val();
+              obj2.nr_valor_recursos_osc = (valorRecurso!="") ? parseFloat(valorRecurso) : 0;
               obj.recursos.push(obj2);
-            })
+            });
           }
           newJson.fonte_recursos.push(obj);
         });
-
+        //console.log(newJson);
         success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
 
       var jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
