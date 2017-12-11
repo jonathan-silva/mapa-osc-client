@@ -1422,7 +1422,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
 
       //Descricao
-      newJson["descricao"] = util.validateObject(old_json.descricao, []);
+      newJson = util.validateObject(old_json.descricao, []);
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
+      newJson["descricao"] = [];
 
       $("#descricao .form-control").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
@@ -1431,8 +1434,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       //Certificacoes
       newJson = util.validateObject(old_json.certificado, []);
-      //newJson["headers"] = authHeader;
-      //newJson["id_osc"] = idOsc;
+      newJson["headers"] = authHeader;
+      newJson["id_osc"] = idOsc;
       newJson["certificado"] = [];
 
       $('#tabela_titulos_certificados tbody tr').each(function(i){
@@ -1661,7 +1664,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length === 0){
           newJson.conselho = null;
         }
-
+        console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
