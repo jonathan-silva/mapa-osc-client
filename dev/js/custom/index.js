@@ -356,8 +356,8 @@ $("#regiao .form-control").autocomplete({
 
     if(lat != undefined && lat != null && lat != "" && long != undefined && long != null && long != ""){
 
-      window.localStorage.setItem('cd_latitude', lat);
-      window.localStorage.setItem('cd_longitude', long);
+      window.localStorage.setItem('cd_latitude', lat.toLocaleString('PT'));
+      window.localStorage.setItem('cd_longitude', long.toLocaleString('PT'));
 
       $.ajax({
         url: controller,
