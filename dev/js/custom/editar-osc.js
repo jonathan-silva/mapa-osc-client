@@ -73,11 +73,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     newJson["headers"] = authHeader;
     newJson["id_osc"] = idOsc;
 
-    function ajaxConsulta(urlController, urlRota){
+    function ajaxConsulta(urlController, urlRota, isAsync){
       var result = "";
       $.ajax({
       url: urlController,
-      async: false,
+      async: isAsync,
       type: 'GET',
       dataType: 'json',
       data:{flag: "consulta", rota: urlRota},
@@ -90,11 +90,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return result;
     }
 
-    function ajaxAutoComplete(urlController, urlRota){
+    function ajaxAutoComplete(urlController, urlRota, isAsync){
       var result = "";
       $.ajax({
         url: urlController,
-        async: false,
+        async: isAsync,
         type: 'GET',
         dataType: "json",
         data: {
@@ -357,7 +357,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
       $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
 
-      var data = ajaxConsulta(urlController, rotas.Objetivos());
+      var data = ajaxConsulta(urlController, rotas.Objetivos(), false);
       if(objetivo_metas == ""){
         criarObjetivosOsc(data,"",-1,-1,Checkbox);
         qtdObjODS++;
@@ -373,7 +373,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#add_objetivo_ods").click(function(){
         if(qtdObjODS < limiteObjetivos){
-          var data = ajaxConsulta(urlController, rotas.Objetivos());
+          var data = ajaxConsulta(urlController, rotas.Objetivos(), false);
           criarObjetivosOsc(data,"",-1,-numODS,Checkbox);
           qtdObjODS++;
           numODS++;
@@ -439,7 +439,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function loadMetasOsc(cd_objetivo, cd_metas, Checkbox){
-      var data = ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo));
+      var data = ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), false);
       montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox);
     }
 
@@ -627,7 +627,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   //$('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
                 else {
-                    var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/));
+                    var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), true);
                   if (data == null){
                       $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
                   }
@@ -1038,7 +1038,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function add_botao_objetivo(id, data) {
         $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas">'+
-        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button></div>');
+        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar ODS</button></div>');
 
         $('#projeto-'+id).find(".botao-add-objetivo").on('click',function(){
           add_objetivo($('#projeto-'+id), id, data, -1);
@@ -1090,7 +1090,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $divMetasProjeto = $("#projeto-"+id).find("#metas-"+id+cd_objetivo);
         $divMetasProjeto.append(/*''+
           '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+*/
-          ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+          ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover ODS</button>');
 
         $divMetasProjeto.find(".botao-add-objetivo").on('click',function(){
           add_objetivo(pro,ido,data,cd_objetivo);
@@ -1183,7 +1183,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           loadMetas(cd_objetivo, [], id);
         }
 
-        $divObjetivosProjetoClone.append('<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button><button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+        $divObjetivosProjetoClone.append('<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar ODS</button><button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover ODS</button>');
           $divObjetivosProjetoClone.find(".botao-add-objetivo").on('click',function(){
             add_objetivo(project, id, data, cd_objetivo);
           });
@@ -1250,8 +1250,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
         $('#metas-'+cd_objetivo).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         $('#metas-'+cd_objetivo).append(''+
-        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar Objetivo</button>'+
-        ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover Objetivo</button>');
+        '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar ODS</button>'+
+        ''+'<button id="id_botao-rem-objetivo-'+cd_objetivo+'" class="btn-danger btn botao-rem-objetivo">Remover ODS</button>');
         $('#metas-'+cd_objetivo).find(".botao-add-objetivo").on('click',function(){
           add_objetivo(project, id, data, cd_objetivo);
         });
@@ -1552,13 +1552,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Participacao social
         // Conselho
         var lforma = [];
-        lforma = ajaxConsulta(urlController, rotas.Titularidade());
+        lforma = ajaxConsulta(urlController, rotas.Titularidade(), true);
 
         var lconselho =[];
-        lconselho = ajaxConsulta(urlController, rotas.Conselho());
+        lconselho = ajaxConsulta(urlController, rotas.Conselho(), true);
 
         var lperiodicidadeReuniao =[];
-        lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao());
+        lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), true);
 
         //conselho
         var newJson = {};
@@ -1839,7 +1839,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
           }
           if ( routes != "" ) {
-            var data = ajaxAutoComplete(urlController, routes);
+            var data = ajaxAutoComplete(urlController, routes, true);
             response($.map( data, function( item ) {
               if ((abrang == 'estadual') || (abrang == 'municipal')) {
                  return {
@@ -1905,7 +1905,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            //$('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
          }
          else {
-            var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/));
+            var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), true);
            if (data == null){
                $('#osc_parceira').find('input')[i].value = "Entidade não cadastrada! ";
            }else{
