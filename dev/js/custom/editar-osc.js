@@ -77,7 +77,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var result = "";
       $.ajax({
       url: urlController,
-      async: false,
+      //async: false,
       type: 'GET',
       dataType: 'json',
       data:{flag: "consulta", rota: urlRota},
@@ -985,7 +985,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
-      var pro = project; ido = id;
+      var pro = project; 
+      var ido = id;
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
       var objetivo = util.validateObject(objetivo_meta_inicial.tx_nome_objetivo_projeto, -1);
@@ -1369,7 +1370,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success = util.carregaAjax(rotas.DadosGerais(idOsc), 'POST', newJson);
 
       //Áreas de atuação
-      newJson = util.validateObject(old_json.area_atuacao, []);
+      newJson = util.validateObject(old_json.area_atuacao, {});
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson["area_atuacao"] = [];
@@ -1418,11 +1419,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
         }
       });
-
+      console.log(newJson);
       success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
 
       //Descricao
-      newJson = util.validateObject(old_json.descricao, []);
+      newJson = util.validateObject(old_json.descricao, {});
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson["descricao"] = [];
@@ -1433,7 +1434,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
 
       //Certificacoes
-      newJson = util.validateObject(old_json.certificado, []);
+      newJson = util.validateObject(old_json.certificado, {});
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
       newJson["certificado"] = [];
