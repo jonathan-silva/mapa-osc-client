@@ -77,7 +77,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var result = "";
       $.ajax({
       url: urlController,
-      //async: false,
+      async: false,
       type: 'GET',
       dataType: 'json',
       data:{flag: "consulta", rota: urlRota},
