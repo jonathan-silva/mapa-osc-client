@@ -627,7 +627,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   //$('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
                 else {
-                    var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), true);
+                    var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
                   if (data == null){
                       $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
                   }
@@ -1046,7 +1046,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function criarObjetivos(id,objetivos,cd_objetivo,cd_metas,data){
-      console.log(cd_objetivo);
+      //console.log(cd_objetivo);
 
       $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
       var $divObjetivosProjetoClone = $('#projeto-'+id).find("#objetivos-metas-"+cd_objetivo);
@@ -1079,7 +1079,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             $(this).toggleClass('hidden');
           }
         });
-        console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
+        //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
@@ -1172,7 +1172,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             $(this).toggleClass('hidden');
           }
         });
-        console.log("add_objetivo: "+qtdOdsSecaoProjeto);
+        //console.log("add_objetivo: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo+"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
@@ -1244,7 +1244,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             $(this).toggleClass('hidden');
           }
         });
-        console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
+        //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
         $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
@@ -1294,7 +1294,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             checkboxItems.push(checkboxItem);
           }
         }
-        console.log("montar metas: "+qtdOdsSecaoProjeto);
+        //console.log("montar metas: "+qtdOdsSecaoProjeto);
         Checkbox = React.createFactory(Checkbox);
         ReactDOM.render(
           Checkbox(
@@ -1419,7 +1419,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           });
         }
       });
-      console.log(newJson);
+      //console.log(newJson);
       success = util.carregaAjax(rotas.AtualizarAreaAtuacao(idOsc), 'POST', newJson);
 
       //Descricao
@@ -1839,7 +1839,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
           }
           if ( routes != "" ) {
-            var data = ajaxAutoComplete(urlController, routes, true);
+            var data = ajaxAutoComplete(urlController, routes, false);
             response($.map( data, function( item ) {
               if ((abrang == 'estadual') || (abrang == 'municipal')) {
                  return {
@@ -1905,7 +1905,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            //$('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
          }
          else {
-            var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), true);
+            var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
            if (data == null){
                $('#osc_parceira').find('input')[i].value = "Entidade não cadastrada! ";
            }else{
