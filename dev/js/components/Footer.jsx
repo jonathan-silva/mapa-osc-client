@@ -1,4 +1,3 @@
-/*** RODAPÉ ***/
 define(['react'], function(React) {
   var tituloLogo = "Mapa das Organizações da Sociedade Civil";
   var data = new Date();

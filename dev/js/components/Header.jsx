@@ -1,4 +1,3 @@
-/*** Componente responsável pela parte superior da página ***/
 define(['react','rotas'], function(React) {
 
 
