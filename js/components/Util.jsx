@@ -109,7 +109,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     render: function() {
       var titleSpanFonte = "Informação preenchida pela Organização";
       var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={this.props.fonte}><img className="imgDadoEditavel" title={titleSpanFonte} src="img/dado_representante.png"></img></span>
-      var botaoRemover = <button type="button" className="btn btn-danger" href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
+      var botaoRemover = <button type="button" className="remove_titulo_certificacao btn btn-danger" data={this.props.id} href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
       if(this.props.fonte != 'Representante' && this.props.fonte != null && this.props.fonte != false){
         botaoRemover = ""
         titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
@@ -191,7 +191,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       return (
         <div>
           <button className="btn-primary btn" id="novo_titulo_certificacao_botao" onClick={this.props.toggle_exibe_novo_titulo} >Adicionar Novo Título</button>
-          <br/>
+          <br/><br/>
           <table className={'tablesaw table-hover ' + this.props.visivel} id="novo_titulo_certificacao_form" data-tablesaw-sortable data-tablesaw-sortable-switch >
             <tbody>
              <tr>
@@ -602,7 +602,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
         }
-        else if (item.fonte == false || item.fonte == null) {
+        else if (item.fonte == false) {
             SpanFonte = "";
         }
 
@@ -1147,7 +1147,7 @@ define('componenteFormItemProjeto', ['react', 'componenteFormItemButtons'], func
               {ButtonElement}
             </div>
           </div>
-        );
+        )
       }
 
       return itens;
@@ -1228,17 +1228,14 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
         var options = item.options;
         var placeholder = item.placeholder;
         var codigo = item.cd ? item.cd : null;
-        var custom_class = item.cc;
         if(content === undefined || content === null ){
           content = "";
         }
-        if(custom_class === undefined || custom_class === null ){
-          custom_class = "";
-        }
+
 
         if(type == 'select'){
           var InputElement =
-            <div id={id} className={custom_class}>
+            <div id={id}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;

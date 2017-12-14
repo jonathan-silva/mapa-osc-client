@@ -17,8 +17,8 @@ var editarJsFiles = 'dev/js/editar/**/*.js',
     customJsDest = 'js/custom/',
     cssFiles = 'css/**/*.css',
     cssDest = 'css/dist',
-    editarFile = 'dev/js/custom/editar-osc.js',
-    editarDest = 'js/',
+    componentFiles = 'dev/js/components/**/*.jsx',
+    componentDest = 'js/components/',
     headerFooterFile = 'dev/js/custom/header-footer.js',
     headerFooterDest = 'js/',
     controllerOrigin = 'dev/js/controller.php',
@@ -91,15 +91,13 @@ gulp.task('scripts4', function (cb) {
   ], cb);
 });
 
-//necessario pois o editar e o header-footer nao podem ser minificados (causa bug no sistema)
-/*
 gulp.task('scripts5', function (cb) {
   pump([
-    gulp.src(editarFile),
-    gulp.dest(editarDest)
+    gulp.src(componentFiles),
+    gulp.dest(componentDest)
   ], cb);
 });
-*/
+
 gulp.task('scripts6', function (cb) {
   pump([
     gulp.src(headerFooterFile),
@@ -137,5 +135,5 @@ gulp.task('tdd', function (done) {
   }, done).start();
 });
 
-gulp.task('min', ['scripts', 'scripts2','scripts3', 'scripts4', 'scripts6', 'scripts7']);//'scripts5',
+gulp.task('min', ['scripts', 'scripts2','scripts3', 'scripts4', 'scripts5', 'scripts6', 'scripts7']);//
 gulp.task('deploy', ['pull','commit', 'push']);

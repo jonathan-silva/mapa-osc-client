@@ -202,8 +202,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 element = $(target);
                 element.unmask();
             });
-        });
 
+
+        });
+ 
+        //hack para fazer o botão funcionar quando este começa escondido        
+        $("#bodyheaderTitulosCertificacoes td.sorting_1").click(function() {
+          var id = $(".remove_titulo_certificacao").attr("data");
+          $("#tabela_titulos_certificados").DataTable().destroy();
+        });
+        
         function readURL(input) {
           if (input.files && input.files[0] && input.files[0].type.match('image.*') && input.files[0].size < 1000000) {
             var MAX_WIDTH = 300;

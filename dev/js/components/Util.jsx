@@ -109,7 +109,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
     render: function() {
       var titleSpanFonte = "Informação preenchida pela Organização";
       var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={this.props.fonte}><img className="imgDadoEditavel" title={titleSpanFonte} src="img/dado_representante.png"></img></span>
-      var botaoRemover = <button type="button" className="btn btn-danger" href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
+      var botaoRemover = <button type="button" className="remove_titulo_certificacao btn btn-danger" data={this.props.id} href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
       if(this.props.fonte != 'Representante' && this.props.fonte != null && this.props.fonte != false){
         botaoRemover = ""
         titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
