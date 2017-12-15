@@ -160,7 +160,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
        });
    },
    select: function(event, ui){
-    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
     location.href=link;
    }
  });

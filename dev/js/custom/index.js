@@ -246,7 +246,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-		var link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(textoBusca.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+		var link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
 		location.href=link;
    }
  });
