@@ -244,15 +244,13 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             };
 
-            var arraIdOSC = [];
-            arraIdOSC.push($id_osc);
             var json = {
                 "tx_email_usuario": email,
                 "tx_senha_usuario": senha,
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
                 "bo_lista_email": newsletter,
-                "representacao": "["+$id_osc+"]"
+                "representacao": $id_osc
             };
 
 
