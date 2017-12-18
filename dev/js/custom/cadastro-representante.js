@@ -244,7 +244,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             };
 
-            arraIdOSC = [];
+            var arraIdOSC = [];
             arraIdOSC.push($id_osc);
             var json = {
                 "tx_email_usuario": email,
