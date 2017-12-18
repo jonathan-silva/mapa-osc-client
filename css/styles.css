@@ -63,7 +63,6 @@
 .dropdown-toggle{
     color: #404040;
     padding:15px;
-    float: left;
 }
 .dropdown-toggle:hover{
   color: #337cbb;
