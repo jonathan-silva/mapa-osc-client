@@ -244,17 +244,18 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             };
 
-
+            arraIdOSC = [];
+            arraIdOSC.push($id_osc);
             var json = {
                 "tx_email_usuario": email,
                 "tx_senha_usuario": senha,
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
                 "bo_lista_email": newsletter,
-                "representacao": [$id_osc]
+                "representacao": arraIdOSC
             };
 
-            console.log(json);
+
             $.ajax({
                 url: controller,
                 type: 'POST',
@@ -265,6 +266,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                         jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
                         jQuery("#modalConteudo").text('');
                         jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+                        console.log(json);
                     }else{
                         jQuery("#modalTitle").text("Problema no cadastro!");
                         jQuery("#modalConteudo").text('');
