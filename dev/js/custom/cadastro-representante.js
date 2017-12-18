@@ -254,7 +254,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "representacao": [$id_osc]
             };
 
-
+            console.log(json);
             $.ajax({
                 url: controller,
                 type: 'POST',
