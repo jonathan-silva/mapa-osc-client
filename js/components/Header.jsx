@@ -508,7 +508,7 @@ function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
       if(data != null && data.length !== 0 ){
 
         for(var i = 0; i < data.length && i < 5; i++){
-           num_row = i + 1;
+           var num_row = i + 1;
            corpo += '<tr>';
            corpo += '<th scope="row">'+num_row+'</th>';
            corpo += '  <td><a class="btn-item" onclick="location.href=\'visualizar-osc.html#'+data[i].id_osc+'\';" >'+data[i].tx_nome_osc+'</a></td>';
