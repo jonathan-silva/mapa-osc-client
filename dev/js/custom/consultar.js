@@ -32,6 +32,8 @@ require(['react'], function (React) {
     var limiteAutocomplete = 10;
     var limiteAutocompleteCidade = 25;
 
+    var box_cd_situacao_imovel_osc = true;
+
     $("#accordion .panel-heading").each(function () {
       $(this).click(function() {
         $(this).parent().parent().children().last().toggle("slow");
@@ -152,25 +154,33 @@ require(['react'], function (React) {
       });
     }
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-          if (data != null) {
-            var selectbox = $('#cd_area_atuacao');
-            $.each(data, function (key, value) {
-                $('<option>').val(value.cd_area_atuacao).text(value.tx_nome_area_atuacao).appendTo(selectbox);
-            });
+    var box_cd_area_atuacao = true;
+    $('#cd_area_atuacao').mousedown(function() {
+
+      if(box_cd_area_atuacao){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+              if (data != null) {
+                var selectbox = $('#cd_area_atuacao');
+                $.each(data, function (key, value) {
+                    $('<option>').val(value.cd_area_atuacao).text(value.tx_nome_area_atuacao).appendTo(selectbox);
+                });
+                box_cd_area_atuacao = false;
+              }
           }
+        });
       }
     });
+
 
     var sub_area_box;
     $.ajax({
@@ -212,228 +222,296 @@ require(['react'], function (React) {
 
     });
 
+    var box_cd_conselho = true;
+    $('#cd_conselho').mousedown(function() {
 
+      if(box_cd_conselho){
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.Conselho()},
+            error:function(e){
+              console.log("Erro no ajax: ");
+              console.log(e);
+            },
+            success: function(data){
+                if (data != null) {
+                  var selectbox = $('#cd_conselho');
+                  $.each(data, function (key, value) {
+                      $('<option>').val(value.cd_conselho).text(value.tx_nome_conselho).appendTo(selectbox);
+                  });
+                  box_cd_conselho = false;
+                }
+            }
+          });
+      }
+    });
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.Conselho()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-          if (data != null) {
-            var selectbox = $('#cd_conselho');
-            $.each(data, function (key, value) {
-                $('<option>').val(value.cd_conselho).text(value.tx_nome_conselho).appendTo(selectbox);
-            });
+    var box_cd_tipo_participacao = true;
+    $('#cd_tipo_participacao').mousedown(function() {
+
+      if(box_cd_tipo_participacao){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.Titularidade()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_tipo_participacao');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_tipo_participacao).text(value.tx_nome_tipo_participacao).appendTo(selectbox);
+              });
+              box_cd_tipo_participacao = false;
+            }
           }
+        });
+      }
+    });
+
+    $('#cd_situacao_imovel_osc').mousedown(function() {
+
+      if(box_cd_situacao_imovel_osc){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.SituacaoImovel()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_situacao_imovel_osc');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_situacao_imovel).text(value.tx_nome_situacao_imovel).appendTo(selectbox);
+              });
+              box_cd_situacao_imovel_osc = false;
+            }
+          }
+        });
       }
     });
 
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.Titularidade()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_tipo_participacao');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_tipo_participacao).text(value.tx_nome_tipo_participacao).appendTo(selectbox);
+    var box_cd_origem_fonte_recursos_projeto = true;
+    $('#cd_origem_fonte_recursos_projeto').mousedown(function() {
+
+      if(box_cd_origem_fonte_recursos_projeto){
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.FontesRecursosProjeto()},
+            error:function(e){
+              console.log("Erro no ajax: ");
+              console.log(e);
+            },
+            success: function(data){
+              if (data != null) {
+                var selectbox = $('#cd_origem_fonte_recursos_projeto');
+                $.each(data, function (key, value) {
+                    $('<option>').val(value.cd_origem_fonte_recursos_projeto).text(value.tx_nome_origem_fonte_recursos_projeto).appendTo(selectbox);
+                });
+                box_cd_origem_fonte_recursos_projeto = false;
+              }
+            }
           });
         }
+    });
+
+    var box_cd_zona_atuacao_projeto = true;
+    $('#cd_zona_atuacao_projeto').mousedown(function() {
+
+      if(box_cd_zona_atuacao_projeto){
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.ZonaAtuacaoProjeto()},
+            error:function(e){
+              console.log("Erro no ajax: ");
+              console.log(e);
+            },
+            success: function(data){
+              if (data != null) {
+                var selectbox = $('#cd_zona_atuacao_projeto');
+                $.each(data, function (key, value) {
+                    $('<option>').val(value.cd_zona_atuacao_projeto).text(value.tx_nome_zona_atuacao).appendTo(selectbox);
+                });
+                box_cd_zona_atuacao_projeto = false;
+              }
+            }
+          });
+        }
+      });
+
+
+    var box_cd_abrangencia_projeto = true;
+    $('#cd_abrangencia_projeto').mousedown(function() {
+
+      if(box_cd_abrangencia_projeto){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.AbrangenciaProjeto()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_abrangencia_projeto');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_abrangencia_projeto).text(value.tx_nome_abrangencia_projeto).appendTo(selectbox);
+              });
+              box_cd_abrangencia_projeto = false;
+            }
+          }
+        });
       }
     });
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.SituacaoImovel()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_situacao_imovel_osc');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_situacao_imovel).text(value.tx_nome_situacao_imovel).appendTo(selectbox);
-          });
-        }
+    var box_cd_status_projeto = true;
+    $('#cd_status_projeto').mousedown(function() {
+
+      if(box_cd_status_projeto){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.SituacaoProjeto()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_status_projeto');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
+              });
+              box_cd_status_projeto = false;
+            }
+          }
+        });
       }
     });
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.FontesRecursosProjeto()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_origem_fonte_recursos_projeto');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_origem_fonte_recursos_projeto).text(value.tx_nome_origem_fonte_recursos_projeto).appendTo(selectbox);
-          });
-        }
-      }
-    });
+    var box_cd_forma_participacao_conferencia = true;
+    $('#cd_forma_participacao_conferencia').mousedown(function() {
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.ZonaAtuacaoProjeto()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_zona_atuacao_projeto');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_zona_atuacao_projeto).text(value.tx_nome_zona_atuacao).appendTo(selectbox);
-          });
-        }
-      }
-    });
+      if(box_cd_forma_participacao_conferencia){
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.FormaParticipacaoConferencia()},
+            error:function(e){
+              console.log("Erro no ajax: ");
+              console.log(e);
+            },
+            success: function(data){
+              if (data != null) {
+                var selectbox = $('#cd_forma_participacao_conferencia');
+                $.each(data, function (key, value) {
+                    $('<option>').val(value.cd_forma_participacao_conferencia).text(value.tx_nome_forma_participacao_conferencia).appendTo(selectbox);
+                });
+                box_cd_forma_participacao_conferencia = false;
+              }
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.AbrangenciaProjeto()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_abrangencia_projeto');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_abrangencia_projeto).text(value.tx_nome_abrangencia_projeto).appendTo(selectbox);
+              $("#cd_forma_participacao_conferencia").addClass('newSelectBox');
+              $("#cd_forma_participacao_conferencia").selectBoxIt({
+                 theme: "default",
+                 defaultText: "Qualquer",
+                 autoWidth: false
+               });
+            }
           });
         }
-      }
-    });
-
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.SituacaoProjeto()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_status_projeto');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_status_projeto).text(value.tx_nome_status_projeto).appendTo(selectbox);
-          });
-        }
-      }
     });
 
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.FormaParticipacaoConferencia()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_forma_participacao_conferencia');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_forma_participacao_conferencia).text(value.tx_nome_forma_participacao_conferencia).appendTo(selectbox);
-          });
-        }
+    var box_cd_conferencia = true;
+    $('#cd_conferencia').mousedown(function() {
 
-        $("#cd_forma_participacao_conferencia").addClass('newSelectBox');
-        $("#cd_forma_participacao_conferencia").selectBoxIt({
-           theme: "default",
-           defaultText: "Qualquer",
-           autoWidth: false
-         });
+      if(box_cd_conferencia){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.Conferencia()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_conferencia');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_conferencia).text(value.tx_nome_conferencia).appendTo(selectbox);
+              });
+              box_cd_conferencia = true;
+            }
+
+            $("#cd_conferencia").addClass('newSelectBox');
+            $("#cd_conferencia").selectBoxIt({
+               theme: "default",
+               defaultText: "Qualquer",
+               autoWidth: false
+             });
+          }
+        });
       }
     });
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.Conferencia()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_conferencia');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_conferencia).text(value.tx_nome_conferencia).appendTo(selectbox);
-          });
-        }
+    var box_cd_objetivo_projetoa = true;
+    $('#cd_objetivo_projeto').mousedown(function() {
 
-        $("#cd_conferencia").addClass('newSelectBox');
-        $("#cd_conferencia").selectBoxIt({
-           theme: "default",
-           defaultText: "Qualquer",
-           autoWidth: false
-         });
-      }
-    });
+      if(box_cd_objetivo_projetoa){
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota: rotas.Objetivos()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+            console.log(e);
+          },
+          success: function(data){
+            if (data != null) {
+              var selectbox = $('#cd_objetivo_projeto');
+              $.each(data, function (key, value) {
+                  $('<option>').val(value.cd_objetivo_projeto).text(value.tx_nome_objetivo_projeto).appendTo(selectbox);
+              });
+              box_cd_objetivo_projetoa = false;
+            }
 
-    $.ajax({
-      url: controller,
-      type: 'GET',
-      async: true,
-      dataType: 'json',
-      data:{flag: 'consulta', rota: rotas.Objetivos()},
-      error:function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
-        if (data != null) {
-          var selectbox = $('#cd_objetivo_projeto');
-          $.each(data, function (key, value) {
-              $('<option>').val(value.cd_objetivo_projeto).text(value.tx_nome_objetivo_projeto).appendTo(selectbox);
-          });
-        }
-
-        $("#cd_objetivo_projeto").addClass('newSelectBox');
-        $("#cd_objetivo_projeto").selectBoxIt({
-           theme: "default",
-           defaultText: "Qualquer",
-           autoWidth: false
-         });
+            $("#cd_objetivo_projeto").addClass('newSelectBox');
+            $("#cd_objetivo_projeto").selectBoxIt({
+               theme: "default",
+               defaultText: "Qualquer",
+               autoWidth: false
+             });
+          }
+        });
       }
     });
 
