@@ -136,7 +136,7 @@ require(['react'], function (React) {
         },
         success: function(data){
           var selectbox = $('#cd_meta_projeto');
-          var html = '<option value="">Qualquer</option>';
+          var html = '<option value="">Selecione uma opção</option>';
 
           if (data != null) {
             $.each(data, function (key, value) {
@@ -148,7 +148,7 @@ require(['react'], function (React) {
           $("#cd_meta_projeto").addClass('newSelectBox');
           $("#cd_meta_projeto").selectBoxIt({
              theme: "default",
-             defaultText: "Qualquer",
+             defaultText: "Selecione uma opção",
              autoWidth: false
            });
            $("#cd_meta_projeto").selectBoxIt();
@@ -168,7 +168,7 @@ require(['react'], function (React) {
 
         $("#cd_area_atuacao").selectBoxIt({
           theme: "default",
-          defaultText: "Qualquer",
+          defaultText: "Selecione uma opção",
           autoWidth: false,
 
           populate: function() {
@@ -237,7 +237,7 @@ require(['react'], function (React) {
 
     $("#cd_situacao_imovel_osc").selectBoxIt({
       theme: "default",
-      defaultText: "Qualquer",
+      defaultText: "Selecione uma opção",
       autoWidth: false,
 
       populate: function() {
@@ -265,7 +265,7 @@ require(['react'], function (React) {
 
       $("#cd_tipo_participacao").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -290,7 +290,7 @@ require(['react'], function (React) {
 
       $("#cd_conselho").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -315,7 +315,7 @@ require(['react'], function (React) {
 
       $("#cd_forma_participacao_conferencia").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -340,7 +340,7 @@ require(['react'], function (React) {
 
       $("#cd_conferencia").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -370,7 +370,7 @@ require(['react'], function (React) {
 
       $("#cd_origem_fonte_recursos_projeto").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -395,7 +395,7 @@ require(['react'], function (React) {
 
       $("#cd_status_projeto").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -420,7 +420,7 @@ require(['react'], function (React) {
 
       $("#cd_zona_atuacao_projeto").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -445,7 +445,7 @@ require(['react'], function (React) {
 
       $("#cd_abrangencia_projeto").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -470,7 +470,7 @@ require(['react'], function (React) {
 
       $("#cd_objetivo_projeto").selectBoxIt({
         theme: "default",
-        defaultText: "Qualquer",
+        defaultText: "Selecione uma opção",
         autoWidth: false,
 
         populate: function() {
@@ -509,7 +509,7 @@ require(['react'], function (React) {
         loadMetas(cd_objetivo_projeto);
 
       }else{
-        var html = '<option value="">Qualquer</option>';
+        var html = '<option value="">Selecione uma opção</option>';
         $('#cd_meta_projeto').html(html);
         var selectBox_metas = $("select#cd_meta_projeto").data("selectBox-selectBoxIt");
         if(selectBox_metas != undefined){
