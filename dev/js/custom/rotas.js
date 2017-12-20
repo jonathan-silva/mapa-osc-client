@@ -4,10 +4,11 @@ class Rotas{
   }
 
   getBaseUrl(){
-    return "https://mapaosc-desenv.ipea.gov.br";
+    //return "https://mapaosc-desenv.ipea.gov.br";
     //return "https://10.1.4.110";
     //return "https://10.1.4.205";
     //return "http://localhost";
+    return "https://localhost";
   }
 
   //index.js
@@ -258,7 +259,7 @@ class Rotas{
     return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset;
   }
 
-  ConsultaAvancadaMapa(term){
+  ConsultaAvancadaMapa(){
     return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0";
   }
 

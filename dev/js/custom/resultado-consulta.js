@@ -333,7 +333,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data:data_tipo,
       error:function(e){
-        console.log("Erro no ajax: "+e);
+        console.log("Erro no ajax");
+        console.log(e);
       },
       success: function(data){
         if(data !== "Nenhuma Organização encontrada!"){
@@ -429,7 +430,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCPopUpByID(id)},
       error: function(e){
-          console.log("ERRO no AJAX :" + e);
+          console.log("ERRO no AJAX");
+          console.log(e);
       },
       success: function(data){
         if(data!==undefined){
@@ -692,7 +694,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
       error: function(e){
-          console.log("ERRO no AJAX :" + e);
+          console.log("ERRO no AJAX");
+          console.log(e);
       },
       success: function(data){
         tabela(urlRota, consulta_avancada);
@@ -723,7 +726,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
       error: function(e){
-          console.log("ERRO no AJAX :" + e);
+          console.log("ERRO no AJAX");
+          console.log(e);
       },
       success: function(data){
         tabela(urlRota, consulta_avancada);
@@ -758,7 +762,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
       error: function(e){
-          console.log("ERRO no AJAX :" + e);
+          console.log("ERRO no AJAX");
+          console.log(e);
       },
       success: function(data){
         tabela(urlRota, consulta_avancada);
@@ -836,7 +841,8 @@ $("#regiao .form-control").autocomplete({
       dataType: 'json',
       data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
       error: function(e){
-          console.log("ERRO no AJAX :" + e);
+          console.log("ERRO no AJAX");
+          console.log(e);
       },
       success: function(data){
         tabela(urlRota, consulta_avancada);
@@ -891,7 +897,8 @@ $("#regiao .form-control").autocomplete({
     dataType: 'json',
     data: data_tipo_mapa,
     error: function(e){
-        console.log("ERRO no AJAX :" + e);
+        console.log("ERRO no AJAX");
+        console.log(e);
     },
     success: function(data){
 
@@ -938,7 +945,8 @@ $("#regiao .form-control").autocomplete({
     dataType: 'json',
     data: {flag: 'consulta', rota: rotas.ClusterEstado()},
     error: function(e){
-        console.log("ERRO no AJAX :" + e);
+        console.log("ERRO no AJAX");
+        console.log(e);
     },
     success: function(data){
       if(data!==undefined){
