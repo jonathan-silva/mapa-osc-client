@@ -468,11 +468,15 @@ require(['react'], function (React) {
         }
       });
 
+    });
+
+    $('#cd_objetivo_projeto').mousedown(function() {
+
       $("#cd_objetivo_projeto").selectBoxIt({
         theme: "default",
         defaultText: "Selecione uma opção",
         autoWidth: false,
-
+        
         populate: function() {
             var deferred = $.Deferred(),
                 arr = [],
@@ -494,12 +498,6 @@ require(['react'], function (React) {
       });
 
     });
-
-
-
-
-
-
 
 
     $("#cd_objetivo_projeto").change(function() {
