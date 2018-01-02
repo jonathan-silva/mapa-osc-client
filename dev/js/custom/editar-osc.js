@@ -1560,13 +1560,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Participacao social
         // Conselho
         var lforma = [];
-        lforma = ajaxConsulta(urlController, rotas.Titularidade(), true);
+        lforma = ajaxConsulta(urlController, rotas.Titularidade(), false);
 
         var lconselho =[];
-        lconselho = ajaxConsulta(urlController, rotas.Conselho(), true);
-
+        lconselho = ajaxConsulta(urlController, rotas.Conselho(), false);
+        
         var lperiodicidadeReuniao =[];
-        lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), true);
+        lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), false);
 
         //conselho
         var newJson = {};
@@ -1578,8 +1578,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(".conselho").each(function(){
          var obj = {}
          obj.conselho = {};
-         obj.representante = [];
-         var conselho_id = 0;
+         obj.conselho.representante = [];
          var cd_conselho = 0;
 
          $(this).find("select").each(function(){
@@ -1611,49 +1610,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
 
-         if(conselho_id == 0){
-           obj.conselho.id_conselho = null;
-         }else{
-           obj.conselho.id_conselho = conselho_id;
-         }
-
-         $(this).find("select").each(function(index){
-          var split = $(this).attr("id").split("-");
-          var campo = split[0];
-          if (campo == "outro"){
-            obj.conselho.tx_nome_conselho = $(this).val();
-          }
-
-          for (var i=0;i<lconselho.length;i++){
-           if ($(this).val() == lconselho[i].tx_nome_conselho){
-             obj.conselho.cd_conselho = lconselho[i].cd_conselho;
-             break;
-            }
-           }
-           for (var i=0;i<lforma.length;i++){
-           if ($(this).val() === lforma[i].tx_nome_tipo_participacao){
-             obj.conselho.cd_tipo_participacao = lforma[i].cd_tipo_participacao;
-             break;
-            }
-           }
-
-           for (var i=0;i<lperiodicidadeReuniao.length;i++){
-           if ($(this).val() === lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho){
-             obj.conselho.cd_periodicidade_reuniao_conselho = lperiodicidadeReuniao[i].cd_periodicidade_reuniao_conselho;
-             break;
-            }
-           }
-         });
-
          $(this).find("input").each(function(index){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           if(cd_conselho !== 0){
+           //console.log("v: "+$(this).val());
+           if(obj.conselho.cd_conselho !== 0){
              if (campo == "outro" && $(this).val() != ''){
                 obj.conselho.tx_nome_conselho = $(this).val();
              }
-             if(campo === "tx_nome_representante_conselho" && $(this).val() != ''){
-               obj.representante.push(
+             if(campo == "tx_nome_representante_conselho" && $(this).val() != ''){
+              
+               obj.conselho.representante.push(
                  {
                   "tx_nome_representante_conselho": $(this).val()
                 });
@@ -1665,14 +1632,15 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            }
          });
 
-         if(obj.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
+         if(obj.conselho.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
           newJson.conselho.push(obj);
          }
+         
         });
 
-        if(Object.keys(newJson.conselho).length === 0){
+        /*if(Object.keys(newJson.conselho).length === 0){
           newJson.conselho = null;
-        }
+        }*/
         console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
