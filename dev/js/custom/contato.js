@@ -100,8 +100,8 @@ require(['react'], function (React) {
 
 
 function validaEmail(email) {
-    usuario = email.substring(0, email.indexOf("@"));
-    dominio = email.substring(email.indexOf("@") + 1, email.length);
+    var usuario = email.substring(0, email.indexOf("@"));
+    var dominio = email.substring(email.indexOf("@") + 1, email.length);
 
     if ((usuario.length >= 1) &&
         (dominio.length >= 3) &&
