@@ -1580,18 +1580,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          obj.conselho = {};
          obj.conselho.representante = [];
          var cd_conselho = 0;
+         var conselho_id = 0;
 
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
+           var campo = split[0];
+           conselho_id = parseInt($(this).attr("id").split("-")[1]);
+           if(conselho_id == 0){
+            obj.conselho.id_conselho = null;
+           }else{
+            obj.conselho.id_conselho = conselho_id;
+           }
 
            for (var i=0;i<lconselho.length;i++){
              if ($(this).val() === lconselho[i].tx_nome_conselho){
                obj.conselho.cd_conselho = lconselho[i].cd_conselho;
                cd_conselho = obj.conselho.cd_conselho;
-               var conselho_id = parseInt($(this).attr("id").split("-")[1]);
-               if(cd_conselho != 104){
-                 obj.conselho.tx_nome_conselho = null; //Existe -- Depois será atribuído caso
-               }
+               
                break;
             }
            }
@@ -1608,6 +1613,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                break;
              }
            }
+           
+           if (campo == "tx_nome_conselho") {
+             obj.conselho[campo] = $(this).val();
+           }
+             
          });
 
          $(this).find("input").each(function(index){
@@ -1624,13 +1634,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                  {
                   "tx_nome_representante_conselho": $(this).val()
                 });
-             } else {
-               if ( (campo !== "tx_nome_conselho") && (campo !== "tx_nome_tipo_participacao")) {
-                 obj.conselho[campo] = $(this).val();
-               }
              }
            }
+           if (campo == "dt_data_inicio_conselho" && $(this).val() != ''){
+              obj.conselho.dt_data_inicio_conselho = $(this).val();
+           }
+           if (campo == "dt_data_fim_conselho" && $(this).val() != ''){
+              obj.conselho.dt_data_fim_conselho = $(this).val();
+           }
          });
+
 
          if(obj.conselho.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
           newJson.conselho.push(obj);
