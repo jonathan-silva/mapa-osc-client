@@ -251,7 +251,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
                 "bo_lista_email": newsletter,
-                "representacao": [$id_osc]
+                "representacao": $id_osc
             };
 
 
