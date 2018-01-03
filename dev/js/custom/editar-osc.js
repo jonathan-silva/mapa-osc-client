@@ -1588,7 +1588,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              if ($(this).val() === lconselho[i].tx_nome_conselho){
                obj.conselho.cd_conselho = lconselho[i].cd_conselho;
                cd_conselho = obj.conselho.cd_conselho;
-               conselho_id = parseInt($(this).attr("id").split("-")[1]);
+               var conselho_id = parseInt($(this).attr("id").split("-")[1]);
                if(cd_conselho != 104){
                  obj.conselho.tx_nome_conselho = null; //Existe -- Depois será atribuído caso
                }
@@ -1638,9 +1638,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          
         });
 
-        /*if(Object.keys(newJson.conselho).length === 0){
+        if(Object.keys(newJson.conselho).length == 0){
           newJson.conselho = null;
-        }*/
+        }
         console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
