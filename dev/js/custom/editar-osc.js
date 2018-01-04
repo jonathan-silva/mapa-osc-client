@@ -1585,6 +1585,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
+           console.log(campo);
            conselho_id = parseInt($(this).attr("id").split("-")[1]);
            if(conselho_id == 0){
             obj.conselho.id_conselho = null;
@@ -1625,8 +1626,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            var campo = split[0];
            //console.log("v: "+$(this).val());
            if(obj.conselho.cd_conselho !== 0){
-             if (campo == "outro" && $(this).val() != ''){
-                obj.conselho.tx_nome_conselho = $(this).val();
+             if (campo == "outro_conselho" && $(this).val() != ''){
+                obj.conselho.tx_nome_conselho_outro = $(this).val();
              }
              if(campo == "tx_nome_representante_conselho" && $(this).val() != ''){
               
@@ -1689,57 +1690,57 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         newJson["bo_nao_possui_conferencias"] = $('#conferencias input[type="checkbox"]').is(':checked');
 
         $(".conferencia").each(function(){
-         var obj = {};
-         var conferencia_id = 0;
-         // Busca nos selects
-         $(this).find("select").each(function(){
-           var split = $(this).attr("id").split("-");
-           var campo = split[0];
-           for (var i=0;i<lconferencia.length;i++){
+           var obj = {};
+           var conferencia_id = 0;
+           // Busca nos selects
+           $(this).find("select").each(function(){
+             var split = $(this).attr("id").split("-");
+             var campo = split[0];
 
-           if ($(this).val() === lconferencia[i].tx_nome_conferencia){
-             obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
-             conferencia_id = parseInt($(this).attr("id").split("-")[1]);
-             obj.tx_nome_conferencia = ""; //Existe -- Depois será atribuído caso
-             break;
-            }
-           }
-
-           for (var i=0;i<lista_forma_conferencia.length;i++){
-             if ($(this).val() === lista_forma_conferencia[i]){
-               obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
-               break;
-              }
-          }
-         });
-
-         // Busca nos inputs
-         $(this).find("input").each(function(){
-           var split = $(this).attr("id").split("-");
-           var campo = split[0];
-           if (campo == "outro"){
-              obj.tx_nome_conferencia = $(this).val();
-           }
-
-           for (var i=0;i<lconferencia.length;i++){
-             // Código Conferência
+            for (var i=0;i<lconferencia.length;i++){
              if ($(this).val() === lconferencia[i].tx_nome_conferencia){
                obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
+               conferencia_id = parseInt($(this).attr("id").split("-")[1]);
+               obj.tx_nome_conferencia = ""; //Existe -- Depois será atribuído caso
                break;
               }
-           }
-           for (var i=0;i<lista_forma_conferencia.length;i++){
-             // Forma de Participação
-             if ($(this).val() === lista_forma_conferencia[i]){
-               obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
-               break;
+            }
+
+            for (var i=0;i<lista_forma_conferencia.length;i++){
+              if ($(this).val() === lista_forma_conferencia[i]){
+                 obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
+                 break;
               }
-          }
-          if ( util.contains("19",$(this).val()) ||  util.contains("20",$(this).val()) ){
-             // Data Participaçao
-            obj["dt_ano_realizacao"] = $(this).val();
-          }
-        });
+            }
+           });
+
+          // Busca nos inputs
+          $(this).find("input").each(function(){
+             var split = $(this).attr("id").split("-");
+             var campo = split[0];
+             if (campo == "outro"){
+                obj.tx_nome_conferencia = $(this).val();
+             }
+
+             for (var i=0;i<lconferencia.length;i++){
+               // Código Conferência
+               if ($(this).val() === lconferencia[i].tx_nome_conferencia){
+                 obj["cd_conferencia"] = lconferencia[i].cd_conferencia;
+                 break;
+                }
+             }
+             for (var i=0;i<lista_forma_conferencia.length;i++){
+               // Forma de Participação
+               if ($(this).val() === lista_forma_conferencia[i]){
+                 obj["cd_forma_participacao_conferencia"] = lista_forma_conferencia_id[i];
+                 break;
+                }
+              }
+              if ( util.contains("19",$(this).val()) ||  util.contains("20",$(this).val()) ){
+                 // Data Participaçao
+                obj["dt_ano_realizacao"] = $(this).val();
+              }
+          });
 
           if (!$.isEmptyObject(obj)){
             if (conferencia_id != 0) {
@@ -1747,7 +1748,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }else {
               obj["id_conferencia"] = null;
             }
-              newJson.conferencia.push(obj);
+            newJson.conferencia.push(obj);
           }
         });
 
