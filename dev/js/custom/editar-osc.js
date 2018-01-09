@@ -1487,7 +1487,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         item.ft_inicio_certificado = fonte_dados//authHeader.User;
         item.ft_fim_certificado = fonte_dados//authHeader.User;
         item.cd_certificado = cd_certificado;
-        item.id_certificado = $(this).prop("id");
+        console.log($(this).prop("id"));
+        item.id_certificado = $(this).prop("id")?$(this).prop("id"):null;
 
         if(cd_certificado > 0){
           newJson.certificado.push(item);
@@ -1502,6 +1503,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
+      //console.log(newJson);
       success = util.carregaAjax(rotas.Certificado(idOsc), 'POST', newJson);
 
         // Relações de trabalho
@@ -1585,7 +1587,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           console.log(campo);
+           //console.log(campo);
            conselho_id = parseInt($(this).attr("id").split("-")[1]);
            if(conselho_id == 0){
             obj.conselho.id_conselho = null;
@@ -1655,7 +1657,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length == 0){
           newJson.conselho = null;
         }
-        console.log(newJson);
+        //console.log(newJson);
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
@@ -2157,6 +2159,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             });
             success = util.carregaAjax(rotas.AtualizarProjectByID(idOsc), 'POST', newJson);
           }
+
+          //console.log(newJson);
         }
       });
     }
