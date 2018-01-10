@@ -205,13 +205,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
 
         });
- 
-        //hack para fazer o botão funcionar quando este começa escondido        
+
+        //hack para fazer o botão funcionar quando este começa escondido
         $("#bodyheaderTitulosCertificacoes td.sorting_1").click(function() {
           var id = $(".remove_titulo_certificacao").attr("data");
           $("#tabela_titulos_certificados").DataTable().destroy();
         });
-        
+
         function readURL(input) {
           if (input.files && input.files[0] && input.files[0].type.match('image.*') && input.files[0].size < 1000000) {
             var MAX_WIDTH = 300;
@@ -993,7 +993,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function metasObjetivos(project, id){
       //metas e objetivos
-      var pro = project; 
+      var pro = project;
       var ido = id;
       var objetivo_meta = util.validateObject(project.objetivo_meta, "");
       var objetivo_meta_inicial = util.validateObject(objetivo_meta[0], "");
@@ -1147,7 +1147,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       project.append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
       var $divObjetivosProjetoClone = project.find("#objetivos-metas-"+cd_objetivo);
       $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
-      $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos-'+cd_objetivo+'"><select class="form-control"></select></div></div>');
+      $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos_'+cd_objetivo+'"><select class="form-control"></select></div></div>');
 
       var $selectObjetivos = $divObjetivosProjetoClone.find("select");
       //console.log(project);
@@ -1331,34 +1331,43 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       //Dados Gerais
       var newJson = {};
 
-      newJson = util.validateObject(old_json.dados_gerais, []);
+      //newJson = util.validateObject(old_json.dados_gerais, {});
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
-      $("#dados_gerais :input").each(function(){
+      $("#dados_gerais input:not(:checkbox)").each(function(){
         var key = $(this).attr("id");
         var value = $(this).val();
-        if(key === "tx_nome_situacao_imovel_osc"){
-          newJson["cd_situacao_imovel_osc"] = null;
+        newJson[key] = value;
+      });
+
+      $("#dados_gerais textarea").each(function(){
+        var key = $(this).attr("id");
+        var value = $(this).val();
+        newJson[key] = value;
+      });
+
+      $("#tx_nome_situacao_imovel_osc").each(function(){
+          var value = $(this).val();
           if(value === "Próprio"){
             newJson["cd_situacao_imovel_osc"] = 1
           }
-          if(value === "Alugado"){
+          else if(value === "Alugado"){
             newJson["cd_situacao_imovel_osc"] = 2
           }
-          if(value === "Cedido"){
+          else if(value === "Cedido"){
             newJson["cd_situacao_imovel_osc"] = 3
           }
-          if(value === "Comodato"){
+          else if(value === "Comodato"){
             newJson["cd_situacao_imovel_osc"] = 4
           }
-        } else {
-          newJson[key] = value;
-        }
+          else{
+            newJson["cd_situacao_imovel_osc"] = null;
+          }
       });
 
       newJson["objetivo_metas"] = [];
-      $("#objetivosOsc-metas :input[type='checkbox']").each(function(){
+      $("#objetivosOsc-metas :input:checkbox").each(function(){
         if($(this).prop("checked")){
           var codigo = $(this).attr('value');
           newJson["objetivo_metas"].push({
@@ -1436,7 +1445,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       newJson["id_osc"] = idOsc;
       newJson["descricao"] = [];
 
-      $("#descricao .form-control").each(function(){
+      $("#descricao textarea").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
       success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
@@ -1564,7 +1573,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
         var lconselho =[];
         lconselho = ajaxConsulta(urlController, rotas.Conselho(), false);
-        
+
         var lperiodicidadeReuniao =[];
         lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), false);
 
@@ -1597,7 +1606,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              if ($(this).val() === lconselho[i].tx_nome_conselho){
                obj.conselho.cd_conselho = lconselho[i].cd_conselho;
                cd_conselho = obj.conselho.cd_conselho;
-               
+
                break;
             }
            }
@@ -1614,11 +1623,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                break;
              }
            }
-           
+
            if (campo == "tx_nome_conselho") {
              obj.conselho[campo] = $(this).val();
            }
-             
+
          });
 
          $(this).find("input").each(function(index){
@@ -1630,7 +1639,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 obj.conselho.tx_nome_conselho_outro = $(this).val();
              }
              if(campo == "tx_nome_representante_conselho" && $(this).val() != ''){
-              
+
                obj.conselho.representante.push(
                  {
                   "tx_nome_representante_conselho": $(this).val()
@@ -1649,7 +1658,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          if(obj.conselho.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
           newJson.conselho.push(obj);
          }
-         
+
         });
 
         if(Object.keys(newJson.conselho).length == 0){
