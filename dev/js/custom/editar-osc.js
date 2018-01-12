@@ -652,8 +652,12 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('#' + divId + ' #fonte_recursos').on('change', '.fonte_recurso select', function(e) {
             var pub = false ;
             $('#' + divId + ' #fonte_recursos .fonte_recurso select').each(function() {
-              if ($(this).val() == "Recursos públicos" || $(this).val() == "Recursos Públicos" )
-              pub = true;
+              if ($(this).val() == "Recursos públicos"){
+                pub = true;
+              }
+              else{
+                pub = false;
+              }
             });
 
             if(pub){
@@ -915,16 +919,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return table_lista_projetos;
     }
 
-    function tipo_parceria_projeto(varlor_select){
-      if (varlor_select == -1){
-        return "hidden"
-      }else{
-        return ""
-      }
-    }
-
-    function tipo_parceria_recurso(varlor_recurso){
-      if (varlor_select != "Recursos públicos" || varlor_select != "Recursos Públicos"){
+    function tipo_parceria_projeto(valor_select){
+      if (valor_select == -1){
         return "hidden"
       }else{
         return ""
@@ -944,6 +940,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       // interacoes
       $('#projeto-'+id).on("click", ".btn-danger", function(){
+        var parente = $(this).parent().parent().attr("id");
+        if ( util.contains('fonte_recursos',parente)  ) {
+          $('.tipo_parceria_projeto ').addClass('hidden');
+        }
         $(this).parents(".input-group").remove();
       });
 
@@ -961,7 +961,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               <option value='Outros'>Outros</option></select>"+
               '</div>'+
               '<span class="input-group-btn">'+
-              '<button class="btn-danger btn">Remover 1</button>'+
+              '<button class="btn-danger btn">Remover</button>'+
               '</span>'+
               '</div>'
           );
@@ -970,10 +970,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).parent().siblings(".form-group").append(
             '<div class="input-group">'+
             '<div>'+
-            '<input class="form-control" placeholder="Insira a informação"></input>'+
+            '<input maxLength="100" class="form-control" placeholder="Insira a informação"></input>'+
             '</div>'+
             '<span class="input-group-btn">'+
-            '<button class="btn-danger btn">Remover 2</button>'+
+            '<button class="btn-danger btn">Remover</button>'+
             '</span>'+
             '</div>'
           );
@@ -1991,42 +1991,42 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                         cod_tipo_parceria = null;
                 }
                });
-
-               obj[$pai.attr("id")].push({
-                  "cd_origem_fonte_recursos_projeto": valor,
-                  "cd_tipo_parceria": cod_tipo_parceria, // NOT NULL
-                  "tx_nome_tipo_parceria": tipo_parceria // NOT NULL
-                });
               }
-              if(valor === "Recursos privados") valor = 2;
-              if(valor === "Recursos próprios") valor = 3;
-              if(valor === "Outros") valor = 4;
-              if(valor == -1) obj[$pai.attr("id")] = null;
+              else if(valor === "Recursos privados"){ valor = 2; cod_tipo_parceria = null; tipo_parceria = null;}
+              else if(valor === "Recursos próprios"){ valor = 4; cod_tipo_parceria = null; tipo_parceria = null;}
+              else if(valor === "Outros"){ valor = 3; cod_tipo_parceria = null; tipo_parceria = null;}
+              else if(valor == -1){ obj[$pai.attr("id")] = null;}
 
               if(obj[$pai.attr("id")] != null){
+
                 obj[$pai.attr("id")].push({
-                  "cd_origem_fonte_recursos_projeto": valor,
-                  "cd_tipo_parceria": null,
-                  "tx_nome_tipo_parceria": null
-                });
+                   "cd_origem_fonte_recursos_projeto": valor,
+                   "cd_tipo_parceria": cod_tipo_parceria, // NOT NULL
+                   "tx_nome_tipo_parceria": tipo_parceria // NOT NULL
+                 });
               }
-          })
-          } else if( $pai.attr("id") === "area_atuacao_outra"){
+
+          });
+          }
+          else if( $pai.attr("id") === "area_atuacao_outra"){
             if(Array.isArray(obj[$pai.attr("id")])){
               obj[$pai.attr("id")].push({
                 "cd_area_atuacao_projeto": $(this).attr("id") ? $(this).attr("id") : null,
                 "tx_area_atuacao_projeto": valor
               });
-            } else {
+            }
+            else {
               obj[$pai.attr("id")] = [];
               obj[$pai.attr("id")].push({
                 "cd_area_atuacao_projeto": $(this).attr("id") ? $(this).attr("id") : null,
                 "tx_area_atuacao_projeto": valor
               });
             }
-          } else if ($pai.attr("id") === "objetivos"){
+          }
+          else if ($pai.attr("id") === "objetivos"){
 
-          } else if(($pai.attr("id") === "tx_nome_status_projeto")){
+          }
+          else if(($pai.attr("id") === "tx_nome_status_projeto")){
             var cd_status_projeto = null;
             if(valor === "Planejado"){
               cd_status_projeto = 1;
@@ -2038,7 +2038,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               cd_status_projeto = 3;
             }
             obj["cd_status_projeto"] = cd_status_projeto;
-          } else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
+          }
+          else if(($pai.attr("id") === "tx_nome_abrangencia_projeto")){
             var cd_abrangencia_projeto = null;
             if(valor === "Municipal"){
               cd_abrangencia_projeto = 1;
@@ -2053,7 +2054,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               cd_abrangencia_projeto = 4;
             }
             obj["cd_abrangencia_projeto"] = cd_abrangencia_projeto;
-          } else if(($pai.attr("id") === "tx_nome_zona_atuacao")){
+          }
+          else if(($pai.attr("id") === "tx_nome_zona_atuacao")){
             var cd_zona_atuacao_projeto = null;
             if(valor === "Urbana"){
               cd_zona_atuacao_projeto = 1;
@@ -2062,7 +2064,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               cd_zona_atuacao_projeto = 2;
             }
             obj["cd_zona_atuacao_projeto"] = cd_zona_atuacao_projeto;
-          } else if(($pai.attr("id") === "localizacao_projeto")){
+          }
+          else if(($pai.attr("id") === "localizacao_projeto")){
             var localizacoes = [];
             var localizacao = {};
             var $inputs = $pai.find("input");
@@ -2074,7 +2077,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             });
             obj["localizacao"] = localizacoes.length > 0 ? localizacoes : null;
-          } else if(($pai.attr("id") === "publico_beneficiado")){
+          }
+          else if(($pai.attr("id") === "publico_beneficiado")){
             var publicos_beneficiados = [];
             var publico_beneficiado = {};
             var $inputs = $pai.find("input");
@@ -2086,7 +2090,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             });
             obj["publico_beneficiado"] = publicos_beneficiados.length > 0 ? publicos_beneficiados : null;
-          } else if(($pai.attr("id") === "financiador_projeto")){
+          }
+          else if(($pai.attr("id") === "financiador_projeto")){
             var financiadores = [];
             var financiador = {};
             var $inputs = $pai.find("input");
@@ -2098,7 +2103,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
             });
             obj["financiador_projeto"] = financiadores.length > 0 ? financiadores : null;
-          } else if(($pai.attr("id") === "osc_parceira")){
+          }
+          else if(($pai.attr("id") === "osc_parceira")){
             var osc_parceiras = [];
             var osc_parceira = {};
             var $inputs = $pai.find("input");

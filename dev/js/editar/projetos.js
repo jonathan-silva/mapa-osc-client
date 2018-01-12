@@ -68,7 +68,7 @@ class Projeto {
   }
 
   montarProjeto(project, util, dadosForm,rotas){
-  
+
     var labelMap = dadosForm.labelsProjeto();//console.log(labelMap);
     var arrayCampos = [];
     var agrupadores = [];

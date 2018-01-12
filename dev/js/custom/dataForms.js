@@ -836,7 +836,8 @@ class DataForms{
         "containerClass": "col-md-4",
         "removable": true,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a informação"
       },
       "area_atuacao": {
         "header": "Áreas de atuação do projeto, atividade ou programa",
@@ -859,7 +860,9 @@ class DataForms{
         "containerClass": "col-md-4",
         "removable": true,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a informação"
+
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
@@ -876,14 +879,18 @@ class DataForms{
         "removable": true,
         "type": "text",
         "options": null,
-        "title":null
+        "title":null,
+        "placeholder": "Insira a informação"
+
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
         "containerClass": "col-md-6 osc_parceira",
         "removable": true,
         "type": "text",
-        "options": null
+        "options": null,
+        "placeholder": "Insira a informação"
+
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",

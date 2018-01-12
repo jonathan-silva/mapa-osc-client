@@ -1232,9 +1232,10 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           content = "";
         }
 
+        var InputElement = null;
 
         if(type == 'select'){
-          var InputElement =
+          InputElement =
             <div id={id}>
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
@@ -1245,7 +1246,8 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
                 <span className="form-control">{content}</span>
               </div>
             }
-        } else if (type == 'textarea'){
+        }
+        else if (type == 'textarea'){
           InputElement =
           <div id={id}>
             <textarea maxLength="500" className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
@@ -1272,7 +1274,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               class_string += "date";
             }
           }
-          var InputElement =
+          InputElement =
             <div id={id}>
               <input maxLength="100" className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
@@ -1289,7 +1291,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
 
         if(removable){
           InputElement =
-            <div id={id} className="input-group">
+            <div id={id} className="input-group" >
               {InputElement}
               <FormButtonProjeto dados={buttons} inline={inline}></FormButtonProjeto>
             </div>
