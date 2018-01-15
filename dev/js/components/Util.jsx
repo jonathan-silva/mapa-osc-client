@@ -571,6 +571,41 @@ define('componenteCheckbox', ['react'], function (React) {
   return Checkbox;
 });
 
+
+define('componenteCheckboxProjeto', ['react'], function (React) {
+  var Checkbox = React.createClass({
+    renderListItems: function(){
+      var dados = this.props.dados;
+      var itens = [];
+
+      for (var i = 0; i < dados.options.length; i++) {
+        var item = dados.options[i];
+        var selected = null;
+        var checkboxElement;
+
+        checkboxElement =
+          <label>
+            <input type="checkbox" value={item} defaultChecked={selected}></input>
+          {item}
+          </label>
+        itens.push(
+          checkboxElement
+        );
+      }
+      return itens;
+    },
+
+
+      render: function() {
+          return (
+            <div className="checkbox">{this.renderListItems()}</div>
+          );
+      }
+  });
+
+  return Checkbox;
+});
+
 define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownDual','componenteCheckbox'], function (React, Dropdown, DropdownDual, Checkbox) {
   var FormItem = React.createClass({
     renderListItems: function(){
@@ -648,7 +683,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
             {SpanFonte}
           </div>
         } else if(item.type == "checkbox"){
-          ContentElement = <Checkbox dados={item.options}></Checkbox>
+          ContentElement = <Checkbox dados={item}></Checkbox>
         } else if(item.areas){
           var areas = item.areas;
           var subareas = item.subareas;
@@ -1212,7 +1247,7 @@ define('componenteFormButtonProjeto', ['react'], function (React) {
   return FormButtonProjeto;
 });
 
-define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'componenteDropdown'], function (React, FormButtonProjeto, Dropdown) {
+define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'componenteDropdown','componenteCheckboxProjeto'], function (React, FormButtonProjeto, Dropdown, Checkbox) {
   var FormInputProjeto = React.createClass({
     renderListItems: function(){
       var dados = this.props.dados;
@@ -1263,6 +1298,14 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
           /*  $("#recursos_publicos-"+ano).find('input').mask('000.000.000.000.000,00', {reverse: true});
             $("#recursos_publicos-"+ano).find('input').addClass('with-pretext');
             $("#recursos_publicos-"+ano).find('.input-box').prepend('<span class="pretext">R$</span>');*/
+        }
+        else if (type == 'checkbox'){
+
+          InputElement =
+          <div className="input-box checkbox">
+            <Checkbox dados={item}></Checkbox>
+          </div>
+
         }
         else {
           var class_string = "form-control ";

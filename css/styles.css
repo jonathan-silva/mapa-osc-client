@@ -1194,3 +1194,6 @@ select{
 .ui-front{
   z-index: 2000;
 }
+.tipo_parceria_projeto{
+  float: right;
+}

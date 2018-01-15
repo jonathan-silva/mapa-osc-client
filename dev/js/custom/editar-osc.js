@@ -612,7 +612,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             localizacao($(tr_projeto).find(":selected").text());
           });
 
-          $('.tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto select').val()));
+          $('.tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto input:checked').length));
 
           function conta(){
             var i = 0;
@@ -648,24 +648,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 }
             }
           })
-
-          $('#' + divId + ' #fonte_recursos').on('change', '.fonte_recurso select', function(e) {
-            var pub = false ;
-            $('#' + divId + ' #fonte_recursos .fonte_recurso select').each(function() {
-              if ($(this).val() == "Recursos públicos"){
-                pub = true;
-              }
-              else{
-                pub = false;
-              }
-            });
-
-            if(pub){
-                $('#' + divId + ' .tipo_parceria_projeto ').removeClass('hidden');
-            }else{
-                $('#' + divId + ' .tipo_parceria_projeto ').addClass('hidden');
-            }
-          });
 
           if(proj){
             id_osc_parceira(proj.projeto[0]);
@@ -919,8 +901,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return table_lista_projetos;
     }
 
-    function tipo_parceria_projeto(valor_select){
-      if (valor_select == -1){
+    function tipo_parceria_projeto(valor){
+      if (valor == 0){
         return "hidden"
       }else{
         return ""
@@ -939,34 +921,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $(".ano").datepicker({ dateFormat: 'yy' });
 
       // interacoes
-      $('#projeto-'+id).on("click", ".btn-danger", function(){
-        var parente = $(this).parent().parent().attr("id");
-        if ( util.contains('fonte_recursos',parente)  ) {
+
+      $('#projeto-'+id).find(".fonte_recursos input[value='Recursos públicos']").bind("change", function(){
+        if($(this).prop("checked")){
+          $('.tipo_parceria_projeto ').removeClass('hidden');
+        }
+        else{
           $('.tipo_parceria_projeto ').addClass('hidden');
         }
-        $(this).parents(".input-group").remove();
       });
 
       $('#projeto-'+id).find(".btn-primary").bind("click", function(){
-        var parente = $(this).parent()["0"].parentElement.className;
-        if ( util.contains('fonte_recursos',parente)  ) {
-            $(this).parent().siblings(".form-group").append(
-              '<div class="input-group fonte_recurso">'+
-              '<div>'+
-              "<select class='form-control'>\
-              <option value='-1'>Selecione uma opção...</option>\
-              <option value='Recursos públicos'>Recursos públicos</option>\
-              <option value='Recursos privados'>Recursos privados</option>\
-              <option value='Recursos próprios'>Recursos próprios</option>\
-              <option value='Outros'>Outros</option></select>"+
-              '</div>'+
-              '<span class="input-group-btn">'+
-              '<button class="btn-danger btn">Remover</button>'+
-              '</span>'+
-              '</div>'
-          );
-        }
-        else {
           $(this).parent().siblings(".form-group").append(
             '<div class="input-group">'+
             '<div>'+
@@ -977,7 +942,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             '</span>'+
             '</div>'
           );
-        }
       });
     }
 
@@ -1954,59 +1918,80 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if(obj[$pai.attr("id")] === undefined){
               obj[$pai.attr("id")] = [];
             }
-            $(this).parent().parent().find("select").each(function(i){
-              valor = $(this).parent().parent().find("select")[i].value;
 
-              if(valor === "Recursos públicos"){
-                valor = 1;
-                var tipo_parceria = null;
-                var cod_tipo_parceria = null;
+            var cod_fonte_recurso = null;
+            if($(this).prop("checked")){
+                var valorFonteRecurso = $(this).val();
 
-               $("div#tx_nome_tipo_parceria_projeto.form-group").parent().find("select").each(function(i){
-                 tipo_parceria = $(this).parent().parent().find("select").val();
+                switch(valorFonteRecurso) {
+                   case "Recursos públicos":
+                       cod_fonte_recurso = 1;
+                       break;
+                   case "Recursos privados":
+                       cod_fonte_recurso = 2;
+                       break;
+                   case "Outros":
+                       cod_fonte_recurso = 3;
+                       break;
+                   case "Recursos próprios":
+                       cod_fonte_recurso = 4;
+                       break;
+                   default:
+                       cod_fonte_recurso = null;
+               }
 
-                 switch(tipo_parceria) {
-                    case "Termo de fomento":
-                        cod_tipo_parceria = 0;
-                        break;
-                    case "Termo de colaboração":
-                        cod_tipo_parceria = 1;
-                        break;
-                    case "Termo de parceria":
-                        cod_tipo_parceria = 2;
-                        break;
-                    case "Contrato de gestão":
-                        cod_tipo_parceria = 3;
-                        break;
-                    case "Convênio":
-                        cod_tipo_parceria = 4;
-                        break;
-                    case "Acordo de cooperação técnica":
-                        cod_tipo_parceria = 5;
-                        break;
-                    case "Outro":
-                        cod_tipo_parceria = 6;
-                        break;
-                    default:
-                        cod_tipo_parceria = null;
-                }
-               });
+               if(obj[$pai.attr("id")] != null){
+
+                 obj[$pai.attr("id")].push({
+                  "cd_origem_fonte_recursos_projeto": cod_fonte_recurso
+                  });
+               }
+            }
+
+          }
+          else if( $pai.attr("id") === "tx_nome_tipo_parceria_projeto"){
+              if(obj[$pai.attr("id")] === undefined){
+                obj[$pai.attr("id")] = [];
               }
-              else if(valor === "Recursos privados"){ valor = 2; cod_tipo_parceria = null; tipo_parceria = null;}
-              else if(valor === "Recursos próprios"){ valor = 4; cod_tipo_parceria = null; tipo_parceria = null;}
-              else if(valor === "Outros"){ valor = 3; cod_tipo_parceria = null; tipo_parceria = null;}
-              else if(valor == -1){ obj[$pai.attr("id")] = null;}
+
+              var cod_tipo_parceria = null;
+              if($(this).prop("checked")){
+                var tipo_parceria = $(this).val();
+
+                switch(tipo_parceria) {
+                   case "Termo de fomento":
+                       cod_tipo_parceria = 0;
+                       break;
+                   case "Termo de colaboração":
+                       cod_tipo_parceria = 1;
+                       break;
+                   case "Termo de parceria":
+                       cod_tipo_parceria = 2;
+                       break;
+                   case "Contrato de gestão":
+                       cod_tipo_parceria = 3;
+                       break;
+                   case "Convênio":
+                       cod_tipo_parceria = 4;
+                       break;
+                   case "Acordo de cooperação técnica":
+                       cod_tipo_parceria = 5;
+                       break;
+                   case "Outro":
+                       cod_tipo_parceria = 6;
+                       break;
+                   default:
+                       cod_tipo_parceria = null;
+              }
 
               if(obj[$pai.attr("id")] != null){
 
                 obj[$pai.attr("id")].push({
-                   "cd_origem_fonte_recursos_projeto": valor,
-                   "cd_tipo_parceria": cod_tipo_parceria, // NOT NULL
-                   "tx_nome_tipo_parceria": tipo_parceria // NOT NULL
+                  "cd_tipo_parceria": cod_tipo_parceria
                  });
               }
+            }
 
-          });
           }
           else if( $pai.attr("id") === "area_atuacao_outra"){
             if(Array.isArray(obj[$pai.attr("id")])){

@@ -81,6 +81,9 @@ class Projeto {
 
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
+
+    var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
+    fonte.dados = util.validateObject(project.fonte_recursos, []);
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
       if((property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
@@ -135,10 +138,6 @@ class Projeto {
     var projectlocalizacao = util.validateObject(project.localizacao, []);
     var localizacao =  util.getTipoProjeto("localizacao_projeto", projectlocalizacao);
 
-    var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
-    fonte.dados = util.validateObject(project.fonte_recursos, []);
-    //console.log(fonte);
-
     var projectPublicoFinanciado = util.validateObject(project.publico_beneficiado, []);
     var publicoBeneficiado =  util.getTipoProjeto("publico_beneficiado", projectPublicoFinanciado);
 
@@ -163,7 +162,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
-       fonte, localizacao, publicoBeneficiado, financiadores, parceiras
+       fonte, publicoBeneficiado, financiadores, localizacao, parceiras
     ];
     //console.log(multipleInputs);
 

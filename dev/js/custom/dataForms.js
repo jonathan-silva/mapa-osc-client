@@ -815,8 +815,8 @@ class DataForms{
         "header": "Fontes de Recursos",
         "containerClass": "col-md-3 fonte_recursos",
         "custom_class": "fonte_recurso",
-        "removable": true,
-        "type": "select",
+        "removable": false,
+        "type": "checkbox",
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
         ]
@@ -921,7 +921,7 @@ class DataForms{
         "header": "Tipo de Parceria",
         "containerClass": "col-md-3 tipo_parceria_projeto",
         "removable": false,
-        "type": "select",
+        "type": "checkbox",
         "options": [ "Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
       },
       "objetivos": {
