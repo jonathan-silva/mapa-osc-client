@@ -58,7 +58,7 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     },
     success: function(data){
 
-      html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_video+'</h3>';
+      var html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_video+'</h3>';
       html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_video+'</span>';
       var link_video = data.tx_link_video.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
       html += '<div><center><iframe width="853" height="480" src="'+link_video+'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>';
