@@ -185,7 +185,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
+    val = replaceSpecialChars(val.trim()).replace(/[ ]/g, '_').replace(/\+{2,}/g, '_');
     var link;
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
@@ -246,7 +246,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
        });
    },
    select: function(event, ui){
-		var link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+		var link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ ]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
 		location.href=link;
    }
  });

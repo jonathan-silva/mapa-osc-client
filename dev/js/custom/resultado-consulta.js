@@ -99,7 +99,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_');
+    val = replaceSpecialChars(val.trim()).replace(/[ ]/g, '_').replace(/\+{2,}/g, '_');
     
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
@@ -160,7 +160,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
        });
    },
    select: function(event, ui){
-    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ -]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/[ ]/g, '_').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
     location.href=link;
    }
  });
