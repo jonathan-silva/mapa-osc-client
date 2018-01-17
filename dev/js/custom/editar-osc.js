@@ -571,6 +571,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         ]).draw(false);
         verificarContraste();
       });
+
       $("#table_lista_projetos").on('click', '.titulo-projeto', function(){
         var tr_projeto = $(this).parent().parent().get(0);
         var novo = false;
@@ -604,29 +605,31 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $("#" + divId + " #nr_total_beneficiarios input" ).mask('00000000');
           $($('#'+divId).find("div")[0]).attr("id", id_projeto_externo);
 
-          $(".local button.btn-primary").click(function() {
-            localizacao($('#tx_nome_abrangencia_projeto').find(":selected").text());
+          localizacao(divId, $('#' + divId + ' #tx_nome_abrangencia_projeto').find(":selected").val());
+
+          $("#" + divId + " .local button.btn-primary").click(function() {
+            localizacao(divId, $('#' + divId + ' #tx_nome_abrangencia_projeto').find(":selected").val());
           });
 
-          $('#tx_nome_abrangencia_projeto').change(function() {
-            localizacao($(tr_projeto).find(":selected").text());
+          $('#' + divId + ' #tx_nome_abrangencia_projeto').change(function() {
+            localizacao(divId, $('#' + divId + ' #tx_nome_abrangencia_projeto').find(":selected").val());
           });
 
-          $('.tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto input:checked').length));
+          $('#' + divId + ' .tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto input:checked').length));
 
-          function conta(){
+          function conta(divId){
             var i = 0;
-            $(".osc_parceira input").each(function(){
+            $('#' + divId + ' .osc_parceira input').each(function(){
               i=i+1;
             });
             return i-1;
           }
 
-          $(".osc_parceira button.btn-primary").click(function() {
-            osc_parceira(conta());
+          $('#' + divId + ' .osc_parceira button.btn-primary').click(function() {
+            osc_parceira(conta(divId));
           })
 
-          $('#osc_parceira').find('input').autocomplete({
+          $('#' + divId + ' #osc_parceira').find('input').autocomplete({
             source: function (request, response) {
                 var cnpj = ($(this)[0].term);
                 var nome_osc ='';
@@ -637,13 +640,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                 else {
                     var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
                   if (data == null){
-                      $('#osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
+                      $('#' + divId + ' #osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
                   }
                   else{
                     nome_osc = data[0].tx_nome_osc;
                     id_osc = data[0].id_osc;
-                    $('#osc_parceira').find('input')[0].value = nome_osc;
-                    $('#osc_parceira').find('input')[0].id_osc_parceira=id_osc;
+                    $('#' + divId + ' #osc_parceira').find('input')[0].value = nome_osc;
+                    $('#' + divId + ' #osc_parceira').find('input')[0].id_osc_parceira=id_osc;
                   }
                 }
             }
@@ -657,7 +660,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             metasObjetivos({}, id_projeto);
           }
           verificarContraste();
-        } else {
+        }
+        else {
           $(this).next(".projeto").toggleClass('hidden');
         }
       });
@@ -921,6 +925,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $(".ano").datepicker({ dateFormat: 'yy' });
 
       // interacoes
+      $('#projeto-'+id).on("click", ".btn-danger", function(){
+        $(this).parents(".input-group").remove();
+      });
 
       $('#projeto-'+id).find(".fonte_recursos input[value='Recursos públicos']").bind("change", function(){
         if($(this).prop("checked")){
@@ -1551,7 +1558,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $(".conselho").each(function(){
          var obj = {}
          obj.conselho = {};
-         obj.conselho.representante = [];
+         obj.representante = [];
          var cd_conselho = 0;
          var conselho_id = 0;
 
@@ -1604,7 +1611,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
              if(campo == "tx_nome_representante_conselho" && $(this).val() != ''){
 
-               obj.conselho.representante.push(
+               obj.representante.push(
                  {
                   "tx_nome_representante_conselho": $(this).val()
                 });
@@ -1619,7 +1626,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          });
 
 
-         if(obj.conselho.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
+         if(obj.representante.length !== 0 && util.validateObject(obj.conselho.cd_conselho,null)!==null){
           newJson.conselho.push(obj);
          }
 
@@ -1786,16 +1793,16 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
     });
 
-    function localizacao(abrangencia){
+    function localizacao(divId, abrangencia){
       var routes="";
       var abrang=abrangencia.toLowerCase();
       var limiteAutocomplete = 10;
       var limiteAutocompleteCidade = 25;
 
-      $("#localizacao_projeto .form-control").autocomplete({
+      $('#' + divId + ' #localizacao_projeto .form-control').autocomplete({
         minLength: 3,
         source: function (request, response) {
-          if ((abrang == 'estadual') || (abrang == 'municipal')){
+          if ((abrang == 'estadual') || (abrang == 'municipal') || (abrang == '-1')){
             routes = rotas.AutocompleteOSCByCounty(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade);
           }
           else if ((abrang == 'regional')|| (abrang == 'nacional')){
@@ -1804,7 +1811,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           if ( routes != "" ) {
             var data = ajaxAutoComplete(urlController, routes, false);
             response($.map( data, function( item ) {
-              if ((abrang == 'estadual') || (abrang == 'municipal')) {
+              if ((abrang == 'estadual') || (abrang == 'municipal') || (abrang == '-1')) {
                  return {
                     label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
                     value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,

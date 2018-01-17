@@ -176,7 +176,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
-       publicoBeneficiado, financiadores, localizacao, parceiras
+       localizacao, publicoBeneficiado, financiadores, parceiras
     ];
     //console.log(multipleInputs);
 
@@ -243,6 +243,7 @@ class Projeto {
     var cc = util.validateObject(element)?element.custom_class:"";
     var buttonsInput = null;
     var buttonsInLine = false;
+    var placeholder = "Insira a informação";
     if(removable){
       buttonsInput = [buttonRemove];
       buttonsAgrupador = [buttonAdd];
@@ -251,7 +252,7 @@ class Projeto {
     if(object.dados.length === 0){
       var inputId = sectionId;
       value = "";
-      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, cc);
       inputs.push(inputProjeto);
     }
     for (var i = 0; i < object.dados.length; i++) {
@@ -262,7 +263,7 @@ class Projeto {
           if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd, cc);
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, cd, cc);
             inputs.push(inputProjeto);
           }
         }

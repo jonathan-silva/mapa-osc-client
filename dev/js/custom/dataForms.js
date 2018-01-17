@@ -917,7 +917,7 @@ class DataForms{
         "options": null,
         "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
       },
-      "tx_nome_tipo_parceria_projeto": {
+      "tipo_parceria": {
         "header": "Tipo de Parceria",
         "containerClass": "col-md-3 tipo_parceria_projeto",
         "removable": false,
