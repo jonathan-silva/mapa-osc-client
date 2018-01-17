@@ -12,22 +12,6 @@ class Projeto {
     return objFonte;
   }
 
-  getTipoParceria(proj){
-    var resultado = null;
-    if (proj.hasOwnProperty("fonte_recursos")){
-      var fontes_recurso = proj.fonte_recursos;
-      if(Object.keys(fontes_recurso).length != 0){
-        for (var i = 0; i < fontes_recurso.length; i++) {
-          if (fontes_recurso[i]["tx_nome_tipo_parceria"] != null) {
-            resultado = fontes_recurso[i]["tx_nome_tipo_parceria"];
-            break;
-          }
-        }
-      }
-    }
-    return resultado;
-  }
-
   montarProjetos(json, util){
     var arraySecaoProjeto = [];
 
@@ -76,17 +60,15 @@ class Projeto {
     var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
 
-    // VAI TER QUE ALTERAR O NOME POIS NO JSON ESTA VINDO COISA DIFERENTE
-    project["tx_nome_tipo_parceria_projeto"] = this.getTipoParceria(project); //GAMBI
-
     var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
 
     var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
     fonte.dados = util.validateObject(project.fonte_recursos, []);
+
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
-      if((property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
+      if((property != "tipo_parceria") && (property != "fonte_recursos") && (property != "area_atuacao") && (property != "osc_parceira") && (property != "area_atuacao_outra")){
         if ((project.hasOwnProperty(property)) && (labelMap[property] !== undefined)) {
 
           var sectionId = property;
@@ -110,10 +92,42 @@ class Projeto {
           }
         }
       }
+      else if ((property == "tipo_parceria")) {
+        var sectionId = property;
+        var value = project[property];
+
+        var header = labelMap[property].header;
+        var containerClass = labelMap[property].containerClass;
+        var removable = labelMap[property].removable;
+        var type = labelMap[property].type;
+        var options = labelMap[property].options;
+        var placeholder = labelMap[property].placeholder;
+        var buttons = null;
+        var buttonsInLine = false;
+
+        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null);
+        var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+        agrupadores.push(agrupadorInputProjeto);
+      }
     }
+
     //console.log(agrupadores);
-    if (!(project.hasOwnProperty("fonte_de_recursos"))){
-      //console.log("teste")
+    if (project.hasOwnProperty("fonte_recursos")){
+      var sectionId = fonte.id;
+      var value = fonte.dados;
+      var header = labelMap[sectionId].header;
+      var containerClass = labelMap[sectionId].containerClass;
+      var removable = labelMap[sectionId].removable;
+      var type = labelMap[sectionId].type;
+      var options = labelMap[sectionId].options;
+      var placeholder = labelMap[sectionId].placeholder;
+      var buttons = null;
+      var buttonsInLine = false;
+
+      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null);
+      var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+      agrupadores.push(agrupadorInputProjeto);
+
     }
     /* Area de atuacao de projeto temporariamente escondida
     if (!(project.hasOwnProperty("area_atuacao"))){
@@ -162,7 +176,7 @@ class Projeto {
     //   autodeclaradas, localizacao, publicoBeneficiado, financiadores, parceiras, fonte//, objetivo_meta
     // ];
     var multipleInputs = [//local onde apresenta os campos na tela de edição do projeto
-       fonte, publicoBeneficiado, financiadores, localizacao, parceiras
+       publicoBeneficiado, financiadores, localizacao, parceiras
     ];
     //console.log(multipleInputs);
 
@@ -245,15 +259,7 @@ class Projeto {
       for (var property in object.dados[i]) {
         //console.log(property);
         if (object.dados[i].hasOwnProperty(property)) {
-          if(sectionId == "fonte_recursos"){
-            removable = true;
-            if(property === "tx_nome_origem_fonte_recursos_projeto"){
-              value = object.dados[i][property];
-              options = labelMap[object.id].options;
-              var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, null, cc);
-              inputs.push(inputProjeto);
-            }
-          } else if(property.slice(0,2) === "tx"){
+          if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
             var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, null, null, cd, cc);

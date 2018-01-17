@@ -924,10 +924,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $('#projeto-'+id).find(".fonte_recursos input[value='Recursos públicos']").bind("change", function(){
         if($(this).prop("checked")){
-          $('.tipo_parceria_projeto ').removeClass('hidden');
+          $('#projeto-'+id+' .tipo_parceria_projeto').removeClass('hidden');
         }
         else{
-          $('.tipo_parceria_projeto ').addClass('hidden');
+          $('#projeto-'+id+' .tipo_parceria_projeto').addClass('hidden');
         }
       });
 
@@ -1949,13 +1949,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
 
           }
-          else if( $pai.attr("id") === "tx_nome_tipo_parceria_projeto"){
+          else if( $pai.attr("id") === "tipo_parceria"){
               if(obj[$pai.attr("id")] === undefined){
                 obj[$pai.attr("id")] = [];
               }
 
               var cod_tipo_parceria = null;
-              if($(this).prop("checked")){
+              if($(this).is(':visible') && $(this).prop("checked")){
                 var tipo_parceria = $(this).val();
 
                 switch(tipo_parceria) {

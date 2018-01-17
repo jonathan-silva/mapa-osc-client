@@ -922,7 +922,7 @@ class DataForms{
         "containerClass": "col-md-3 tipo_parceria_projeto",
         "removable": false,
         "type": "checkbox",
-        "options": [ "Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
+        "options": [ "Acordo de cooperação técnica","Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
       },
       "objetivos": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
@@ -982,6 +982,7 @@ class DataForms{
       "osc_parceira": [],
       "financiador_projeto": [],
       "objetivo_meta": [],
+      "fonte_recursos":[],
       "recursos": null
     };
     return project;

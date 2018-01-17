@@ -580,8 +580,15 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
 
       for (var i = 0; i < dados.options.length; i++) {
         var item = dados.options[i];
-        var selected = null;
+        var selected = false;
         var checkboxElement;
+        if(dados.content != null){
+          for (var j = 0; j < dados.content.length; j++) {
+            if(item == dados.content[j].tx_nome_valor){
+              selected = true;
+            }
+          }
+        }
 
         checkboxElement =
           <label>
