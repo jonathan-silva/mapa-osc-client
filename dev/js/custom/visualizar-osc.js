@@ -5,12 +5,12 @@ var rotas;
 var util = new Util();
 
 controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
-	
+
 		absUrl = $location.$$absUrl;
 		var self = this;
-		
+
 		idOsc = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);//$location.absUrl().substr($location.absUrl().lastIndexOf('/') + 1);
-		
+
 		if ($scope.currentPage == undefined) {
 				 $scope.currentPage = 0;
 		 };
@@ -20,7 +20,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 	  	$scope.q = '';
 
 		rotas = new Rotas();
-	
+
 		self.carregarDadosGerais = function(){
 
 			$http({
@@ -44,7 +44,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 				}
 			});
 		};
-		
+
 
 		$scope.getData = function () {
 			 return $filter('filter')($scope.projs, $scope.q)
@@ -253,7 +253,7 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<label><input type='checkbox' name='secao' value='participacao_social' checked> Espaços de Participação Social</label><br>";
 	corpo += "<label><input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoProjeto' value='todos_projetos'> Todas as Informações do Projeto</label></div>";
-	corpo += "<label><input type='checkbox' name='secao' value='recursos' checked> Fontes de recursos anuais da OSC</label><br>";
+	corpo += "<label><input type='checkbox' name='secao' value='recursos_vis' checked> Fontes de recursos anuais da OSC</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label>";
@@ -305,7 +305,7 @@ function imprimir(){
 
 	$("#escolhaImpressao input:checkbox[name=secaoRecurso]:checked").each(function(){
 		var valor = $(this).val();
-		$("#recursos").find(".panel-title").each(function() {
+		$("#recursos_vis").find(".panel-title").each(function() {
  			var vet = $(this).text().split(" ");
  		 	if(vet[1] == valor){
  				$(this).parent().parent().parent().find(".panel-collapse").show();
@@ -328,7 +328,7 @@ function imprimir(){
 
 	$("#escolhaImpressao input:checkbox[name=secaoRecurso]:checked").each(function(){
 		var valor = $(this).val();
-		$("#recursos").find(".panel-title").each(function() {
+		$("#recursos_vis").find(".panel-title").each(function() {
 			var vet = $(this).text().split(" ");
 			if(vet[1] == valor){
 				$(this).parent().parent().parent().find(".panel-collapse").hide();

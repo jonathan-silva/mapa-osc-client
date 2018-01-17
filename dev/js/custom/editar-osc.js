@@ -1994,7 +1994,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if(obj[$pai.attr("id")] != null){
 
                 obj[$pai.attr("id")].push({
-                  "cd_tipo_parceria": cod_tipo_parceria
+                  "cd_tipo_parceria_projeto": cod_tipo_parceria
                  });
               }
             }
