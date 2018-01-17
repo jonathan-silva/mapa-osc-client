@@ -1197,6 +1197,21 @@ select{
 .tipo_parceria_projeto{
   float: right;
 }
-#tx_nome_tipo_parceria_projeto .input-box {
+#tipo_parceria .input-box {
   padding-right: 10px;
+}
+
+#recursos .form-group{
+      width: 50%;
+      float: left;
+}
+
+#recursos h3{
+      width: 55%;
+      float: left;
+}
+
+#recursos .checkbox{
+    float: left;
+    margin-top: 30px;
 }
