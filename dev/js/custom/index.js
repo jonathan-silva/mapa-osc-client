@@ -125,9 +125,9 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
       ]}];
 
-  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2017), Ministério da Educação (2017), Ministério da Saúde (2017), Ministério do Desenvolvimento Social (2017),  Ministério do Meio Ambiente (2017).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2017", key: "GraficoMain 4",
-  values: [ {"label" : "OSCIP/MJ", "value" : 7973}, {"label" : "CEBAS/MDS", "value" : 5333 } ,
-            { "label" : "CEBAS/MS" , "value" : 2344 },{"label" : "CEBAS/MEC", "value" : 873 },{"label" : "CNEA/MMA", "value" : 468 } ]}];
+  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2017), Ministério da Educação (2017), Ministério da Saúde (2017), Ministério do Desenvolvimento Social (2017).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2017", key: "GraficoMain 4",
+  values: [ {"label" : "OSCIP/MJ", "value" : 7114}, {"label" : "CEBAS/MDS", "value" : 5487 } ,
+            { "label" : "CEBAS/MS" , "value" : 1197 },{"label" : "CEBAS/MEC", "value" : 1 } ]}];
 
   var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Elaboração do Ipea, com base em dados da Secretaria da Receita Federal (2016) e RAIS/MTE (2015). Nota: em 2016 os dados passaram a provir da Secretaria da Receita Federal, incorporando possíveis omissões na declaração da RAIS. Pede-se verificar o capítulo metodológico para detalhamento.","titulo":"Total de OSC, por ano (2010-2016)*",
   series:[
