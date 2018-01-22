@@ -26,12 +26,12 @@ require(["jquery-ui"], function (React) {
 
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2014",
+  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Elaboração do Ipea com base em dados da Secretaria da Receita Federal (2016).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2016",
   series:[
-    {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 139613 }, {"label" : "SUL", "value" : 81134 }, {"label" : "NORDESTE", "value" : 78358 }, {"label" : "CENTRO-OESTE", "value" : 20869 }, {"label" : "NORTE", "value" : 16331 }]},
-    {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 27133 }, {"label" : "SUL", "value" : 6780 }, {"label" : "NORDESTE", "value" : 6704 }, {"label" : "CENTRO-OESTE", "value" : 2930 }, {"label" : "NORTE", "value" : 2437 }]},
-    {key: "Fundacao Privada", values: [{"label" : "SUDESTE", "value" : 3965 }, {"label" : "SUL", "value" : 1565 }, {"label" : "NORDESTE", "value" : 1725 }, {"label" : "CENTRO-OESTE", "value" : 622 }, {"label" : "NORTE", "value" : 301 }]},
-    {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 414 }, {"label" : "SUL", "value" : 172 }, {"label" : "NORDESTE", "value" : 214 }, {"label" : "CENTRO-OESTE", "value" : 75 }, {"label" : "NORTE", "value" : 29 }]}
+    {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 268864 }, {"label" : "SUL", "value" : 142398 }, {"label" : "NORDESTE", "value" : 184477 }, {"label" : "CENTRO-OESTE", "value" : 53663 }, {"label" : "NORTE", "value" : 56079 }, {"label" : "Não informado", "value" : 3065 }]},
+    {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 51000 }, {"label" : "SUL", "value" : 13428 }, {"label" : "NORDESTE", "value" : 17550 }, {"label" : "CENTRO-OESTE", "value" : 9311 }, {"label" : "NORTE", "value" : 6539 }, {"label" : "Não informado", "value" : 813 }]},
+    {key: "Fundacao Privada", values: [{"label" : "SUDESTE", "value" : 5293 }, {"label" : "SUL", "value" : 2001 }, {"label" : "NORDESTE", "value" : 3128 }, {"label" : "CENTRO-OESTE", "value" : 1167 }, {"label" : "NORTE", "value" : 772 }, {"label" : "Não informado", "value" : 36 }]},
+    {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 219 }, {"label" : "SUL", "value" : 71 }, {"label" : "NORDESTE", "value" : 145 }, {"label" : "CENTRO-OESTE", "value" : 101 }, {"label" : "NORTE", "value" : 62 }, {"label" : "Não informado", "value" : 4 }]}
     ]}];
 
   var jsonGrafico2 = [{"config":[",f",1000000," M",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"Evolução anual dos repasses federais para as OSCs, Brasil - 2009-2017",
@@ -58,86 +58,95 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
         ]}];
 
-      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações.","titulo":"Evolução anual dos repasses federais para as OSCs por área de atuação (Top 8), Brasil - 2009-2017",
+      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Siga Brasil/ Senado Federal (2017), RAIS/MTE (2015). Elaboração própria. Nota: referem-se aos valores executados (liquidados) e atualizados a preços de outubro de 2017.","titulo":"Evolução anual dos repasses federais para as OSCs por área de atuação, Brasil - 2010-2017",
       series:[
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 1149281752.51223 }, {"x" : 2010, "y" : 1370599704.06939 }, {"x" : 2011, "y" : 2243048333.29452 },
-          {"x" : 2012, "y" : 2010100871.52074 }, {"x" : 2013, "y" : 4035381660.66814}, {"x" : 2014, "y" : 1423769268.04441},
-           {"x" : 2015, "y" : 957342180.798026 }, {"x" : 2016, "y" : 902306830.824239 }, {"x" : 2017, "y" : 21010449.45 }],
-          key: 'Outras atividades de serviços'
+          values: [{"x" : 2010, "y" : 2475271665 }, {"x" : 2011, "y" : 2344840370 },
+          {"x" : 2012, "y" : 2416751939 }, {"x" : 2013, "y" : 2360686002}, {"x" : 2014, "y" : 2619736378},
+           {"x" : 2015, "y" : 1996874918 }, {"x" : 2016, "y" : 1762657873 }, {"x" : 2017, "y" : 722616503 }],
+          key: 'Saúde'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 521990854.503395 }, {"x" : 2010, "y" : 360546843.720276 }, {"x" : 2011, "y" : 580381340.663934 },
-          {"x" : 2012, "y" : 1051194273.37233 }, {"x" : 2013, "y" : 669777705.027443 }, {"x" : 2014, "y" : 696355633.344648 },
-           {"x" : 2015, "y" : 388882391.342939 }, {"x" : 2016, "y" : 834576958.108925 }, {"x" : 2017, "y" : 2202831.33 }],
-          key: 'Pesquisa e desenvolvimento científico'
+          values: [{"x" : 2010, "y" : 177621059 }, {"x" : 2011, "y" : 64130914 },
+          {"x" : 2012, "y" : 69157135 }, {"x" : 2013, "y" : 94974566 }, {"x" : 2014, "y" : 50767409 },
+           {"x" : 2015, "y" : 46070808 }, {"x" : 2016, "y" : 1661980 }, {"x" : 2017, "y" : 5048758 }],
+          key: 'Cultura e recreação'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 464619770.336309 }, {"x" : 2010, "y" : 461917799.643376 }, {"x" : 2011, "y" : 599091766.803416 },
-          {"x" : 2012, "y" : 855340819.99516 }, {"x" : 2013, "y" : 755803809.619537 }, {"x" : 2014, "y" : 725242118.225837 },
-           {"x" : 2015, "y" : 256422939.573475 }, {"x" : 2016, "y" : 312383155.632079 }, {"x" : 2017, "y" : 12080378.38 }],
-          key: 'Educação'
+          values: [{"x" : 2010, "y" : 1494752250 }, {"x" : 2011, "y" : 1191614600 },
+          {"x" : 2012, "y" : 1337141937 }, {"x" : 2013, "y" : 1427079792 }, {"x" : 2014, "y" : 1350110928 },
+           {"x" : 2015, "y" : 912500271 }, {"x" : 2016, "y" : 158224896 }, {"x" : 2017, "y" : 91640974 }],
+          key: 'Educação e pesquisa'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 190266462.439417 }, {"x" : 2010, "y" : 370296173.18069 }, {"x" : 2011, "y" : 307239737.415565 },
-           {"x" : 2012, "y" : 544651201.3966 }, {"x" : 2013, "y" : 403924237.012156 }, {"x" : 2014, "y" : 320214618.000476 },
-           {"x" : 2015, "y" : 130731976.455409 }, {"x" : 2016, "y" : 126741687.356842 }, {"x" : 2017, "y" : 0}],
-          key: 'Administração pública, defesa e seguridade social'
+          values: [{"x" : 2010, "y" : 57311974 }, {"x" : 2011, "y" : 41024076 },
+           {"x" : 2012, "y": 38312968 }, {"x" : 2013, "y" : 43477853 }, {"x" : 2014, "y" : 45573709 },
+           {"x" : 2015, "y": 28400811 }, {"x" : 2016, "y" : 3059934 }, {"x" : 2017, "y" : 626165}],
+          key: 'Assistência social'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 114606332.541614 }, {"x" : 2010, "y" : 255161479.731741 }, {"x" : 2011, "y" : 223966380.293564 },
-           {"x" : 2012, "y" : 340970062.160367 }, {"x" : 2013, "y" : 170448721.003335 }, {"x" : 2014, "y" : 201950796.716085 },
-           {"x" : 2015, "y" : 35474927.649192 }, {"x" : 2016, "y" : 0 }, {"x" : 2017, "y" : 0 } ],
-          key: 'Artes, cultura, esporte e recreação'
+          values: [{"x" : 2010, "y" : 95856103 }, {"x" : 2011, "y" : 205217992 },
+           {"x" : 2012, "y" : 370389290 }, {"x" : 2013, "y" : 485292129 }, {"x" : 2014, "y" : 543865255 },
+           {"x" : 2015, "y" : 547896405 }, {"x" : 2016, "y" : 17662647 }, {"x" : 2017, "y" : 1266568 } ],
+          key: 'Religião'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 235712925.631814 }, {"x" : 2010, "y" : 482092143.742933 }, {"x" : 2011, "y" : 2672851510.7148 },
-          {"x" : 2012, "y" : 2125949559.5521 }, {"x" : 2013, "y" : 2337623934.53204 }, {"x" : 2014, "y" : 2914817844.690557 },
-          {"x" : 2015, "y" : 1607460349.92118 }, {"x" : 2016, "y" : 1264118892.18268 }, {"x" : 2017, "y" : 106092383.55 }],
-          key: 'Saúde humana e serviços sociais'
+          values: [{"x" : 2010, "y" : 121545818 }, {"x" : 2011, "y" : 69282477 },
+          {"x" : 2012, "y" : 59832981 }, {"x" : 2013, "y" : 42126887 }, {"x" : 2014, "y" : 47604912 },
+          {"x" : 2015, "y" : 41902403 }, {"x" : 2016, "y" : 4238713 }, {"x" : 2017, "y" : 2107919 }],
+          key: 'Associações patronais e profissionais'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 0 }, {"x" : 2010, "y" : 0 }, {"x" : 2011, "y" : 0 },
-          {"x" : 2012, "y" : 0 }, {"x" : 2013, "y" : 0 }, {"x" : 2014, "y" : 0 },
-          {"x" : 2015, "y" : 0 }, {"x" : 2016, "y" : 57620264.105342 }, {"x" : 2017, "y" : 934002.5 }],
-          key: 'Outras atividades profissionais, científicas e técnicas'
+          values: [{"x" : 2010, "y" : 4368739661 }, {"x" : 2011, "y" : 4032601858 },
+          {"x" : 2012, "y" : 4135465164 }, {"x" : 2013, "y" : 4056921248 }, {"x" : 2014, "y" : 4318619203 },
+          {"x" : 2015, "y" : 4890688981 }, {"x" : 2016, "y" : 88522782 }, {"x" : 2017, "y" : 28639038 }],
+          key: 'Defesa de direitos e interesses'
         },
         {
           "tipo_valor":"$",
-          values: [{"x" : 2009, "y" : 0 }, {"x" : 2010, "y" : 0 }, {"x" : 2011, "y" : 0 },
-          {"x" : 2012, "y" : 0 }, {"x" : 2013, "y" : 0 }, {"x" : 2014, "y" : 0 },
-          {"x" : 2015, "y" : 0 }, {"x" : 2016, "y" : 0 }, {"x" : 2017, "y" : 1588477.75 }],
-          key: 'Atividades dos serviços de tecnologia da informação'
+          values: [{"x" : 2010, "y" : 533526888 }, {"x" : 2011, "y" : 433086831 },
+          {"x" : 2012, "y" : 450237599 }, {"x" : 2013, "y" : 400444828 }, {"x" : 2014, "y" : 400102753 },
+          {"x" : 2015, "y" : 371235115 }, {"x" : 2016, "y" : 21185665 }, {"x" : 2017, "y" : 9205267 }],
+          key: 'Associações atividades não espececificadas anteriormente'
+        },
+        {
+          "tipo_valor":"$",
+          values: [{"x" : 2010, "y" : 1953406383 }, {"x" : 2011, "y" : 1530160133 },
+          {"x" : 2012, "y" : 1580161756 }, {"x" : 2013, "y" : 2031165053 }, {"x" : 2014, "y" : 2564745833 },
+          {"x" : 2015, "y" : 2371791054 }, {"x" : 2016, "y" : 222185524 }, {"x" : 2017, "y" : 34488223 }],
+          key: 'Outras organizações da sociedade civil'
         }
       ]}];
 
-  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2016), Ministério da Educação (2013), Ministério da Saúde (2015), Ministério do Desenvolvimento Social (2015).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2014", key: "GraficoMain 4",
-  values: [ {"label" : "OSCIP", "value" : 7124}, {"label" : "CEBAS/MDS", "value" : 3894 } ,
-            { "label" : "CEBAS/MS" , "value" : 377 }, {"label" : "CEBAS/MEC", "value" : 5 } ]}];
+  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2017), Ministério da Educação (2017), Ministério da Saúde (2017), Ministério do Desenvolvimento Social (2017),  Ministério do Meio Ambiente (2017).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2017", key: "GraficoMain 4",
+  values: [ {"label" : "OSCIP/MJ", "value" : 7973}, {"label" : "CEBAS/MDS", "value" : 5333 } ,
+            { "label" : "CEBAS/MS" , "value" : 2344 },{"label" : "CEBAS/MEC", "value" : 873 },{"label" : "CNEA/MMA", "value" : 468 } ]}];
 
-  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2009-2014).","titulo":"Evolução do número de OSCs ativas, Brasil - 2009-2014",
+  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Elaboração do Ipea, com base em dados da Secretaria da Receita Federal (2016) e RAIS/MTE (2015). Nota: em 2016 os dados passaram a provir da Secretaria da Receita Federal, incorporando possíveis omissões na declaração da RAIS. Pede-se verificar o capítulo metodológico para detalhamento.","titulo":"Total de OSC, por ano (2010-2016)*",
   series:[
         {
           "key" : "Número de OSCs" ,
           "bar": true,
           "color": "#ccf",
-          "values" : [ {"label" : 2009, "value" : 365566} , {"label" : 2010, "value" : 367317} ,
-                      {"label" : 2011, "value" : 381680} , {"label" : 2012, "value" : 388934},
-                      {"label" : 2013, "value" : 385424} , {"label" : 2014, "value" : 391371} ]
+          "values" : [{"label" : 2010, "value" : 514027} , {"label" : 2011, "value" : 534728},
+                      {"label" : 2012, "value" : 539792} , {"label" : 2013, "value" : 546453},
+                      {"label" : 2014, "value" : 509608} , {"label" : 2015, "value" : 525591},
+                      {"label" : 2016, "value" : 820186} ]
         } ,
         {
           "key" : "Taxa de Crescimento Acumulado" ,
           "color" : "#ff7f0e",
-          "values" : [ {"label" : 2009, "value" : 0} , {"label" : 2010, "value" : 0.004789} ,
-                      {"label" : 2011, "value" : 0.038922} , {"label" : 2012, "value" : 0.062897},
-                      {"label" : 2013, "value" : 0.053873} , {"label" : 2014, "value" : 0.069302} ]
+          "values" : [{"label" : 2010, "value" : 0} , {"label" : 2011, "value" : 0.04} ,
+                      {"label" : 2012, "value" : 0.01} , {"label" : 2013, "value" : 0.012},
+                      {"label" : 2014, "value" : -0.067} , {"label" : 2015, "value" : 0.031},
+                      {"label" : 2016, "value" : 0.56} ]
         }
         ]}];
 
