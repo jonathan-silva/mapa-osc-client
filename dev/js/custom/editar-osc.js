@@ -1915,7 +1915,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       var listaProjetos = [];
       var idProjeto = 0;
 
-      function getDataFromForm($elementos){
+      function getDataFromForm($elementos, formulario){
         var obj = [];
         var auxArr = [];
         $elementos.each(function() {
@@ -2138,6 +2138,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             obj[$pai.attr("id")] = valor;
           }
         });
+
+        if(formulario == "input"){
+          if(obj["fonte_recursos"] === undefined || obj["fonte_recursos"].length == 0){
+            obj["fonte_recursos"] = null;
+          }
+
+          if(obj["tipo_parceria"] === undefined || obj["tipo_parceria"].length == 0){
+            obj["tipo_parceria"] = null;
+          }
+        }
+
         return obj;
       }
 
@@ -2150,9 +2161,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           idProjeto = Number(id_projeto);
           idProjetoExterno =  idProjetoExterno ? idProjetoExterno : null;
 
-          newJson = $.extend({}, newJson, getDataFromForm($(this).find("input")));
-          newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea")));
-          newJson = $.extend({}, newJson, getDataFromForm($(this).find("select")));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("input"), "input"));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("textarea"),"textarea"));
+          newJson = $.extend({}, newJson, getDataFromForm($(this).find("select"), "select" ));
 
           if(newJson["objetivo_meta"] === undefined){
             newJson["objetivo_meta"] = null;
