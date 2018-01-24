@@ -31,29 +31,19 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
   var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"1- Distribuição de OSCs por número de empregados e região, Brasil - 2014",
   series:[
-    {key: "Sem pessoal ", values: [{"label" : "Sudeste", "value" : 173751 }, {"label" : "Sul", "value" : 99698 }, {"label" : "Nordeste", "value" : 108987 }, {"label" : "Centro-Oeste", "value" : 27902 }, {"label" : "Norte", "value" : 27504 }]},
-    {key: "1 a 2", values: [{"label" : "Sudeste", "value" : 17456 }, {"label" : "Sul", "value" : 7218 }, {"label" : "Nordeste", "value" : 5388 }, {"label" : "Centro-Oeste", "value" : 3191 }, {"label" : "Norte", "value" : 1552 }]},
-    {key: "3 a 4", values: [{"label" : "Sudeste", "value" : 6428 }, {"label" : "Sul", "value" : 2844 }, {"label" : "Nordeste", "value" : 2053 }, {"label" : "Centro-Oeste", "value" : 1155 }, {"label" : "Norte", "value" : 581 }]},
-    {key: "5 a 9", values: [{"label" : "Sudeste", "value" : 6874 }, {"label" : "Sul", "value" : 2953 }, {"label" : "Nordeste", "value" : 1763 }, {"label" : "Centro-Oeste", "value" : 1108 }, {"label" : "Norte", "value" : 525 }]},
-    {key: "10 a 49", values: [{"label" : "Sudeste", "value" : 10763 }, {"label" : "Sul", "value" : 3613 }, {"label" : "Nordeste", "value" : 2082 }, {"label" : "Centro-Oeste", "value" : 1253 }, {"label" : "Norte", "value" : 581 }]},
-    {key: "50 a 99", values: [{"label" : "Sudeste", "value" : 2056 }, {"label" : "Sul", "value" : 629 }, {"label" : "Nordeste", "value" : 463 }, {"label" : "Centro-Oeste", "value" : 281 }, {"label" : "Norte", "value" : 125 }]},
-    {key: "100 a 499", values: [{"label" : "Sudeste", "value" : 1787 }, {"label" : "Sul", "value" : 561 }, {"label" : "Nordeste", "value" : 426 }, {"label" : "Centro-Oeste", "value" : 208 }, {"label" : "Norte", "value" : 115 }]},
-    {key: "500 ou mais", values: [{"label" : "Sudeste", "value" : 464 }, {"label" : "Sul", "value" : 126 }, {"label" : "Nordeste", "value" : 91 }, {"label" : "Centro-Oeste", "value" : 51 }, {"label" : "Norte", "value" : 24 }]}
+    {key: "0", values: [{"label" : "Sudeste", "value" : 127866 }, {"label" : "Sul", "value" : 73278 }, {"label" : "Nordeste", "value" : 75689 }, {"label" : "Centro-Oeste", "value" : 17885 }, {"label" : "Norte", "value" : 15844 }]},
+    {key: "1 a 4", values: [{"label" : "Sudeste", "value" : 22644 }, {"label" : "Sul", "value" : 9100 }, {"label" : "Nordeste", "value" : 6798 }, {"label" : "Centro-Oeste", "value" : 3943 }, {"label" : "Norte", "value" : 1943 }]},
+    {key: "5 a 19", values: [{"label" : "Sudeste", "value" : 11816 }, {"label" : "Sul", "value" : 4472 }, {"label" : "Nordeste", "value" : 2656 }, {"label" : "Centro-Oeste", "value" : 1678 }, {"label" : "Norte", "value" : 821 }]},
+    {key: "20 a 99", values: [{"label" : "Sudeste", "value" : 6589 }, {"label" : "Sul", "value" : 2140 }, {"label" : "Nordeste", "value" : 1370 }, {"label" : "Centro-Oeste", "value" : 749 }, {"label" : "Norte", "value" : 364 }]},
+    {key: "100 ou mais", values: [{"label" : "Sudeste", "value" : 2210 }, {"label" : "Sul", "value" : 661 }, {"label" : "Nordeste", "value" : 488 }, {"label" : "Centro-Oeste", "value" : 241 }, {"label" : "Norte", "value" : 126 }]}
     ]}];
 
-    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Número de empregos formais nas OSCs por região, Brasil - 2014", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1698756 }, {"label" : "Sul", "value" : 513450 }, { "label" : "Nordeste" , "value" : 381848 }, {"label" : "Centro-Oeste", "value" : 220009}, {"label" : "Norte", "value" : 90825}]}];
+    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Número de empregos formais nas OSCs por região, Brasil - 2014", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1347407 }, {"label" : "Sul", "value" : 403905 }, { "label" : "Nordeste" , "value" : 310339 }, {"label" : "Centro-Oeste", "value" : 157331}, {"label" : "Norte", "value" : 67401}]}];
     var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"3- Distribuição de OSCs por área de atuação, Brasil - 2014", key: "Grafico 3", values: [
-      {"label": "Saúde", "value" : 6841 },
-      {"label": "Cultura e recreação", "value" : 79917 },
-      {"label": "Educação e pesquisa", "value" : 39669},
-      {"label": "Assistência social", "value" : 27383},
-      {"label": "Religião", "value" : 208325},
-      {"label": "Associações patronais e profissionais", "value" : 22261},
-      {"label": "Defesa de direitos e interesses", "value" : 339104},
-      {"label": "Outras atividades associativas", "value" : 77550},
-      {"label": "Outras organizações da sociedade civil", "value" : 19136}
+      {"label": "Outras atividades de serviços", "value" : 318663 }, {"label": "Artes, cultura, esporte e recreação", "value" : 27842 },
+      {"label": "Saúde humana e serviços sociais", "value" : 18774}, {"label": "Educação", "value" : 16682},
+      { "label": "Outras", "value" : 9410}
     ]}];
-
     var jsonGrafico4 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Região", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"4- Número de OSCs com parcerias com o Governo Federal por região, Brasil - 2014", key: "Grafico 4", values: [{"label" : "Sudeste", "value" : 8628 }, {"label" : "Nordeste", "value" : 5038 } ,{ "label" : "Sul" , "value" : 4414 }, {"label" : "Centro-Oeste", "value" : 1430}, {"label" : "Norte", "value" : 1253}]}];
 
     var jsonGrafico5 = [{"config":[",f","1",""],"leg_X":"Ano","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo", "Ano da Parceria", "Total OSCs "],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"5- Evolução anual de OSCs com parcerias com o Governo Federal por instrumento de parceria, Brasil - 2009-2017",
@@ -187,122 +177,70 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
             values: [{"x" : 2009, "y" : 376 }, {"x" : 2010, "y" : 457 }, {"x" : 2011, "y" : 13100 },
             {"x" : 2012, "y" : 13619 }, {"x" : 2013, "y" : 13652 }, {"x" : 2014, "y" : 13863 },
              {"x" : 2015, "y" : 13296 }, {"x" : 2016, "y" : 13324 }, {"x" : 2017, "y" : 809 }],
-            key: 'Sem pessoal'
+            key: '0'
           },
           {
             values: [{"x" : 2009, "y" : 187 }, {"x" : 2010, "y" : 216 }, {"x" : 2011, "y" : 499 },
             {"x" : 2012, "y" : 482 }, {"x" : 2013, "y" : 497 }, {"x" : 2014, "y" : 488 },
              {"x" : 2015, "y" : 298 }, {"x" : 2016, "y" : 397 }, {"x" : 2017, "y" : 23 }],
-            key: '1 a 2'
+            key: '1 a 4'
           },
           {
             values: [{"x" : 2009, "y" : 207 }, {"x" : 2010, "y" : 225 }, {"x" : 2011, "y" : 781 },
             {"x" : 2012, "y" : 772 }, {"x" : 2013, "y" : 826 }, {"x" : 2014, "y" : 810 },
              {"x" : 2015, "y" : 245 }, {"x" : 2016, "y" : 703 }, {"x" : 2017, "y" : 17 }],
-            key: '3 a 4'
+            key: '5 a 19'
           },
           {
             values: [{"x" : 2009, "y" : 208 }, {"x" : 2010, "y" : 280 }, {"x" : 2011, "y" : 920 },
              {"x" : 2012, "y" : 903 }, {"x" : 2013, "y" : 926 }, {"x" : 2014, "y" : 1004 },
              {"x" : 2015, "y" : 433 }, {"x" : 2016, "y" : 922 }, {"x" : 2017, "y" : 156 }],
-            key: '5 a 9'
-          },
-          {
-            values: [{"x" : 2009, "y" : 207 }, {"x" : 2010, "y" : 225 }, {"x" : 2011, "y" : 781 },
-            {"x" : 2012, "y" : 772 }, {"x" : 2013, "y" : 826 }, {"x" : 2014, "y" : 810 },
-             {"x" : 2015, "y" : 245 }, {"x" : 2016, "y" : 703 }, {"x" : 2017, "y" : 17 }],
-            key: '10 a 49'
-          },
-          {
-            values: [{"x" : 2009, "y" : 208 }, {"x" : 2010, "y" : 280 }, {"x" : 2011, "y" : 920 },
-             {"x" : 2012, "y" : 903 }, {"x" : 2013, "y" : 926 }, {"x" : 2014, "y" : 1004 },
-             {"x" : 2015, "y" : 433 }, {"x" : 2016, "y" : 922 }, {"x" : 2017, "y" : 156 }],
-            key: '50 a 99'
-          },
-          {
-            values: [{"x" : 2009, "y" : 208 }, {"x" : 2010, "y" : 280 }, {"x" : 2011, "y" : 920 },
-             {"x" : 2012, "y" : 903 }, {"x" : 2013, "y" : 926 }, {"x" : 2014, "y" : 1004 },
-             {"x" : 2015, "y" : 433 }, {"x" : 2016, "y" : 922 }, {"x" : 2017, "y" : 156 }],
-            key: '100 a 499'
+            key: '20 a 99'
           },
           {
             values: [{"x" : 2009, "y" : 273 }, {"x" : 2010, "y" : 348 }, {"x" : 2011, "y" : 790 },
              {"x" : 2012, "y" : 781 }, {"x" : 2013, "y" : 741 }, {"x" : 2014, "y" : 809 },
              {"x" : 2015, "y" : 712 }, {"x" : 2016, "y" : 740 }, {"x" : 2017, "y" : 436 }],
-            key: '500 ou mais'
-          },
-          {
-            values: [{"x" : 2009, "y" : 273 }, {"x" : 2010, "y" : 348 }, {"x" : 2011, "y" : 790 },
-             {"x" : 2012, "y" : 781 }, {"x" : 2013, "y" : 741 }, {"x" : 2014, "y" : 809 },
-             {"x" : 2015, "y" : 712 }, {"x" : 2016, "y" : 740 }, {"x" : 2017, "y" : 436 }],
-            key: 'Não informado'
+            key: '100 ou mais'
           }
         ]}];
 
-        var jsonGrafico8 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2010-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"8- Total de recursos públicos federais transferidos para OSCs, por porte (2010-2017)",
+        var jsonGrafico8 = [{"config":[",f","1000000"," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão", "Ano da Parceria", "Valor Pago"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"8- Evolução anual do volume de repasses federais para OSCs por tamanho da OSC, Brasil - 2009-2017",
         series:[
           {
             "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 3423794915.37 }, {"x" : 2011, "y" : 3137763278.23 },
-            {"x" : 2012, "y" :  3236653706.15 }, {"x" : 2013, "y" : 3150345824.74 }, {"x" : 2014, "y" : 3365245753.51 },
-             {"x" : 2015, "y" : 4393384693.61 }, {"x" : 2016, "y" : 21937697.34 }, {"x" : 2017, "y" : 6365899.92 }],
-            key: 'Sem pessoal'
+            values: [{"x" : 2009, "y" : 305359081.669266 }, {"x" : 2010, "y" : 356947584.638683 }, {"x" : 2011, "y" : 502254862.14359 },
+            {"x" : 2012, "y" : 650575038.436647 }, {"x" : 2013, "y" : 587478318.967865 }, {"x" : 2014, "y" : 450858828.719786 },
+             {"x" : 2015, "y" : 339262278.508082 }, {"x" : 2016, "y" : 252723026.377461 }, {"x" : 2017, "y" : 12013657.41 }],
+            key: '0'
           },
           {
             "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 162234738.47 }, {"x" : 2011, "y" : 79607179.07 },
-            {"x" : 2012, "y" : 95166297.15 }, {"x" : 2013, "y" : 67939395.84 }, {"x" : 2014, "y" : 60135740.66 },
-             {"x" : 2015, "y" : 41621726.41 }, {"x" : 2016, "y" : 2890080.15 }, {"x" : 2017, "y" : 1182952.01 }],
-            key: '1 a 2'
+            values: [{"x" : 2009, "y" : 207951543.543334 }, {"x" : 2010, "y" : 206492971.022804 }, {"x" : 2011, "y" : 101083095.055984 },
+            {"x" : 2012, "y" : 164360989.515233 }, {"x" : 2013, "y" : 92762791.5564615 }, {"x" : 2014, "y" : 67575110.340414 },
+             {"x" : 2015, "y" : 28920749.3671555 }, {"x" : 2016, "y" : 28765754.8714835 }, {"x" : 2017, "y" : 526352.02 }],
+            key: '1 a 4'
           },
           {
             "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 165901120.14 }, {"x" : 2011, "y" : 41291778.91 },
-            {"x" : 2012, "y" : 64666408.97 }, {"x" : 2013, "y" : 66344086.16 }, {"x" : 2014, "y" : 86711885.47 },
-             {"x" : 2015, "y" : 63024149.37 }, {"x" : 2016, "y" : 2006252.84 }, {"x" : 2017, "y" : 4613073.01 }],
-            key: '3 a 4'
+            values: [{"x" : 2009, "y" : 257156587.957212 }, {"x" : 2010, "y" : 432016592.572412 }, {"x" : 2011, "y" : 337036762.740556 },
+            {"x" : 2012, "y" : 429302885.533626 }, {"x" : 2013, "y" : 423431592.36591 }, {"x" : 2014, "y" : 521428288.807057 },
+             {"x" : 2015, "y" : 234921428.40664 }, {"x" : 2016, "y" : 357320606.541281 }, {"x" : 2017, "y" : 3397981.94 }],
+            key: '5 a 19'
           },
           {
             "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 292400313.77 }, {"x" : 2011, "y" : 178339647.89 },
-             {"x" : 2012, "y" : 175936420.4 }, {"x" : 2013, "y" : 147642566.74 }, {"x" : 2014, "y" : 421516369.41 },
-             {"x" : 2015, "y" : 366469993.74 }, {"x" : 2016, "y" : 25857025.24 }, {"x" : 2017, "y" : 3455016.32 }],
-            key: '5 a 9'
+            values: [{"x" : 2009, "y" : 432499756.620207 }, {"x" : 2010, "y" : 615967093.627833 }, {"x" : 2011, "y" : 731817338.911622 },
+             {"x" : 2012, "y" : 1024561271.04736 }, {"x" : 2013, "y" : 703563489.531337 }, {"x" : 2014, "y" : 692368378.532493 },
+             {"x" : 2015, "y" : 289676800.214741 }, {"x" : 2016, "y" : 205622757.726689 }, {"x" : 2017, "y" : 8833135.27 }],
+            key: '20 a 99'
           },
           {
             "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 854820455.66 }, {"x" : 2011, "y" : 599342690.38 },
-             {"x" : 2012, "y" : 649700109.53}, {"x" : 2013, "y" : 677379657.94 }, {"x" : 2014, "y" : 941574006.12 },
-             {"x" : 2015, "y" : 495439488.72 }, {"x" : 2016, "y" : 109887075.11 }, {"x" : 2017, "y" : 19645945.17 }],
-            key: '10 a 49'
-          },
-          {
-            "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 494947985.13 }, {"x" : 2011, "y" : 484411681.2 },
-             {"x" : 2012, "y" : 562633079.2 }, {"x" : 2013, "y" : 872375968.46 }, {"x" : 2014, "y" : 704320110.77 },
-             {"x" : 2015, "y" : 788992278.1 }, {"x" : 2016, "y" : 30212263.06 }, {"x" : 2017, "y" : 11496486.68 }],
-            key: '50 a 99'
-          },
-          {
-            "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 2694405947.85 }, {"x" : 2011, "y" : 2160558521 },
-             {"x" : 2012, "y" : 2267078032.86 }, {"x" : 2013, "y" : 2438315964.98 }, {"x" : 2014, "y" : 2539934066.06 },
-             {"x" : 2015, "y" : 2287949234.78 }, {"x" : 2016, "y" : 1205800124.65 }, {"x" : 2017, "y" : 765439397.26 }],
-            key: '100 a 499'
-          },
-          {
-            "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 3177144539.27 }, {"x" : 2011, "y" : 3215056474.2 },
-             {"x" : 2012, "y" : 3383317071.93 }, {"x" : 2013, "y" :3514790924.8 }, {"x" : 2014, "y" : 3810061434.24 },
-             {"x" : 2015, "y" : 2763662160.03 }, {"x" : 2016, "y" : 878214628.31 }, {"x" : 2017, "y" : 83245549.28 }],
-            key: '500 ou mais'
-          },
-          {
-            "tipo_valor":"$",
-            values: [{"x" : 2010, "y" : 12381785.33 }, {"x" : 2011, "y" : 15588000.33 },
-             {"x" : 2012, "y" : 22299641.76 }, {"x" : 2013, "y" : 7033970 }, {"x" : 2014, "y" : 11627012.75 },
-             {"x" : 2015, "y" : 6817041.36 }, {"x" : 2016, "y" : 2594866.53 }, {"x" : 2017, "y" : 195095.28 }],
-            key: 'Não informado'
+            values: [{"x" : 2009, "y" : 1622818205.41044 }, {"x" : 2010, "y" : 2078332096.51162 }, {"x" : 2011, "y" : 5225091567.36394 },
+             {"x" : 2012, "y" : 5188750424.54597 }, {"x" : 2013, "y" : 6961348621.70469 }, {"x" : 2014, "y" : 4850428761.21299 },
+             {"x" : 2015, "y" : 2583385920.74028 }, {"x" : 2016, "y" : 2725313742.69701 }, {"x" : 2017, "y" : 119876936.45 }],
+            key: '100 ou mais'
           }
         ]}];
 
@@ -348,7 +286,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createBarChart('#grafico-4',jsonGrafico4);
   createLineChart('#grafico-5',jsonGrafico5);
   createLineChart('#grafico-6',jsonGrafico6);
-//  createLineChart('#grafico-7',jsonGrafico7);
+  createLineChart('#grafico-7',jsonGrafico7);
   createLineChart('#grafico-8',jsonGrafico8);
   createDonutChart('#grafico-9',jsonGrafico9);
   createDonutChart('#grafico-10',jsonGrafico10);
@@ -380,9 +318,9 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
       createTabela_MultBar_Line(jsonGrafico6, true);
   });
 
-//  $("#tabela-7").click(function(){
-//      createTabela_MultBar_Line(jsonGrafico7, true);
-//  });
+  $("#tabela-7").click(function(){
+      createTabela_MultBar_Line(jsonGrafico7, true);
+  });
 
   $("#tabela-8").click(function(){
       createTabela_MultBar_Line(jsonGrafico8, true);
