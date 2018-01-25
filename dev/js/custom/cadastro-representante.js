@@ -264,7 +264,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                     if (data.status == 200){
                         jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
                         jQuery("#modalConteudo").text('');
-                        jQuery("#modalConteudo").text("Por favor, verifique o e-mail cadastrado.");
+                        jQuery("#modalConteudo").text("Você já está cadastrado/a na plataforma e poderá fazer login para atualizar informações da OSC.");
                     }else{
                         jQuery("#modalTitle").text("Problema no cadastro!");
                         jQuery("#modalConteudo").text('');
