@@ -347,9 +347,9 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createDonutChart('#grafico-3',jsonGrafico3);
   createBarChart('#grafico-4',jsonGrafico4);
   createLineChart('#grafico-5',jsonGrafico5);
-  createLineChart('#grafico-6',jsonGrafico6);
+//  createLineChart('#grafico-6',jsonGrafico6);
 //  createLineChart('#grafico-7',jsonGrafico7);
-  createLineChart('#grafico-8',jsonGrafico8);
+//  createLineChart('#grafico-8',jsonGrafico8);
   createDonutChart('#grafico-9',jsonGrafico9);
   createDonutChart('#grafico-10',jsonGrafico10);
   createMultiBarChart('#grafico-11',jsonGrafico11);
@@ -375,19 +375,19 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabela-5").click(function(){
       createTabela_MultBar_Line(jsonGrafico5, true);
   });
-
+/*
   $("#tabela-6").click(function(){
       createTabela_MultBar_Line(jsonGrafico6, true);
   });
 
-//  $("#tabela-7").click(function(){
-//      createTabela_MultBar_Line(jsonGrafico7, true);
-//  });
+  $("#tabela-7").click(function(){
+      createTabela_MultBar_Line(jsonGrafico7, true);
+  });
 
   $("#tabela-8").click(function(){
       createTabela_MultBar_Line(jsonGrafico8, true);
   });
-
+*/
   $("#tabela-9").click(function(){
       createTabela_Bar_Donut(jsonGrafico9);
   });
