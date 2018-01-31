@@ -29,7 +29,7 @@ require(['jquery-ui'], function (React) {
 
 require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
-  var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"1- Distribuição de OSCs por número de empregados e região, Brasil - 2014",
+  var jsonGrafico1 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Número de Empregados", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Ministério do Trabalho (2015).","titulo":"1- Distribuição de OSCs por número de empregados e região, Brasil - 2015",
   series:[
     {key: "Sem pessoal ", values: [{"label" : "Sudeste", "value" : 173751 }, {"label" : "Sul", "value" : 99698 }, {"label" : "Nordeste", "value" : 108987 }, {"label" : "Centro-Oeste", "value" : 27902 }, {"label" : "Norte", "value" : 27504 }]},
     {key: "1 a 2", values: [{"label" : "Sudeste", "value" : 17456 }, {"label" : "Sul", "value" : 7218 }, {"label" : "Nordeste", "value" : 5388 }, {"label" : "Centro-Oeste", "value" : 3191 }, {"label" : "Norte", "value" : 1552 }]},
@@ -41,8 +41,9 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "500 ou mais", values: [{"label" : "Sudeste", "value" : 464 }, {"label" : "Sul", "value" : 126 }, {"label" : "Nordeste", "value" : 91 }, {"label" : "Centro-Oeste", "value" : 51 }, {"label" : "Norte", "value" : 24 }]}
     ]}];
 
-    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"2- Número de empregos formais nas OSCs por região, Brasil - 2014", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1698756 }, {"label" : "Sul", "value" : 513450 }, { "label" : "Nordeste" , "value" : 381848 }, {"label" : "Centro-Oeste", "value" : 220009}, {"label" : "Norte", "value" : 90825}]}];
-    var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Ministério do Trabalho (2014).","titulo":"3- Distribuição de OSCs por área de atuação, Brasil - 2014", key: "Grafico 3", values: [
+    var jsonGrafico2 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de Empregos","tituloColuna":["Região", "Número de Empregos nas OSCs"],"legenda":"Fonte: Ministério do Trabalho (2015).","titulo":"2- Número de empregos formais nas OSCs por região, Brasil - 2015", key: "Grafico 2", values: [{"label" : "Sudeste", "value" : 1698756 }, {"label" : "Sul", "value" : 513450 }, { "label" : "Nordeste" , "value" : 381848 }, {"label" : "Centro-Oeste", "value" : 220009}, {"label" : "Norte", "value" : 90825}]}];
+
+    var jsonGrafico3 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Atividade Econômica", "Número de OSC"],"legenda":"Fonte: Secretaria da Receita Federal (2016).","titulo":"3- Distribuição de OSCs por área de atuação, Brasil - 2016", key: "Grafico 3", values: [
       {"label": "Saúde", "value" : 6841 },
       {"label": "Cultura e recreação", "value" : 79917 },
       {"label": "Educação e pesquisa", "value" : 39669},
@@ -306,7 +307,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           }
         ]}];
 
-    var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013), Ministério do Trabalho (2014).","titulo":"9- Distribuição de OSCs de assistência social por tipo de serviço prestado, Brasil - 2014", key: "Grafico 9", values: [
+    var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2016), Secretaria da Receita Federal (2016).","titulo":"4- Distribuição de OSCs de assistência social por tipo de serviço prestado, Brasil - 2016", key: "Grafico 9", values: [
     {"label" : "Serviços de Proteção Social Básica", "value" : 10529 },
     {"label" : "Serviços de Proteção Social Especial de Alta Complexidade", "value" : 3780 },
     {"label" : "Ações de Assessoramento e Defesa e Garantia de Direitos" , "value" : 15096 },
@@ -315,7 +316,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {"label" : "Benefícios Eventuais", "value" : 2360}
     ]}];
 
-    var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"10- Distribuição de OSCs de saúde por tipo de estabelecimento de saúde, Brasil - 2014", key: "Grafico 10", values: [
+    var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016), Secretaria da Receita Federal (2016).","titulo":"5- Distribuição de OSCs de saúde por tipo de estabelecimento de saúde, Brasil - 2016", key: "Grafico 10", values: [
     {"label": "Clínica/Centro de Especialidade", "value" : 637 } ,  {"label": "Hospital Geral", "value" : 1607 },
     { "label": "Consultório Isolado", "value" : 123}, {"label": "Unidade de Apoio Diagnose e Terapia", "value" : 209 },
     {"label": "Policlínica", "value" : 143 } , { "label": "Hospital Especializado", "value" : 211},
@@ -323,7 +324,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {"label": "Outras", "value" : 189 }
     ]}];
 
-  var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"11- Distribuição de OSCs de saúde por região e tipo de gestão, Brasil - 2014",
+  var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016), Secretaria da Receita Federal (2016).","titulo":"6- Distribuição de OSCs de saúde por região e tipo de gestão, Brasil - 2016",
   series:[
     {key: "Municipal", values: [{"label" : "Sudeste", "value" : 1419 }, {"label" : "Sul", "value" : 463 }, {"label" : "Nordeste", "value" : 311 }, {"label" : "Centro-Oeste", "value" : 126 }, {"label" : "Norte", "value" : 39 }]},
     {key: "Estadual", values: [{"label" : "Sudeste", "value" : 236 }, {"label" : "Sul", "value" : 148 }, {"label" : "Nordeste", "value" : 67 }, {"label" : "Centro-Oeste", "value" : 24 }, {"label" : "Norte", "value" : 11 }]},
@@ -331,7 +332,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     ]}];
 
 
-  var jsonGrafico12 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Ministério do Trabalho (2014).","titulo":"12- Distribuição de OSCs de economia solidária por região e tipo de vínculo com outras entidades, Brasil - 2014",
+  var jsonGrafico12 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Vínculo", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Secretaria da Receita Federal (2016).","titulo":"7- Distribuição de OSCs de economia solidária por região e tipo de vínculo com outras entidades, Brasil - 2016",
   series:[
     {key: "Não possui vínculo", values: [{"label" : "Sudeste", "value" : 19 }, {"label" : "Sul", "value" : 15 }, {"label" : "Nordeste", "value" : 17 }, {"label" : "Centro-Oeste", "value" : 1 }, {"label" : "Norte", "value" : 7 }]},
     {key: "Federação de órgãos sociais", values: [{"label" : "Sudeste", "value" : 0 }, {"label" : "Sul", "value" : 0 }, {"label" : "Nordeste", "value" : 11 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 3 }]},
@@ -340,7 +341,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
     {key: "Instituição de ensino e/ou pesquisa", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 7 }, {"label" : "Nordeste", "value" : 0 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 0 }]}
     ]}];
 
-  var jsonGrafico13 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Ministério do Trabalho (2014).","titulo":"13- Distribuição de OSCs de economia solidária por região e abrangência da atuação, Brasil - 2014",
+  var jsonGrafico13 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Abrangência", "Região", "Quantidade"],"legenda":"Fonte: Ministério do Trabalho (2016), Secretaria da Receita Federal (2016).","titulo":"8- Distribuição de OSCs de economia solidária por região e abrangência da atuação, Brasil - 2016",
   series:[
     {key: "Estadual e/ou inter-estadual", values: [{"label" : "Sudeste", "value" : 26 }, {"label" : "Sul", "value" : 28 }, {"label" : "Nordeste", "value" : 30 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 50 }]},
     {key: "Nacional", values: [{"label" : "Sudeste", "value" : 4 }, {"label" : "Sul", "value" : 11 }, {"label" : "Nordeste", "value" : 15 }, {"label" : "Centro-Oeste", "value" : 0 }, {"label" : "Norte", "value" : 7 }]},
