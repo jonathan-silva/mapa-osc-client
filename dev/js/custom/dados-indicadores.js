@@ -307,22 +307,27 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         ]}];
 
     var jsonGrafico9 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Serviços", "Número de OSC"],"legenda":"Fonte: Ministério do Desenvolvimento Social (2013), Ministério do Trabalho (2014).","titulo":"9- Distribuição de OSCs de assistência social por tipo de serviço prestado, Brasil - 2014", key: "Grafico 9", values: [
-    {"label" : "Proteção Básica", "value" : 7906 }, {"label" : "Proteção Especial - Alta Complexidade", "value" : 1975 },
-    { "label" : "Assessoramento, Defesa e Garantia de Direitos" , "value" : 1652 }, {"label" : "Proteção Especial - Média Complexidade", "value" : 1147},
-    {"label" : "Outras Ofertas", "value" : 975}, {"label" : "Benefícios Eventuais", "value" : 206}
+    {"label" : "Serviços de Proteção Social Básica", "value" : 10529 },
+    {"label" : "Serviços de Proteção Social Especial de Alta Complexidade", "value" : 3780 },
+    {"label" : "Ações de Assessoramento e Defesa e Garantia de Direitos" , "value" : 15096 },
+    {"label" : "Serviços de Proteção Social Especial de Média Complexidade", "value" : 3622},
+    {"label" : "Outras Ofertas", "value" : 6269},
+    {"label" : "Benefícios Eventuais", "value" : 2360}
     ]}];
 
     var jsonGrafico10 = [{"config":[",f","1",""],"leg_X":"","leg_Y":"","tituloColuna":["Tipo de Unidade", "Número de OSC"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"10- Distribuição de OSCs de saúde por tipo de estabelecimento de saúde, Brasil - 2014", key: "Grafico 10", values: [
-    {"label": "Clinica/Centro De Especialidade", "value" : 1814 } ,  {"label": "Hospital Geral", "value" : 1505 },
-    { "label": "Consultorio Isolado", "value" : 440}, {"label": "Unidade De Apoio Diagnose E Terapia", "value" : 350 },
-    {"label": "Policlinica", "value" : 272 } , { "label": "Hospital Especializado", "value" : 188}, {"label": "Outras", "value" : 284 }
+    {"label": "Clínica/Centro de Especialidade", "value" : 637 } ,  {"label": "Hospital Geral", "value" : 1607 },
+    { "label": "Consultório Isolado", "value" : 123}, {"label": "Unidade de Apoio Diagnose e Terapia", "value" : 209 },
+    {"label": "Policlínica", "value" : 143 } , { "label": "Hospital Especializado", "value" : 211},
+    { "label": "Centro de Saúde/Unidade Básica", "value" : 127},
+    {"label": "Outras", "value" : 189 }
     ]}];
 
   var jsonGrafico11 = [{"config":[",f","1",""],"leg_X":"Região","leg_Y":"Quantidade de OSCs","tituloColuna":["Tipo de Gestão", "Região", "Quantidade"],"legenda":"Fonte: Ministério da Saúde (2016), Ministério do Trabalho (2014).","titulo":"11- Distribuição de OSCs de saúde por região e tipo de gestão, Brasil - 2014",
   series:[
-    {key: "Municipal", values: [{"label" : "Sudeste", "value" : 1932 }, {"label" : "Sul", "value" : 726 }, {"label" : "Nordeste", "value" : 497 }, {"label" : "Centro-Oeste", "value" : 180 }, {"label" : "Norte", "value" : 86 }]},
-    {key: "Estadual", values: [{"label" : "Sudeste", "value" : 240 }, {"label" : "Sul", "value" : 403 }, {"label" : "Nordeste", "value" : 58 }, {"label" : "Centro-Oeste", "value" : 75 }, {"label" : "Norte", "value" : 22 }]},
-    {key: "Dupla", values: [{"label" : "Sudeste", "value" : 202 }, {"label" : "Sul", "value" : 349 }, {"label" : "Nordeste", "value" : 57 }, {"label" : "Centro-Oeste", "value" : 21 }, {"label" : "Norte", "value" : 6 }]}
+    {key: "Municipal", values: [{"label" : "Sudeste", "value" : 1419 }, {"label" : "Sul", "value" : 463 }, {"label" : "Nordeste", "value" : 311 }, {"label" : "Centro-Oeste", "value" : 126 }, {"label" : "Norte", "value" : 39 }]},
+    {key: "Estadual", values: [{"label" : "Sudeste", "value" : 236 }, {"label" : "Sul", "value" : 148 }, {"label" : "Nordeste", "value" : 67 }, {"label" : "Centro-Oeste", "value" : 24 }, {"label" : "Norte", "value" : 11 }]},
+    {key: "Dupla", values: [{"label" : "Sudeste", "value" : 177 }, {"label" : "Sul", "value" : 271 }, {"label" : "Nordeste", "value" : 63 }, {"label" : "Centro-Oeste", "value" : 16 }, {"label" : "Norte", "value" : 7 }]}
     ]}];
 
 
@@ -345,8 +350,8 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   createMultiBarChart('#grafico-1',jsonGrafico1);
   createBarChart('#grafico-2',jsonGrafico2);
   createDonutChart('#grafico-3',jsonGrafico3);
-  createBarChart('#grafico-4',jsonGrafico4);
-  createLineChart('#grafico-5',jsonGrafico5);
+//  createBarChart('#grafico-4',jsonGrafico4);
+//  createLineChart('#grafico-5',jsonGrafico5);
 //  createLineChart('#grafico-6',jsonGrafico6);
 //  createLineChart('#grafico-7',jsonGrafico7);
 //  createLineChart('#grafico-8',jsonGrafico8);
@@ -367,7 +372,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabela-3").click(function(){
       createTabela_Bar_Donut(jsonGrafico3);
   });
-
+/*
   $("#tabela-4").click(function(){
       createTabela_Bar_Donut(jsonGrafico4);
   });
@@ -375,7 +380,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabela-5").click(function(){
       createTabela_MultBar_Line(jsonGrafico5, true);
   });
-/*
+
   $("#tabela-6").click(function(){
       createTabela_MultBar_Line(jsonGrafico6, true);
   });

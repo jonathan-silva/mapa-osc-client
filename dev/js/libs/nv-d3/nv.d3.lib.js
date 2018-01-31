@@ -79,6 +79,22 @@ function createBarChart(grafico, valores)
 	  return chart;
 }
 
+function createMultiChart(grafico, valores)
+{
+		var chart = nv.models.multiChart()
+				.margin({top: 30, right: 60, bottom: 50, left: 70})
+				.color(d3.scale.category10().range());
+
+		chart.xAxis.tickFormat(d3.format(',f'));
+		chart.yAxis1.tickFormat(d3.format(',.1f'));
+		chart.yAxis2.tickFormat(d3.format(',.1f'));
+
+		d3.select(grafico + " svg")
+				.datum(valores[0].series)
+				.transition().duration(500).call(chart);
+		return chart;
+}
+
 function createMultiBarChart(grafico, valores)
 {
 	var chart = nv.models.multiBarChart()
