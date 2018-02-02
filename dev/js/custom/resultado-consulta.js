@@ -99,7 +99,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var tabAtiva = div.find('.tab-pane.fade.active.in');
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
-    val = replaceSpecialChars(val.trim()).replace(/ /g, '_').replace(/\./g, ',').replace(/\+{2,}/g, '_');
+    val = replaceSpecialChars(val.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',').replace(/\+{2,}/g, '_');
     
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
@@ -137,7 +137,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   $("#organizacao .form-control").autocomplete({
     minLength: 3,
     source: function (request, response) {
-     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_').replace(/\./g, ',');
+     textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',');
 
        $.ajax({
            url: urlController,
@@ -160,7 +160,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
        });
    },
    select: function(event, ui){
-    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/ /g, '_').replace(/\./g, ',').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
+    link = './resultado-consulta.html?organizacao=' + replaceSpecialChars(ui.item.value.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',').replace(/\+{2,}/g, '_') + '&tipoBusca=1';
     location.href=link;
    }
  });
@@ -173,7 +173,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            url: urlController,//4204251
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/\./g, ','), limiteAutocompleteCidade)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -203,7 +203,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
           url: urlController,//4204251
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/\./g, ','), limiteAutocomplete)},
+          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -233,7 +233,7 @@ $("#regiao .form-control").autocomplete({
          url: urlController,//4204251
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/\./g, ','), limiteAutocomplete)},
+         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
