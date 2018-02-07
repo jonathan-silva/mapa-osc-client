@@ -128,7 +128,7 @@ class DataForms{
         },
         {
           "id": "macro_area_1",
-          "label": "Área de atuação",
+          "label": "Área de atuação 1",
           "content": null,
           "fonte": null,
           "placeholder": "Selecione a área de atuação da OSC",
@@ -157,7 +157,7 @@ class DataForms{
         },
         {
           "id": "macro_area_2",
-          "label": "Área de atuação",
+          "label": "Área de atuação 2",
           "content": null,
           "fonte": null,
           "placeholder": "Selecione uma segunda área de atuação da OSC, se houver.",
