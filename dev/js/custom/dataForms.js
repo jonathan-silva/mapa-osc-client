@@ -818,7 +818,7 @@ class DataForms{
         "removable": false,
         "type": "checkbox",
         "options": [
-          "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
+          "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
         ]
       },
       "fonte_de_recursos_publico": {
@@ -828,7 +828,7 @@ class DataForms{
         "removable": false,
         "type": "select",
         "options": [
-          "Recursos públicos", "Recursos privados", "Recursos próprios", "Outros"
+          "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
         ]
       },
       "financiador_projeto": {

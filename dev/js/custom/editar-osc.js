@@ -617,7 +617,14 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             localizacao(divId, $('#' + divId + ' #tx_nome_abrangencia_projeto').find(":selected").val());
           });
 
-          $('#' + divId + ' .tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto input:checked').length));
+          var fonte_recurso_proprio = false;
+          $('#'+divId+' .fonte_recursos input:checked').each(function(){
+             if ($(this).val() == "Recursos públicos"){
+               fonte_recurso_proprio = true;
+             }
+          });
+
+          $('#' + divId + ' .tipo_parceria_projeto').addClass(tipo_parceria_projeto($('#'+divId+' .tipo_parceria_projeto input:checked').length, fonte_recurso_proprio));
 
           function conta(divId){
             var i = 0;
@@ -907,8 +914,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return table_lista_projetos;
     }
 
-    function tipo_parceria_projeto(valor){
-      if (valor == 0){
+    function tipo_parceria_projeto(valor, fonte_recurso_proprio){
+      if (valor == 0 && !fonte_recurso_proprio){
         return "hidden"
       }else{
         return ""
@@ -1957,7 +1964,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                    case "Recursos privados":
                        cod_fonte_recurso = 2;
                        break;
-                   case "Outros":
+                   case "Recursos não financeiros":
                        cod_fonte_recurso = 3;
                        break;
                    case "Recursos próprios":
