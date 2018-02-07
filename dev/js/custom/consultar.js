@@ -684,20 +684,43 @@ require(['react'], function (React) {
                dataType: "json",
                data: {flag: 'autocomplete', rota: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
                success: function (data) {
-                 response($.map( data, function( item ) {
-                    return {
-                        label: item.tx_atividade_economica,
-                        value: item.tx_atividade_economica,
-                    };
-                }));
+                 if(data.length > 0){
+                   response($.map( data, function( item ) {
+                      return {
+                          value: item.tx_atividade_economica,
+                          cod: item.cd_classe_atividade_economica,
+                      };
+                  }));
+                 }
+                 else{
+                   $("#tx_atividade_economica").val("");
+                   $("#tx_atividade_economica").closest('.form-group').removeClass('has-success').addClass('has-error');
+                   $("#labelError_atividade_economica").text("Nome da Atividade Econômica inválido.");
+
+                   setTimeout(function(){
+                     $("#tx_atividade_economica.form-control").closest('.form-group').removeClass('has-error');
+                     $("#labelError_atividade_economica").text("");
+                   },2000);
+                 }
                },
                error: function (e) {
-                   response([]);
+                 $("#tx_atividade_economica").val("");
+                 $("#tx_atividade_economica").closest('.form-group').removeClass('has-success').addClass('has-error');
+                 $("#labelError_atividade_economica").text("Nome da Atividade Econômica inválido.");
+
+                 setTimeout(function(){
+                   $("#tx_atividade_economica.form-control").closest('.form-group').removeClass('has-error');
+                   $("#labelError_atividade_economica").text("");
+                 },2000);
                }
            });
        },
         select: function( event, ui ) {
-          $("#tx_atividade_economica").val( ui.item.value );
+          $("#tx_atividade_economica").val(ui.item.value);
+          $("#cd_classe_atividade_economica").val(ui.item.cod);
+          $("#tx_atividade_economica.form-control").closest('.form-group').removeClass('has-error');
+          $("#labelError_atividade_economica").text("");
+
         }
      });
 
