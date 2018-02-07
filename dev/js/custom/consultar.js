@@ -118,8 +118,8 @@ require(['react'], function (React) {
 
     // Inicio - popular select
 
-    function loadMetas(cd_objetivo){
-      var selectBox_metas = $("select#cd_meta_projeto").data("selectBox-selectBoxIt");
+    function loadMetas(cd_objetivo, nome_div){
+      var selectBox_metas = $("select#"+nome_div).data("selectBox-selectBoxIt");
       if(selectBox_metas != undefined){
         selectBox_metas.destroy();
       }
@@ -135,7 +135,7 @@ require(['react'], function (React) {
           console.log(e);
         },
         success: function(data){
-          var selectbox = $('#cd_meta_projeto');
+          var selectbox = $("#"+nome_div);
           var html = '<option value="">Selecione uma opção</option>';
 
           if (data != null) {
@@ -145,15 +145,15 @@ require(['react'], function (React) {
           }
           selectbox.html(html);
 
-          $("#cd_meta_projeto").addClass('newSelectBox');
-          $("#cd_meta_projeto").selectBoxIt({
+          $("#"+nome_div).addClass('newSelectBox');
+          $("#"+nome_div).selectBoxIt({
              theme: "default",
              defaultText: "Selecione uma opção",
              autoWidth: false
            });
-           $("#cd_meta_projeto").selectBoxIt();
+           $("#"+nome_div).selectBoxIt();
 
-           var selectBox_metas = $("select#cd_meta_projeto").data("selectBox-selectBoxIt");
+           var selectBox_metas = $("select#"+nome_div).data("selectBox-selectBoxIt");
            selectBox_metas.enable();
 
            verificarContraste();
@@ -476,7 +476,7 @@ require(['react'], function (React) {
         theme: "default",
         defaultText: "Selecione uma opção",
         autoWidth: false,
-        
+
         populate: function() {
             var deferred = $.Deferred(),
                 arr = [],
@@ -504,12 +504,57 @@ require(['react'], function (React) {
       var cd_objetivo_projeto = $(this).val();
 
       if(cd_objetivo_projeto != ""){
-        loadMetas(cd_objetivo_projeto);
+        loadMetas(cd_objetivo_projeto, 'cd_meta_projeto');
 
       }else{
         var html = '<option value="">Selecione uma opção</option>';
         $('#cd_meta_projeto').html(html);
         var selectBox_metas = $("select#cd_meta_projeto").data("selectBox-selectBoxIt");
+        if(selectBox_metas != undefined){
+          selectBox_metas.disable();
+        }
+        verificarContraste();
+
+      }
+    });
+
+
+    $("#cd_objetivo_osc").selectBoxIt({
+      theme: "default",
+      defaultText: "Selecione uma opção",
+      autoWidth: false,
+
+      populate: function() {
+          var deferred = $.Deferred(),
+              arr = [],
+              x = -1;
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.Objetivos()},
+          }).done(function(data) {
+              while(++x < data.length) {
+                  arr.push({"text": data[x].tx_nome_objetivo_projeto, "value": data[x].cd_objetivo_projeto,})
+              }
+              deferred.resolve(arr);
+          });
+          return deferred;
+      }
+    });
+
+
+    $("#cd_objetivo_osc").change(function() {
+      var cd_objetivo_osc = $(this).val();
+
+      if(cd_objetivo_osc != ""){
+        loadMetas(cd_objetivo_osc,'cd_meta_osc');
+
+      }else{
+        var html = '<option value="">Selecione uma opção</option>';
+        $('#cd_meta_osc').html(html);
+        var selectBox_metas = $("select#cd_meta_osc").data("selectBox-selectBoxIt");
         if(selectBox_metas != undefined){
           selectBox_metas.disable();
         }
