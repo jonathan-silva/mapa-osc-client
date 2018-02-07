@@ -238,7 +238,7 @@ require(["bootstrap","jquery-ui", "rotas"], function (React) {
            url: controller,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {

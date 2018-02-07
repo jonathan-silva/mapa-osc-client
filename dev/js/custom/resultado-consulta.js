@@ -143,7 +143,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
            url: urlController,
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 2)},
+           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
