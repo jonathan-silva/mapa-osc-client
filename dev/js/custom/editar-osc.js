@@ -2047,14 +2047,20 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           else if(($pai.attr("id") === "tx_nome_status_projeto")){
             var cd_status_projeto = null;
-            if(valor === "Planejado"){
+            if(valor === "Proposta"){
               cd_status_projeto = 1;
             }
-            if(valor === "Em Execução"){
+            if(valor === "Projeto em andamento"){
               cd_status_projeto = 2;
             }
             if(valor === "Finalizado"){
               cd_status_projeto = 3;
+            }
+            if(valor === "Arquivado, cancelado ou indeferido"){
+              cd_status_projeto = 5;
+            }
+            if(valor === "Outro"){
+              cd_status_projeto = 4;
             }
             obj["cd_status_projeto"] = cd_status_projeto;
           }

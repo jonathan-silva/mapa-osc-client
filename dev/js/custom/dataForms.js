@@ -761,7 +761,7 @@ class DataForms{
         "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
-        "options": ["Planejado", "Em Execução", "Finalizado"]
+        "options": ["Arquivado, cancelado ou indeferido", "Proposta", "Projeto em andamento", "Finalizado", "Outro" ]
       },
       "dt_data_inicio_projeto": {
         "header": "Data de Início",
