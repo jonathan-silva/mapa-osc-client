@@ -96,6 +96,10 @@ require(['react', 'jsx!components/Util'], function (React) {
                "As entidades detentoras de CEBAS podem receber isenção do pagamento das contribuições sociais incidentes sobre a remuneração de empregados(as) e transferências de recursos governamentais a título de subvenções sociais."]
       },
       {
+      "topico":"Classificação Nacional de Atividades Econômicas (CNAE)",
+      "desc": ["A Classificação Nacional de Atividades Econômicas - CNAE é a classificação oficial adotada pelo Sistema Estatístico Nacional do Brasil e pelos órgãos federais, estaduais e municipais gestores de registros administrativos e demais instituições do Brasil. A CNAE foi estruturada tendo como referência a International Standard Industrial Classification of All Economic Activities - ISIC das Nações Unidas e a gestão e manutenção da CNAE é de responsabilidade do IBGE, a partir das deliberações da Comissão Nacional de Classificação - Concla. A CNAE conta atualmente com 581 classes. A CNAE é o instrumento de padronização nacional dos códigos de atividade econômica e dos critérios de enquadramento utilizados pelos diversos órgãos da Administração Tributária do Brasil. Essa classificação aplica-se a empresas privadas ou públicas, organismos públicos e privados, instituições sem fins lucrativos e agentes autônomos (pessoa física)."]
+      },
+      {
       "topico":"Comissão de Monitoramento e Avaliação",
       "desc": ["É o órgão colegiado destinado a monitorar e avaliar as parcerias celebradas com Organizações da Sociedade Civil mediante termo de colaboração ou de fomento, constituído por ato publicado em meio oficial de comunicação, assegurada a participação de pelo menos um servidor ocupante de cargo efetivo ou emprego permanente do quadro de pessoal da Administração Pública."]
       },

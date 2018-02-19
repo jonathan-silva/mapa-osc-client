@@ -119,7 +119,7 @@ class DataForms{
       "form_items": [
         {
           "id": "atividade_economica",
-          "label": "Atividade econômica",
+          "label": "Atividade econômica (CNAE)",
           "content": null,
           "fonte": null,
           "placeholder": "Insira atividade econômica",
