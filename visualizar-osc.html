@@ -42,16 +42,19 @@
           </div>
           <div class="cabecalho col-xs-6 col-sm-8">
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
-              <span ng-if="(ctrl.osc.cabecalho.ft_razao_social_osc != 'Representante' && ctrl.osc.cabecalho.ft_razao_social_osc != null)" title="Informação oficial. {{ctrl.osc.cabecalho.ft_razao_social_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <span ng-if="(ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+				<span ng-if="ctrl.osc.cabecalho.tx_razao_social_osc" title="{{ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_razao_social_osc}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
             </h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}
-              <span ng-if="(ctrl.osc.cabecalho.ft_identificador_osc != 'Representante' && ctrl.osc.cabecalho.ft_identificador_osc != null)" title="Informação oficial. {{ctrl.osc.cabecalho.ft_identificador_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <span ng-if="(ctrl.osc.cabecalho.ft_identificador_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+				<span ng-if="ctrl.osc.cabecalho.cd_identificador_osc" title="{{ctrl.osc.cabecalho.ft_identificador_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_identificador_osc}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_identificador_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
             </h3>
             <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc}}
-              <span ng-if="(ctrl.osc.cabecalho.ft_natureza_juridica_osc != 'Representante' && ctrl.osc.cabecalho.ft_natureza_juridica_osc != null)" title="Informação oficial. {{ctrl.osc.cabecalho.ft_natureza_juridica_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-              <span ng-if="(ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+            	<span ng-if="ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc" title="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_natureza_juridica_osc}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
             </h3>
           </div>
           <div class="col-xs-6 col-sm-2">
@@ -122,79 +125,91 @@
             <div class="col-md-12 ">
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
-                  <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                  <span ng-if="(ctrl.osc.dados_gerais.ft_nome_fantasia_osc != 'Representante' && ctrl.osc.dados_gerais.ft_nome_fantasia_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_fantasia_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                  <span ng-if="(ctrl.osc.dados_gerais.ft_nome_fantasia_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_nome_fantasia_osc" title="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_fantasia_osc}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
-                  <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-                  <span ng-if="(ctrl.osc.dados_gerais.ft_sigla_osc != 'Representante' && ctrl.osc.dados_gerais.ft_sigla_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_sigla_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                  <span ng-if="(ctrl.osc.dados_gerais.ft_sigla_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
+	            <span ng-if="ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_sigla_osc}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_sigla_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_endereco != 'Representante' && ctrl.osc.dados_gerais.ft_endereco != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_endereco == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_endereco" title="{{ctrl.osc.dados_gerais.ft_endereco == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_endereco}}">
+                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_endereco == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+              	</span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_situacao_imovel_osc != 'Representante' && ctrl.osc.dados_gerais.ft_situacao_imovel_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_situacao_imovel_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_situacao_imovel_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc" title="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_situacao_imovel_osc}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_nome_responsavel_legal != 'Representante' && ctrl.osc.dados_gerais.ft_nome_responsavel_legal != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_nome_responsavel_legal}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_nome_responsavel_legal == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_nome_responsavel_legal" title="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_responsavel_legal}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj == null">Não informado</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj != 'Representante' && ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj" title="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_ano_cadastro_cnpj}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_fundacao_osc | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc == null">Não informado</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_fundacao_osc != 'Representante' && ctrl.osc.dados_gerais.ft_fundacao_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_fundacao_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_fundacao_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc" title="{{ctrl.osc.dados_gerais.ft_fundacao_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_fundacao_osc}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_fundacao_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_email != 'Representante' && ctrl.osc.dados_gerais.ft_email != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_email}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_email == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_email" title="{{ctrl.osc.dados_gerais.ft_email == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_email}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_email == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_resumo_osc != 'Representante' && ctrl.osc.dados_gerais.ft_resumo_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_resumo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_resumo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_resumo_osc" title="{{ctrl.osc.dados_gerais.ft_resumo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_resumo_osc}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_resumo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_site != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_site}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_site == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_site}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_site == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static" id="tel">{{ctrl.osc.dados_gerais.tx_telefone | tel}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_telefone != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_endereco}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_telefone == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_telefone" title="{{ctrl.osc.dados_gerais.ft_telefone == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_telefone}}">
+               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.telefone == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+           		</span>
               </div>
 
               <div class="form-group">
                 <label>Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>:</label>
                 <div class="form-group" ng-repeat="objetivo in ctrl.osc.dados_gerais.objetivo_metas | unique: 'cd_objetivo_osc' | orderBy: 'cd_objetivo_osc' ">
-                  <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
-                  <span ng-if="(objetivo.ft_objetivo_osc != 'Representante' && objetivo.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                  <span ng-if="(objetivo.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                  	<span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
+					<span ng-if="objetivo.tx_nome_objetivo_osc" title="{{ctrl.osc.dados_gerais.ft_objetivo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_objetivo_osc}}">
+               	    	<img class="imgDadoOficial" src="{{objetivo.ft_objetivo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+					</span>
                 </div>
                 <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                   <span class="form-control-static">Não informado</span>
@@ -205,8 +220,9 @@
                   <label>Metas Relacionadas ao ODS:</label>
                   <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
                     <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
-                    <span ng-if="(objetivo_meta.ft_objetivo_osc != 'Representante' && objetivo_meta.ft_objetivo_osc != null)" title="Informação oficial. {{objetivo_meta.ft_objetivo_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                    <span ng-if="(objetivo_meta.ft_objetivo_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                    <span ng-if="objetivo_meta.tx_nome_meta_osc" title="{{ctrl.osc.dados_gerais.ft_objetivo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_objetivo_osc}}">
+               	    	<img class="imgDadoOficial" src="{{objetivo.ft_objetivo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+					</span>
                   </div>
                   <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                     <span class="form-control-static">Não informado</span>
@@ -230,24 +246,28 @@
               <div class="form-group">
                 <label>Atividade Econômica (CNAE):</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_atividade_economica_osc != 'Representante' && ctrl.osc.dados_gerais.ft_atividade_economica_osc != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_atividade_economica_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                <span ng-if="(ctrl.osc.dados_gerais.ft_atividade_economica_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
+                <span ng-if="ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc}}">
+               	   	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+				</span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao == 'Outros')">
-                  <label >Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
-                  <span ng-if="(area_atuacao.ft_area_atuacao != 'Representante' && area_atuacao.ft_area_atuacao != null)" title="Informação oficial. {{area_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                  <span ng-if="(area_atuacao.ft_area_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                  	<label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
+	                <span ng-if="area_atuacao.tx_nome_area_atuacao_outra" title="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + area_atuacao.ft_area_atuacao}}">
+	               	   	<img class="imgDadoOficial" src="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+					</span>
                 </div>
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao != 'Outros')">
                   <label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
-                  <span ng-if="(area_atuacao.ft_area_atuacao != 'Representante' && area_atuacao.ft_area_atuacao != null)" title="Informação oficial. {{area_atuacao.ft_area_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                  <span ng-if="(area_atuacao.ft_area_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                  <span ng-if="area_atuacao.tx_nome_area_atuacao" title="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + area_atuacao.ft_area_atuacao}}">
+               	  	<img class="imgDadoOficial" src="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+				  </span>
                   <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
                     <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
                     {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
-                      <span ng-if="(subarea_atuacao.ft_subarea_atuacao != 'Representante' && subarea_atuacao.ft_subarea_atuacao != null)" title="Informação oficial. {{subarea_atuacao.ft_subarea_atuacao}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
-                      <span ng-if="(subarea_atuacao.ft_subarea_atuacao == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span></em>
+                    <span ng-if="subarea_atuacao.tx_nome_subarea_atuacao" title="{{subarea_atuacao.ft_subarea_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + subarea_atuacao.ft_subarea_atuacao}}">
+               	  	  <img class="imgDadoOficial" src="{{subarea_atuacao.ft_subarea_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+				  	</span>
                   </div>
                 </div>
               </div>
@@ -265,7 +285,6 @@
 
       <div class="container">
         <div class="row">
-
           <div class="col-md-12" id="descricao">
             <h2>Descrição da OSC<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Descrição da OSC." onclick="abrirModalAjuda('Descrição da OSC');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12 ">
