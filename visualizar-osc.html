@@ -42,18 +42,18 @@
           </div>
           <div class="cabecalho col-xs-6 col-sm-8">
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
-				<span ng-if="ctrl.osc.cabecalho.tx_razao_social_osc" title="{{ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_razao_social_osc}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_razao_social_osc == 'Representante' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-              	</span>
+			         <span ng-if="ctrl.osc.cabecalho.ft_razao_social_osc && ctrl.osc.cabecalho.tx_razao_social_osc" title="{{ctrl.osc.cabecalho.ft_razao_social_osc  | icon_title }}">
+              	<img class="ctrl.osc.cabecalho.ft_razao_social_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_razao_social_osc | icone}}">
+            	</span>
             </h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}
-				<span ng-if="ctrl.osc.cabecalho.cd_identificador_osc" title="{{ctrl.osc.cabecalho.ft_identificador_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_identificador_osc}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_identificador_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+			          <span ng-if="ctrl.osc.cabecalho.ft_identificador_osc && ctrl.osc.cabecalho.cd_identificador_osc" title="{{ctrl.osc.cabecalho.ft_identificador_osc  | icon_title }}">
+                	<img class="ctrl.osc.cabecalho.ft_identificador_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_identificador_osc | icone}}">
               	</span>
             </h3>
             <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc}}
-            	<span ng-if="ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc" title="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_natureza_juridica_osc}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+            	<span ng-if="ctrl.osc.cabecalho.ft_natureza_juridica_osc && ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc" title="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc  | icon_title }}">
+                	<img class="ctrl.osc.cabecalho.ft_natureza_juridica_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc | icone}}">
               	</span>
             </h3>
           </div>
@@ -126,80 +126,80 @@
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_nome_fantasia_osc" title="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_fantasia_osc}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_nome_fantasia_osc && ctrl.osc.dados_gerais.tx_nome_fantasia_osc" title="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_title}}">
+                	<img class="ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-	            <span ng-if="ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_sigla_osc}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_sigla_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+	            <span ng-if="ctrl.osc.dados_gerais.ft_sigla_osc && ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_title}}">
+                	<img class="ctrl.osc.dados_gerais.ft_sigla_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_sigla_osc | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_endereco" title="{{ctrl.osc.dados_gerais.ft_endereco == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_endereco}}">
-                	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_endereco == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_endereco && ctrl.osc.dados_gerais.ft_endereco" title="{{ctrl.osc.dados_gerais.ft_endereco  | icon_title }}">
+                	<img class="ctrl.osc.dados_gerais.ft_endereco | icon_class" src="{{ctrl.osc.dados_gerais.ft_endereco | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc" title="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_situacao_imovel_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc && ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc" title="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icon_title }}">
+               		<img class="ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc  | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_nome_responsavel_legal" title="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_nome_responsavel_legal}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_nome_responsavel_legal && ctrl.osc.dados_gerais.tx_nome_responsavel_legal" title="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_title}}">
+               		<img class="ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj == null">Não informado</span>
-                <span ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj" title="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_ano_cadastro_cnpj}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj && ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj" title="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_title}}">
+               		<img class="ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_class" src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Ano de Fundação:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_fundacao_osc | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc == null">Não informado</span>
-                <span ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc" title="{{ctrl.osc.dados_gerais.ft_fundacao_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_fundacao_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_fundacao_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_fundacao_osc && ctrl.osc.dados_gerais.dt_fundacao_osc" title="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_title}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_class}}" src="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_email" title="{{ctrl.osc.dados_gerais.ft_email == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_email}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_email == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_email && ctrl.osc.dados_gerais.tx_email" title="{{ctrl.osc.dados_gerais.ft_email  | icon_title }}">
+               		<img class="ctrl.osc.dados_gerais.ft_email | icon_class" src="{{ctrl.osc.dados_gerais.ft_email | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_resumo_osc" title="{{ctrl.osc.dados_gerais.ft_resumo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_resumo_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_resumo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_resumo_osc && ctrl.osc.dados_gerais.tx_resumo_osc" title="{{ctrl.osc.dados_gerais.ft_resumo_osc  | icon_title }}">
+               		<img class="ctrl.osc.dados_gerais.ft_resumo_osc  | icon_class" src="{{ctrl.osc.dados_gerais.ft_resumo_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_site}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_site == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_site && ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site  | icon_title }}">
+               		<img class="ctrl.osc.dados_gerais.ft_site | icon_class" src="{{ctrl.osc.dados_gerais.ft_site | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static" id="tel">{{ctrl.osc.dados_gerais.tx_telefone | tel}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_telefone" title="{{ctrl.osc.dados_gerais.ft_telefone == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.cabecalho.ft_telefone}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.telefone == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_telefone && ctrl.osc.dados_gerais.tx_telefone" title="{{ctrl.osc.dados_gerais.ft_telefone  | icon_title }}">
+               		<img class="ctrl.osc.dados_gerais.ft_telefone | icon_class" src="{{ctrl.osc.dados_gerais.ft_telefone | icone}}">
            		</span>
               </div>
 
@@ -207,9 +207,9 @@
                 <label>Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>:</label>
                 <div class="form-group" ng-repeat="objetivo in ctrl.osc.dados_gerais.objetivo_metas | unique: 'cd_objetivo_osc' | orderBy: 'cd_objetivo_osc' ">
                   	<span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
-					<span ng-if="objetivo.tx_nome_objetivo_osc" title="{{ctrl.osc.dados_gerais.ft_objetivo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_objetivo_osc}}">
-               	    	<img class="imgDadoOficial" src="{{objetivo.ft_objetivo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					</span>
+		               <span ng-if="objetivo.ft_objetivo_osc && objetivo.tx_nome_objetivo_osc" title="{{objetivo.ft_objetivo_osc | icon_title }}">
+               	    	<img class="objetivo.ft_objetivo_osc  | icon_class" src="{{objetivo.ft_objetivo_osc | icone}}">
+		               </span>
                 </div>
                 <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                   <span class="form-control-static">Não informado</span>
@@ -220,8 +220,8 @@
                   <label>Metas Relacionadas ao ODS:</label>
                   <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
                     <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
-                    <span ng-if="objetivo_meta.tx_nome_meta_osc" title="{{ctrl.osc.dados_gerais.ft_objetivo_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_objetivo_osc}}">
-               	    	<img class="imgDadoOficial" src="{{objetivo.ft_objetivo_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                    <span ng-if="objetivo.ft_objetivo_osc && objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas" title="{{objetivo.ft_objetivo_osc | icon_title }}">
+               	    	<img class="objetivo.ft_objetivo_osc | icon_class" src="{{objetivo.ft_objetivo_osc | icone}}">
 					</span>
                   </div>
                   <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
@@ -246,27 +246,27 @@
               <div class="form-group">
                 <label>Atividade Econômica (CNAE):</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc}}">
-               	   	<img class="imgDadoOficial" src="{{ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                <span ng-if="ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc && ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc  | icon_title }}">
+               	   	<img class="ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc | icone}}">
 				</span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao == 'Outros')">
                   	<label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
-	                <span ng-if="area_atuacao.tx_nome_area_atuacao_outra" title="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + area_atuacao.ft_area_atuacao}}">
-	               	   	<img class="imgDadoOficial" src="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+	                <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao_outra" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
+	               	   	<img class="area_atuacao.ft_area_atuacao | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
 					</span>
                 </div>
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao != 'Outros')">
                   <label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
-                  <span ng-if="area_atuacao.tx_nome_area_atuacao" title="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + area_atuacao.ft_area_atuacao}}">
-               	  	<img class="imgDadoOficial" src="{{area_atuacao.ft_area_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                  <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
+               	  	<img class="area_atuacao.ft_area_atuacao  | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
 				  </span>
                   <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
                     <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
                     {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
-                    <span ng-if="subarea_atuacao.tx_nome_subarea_atuacao" title="{{subarea_atuacao.ft_subarea_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + subarea_atuacao.ft_subarea_atuacao}}">
-               	  	  <img class="imgDadoOficial" src="{{subarea_atuacao.ft_subarea_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                    <span ng-if="subarea_atuacao.ft_subarea_atuacao && subarea_atuacao.tx_nome_subarea_atuacao" title="{{subarea_atuacao.ft_subarea_atuacao  | icon_title  }}">
+               	  	  <img class="subarea_atuacao.ft_subarea_atuacao | icon_class" src="{{subarea_atuacao.ft_subarea_atuacao | icone}}">
 				  	</span>
                   </div>
                 </div>
@@ -291,36 +291,36 @@
               <div class="form-group">
                 <label>Como surgiu a OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_historico)?ctrl.osc.descricao.tx_historico:"Não informado"}}</span>
-                  <span ng-if="ctrl.osc.descricao.tx_historico" title="{{ctrl.osc.descricao.ft_historico == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.descricao.ft_historico}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.descricao.ft_historico == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                  <span ng-if="ctrl.osc.descricao.ft_historico && ctrl.osc.descricao.tx_historico" title="{{ctrl.osc.descricao.ft_historico  | icon_title }}">
+               		<img class="ctrl.osc.descricao.ft_historico  | icon_class" src="{{ctrl.osc.descricao.ft_historico | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_missao_osc)?ctrl.osc.descricao.tx_missao_osc:"Não informada"}}</span>
-                  <span ng-if="ctrl.osc.descricao.tx_missao_osc" title="{{ctrl.osc.descricao.ft_missao_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.descricao.ft_missao_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.descricao.ft_missao_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                  <span ng-if="ctrl.osc.descricao.ft_missao_osc && ctrl.osc.descricao.tx_missao_osc" title="{{ctrl.osc.descricao.ft_missao_osc  | icon_title }}">
+               		<img class="ctrl.osc.descricao.ft_missao_osc | icon_class" src="{{ctrl.osc.descricao.ft_missao_osc | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_visao_osc)?ctrl.osc.descricao.tx_visao_osc:"Não informada"}}</span>
-				  <span ng-if="ctrl.osc.descricao.tx_visao_osc" title="{{ctrl.osc.descricao.ft_visao_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.descricao.ft_visao_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.descricao.ft_visao_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+		              <span ng-if="ctrl.osc.descricao.ft_visao_osc && ctrl.osc.descricao.tx_visao_osc" title="{{ctrl.osc.descricao.ft_visao_osc  | icon_title }}">
+               		<img class="ctrl.osc.descricao.ft_visao_osc | icon_class" src="{{ctrl.osc.descricao.ft_visao_osc | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_finalidades_estatutarias)?ctrl.osc.descricao.tx_finalidades_estatutarias:"Não informadas"}}</span>
-                  <span ng-if="ctrl.osc.descricao.tx_finalidades_estatutarias" title="{{ctrl.osc.descricao.ft_finalidades_estatutarias == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.descricao.ft_finalidades_estatutarias}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.descricao.ft_finalidades_estatutarias == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                  <span ng-if="ctrl.osc.descricao.ft_finalidades_estatutarias && ctrl.osc.descricao.tx_finalidades_estatutarias" title="{{ctrl.osc.descricao.ft_finalidades_estatutarias  | icon_title }}">
+               		<img class="ctrl.osc.descricao.ft_finalidades_estatutarias | icon_class" src="{{ctrl.osc.descricao.ft_finalidades_estatutarias | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_link_estatuto_osc)?ctrl.osc.descricao.tx_link_estatuto_osc:"Não informado"}}</span>
-                  <span ng-if="ctrl.osc.descricao.tx_link_estatuto_osc" title="{{ctrl.osc.descricao.ft_link_estatuto_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.descricao.ft_link_estatuto_osc}}">
-               		<img class="imgDadoOficial" src="{{ctrl.osc.descricao.ft_link_estatuto_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                  <span ng-if="ctrl.osc.descricao.ft_link_estatuto_osc && ctrl.osc.descricao.tx_link_estatuto_osc" title="{{ctrl.osc.descricao.ft_link_estatuto_osc  | icon_title }}">
+               		<img class="ctrl.osc.descricao.ft_link_estatuto_osc | icon_class" src="{{ctrl.osc.descricao.ft_link_estatuto_osc | icone}}">
            		  </span>
               </div>
             </div>
@@ -342,8 +342,8 @@
                 <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
                   {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
                 -->
-				<span ng-if="certificado.tx_nome_certificado" title="{{certificado.ft_nome_certificado == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + certificado.ft_nome_certificado}}">
-				  <img class="imgDadoOficial" src="{{certificado.ft_nome_certificado == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+				<span ng-if="certificado.ft_nome_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_nome_certificado  | icon_title  }}">
+				  <img class="certificado.ft_nome_certificado  | icon_class" src="{{certificado.ft_nome_certificado | icone}}">
 			    </span>
               </div>
               <div ng-if="(ctrl.osc.certificado.certificado == null )">
@@ -370,16 +370,16 @@
                 <div class="edit-toggle " ng-repeat="governanca in ctrl.osc.relacoes_trabalho_governanca.governanca">
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
-					<span ng-if="governanca.tx_cargo_dirigente" title="{{governanca.ft_cargo_dirigente == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + governanca.ft_cargo_dirigente}}">
-						<img class="imgDadoOficial" src="{{governanca.ft_cargo_dirigente == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					</span>
+          					<span ng-if="governanca.ft_cargo_dirigente && governanca.tx_cargo_dirigente" title="{{governanca.ft_cargo_dirigente  | icon_title  }}">
+          						<img class="governanca.ft_cargo_dirigente | icon_class" src="{{governanca.ft_cargo_dirigente | icone}}">
+          					</span>
                   </div>
                   <span>:</span>
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
-					<span ng-if="governanca.tx_nome_dirigente" title="{{governanca.ft_nome_dirigente == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + governanca.ft_nome_dirigente}}">
-						<img class="imgDadoOficial" src="{{governanca.ft_nome_dirigente == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					</span>
+          					<span ng-if="governanca.ft_nome_dirigente && governanca.tx_nome_dirigente" title="{{governanca.ft_nome_dirigente  | icon_title  }}">
+          						<img class="governanca.ft_nome_dirigente | icon_class" src="{{governanca.ft_nome_dirigente | icone}}">
+          					</span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.governanca == null)">
@@ -391,10 +391,10 @@
                 <h3>Conselho Fiscal</h3>
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
-                    <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>					
-					<span ng-if="governanca.tx_nome_conselheiro" title="{{governanca.ft_nome_conselheiro == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + governanca.ft_nome_conselheiro}}">
-						<img class="imgDadoOficial" src="{{governanca.ft_nome_conselheiro == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					</span>
+                    <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
+          					<span ng-if="governanca.ft_nome_conselheiro && conselho_fiscal.tx_nome_conselheiro" title="{{governanca.ft_nome_conselheiro  | icon_title  }}">
+          						<img class="governanca.ft_nome_conselheiro | icon_class" src="{{governanca.ft_nome_conselheiro | icone}}">
+          					</span>
                   </div>
                 </div>
                 <div ng-if="(ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal == null)">
@@ -407,30 +407,30 @@
                 <div class="form-group">
                   <label>Total de Trabalhadores:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores:"Não informado"}}</span>
-				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores}}">
-					<img class="imgDadoOficial" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-				  </span>
+        				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores  | icon_title }}">
+        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icone}}">
+        				  </span>
                 </div>
                 <div class="form-group">
                   <label>Empregados:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
-                  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo}}">
-					<img class="imgDadoOficial" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-				  </span>
+                  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo  | icon_title }}">
+        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo  | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo | icone}}">
+        				  </span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
-                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>				  
-				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia}}">
-					<img class="imgDadoOficial" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-				  </span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
+        				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia  | icon_title }}">
+        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icone}}">
+        				  </span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
-                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>				  
-				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios}}">
-					<img class="imgDadoOficial" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-				  </span>
+                  <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>
+        				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios  | icon_title }}">
+        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios  | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios | icone}}">
+        				  </span>
                 </div>
               </div>
           </div>
@@ -600,9 +600,9 @@
 
                 <a role="button" data-toggle="collapse"  data-parent="#accordion" aria-expanded="false" data="{{'#collapse'+ $index }}" onclick="abrirProjeto(this);" aria-controls="{{'collapse'+ $index }}">
                   <div class="panel-heading " role="tab" id="{{'heading'+ $index }}" title="Clique para Detalhar o Projeto." >
-                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}				  
-					    <span ng-if="proj.tx_nome_projeto" title="{{proj.ft_nome_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_nome_projeto}}">
-						  <img class="imgDadoOficial" src="{{proj.ft_nome_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+                    <h3 class="panel-title ">{{proj.tx_nome_projeto}}
+					    <span ng-if="proj.ft_nome_projeto  && proj.tx_nome_projeto" title="{{proj.ft_nome_projeto  | icon_title  }}">
+						  <img class="proj.ft_nome_projeto  | icon_class" src="{{proj.ft_nome_projeto | icone}}">
 					    </span>
 						<span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span>
 					</h3>
@@ -615,10 +615,10 @@
                       <div class="col-md-12">
                         <div class="header">Descrição do Projeto, atividade e/ou programa</div>
                         <div class="form-group">
-                          <span class="form-control-static">{{(proj.tx_descricao_projeto)?proj.tx_descricao_projeto:"Não informado"}}</span>				  
-					      <span ng-if="proj.tx_descricao_projeto" title="{{proj.ft_descricao_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_descricao_projeto}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_descricao_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+                          <span class="form-control-static">{{(proj.tx_descricao_projeto)?proj.tx_descricao_projeto:"Não informado"}}</span>
+		                      <span ng-if="proj.ft_descricao_projeto && proj.tx_descricao_projeto" title="{{proj.ft_descricao_projeto  | icon_title  }}">
+          						    <img class="proj.ft_descricao_projeto | icon_class" src="{{proj.ft_descricao_projeto | icone}}">
+				                  </span>
                         </div>
                       </div>
                     </div>
@@ -628,9 +628,9 @@
                         <div class="header ">Situação do Projeto</div>
                         <div class="form-group">
                             <span class="form-control-static">{{(proj.tx_nome_status_projeto)?proj.tx_nome_status_projeto:"Não informado"}}</span>
-                            <span ng-if="proj.tx_nome_status_projeto" title="{{proj.ft_nome_status_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_nome_status_projeto}}">
-						      <img class="imgDadoOficial" src="{{proj.ft_nome_status_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					        </span>
+                            <span ng-if="proj.ft_status_projeto && proj.tx_nome_status_projeto" title="{{proj.ft_status_projeto  | icon_title  }}">
+						                <img class="proj.ft_status_projeto  | icon_class" src="{{proj.ft_status_projeto | icone}}">
+                            </span>
                         </div>
                       </div>
 
@@ -639,9 +639,9 @@
                         <div class="form-group">
                             <span class="form-control-static">{{proj.dt_data_inicio_projeto | limitTo : -4}}</span>
                             <span class="form-control-static" ng-if="proj.dt_data_inicio_projeto == null">Não informado</span>
-							<span ng-if="proj.dt_data_inicio_projeto" title="{{proj.ft_data_inicio_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_data_inicio_projeto}}">
-						      <img class="imgDadoOficial" src="{{proj.ft_data_inicio_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					        </span>
+			                      <span ng-if="proj.ft_data_inicio_projeto && proj.dt_data_inicio_projeto" title="{{proj.ft_data_inicio_projeto  | icon_title  }}">
+                				      <img class="proj.ft_data_inicio_projeto | icon_class" src="{{proj.ft_data_inicio_projeto | icone}}">
+                			      </span>
                         </div>
                       </div>
 
@@ -650,9 +650,9 @@
                         <div class="form-group">
                             <span class="form-control-static">{{proj.dt_data_fim_projeto | limitTo : -4}}</span>
                             <span class="form-control-static" ng-if="proj.dt_data_fim_projeto == null">Não informado</span>
-							<span ng-if="proj.dt_data_fim_projeto" title="{{proj.ft_data_fim_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_data_fim_projeto}}">
-						      <img class="imgDadoOficial" src="{{proj.ft_data_fim_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					        </span>
+			                      <span ng-if="proj.ft_data_fim_projeto && proj.dt_data_fim_projeto" title="{{proj.ft_data_fim_projeto  | icon_title  }}">
+		                        <img class="proj.ft_data_fim_projeto  | icon_class" src="{{proj.ft_data_fim_projeto | icone}}">
+			                      </span>
                         </div>
                       </div>
 
@@ -661,9 +661,9 @@
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
                             <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
-                            <span ng-if="proj.tx_link_projeto" title="{{proj.ft_link_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_link_projeto}}">
-						      <img class="imgDadoOficial" src="{{proj.ft_link_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					        </span>
+                            <span ng-if="proj.ft_link_projeto && proj.tx_link_projeto " title="{{proj.ft_link_projeto  | icon_title  }}">
+					                  <img class="proj.ft_link_projeto | icon_class" src="{{proj.ft_link_projeto | icone}}">
+                            </span>
                         </div>
                       </div>
                     </div>
@@ -673,9 +673,9 @@
                         <div class="header ">Total de Beneficiários</div>
                         <div class="form-group">
                             <span class="form-control-static">{{(proj.nr_total_beneficiarios)?proj.nr_total_beneficiarios:"Não informado"}}</span>
-                            <span ng-if="proj.nr_total_beneficiarios" title="{{proj.ft_total_beneficiarios == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_total_beneficiarios}}">
-						      <img class="imgDadoOficial" src="{{proj.ft_total_beneficiarios == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					        </span>
+                            <span ng-if="proj.ft_total_beneficiarios && proj.nr_total_beneficiarios" title="{{proj.ft_total_beneficiarios  | icon_title  }}">
+		                        <img class="proj.ft_total_beneficiarios | icon_class" src="{{proj.ft_total_beneficiarios | icone}}">
+				                    </span>
                         </div>
                       </div>
 
@@ -684,9 +684,9 @@
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_total_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"":"Não informado" }}</span>
-						  <span ng-if="proj.nr_valor_total_projeto" title="{{proj.ft_valor_total_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_valor_total_projeto}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_valor_total_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+			                    <span ng-if="proj.ft_valor_total_projeto && proj.nr_valor_total_projeto" title="{{proj.ft_valor_total_projeto  | icon_title  }}">
+			                    <img class="proj.ft_valor_total_projeto | icon_class" src="{{proj.ft_valor_total_projeto | icone}}">
+                         </span>
                         </div>
                       </div>
 
@@ -695,9 +695,9 @@
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
-						  <span ng-if="proj.nr_valor_captado_projeto" title="{{proj.ft_valor_captado_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_valor_captado_projeto}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_valor_captado_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+            						  <span ng-if="{proj.ft_valor_captado_projeto && proj.nr_valor_captado_projeto" title="{{proj.ft_valor_captado_projeto  | icon_title  }}">
+            						    <img class="{proj.ft_valor_captado_projeto | icon_class" src="{{proj.ft_valor_captado_projeto | icone}}">
+            					    </span>
                         </div>
                       </div>
 
@@ -705,9 +705,9 @@
                         <div class="header ">Zona de Atuação</div>
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_zona_atuacao)?proj.tx_nome_zona_atuacao:"Não informado"}}</span>
-						  <span ng-if="proj.tx_nome_zona_atuacao" title="{{proj.ft_nome_zona_atuacao == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_nome_zona_atuacao}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_nome_zona_atuacao == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+            						  <span ng-if="proj.ft_nome_zona_atuacao && proj.tx_nome_zona_atuacao" title="{{proj.ft_nome_zona_atuacao  | icon_title  }}">
+            						    <img class="proj.ft_nome_zona_atuacao  | icon_class" src="{{proj.ft_nome_zona_atuacao | icone}}">
+          					      </span>
                         </div>
                       </div>
 
@@ -719,9 +719,9 @@
                         <div class="header ">Abrangência de atuação</div>
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_abrangencia_projeto)?proj.tx_nome_abrangencia_projeto:"Não informado"}}</span>
-						  <span ng-if="proj.tx_nome_abrangencia_projeto" title="{{proj.ft_abrangencia_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_abrangencia_projeto}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_abrangencia_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+                				  <span ng-if="proj.ft_nome_abrangencia_projeto && proj.tx_nome_abrangencia_projeto" title="{{proj.ft_abrangencia_projeto  | icon_title  }}">
+                				    <img class="proj.ft_abrangencia_projeto | icon_class" src="{{proj.ft_abrangencia_projeto | icone}}">
+              			      </span>
                         </div>
                       </div>
 
@@ -729,9 +729,9 @@
                         <div class="header ">Localização do Projeto</div>
                         <div class="form-group" ng-repeat="localizacao in proj.localizacao">
                           <span class="form-control-static">{{(localizacao.tx_nome_regiao_localizacao_projeto)?localizacao.tx_nome_regiao_localizacao_projeto:"Não informado"}}</span>
-						  <span ng-if="localizacao.tx_nome_regiao_localizacao_projeto" title="{{localizacao.ft_nome_regiao_localizacao_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + localizacao.ft_nome_regiao_localizacao_projeto}}">
-						    <img class="imgDadoOficial" src="{{localizacao.ft_nome_regiao_localizacao_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+                				  <span ng-if="localizacao.ft_nome_regiao_localizacao_projeto && localizacao.tx_nome_regiao_localizacao_projeto" title="{{localizacao.ft_nome_regiao_localizacao_projeto  | icon_title  }}">
+                				    <img class="localizacao.ft_nome_regiao_localizacao_projeto | icon_class" src="{{localizacao.ft_nome_regiao_localizacao_projeto | icone}}">
+              			      </span>
                         </div>
                         <div class="form-group" ng-if="proj.localizacao == null">
                           <span class="form-control-static">Não informado</span>
@@ -742,9 +742,9 @@
                         <div class="header ">Público Beneficiado</div>
                         <div class="form-group" ng-repeat="pubben in proj.publico_beneficiado">
                           <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}</span>
-						  <span ng-if="pubben.tx_nome_publico_beneficiado" title="{{pubben.ft_publico_beneficiado_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + pubben.ft_publico_beneficiado_projeto}}">
-						    <img class="imgDadoOficial" src="{{pubben.ft_publico_beneficiado_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+                				  <span ng-if="pubben.ft_publico_beneficiado_projeto && pubben.tx_nome_publico_beneficiado" title="{{pubben.ft_publico_beneficiado_projeto  | icon_title  }}">
+                				    <img class="pubben.ft_publico_beneficiado_projeto | icon_class" src="{{pubben.ft_publico_beneficiado_projeto | icone}}">
+              			      </span>
                         </div>
                         <div class="form-group" ng-if="proj.publico_beneficiado == null">
                           <span class="form-control-static">Não informado</span>
@@ -755,9 +755,9 @@
                         <div class="header ">Tipo da Fontes de Recursos</div>
                         <div class="form-group" ng-repeat="fonte_recursos in proj.fonte_recursos">
                           <span class="form-control-static">{{(fonte_recursos.tx_nome_valor)}}</span>
-						  <span ng-if="fonte_recursos.tx_nome_valor" title="{{fonte_recursos.ft_fonte_recursos_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + fonte_recursos.ft_fonte_recursos_projeto}}">
-						    <img class="imgDadoOficial" src="{{fonte_recursos.ft_fonte_recursos_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+            						  <span ng-if="fonte_recursos.ft_fonte_recursos_projeto && fonte_recursos.tx_nome_valor" title="{{fonte_recursos.ft_fonte_recursos_projeto  | icon_title  }}">
+            						    <img class="fonte_recursos.ft_fonte_recursos_projeto | icon_class" src="{{fonte_recursos.ft_fonte_recursos_projeto | icone}}">
+          					      </span>
                           <br>
                         </div>
                         <div class="form-group" ng-if="proj.fonte_recursos == null">
@@ -769,9 +769,9 @@
                         <div class="header ">OSCs Parceiras</div>
                         <div class="form-group" ng-repeat="osc_parceira in proj.osc_parceira">
                           <span class="form-control-static">{{(osc_parceira.tx_nome_osc_parceira_projeto)?osc_parceira.tx_nome_osc_parceira_projeto:"Não informado"}}</span>
-						  <span ng-if="osc_parceira.tx_nome_osc_parceira_projeto" title="{{osc_parceira.ft_osc_parceira_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + osc_parceira.ft_osc_parceira_projeto}}">
-						    <img class="imgDadoOficial" src="{{osc_parceira.ft_osc_parceira_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-					      </span>
+            						  <span ng-if="osc_parceira.ft_osc_parceira_projeto && osc_parceira.tx_nome_osc_parceira_projeto" title="{{osc_parceira.ft_osc_parceira_projeto  | icon_title  }}">
+            						    <img class="osc_parceira.ft_osc_parceira_projeto | icon_class" src="{{osc_parceira.ft_osc_parceira_projeto | icone}}">
+    					            </span>
                         </div>
                         <div class="form-group" ng-if="proj.osc_parceira == null">
                           <span class="form-control-static">Não informado</span>
@@ -782,8 +782,8 @@
                         <div class="header ">Área de atuação do projeto, atividade ou programa</div>
                         <div class="form-group"  ng-repeat="area_atuacao in proj.area_atuacao">
                             <span class="form-control-static">{{(area_atuacao.tx_nome_area_atuacao_projeto)?area_atuacao.tx_nome_area_atuacao_projeto:"Não informado"}}</span>
-						    <span ng-if="area_atuacao.tx_nome_area_atuacao_projeto" title="{{area_atuacao.ft_area_atuacao_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + area_atuacao.ft_area_atuacao_projeto}}">
-						      <img class="imgDadoOficial" src="{{area_atuacao.ft_area_atuacao_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
+						    <span ng-if="area_atuacao.ft_nome_area_atuacao_projeto" title="{{area_atuacao.ft_area_atuacao_projeto  | icon_title  }}">
+						      <img class="area_atuacao.ft_area_atuacao_projeto | icon_class" src="{{area_atuacao.ft_area_atuacao_projeto | icone}}">
 					        </span>
                         </div>
                         <div class="form-group"  ng-repeat="area_atuacao_outra in proj.area_atuacao_outra">
@@ -798,9 +798,9 @@
                         <div class="header ">Financiadores do Projeto</div>
                         <div class="form-group"  ng-repeat="financiador in proj.financiador_projeto">
                           <span class="form-control-static">{{(financiador.tx_nome_financiador)?financiador.tx_nome_financiador:"Não informado"}}</span>
-						  <span ng-if="financiador.tx_nome_financiador" title="{{financiador.ft_nome_financiador == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + financiador.ft_nome_financiador}}">
-						    <img class="imgDadoOficial" src="{{financiador.ft_nome_financiador == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						  </span>
+            						  <span ng-if="financiador.ft_nome_financiador && financiador.tx_nome_financiador" title="{{financiador.ft_nome_financiador  | icon_title  }}">
+            						    <img class="financiador.ft_nome_financiador | icon_class" src="{{financiador.ft_nome_financiador | icone}}">
+          						    </span>
                         </div>
                         <div class="form-group"  ng-if="proj.financiador_projeto == null">
                           <span class="form-control-static">Não informado</span>
@@ -811,9 +811,9 @@
                         <div class="header ">Tipo de Parceria</div>
                         <div class="form-group"  ng-repeat="tipo_parceria in proj.tipo_parceria">
                           <span class="form-control-static">{{(tipo_parceria.tx_nome_valor)}}</span>
-                          <span ng-if="tipo_parceria.tx_nome_valor" title="{{tipo_parceria.ft_tipo_parceria_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + tipo_parceria.ft_tipo_parceria_projeto}}">
-						    <img class="imgDadoOficial" src="{{tipo_parceria.ft_tipo_parceria_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						  </span>
+                          <span ng-if="tipo_parceria.ft_tipo_parceria_projeto && tipo_parceria.tx_nome_valor" title="{{tipo_parceria.ft_tipo_parceria_projeto  | icon_title  }}">
+            						    <img class="tipo_parceria.ft_tipo_parceria_projeto | icon_class" src="{{tipo_parceria.ft_tipo_parceria_projeto | icone}}">
+            						  </span>
                           <br>
                         </div>
                         <div class="form-group"  ng-if="proj.tipo_parceria == null">
@@ -827,9 +827,9 @@
                         <div class="header">Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa</div>
                         <div class="form-group">
                           <span class="form-control-static" >{{( proj.tx_metodologia_monitoramento)?proj.tx_metodologia_monitoramento:"Não informado"}}</span>
-						  <span ng-if="proj.tx_metodologia_monitoramento" title="{{proj.ft_metodologia_monitoramento == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + proj.ft_metodologia_monitoramento}}">
-						    <img class="imgDadoOficial" src="{{proj.ft_metodologia_monitoramento == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						  </span>
+            						  <span ng-if="proj.ft_metodologia_monitoramento && proj.tx_metodologia_monitoramento" title="{{proj.ft_metodologia_monitoramento  | icon_title  }}">
+            						    <img class="proj.ft_metodologia_monitoramento  | icon_class" src="{{proj.ft_metodologia_monitoramento | icone}}">
+            						  </span>
                         </div>
                       </div>
                     </div>
@@ -839,9 +839,9 @@
                         <div class="header">Objetivos do Desenvolvimento Sustentável - <a href="http://www.agenda2030.com.br/" title="Link Site Externo das Nações Unidas." target="_blank">ODS<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a></div>
                         <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | unique: 'cd_objetivo_projeto' | orderBy: 'cd_objetivo_projeto' ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
-						  <span ng-if="objetivo.tx_nome_objetivo_projeto" title="{{objetivo.ft_objetivo_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + objetivo.ft_objetivo_projeto}}">
-						    <img class="imgDadoOficial" src="{{objetivo.ft_objetivo_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						  </span>
+            						  <span ng-if="objetivo.ft_objetivo_projeto && objetivo.tx_nome_objetivo_projeto" title="{{objetivo.ft_objetivo_projeto  | icon_title  }}">
+            						    <img class="objetivo.ft_objetivo_projeto | icon_class" src="{{objetivo.ft_objetivo_projeto | icone}}">
+            						  </span>
                         </div>
                         <div class="form-group"  ng-if="proj.objetivo_meta == null">
                           <span class="form-control-static">Não informado</span>
@@ -854,9 +854,9 @@
                         <div class="header">Metas Relacionadas ao ODS</div>
                         <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta | orderBy: 'cd_objetivo_projeto'">
                           <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
-                          <span ng-if="objetivo_meta.tx_nome_meta_projeto" title="{{objetivo_meta.ft_objetivo_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + objetivo_meta.ft_objetivo_projeto}}">
-						    <img class="imgDadoOficial" src="{{objetivo_meta.ft_objetivo_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						  </span>
+                          <span ng-if="objetivo_meta.ft_objetivo_projeto && objetivo_meta.tx_nome_meta_projeto" title="{{objetivo_meta.ft_objetivo_projeto  | icon_title  }}">
+            						    <img class="objetivo_meta.ft_objetivo_projeto  | icon_class" src="{{objetivo_meta.ft_objetivo_projeto | icone}}">
+            						  </span>
                         </div>
                         <div class="form-group"  ng-if="proj.objetivo_meta == null">
                           <span class="form-control-static">Não informado</span>
@@ -889,10 +889,10 @@
                 <h3>Total de recursos com projetos, atividades e/ou programas</h3>
                 <div class="form-group">
                 <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$ "}}</span>
-                <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_total)?"":"Não informado" }}</span>                
-				<span ng-if="ctrl.osc.projeto.recursos.nr_valor_total" title="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + ctrl.osc.projeto.recursos.ft_valor_total_projeto}}">
-				  <img class="imgDadoOficial" src="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-			    </span>
+                <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_total)?"":"Não informado" }}</span>
+        				<span ng-if="ctrl.osc.projeto.recursos.ft_valor_total" title="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto  | icon_title }}">
+        				  <img class="ctrl.osc.projeto.recursos.ft_valor_total_projeto  | icon_class" src="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto | icone}}">
+      			    </span>
               </div>
               </div>
           </div>
@@ -928,63 +928,63 @@
                       <label title="Fundos patrimoniais são estruturas que oferecem sustentabilidade financeira a uma organização sem fins lucrativos." >Rendimentos de fundos patrimoniais <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-						<span ng-if="rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+            						<span ng-if="rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc && rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Os fundos de reserva são frequentemente usados pelas organizações no atendimento emergencial de despesas ordinárias do dia a dia da entidade." >Rendimentos financeiros de reservas ou contas correntes próprias <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-						<span ng-if="rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+            						<span ng-if="rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc && rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Contribuição financeira para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo." >Mensalidades ou contribuições de associados <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc" title="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc && rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc " title="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Prêmios recebidos na forma de bens ou valores monetários pela OSC como reconhecimento de quaisquer méritos da organização." >Prêmios recebidos <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc && rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc " title="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Esta é uma das formas de captação mais utilizadas pelas organizações, já que os produtos podem ser confeccionados pela própria instituição.">Venda de produtos <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc && rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Atividades realizadas por uma organização com o fim de atendimento do beneficiário de ações sociais pode retornar dividendos para a entidade." >Prestação de serviços <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc && rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Cessão onerosa da marca associada a uma organização civil para empresas privadas que, em troca, pagam royalties ou direitos autorais." >Venda de bens e direitos <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc && rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                   </div>
@@ -1002,54 +1002,54 @@
                       <label title="As parcerias voluntárias entre a administração pública do nível federal e as organizações civis.">Parceria com o governo federal <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As parcerias voluntárias entre a administração pública do nível estadual e as organizações civis.">Parceria com o governo estadual <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As parcerias voluntárias entre a administração pública do nível municipal e as organizações civis.">Parceria com o governo municipal <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Acordos de cooperação podem ser firmados com organizações multilaterais em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro. Exemplos de organizações multilaterais são as Nações Unidas, o Banco Mundial e o Banco Interamericano de Desenvolvimento." >Acordo com organismos multilaterais <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc | currency:"R$ "}}</span>
-                        <span class="form-control-static">{{(rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc)?"":"Não informado" }}</span>						
-						<span ng-if="rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span class="form-control-static">{{(rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc)?"":"Não informado" }}</span>
+            						<span ng-if="rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc && rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Acordos de cooperação podem ser firmados com governos estrangeiros em diversos campos de atividades, não havendo nenhum tipo de repasse financeiro." >Acordo com governos estrangeiros <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc && rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Empresa pública é pessoa jurídica de direito privado, constituída por capital exclusivamente público e podendo ser constituída em qualquer uma das modalidades empresariais. Sociedade de economia mista é pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público." >Empresas públicas ou sociedades de economia mista <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc" title="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc && rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc" title="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                   </div>
@@ -1067,81 +1067,81 @@
                       <label title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) brasileiras, com a exceção de organizações religiosas." >Parceria com OSCs brasileiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As diferentes formas de parcerias formais ou informais com outras OSCs (fundações privadas ou associações privadas) estrangeiras, com a exceção de organizações religiosas." >Parcerias com OSCs estrangeiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas brasileiras." >Parcerias com organizações religiosas brasileiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As diferentes formas de parcerias formais ou informais com OSCs que sejam organizações religiosas estrangeiras." >Parcerias com organizações religiosas estrangeiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As diferentes formas de parcerias com empresas privadas brasileiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto." >Empresas privadas brasileiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.empresas_privadas_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.empresas_privadas_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.empresas_privadas_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As diferentes formas de parcerias com empresas privadas estrangeiras por meio das quais as empresas cedem os recursos necessários (físicos, financeiros e/ou humanos) para a execução de um determinado projeto." >Empresas privadas estrangeiras <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Doações recebidas de empresas, associações, órgãos públicos, igrejas ou outros tipos de organizações." >Doações de pessoa jurídica <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc && rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Doações recebidas de indivíduos." >Doações de pessoa física <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc && rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="As doações recebidas pela OSC na forma de produtos ou serviços com nota fiscal podem ser contabilizadas pelo valor da nota fiscal." >Doações recebidas na forma de produtos e serviços (com Nota Fiscal) <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc && rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                   </div>
@@ -1159,45 +1159,45 @@
                       <label title="O voluntário é o indivíduo que dedica parte de seu tempo à realização de atividades não remuneradas de diversos tipos." >Voluntariado <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc && rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="A isenção fiscal é a dispensa de tributo por meio de lei realizada pelo ente federativo competente para institui-lo." >Isenções <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc && rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="A imunidade é uma limitação constitucional ao poder de tributar, ou seja, nega ao Estado o poder de tributar pessoas ou organizações definidas como imunes." >Imunidades <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc && rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Bens cedidos por um doador a um donatário, de modo que este fica obrigado a manter e cuidar dos bens doados, sem que tenha, no entanto, direito pleno ao bem, mas apenas direito de uso em relação a ele." >Bens recebidos em direito de uso <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc && rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                     <div class="form-group">
                       <label title="Doações recebidas pela OSC na forma de produtos ou serviços sem nota fiscal." >Doações recebidas na forma de produtos e serviços (sem Nota Fiscal) <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>:</label>
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
-                        <span ng-if="rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc == 'Representante de OSC' ? 'Informação preenchida pela Organização' : 'Informação oficial. ' + rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc}}">
-						  <img class="imgDadoOficial" src="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc == 'Representante de OSC' ? 'img/dado_representante.png' : 'img/base_dados.png'}}">
-						</span>
+                        <span ng-if="rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc && rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc  | icon_title  }}">
+            						  <img class="rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icone}}">
+            						</span>
                     </div>
 
                   </div>

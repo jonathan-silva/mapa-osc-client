@@ -127,6 +127,70 @@ controller.filter('tel', function() {
   };
 });
 
+controller.filter('icone', function() {
+	return function(input) {
+		if(input !== null && input !== undefined  && input !== ""){
+	  	var src;
+			if(input == "Representante de OSC" || input == "Representante" ){
+				src = "img/dado_representante.png";
+			}
+			else if (input == "Representante de governo municipal" ) {
+				src = "img/dado_representante_estado.png";
+			}
+			else if (input == "Representante de governo estadual" ) {
+				src = "img/dado_representante_municipio.png";
+			}
+			else {
+				src = "img/base_dados.png";
+			}
+			return src;
+		}
+		return "";
+  };
+});
+
+controller.filter('icon_title', function() {
+	return function(input) {
+		if(input !== null && input !== undefined  && input !== ""){
+	  	var title;
+			if(input == "Representante de OSC" || input == "Representante" ){
+				title = "Informação preenchida pela Organização";
+			}
+			else if (input == "Representante de governo municipal" || input == "Representante de governo estadual") {
+				title = "Informação preenchida pelo " +input;
+			}
+			else {
+				title = "Informação oficial. " + input;
+			}
+			return title;
+		}
+		return "";
+  };
+});
+
+controller.filter('icon_class', function() {
+	return function(input) {
+		if(input !== null && input !== undefined  && input !== ""){
+	  	var classe;
+			if(input == "Representante de OSC" || input == "Representante" ){
+				classe = "imgDadoEditavel";
+			}
+			else if (input == "Representante de governo municipal" ) {
+				classe = "imgDadoEstado";
+			}
+			else if (input == "Representante de governo estadual" ) {
+				classe = "imgDadoMunicipio";
+			}
+			else {
+				classe = "imgDadoOficial";
+			}
+			return classe;
+		}
+		return "";
+  };
+});
+
+
 function abrirProjeto(e) {
 	var id = $(e).attr("data");
 	$(id).toggle("slow");
