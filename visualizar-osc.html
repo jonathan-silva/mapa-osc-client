@@ -337,13 +337,13 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-if="(!ctrl.osc.certificado.bo_nao_possui_certificacoes)">
               <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
-                <label>{{certificado.tx_nome_certificado}} - </label>
-				<!-- ver MOSC-1030
+                <label>{{certificado.tx_nome_certificado}} </label>
+				            <!-- ver MOSC-1030
                 <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
                   {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
                 -->
-				<span ng-if="certificado.ft_nome_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_nome_certificado  | icon_title  }}">
-				  <img class="{{certificado.ft_nome_certificado  | icon_class}}" ng-src="{{certificado.ft_nome_certificado | icone}}">
+				<span ng-if="certificado.ft_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_certificado  | icon_title  }}">
+				  <img class="{{certificado.ft_certificado  | icon_class}}" ng-src="{{certificado.ft_certificado | icone}}">
 			    </span>
               </div>
               <div ng-if="(ctrl.osc.certificado.certificado == null )">
@@ -392,8 +392,8 @@
                 <div class="edit-toggle " ng-repeat="conselho_fiscal in ctrl.osc.relacoes_trabalho_governanca.conselho_fiscal">
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
-          					<span ng-if="governanca.ft_nome_conselheiro && conselho_fiscal.tx_nome_conselheiro" title="{{governanca.ft_nome_conselheiro  | icon_title  }}">
-          						<img class="{{governanca.ft_nome_conselheiro | icon_class}}" ng-src="{{governanca.ft_nome_conselheiro | icone}}">
+          					<span ng-if="conselho_fiscal.ft_nome_conselheiro && conselho_fiscal.tx_nome_conselheiro" title="{{conselho_fiscal.ft_nome_conselheiro  | icon_title  }}">
+          						<img class="{{conselho_fiscal.ft_nome_conselheiro | icon_class}}" ng-src="{{conselho_fiscal.ft_nome_conselheiro | icone}}">
           					</span>
                   </div>
                 </div>
@@ -464,13 +464,22 @@
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
                       <span class="form-control-static">{{conselho.conselho.tx_nome_conselho}}</span>
+                      <span ng-if="conselho.conselho.tx_nome_conselho && conselho.conselho.ft_conselho" title="{{conselho.conselho.ft_conselho  | icon_title }}">
+            					<img class="{{conselho.conselho.ft_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_conselho | icone}}">
+            				  </span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.tx_nome_tipo_participacao}}</span>
+                      <span ng-if="conselho.conselho.tx_nome_tipo_participacao && conselho.conselho.ft_tipo_participacao" title="{{conselho.conselho.ft_tipo_participacao  | icon_title }}">
+                      <img class="{{conselho.conselho.ft_tipo_participacao | icon_class}}" ng-src="{{conselho.conselho.ft_tipo_participacao | icone}}">
+                      </span>
                     </td>
                     <td>
                       <div ng-repeat="representante in conselho.representante">
                         <span  class="form-control-static">{{representante.tx_nome_representante_conselho}}</span>
+                        <span ng-if="representante.tx_nome_representante_conselho && representante.ft_nome_representante_conselho" title="{{representante.ft_nome_representante_conselho | icon_title }}">
+                        <img class="{{representante.ft_nome_representante_conselho | icon_class}}" ng-src="{{representante.ft_nome_representante_conselho  | icone}}">
+                        </span>
                       </div>
                       <div ng-if="conselho.representante == null">
                         <span  class="form-control-static">Não informado</span>
@@ -478,12 +487,21 @@
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.tx_nome_periodicidade_reuniao_conselho}}</span>
+                      <span ng-if="conselho.conselho.tx_nome_periodicidade_reuniao_conselho && conselho.conselho.ft_periodicidade_reuniao" title="{{conselho.conselho.ft_periodicidade_reuniao | icon_title }}">
+                      <img class="{{conselho.conselho.ft_periodicidade_reuniao | icon_class}}" ng-src="{{conselho.conselho.ft_periodicidade_reuniao | icone}}">
+                      </span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.dt_data_inicio_conselho}}</span>
+                      <span ng-if="conselho.conselho.dt_data_inicio_conselho && conselho.conselho.ft_data_inicio_conselho" title="{{conselho.conselho.ft_data_inicio_conselho | icon_title }}">
+                      <img class="{{conselho.conselho.ft_data_inicio_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_data_inicio_conselho | icone}}">
+                      </span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conselho.conselho.dt_data_fim_conselho}}</span>
+                      <span ng-if="conselho.conselho.dt_data_fim_conselho && conselho.conselho.ft_data_fim_conselho" title="{{conselho.conselho.ft_data_fim_conselho | icon_title }}">
+                      <img class="{{conselho.conselho.ft_data_fim_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_data_fim_conselho | icone}}">
+                      </span>
                     </td>
                   </tr>
                   <tr ng-if="ctrl.osc.participacao_social.conselho == null">
@@ -529,12 +547,21 @@
                   <tr ng-repeat="conferencia in ctrl.osc.participacao_social.conferencia">
                     <td>
                       <span class="form-control-static">{{conferencia.dt_ano_realizacao | limitTo : -4 }}</span>
+                      <span ng-if="conferencia.dt_ano_realizacao && conferencia.ft_ano_realizacao " title="{{conferencia.ft_ano_realizacao  | icon_title }}">
+            					<img class="{{conferencia.ft_ano_realizacao | icon_class}}" ng-src="{{conferencia.ft_ano_realizacao | icone}}">
+            				  </span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conferencia.tx_nome_conferencia}}</span>
+                      <span ng-if="conferencia.tx_nome_conferencia && conferencia.ft_ano_realizacao " title="{{conferencia.ft_conferencia  | icon_title }}">
+                      <img class="{{conferencia.ft_conferencia | icon_class}}" ng-src="{{conferencia.ft_conferencia | icone}}">
+                      </span>
                     </td>
                     <td>
                       <span class="form-control-static">{{conferencia.tx_nome_forma_participacao_conferencia}}</span>
+                      <span ng-if="conferencia.tx_nome_forma_participacao_conferencia && conferencia.ft_forma_participacao_conferencia " title="{{conferencia.ft_forma_participacao_conferencia  | icon_title }}">
+                      <img class="{{conferencia.ft_forma_participacao_conferencia | icon_class}}" ng-src="{{conferencia.ft_forma_participacao_conferencia | icone}}">
+                      </span>
                     </td>
                   </tr>
                   <tr ng-if="ctrl.osc.participacao_social.conferencia == null">
@@ -568,6 +595,9 @@
                   <tr ng-repeat="outra in ctrl.osc.participacao_social.outra">
                     <td>
                       <span class="form-control-static">{{outra.tx_nome_participacao_social_outra}}</span>
+                      <span ng-if="outra.tx_nome_participacao_social_outra && outra.ft_participacao_social_outra " title="{{outra.ft_participacao_social_outra | icon_title }}">
+                      <img class="{{outra.ft_participacao_social_outra | icon_class}}" ng-src="{{outra.ft_participacao_social_outra  | icone}}">
+                      </span>
                     </td>
                   </tr>
                   <tr ng-if="ctrl.osc.participacao_social.outra == null">
