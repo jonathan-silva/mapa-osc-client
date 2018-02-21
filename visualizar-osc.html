@@ -246,28 +246,28 @@
               <div class="form-group">
                 <label>Atividade Econômica (CNAE):</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
-                <span ng-if="ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc && ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc  | icon_title }}">
-               	   	<img class="ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_atividade_economica_osc | icone}}">
-				</span>
+                <span ng-if="ctrl.osc.dados_gerais.ft_atividade_economica_osc && ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc  | icon_title }}">
+               	   	<img class="ctrl.osc.dados_gerais.ft_atividade_economica_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc | icone}}">
+	              </span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao == 'Outros')">
                   	<label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
 	                <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao_outra" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
 	               	   	<img class="area_atuacao.ft_area_atuacao | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
-					</span>
+                  </span>
                 </div>
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao != 'Outros')">
                   <label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                   <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
                	  	<img class="area_atuacao.ft_area_atuacao  | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
-				  </span>
+	                </span>
                   <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
                     <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
                     {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
                     <span ng-if="subarea_atuacao.ft_subarea_atuacao && subarea_atuacao.tx_nome_subarea_atuacao" title="{{subarea_atuacao.ft_subarea_atuacao  | icon_title  }}">
                	  	  <img class="subarea_atuacao.ft_subarea_atuacao | icon_class" src="{{subarea_atuacao.ft_subarea_atuacao | icone}}">
-				  	</span>
+	  	              </span>
                   </div>
                 </div>
               </div>
