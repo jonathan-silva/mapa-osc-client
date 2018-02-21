@@ -2503,7 +2503,11 @@ legend {
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
+em{
+  font-style: normal;
+}
 label {
+  font-style: normal;
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;

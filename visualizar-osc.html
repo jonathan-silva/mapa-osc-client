@@ -220,9 +220,9 @@
                   <label>Metas Relacionadas ao ODS:</label>
                   <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
                     <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
-                    <span ng-if="objetivo.ft_objetivo_osc && objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas" title="{{objetivo.ft_objetivo_osc | icon_title }}">
-               	    	<img class="{{objetivo.ft_objetivo_osc | icon_class}}" ng-src="{{objetivo.ft_objetivo_osc | icone}}">
-					</span>
+                    <span ng-if="objetivo_meta.ft_objetivo_osc && objetivo_meta.tx_nome_meta_osc" title="{{objetivo_meta.ft_objetivo_osc | icon_title }}">
+               	    	<img class="{{objetivo_meta.ft_objetivo_osc | icon_class}}" ng-src="{{objetivo_meta.ft_objetivo_osc | icone}}">
+		                </span>
                   </div>
                   <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
                     <span class="form-control-static">Não informado</span>
