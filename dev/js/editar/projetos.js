@@ -60,7 +60,7 @@ class Projeto {
     var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
 
-    var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
+    var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante de OSC");
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
 
     var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
