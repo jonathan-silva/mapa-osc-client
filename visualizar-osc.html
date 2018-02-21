@@ -695,7 +695,7 @@
                         <div class="form-group">
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
-            						  <span ng-if="{proj.ft_valor_captado_projeto && proj.nr_valor_captado_projeto" title="{{proj.ft_valor_captado_projeto  | icon_title  }}">
+            						  <span ng-if="proj.ft_valor_captado_projeto && proj.nr_valor_captado_projeto" title="{{proj.ft_valor_captado_projeto  | icon_title  }}">
             						    <img class="{proj.ft_valor_captado_projeto | icon_class" src="{{proj.ft_valor_captado_projeto | icone}}">
             					    </span>
                         </div>
