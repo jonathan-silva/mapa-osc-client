@@ -38,22 +38,22 @@
             <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
           <div ng-if="(ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' )" class="divImg col-xs-6 col-sm-4">
-            <img src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
+            <img ng-src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
           </div>
           <div class="cabecalho col-xs-6 col-sm-8">
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
 			         <span ng-if="ctrl.osc.cabecalho.ft_razao_social_osc && ctrl.osc.cabecalho.tx_razao_social_osc" title="{{ctrl.osc.cabecalho.ft_razao_social_osc  | icon_title }}">
-              	<img class="ctrl.osc.cabecalho.ft_razao_social_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_razao_social_osc | icone}}">
+              	<img class="{{ctrl.osc.cabecalho.ft_razao_social_osc | icon_class}}" ng-src="{{ctrl.osc.cabecalho.ft_razao_social_osc | icone}}">
             	</span>
             </h2>
             <h3>CNPJ: {{ctrl.osc.cabecalho.cd_identificador_osc}}
 			          <span ng-if="ctrl.osc.cabecalho.ft_identificador_osc && ctrl.osc.cabecalho.cd_identificador_osc" title="{{ctrl.osc.cabecalho.ft_identificador_osc  | icon_title }}">
-                	<img class="ctrl.osc.cabecalho.ft_identificador_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_identificador_osc | icone}}">
+                	<img class="{{ctrl.osc.cabecalho.ft_identificador_osc | icon_class}}" ng-src="{{ctrl.osc.cabecalho.ft_identificador_osc | icone}}">
               	</span>
             </h3>
             <h3>Natureza Jurídica: {{ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc}}
             	<span ng-if="ctrl.osc.cabecalho.ft_natureza_juridica_osc && ctrl.osc.cabecalho.tx_nome_natureza_juridica_osc" title="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc  | icon_title }}">
-                	<img class="ctrl.osc.cabecalho.ft_natureza_juridica_osc | icon_class" src="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc | icone}}">
+                	<img class="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc | icon_class}}" ng-src="{{ctrl.osc.cabecalho.ft_natureza_juridica_osc | icone}}">
               	</span>
             </h3>
           </div>
@@ -127,35 +127,35 @@
                 <label>Nome Fantasia:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_nome_fantasia_osc && ctrl.osc.dados_gerais.tx_nome_fantasia_osc" title="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_title}}">
-                	<img class="ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icone}}">
+                	<img class="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Sigla OSC:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
 	            <span ng-if="ctrl.osc.dados_gerais.ft_sigla_osc && ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_title}}">
-                	<img class="ctrl.osc.dados_gerais.ft_sigla_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_sigla_osc | icone}}">
+                	<img class="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_sigla_osc | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_endereco && ctrl.osc.dados_gerais.ft_endereco" title="{{ctrl.osc.dados_gerais.ft_endereco  | icon_title }}">
-                	<img class="ctrl.osc.dados_gerais.ft_endereco | icon_class" src="{{ctrl.osc.dados_gerais.ft_endereco | icone}}">
+                	<img class="{{ctrl.osc.dados_gerais.ft_endereco | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_endereco | icone}}">
               	</span>
               </div>
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc && ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc" title="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icon_title }}">
-               		<img class="ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc  | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc  | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_nome_responsavel_legal && ctrl.osc.dados_gerais.tx_nome_responsavel_legal" title="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_title}}">
-               		<img class="ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_class" src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icone}}">
            		</span>
               </div>
               <div class="form-group">
@@ -163,7 +163,7 @@
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj == null">Não informado</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj && ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj" title="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_title}}">
-               		<img class="ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_class" src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icone}}">
            		</span>
               </div>
               <div class="form-group">
@@ -171,35 +171,35 @@
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_fundacao_osc | limitTo : -4}}</span>
                 <span class="form-control-static" ng-if="ctrl.osc.dados_gerais.dt_fundacao_osc == null">Não informado</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_fundacao_osc && ctrl.osc.dados_gerais.dt_fundacao_osc" title="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_title}}">
-               		<img class="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_class}}" src="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>E-mail:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_email && ctrl.osc.dados_gerais.tx_email" title="{{ctrl.osc.dados_gerais.ft_email  | icon_title }}">
-               		<img class="ctrl.osc.dados_gerais.ft_email | icon_class" src="{{ctrl.osc.dados_gerais.ft_email | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_email | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_email | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_resumo_osc && ctrl.osc.dados_gerais.tx_resumo_osc" title="{{ctrl.osc.dados_gerais.ft_resumo_osc  | icon_title }}">
-               		<img class="ctrl.osc.dados_gerais.ft_resumo_osc  | icon_class" src="{{ctrl.osc.dados_gerais.ft_resumo_osc | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_resumo_osc  | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_resumo_osc | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Site:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_site && ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site  | icon_title }}">
-               		<img class="ctrl.osc.dados_gerais.ft_site | icon_class" src="{{ctrl.osc.dados_gerais.ft_site | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_site | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_site | icone}}">
            		</span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static" id="tel">{{ctrl.osc.dados_gerais.tx_telefone | tel}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_telefone && ctrl.osc.dados_gerais.tx_telefone" title="{{ctrl.osc.dados_gerais.ft_telefone  | icon_title }}">
-               		<img class="ctrl.osc.dados_gerais.ft_telefone | icon_class" src="{{ctrl.osc.dados_gerais.ft_telefone | icone}}">
+               		<img class="{{ctrl.osc.dados_gerais.ft_telefone | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_telefone | icone}}">
            		</span>
               </div>
 
@@ -208,7 +208,7 @@
                 <div class="form-group" ng-repeat="objetivo in ctrl.osc.dados_gerais.objetivo_metas | unique: 'cd_objetivo_osc' | orderBy: 'cd_objetivo_osc' ">
                   	<span class="form-control-static" >{{(objetivo.tx_nome_objetivo_osc)?objetivo.tx_nome_objetivo_osc:"Não informado"}}</span>
 		               <span ng-if="objetivo.ft_objetivo_osc && objetivo.tx_nome_objetivo_osc" title="{{objetivo.ft_objetivo_osc | icon_title }}">
-               	    	<img class="objetivo.ft_objetivo_osc  | icon_class" src="{{objetivo.ft_objetivo_osc | icone}}">
+               	    	<img class="{{objetivo.ft_objetivo_osc  | icon_class}}" ng-src="{{objetivo.ft_objetivo_osc | icone}}">
 		               </span>
                 </div>
                 <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
@@ -221,7 +221,7 @@
                   <div class="form-group" ng-repeat="objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas | orderBy: 'cd_objetivo_osc'">
                     <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_osc)?objetivo_meta.tx_nome_meta_osc:"Não informado"}}</span>
                     <span ng-if="objetivo.ft_objetivo_osc && objetivo_meta in ctrl.osc.dados_gerais.objetivo_metas" title="{{objetivo.ft_objetivo_osc | icon_title }}">
-               	    	<img class="objetivo.ft_objetivo_osc | icon_class" src="{{objetivo.ft_objetivo_osc | icone}}">
+               	    	<img class="{{objetivo.ft_objetivo_osc | icon_class}}" ng-src="{{objetivo.ft_objetivo_osc | icone}}">
 					</span>
                   </div>
                   <div class="form-group"  ng-if="ctrl.osc.dados_gerais.objetivo_metas == null || ctrl.osc.dados_gerais.objetivo_metas == '' ">
@@ -247,26 +247,26 @@
                 <label>Atividade Econômica (CNAE):</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc)?ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc:"Não informado"}}</span>
                 <span ng-if="ctrl.osc.dados_gerais.ft_atividade_economica_osc && ctrl.osc.dados_gerais.tx_nome_atividade_economica_osc" title="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc  | icon_title }}">
-               	   	<img class="ctrl.osc.dados_gerais.ft_atividade_economica_osc | icon_class" src="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc | icone}}">
+               	   	<img class="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_atividade_economica_osc | icone}}">
 	              </span>
               </div>
               <div class="form-group"  ng-repeat="area_atuacao in ctrl.osc.area_atuacao.area_atuacao">
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao == 'Outros')">
                   	<label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao_outra)?area_atuacao.tx_nome_area_atuacao+" - "+area_atuacao.tx_nome_area_atuacao_outra:"Não informado"}}
 	                <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao_outra" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
-	               	   	<img class="area_atuacao.ft_area_atuacao | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
+	               	   	<img class="{{area_atuacao.ft_area_atuacao | icon_class}}" ng-src="{{area_atuacao.ft_area_atuacao | icone}}">
                   </span>
                 </div>
                 <div ng-if="(area_atuacao.tx_nome_area_atuacao != 'Outros')">
                   <label>Área de Atuação {{$index+1}}: </label> {{(area_atuacao.tx_nome_area_atuacao)?area_atuacao.tx_nome_area_atuacao:"Não informado"}}
                   <span ng-if="area_atuacao.ft_area_atuacao && area_atuacao.tx_nome_area_atuacao" title="{{area_atuacao.ft_area_atuacao  | icon_title  }}">
-               	  	<img class="area_atuacao.ft_area_atuacao  | icon_class" src="{{area_atuacao.ft_area_atuacao | icone}}">
+               	  	<img class="{{area_atuacao.ft_area_atuacao  | icon_class}}" ng-src="{{area_atuacao.ft_area_atuacao | icone}}">
 	                </span>
                   <div class="margin" ng-repeat="subarea_atuacao in area_atuacao.subarea_atuacao">
                     <strong>Subárea: </strong><em>{{(subarea_atuacao.tx_nome_subarea_atuacao)?subarea_atuacao.tx_nome_subarea_atuacao:"Não informado"}}
                     {{(subarea_atuacao.tx_nome_subarea_atuacao_outra)?" - "+subarea_atuacao.tx_nome_subarea_atuacao_outra:""}}
                     <span ng-if="subarea_atuacao.ft_subarea_atuacao && subarea_atuacao.tx_nome_subarea_atuacao" title="{{subarea_atuacao.ft_subarea_atuacao  | icon_title  }}">
-               	  	  <img class="subarea_atuacao.ft_subarea_atuacao | icon_class" src="{{subarea_atuacao.ft_subarea_atuacao | icone}}">
+               	  	  <img class="{{subarea_atuacao.ft_subarea_atuacao | icon_class}}" ng-src="{{subarea_atuacao.ft_subarea_atuacao | icone}}">
 	  	              </span>
                   </div>
                 </div>
@@ -292,35 +292,35 @@
                 <label>Como surgiu a OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_historico)?ctrl.osc.descricao.tx_historico:"Não informado"}}</span>
                   <span ng-if="ctrl.osc.descricao.ft_historico && ctrl.osc.descricao.tx_historico" title="{{ctrl.osc.descricao.ft_historico  | icon_title }}">
-               		<img class="ctrl.osc.descricao.ft_historico  | icon_class" src="{{ctrl.osc.descricao.ft_historico | icone}}">
+               		<img class="{{ctrl.osc.descricao.ft_historico  | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_historico | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Missão da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_missao_osc)?ctrl.osc.descricao.tx_missao_osc:"Não informada"}}</span>
                   <span ng-if="ctrl.osc.descricao.ft_missao_osc && ctrl.osc.descricao.tx_missao_osc" title="{{ctrl.osc.descricao.ft_missao_osc  | icon_title }}">
-               		<img class="ctrl.osc.descricao.ft_missao_osc | icon_class" src="{{ctrl.osc.descricao.ft_missao_osc | icone}}">
+               		<img class="{{ctrl.osc.descricao.ft_missao_osc | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_missao_osc | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Visão da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_visao_osc)?ctrl.osc.descricao.tx_visao_osc:"Não informada"}}</span>
 		              <span ng-if="ctrl.osc.descricao.ft_visao_osc && ctrl.osc.descricao.tx_visao_osc" title="{{ctrl.osc.descricao.ft_visao_osc  | icon_title }}">
-               		<img class="ctrl.osc.descricao.ft_visao_osc | icon_class" src="{{ctrl.osc.descricao.ft_visao_osc | icone}}">
+               		<img class="{{ctrl.osc.descricao.ft_visao_osc | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_visao_osc | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Finalidades Estatutárias da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_finalidades_estatutarias)?ctrl.osc.descricao.tx_finalidades_estatutarias:"Não informadas"}}</span>
                   <span ng-if="ctrl.osc.descricao.ft_finalidades_estatutarias && ctrl.osc.descricao.tx_finalidades_estatutarias" title="{{ctrl.osc.descricao.ft_finalidades_estatutarias  | icon_title }}">
-               		<img class="ctrl.osc.descricao.ft_finalidades_estatutarias | icon_class" src="{{ctrl.osc.descricao.ft_finalidades_estatutarias | icone}}">
+               		<img class="{{ctrl.osc.descricao.ft_finalidades_estatutarias | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_finalidades_estatutarias | icone}}">
            		  </span>
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
                   <span class="form-control-static">{{(ctrl.osc.descricao.tx_link_estatuto_osc)?ctrl.osc.descricao.tx_link_estatuto_osc:"Não informado"}}</span>
                   <span ng-if="ctrl.osc.descricao.ft_link_estatuto_osc && ctrl.osc.descricao.tx_link_estatuto_osc" title="{{ctrl.osc.descricao.ft_link_estatuto_osc  | icon_title }}">
-               		<img class="ctrl.osc.descricao.ft_link_estatuto_osc | icon_class" src="{{ctrl.osc.descricao.ft_link_estatuto_osc | icone}}">
+               		<img class="{{ctrl.osc.descricao.ft_link_estatuto_osc | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_link_estatuto_osc | icone}}">
            		  </span>
               </div>
             </div>
@@ -343,7 +343,7 @@
                   {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
                 -->
 				<span ng-if="certificado.ft_nome_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_nome_certificado  | icon_title  }}">
-				  <img class="certificado.ft_nome_certificado  | icon_class" src="{{certificado.ft_nome_certificado | icone}}">
+				  <img class="{{certificado.ft_nome_certificado  | icon_class}}" ng-src="{{certificado.ft_nome_certificado | icone}}">
 			    </span>
               </div>
               <div ng-if="(ctrl.osc.certificado.certificado == null )">
@@ -371,14 +371,14 @@
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_cargo_dirigente}}</span>
           					<span ng-if="governanca.ft_cargo_dirigente && governanca.tx_cargo_dirigente" title="{{governanca.ft_cargo_dirigente  | icon_title  }}">
-          						<img class="governanca.ft_cargo_dirigente | icon_class" src="{{governanca.ft_cargo_dirigente | icone}}">
+          						<img class="{{governanca.ft_cargo_dirigente | icon_class}}" ng-src="{{governanca.ft_cargo_dirigente | icone}}">
           					</span>
                   </div>
                   <span>:</span>
                   <div class="form-group">
                     <span class="form-control-static">{{governanca.tx_nome_dirigente}}</span>
           					<span ng-if="governanca.ft_nome_dirigente && governanca.tx_nome_dirigente" title="{{governanca.ft_nome_dirigente  | icon_title  }}">
-          						<img class="governanca.ft_nome_dirigente | icon_class" src="{{governanca.ft_nome_dirigente | icone}}">
+          						<img class="{{governanca.ft_nome_dirigente | icon_class}}" ng-src="{{governanca.ft_nome_dirigente | icone}}">
           					</span>
                   </div>
                 </div>
@@ -393,7 +393,7 @@
                   <div class="form-group">
                     <span class="form-control-static">{{conselho_fiscal.tx_nome_conselheiro}}</span>
           					<span ng-if="governanca.ft_nome_conselheiro && conselho_fiscal.tx_nome_conselheiro" title="{{governanca.ft_nome_conselheiro  | icon_title  }}">
-          						<img class="governanca.ft_nome_conselheiro | icon_class" src="{{governanca.ft_nome_conselheiro | icone}}">
+          						<img class="{{governanca.ft_nome_conselheiro | icon_class}}" ng-src="{{governanca.ft_nome_conselheiro | icone}}">
           					</span>
                   </div>
                 </div>
@@ -408,28 +408,28 @@
                   <label>Total de Trabalhadores:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores:"Não informado"}}</span>
         				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores  | icon_title }}">
-        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icone}}">
+        					<img class="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icon_class}}" ng-src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores | icone}}">
         				  </span>
                 </div>
                 <div class="form-group">
                   <label>Empregados:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo:"Não informado"}}</span>
                   <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_vinculo" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo  | icon_title }}">
-        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo  | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo | icone}}">
+        					<img class="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo  | icon_class}}" ng-src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_vinculo | icone}}">
         				  </span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores com deficiência:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia:"Não informado"}}</span>
         				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_deficiencia" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia  | icon_title }}">
-        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icone}}">
+        					<img class="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icon_class}}" ng-src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_deficiencia | icone}}">
         				  </span>
                 </div>
                 <div class="form-group">
                   <label>Trabalhadores voluntários:</label>
                   <span class="form-control-static">{{(ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios)?ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios:"Não informado"}}</span>
         				  <span ng-if="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios && ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.nr_trabalhadores_voluntarios" title="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios  | icon_title }}">
-        					<img class="ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios  | icon_class" src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios | icone}}">
+        					<img class="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios  | icon_class}}" ng-src="{{ctrl.osc.relacoes_trabalho_governanca.relacoes_trabalho.ft_trabalhadores_voluntarios | icone}}">
         				  </span>
                 </div>
               </div>
@@ -602,7 +602,7 @@
                   <div class="panel-heading " role="tab" id="{{'heading'+ $index }}" title="Clique para Detalhar o Projeto." >
                     <h3 class="panel-title ">{{proj.tx_nome_projeto}}
 					    <span ng-if="proj.ft_nome_projeto  && proj.tx_nome_projeto" title="{{proj.ft_nome_projeto  | icon_title  }}">
-						  <img class="proj.ft_nome_projeto  | icon_class" src="{{proj.ft_nome_projeto | icone}}">
+						  <img class="{{proj.ft_nome_projeto  | icon_class}}" ng-src="{{proj.ft_nome_projeto | icone}}">
 					    </span>
 						<span class="glyphicon glyphicon-plus" style="float:right" aria-hidden="true"></span>
 					</h3>
@@ -617,7 +617,7 @@
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_descricao_projeto)?proj.tx_descricao_projeto:"Não informado"}}</span>
 		                      <span ng-if="proj.ft_descricao_projeto && proj.tx_descricao_projeto" title="{{proj.ft_descricao_projeto  | icon_title  }}">
-          						    <img class="proj.ft_descricao_projeto | icon_class" src="{{proj.ft_descricao_projeto | icone}}">
+          						    <img class="{{proj.ft_descricao_projeto | icon_class}}" ng-src="{{proj.ft_descricao_projeto | icone}}">
 				                  </span>
                         </div>
                       </div>
@@ -629,7 +629,7 @@
                         <div class="form-group">
                             <span class="form-control-static">{{(proj.tx_nome_status_projeto)?proj.tx_nome_status_projeto:"Não informado"}}</span>
                             <span ng-if="proj.ft_status_projeto && proj.tx_nome_status_projeto" title="{{proj.ft_status_projeto  | icon_title  }}">
-						                <img class="proj.ft_status_projeto  | icon_class" src="{{proj.ft_status_projeto | icone}}">
+						                <img class="{{proj.ft_status_projeto  | icon_class}}" ng-src="{{proj.ft_status_projeto | icone}}">
                             </span>
                         </div>
                       </div>
@@ -640,7 +640,7 @@
                             <span class="form-control-static">{{proj.dt_data_inicio_projeto | limitTo : -4}}</span>
                             <span class="form-control-static" ng-if="proj.dt_data_inicio_projeto == null">Não informado</span>
 			                      <span ng-if="proj.ft_data_inicio_projeto && proj.dt_data_inicio_projeto" title="{{proj.ft_data_inicio_projeto  | icon_title  }}">
-                				      <img class="proj.ft_data_inicio_projeto | icon_class" src="{{proj.ft_data_inicio_projeto | icone}}">
+                				      <img class="{{proj.ft_data_inicio_projeto | icon_class}}" ng-src="{{proj.ft_data_inicio_projeto | icone}}">
                 			      </span>
                         </div>
                       </div>
@@ -651,7 +651,7 @@
                             <span class="form-control-static">{{proj.dt_data_fim_projeto | limitTo : -4}}</span>
                             <span class="form-control-static" ng-if="proj.dt_data_fim_projeto == null">Não informado</span>
 			                      <span ng-if="proj.ft_data_fim_projeto && proj.dt_data_fim_projeto" title="{{proj.ft_data_fim_projeto  | icon_title  }}">
-		                        <img class="proj.ft_data_fim_projeto  | icon_class" src="{{proj.ft_data_fim_projeto | icone}}">
+		                        <img class="{{proj.ft_data_fim_projeto  | icon_class}}" ng-src="{{proj.ft_data_fim_projeto | icone}}">
 			                      </span>
                         </div>
                       </div>
@@ -662,7 +662,7 @@
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
                             <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                             <span ng-if="proj.ft_link_projeto && proj.tx_link_projeto " title="{{proj.ft_link_projeto  | icon_title  }}">
-					                  <img class="proj.ft_link_projeto | icon_class" src="{{proj.ft_link_projeto | icone}}">
+					                  <img class="{{proj.ft_link_projeto | icon_class}}" ng-src="{{proj.ft_link_projeto | icone}}">
                             </span>
                         </div>
                       </div>
@@ -674,7 +674,7 @@
                         <div class="form-group">
                             <span class="form-control-static">{{(proj.nr_total_beneficiarios)?proj.nr_total_beneficiarios:"Não informado"}}</span>
                             <span ng-if="proj.ft_total_beneficiarios && proj.nr_total_beneficiarios" title="{{proj.ft_total_beneficiarios  | icon_title  }}">
-		                        <img class="proj.ft_total_beneficiarios | icon_class" src="{{proj.ft_total_beneficiarios | icone}}">
+		                        <img class="{{proj.ft_total_beneficiarios | icon_class}}" ng-src="{{proj.ft_total_beneficiarios | icone}}">
 				                    </span>
                         </div>
                       </div>
@@ -685,7 +685,7 @@
                           <span class="form-control-static">{{proj.nr_valor_total_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_total_projeto)?"":"Não informado" }}</span>
 			                    <span ng-if="proj.ft_valor_total_projeto && proj.nr_valor_total_projeto" title="{{proj.ft_valor_total_projeto  | icon_title  }}">
-			                    <img class="proj.ft_valor_total_projeto | icon_class" src="{{proj.ft_valor_total_projeto | icone}}">
+			                    <img class="{{proj.ft_valor_total_projeto | icon_class}}" ng-src="{{proj.ft_valor_total_projeto | icone}}">
                          </span>
                         </div>
                       </div>
@@ -696,7 +696,7 @@
                           <span class="form-control-static">{{proj.nr_valor_captado_projeto | currency:"R$ "}}</span>
                           <span class="form-control-static">{{(proj.nr_valor_captado_projeto)?"":"Não informado" }}</span>
             						  <span ng-if="proj.ft_valor_captado_projeto && proj.nr_valor_captado_projeto" title="{{proj.ft_valor_captado_projeto  | icon_title  }}">
-            						    <img class="{proj.ft_valor_captado_projeto | icon_class" src="{{proj.ft_valor_captado_projeto | icone}}">
+            						    <img class="{{proj.ft_valor_captado_projeto | icon_class}}" ng-src="{{proj.ft_valor_captado_projeto | icone}}">
             					    </span>
                         </div>
                       </div>
@@ -706,7 +706,7 @@
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_zona_atuacao)?proj.tx_nome_zona_atuacao:"Não informado"}}</span>
             						  <span ng-if="proj.ft_nome_zona_atuacao && proj.tx_nome_zona_atuacao" title="{{proj.ft_nome_zona_atuacao  | icon_title  }}">
-            						    <img class="proj.ft_nome_zona_atuacao  | icon_class" src="{{proj.ft_nome_zona_atuacao | icone}}">
+            						    <img class="{{proj.ft_nome_zona_atuacao  | icon_class}}" ng-src="{{proj.ft_nome_zona_atuacao | icone}}">
           					      </span>
                         </div>
                       </div>
@@ -720,7 +720,7 @@
                         <div class="form-group">
                           <span class="form-control-static">{{(proj.tx_nome_abrangencia_projeto)?proj.tx_nome_abrangencia_projeto:"Não informado"}}</span>
                 				  <span ng-if="proj.ft_nome_abrangencia_projeto && proj.tx_nome_abrangencia_projeto" title="{{proj.ft_abrangencia_projeto  | icon_title  }}">
-                				    <img class="proj.ft_abrangencia_projeto | icon_class" src="{{proj.ft_abrangencia_projeto | icone}}">
+                				    <img class="{{proj.ft_abrangencia_projeto | icon_class}}" ng-src="{{proj.ft_abrangencia_projeto | icone}}">
               			      </span>
                         </div>
                       </div>
@@ -730,7 +730,7 @@
                         <div class="form-group" ng-repeat="localizacao in proj.localizacao">
                           <span class="form-control-static">{{(localizacao.tx_nome_regiao_localizacao_projeto)?localizacao.tx_nome_regiao_localizacao_projeto:"Não informado"}}</span>
                 				  <span ng-if="localizacao.ft_nome_regiao_localizacao_projeto && localizacao.tx_nome_regiao_localizacao_projeto" title="{{localizacao.ft_nome_regiao_localizacao_projeto  | icon_title  }}">
-                				    <img class="localizacao.ft_nome_regiao_localizacao_projeto | icon_class" src="{{localizacao.ft_nome_regiao_localizacao_projeto | icone}}">
+                				    <img class="{{localizacao.ft_nome_regiao_localizacao_projeto | icon_class}}" ng-src="{{localizacao.ft_nome_regiao_localizacao_projeto | icone}}">
               			      </span>
                         </div>
                         <div class="form-group" ng-if="proj.localizacao == null">
@@ -743,7 +743,7 @@
                         <div class="form-group" ng-repeat="pubben in proj.publico_beneficiado">
                           <span class="form-control-static">{{(pubben.tx_nome_publico_beneficiado)?pubben.tx_nome_publico_beneficiado:"Não informado"}}</span>
                 				  <span ng-if="pubben.ft_publico_beneficiado_projeto && pubben.tx_nome_publico_beneficiado" title="{{pubben.ft_publico_beneficiado_projeto  | icon_title  }}">
-                				    <img class="pubben.ft_publico_beneficiado_projeto | icon_class" src="{{pubben.ft_publico_beneficiado_projeto | icone}}">
+                				    <img class="{{pubben.ft_publico_beneficiado_projeto | icon_class}}" ng-src="{{pubben.ft_publico_beneficiado_projeto | icone}}">
               			      </span>
                         </div>
                         <div class="form-group" ng-if="proj.publico_beneficiado == null">
@@ -756,7 +756,7 @@
                         <div class="form-group" ng-repeat="fonte_recursos in proj.fonte_recursos">
                           <span class="form-control-static">{{(fonte_recursos.tx_nome_valor)}}</span>
             						  <span ng-if="fonte_recursos.ft_fonte_recursos_projeto && fonte_recursos.tx_nome_valor" title="{{fonte_recursos.ft_fonte_recursos_projeto  | icon_title  }}">
-            						    <img class="fonte_recursos.ft_fonte_recursos_projeto | icon_class" src="{{fonte_recursos.ft_fonte_recursos_projeto | icone}}">
+            						    <img class="{{fonte_recursos.ft_fonte_recursos_projeto | icon_class}}" ng-src="{{fonte_recursos.ft_fonte_recursos_projeto | icone}}">
           					      </span>
                           <br>
                         </div>
@@ -770,7 +770,7 @@
                         <div class="form-group" ng-repeat="osc_parceira in proj.osc_parceira">
                           <span class="form-control-static">{{(osc_parceira.tx_nome_osc_parceira_projeto)?osc_parceira.tx_nome_osc_parceira_projeto:"Não informado"}}</span>
             						  <span ng-if="osc_parceira.ft_osc_parceira_projeto && osc_parceira.tx_nome_osc_parceira_projeto" title="{{osc_parceira.ft_osc_parceira_projeto  | icon_title  }}">
-            						    <img class="osc_parceira.ft_osc_parceira_projeto | icon_class" src="{{osc_parceira.ft_osc_parceira_projeto | icone}}">
+            						    <img class="{{osc_parceira.ft_osc_parceira_projeto | icon_class}}" ng-src="{{osc_parceira.ft_osc_parceira_projeto | icone}}">
     					            </span>
                         </div>
                         <div class="form-group" ng-if="proj.osc_parceira == null">
@@ -783,7 +783,7 @@
                         <div class="form-group"  ng-repeat="area_atuacao in proj.area_atuacao">
                             <span class="form-control-static">{{(area_atuacao.tx_nome_area_atuacao_projeto)?area_atuacao.tx_nome_area_atuacao_projeto:"Não informado"}}</span>
 						    <span ng-if="area_atuacao.ft_nome_area_atuacao_projeto" title="{{area_atuacao.ft_area_atuacao_projeto  | icon_title  }}">
-						      <img class="area_atuacao.ft_area_atuacao_projeto | icon_class" src="{{area_atuacao.ft_area_atuacao_projeto | icone}}">
+						      <img class="{{area_atuacao.ft_area_atuacao_projeto | icon_class}}" ng-src="{{area_atuacao.ft_area_atuacao_projeto | icone}}">
 					        </span>
                         </div>
                         <div class="form-group"  ng-repeat="area_atuacao_outra in proj.area_atuacao_outra">
@@ -799,7 +799,7 @@
                         <div class="form-group"  ng-repeat="financiador in proj.financiador_projeto">
                           <span class="form-control-static">{{(financiador.tx_nome_financiador)?financiador.tx_nome_financiador:"Não informado"}}</span>
             						  <span ng-if="financiador.ft_nome_financiador && financiador.tx_nome_financiador" title="{{financiador.ft_nome_financiador  | icon_title  }}">
-            						    <img class="financiador.ft_nome_financiador | icon_class" src="{{financiador.ft_nome_financiador | icone}}">
+            						    <img class="{{financiador.ft_nome_financiador | icon_class}}" ng-src="{{financiador.ft_nome_financiador | icone}}">
           						    </span>
                         </div>
                         <div class="form-group"  ng-if="proj.financiador_projeto == null">
@@ -812,7 +812,7 @@
                         <div class="form-group"  ng-repeat="tipo_parceria in proj.tipo_parceria">
                           <span class="form-control-static">{{(tipo_parceria.tx_nome_valor)}}</span>
                           <span ng-if="tipo_parceria.ft_tipo_parceria_projeto && tipo_parceria.tx_nome_valor" title="{{tipo_parceria.ft_tipo_parceria_projeto  | icon_title  }}">
-            						    <img class="tipo_parceria.ft_tipo_parceria_projeto | icon_class" src="{{tipo_parceria.ft_tipo_parceria_projeto | icone}}">
+            						    <img class="{{tipo_parceria.ft_tipo_parceria_projeto | icon_class}}" ng-src="{{tipo_parceria.ft_tipo_parceria_projeto | icone}}">
             						  </span>
                           <br>
                         </div>
@@ -828,7 +828,7 @@
                         <div class="form-group">
                           <span class="form-control-static" >{{( proj.tx_metodologia_monitoramento)?proj.tx_metodologia_monitoramento:"Não informado"}}</span>
             						  <span ng-if="proj.ft_metodologia_monitoramento && proj.tx_metodologia_monitoramento" title="{{proj.ft_metodologia_monitoramento  | icon_title  }}">
-            						    <img class="proj.ft_metodologia_monitoramento  | icon_class" src="{{proj.ft_metodologia_monitoramento | icone}}">
+            						    <img class="{{proj.ft_metodologia_monitoramento  | icon_class}}" ng-src="{{proj.ft_metodologia_monitoramento | icone}}">
             						  </span>
                         </div>
                       </div>
@@ -840,7 +840,7 @@
                         <div class="form-group" ng-repeat="objetivo in proj.objetivo_meta | unique: 'cd_objetivo_projeto' | orderBy: 'cd_objetivo_projeto' ">
                           <span class="form-control-static" >{{(objetivo.tx_nome_objetivo_projeto)?objetivo.tx_nome_objetivo_projeto:"Não informado"}}</span>
             						  <span ng-if="objetivo.ft_objetivo_projeto && objetivo.tx_nome_objetivo_projeto" title="{{objetivo.ft_objetivo_projeto  | icon_title  }}">
-            						    <img class="objetivo.ft_objetivo_projeto | icon_class" src="{{objetivo.ft_objetivo_projeto | icone}}">
+            						    <img class="{{objetivo.ft_objetivo_projeto | icon_class}}" ng-src="{{objetivo.ft_objetivo_projeto | icone}}">
             						  </span>
                         </div>
                         <div class="form-group"  ng-if="proj.objetivo_meta == null">
@@ -855,7 +855,7 @@
                         <div class="form-group" ng-repeat="objetivo_meta in proj.objetivo_meta | orderBy: 'cd_objetivo_projeto'">
                           <span class="form-control-static" >{{(objetivo_meta.tx_nome_meta_projeto)?objetivo_meta.tx_nome_meta_projeto:"Não informado"}}</span>
                           <span ng-if="objetivo_meta.ft_objetivo_projeto && objetivo_meta.tx_nome_meta_projeto" title="{{objetivo_meta.ft_objetivo_projeto  | icon_title  }}">
-            						    <img class="objetivo_meta.ft_objetivo_projeto  | icon_class" src="{{objetivo_meta.ft_objetivo_projeto | icone}}">
+            						    <img class="{{objetivo_meta.ft_objetivo_projeto  | icon_class}}" ng-src="{{objetivo_meta.ft_objetivo_projeto | icone}}">
             						  </span>
                         </div>
                         <div class="form-group"  ng-if="proj.objetivo_meta == null">
@@ -891,7 +891,7 @@
                 <span class="form-control-static">{{ctrl.osc.projeto.recursos.nr_valor_total | currency:"R$ "}}</span>
                 <span class="form-control-static">{{(ctrl.osc.projeto.recursos.nr_valor_total)?"":"Não informado" }}</span>
         				<span ng-if="ctrl.osc.projeto.recursos.ft_valor_total" title="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto  | icon_title }}">
-        				  <img class="ctrl.osc.projeto.recursos.ft_valor_total_projeto  | icon_class" src="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto | icone}}">
+        				  <img class="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto  | icon_class}}" ng-src="{{ctrl.osc.projeto.recursos.ft_valor_total_projeto | icone}}">
       			    </span>
               </div>
               </div>
@@ -929,7 +929,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc)?"":"Não informado" }}</span>
             						<span ng-if="rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc && rec.recursos_proprios.rendimentos_fundos_patrimoniais.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_proprios.rendimentos_fundos_patrimoniais.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -938,7 +938,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc)?"":"Não informado" }}</span>
             						<span ng-if="rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc && rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.nr_valor_recursos_osc" title="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.rendimentos_financeiros_reservas_contas_correntes_proprias.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -947,7 +947,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc && rec.recursos_proprios.mensalidades_contribuicoes_associados.nr_valor_recursos_osc " title="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.mensalidades_contribuicoes_associados.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -956,7 +956,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc && rec.recursos_proprios.premios_recebidos.nr_valor_recursos_osc " title="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.premios_recebidos.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -965,7 +965,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc && rec.recursos_proprios.venda_produtos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.venda_produtos.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -974,7 +974,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc && rec.recursos_proprios.prestacao_servicos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.prestacao_servicos.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -983,7 +983,7 @@
                         <span class="form-control-static">{{rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc && rec.recursos_proprios.venda_bens_direitos.nr_valor_recursos_osc" title="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_proprios.venda_bens_direitos.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1003,7 +1003,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_federal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_publicos.parceria_governo_federal.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1012,7 +1012,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_estadual.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_publicos.parceria_governo_estadual.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1021,7 +1021,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc && rec.recursos_publicos.parceria_governo_municipal.nr_valor_recursos_osc" title="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_publicos.parceria_governo_municipal.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1030,7 +1030,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc)?"":"Não informado" }}</span>
             						<span ng-if="rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc && rec.recursos_publicos.acordo_organismos_multilaterais.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_publicos.acordo_organismos_multilaterais.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1039,7 +1039,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc && rec.recursos_publicos.acordo_governos_estrangeiros.nr_valor_recursos_osc" title="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_publicos.acordo_governos_estrangeiros.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1048,7 +1048,7 @@
                         <span class="form-control-static">{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc && rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.nr_valor_recursos_osc" title="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_publicos.empresas_publicas_sociedades_economia_mista.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1068,7 +1068,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.parceria_oscs_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_privados.parceria_oscs_brasileiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1077,7 +1077,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_oscs_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_privados.parcerias_oscs_estrangeiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1086,7 +1086,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_brasileiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1095,7 +1095,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_privados.parcerias_organizacoes_religiosas_estrangeiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1104,7 +1104,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.empresas_privadas_brasileiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.empresas_privadas_brasileiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc && rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_privados.empresas_privadas_brasileiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1113,7 +1113,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc && rec.recursos_privados.empresas_privadas_estrangeiras.nr_valor_recursos_osc" title="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_privados.empresas_privadas_estrangeiras.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1122,7 +1122,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc && rec.recursos_privados.doacoes_pessoa_juridica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc  | icon_class" src="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc  | icon_class}}" ng-src="{{rec.recursos_privados.doacoes_pessoa_juridica.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1131,7 +1131,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc && rec.recursos_privados.doacoes_pessoa_fisica.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_privados.doacoes_pessoa_fisica.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1140,7 +1140,7 @@
                         <span class="form-control-static">{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc && rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_privados.doacoes_recebidas_forma_produtos_servicos_com_nota_fiscal.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1160,7 +1160,7 @@
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc && rec.recursos_nao_financeiros.voluntariado.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_nao_financeiros.voluntariado.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1169,7 +1169,7 @@
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc && rec.recursos_nao_financeiros.isencoes.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_nao_financeiros.isencoes.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1178,7 +1178,7 @@
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc && rec.recursos_nao_financeiros.imunidades.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_nao_financeiros.imunidades.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1187,7 +1187,7 @@
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc && rec.recursos_nao_financeiros.bens_recebidos_direito_uso.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_nao_financeiros.bens_recebidos_direito_uso.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
@@ -1196,7 +1196,7 @@
                         <span class="form-control-static">{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc | currency:"R$ "}}</span>
                         <span class="form-control-static">{{(rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc)?"":"Não informado" }}</span>
                         <span ng-if="rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc && rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.nr_valor_recursos_osc" title="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc  | icon_title  }}">
-            						  <img class="rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icon_class" src="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icone}}">
+            						  <img class="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icon_class}}" ng-src="{{rec.recursos_nao_financeiros.doacoes_recebidas_forma_produtos_servicos_sem_nota_fiscal.ft_valor_recursos_osc | icone}}">
             						</span>
                     </div>
 
