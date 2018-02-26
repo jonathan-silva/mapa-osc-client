@@ -1207,8 +1207,15 @@ select{
 }
 
 #recursos h3{
-      width: 55%;
+      margin-right: 20px;
       float: left;
+}
+
+#recursos .sections > div > div:first-child {
+    width: fit-content;
+}
+#recursos .sections > div > div > div:last-child  {
+  display: inline-table;
 }
 
 #recursos .checkbox{

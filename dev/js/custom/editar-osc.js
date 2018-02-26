@@ -1795,10 +1795,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#recursos").children().each(function(){
           var ano = $(this).find("select").val();
           var nao_possui = $('#recursos_geral-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pub = $('#recursos_publicos-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pro = $('#recursos_proprios-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pri = $('#recursos_privados-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_nao_fin = $('#recursos_nao_financeiros-'+ano+' input[type="checkbox"]').is(':checked');
 
           var obj = {};
           obj.dt_ano_recursos_osc = ano;
           obj.bo_nao_possui = nao_possui;
+
+          obj.bo_nao_possui_recursos_proprios = nao_possui_rec_pro;
+          obj.bo_nao_possui_recursos_publicos = nao_possui_rec_pub;
+          obj.bo_nao_possui_recursos_privados = nao_possui_rec_pri;
+          obj.bo_nao_possui_recursos_nao_financeiros = nao_possui_rec_nao_fin;
+
+          if(nao_possui){
+            obj.bo_nao_possui_recursos_proprios = true;
+            obj.bo_nao_possui_recursos_publicos = true;
+            obj.bo_nao_possui_recursos_privados = true;
+            obj.bo_nao_possui_recursos_nao_financeiros = true;
+          }
+
           obj.recursos = [];
 
           if(!nao_possui){
@@ -1806,9 +1823,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               var obj2 = {};
               var valorRecurso = $(this).val().replace(/\./g,"");
               valorRecurso = valorRecurso.replace(/,/g,"\.");
-              obj2.cd_fonte_recursos_osc = $(this).attr("id");
-              obj2.nr_valor_recursos_osc = (valorRecurso!="") ? parseFloat(valorRecurso) : 0;
-              obj.recursos.push(obj2);
+              if(valorRecurso != ""){
+                obj2.cd_fonte_recursos_osc = $(this).attr("id");
+                obj2.nr_valor_recursos_osc = parseFloat(valorRecurso);
+                obj.recursos.push(obj2);
+              }
             });
           }
           newJson.fonte_recursos.push(obj);

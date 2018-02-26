@@ -102,6 +102,11 @@ class FonteRecurso {
 
     $("#recursos_geral-"+ano).append('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para este ano.</label></div>');
 
+    $("#recursos_proprios-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
+    $("#recursos_publicos-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
+    $("#recursos_privados-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
+    $("#recursos_nao_financeiros-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
+
     if(nao_possui){
       $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', true);
     }
