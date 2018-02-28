@@ -151,7 +151,7 @@ controller.filter('icon_title', function() {
 				title = "Informação preenchida pela Organização";
 			}
 			else {
-				title = "Informação oficial. " + input;
+				title = "Informação oficial. Fonte " + input;
 			}
 			return title;
 		}

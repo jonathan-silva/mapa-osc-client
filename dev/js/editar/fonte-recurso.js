@@ -192,6 +192,7 @@ class FonteRecurso {
         var o = obj[k];
         if ((obj.hasOwnProperty(k)) && (o.cd_fonte_recursos_osc === fonteRecurso.cd_fonte_recursos_osc)) {
           fonteRecurso.content = o.nr_valor_recursos_osc;
+          fonteRecurso.fonte = o.ft_valor_recursos_osc;
         }
       }
     }
