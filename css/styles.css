@@ -1211,6 +1211,11 @@ select{
       float: left;
 }
 
+.box_right{
+  float: right;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 #recursos .sections > div > div:first-child {
     width: fit-content;
 }

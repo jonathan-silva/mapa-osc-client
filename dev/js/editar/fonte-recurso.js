@@ -3,7 +3,7 @@ class FonteRecurso {
 
   }
 
-  montarPorAno(ano, nao_possui, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
+  montarPorAno(ano, nao_possui, nao_possui_recursos_proprios, nao_possui_recursos_publicos, nao_possui_recursos_privados, nao_possui_recursos_nao_financeiros, index, recursos, util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem) {
     var recursos_publicos = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 1; });
     var recursos_privados = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 2; });
     var recursos_proprios = $.grep(fontesRecursos, function(o) { return o.cd_origem_fonte_recursos_osc == 4; });
@@ -102,19 +102,18 @@ class FonteRecurso {
 
     $("#recursos_geral-"+ano).append('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para este ano.</label></div>');
 
-    $("#recursos_proprios-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
-    $("#recursos_publicos-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
-    $("#recursos_privados-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
-    $("#recursos_nao_financeiros-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos para esta seção.</label></div>');
+    $("#recursos_proprios-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos próprios para este ano.</label></div>');
+    $("#recursos_publicos-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos públicos para este ano.</label></div>');
+    $("#recursos_privados-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos privados para este ano.</label></div>');
+    $("#recursos_nao_financeiros-"+ano).prepend('<div class="input-box checkbox"><label><input type="checkbox">Não possui recursos não financeiros para este ano.</label></div>');
 
-    if(nao_possui){
-      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', true);
-    }
-    else{
-      $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', false);
-    }
+    $('#recursos_geral-'+ano+' input[type="checkbox"]').prop('checked', nao_possui);
+    $('#recursos_proprios-'+ano+' input[type="checkbox"]').prop('checked', nao_possui_recursos_proprios);
+    $('#recursos_publicos-'+ano+' input[type="checkbox"]').prop('checked', nao_possui_recursos_publicos);
+    $('#recursos_privados-'+ano+' input[type="checkbox"]').prop('checked', nao_possui_recursos_privados);
+    $('#recursos_nao_financeiros-'+ano+' input[type="checkbox"]').prop('checked', nao_possui_recursos_nao_financeiros);
 
-    $('#recursos_geral-'+ano+' input[type="checkbox"]').change(function() {
+    $('#recursos input[type="checkbox"]').change(function() {
       if($(this).is(':checked')){
         $(this).prop('checked', true);
       }
@@ -122,6 +121,7 @@ class FonteRecurso {
         $(this).prop('checked', false);
       }
     });
+
   }
 
   carregaFontes(rotas){
@@ -150,7 +150,16 @@ class FonteRecurso {
     var fontesRecursos = this.carregaFontes(rotas);
     //console.log(json);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
-      this.montarPorAno(json.recursos.recursos[j].dt_ano_recursos_osc, json.recursos.recursos[j].bo_nao_possui, j, json.recursos.recursos[j], util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
+      this.montarPorAno(
+        json.recursos.recursos[j].dt_ano_recursos_osc,
+        json.recursos.recursos[j].bo_nao_possui,
+        json.recursos.recursos[j].bo_nao_possui_recursos_proprios,
+        json.recursos.recursos[j].bo_nao_possui_recursos_publicos,
+        json.recursos.recursos[j].bo_nao_possui_recursos_privados,
+        json.recursos.recursos[j].bo_nao_possui_recursos_nao_financeiros,
+        j,
+        json.recursos.recursos[j],
+        util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
 
     // interacoes da selecao de anos

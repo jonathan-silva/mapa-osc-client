@@ -304,6 +304,39 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function checkbox_nao_possui(data){
+
+      $("#tx_sigla_osc").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui sigla</label></div>');
+      $("#tx_email").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui email</label></div>');
+      $("#tx_site").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui site</label></div>');
+
+      var dados_gerais = util.validateObject(data.dados_gerais, 0);
+      $("#tx_sigla_osc").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_sigla_osc);
+      $("#tx_email").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_email);
+      $("#tx_site").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_site);
+
+      $('#dados_gerais .box_right input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
+      $("#tx_link_estatuto_osc").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui link para o estatuto da OSC</label></div>');
+
+      var descricao = util.validateObject(data.descricao, 0);
+      $("#tx_link_estatuto_osc").parent().parent().find('input[type="checkbox"]').prop('checked', descricao.bo_nao_possui_link_estatuto_osc);
+
+      $('#descricao input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
       $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
       var certificacoes = util.validateObject(data.certificado, 0);
       $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
@@ -352,6 +385,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).prop('checked', false);
         }
       });
+
     }
 
     function metasObjetivosOsc(data, Checkbox){
@@ -538,6 +572,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
+
+      $("#projetos .sections h2").parent().append('<div class="input-box checkbox pro"><label><input type="checkbox">Não possui projetos, atividades e programas</label></div>');
+
+      var porjetos = util.validateObject(data.projetos, 0);
+      $('#projetos .pro input[type="checkbox"]').prop('checked', projetos.bo_nao_possui_projetos);
+
+      $('#projetos .pro input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
       $( "#lista_projetos" ).append( '<table id="table_lista_projetos" class="table-striped"></table>' );
 
       var newData = projetosArray[1];
@@ -1364,6 +1413,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
       });
 
+      newJson["bo_nao_possui_sigla_osc"] = $("#tx_sigla_osc").parent().parent().find('input[type="checkbox"]').is(':checked');
+      newJson["bo_nao_possui_email"] = $("#tx_email").parent().parent().find('input[type="checkbox"]').is(':checked');
+      newJson["bo_nao_possui_site"] = $("#tx_site").parent().parent().find('input[type="checkbox"]').is(':checked');
+
       newJson["objetivo_metas"] = [];
       $("#objetivosOsc-metas :input:checkbox").each(function(){
         if($(this).prop("checked")){
@@ -1446,6 +1499,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#descricao textarea").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
+
+      newJson["bo_nao_possui_link_estatuto_osc"] = $("#tx_link_estatuto_osc").parent().parent().find('input[type="checkbox"]').is(':checked');
+
       success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
 
       //Certificacoes
