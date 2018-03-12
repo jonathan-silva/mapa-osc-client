@@ -38,7 +38,7 @@
             <img src="img/camera.jpg" class="img-rounded media-object logoOSC">
           </div>
           <div ng-if="(ctrl.osc.cabecalho.im_logo != null && ctrl.osc.cabecalho.im_logo !='' )" class="divImg col-xs-6 col-sm-4">
-            <img src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
+            <img ng-src="{{ctrl.osc.cabecalho.im_logo}}" class="img-rounded media-object logoOSC">
           </div>
           <div class="cabecalho col-xs-6 col-sm-8">
             <h2>{{ctrl.osc.cabecalho.tx_razao_social_osc}}
@@ -178,7 +178,8 @@
               </div>
               <div class="form-group">
                 <label>Site:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
+                <span ng-if="(ctrl.osc.dados_gerais.tx_site == null || ctrl.osc.dados_gerais.tx_site == '' )" class="form-control-static">Não informado</span>
+                <a ng-if="(ctrl.osc.dados_gerais.tx_site != null && ctrl.osc.dados_gerais.tx_site != '' )" class="btn-link" href='{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:""}}' target="_blank" title="Link Externo">{{ctrl.osc.dados_gerais.tx_site | limitTo:80}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_site != 'Representante' && ctrl.osc.dados_gerais.ft_site != null)" title="Informação oficial. {{ctrl.osc.dados_gerais.ft_site}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                 <span ng-if="(ctrl.osc.dados_gerais.ft_site == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
@@ -295,7 +296,8 @@
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
-                  <span class="form-control-static">{{(ctrl.osc.descricao.tx_link_estatuto_osc)?ctrl.osc.descricao.tx_link_estatuto_osc:"Não informado"}}</span>
+                  <span ng-if="(ctrl.osc.descricao.tx_link_estatuto_osc == null || ctrl.osc.descricao.tx_link_estatuto_osc == '' )" class="form-control-static">Não informado</span>
+                  <a ng-if="(ctrl.osc.descricao.tx_link_estatuto_osc != null && ctrl.osc.descricao.tx_link_estatuto_osc != '' )" class="btn-link" href='{{(ctrl.osc.descricao.tx_link_estatuto_osc)?ctrl.osc.descricao.tx_link_estatuto_osc:""}}' target="_blank" title="Link Externo">{{ctrl.osc.descricao.tx_link_estatuto_osc | limitTo:80}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                   <span ng-if="(ctrl.osc.descricao.ft_link_estatuto_osc != 'Representante' && ctrl.osc.descricao.ft_link_estatuto_osc != null)" title="Informação oficial. {{ctrl.osc.descricao.ft_link_estatuto_osc}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                   <span ng-if="(ctrl.osc.descricao.ft_link_estatuto_osc == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
               </div>
@@ -619,7 +621,7 @@
                         <div class="header ">Link para o projeto</div>
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
-                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='http://{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                             <span ng-if="(proj.ft_link_projeto != 'Representante' && proj.ft_link_projeto != null)" title="Informação oficial. {{proj.ft_link_projeto}}"><img class="imgDadoOficial" src="img/base_dados.png"></span>
                             <span ng-if="(proj.ft_link_projeto == 'Representante')" title="Informação preenchida pela Organização"><img class="imgDadoEditavel" src="img/dado_representante.png"></span>
                         </div>
