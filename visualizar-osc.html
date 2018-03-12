@@ -190,10 +190,11 @@
               </div>
               <div class="form-group">
                 <label>Site:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_site)?ctrl.osc.dados_gerais.tx_site:"Não informado"}}</span>
+                <span ng-if="(ctrl.osc.dados_gerais.tx_site == null || ctrl.osc.dados_gerais.tx_site == '')"  class="form-control-static">Não informado</span>
+                <a ng-if="(ctrl.osc.dados_gerais.tx_site != null && ctrl.osc.dados_gerais.tx_site != '' )" class="btn-link" href='{{ctrl.osc.dados_gerais.tx_site | verificarLink}}' target="_blank" title="Link Externo">{{ctrl.osc.dados_gerais.tx_site | limitTo:80}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                 <span ng-if="ctrl.osc.dados_gerais.ft_site && ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site  | icon_title }}">
                		<img class="{{ctrl.osc.dados_gerais.ft_site | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_site | icone}}">
-           		</span>
+           		  </span>
               </div>
               <div class="form-group">
                 <label>Telefone:</label>
