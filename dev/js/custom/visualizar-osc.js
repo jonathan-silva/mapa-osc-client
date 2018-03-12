@@ -190,6 +190,18 @@ controller.filter('icon_class', function() {
   };
 });
 
+controller.filter('verificarLink', function() {
+	return function(input) {
+		if(input !== null && input !== undefined && input !== ""){
+	  	var link = input;
+			if(!input.startsWith("http")){
+				link = "http://" + input;
+			}
+			return link;
+		}
+		return "";
+	};
+});
 
 function abrirProjeto(e) {
 	var id = $(e).attr("data");
