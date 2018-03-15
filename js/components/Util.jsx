@@ -129,6 +129,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
           </td>
           <td className="data_inicio_validade_titulo_certificado">{this.props.data_inicio}</td>
           <td className="data_fim_validade_titulo_certificado">{this.props.data_validade}</td>
+          <td className="local_titulo_certificado" data-cod={this.props.uf_mun_certificado} >{this.props.local_certificado}</td>
           <td>
             {botaoRemover}
           </td>
@@ -159,6 +160,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Título/Certificado</th>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Início da Validade</th>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Fim da Validade</th>
+                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Localidade</th>
                 <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"></th>
               </tr>
             </thead>
@@ -169,6 +171,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
                     nome_titulo={titulo.tx_nome_certificado}
                     data_validade={titulo.dt_fim_certificado}
                     data_inicio={titulo.dt_inicio_certificado}
+                    local_certificado={titulo.tx_local_certificado}
+                    uf_mun_certificado={titulo.cd_uf_mun_certificado}
                     fonte={titulo.ft_certificado}
                     id={index}
                     remove_titulo={function_remove_titulo}
@@ -206,6 +210,12 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
                   <input maxLength="10" className="form-control date"  id="novo_titulo_certificacao_data" placeholder="Data fim da validade" type="text" ></input>
                 </div>
               </td>
+              <td>
+                <div className="input-box">
+                  <input maxLength="100" className="form-control  ui-autocomplete-input"  id="novo_titulo_certificacao_local" placeholder="Estado/Município" type="text" ></input>
+                  <input className="form-control"  id="cd_uf_mun_titulo_certificacao" type="hidden"></input>
+                </div>
+              </td>
               <td><button type="button" className="btn btn-primary" onClick={this.props.inclui_novo_titulo}> Adicionar </button></td>
              </tr>
              </tbody>
@@ -221,7 +231,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
         return (
           <div>
            <select id="idSelectTitulosCertificados" className="form-control">
-            <option value={-1} selected>Selecione uma opção...</option>
+            <option value={"Estadual"} selected>Selecione uma opção...</option>
             {
              this.props.list.map(function(item){
                 return <option value={item}>{item}</option>
@@ -256,6 +266,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
        document.getElementById('idSelectTitulosCertificados').value = "";
        document.getElementById('novo_titulo_certificacao_data').value = "";
        document.getElementById('novo_titulo_certificacao_data_inicio').value = "";
+       document.getElementById('novo_titulo_certificacao_local').value = "";
+       document.getElementById('cd_uf_mun_titulo_certificacao').value = "";
     },
 
     //handler do botão "Incluir novo Título" - toggle visibility
@@ -277,6 +289,8 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       var data_inicio_titulo = (document.getElementById('novo_titulo_certificacao_data_inicio').value) ? document.getElementById('novo_titulo_certificacao_data_inicio').value : "Não informado" ;
       var data_fim_titulo = document.getElementById('novo_titulo_certificacao_data').value;
       var tipo_titulo = document.getElementById('idSelectTitulosCertificados').value;
+      var local_certificado = document.getElementById('novo_titulo_certificacao_local').value;
+      var uf_mun_certificado = document.getElementById('cd_uf_mun_titulo_certificacao').value;
       // push do novo título
 
       if((data_inicio_titulo && tipo_titulo) && (tipo_titulo != -1)){
@@ -285,7 +299,9 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
                                     dt_inicio_certificado: data_inicio_titulo,
                                     dt_fim_certificado: data_fim_titulo,
                                     ft_certificado:  "Representante de OSC",
-                                    tx_nome_certificado: tipo_titulo
+                                    tx_nome_certificado: tipo_titulo,
+                                    tx_local_certificado: local_certificado,
+                                    cd_uf_mun_certificado: uf_mun_certificado
                                     //id: "NovoTitulo_" + Math.random()
                                 });
         $("#tabela_titulos_certificados").DataTable().destroy(); // Destroy datatable para gerar nova com base na nova lista atualizada

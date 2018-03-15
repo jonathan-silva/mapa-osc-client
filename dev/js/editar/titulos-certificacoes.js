@@ -19,6 +19,8 @@ class TitulosCertificacoes {
     });
   }
 
+
+
   montarTitulosCertificacoes(json, util, React, ReactDOM, FormItem, AgrupadorTitulosCertificacoes, NovoTituloCertificacao){
     var headerPriority = '2';
     var res = [];

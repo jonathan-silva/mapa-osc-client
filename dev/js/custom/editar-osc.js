@@ -338,7 +338,54 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
+
       var certificacoes = util.validateObject(data.certificado, 0);
+
+    $("#novo_titulo_certificacao_botao").click(function(){
+
+      $('#idSelectTitulosCertificados').change(function(){
+        var routes="";
+        var abrang=$('#idSelectTitulosCertificados')[0].value.toLowerCase();
+        var limiteAutocomplete = 10;
+        var limiteAutocompleteCidade = 25;
+
+        $('#novo_titulo_certificacao_local').autocomplete({
+          minLength: 3,
+          source: function (request, response) {
+
+            if ( util.contains('municipal',abrang) ){
+              routes = rotas.AutocompleteOSCByCounty(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade);
+            }
+            else if ( util.contains('estadual',abrang) || (abrang == '-1')  ){
+              routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
+            }
+            if ( routes != "" ) {
+              var data = ajaxAutoComplete(urlController, routes, false);
+              response($.map( data, function( item ) {
+                if ( util.contains('municipal',abrang) ) {
+                   return {
+                      label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                      value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                      id: item.edmu_cd_municipio
+                  }
+                }
+                else if ( util.contains('estadual',abrang)  || (abrang == '-1') ) {
+                  return {
+                      label: item.eduf_nm_uf,
+                      value: item.eduf_nm_uf,
+                      id: item.eduf_cd_uf
+                  }
+                }
+              }))
+            }
+          },
+          select: function( event, ui ) {
+            $("#cd_uf_mun_titulo_certificacao").val(ui.item.id);
+        }
+       })
+      })
+    });
+
       $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
 
       $('#certificacoes input[type="checkbox"]').change(function() {
@@ -1540,6 +1587,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             break;
         }
 
+
         var item = {};
         var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
         //item.dt_inicio_certificado = null;
@@ -1549,8 +1597,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         item.ft_certificado = fonte_dados//authHeader.User;
         item.ft_inicio_certificado = fonte_dados//authHeader.User;
         item.ft_fim_certificado = fonte_dados//authHeader.User;
+        item.ft_local_certificado = fonte_dados//authHeader.User;
         item.cd_certificado = cd_certificado;
+        if (cd_certificado == 7) {
+          item.cd_uf = $(".local_titulo_certificado",this).attr("data-cod");
+        }
+        else if (cd_certificado == 8) {
+          item.cd_municipio = $(".local_titulo_certificado",this).attr("data-cod");
+        }
+
         item.id_certificado = $(this).prop("id");
+        console.log(item);
 
         if(cd_certificado > 0){
           newJson.certificado.push(item);
@@ -1932,6 +1989,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
      });
    }
+
+   function localizacaoTit(abrangencia){
+
+  }
 
    function validaCNPJ(cnpj) {
      cnpj = cnpj.toString().replace(/[^\d]+/g,"");
