@@ -289,6 +289,15 @@ class Rotas{
     return this.getBaseUrlCMS()+"/conteudoMroscByID/"+id;
   }
 
+  ModuloBySlug(slug){
+    return this.getBaseUrlCMS()+"/ModuloBySlug/"+slug;
+  }
+  ModuloByTipo(tipo){
+    return this.getBaseUrlCMS()+"/ModuloByTipo/"+tipo;
+  }
+  ModuloByID(tipo){
+    return this.getBaseUrlCMS()+"/ModuloByID/"+tipo;
+  }
   //FIM CMS
 
 
