@@ -547,7 +547,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if (util.validateObject(newData[i])) {
           var res = projeto.carregaProjeto(newData[i][0], dadosForm, rotas, util, false);
           var fonte =res.projeto.projeto[0].ft_nome_projeto;
-          if (fonte == 'Representante de OSC'){
+          if (fonte == 'Representante de OSC' || fonte == 'Representante'){
           $(this).append(
            '<button id="id_botao-projeto" attr="'+newData[i][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
           );
@@ -685,7 +685,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               var res = projeto.carregaProjeto(newData[i+ct_pag][0], dadosForm, rotas, util, false);
               var fonte =res.projeto.projeto[0].ft_nome_projeto;
 
-              if (fonte == 'Representante de OSC'){
+              if (fonte == 'Representante de OSC' || fonte == 'Representante'){
                 $(this).append(
                  '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
@@ -716,7 +716,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           var res = projeto.carregaProjeto(id_proj, dadosForm, rotas, util, novo);
           var fonte = res.projeto ? res.projeto.projeto[0].ft_nome_projeto : "";
-          if (fonte == 'Representante de OSC'){
+          if (fonte == 'Representante de OSC' || fonte == 'Representante'){
             success = util.carregaAjax(rotas.RemoverProjectByID(id_proj,idOsc), 'POST', newJson);
             //console.log(success);
             if (success.msg == "Projeto excluído.") {
@@ -1487,7 +1487,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var item = {};
         var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
         //item.dt_inicio_certificado = null;
-        item.bo_oficial = (fonte_dados == "Representante de OSC") ? false : true;
+        item.bo_oficial = (fonte_dados == "Representante de OSC" || fonte_dados == "Representante" ) ? false : true;
         item.dt_inicio_certificado = ($(".data_inicio_validade_titulo_certificado",this).text() != 'Não informado') ? $(".data_inicio_validade_titulo_certificado",this).text() : '' ;
         item.dt_fim_certificado = $(".data_fim_validade_titulo_certificado",this).text();
         item.ft_certificado = fonte_dados//authHeader.User;
@@ -1523,10 +1523,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if ((i % 2)==0){
               item.id_dirigente = $(this).attr("id") ? $(this).attr("id") : null;
               item.tx_nome_dirigente = $(this)[0].value;
-              item.ft_nome_dirigente = "Representante de OSC"; //authHeader.User;
+              item.ft_nome_dirigente = "Representante"; //authHeader.User;
             } else {
               item.tx_cargo_dirigente = $(this)[0].value;
-              item.ft_cargo_dirigente = "Representante de OSC"; //authHeader.User;
+              item.ft_cargo_dirigente = "Representante"; //authHeader.User;
               newJson.governanca.push(item);
               item = {};
             }

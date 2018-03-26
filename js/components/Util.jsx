@@ -110,7 +110,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
       var titleSpanFonte = "Informação preenchida pela Organização";
       var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={this.props.fonte}><img className="imgDadoEditavel" title={titleSpanFonte} src="img/dado_representante.png"></img></span>
       var botaoRemover = <button type="button" className="remove_titulo_certificacao btn btn-danger" data={this.props.id} href="#" onClick={this.props.remove_titulo.bind(this,this.props.id)} >Remover</button>
-      if(this.props.fonte != 'Representante de OSC' && this.props.fonte != null && this.props.fonte != false){
+      if(this.props.fonte != 'Representante' && this.props.fonte != 'Representante de OSC' && this.props.fonte != null && this.props.fonte != false){
         botaoRemover = ""
         titleSpanFonte = "Informação oficial, Fonte " + this.props.fonte;
         SpanFonte = <span className="fonte-de-dados dado-oficial" title={this.props.fonte}><img className="imgDadoOficial"  title={titleSpanFonte} src="img/base_dados.png"></img></span>
@@ -284,7 +284,7 @@ define('componenteTitulosCertificacoes', ['react','componenteDropdown'], functio
         nova_lista_titulos.push({
                                     dt_inicio_certificado: data_inicio_titulo,
                                     dt_fim_certificado: data_fim_titulo,
-                                    ft_certificado:  "Representante de OSC",
+                                    ft_certificado:  "Representante",
                                     tx_nome_certificado: tipo_titulo
                                     //id: "NovoTitulo_" + Math.random()
                                 });
@@ -639,7 +639,7 @@ define('componenteFormItem', ['react','componenteDropdown', 'componenteDropdownD
         }
         var titleSpanFonte = "Informação preenchida pela Organização";
         var SpanFonte = <span className="fonte-de-dados dado-organizacao" title={titleSpanFonte}><img className="imgDadoEditavel" src="img/dado_representante.png"></img></span>
-        if(item.fonte != 'Representante de OSC' && item.fonte != null && item.fonte != false){
+        if(item.fonte != 'Representante' &&  item.fonte != 'Representante de OSC' && item.fonte != null && item.fonte != false){
           //console.log(item);
           titleSpanFonte = "Informação oficial, Fonte " + item.fonte;
           SpanFonte = <span className="fonte-de-dados dado-oficial" title={titleSpanFonte}><img className="imgDadoOficial" src="img/base_dados.png"></img></span>
@@ -1282,7 +1282,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.title != 'Representante de OSC') && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
+            if ( (item.title != 'Representante' && item.title != 'Representante de OSC') && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -1295,7 +1295,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea maxLength="500" className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.title != 'Representante de OSC') && (id === "tx_descricao_projeto") /*&& (content)*/ ){
+          if ( (item.title != 'Representante' && item.title != 'Representante de OSC') && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
               <textarea maxLength="500" className="form-control" defaultValue={content} disabled></textarea>
@@ -1330,7 +1330,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             </div>
             ;
             if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
-              if (item.title != "Representante de OSC"){
+              if (item.title != 'Representante' && item.title != "Representante de OSC"){
               InputElement =
                 <div id={id}>
                   <span className="form-control">{content}</span>
@@ -1389,7 +1389,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         if(header === undefined){
           header = "";
         }
-        if((inputs[0].title === "Representante de OSC") || (inputs[0].title === null) || (inputs[0].title === undefined)){
+        if((inputs[0].title === "Representante") || inputs[0].title === "Representante de OSC") || (inputs[0].title === null) || (inputs[0].title === undefined)){
           className = "imgDadoEditavel";
           src = "img/dado_representante.png";
         }
@@ -1403,7 +1403,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           if(header === "Valor Total"){
             var title = item.inputs[0].title;
             //console.log(title);
-            if ((title != null) || (title != "Representante de OSC")) {
+            if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o valor total para o PAP.">{header+" "}
@@ -1417,7 +1417,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         if(header === "Valor Recebido"){
           var title = item.inputs[0].title;
           //console.log(title);
-          if ((title != null) || (title != "Representante de OSC")) {
+          if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
           ContainerElement =
             <div className={containerClass}>
               <div className="header"  title="Indique o valor efetivamente recebido para o PAP.">{header+" "}
@@ -1439,7 +1439,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Data de Início"){
               var title = item.inputs[0].title;
-              if ((title != null) || (title != "Representante de OSC")) {
+              if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header" title="Indique a data de início do projeto."> {header+" "}
@@ -1452,7 +1452,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Data de Fim"){
               var title = item.inputs[0].title;
-              if ((title != null) || (title != "Representante de OSC")) {
+              if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header" title="Indique a data de fim do projeto.">{header+" "}
@@ -1465,7 +1465,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Total de Beneficiários"){
               var title = item.inputs[0].title;
-              if ((title != null) || (title != "Representante de OSC")) {
+              if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header" title="Indique a estimativa de pessoas diretamente beneficiadas pelo PAP.">{header+" "}
@@ -1496,7 +1496,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
                 <FormInputProjeto dados={inputs}></FormInputProjeto>
                 {ButtonElement}
               </div>
-            if ((title != null) || (title != "Representante de OSC")) {
+            if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique o(s) município, estado ou região de execução do projeto.">{header}
@@ -1509,7 +1509,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Fontes de Recursos"){
             var title = item.inputs[0].title;
-            if ((title != null) || (title != "Representante de OSC")) {
+            if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
             ContainerElement =
               <div className={containerClass}>
                 <div className="header">{header+" "}
@@ -1522,7 +1522,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Nome do projeto, atividade ou programa"){
               var title = item.inputs[0].title;
-              if ((title != null) || (title != "Representante de OSC")) {
+              if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
               ContainerElement =
                 <div className={containerClass}>
                   <div className="header">{header+" "}
@@ -1536,7 +1536,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
 
         if(header === "Situação do projeto"){
            var title = item.inputs[0].title;
-           if ((title != null) || (title != "Representante de OSC")) {
+           if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
            ContainerElement =
              <div className={containerClass}>
                <div className="header">{header+" "}
@@ -1580,7 +1580,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Descrição do Projeto, atividade e/ou programa"){
             var title = item.inputs[0].title;
-            if ((title != null) || (title != "Representante de OSC")) {
+            if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Descrição resumida do que é e os objetivos do projeto, atividade ou programa">{header+" "}
@@ -1593,7 +1593,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           }
           if(header === "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa"){
             var title = item.inputs[0].title;
-            if ((title != null) || (title != "Representante de OSC")) {
+            if ((title != null) || (title != "Representante de OSC") || (title != "Representante")) {
             ContainerElement =
               <div className={containerClass}>
                 <div className="header" title="Indique qual metodologia foi usada.">{header+" "}
