@@ -73,12 +73,12 @@ require(['react', 'jsx!components/Util'], function (React) {
       },
       {
       "topico":"Cadastro Nacional de Entidades Sociais (CNES)",
-      "desc": ["Instrumento criado pela Portaria nº 24, de 2007, do Ministério da Justiça para registrar as OSCs que tinham os títulos concedidos pela pasta – a saber, Organizações da Sociedade Civil de Interesse Público (OSCIP), Utilidade Pública Federal (UPF) e Organizações Estrangeiras (OEs). O principal objetivo do CNES era receber os relatórios de atividades das entidades tituladas como UPF e emitir a denominada certidão de regularidade de \"prestação de contas\". Contudo, os títulos de UPF foram revogados e as entidades não devem mais apresentar os seus relatórios de atividades.",
+      "desc": ["É o instrumento criado pela Portaria nº 24, de 2007, do Ministério da Justiça para registrar as OSCs que tinham os títulos concedidos pela pasta – a saber, Organizações da Sociedade Civil de Interesse Público (OSCIP), Utilidade Pública Federal (UPF) e Organizações Estrangeiras (OEs). O principal objetivo do CNES era receber os relatórios de atividades das entidades tituladas como UPF e emitir a denominada certidão de regularidade de \"prestação de contas\". Contudo, os títulos de UPF foram revogados e as entidades não devem mais apresentar os seus relatórios de atividades.",
                "Em virtude dessas mudanças na legislação, o CNES foi definitivamente desativado pela Portaria nº 362, de 2016. Para dar ampla transparência e garantir o acesso à informação contida anteriormente nesse cadastro, a norma prevê a exportação de todos os seus dados para o Mapa das Organizações da Sociedade Civil. Os dados do extinto CNES estão disponíveis para download na seção Base de dados em formato apropriado para a realização de análises e estudos sobre eles."]
       },
       {
       "topico":"Cadastro Nacional de Estabelecimentos de Saúde (CNES-MS)",
-      "desc": ["Instrumento instituído pela Portaria MS/SAS Nº 376, de 03 de outubro de 2000, tem como missão cadastrar todos os estabelecimentos de saúde: públicos, conveniados e privados, seja pessoa física, seja  jurídica, que realizam qualquer tipo de serviço de atenção à saúde no âmbito do território nacional. O objetivo é propiciar ao gestor público ou privado, de forma simples o conhecimento real de sua rede assistencial, bem como sua capacidade instalada, tornando-se uma ferramenta de apoio para a tomada de decisão e planejamento de ações baseadas na visibilidade do mapeamento assistencial de saúde de seu território.",
+      "desc": ["É o instrumento instituído pela Portaria MS/SAS Nº 376, de 03 de outubro de 2000, tem como missão cadastrar todos os estabelecimentos de saúde: públicos, conveniados e privados, seja pessoa física, seja  jurídica, que realizam qualquer tipo de serviço de atenção à saúde no âmbito do território nacional. O objetivo é propiciar ao gestor público ou privado, de forma simples o conhecimento real de sua rede assistencial, bem como sua capacidade instalada, tornando-se uma ferramenta de apoio para a tomada de decisão e planejamento de ações baseadas na visibilidade do mapeamento assistencial de saúde de seu território.",
                "O cadastro considera \"estabelecimento de saúde\" o \"espaço físico, edificado ou móvel, privado ou público, onde são realizados ações e serviços de saúde, por pessoa física ou jurídica, e que possua responsável técnico, pessoal e infraestrutura compatível com a sua finalidade\"."]
       },
       {
@@ -97,7 +97,7 @@ require(['react', 'jsx!components/Util'], function (React) {
       },
       {
       "topico":"Classificação Nacional de Atividades Econômicas (CNAE)",
-      "desc": ["A Classificação Nacional de Atividades Econômicas - CNAE é a classificação oficial adotada pelo Sistema Estatístico Nacional do Brasil e pelos órgãos federais, estaduais e municipais gestores de registros administrativos e demais instituições do Brasil. A CNAE foi estruturada tendo como referência a International Standard Industrial Classification of All Economic Activities - ISIC das Nações Unidas e a gestão e manutenção da CNAE é de responsabilidade do IBGE, a partir das deliberações da Comissão Nacional de Classificação - Concla. A CNAE conta atualmente com 581 classes. A CNAE é o instrumento de padronização nacional dos códigos de atividade econômica e dos critérios de enquadramento utilizados pelos diversos órgãos da Administração Tributária do Brasil. Essa classificação aplica-se a empresas privadas ou públicas, organismos públicos e privados, instituições sem fins lucrativos e agentes autônomos (pessoa física)."]
+      "desc": ["A Classificação Nacional de Atividades Econômicas - CNAE é a classificação oficial adotada pelo Sistema Estatístico Nacional do Brasil e pelos órgãos federais, estaduais e municipais gestores de registros administrativos e demais instituições do Brasil. A CNAE foi estruturada tendo como referência a International Standard Industrial Classification of All Economic Activities - ISIC das Nações Unidas e a gestão e manutenção da CNAE é de responsabilidade do IBGE, a partir das deliberações da Comissão Nacional de Classificação - Concla. A CNAE conta atualmente com 581 classes e é o instrumento de padronização nacional dos códigos de atividade econômica e dos critérios de enquadramento utilizados pelos diversos órgãos da Administração Tributária do Brasil. Essa classificação aplica-se a empresas privadas ou públicas, organismos públicos e privados, instituições sem fins lucrativos e agentes autônomos (pessoa física)."]
       },
       {
       "topico":"Comissão de Monitoramento e Avaliação",
@@ -121,7 +121,7 @@ require(['react', 'jsx!components/Util'], function (React) {
       },
       {
       "topico":"Chamamento Público",
-      "desc": ["É o procedimento destinado a selecionar as Organizações da sociedade civil para firmar parceria por meio de termo de colaboração ou de fomento, no qual se garanta a observância dos princípios da isonomia, da legalidade, da impessoalidade, da moralidade, da igualdade, da publicidade, da probidade administrativa, da vinculação ao instrumento convocatório, do julgamento objetivo e dos que lhes são correlatos."]
+      "desc": ["É o procedimento destinado a selecionar as Organização da Sociedade Civil para firmar parceria por meio de termo de colaboração ou de fomento, no qual se garanta a observância dos princípios da isonomia, da legalidade, da impessoalidade, da moralidade, da igualdade, da publicidade, da probidade administrativa, da vinculação ao instrumento convocatório, do julgamento objetivo e dos que lhes são correlatos."]
       },
       {
       "topico":"Contrapartida",
@@ -146,7 +146,7 @@ require(['react', 'jsx!components/Util'], function (React) {
       },
       {
       "topico":"Empresas Públicas e Sociedades de Economia Mista",
-      "desc": ["É a pessoa jurídica de direito privado, constituída por capital exclusivamente público em qualquer uma das modalidades empresariais. São exemplos de empresas públicas brasileiras: Caixa Econômica Federal (CEF), Banco Nacional de Desenvolvimento Econômico e Social (BNDES), Serviço Federal de Processamento de Dados (Serpro), Empresa Brasileira de Correios e Telégrafos (ou Correios) ea Empresa Brasil de Comunicação (EBC).",
+      "desc": ["É a pessoa jurídica de direito privado, constituída por capital exclusivamente público em qualquer uma das modalidades empresariais. São exemplos de empresas públicas brasileiras: Caixa Econômica Federal (CEF), Banco Nacional de Desenvolvimento Econômico e Social (BNDES), Serviço Federal de Processamento de Dados (Serpro), Empresa Brasileira de Correios e Telégrafos (ou Correios) e a Empresa Brasil de Comunicação (EBC).",
                "Já a Sociedade de Economia Mista é a pessoa jurídica de direito privado, constituída por capital público e privado. A parte do capital público deve ser maior, pois a maioria das ações deve estar sob o controle do Poder Público. Somente poderá ser constituída na forma de sociedade anônima. O Banco do Brasil, a Petrobras, e o Banco do Nordeste são exemplos de Sociedades de Economia Mista brasileiras."]
       },
       {
@@ -205,7 +205,7 @@ require(['react', 'jsx!components/Util'], function (React) {
       },
       {
       "topico":"Mensalidades ou Contribuições de Associados",
-      "desc": ["As Organizações da Sociedade Civil são constituídas por um grupo de pessoas ligadas por uma causa ou objetivo comum, com vistas à transformação social. Esse corpo associativo, além de ser responsável pelas diretrizes e estratégicas da organização, muitas vezes contribui financeiramente para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo."]
+      "desc": ["As Organizações da Sociedade Civil são constituídas por um grupo de pessoas ligadas por uma causa ou objetivo comum, com vistas à transformação social. Esse corpo associativo, além de ser responsável pelas diretrizes estratégias da organização, muitas vezes contribui financeiramente para a sustentabilidade da organização, seja periodicamente (por meio de mensalidades ou anuidades, por exemplo) ou de outro modo."]
       },
       {
       "topico":"Monitoramento e Avaliação",
