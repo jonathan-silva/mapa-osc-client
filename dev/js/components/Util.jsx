@@ -1389,7 +1389,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         if(header === undefined){
           header = "";
         }
-        if((inputs[0].title === "Representante") || inputs[0].title === "Representante de OSC") || (inputs[0].title === null) || (inputs[0].title === undefined)){
+        if((inputs[0].title === "Representante") || (inputs[0].title === "Representante de OSC") || (inputs[0].title === null) || (inputs[0].title === undefined)){
           className = "imgDadoEditavel";
           src = "img/dado_representante.png";
         }
