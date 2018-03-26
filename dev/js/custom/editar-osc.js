@@ -1662,7 +1662,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length == 0){
           newJson.conselho = null;
         }
-        console.log(newJson);
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
@@ -1759,6 +1759,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+        if(Object.keys(newJson.conferencia).length == 0){
+          newJson.conferencia = null;
+        }
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
@@ -1773,16 +1777,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var split = $(this).attr("id").split("-");
             var campo = split[0];
             var val;
-            if (!($(this).val()=== "")) {
+            if (!($(this).val() === "")) {
               var obj = {};
               obj[campo]=$(this).val();
               newJson["outra"].push(obj);
             }
-            else {
-              newJson["outra"].push(null);
-            }
           });
         });
+
+        if(Object.keys(newJson.outra).length == 0){
+          newJson.outra = null;
+        }
+
         success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
 
         //Projetos
