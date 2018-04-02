@@ -41,7 +41,7 @@ require(["jquery-ui","rotas"], function (React) {
           for (var i in data[0].itens) {
             menu = parseInt(i)+1;
             if(data[0].itens[i].tx_titulo_itens != 'Final'){
-              menu_html += '<li><a href="#item_'+menu+'" name="item_'+menu+'" class="scroll">'+data[0].itens[i].tx_titulo_itens+'</a></li>';
+              menu_html += '<li><a href="#item_'+menu+'" class="scroll">'+data[0].itens[i].tx_titulo_itens+'</a></li>';
             }
 
             if(data[0].itens[i].tx_titulo_itens == 'Final'){
@@ -50,7 +50,7 @@ require(["jquery-ui","rotas"], function (React) {
               end_html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
 
             }else if(data[0].itens[i].tx_titulo_itens == 'Descrição das bases de dados'){
-              var pop_html = '<a id="#item_'+menu+'" href="#descricao_bases_dados" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="descricao_bases_dados" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Saiba mais sobre as descrições das bases de dados</a>';
+              var pop_html = '<a id="item_'+menu+'" name="item_'+menu+'" href="#descricao_bases_dados" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="descricao_bases_dados" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Saiba mais sobre as descrições das bases de dados</a>';
               pop_html += '<div class="collapse" id="descricao_bases_dados">';
               pop_html += '<div class="well">';
               pop_html += '<div class="row"><div class="col-md-12"><h4 class="subTitulo">'+data[0].itens[i].tx_titulo_itens+'</h4>';
@@ -58,7 +58,7 @@ require(["jquery-ui","rotas"], function (React) {
               pop_html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
             }
             else{
-              html += '<div class="row"><div class="col-md-12"><h4 id="#item_'+menu+'" class="subTitulo">'+data[0].itens[i].tx_titulo_itens+'</h4>';
+              html += '<div id="item_'+menu+'" name="item_'+menu+'" class="row"><div class="col-md-12"><h4 class="subTitulo">'+data[0].itens[i].tx_titulo_itens+'</h4>';
               html += '<div class="text-justify">'+data[0].itens[i].tx_descricao_itens+'</div>';
               html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
             }
