@@ -288,6 +288,10 @@ class Rotas{
   ConteudoMroscByID(id){
     return this.getBaseUrlCMS()+"/conteudoMroscByID/"+id;
   }
+  
+  ModuloLinks(){
+    return this.getBaseUrlCMS()+"/links";
+  }
 
   ModuloBySlug(slug){
     return this.getBaseUrlCMS()+"/ModuloBySlug/"+slug;

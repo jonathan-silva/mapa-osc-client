@@ -365,7 +365,7 @@ define('componenteLinksUteis', ['react'], function (React) {
                     {this.props.dados[i].titulo}</a>
                     <img className="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></img>
                     </h4>
-                  <p>{this.props.dados[i].desc}</p>
+                  <div dangerouslySetInnerHTML={{__html: this.props.dados[i].desc}}></div>
               </div>
           </li>
         );
