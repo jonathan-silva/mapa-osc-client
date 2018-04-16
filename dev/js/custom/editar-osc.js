@@ -350,7 +350,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var limiteAutocompleteCidade = 25;
 
         $('#novo_titulo_certificacao_local').autocomplete({
-          minLength: 3,
+          minLength: 2,
           source: function (request, response) {
 
             if ( util.contains('municipal',abrang) ){
@@ -1616,9 +1616,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
-      if(newJson['certificado'].length == 0){
-        newJson['certificado'] = null;
-      }
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
