@@ -33,12 +33,17 @@ require(['rotas',"jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
 
       if (data.length > 0){
 
-        var html = '<div id="accordion">';
+        var html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
+        html += '<div class="row"><div class="col-md-12"><div class="text-justify txtBloco">'+data[0].modulos.tx_descricao_modulo+'</div></div></div>';
+
+        html += '<div id="accordion">';
         var num = 0;
         for (var i in data[0].itens){
           num = parseInt(i)+1;
@@ -66,9 +71,12 @@ require(['rotas',"jquery-ui"], function (React) {
             $("#accordion").accordion("option","icons",icons);
           }
         });
-
-        $('.loading').addClass('hide');
       }
+      else{
+        $('.manutencao').css('display', 'block');
+      }
+
+      $('.loading').addClass('hide');
     }
   });
 

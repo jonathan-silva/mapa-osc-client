@@ -1234,4 +1234,11 @@ select{
   font-weight: bold;
 }
 
-desc_bd_txt
+.manutencao{
+  padding-top: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  display: none;
+  }

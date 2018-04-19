@@ -26,14 +26,15 @@ require(["jquery-ui","rotas"], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
-      var menu_html = "";
-      var html = "";
+
       if (data.length > 0){
 
-        menu_html += '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
-        html += '<div class="row"><div class="col-md-12"><div class="text-justify txtBloco">'+data[0].modulos.tx_descricao_modulo+'</div></div></div>';
+        var menu_html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
+        var html = '<div class="row"><div class="col-md-12"><div class="text-justify txtBloco">'+data[0].modulos.tx_descricao_modulo+'</div></div></div>';
 
         if(data[0].itens.length > 0){
           var menu = 0;
@@ -65,12 +66,15 @@ require(["jquery-ui","rotas"], function (React) {
           }
           menu_html += '</ul>';
         }
-      }
 
-      $('#metodologia').append(menu_html);
-      $('#metodologia').append(html);
-      $('#metodologia').append(pop_html);
-      $('#metodologia').append(end_html);
+        $('#metodologia').append(menu_html);
+        $('#metodologia').append(html);
+        $('#metodologia').append(pop_html);
+        $('#metodologia').append(end_html);
+      }
+      else{
+        $('.manutencao').css('display', 'block');
+      }
 
       $('.loading').addClass('hide');
 

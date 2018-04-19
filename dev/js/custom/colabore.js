@@ -33,12 +33,13 @@ require(["rotas","jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
-      var html = "";
       if (data.length > 0){
 
-        html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
+        var html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
         html += '<div class="row"><div class="col-md-12">'+data[0].modulos.tx_descricao_modulo+'</div></div>';
 
         if(data[0].itens.length > 0){
@@ -48,8 +49,11 @@ require(["rotas","jquery-ui"], function (React) {
             html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
           }
         }
+        $('#colabore').prepend(html);
       }
-      $('#colabore').prepend(html);
+      else{
+        $('.manutencao').css('display', 'block');
+      }    
       $('.loading').addClass('hide');
     }
   });

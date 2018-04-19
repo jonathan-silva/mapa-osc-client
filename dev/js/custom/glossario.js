@@ -33,12 +33,17 @@ require(['rotas',"jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
 
       if (data.length > 0){
 
-        var html = '<div class="col-md-12">';
+        var html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
+        html += '<div class="row"><div class="col-md-12"><div class="text-justify txtBloco">'+data[0].modulos.tx_descricao_modulo+'</div></div></div>';
+
+        html += '<div class="col-md-12">';
         html += '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
 
         for (var i in data[0].itens){
@@ -55,10 +60,12 @@ require(['rotas',"jquery-ui"], function (React) {
         }
 
         html += '</div></div>';
-
         $('#glossario').append(html);
-        $('.loading').addClass('hide');
       }
+      else{
+        $('.manutencao').css('display', 'block');
+      }
+      $('.loading').addClass('hide');
     }
   });
 

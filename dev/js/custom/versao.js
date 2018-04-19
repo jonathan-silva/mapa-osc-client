@@ -33,6 +33,8 @@ require(['rotas',"jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
 
@@ -70,9 +72,12 @@ require(['rotas',"jquery-ui"], function (React) {
             $("#accordion").accordion("option","icons",icons);
           }
         });
-
-        $('.loading').addClass('hide');
       }
+      else{
+        $('.manutencao').css('display', 'block');
+      }
+      $('.loading').addClass('hide');
+
     }
   });
 

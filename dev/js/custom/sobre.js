@@ -33,12 +33,13 @@ require(['rotas','jquery-ui'], function (React) {
     data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
-      var modulo_html = "";
       if (data.length > 0){
 
-        modulo_html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
+        var modulo_html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].modulos.tx_titulo_modulo+'</h1><hr></div></div>';
         modulo_html += '<div class="row"><div class="col-md-12"><div class="text-justify txtBloco">'+data[0].modulos.tx_descricao_modulo+'</div>';
         modulo_html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
 
@@ -49,8 +50,11 @@ require(['rotas','jquery-ui'], function (React) {
             modulo_html += '<a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div></div>';
           }
         }
+        $('#sobre').prepend(modulo_html);
       }
-      $('#sobre').prepend(modulo_html);
+      else{
+        $('.manutencao').css('display', 'block');
+      }
       $('.loading').addClass('hide');
     }
   });
