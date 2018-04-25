@@ -350,7 +350,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var limiteAutocompleteCidade = 25;
 
         $('#novo_titulo_certificacao_local').autocomplete({
-          minLength: 3,
+          minLength: 2,
           source: function (request, response) {
 
             if ( util.contains('municipal',abrang) ){
@@ -444,7 +444,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       var $divDadosGerais = $('#dados_gerais');
-      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU. Máximo três objetivos.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
+      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></label>');
       $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
       $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
 
@@ -474,17 +474,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function criarObjetivosOsc(data, objetivo_metas, objetivo, cd_objetivo, Checkbox){
       //console.log("Dados Gerais");
-      $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:</label>');
+      $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label>');
       $("#objetivosOsc-metas").append('<div id="objetivosOsc" class="objetivosOsc objetivosOsc-'+cd_objetivo+'"></div>');
       $(".objetivosOsc-"+cd_objetivo).append('<div class="form-group"><div id="objetivosOsc-'+cd_objetivo+'" for="'+cd_objetivo+'"><select class="form-control"></select></div></div>');
       $("#objetivosOsc-"+cd_objetivo).append('<div id="metasOsc-'+cd_objetivo+'" class="metasOsc"></div>');
 
       var $divMetasOsc = $("#objetivosOsc-metas").find("#metasOsc-"+cd_objetivo);
       if(cd_objetivo <= -1){
-        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto" style="display:none">Metas Relacionadas ao ODS definido:</label><br>');
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto" style="display:none">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
       }
       else{
-        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:</label><br>');
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
       }
       $divMetasOsc.append('<ol id="selectableOsc-'+cd_objetivo +'" class="selectable"></ol><br>');
 
@@ -599,7 +599,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('.objetivosOsc-'+id_cd_objetivo).removeClass('objetivosOsc-'+id_cd_objetivo).addClass('objetivosOsc-'+cd_objetivo);
           $('#metasOsc-'+id_cd_objetivo).remove();
           $(this).parent().append('<div id="metasOsc-'+cd_objetivo+'" class="metasOsc"></div>');
-          $('#metasOsc-'+cd_objetivo).append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</label><br>');
+          $('#metasOsc-'+cd_objetivo).append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
           $('#metasOsc-'+cd_objetivo).append('<ol id="selectableOsc-'+cd_objetivo +'" class="selectable"></ol><br>');
 
           if(parseInt(cd_objetivo) !== 0){
@@ -643,7 +643,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if (util.validateObject(newData[i])) {
           var res = projeto.carregaProjeto(newData[i][0], dadosForm, rotas, util, false);
           var fonte =res.projeto.projeto[0].ft_nome_projeto;
-          if (fonte == 'Representante de OSC'){
+          if (fonte == 'Representante de OSC' || fonte == 'Representante'){
           $(this).append(
            '<button id="id_botao-projeto" attr="'+newData[i][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'//+
           );
@@ -781,7 +781,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               var res = projeto.carregaProjeto(newData[i+ct_pag][0], dadosForm, rotas, util, false);
               var fonte =res.projeto.projeto[0].ft_nome_projeto;
 
-              if (fonte == 'Representante de OSC'){
+              if (fonte == 'Representante de OSC' || fonte == 'Representante'){
                 $(this).append(
                  '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
@@ -812,7 +812,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
           var res = projeto.carregaProjeto(id_proj, dadosForm, rotas, util, novo);
           var fonte = res.projeto ? res.projeto.projeto[0].ft_nome_projeto : "";
-          if (fonte == 'Representante de OSC'){
+          if (fonte == 'Representante de OSC' || fonte == 'Representante'){
             success = util.carregaAjax(rotas.RemoverProjectByID(id_proj,idOsc), 'POST', newJson);
             //console.log(success);
             if (success.msg == "Projeto excluído.") {
@@ -1134,7 +1134,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
       var $divObjetivosProjetoClone = $('#projeto-'+id).find("#objetivos-metas-"+cd_objetivo);
-      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></div>');
       $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos-'+cd_objetivo+'"><select class="form-control"></select></div></div>');
 
         var $selectObjetivos = $divObjetivosProjetoClone.find("select");
@@ -1165,7 +1165,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
-        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
           $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
@@ -1221,7 +1221,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       project.find('.botao-add-objetivo').remove();
       project.append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'_'+qtdOdsSecaoProjeto+'"</div>');
       var $divObjetivosProjetoClone = project.find("#objetivos-metas-"+cd_objetivo+'_'+qtdOdsSecaoProjeto);
-      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></div>');
       $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos_'+cd_objetivo+'_'+qtdOdsSecaoProjeto+'"><select class="form-control"></select></div></div>');
 
       var $selectObjetivos = $divObjetivosProjetoClone.find("select");
@@ -1266,7 +1266,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log("add_objetivo: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
-        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo+"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
           $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
@@ -1346,7 +1346,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-        $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $('#metas-'+cd_objetivo).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         $('#metas-'+cd_objetivo).append(''+
         '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar ODS</button>'+
@@ -1591,7 +1591,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var item = {};
         var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
         //item.dt_inicio_certificado = null;
-        item.bo_oficial = (fonte_dados == "Representante de OSC") ? false : true;
+        item.bo_oficial = (fonte_dados == "Representante de OSC" || fonte_dados == "Representante" ) ? false : true;
         item.dt_inicio_certificado = ($(".data_inicio_validade_titulo_certificado",this).text() != 'Não informado') ? $(".data_inicio_validade_titulo_certificado",this).text() : '' ;
         item.dt_fim_certificado = $(".data_fim_validade_titulo_certificado",this).text();
         item.ft_certificado = fonte_dados//authHeader.User;
@@ -1616,9 +1616,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
-      if(newJson['certificado'].length == 0){
-        newJson['certificado'] = null;
-      }
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
@@ -1636,10 +1634,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if ((i % 2)==0){
               item.id_dirigente = $(this).attr("id") ? $(this).attr("id") : null;
               item.tx_nome_dirigente = $(this)[0].value;
-              item.ft_nome_dirigente = "Representante de OSC"; //authHeader.User;
+              item.ft_nome_dirigente = "Representante"; //authHeader.User;
             } else {
               item.tx_cargo_dirigente = $(this)[0].value;
-              item.ft_cargo_dirigente = "Representante de OSC"; //authHeader.User;
+              item.ft_cargo_dirigente = "Representante"; //authHeader.User;
               newJson.governanca.push(item);
               item = {};
             }
@@ -1775,7 +1773,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         if(Object.keys(newJson.conselho).length == 0){
           newJson.conselho = null;
         }
-        console.log(newJson);
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConselho(idOsc), 'POST', newJson);
 
         // Conferência
@@ -1872,6 +1870,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         });
 
+        if(Object.keys(newJson.conferencia).length == 0){
+          newJson.conferencia = null;
+        }
+
         success = util.carregaAjax(rotas.ParticipacaoSocialConferencia(idOsc), 'POST', newJson);
 
         // Outros espaços
@@ -1886,16 +1888,18 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             var split = $(this).attr("id").split("-");
             var campo = split[0];
             var val;
-            if (!($(this).val()=== "")) {
+            if (!($(this).val() === "")) {
               var obj = {};
               obj[campo]=$(this).val();
               newJson["outra"].push(obj);
             }
-            else {
-              newJson["outra"].push(null);
-            }
           });
         });
+
+        if(Object.keys(newJson.outra).length == 0){
+          newJson.outra = null;
+        }
+
         success = util.carregaAjax(rotas.OutraParticipacaoSocial(idOsc), 'POST', newJson);
 
         //Projetos

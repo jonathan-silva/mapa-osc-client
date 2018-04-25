@@ -67,7 +67,7 @@ class Util {
     }
   }
 
-  AgrupadorDeInputs(id, containerClass, header, inputs, buttons, select, cc){
+  AgrupadorDeInputs(id, containerClass, header, inputs, buttons, select, cc, infoTitle){
     return{
       "id" : id,
       "containerClass" : containerClass,
@@ -75,7 +75,8 @@ class Util {
       "inputs" : inputs,
       "options" : select,
       "buttons" : buttons,
-      "custom_class": cc
+      "custom_class": cc,
+      "infoTitle":infoTitle
     };
   }
 
@@ -90,7 +91,7 @@ class Util {
     verificarContraste();
   }
 
-  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd, cc){
+  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd, cc, infoTitle){
     return {
       "id" : id,
       "content" : content,
@@ -102,7 +103,8 @@ class Util {
       "placeholder" : placeholder,
       "title": title,
       "cd": cd,
-      "cc": cc
+      "cc": cc,
+      "infoTitle":infoTitle
     };
   }
 

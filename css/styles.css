@@ -1233,6 +1233,10 @@ select{
 .desc_bd_txt ul > li, .li_titulo{
   font-weight: bold;
 }
+.header .glyphicon-info-sign{
+  margin-left: 3px;
+  margin-right: 3px;
+}
 
 .manutencao{
   padding-top: 40px;
