@@ -288,9 +288,13 @@ class Rotas{
   ConteudoMroscByID(id){
     return this.getBaseUrlCMS()+"/conteudoMroscByID/"+id;
   }
-  
+
   ModuloLinks(){
     return this.getBaseUrlCMS()+"/links";
+  }
+
+  ModuloEquipe(){
+    return this.getBaseUrlCMS()+"/equipes";
   }
 
   ModuloBySlug(slug){
