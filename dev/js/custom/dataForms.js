@@ -471,7 +471,7 @@ class DataForms{
           "id": "empregados",
           "label": "Empregados",
           "content": "Não constam informações nas bases de dados do Mapa.",
-          "fonte": "",
+          "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "p"
         },
@@ -479,7 +479,7 @@ class DataForms{
           "id": "deficiencia",
           "label": "Trabalhadores com deficiência",
           "content": "Não constam informações nas bases de dados do Mapa.",
-          "fonte": "",
+          "fonte": null,
           "placeholder": "Não constam informações nas bases de dados do Mapa.",
           "type": "p"
         },
@@ -487,7 +487,7 @@ class DataForms{
           "id": "voluntarios",
           "label": "Trabalhadores voluntários",
           "content": "",
-          "fonte": "",
+          "fonte": null,
           "placeholder": "Insira o número de voluntários",
           "type": "text"
         },
@@ -755,7 +755,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o nome do projeto",
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "tx_nome_status_projeto": {
         "header": "Situação do projeto",
@@ -763,7 +764,8 @@ class DataForms{
         "removable": false,
         "type": "select",
         "options": ["Arquivado, cancelado ou indeferido", "Proposta", "Projeto em andamento", "Finalizado", "Outro" ],
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "dt_data_inicio_projeto": {
         "header": "Data de Início",
@@ -772,7 +774,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira a data de início do projeto",
-        "infoTitle":"Indique a data de início do projeto"
+        "infoTitle":"Indique a data de início do projeto",
+        "fonte":null
       },
       "dt_data_fim_projeto": {
         "header": "Data de Fim",
@@ -781,7 +784,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o data de fim do projeto",
-        "infoTitle":"Indique a data de fim do projeto"
+        "infoTitle":"Indique a data de fim do projeto",
+        "fonte":null
       },
       "tx_link_projeto": {
         "header": "Link para o projeto",
@@ -790,7 +794,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o link do projeto",
-        "infoTitle":"Insira um link para a página do projeto, se houver"
+        "infoTitle":"Insira um link para a página do projeto, se houver",
+        "fonte":""
       },
       "nr_total_beneficiarios": {
         "header": "Total de Beneficiários",
@@ -799,7 +804,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o número total de beneficiários",
-        "infoTitle":"Indique a estimativa de pessoas diretamente beneficiadas pelo PAP"
+        "infoTitle":"Indique a estimativa de pessoas diretamente beneficiadas pelo PAP",
+        "fonte":null
       },
       "nr_valor_total_projeto": {
         "header": "Valor Total",
@@ -808,7 +814,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o valor total do projeto",
-        "infoTitle":"Indique o valor total para o PAP"
+        "infoTitle":"Indique o valor total para o PAP",
+        "fonte":null
       },
       "nr_valor_captado_projeto": {
         "header": "Valor Recebido",
@@ -817,7 +824,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira o valor recebido do projeto",
-        "infoTitle":"Indique o valor efetivamente recebido para o PAP"
+        "infoTitle":"Indique o valor efetivamente recebido para o PAP",
+        "fonte":null
       },
       "fonte_recursos": {
         "header": "Fontes de Recursos",
@@ -828,7 +836,8 @@ class DataForms{
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
         ],
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "fonte_de_recursos_publico": {
         "header": "Fontes de Recursos Públicos",
@@ -839,7 +848,8 @@ class DataForms{
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
         ],
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "financiador_projeto": {
         "header": "Financiadores do Projeto",
@@ -848,7 +858,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira a informação",
-        "infoTitle":"Liste os financiadores do projeto"
+        "infoTitle":"Liste os financiadores do projeto",
+        "fonte":null
       },
       "area_atuacao": {
         "header": "Áreas de atuação do projeto, atividade ou programa",
@@ -857,7 +868,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Selecione a área de atuação do projeto",
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
 
       "area_atuacao_outra": {
@@ -866,7 +878,8 @@ class DataForms{
         "removable": true,
         "type": "text",
         "options": null,
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "publico_beneficiado": {
         "header": "Público Beneficiado",
@@ -875,7 +888,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira a informação",
-        "infoTitle":"Qual o público beneficiado? Exemplos: Jovens, idosos, gestantes etc"
+        "infoTitle":"Qual o público beneficiado? Exemplos: Jovens, idosos, gestantes etc",
+        "fonte":null
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
@@ -885,7 +899,8 @@ class DataForms{
         "options": [
           "Municipal", "Estadual", "Regional", "Nacional"
         ],
-        "infoTitle":"Defina a abrangência territorial do projeto"
+        "infoTitle":"Defina a abrangência territorial do projeto",
+        "fonte":null
       },
       "localizacao_projeto": {
         "header": "Local de execução",
@@ -895,7 +910,8 @@ class DataForms{
         "options": null,
         "title":null,
         "placeholder": "Insira a informação",
-        "infoTitle":"Indique o(s) município, estado ou região de execução do projeto"
+        "infoTitle":"Indique o(s) município, estado ou região de execução do projeto",
+        "fonte":null
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
@@ -904,7 +920,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "placeholder": "Insira a informação",
-        "infoTitle":"Insira os CNPJ de OSCs Parceiras"
+        "infoTitle":"Insira os CNPJ de OSCs Parceiras",
+        "fonte":null
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",
@@ -914,7 +931,8 @@ class DataForms{
         "options": [
           "Rural", "Urbana"
         ],
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "tx_descricao_projeto": {
         "header": "Descrição do Projeto, atividade e/ou programa",
@@ -923,7 +941,8 @@ class DataForms{
         "type": "textarea",
         "options": null,
         "placeholder": "Descreva aqui qual sobre o que trata e qual o objetivo do projeto, atividade ou programa.",
-        "infoTitle":"Descrição resumida do que é e os objetivos do projeto, atividade ou programa"
+        "infoTitle":"Descrição resumida do que é e os objetivos do projeto, atividade ou programa",
+        "fonte":null
       },
       "tx_metodologia_monitoramento": {
         "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
@@ -932,7 +951,8 @@ class DataForms{
         "type": "textarea",
         "options": null,
         "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver.",
-        "infoTitle":"Indique qual metodologia foi usada"
+        "infoTitle":"Indique qual metodologia foi usada",
+        "fonte":null
       },
       "tipo_parceria": {
         "header": "Tipo de Parceria",
@@ -940,7 +960,8 @@ class DataForms{
         "removable": false,
         "type": "checkbox",
         "options": [ "Acordo de cooperação técnica","Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ],
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "objetivos": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
@@ -948,7 +969,8 @@ class DataForms{
         "removable": false,
         "type": "select",
         "options": null,
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       },
       "objetivo_meta": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
@@ -956,7 +978,8 @@ class DataForms{
         "removable": true,
         "type": "select",
         "options": null,
-        "infoTitle":""
+        "infoTitle":"",
+        "fonte":null
       }
     };
     return labelsProjeto;
@@ -968,32 +991,32 @@ class DataForms{
       "tx_identificador_projeto_externo": null,
       "ft_identificador_projeto_externo": null,
       "tx_nome_projeto": null,
-      "ft_nome_projeto": "Usuário",
+      "ft_nome_projeto": null,
       "cd_status_projeto": null,
       "tx_nome_status_projeto": null,
-      "ft_status_projeto": "Usuário",
+      "ft_status_projeto": null,
       "dt_data_inicio_projeto": null,
-      "ft_data_inicio_projeto": "Usuário",
+      "ft_data_inicio_projeto": null,
       "dt_data_fim_projeto": null,
-      "ft_data_fim_projeto": "Usuário",
+      "ft_data_fim_projeto": null,
       "tx_link_projeto": null,
-      "ft_link_projeto": "Usuário",
+      "ft_link_projeto": null,
       "nr_total_beneficiarios": null,
-      "ft_total_beneficiarios": "Usuário",
+      "ft_total_beneficiarios": null,
       "nr_valor_total_projeto": null,
-      "ft_valor_total_projeto": "Usuário",
+      "ft_valor_total_projeto": null,
       "nr_valor_captado_projeto": null,
-      "ft_valor_captado_projeto": "Usuário",
+      "ft_valor_captado_projeto": null,
       "tx_descricao_projeto": null,
-      "ft_descricao_projeto": "Usuário",
+      "ft_descricao_projeto": null,
       "tx_metodologia_monitoramento": null,
-      "ft_metodologia_monitoramento": "Usuário",
+      "ft_metodologia_monitoramento": null,
       "cd_abrangencia_projeto": null,
       "tx_nome_abrangencia_projeto": null,
-      "ft_abrangencia_projeto": "Usuário",
+      "ft_abrangencia_projeto": null,
       "cd_zona_atuacao_projeto": null,
       "tx_nome_zona_atuacao": null,
-      "ft_zona_atuacao_projeto": "Usuário",
+      "ft_zona_atuacao_projeto": null,
       "publico_beneficiado": [],
       "area_atuacao": [],
       "area_atuacao_outra": [],

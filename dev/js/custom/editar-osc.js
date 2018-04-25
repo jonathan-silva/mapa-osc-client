@@ -1634,10 +1634,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             if ((i % 2)==0){
               item.id_dirigente = $(this).attr("id") ? $(this).attr("id") : null;
               item.tx_nome_dirigente = $(this)[0].value;
-              item.ft_nome_dirigente = "Representante"; //authHeader.User;
+              item.ft_nome_dirigente = "Representante de OSC"; //authHeader.User;
             } else {
               item.tx_cargo_dirigente = $(this)[0].value;
-              item.ft_cargo_dirigente = "Representante"; //authHeader.User;
+              item.ft_cargo_dirigente = "Representante de OSC"; //authHeader.User;
               newJson.governanca.push(item);
               item = {};
             }

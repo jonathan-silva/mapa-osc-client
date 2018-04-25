@@ -1299,7 +1299,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <Dropdown list={options} selected={content}></Dropdown>
             </div>
             ;
-            if ( (item.title != 'Representante' && item.title != 'Representante de OSC') && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
+            if ( (item.fonte != 'Representante' && item.fonte != 'Representante de OSC' && item.fonte != null && item.fonte != "") && (id === "tx_nome_status_projeto") /*&& (content)*/ ) {
               InputElement =
               <div id={id}>
                 <span className="form-control">{content}</span>
@@ -1312,7 +1312,7 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
             <textarea maxLength="500" className="form-control" defaultValue={content} placeholder={placeholder}></textarea>
           </div>
           ;
-          if ( (item.title != 'Representante' && item.title != 'Representante de OSC') && (id === "tx_descricao_projeto") /*&& (content)*/ ){
+          if ( (item.fonte != 'Representante' && item.fonte != 'Representante de OSC' && item.fonte != null && item.fonte != "") && (id === "tx_descricao_projeto") /*&& (content)*/ ){
             InputElement =
             <div id={id}>
               <textarea maxLength="500" className="form-control" defaultValue={content} disabled></textarea>
@@ -1346,8 +1346,8 @@ define('componenteFormInputProjeto', ['react', 'componenteFormButtonProjeto', 'c
               <input maxLength="100" className={class_string} defaultValue={content} placeholder={placeholder}></input>
             </div>
             ;
-            if ( (item.title) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
-              if (item.title != 'Representante' && item.title != "Representante de OSC"){
+            if ( (item.fonte) && ( (id !="tx_link_projeto") && (id !="nr_total_beneficiarios") ) ) {
+              if (item.fonte != 'Representante' && item.fonte != "Representante de OSC" && item.fonte != null && item.fonte != ""){
               InputElement =
                 <div id={id}>
                   <span className="form-control">{content}</span>
@@ -1414,11 +1414,11 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           header = "";
         }
 
-        if(inputs[0].title === "Representante de OSC"){
+        if(inputs[0].fonte === "Representante de OSC"){
           className = "imgDadoEditavel";
           src = "img/dado_representante.png";
         }
-        else if((inputs[0].title === null) || (inputs[0].title === undefined)){
+        else if((inputs[0].fonte === null) || (inputs[0].fonte === undefined)){
           className = "";
           src = "";
         }
@@ -1430,7 +1430,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           iconVisivel = 'visible';
         }
 
-        var fonte = item.inputs[0].title;
+        var fonte = item.inputs[0].fonte;
 
         if ((fonte == "Representante de OSC")) {
             ContainerElement =

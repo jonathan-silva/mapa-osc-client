@@ -59,12 +59,12 @@ class Projeto {
     var projectId = project.id_projeto;
     var projet = util.validateObject(project.projeto,project);
     var project = util.validateObject(projet[0],projet);
-
-    var title = util.validateObject(project.ft_identificador_projeto_externo,"Representante");
+    var title;
+    var fonte = util.validateObject(project.ft_identificador_projeto_externo,null);
     var objetivo_meta = util.validateObject(project.objetivo_meta,null);
 
-    var fonte = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
-    fonte.dados = util.validateObject(project.fonte_recursos, []);
+    var fonteRec = this.getFonteDeRecursosProjeto(util.validateObject(project.fonte_recursos, []));
+    fonteRec.dados = util.validateObject(project.fonte_recursos, []);
 
     for (var property in project) {
       // Area de atuacao e oscs parceiras de projeto temporariamente escondidas
@@ -73,6 +73,7 @@ class Projeto {
 
           var sectionId = property;
           var value = project[property];
+          var fonte = project[property.replace(/tx_|dt_|nr_|cd_/g,'ft_')];
 
           var header = labelMap[property].header;
           var containerClass = labelMap[property].containerClass;
@@ -87,7 +88,7 @@ class Projeto {
 
           if((value === null) || (value.constructor !== Array)){
 
-            var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta, null, infoTitle);
+            var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, fonte, objetivo_meta, null, infoTitle);
             var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
             agrupadores.push(agrupadorInputProjeto);
           }
@@ -96,6 +97,7 @@ class Projeto {
       else if ((property == "tipo_parceria")) {
         var sectionId = property;
         var value = project[property];
+        var fonte = project[property.replace(/tx_|dt_|nr_|cd_/g,'ft_')];
 
         var header = labelMap[property].header;
         var containerClass = labelMap[property].containerClass;
@@ -107,7 +109,7 @@ class Projeto {
         var buttons = null;
         var buttonsInLine = false;
 
-        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null, null, infoTitle);
+        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, fonte, null, null, infoTitle);
         var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
         agrupadores.push(agrupadorInputProjeto);
       }
@@ -115,8 +117,13 @@ class Projeto {
 
     //console.log(agrupadores);
     if (project.hasOwnProperty("fonte_recursos")){
-      var sectionId = fonte.id;
-      var value = fonte.dados;
+      var sectionId = fonteRec.id;
+      var value = fonteRec.dados;
+      var fonte = null;
+      if(fonteRec.dados.length > 0){
+          fonte = fonteRec.dados[0].ft_fonte_recursos_projeto;
+      }
+
       var header = labelMap[sectionId].header;
       var containerClass = labelMap[sectionId].containerClass;
       var removable = labelMap[sectionId].removable;
@@ -124,10 +131,11 @@ class Projeto {
       var options = labelMap[sectionId].options;
       var placeholder = labelMap[sectionId].placeholder;
       var infoTitle = labelMap[property].infoTitle;
+
       var buttons = null;
       var buttonsInLine = false;
 
-      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null, null, infoTitle);
+      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, fonte, null, null, infoTitle);
       var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
       agrupadores.push(agrupadorInputProjeto);
 
@@ -257,7 +265,7 @@ class Projeto {
     if(object.dados.length === 0){
       var inputId = sectionId;
       value = "";
-      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, cc, infoTitle);
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, null, cc, infoTitle)
       inputs.push(inputProjeto);
     }
     for (var i = 0; i < object.dados.length; i++) {
@@ -268,7 +276,7 @@ class Projeto {
           if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, cd, cc, infoTitle);
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, cd, cc, infoTitle);
             inputs.push(inputProjeto);
           }
         }

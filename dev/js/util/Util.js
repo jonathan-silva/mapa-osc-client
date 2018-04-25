@@ -91,7 +91,7 @@ class Util {
     verificarContraste();
   }
 
-  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, cd, cc, infoTitle){
+  InputProjeto(id, content, type, options, removable, buttons, buttonsInLine, placeholder, title, fonte, cd, cc, infoTitle){
     return {
       "id" : id,
       "content" : content,
@@ -102,6 +102,7 @@ class Util {
       "buttonsInLine" : buttonsInLine,
       "placeholder" : placeholder,
       "title": title,
+      "fonte":fonte,
       "cd": cd,
       "cc": cc,
       "infoTitle":infoTitle
