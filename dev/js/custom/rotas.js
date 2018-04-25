@@ -4,10 +4,13 @@ class Rotas{
   }
 
   getBaseUrl(){
-    //return "https://mapaosc-desenv.ipea.gov.br";
+    return "https://mapaosc-desenv.ipea.gov.br";
     //return "https://10.1.4.110";
     //return "https://10.1.4.205";
-    return "https://localhost";
+    //return "https://localhost";
+  }
+  getBaseUrlCMS(){
+    return  this.getBaseUrl().replace("https:","http:") + ":8181";
   }
 
   //index.js
@@ -266,25 +269,28 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/search/atividade_economica/autocomplete/"+term+"/"+limit;
   }
 
-
+  //INICIO CMS
   //Imprensa
   Imprensa(){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/imprensa";
+    return this.getBaseUrlCMS()+"/imprensa";
   }
   NoticiaByID(id){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/noticiaByID/"+id;
+    return this.getBaseUrlCMS()+"/noticiaByID/"+id;
   }
   VideoByID(id){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/videoByID/"+id;
+    return this.getBaseUrlCMS()+"/videoByID/"+id;
   }
 
   //MROSC
   MenuMrosc(){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/menuMrosc";
+    return this.getBaseUrlCMS()+"/menuMrosc";
   }
   ConteudoMroscByID(id){
-    return "http://evbsb1052.ipea.gov.br/mapa-osc-cms/conteudoMroscByID/"+id;
+    return this.getBaseUrlCMS()+"/conteudoMroscByID/"+id;
   }
+
+  //FIM CMS
+
 
   BarraTransparencia(id_osc){
     return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;

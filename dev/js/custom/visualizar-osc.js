@@ -134,12 +134,6 @@ controller.filter('icone', function() {
 			if(input == "Representante de OSC" || input == "Representante" ){
 				src = "img/dado_representante.png";
 			}
-			else if (input == "Representante de governo municipal" ) {
-				src = "img/dado_representante_estado.png";
-			}
-			else if (input == "Representante de governo estadual" ) {
-				src = "img/dado_representante_municipio.png";
-			}
 			else {
 				src = "img/base_dados.png";
 			}
@@ -156,11 +150,8 @@ controller.filter('icon_title', function() {
 			if(input == "Representante de OSC" || input == "Representante" ){
 				title = "Informação preenchida pela Organização";
 			}
-			else if (input == "Representante de governo municipal" || input == "Representante de governo estadual") {
-				title = "Informação preenchida pelo " +input;
-			}
 			else {
-				title = "Informação oficial. " + input;
+				title = "Informação oficial. Fonte " + input;
 			}
 			return title;
 		}
@@ -174,12 +165,6 @@ controller.filter('icon_class', function() {
 	  	var classe;
 			if(input == "Representante de OSC" || input == "Representante" ){
 				classe = "imgDadoEditavel";
-			}
-			else if (input == "Representante de governo municipal" ) {
-				classe = "imgDadoEstado";
-			}
-			else if (input == "Representante de governo estadual" ) {
-				classe = "imgDadoMunicipio";
 			}
 			else {
 				classe = "imgDadoOficial";
@@ -200,7 +185,7 @@ controller.filter('verificarLink', function() {
 			return link;
 		}
 		return "";
-	};
+  };
 });
 
 function abrirProjeto(e) {
@@ -283,7 +268,6 @@ require(["jquery-ui", 'rotas'], function (React) {
 					 };
 
 	 				 perfil(dataJson['values']);
-					 $('#grafico-progress').parent().hide();
 
 				}
 			}

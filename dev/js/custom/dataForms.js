@@ -754,14 +754,16 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o nome do projeto"
+        "placeholder": "Insira o nome do projeto",
+        "infoTitle":""
       },
       "tx_nome_status_projeto": {
         "header": "Situação do projeto",
         "containerClass": "col-md-3",
         "removable": false,
         "type": "select",
-        "options": ["Arquivado, cancelado ou indeferido", "Proposta", "Projeto em andamento", "Finalizado", "Outro" ]
+        "options": ["Arquivado, cancelado ou indeferido", "Proposta", "Projeto em andamento", "Finalizado", "Outro" ],
+        "infoTitle":""
       },
       "dt_data_inicio_projeto": {
         "header": "Data de Início",
@@ -769,7 +771,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira a data de início do projeto"
+        "placeholder": "Insira a data de início do projeto",
+        "infoTitle":"Indique a data de início do projeto"
       },
       "dt_data_fim_projeto": {
         "header": "Data de Fim",
@@ -777,7 +780,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o data de fim do projeto"
+        "placeholder": "Insira o data de fim do projeto",
+        "infoTitle":"Indique a data de fim do projeto"
       },
       "tx_link_projeto": {
         "header": "Link para o projeto",
@@ -785,7 +789,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o link do projeto"
+        "placeholder": "Insira o link do projeto",
+        "infoTitle":"Insira um link para a página do projeto, se houver"
       },
       "nr_total_beneficiarios": {
         "header": "Total de Beneficiários",
@@ -793,7 +798,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o número total de beneficiários"
+        "placeholder": "Insira o número total de beneficiários",
+        "infoTitle":"Indique a estimativa de pessoas diretamente beneficiadas pelo PAP"
       },
       "nr_valor_total_projeto": {
         "header": "Valor Total",
@@ -801,7 +807,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o valor total do projeto"
+        "placeholder": "Insira o valor total do projeto",
+        "infoTitle":"Indique o valor total para o PAP"
       },
       "nr_valor_captado_projeto": {
         "header": "Valor Recebido",
@@ -809,7 +816,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Insira o valor recebido do projeto"
+        "placeholder": "Insira o valor recebido do projeto",
+        "infoTitle":"Indique o valor efetivamente recebido para o PAP"
       },
       "fonte_recursos": {
         "header": "Fontes de Recursos",
@@ -819,7 +827,8 @@ class DataForms{
         "type": "checkbox",
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
-        ]
+        ],
+        "infoTitle":""
       },
       "fonte_de_recursos_publico": {
         "header": "Fontes de Recursos Públicos",
@@ -829,7 +838,8 @@ class DataForms{
         "type": "select",
         "options": [
           "Recursos públicos", "Recursos privados", "Recursos próprios", "Recursos não financeiros"
-        ]
+        ],
+        "infoTitle":""
       },
       "financiador_projeto": {
         "header": "Financiadores do Projeto",
@@ -837,7 +847,8 @@ class DataForms{
         "removable": true,
         "type": "text",
         "options": null,
-        "placeholder": "Insira a informação"
+        "placeholder": "Insira a informação",
+        "infoTitle":"Liste os financiadores do projeto"
       },
       "area_atuacao": {
         "header": "Áreas de atuação do projeto, atividade ou programa",
@@ -845,7 +856,8 @@ class DataForms{
         "removable": false,
         "type": "text",
         "options": null,
-        "placeholder": "Selecione a área de atuação do projeto"
+        "placeholder": "Selecione a área de atuação do projeto",
+        "infoTitle":""
       },
 
       "area_atuacao_outra": {
@@ -853,7 +865,8 @@ class DataForms{
         "containerClass": "col-md-3",
         "removable": true,
         "type": "text",
-        "options": null
+        "options": null,
+        "infoTitle":""
       },
       "publico_beneficiado": {
         "header": "Público Beneficiado",
@@ -861,8 +874,8 @@ class DataForms{
         "removable": true,
         "type": "text",
         "options": null,
-        "placeholder": "Insira a informação"
-
+        "placeholder": "Insira a informação",
+        "infoTitle":"Qual o público beneficiado? Exemplos: Jovens, idosos, gestantes etc"
       },
       "tx_nome_abrangencia_projeto": {
         "header": "Abrangência de atuação",
@@ -871,7 +884,8 @@ class DataForms{
         "type": "select",
         "options": [
           "Municipal", "Estadual", "Regional", "Nacional"
-        ]
+        ],
+        "infoTitle":"Defina a abrangência territorial do projeto"
       },
       "localizacao_projeto": {
         "header": "Local de execução",
@@ -880,8 +894,8 @@ class DataForms{
         "type": "text",
         "options": null,
         "title":null,
-        "placeholder": "Insira a informação"
-
+        "placeholder": "Insira a informação",
+        "infoTitle":"Indique o(s) município, estado ou região de execução do projeto"
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
@@ -889,8 +903,8 @@ class DataForms{
         "removable": true,
         "type": "text",
         "options": null,
-        "placeholder": "Insira a informação"
-
+        "placeholder": "Insira a informação",
+        "infoTitle":"Insira os CNPJ de OSCs Parceiras"
       },
       "tx_nome_zona_atuacao": {
         "header": "Zona de Atuação",
@@ -899,7 +913,8 @@ class DataForms{
         "type": "select",
         "options": [
           "Rural", "Urbana"
-        ]
+        ],
+        "infoTitle":""
       },
       "tx_descricao_projeto": {
         "header": "Descrição do Projeto, atividade e/ou programa",
@@ -907,7 +922,8 @@ class DataForms{
         "removable": false,
         "type": "textarea",
         "options": null,
-        "placeholder": "Descreva aqui qual sobre o que trata e qual o objetivo do projeto, atividade ou programa."
+        "placeholder": "Descreva aqui qual sobre o que trata e qual o objetivo do projeto, atividade ou programa.",
+        "infoTitle":"Descrição resumida do que é e os objetivos do projeto, atividade ou programa"
       },
       "tx_metodologia_monitoramento": {
         "header": "Metodologia de Monitoramento e Avaliação do Projeto, atividade e/ou programa",
@@ -915,28 +931,32 @@ class DataForms{
         "removable": false,
         "type": "textarea",
         "options": null,
-        "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver."
+        "placeholder": "Descreva a forma de monitorar e avaliar a implementação do projeto, se houver.",
+        "infoTitle":"Indique qual metodologia foi usada"
       },
       "tipo_parceria": {
         "header": "Tipo de Parceria",
         "containerClass": "col-md-3 tipo_parceria_projeto",
         "removable": false,
         "type": "checkbox",
-        "options": [ "Acordo de cooperação técnica","Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ]
+        "options": [ "Acordo de cooperação técnica","Termo de fomento", "Termo de colaboração", "Termo de parceria", "Contrato de gestão", "Convênio", "Outro" ],
+        "infoTitle":""
       },
       "objetivos": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
         "removable": false,
         "type": "select",
-        "options": null
+        "options": null,
+        "infoTitle":""
       },
       "objetivo_meta": {
         "header": "Objetivos do Desenvolvimento Sustentável - ODS",
         "containerClass": "col-md-12",
         "removable": true,
         "type": "select",
-        "options": null
+        "options": null,
+        "infoTitle":""
       }
     };
     return labelsProjeto;

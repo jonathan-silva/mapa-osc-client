@@ -37,7 +37,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
   linksSubmenu.push(new MenuDropDownObject("Tutoriais", "tutoriais.html"));
   linksSubmenu.push(new MenuDropDownObject("Perguntas frequentes", "perguntas-frequentes.html"));
   linksSubmenu.push(new MenuDropDownObject("",""));
-//  linksSubmenu.push(new MenuDropDownObject("Imprensa", "imprensa.html"));
+  linksSubmenu.push(new MenuDropDownObject("Imprensa", "imprensa.html"));
   linksSubmenu.push(new MenuDropDownObject("Editais para OSCs", "editais.html"));
   linksSubmenu.push(new MenuDropDownObject("Colabore", "colabore.html"));
   linksSubmenu.push(new MenuDropDownObject("Apoio", "apoio.html"));
@@ -45,7 +45,7 @@ require(['react', 'jsx!components/Header','bootstrap'], function(React, Header) 
 
   var linksSubmenuCadastro = [];
   linksSubmenuCadastro.push(new MenuDropDownObject("Representante OSC", "cadastro-representante.html"));
-//  linksSubmenuCadastro.push(new MenuDropDownObject("Estado/Município", "cadastro-estado-municipio.html"));
+  linksSubmenuCadastro.push(new MenuDropDownObject("Estado/Município", "cadastro-estado-municipio.html"));
 
   var linksSubmenuDados = [];
   linksSubmenuDados.push(new MenuDropDownObject("Base de Dados", "base-dados.html"));

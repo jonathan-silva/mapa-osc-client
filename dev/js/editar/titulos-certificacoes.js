@@ -19,6 +19,8 @@ class TitulosCertificacoes {
     });
   }
 
+
+
   montarTitulosCertificacoes(json, util, React, ReactDOM, FormItem, AgrupadorTitulosCertificacoes, NovoTituloCertificacao){
     var headerPriority = '2';
     var res = [];
@@ -31,6 +33,16 @@ class TitulosCertificacoes {
       for (var j=0; j<items.length; j++){
         items[j].dt_inicio_certificado = (items[j].dt_inicio_certificado?items[j].dt_inicio_certificado:"Não informado");
         items[j].dt_fim_certificado = (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informado");
+
+        if(items[j].tx_uf != null && items[j].tx_uf != "" ){
+            items[j].tx_local_certificado = (items[j].tx_uf?items[j].tx_uf:"Não informado");
+            items[j].cd_uf_mun_certificado = (items[j].cd_uf?items[j].cd_uf:"Não informado");
+        }
+
+        if( items[j].tx_municipio != null && items[j].tx_municipio != ""){
+            items[j].tx_local_certificado = (items[j].tx_municipio?items[j].tx_municipio:"Não informado");
+            items[j].cd_uf_mun_certificado = (items[j].cd_municipio?items[j].cd_municipio:"Não informado");
+        }
       }
     } else {
       formItens.push(util.FormItens(null, null, tx_sem_titulos, "base", null, "p"));

@@ -44,8 +44,6 @@ function ativarCSSContraste() {
   $(".imgLinkExterno").attr("src","img/site-ext_inv.gif");
   $(".imgDadoOficial").attr("src","img/base_dados_inv.png");
   $(".imgDadoEditavel").attr("src","img/dado_representante_inv.png");
-  $(".imgDadoEstado").attr("src","img/dado_representante_estado_inv.png");
-  $(".imgDadoMunicipio").attr("src","img/dado_representante_municipio_inv.png");
   $(".projeto .header").css("background-color", "#4682b4");
   $("#table_lista_projetos tr").css("background-color", "#333333");
   $(".form-control").css("background-color", "#02174a");

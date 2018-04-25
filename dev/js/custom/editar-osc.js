@@ -304,8 +304,88 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function checkbox_nao_possui(data){
+
+      $("#tx_sigla_osc").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui sigla</label></div>');
+      $("#tx_email").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui email</label></div>');
+      $("#tx_site").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui site</label></div>');
+
+      var dados_gerais = util.validateObject(data.dados_gerais, 0);
+      $("#tx_sigla_osc").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_sigla_osc);
+      $("#tx_email").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_email);
+      $("#tx_site").parent().parent().find('input[type="checkbox"]').prop('checked', dados_gerais.bo_nao_possui_site);
+
+      $('#dados_gerais .box_right input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
+      $("#tx_link_estatuto_osc").parent().parent().prepend('<div class="input-box checkbox box_right"><label><input type="checkbox">Não possui link para o estatuto da OSC</label></div>');
+
+      var descricao = util.validateObject(data.descricao, 0);
+      $("#tx_link_estatuto_osc").parent().parent().find('input[type="checkbox"]').prop('checked', descricao.bo_nao_possui_link_estatuto_osc);
+
+      $('#descricao input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
       $("#novo_titulo_certificacao_botao").parent().append('<div class="input-box checkbox"><label><input type="checkbox">Não possui títulos e certificações.</label></div>');
+
       var certificacoes = util.validateObject(data.certificado, 0);
+
+    $("#novo_titulo_certificacao_botao").click(function(){
+
+      $('#idSelectTitulosCertificados').change(function(){
+        var routes="";
+        var abrang=$('#idSelectTitulosCertificados')[0].value.toLowerCase();
+        var limiteAutocomplete = 10;
+        var limiteAutocompleteCidade = 25;
+
+        $('#novo_titulo_certificacao_local').autocomplete({
+          minLength: 2,
+          source: function (request, response) {
+
+            if ( util.contains('municipal',abrang) ){
+              routes = rotas.AutocompleteOSCByCounty(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade);
+            }
+            else if ( util.contains('estadual',abrang) || (abrang == '-1')  ){
+              routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
+            }
+            if ( routes != "" ) {
+              var data = ajaxAutoComplete(urlController, routes, false);
+              response($.map( data, function( item ) {
+                if ( util.contains('municipal',abrang) ) {
+                   return {
+                      label: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                      value: item.edmu_nm_municipio + ' - '+ item.eduf_sg_uf,
+                      id: item.edmu_cd_municipio
+                  }
+                }
+                else if ( util.contains('estadual',abrang)  || (abrang == '-1') ) {
+                  return {
+                      label: item.eduf_nm_uf,
+                      value: item.eduf_nm_uf,
+                      id: item.eduf_cd_uf
+                  }
+                }
+              }))
+            }
+          },
+          select: function( event, ui ) {
+            $("#cd_uf_mun_titulo_certificacao").val(ui.item.id);
+        }
+       })
+      })
+    });
+
       $('#certificacoes input[type="checkbox"]').prop('checked', certificacoes.bo_nao_possui_certificacoes);
 
       $('#certificacoes input[type="checkbox"]').change(function() {
@@ -352,6 +432,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).prop('checked', false);
         }
       });
+
     }
 
     function metasObjetivosOsc(data, Checkbox){
@@ -363,7 +444,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       var $divDadosGerais = $('#dados_gerais');
-      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU. Máximo três objetivos.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </label>');
+      $divDadosGerais.append('<label title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></label>');
       $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
       $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
 
@@ -393,17 +474,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
     function criarObjetivosOsc(data, objetivo_metas, objetivo, cd_objetivo, Checkbox){
       //console.log("Dados Gerais");
-      $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:</label>');
+      $("#objetivosOsc-metas").append('<label title="Objetivo selecionado da ODS." class="label-objetivosOsc-'+cd_objetivo+'">Objetivo:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label>');
       $("#objetivosOsc-metas").append('<div id="objetivosOsc" class="objetivosOsc objetivosOsc-'+cd_objetivo+'"></div>');
       $(".objetivosOsc-"+cd_objetivo).append('<div class="form-group"><div id="objetivosOsc-'+cd_objetivo+'" for="'+cd_objetivo+'"><select class="form-control"></select></div></div>');
       $("#objetivosOsc-"+cd_objetivo).append('<div id="metasOsc-'+cd_objetivo+'" class="metasOsc"></div>');
 
       var $divMetasOsc = $("#objetivosOsc-metas").find("#metasOsc-"+cd_objetivo);
       if(cd_objetivo <= -1){
-        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto" style="display:none">Metas Relacionadas ao ODS definido:</label><br>');
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto" style="display:none">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
       }
       else{
-        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:</label><br>');
+        $divMetasOsc.append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
       }
       $divMetasOsc.append('<ol id="selectableOsc-'+cd_objetivo +'" class="selectable"></ol><br>');
 
@@ -518,7 +599,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $('.objetivosOsc-'+id_cd_objetivo).removeClass('objetivosOsc-'+id_cd_objetivo).addClass('objetivosOsc-'+cd_objetivo);
           $('#metasOsc-'+id_cd_objetivo).remove();
           $(this).parent().append('<div id="metasOsc-'+cd_objetivo+'" class="metasOsc"></div>');
-          $('#metasOsc-'+cd_objetivo).append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</label><br>');
+          $('#metasOsc-'+cd_objetivo).append('<br><label title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></label><br>');
           $('#metasOsc-'+cd_objetivo).append('<ol id="selectableOsc-'+cd_objetivo +'" class="selectable"></ol><br>');
 
           if(parseInt(cd_objetivo) !== 0){
@@ -538,6 +619,21 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           {dados:[headerProjeto]}
         ), document.getElementById("projetos")
       );
+
+      $("#projetos .sections h2").parent().append('<div class="input-box checkbox pro"><label><input type="checkbox">Não possui projetos, atividades e programas</label></div>');
+
+      var porjetos = util.validateObject(data.projetos, 0);
+      $('#projetos .pro input[type="checkbox"]').prop('checked', projetos.bo_nao_possui_projetos);
+
+      $('#projetos .pro input[type="checkbox"]').change(function() {
+        if($(this).is(':checked')){
+          $(this).prop('checked', true);
+        }
+        else{
+          $(this).prop('checked', false);
+        }
+      });
+
       $( "#lista_projetos" ).append( '<table id="table_lista_projetos" class="table-striped"></table>' );
 
       var newData = projetosArray[1];
@@ -1038,7 +1134,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $('#projeto-'+id).append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'"</div>');
       var $divObjetivosProjetoClone = $('#projeto-'+id).find("#objetivos-metas-"+cd_objetivo);
-      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></div>');
       $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos-'+cd_objetivo+'"><select class="form-control"></select></div></div>');
 
         var $selectObjetivos = $divObjetivosProjetoClone.find("select");
@@ -1069,7 +1165,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
-        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
           $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
@@ -1125,7 +1221,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       project.find('.botao-add-objetivo').remove();
       project.append('<div class="col-md-12" id="objetivos-metas-'+cd_objetivo+'_'+qtdOdsSecaoProjeto+'"</div>');
       var $divObjetivosProjetoClone = project.find("#objetivos-metas-"+cd_objetivo+'_'+qtdOdsSecaoProjeto);
-      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS - <a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a> </div>');
+      $divObjetivosProjetoClone.append('<div class="header" title="Indique se o PAP se relaciona com alguns dos objetivos do desenvolvimento sustentável, da ONU.">Objetivos do Desenvolvimento Sustentável - ODS: <span class="glyphicon glyphicon-info-sign" style="visibility:visible;" ></span><a href="http://www.agenda2030.com.br/" target=_blank><img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo." /></a></div>');
       $divObjetivosProjetoClone.append('<div class="form-group"><div id="objetivos_'+cd_objetivo+'_'+qtdOdsSecaoProjeto+'"><select class="form-control"></select></div></div>');
 
       var $selectObjetivos = $divObjetivosProjetoClone.find("select");
@@ -1170,7 +1266,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         });
         //console.log("add_objetivo: "+qtdOdsSecaoProjeto);
         $divObjetivosProjetoClone.append('<div id="metas-'+id+cd_objetivo+'" class="metas"></div>');
-        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).append('<ol id="selectable-'+id+"-"+cd_objetivo+"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         if($divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).hasClass('hidden')){
           $divObjetivosProjetoClone.find(('#metas-'+id+cd_objetivo)).toggleClass('hidden');
@@ -1250,7 +1346,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         //console.log("carregaEventoMetas: "+qtdOdsSecaoProjeto);
         $divObjetivosMetasProjeto.find(".metas").remove();
         $divObjetivosMetasProjeto.append('<div id="metas-'+cd_objetivo+'" class="metas"></div>');
-        $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido</div><br>');
+        $('#metas-'+cd_objetivo).append('<br><div class="header" title="Marque as metas que se enquadram neste projeto">Metas Relacionadas ao ODS definido:<span class="glyphicon glyphicon-info-sign" style="visibility:visible;"></span></div><br>');
         $('#metas-'+cd_objetivo).append('<ol id="selectable-'+id+"-"+cd_objetivo +"-"+qtdOdsSecaoProjeto+'" class="selectable"></ol><br>');
         $('#metas-'+cd_objetivo).append(''+
         '<button id="id_botao-add-objetivo" class="btn-primary btn botao-add-objetivo">Adicionar ODS</button>'+
@@ -1364,6 +1460,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
       });
 
+      newJson["bo_nao_possui_sigla_osc"] = $("#tx_sigla_osc").parent().parent().find('input[type="checkbox"]').is(':checked');
+      newJson["bo_nao_possui_email"] = $("#tx_email").parent().parent().find('input[type="checkbox"]').is(':checked');
+      newJson["bo_nao_possui_site"] = $("#tx_site").parent().parent().find('input[type="checkbox"]').is(':checked');
+
       newJson["objetivo_metas"] = [];
       $("#objetivosOsc-metas :input:checkbox").each(function(){
         if($(this).prop("checked")){
@@ -1446,6 +1546,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $("#descricao textarea").each(function(){
         newJson[$(this).attr("id")] = $(this).val();
       });
+
+      newJson["bo_nao_possui_link_estatuto_osc"] = $("#tx_link_estatuto_osc").parent().parent().find('input[type="checkbox"]').is(':checked');
+
       success = util.carregaAjax(rotas.Descricao(idOsc), 'POST', newJson);
 
       //Certificacoes
@@ -1484,6 +1587,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             break;
         }
 
+
         var item = {};
         var fonte_dados = $(".tipo_titulo_certificado span",this).attr("title");
         //item.dt_inicio_certificado = null;
@@ -1493,8 +1597,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         item.ft_certificado = fonte_dados//authHeader.User;
         item.ft_inicio_certificado = fonte_dados//authHeader.User;
         item.ft_fim_certificado = fonte_dados//authHeader.User;
+        item.ft_local_certificado = fonte_dados//authHeader.User;
         item.cd_certificado = cd_certificado;
+        if (cd_certificado == 7) {
+          item.cd_uf = $(".local_titulo_certificado",this).attr("data-cod");
+        }
+        else if (cd_certificado == 8) {
+          item.cd_municipio = $(".local_titulo_certificado",this).attr("data-cod");
+        }
+
         item.id_certificado = $(this).prop("id");
+        console.log(item);
 
         if(cd_certificado > 0){
           newJson.certificado.push(item);
@@ -1503,9 +1616,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       newJson["bo_nao_possui_certificacoes"] = $('#certificacoes input[type="checkbox"]').is(':checked');
 
-      if(newJson['certificado'].length == 0){
-        newJson['certificado'] = null;
-      }
+
       newJson["headers"] = authHeader;
       newJson["id_osc"] = idOsc;
 
@@ -1801,10 +1912,27 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         $("#recursos").children().each(function(){
           var ano = $(this).find("select").val();
           var nao_possui = $('#recursos_geral-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pub = $('#recursos_publicos-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pro = $('#recursos_proprios-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_pri = $('#recursos_privados-'+ano+' input[type="checkbox"]').is(':checked');
+          var nao_possui_rec_nao_fin = $('#recursos_nao_financeiros-'+ano+' input[type="checkbox"]').is(':checked');
 
           var obj = {};
           obj.dt_ano_recursos_osc = ano;
           obj.bo_nao_possui = nao_possui;
+
+          obj.bo_nao_possui_recursos_proprios = nao_possui_rec_pro;
+          obj.bo_nao_possui_recursos_publicos = nao_possui_rec_pub;
+          obj.bo_nao_possui_recursos_privados = nao_possui_rec_pri;
+          obj.bo_nao_possui_recursos_nao_financeiros = nao_possui_rec_nao_fin;
+
+          if(nao_possui){
+            obj.bo_nao_possui_recursos_proprios = true;
+            obj.bo_nao_possui_recursos_publicos = true;
+            obj.bo_nao_possui_recursos_privados = true;
+            obj.bo_nao_possui_recursos_nao_financeiros = true;
+          }
+
           obj.recursos = [];
 
           if(!nao_possui){
@@ -1812,9 +1940,11 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               var obj2 = {};
               var valorRecurso = $(this).val().replace(/\./g,"");
               valorRecurso = valorRecurso.replace(/,/g,"\.");
-              obj2.cd_fonte_recursos_osc = $(this).attr("id");
-              obj2.nr_valor_recursos_osc = (valorRecurso!="") ? parseFloat(valorRecurso) : 0;
-              obj.recursos.push(obj2);
+              if(valorRecurso != ""){
+                obj2.cd_fonte_recursos_osc = $(this).attr("id");
+                obj2.nr_valor_recursos_osc = parseFloat(valorRecurso);
+                obj.recursos.push(obj2);
+              }
             });
           }
           newJson.fonte_recursos.push(obj);
@@ -1863,6 +1993,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
      });
    }
+
+   function localizacaoTit(abrangencia){
+
+  }
 
    function validaCNPJ(cnpj) {
      cnpj = cnpj.toString().replace(/[^\d]+/g,"");

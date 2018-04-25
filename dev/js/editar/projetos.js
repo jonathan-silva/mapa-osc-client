@@ -80,14 +80,15 @@ class Projeto {
           var type = labelMap[property].type;
           var options = labelMap[property].options;
           var placeholder = labelMap[property].placeholder;
+          var infoTitle = labelMap[property].infoTitle;
           var buttons = null;
           var buttonsInLine = false;
 
 
           if((value === null) || (value.constructor !== Array)){
 
-            var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta);
-            var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+            var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, objetivo_meta, null, infoTitle);
+            var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
             agrupadores.push(agrupadorInputProjeto);
           }
         }
@@ -102,11 +103,12 @@ class Projeto {
         var type = labelMap[property].type;
         var options = labelMap[property].options;
         var placeholder = labelMap[property].placeholder;
+        var infoTitle = labelMap[property].infoTitle;
         var buttons = null;
         var buttonsInLine = false;
 
-        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null);
-        var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+        var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null, null, infoTitle);
+        var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
         agrupadores.push(agrupadorInputProjeto);
       }
     }
@@ -121,11 +123,12 @@ class Projeto {
       var type = labelMap[sectionId].type;
       var options = labelMap[sectionId].options;
       var placeholder = labelMap[sectionId].placeholder;
+      var infoTitle = labelMap[property].infoTitle;
       var buttons = null;
       var buttonsInLine = false;
 
-      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null);
-      var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons);
+      var inputProjeto = util.InputProjeto(sectionId, value, type, options, removable, buttons, buttonsInLine, placeholder, title, null, null, infoTitle);
+      var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, [inputProjeto], buttons, options, null, infoTitle);
       agrupadores.push(agrupadorInputProjeto);
 
     }
@@ -241,6 +244,8 @@ class Projeto {
     var options = util.validateObject(element)?element.options:"";
     var suboptions = null;
     var cc = util.validateObject(element)?element.custom_class:"";
+    var infoTitle = util.validateObject(element)?element.infoTitle:"";
+
     var buttonsInput = null;
     var buttonsInLine = false;
     var placeholder = "Insira a informação";
@@ -252,7 +257,7 @@ class Projeto {
     if(object.dados.length === 0){
       var inputId = sectionId;
       value = "";
-      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, cc);
+      var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, null, cc, infoTitle);
       inputs.push(inputProjeto);
     }
     for (var i = 0; i < object.dados.length; i++) {
@@ -263,7 +268,7 @@ class Projeto {
           if(property.slice(0,2) === "tx"){
             value = object.dados[i][property];
             var cd = object.dados[i].cd_area_atuacao_projeto;
-            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, cd, cc);
+            var inputProjeto = util.InputProjeto(inputId, value, type, options, removable, buttonsInput, buttonsInLine, placeholder, null, cd, cc, infoTitle);
             inputs.push(inputProjeto);
           }
         }
@@ -277,7 +282,7 @@ class Projeto {
       buttonsInput = [buttonRemove];
       buttonsAgrupador = [buttonAdd];
     }
-    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options, cc);
+    var agrupadorInputProjeto = util.AgrupadorDeInputs(sectionId, containerClass, header, inputs, buttonsAgrupador, options, cc, infoTitle);
     return agrupadorInputProjeto;
   }
 

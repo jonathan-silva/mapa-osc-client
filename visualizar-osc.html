@@ -123,6 +123,7 @@
           <div class="col-md-12" id="dados_gerais">
             <h2>Dados Gerais<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Dados Gerais." onclick="abrirModalAjuda('Dados Gerais');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div class="col-md-12 ">
+
               <div class="form-group" ng-app init="tx_nome_fantasia_osc">
                 <label>Nome Fantasia:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_fantasia_osc)?ctrl.osc.dados_gerais.tx_nome_fantasia_osc:"Não informado"}}</span>
@@ -130,13 +131,18 @@
                 	<img class="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_fantasia_osc | icone}}">
               	</span>
               </div>
+
               <div class="form-group">
                 <label>Sigla OSC:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_sigla_osc)?ctrl.osc.dados_gerais.tx_sigla_osc:"Não informada"}}</span>
-	            <span ng-if="ctrl.osc.dados_gerais.ft_sigla_osc && ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_title}}">
-                	<img class="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_sigla_osc | icone}}">
+
+                <span ng-if="(!ctrl.osc.dados_gerais.bo_nao_possui_sigla_osc && (ctrl.osc.dados_gerais.tx_sigla_osc == null || ctrl.osc.dados_gerais.tx_sigla_osc == '' ))"  class="form-control-static">Não informado</span>
+                <span ng-if="(ctrl.osc.dados_gerais.bo_nao_possui_sigla_osc)" class="form-control-static">Não possui sigla</span>
+                <span ng-if="(ctrl.osc.dados_gerais.tx_sigla_osc != null && ctrl.osc.dados_gerais.tx_sigla_osc != '' && !ctrl.osc.dados_gerais.bo_nao_possui_sigla_osc)" class="form-control-static">{{ctrl.osc.dados_gerais.tx_sigla_osc}}</span>
+                <span ng-if="ctrl.osc.dados_gerais.ft_sigla_osc && ctrl.osc.dados_gerais.tx_sigla_osc" title="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_title}}">
+                	  <img class="{{ctrl.osc.dados_gerais.ft_sigla_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_sigla_osc | icone}}">
               	</span>
               </div>
+
               <div class="form-group">
                 <label>Endereço da OSC:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.tx_endereco}}, {{ctrl.osc.dados_gerais.nr_localizacao}} - {{ctrl.osc.dados_gerais.tx_bairro}}, {{ctrl.osc.dados_gerais.tx_nome_municipio}} - {{ctrl.osc.dados_gerais.tx_sigla_uf}}. {{ctrl.osc.dados_gerais.tx_endereco_complemento}}</span>
@@ -144,6 +150,7 @@
                 	<img class="{{ctrl.osc.dados_gerais.ft_endereco | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_endereco | icone}}">
               	</span>
               </div>
+
               <div class="form-group">
                 <label>Situação do Imóvel:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc)?ctrl.osc.dados_gerais.tx_nome_situacao_imovel_osc:"Não informado"}}</span>
@@ -151,6 +158,7 @@
                		<img class="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc  | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_situacao_imovel_osc | icone}}">
            		</span>
               </div>
+
               <div class="form-group">
                 <label>Responsável Legal:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_nome_responsavel_legal)?ctrl.osc.dados_gerais.tx_nome_responsavel_legal:"Não informado"}}</span>
@@ -158,6 +166,7 @@
                		<img class="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_nome_responsavel_legal | icone}}">
            		</span>
               </div>
+
               <div class="form-group">
                 <label>Ano de inscrição no Cadastro de CNPJ:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_ano_cadastro_cnpj | limitTo : -4}}</span>
@@ -166,6 +175,7 @@
                		<img class="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_ano_cadastro_cnpj | icone}}">
            		</span>
               </div>
+
               <div class="form-group">
                 <label>Ano de Fundação:</label>
                 <span class="form-control-static">{{ctrl.osc.dados_gerais.dt_fundacao_osc | limitTo : -4}}</span>
@@ -174,13 +184,18 @@
                		<img class="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_fundacao_osc | icone}}">
            		</span>
               </div>
+
               <div class="form-group">
                 <label>E-mail:</label>
-                <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_email)?ctrl.osc.dados_gerais.tx_email:"Não informado"}}</span>
+                <span ng-if="(!ctrl.osc.dados_gerais.bo_nao_possui_email && (ctrl.osc.dados_gerais.tx_email == null || ctrl.osc.dados_gerais.tx_email == ''))"  class="form-control-static">Não informado</span>
+                <span ng-if="(ctrl.osc.dados_gerais.bo_nao_possui_email)" class="form-control-static">Não possui email</span>
+                <span ng-if="(ctrl.osc.dados_gerais.tx_email != null && ctrl.osc.dados_gerais.tx_email != '' && !ctrl.osc.dados_gerais.bo_nao_possui_email)" class="form-control-static">{{ctrl.osc.dados_gerais.tx_email}}</span>
+
                 <span ng-if="ctrl.osc.dados_gerais.ft_email && ctrl.osc.dados_gerais.tx_email" title="{{ctrl.osc.dados_gerais.ft_email  | icon_title }}">
                		<img class="{{ctrl.osc.dados_gerais.ft_email | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_email | icone}}">
-           		</span>
+           		   </span>
               </div>
+
               <div class="form-group">
                 <label>O que a OSC faz:</label>
                 <span class="form-control-static">{{(ctrl.osc.dados_gerais.tx_resumo_osc)?ctrl.osc.dados_gerais.tx_resumo_osc:"Não informado"}}</span>
@@ -188,14 +203,17 @@
                		<img class="{{ctrl.osc.dados_gerais.ft_resumo_osc  | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_resumo_osc | icone}}">
            		</span>
               </div>
+
               <div class="form-group">
                 <label>Site:</label>
-                <span ng-if="(ctrl.osc.dados_gerais.tx_site == null || ctrl.osc.dados_gerais.tx_site == '' )" class="form-control-static">Não informado</span>
-                <a ng-if="(ctrl.osc.dados_gerais.tx_site != null && ctrl.osc.dados_gerais.tx_site != '' )" class="btn-link" href='{{ctrl.osc.dados_gerais.tx_site | verificarLink}}' target="_blank" title="Link Externo">{{ctrl.osc.dados_gerais.tx_site | limitTo:80}}<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                <span ng-if="(!ctrl.osc.dados_gerais.bo_nao_possui_site && (ctrl.osc.dados_gerais.tx_site == null || ctrl.osc.dados_gerais.tx_site == '' ))"  class="form-control-static">Não informado</span>
+                <span ng-if="(ctrl.osc.dados_gerais.bo_nao_possui_site)" class="form-control-static">Não possui site</span>
+                <a ng-if="(ctrl.osc.dados_gerais.tx_site != null && ctrl.osc.dados_gerais.tx_site != '' && !ctrl.osc.dados_gerais.bo_nao_possui_site)" class="btn-link" href='{{ctrl.osc.dados_gerais.tx_site | verificarLink}}' target="_blank" title="Link Externo">{{ctrl.osc.dados_gerais.tx_site | limitTo:80}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                 <span ng-if="ctrl.osc.dados_gerais.ft_site && ctrl.osc.dados_gerais.tx_site" title="{{ctrl.osc.dados_gerais.ft_site  | icon_title }}">
                		<img class="{{ctrl.osc.dados_gerais.ft_site | icon_class}}" ng-src="{{ctrl.osc.dados_gerais.ft_site | icone}}">
            		  </span>
               </div>
+
               <div class="form-group">
                 <label>Telefone:</label>
                 <span class="form-control-static" id="tel">{{ctrl.osc.dados_gerais.tx_telefone | tel}}</span>
@@ -319,11 +337,12 @@
               </div>
               <div class="form-group">
                 <label>Link para o Estatuto da OSC:</label>
-                  <span ng-if="(ctrl.osc.descricao.tx_link_estatuto_osc == null || ctrl.osc.descricao.tx_link_estatuto_osc == '' )"class="form-control-static">Não informado</span>
-                  <a ng-if="(ctrl.osc.descricao.tx_link_estatuto_osc != null && ctrl.osc.descricao.tx_link_estatuto_osc != '' )" class="btn-link" href='{{ctrl.osc.descricao.tx_link_estatuto_osc | verificarLink}}' target="_blank" title="Link Externo">{{ctrl.osc.descricao.tx_link_estatuto_osc | limitTo:80}}<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
-                  <span ng-if="ctrl.osc.descricao.ft_link_estatuto_osc && ctrl.osc.descricao.tx_link_estatuto_osc" title="{{ctrl.osc.descricao.ft_link_estatuto_osc  | icon_title }}">
-               		<img class="{{ctrl.osc.descricao.ft_link_estatuto_osc | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_link_estatuto_osc | icone}}">
-           		  </span>
+                <span ng-if="(!ctrl.osc.descricao.bo_nao_possui_link_estatuto_osc  && (ctrl.osc.descricao.tx_link_estatuto_osc == null || ctrl.osc.descricao.tx_link_estatuto_osc == ''))"  class="form-control-static">Não informado</span>
+                <span ng-if="(ctrl.osc.descricao.bo_nao_possui_link_estatuto_osc)" class="form-control-static">Não possui link</span>
+                <a ng-if="(ctrl.osc.descricao.tx_link_estatuto_osc != null && ctrl.osc.descricao.tx_link_estatuto_osc != '' && !ctrl.osc.descricao.bo_nao_possui_link_estatuto_osc)" class="btn-link" href='{{ctrl.osc.descricao.tx_link_estatuto_osc | verificarLink}}' target="_blank" title="Link Externo">{{ctrl.osc.descricao.tx_link_estatuto_osc | limitTo:80}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                <span ng-if="ctrl.osc.descricao.ft_link_estatuto_osc && ctrl.osc.descricao.tx_link_estatuto_osc" title="{{ctrl.osc.descricao.ft_link_estatuto_osc  | icon_title }}">
+                  <img class="{{ctrl.osc.descricao.ft_link_estatuto_osc | icon_class}}" ng-src="{{ctrl.osc.descricao.ft_link_estatuto_osc | icone}}">
+         		    </span>
               </div>
             </div>
             <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
@@ -339,16 +358,23 @@
             <h2>Titulações e Certificações<a class="btn-item ajuda" type="button" title="Clique para informações sobre os campos de Titulações e Certificações." onclick="abrirModalAjuda('Titulações e Certificações');"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></h2>
             <div ng-if="(!ctrl.osc.certificado.bo_nao_possui_certificacoes)">
               <div class="margin" ng-repeat="certificado in ctrl.osc.certificado.certificado">
-                <label>{{certificado.tx_nome_certificado}} </label>
-				            <!-- ver MOSC-1030
-                <span class="form-control-static">{{(certificado.dt_inicio_certificado)?"Emitido em "+certificado.dt_inicio_certificado:"Emissão não informada "}}
-                  {{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:"- Validade não informada"}}</span>
-                -->
-				<span ng-if="certificado.ft_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_certificado  | icon_title  }}">
-				  <img class="{{certificado.ft_certificado  | icon_class}}" ng-src="{{certificado.ft_certificado | icone}}">
-			    </span>
+                  <div ng-if="(certificado.tx_nome_certificado != null && certificado.tx_nome_certificado != '' )">
+                      <label>{{certificado.tx_nome_certificado}}</label>
+                      <span class="form-control-static">{{(certificado.tx_municipio)?" - "+certificado.tx_municipio:""}}</span>
+                      <span class="form-control-static">{{(certificado.tx_uf)?" - "+certificado.tx_uf:""}}</span>
+
+                      <span class="form-control-static">{{(certificado.dt_inicio_certificado)?" - Emitido em "+certificado.dt_inicio_certificado:" - Emissão não informada"}}</span>
+                      <span class="form-control-static">{{(certificado.dt_fim_certificado)?" - Válido até "+certificado.dt_fim_certificado:" - Validade não informada"}}</span>
+
+          		        <span ng-if="certificado.ft_certificado && certificado.tx_nome_certificado" title="{{certificado.ft_certificado  | icon_title  }}">
+            				      <img class="{{certificado.ft_certificado  | icon_class}}" ng-src="{{certificado.ft_certificado | icone}}">
+            			    </span>
+                  </div>
+                  <div ng-if="(certificado.tx_nome_certificado == null || certificado.tx_nome_certificado == '' )">
+                    <span class="form-control-static">Não informado.</span>
+                  </div>
               </div>
-              <div ng-if="(ctrl.osc.certificado.certificado == null )">
+              <div ng-if="(ctrl.osc.certificado.certificado == null || ctrl.osc.certificado.certificado == '' )">
                 <span class="form-control-static">Não informado.</span>
               </div>
             </div>
@@ -692,7 +718,7 @@
                         <div class="header ">Link para o projeto</div>
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
-                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='{{proj.tx_link_projeto | verificarLink}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                             <span ng-if="proj.ft_link_projeto && proj.tx_link_projeto " title="{{proj.ft_link_projeto  | icon_title  }}">
 					                  <img class="{{proj.ft_link_projeto | icon_class}}" ng-src="{{proj.ft_link_projeto | icone}}">
                             </span>
