@@ -163,6 +163,93 @@ require(['react'], function (React) {
       });
     }
 
+  /*  $('#titulacoesCertificacoes').mousedown(function() {
+
+      $("#cd_certificado").selectBoxIt({
+      theme: "default",
+      defaultText: "Selecione uma opção",
+      autoWidth: false,
+
+      populate: function() {
+          var deferred = $.Deferred(),
+              arr = [],
+              x = -1;
+          $.ajax({
+            url: controller,
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data:{flag: 'consulta', rota:  rotas.Busca_Certificado()},
+          }).done(function(data) {
+              while(++x < data.length) {
+                  arr.push({"text": data[x].tx_nome_certificado, "value": data[x].cd_certificado,})
+              }
+              deferred.resolve(arr);
+          });
+          return deferred;
+      }
+    });
+  });*/
+$('#titulacoesCertificacoes').mousedown(function() {
+
+  $.ajax({
+    url: 'js/controller.php',
+    type: 'GET',
+    dataType: 'json',
+    data: {flag: 'consulta', rota: rotas.Busca_Certificado()},
+    error: function(e){
+        console.log("ERRO no AJAX :" + e);
+    },
+    success: function(data){
+      if (data.length > 0){
+        var html = '<div class="row"><div class="form-group"><div class="checkbox">';
+
+          for (var i in data) {
+            html += '<label><input id="'+recuperar_id_certificado(data[i].cd_certificado)+'" type="checkbox">'+data[i].tx_nome_certificado+'</label>';
+          }
+
+        html += '</div></div></div>';
+
+        $('#cd_certificado').append(html);
+      }
+      else{
+
+      }
+    }
+  });
+});
+
+ function recuperar_id_certificado(cd_certificado){
+   var nome_titulo;
+   if(cd_certificado == 1){
+     nome_titulo = 'titulacao_entidadeAmbientalista'
+   }
+   else if(cd_certificado == 2){
+     nome_titulo = 'titulacao_cebasEducacao'
+   }
+   else if(cd_certificado == 3){
+     nome_titulo = 'titulacao_cebasSaude'
+   }
+   else if(cd_certificado == 4){
+     nome_titulo = 'titulacao_oscip'
+   }
+   else if(cd_certificado == 5){
+     nome_titulo = 'titulacao_utilidadePublicaFederal'
+   }
+   else if(cd_certificado == 6){
+     nome_titulo = 'titulacao_cebasAssistenciaSocial'
+   }
+   else if(cd_certificado == 7){
+     nome_titulo = 'titulacao_utilidadePublicaEstadual'
+   }
+   else if(cd_certificado == 8){
+     nome_titulo = 'titulacao_utilidadePublicaMunicipal'
+   }
+   else if(cd_certificado == 9){
+     nome_titulo = 'Não Possui'
+   }
+   return nome_titulo;
+ }
 
     $('#areasSubareasAtuacao').mousedown(function() {
 
@@ -259,7 +346,6 @@ require(['react'], function (React) {
           return deferred;
       }
     });
-
 
     $('#espacosParticipacaoSocial').mousedown(function() {
 
