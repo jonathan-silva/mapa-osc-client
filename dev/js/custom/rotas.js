@@ -297,6 +297,10 @@ class Rotas{
     return this.getBaseUrlCMS()+"/equipes";
   }
 
+  ModuloApoio(){
+    return this.getBaseUrlCMS()+"/apoios";
+  }
+
   ModuloBySlug(slug){
     return this.getBaseUrlCMS()+"/ModuloBySlug/"+slug;
   }
