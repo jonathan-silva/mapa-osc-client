@@ -128,6 +128,9 @@ class Rotas{
   Certificado(id){
     return this.getBaseUrl()+":8383/api/osc/certificado/"+id;
   }
+  Busca_Certificado(){
+    return this.getBaseUrl()+":8383/api/menu/osc/certificado";
+  }
   RelacoesTrabalho(id){
     return this.getBaseUrl()+":8383/api/osc/relacoestrabalho/"+id;
   }
