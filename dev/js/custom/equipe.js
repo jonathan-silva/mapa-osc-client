@@ -37,6 +37,8 @@ require(['rotas','jquery-ui'], function (React) {
     },
     success: function(data){
       if (data.length > 0){
+        var link_erro = "this.src='img/sem_img_user.png'";
+        var src_link = '';
 
         var modulo_html = '<div class="row"><div class="col-md-12"><h1 class="text-primary">'+data[0].equipe[0].tx_titulo_equipe+'</h1><hr></div></div>';
         modulo_html += '<div class="row"><div class="col-md-12"><h3 class="subTitulo">'+data[0].equipe[0].tx_sub_titulo_equipe+'</h3>';
@@ -49,16 +51,21 @@ require(['rotas','jquery-ui'], function (React) {
 
             modulo_html += '<li class="media"><div class="media-left"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
             modulo_html += '<div class="media-body"><h4 class="media-heading">'+data[0].versoes[i].tx_titulo_versao+'</h4>';
-            modulo_html += '<h5 class="media-heading">'+data[0].versoes[i].tx_descricao_itens_mrosc+'</h5>';
+            modulo_html += '<h5 class="media-heading">'+data[0].versoes[i].tx_descricao_itens+'</h5>';
 
             modulo_html += '<dl class="dl-horizontal">';
             if(data[0].versoes[i].coordenadores.length > 0){
               modulo_html += '<dt>Coordenadores</dt>';
               for (var j in data[0].versoes[i].coordenadores) {
+
+                if(data[0].versoes[i].coordenadores[j].tx_img_equipe != null && data[0].versoes[i].coordenadores[j].tx_img_equipe != ""){
+                  src_link = urlCMS+'/imagens/videos/xs-'+data[0].versoes[i].coordenadores[j].tx_img_equipe;
+                }
+
                 if(data[0].versoes[i].coordenadores[j].tx_url_equipe != ""){
-                  modulo_html += '<dd><a href="'+data[0].versoes[i].coordenadores[j].tx_url_equipe+'" title="Site externo" target="_blank">'+data[0].versoes[i].coordenadores[j].tx_nome_equipe+'</a></dd>';
+                  modulo_html += '<dd><a href="'+data[0].versoes[i].coordenadores[j].tx_url_equipe+'" title="Site externo" target="_blank"><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32" onerror="'+link_erro+';"></img>'+data[0].versoes[i].coordenadores[j].tx_nome_equipe+'</a></dd>';
                 }else {
-                  modulo_html += '<dd>'+data[0].versoes[i].coordenadores[j].tx_nome_equipe+'</dd>';
+                  modulo_html += '<dd><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32" onerror="'+link_erro+';"></img>'+data[0].versoes[i].coordenadores[j].tx_nome_equipe+'</dd>';
                 }
               }
             }
@@ -66,11 +73,17 @@ require(['rotas','jquery-ui'], function (React) {
             if(data[0].versoes[i].equipe.length > 0){
               modulo_html += '<dt>Equipe Técnica</dt><dd>';
               for (var j in data[0].versoes[i].equipe) {
-                if(data[0].versoes[i].equipe[j].tx_url_equipe != ""){
-                  modulo_html += '<a href="'+data[0].versoes[i].equipe[j].tx_url_equipe+'" title="Site externo" target="_blank">'+data[0].versoes[i].equipe[j].tx_nome_equipe+'</a>, ';
-                }else {
-                  modulo_html += data[0].versoes[i].equipe[j].tx_nome_equipe + ", ";
+
+                if(data[0].versoes[i].equipe[j].tx_img_equipe != null && data[0].versoes[i].equipe[j].tx_img_equipe != ""){
+                  src_link = urlCMS+'/imagens/videos/xs-'+data[0].versoes[i].equipe[j].tx_img_equipe;
                 }
+
+                if(data[0].versoes[i].equipe[j].tx_url_equipe != ""){
+                  modulo_html += '<div><span><a href="'+data[0].versoes[i].equipe[j].tx_url_equipe+'" title="Site externo" target="_blank"><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32" onerror="'+link_erro+';"></img>'+data[0].versoes[i].equipe[j].tx_nome_equipe+'</a></span></div>';
+                }else {
+                  modulo_html += '<div><span><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32"  onerror="'+link_erro+';"></img>'+data[0].versoes[i].equipe[j].tx_nome_equipe+'</span></div>';
+                }
+
               }
               modulo_html += '</dd>';
             }

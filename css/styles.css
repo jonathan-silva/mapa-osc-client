@@ -175,6 +175,16 @@ div.dropdown-container > div.dropdown-list > div > div > span {
    -webkit-box-shadow: 1px 1px 3px #363636;
    -moz-box-shadow: 1px 1px 3px #363636;
 }
+.imgEquipe{
+  box-shadow: 1px 1px 3px #363636;
+  -webkit-box-shadow: 1px 1px 3px #363636;
+  -moz-box-shadow: 1px 1px 3px #363636;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  display: inline;
+}
 .media{
   min-height: 68px;
 }
@@ -1246,3 +1256,13 @@ select{
   max-width: 100%;
   display: none;
   }
+#equipe dt {
+    margin-top: 10px;
+}
+#equipe dd span {
+  margin-right: 10px;
+}
+
+#equipe dd div {
+display: inline-block;
+}
