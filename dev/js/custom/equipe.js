@@ -58,8 +58,11 @@ require(['rotas','jquery-ui'], function (React) {
               modulo_html += '<dt>Coordenadores</dt>';
               for (var j in data[0].versoes[i].coordenadores) {
 
-                if(data[0].versoes[i].coordenadores[j].tx_img_equipe != null && data[0].versoes[i].coordenadores[j].tx_img_equipe != ""){
-                  src_link = urlCMS+'/imagens/videos/xs-'+data[0].versoes[i].coordenadores[j].tx_img_equipe;
+                if(data[0].versoes[i].coordenadores[j].tx_imagem_equipe != null && data[0].versoes[i].coordenadores[j].tx_imagem_equipe != ""){
+                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores[j].tx_imagem_equipe;
+                }
+                else{
+                  src_link = 'img/sem_img_user.png';
                 }
 
                 if(data[0].versoes[i].coordenadores[j].tx_url_equipe != ""){
@@ -74,8 +77,11 @@ require(['rotas','jquery-ui'], function (React) {
               modulo_html += '<dt>Equipe Técnica</dt><dd>';
               for (var j in data[0].versoes[i].equipe) {
 
-                if(data[0].versoes[i].equipe[j].tx_img_equipe != null && data[0].versoes[i].equipe[j].tx_img_equipe != ""){
-                  src_link = urlCMS+'/imagens/videos/xs-'+data[0].versoes[i].equipe[j].tx_img_equipe;
+                if(data[0].versoes[i].equipe[j].tx_imagem_equipe != null && data[0].versoes[i].equipe[j].tx_imagem_equipe != ""){
+                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].equipe[j].tx_imagem_equipe;
+                }
+                else{
+                  src_link = 'img/sem_img_user.png';
                 }
 
                 if(data[0].versoes[i].equipe[j].tx_url_equipe != ""){
