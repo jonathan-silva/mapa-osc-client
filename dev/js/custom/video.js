@@ -60,8 +60,8 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     },
     success: function(data){
       var html = '<div class="row"><div class="col-md-12"><h2 class="text-primary">'+data.tx_titulo_video+'</h2><hr></div></div>';
+      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"></span><label class="dt_pub_news">Publicado em '+data.dt_video+'</label>';
 
-      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_video+'</span>';
       var link_video = data.tx_link_video.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
       html += '<div><center><iframe width="853" height="480" src="'+link_video+'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>';
       html += '<div class="text-justify txtBloco">';
@@ -70,6 +70,12 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
 
       $('#video').append(html);
       $('.loading').addClass('hide');
+      $( ".dt_pub_news" ).before( $( ".social" ) );
+      $( ".social" ).css("display","flex")
+      $('.loading').addClass('hide');
+      $(".social iframe").each(function() {
+        $(this).attr('title', '');
+      });
 
       $("#versaoTexto").click(function(){
           abrirModalVideo(data.tx_titulo_video,data.tx_descricao_video);

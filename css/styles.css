@@ -1266,3 +1266,16 @@ select{
 #equipe dd div {
 display: inline-block;
 }
+.dt_pub_news{
+  color: #f18b96;
+  margin-left: 3px;
+  margin-bottom: 10px;
+}
+
+.pub_news hr{
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+.pub_news .social{
+  display: none;
+}

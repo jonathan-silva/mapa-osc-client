@@ -52,12 +52,16 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     success: function(data){
 
       var html = '<div class="row"><div class="col-md-12"><h2 class="text-primary">'+data.tx_titulo_publicacao+'</h2><hr></div></div>';
-
-      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_publicacao+'</span>';
+      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"></span><label class="dt_pub_news">Publicado em '+data.dt_publicacao+'</label>';
       html += '<div class="text-justify txtBloco">'+data.tx_descricao_publicacao+'</div>';
 
       $('#publicacao').append(html);
+      $( ".dt_pub_news" ).before( $( ".social" ) );
+      $( ".social" ).css("display","flex")
       $('.loading').addClass('hide');
+      $(".social iframe").each(function() {
+        $(this).attr('title', '');
+      });
     }
   });
 
