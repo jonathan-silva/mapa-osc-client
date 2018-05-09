@@ -73,10 +73,27 @@ require(['rotas','jquery-ui'], function (React) {
               }
             }
 
-            if(data[0].versoes[i].equipe.length > 0){
-              modulo_html += '<dt>Equipe Técnica</dt><dd>';
-              for (var j in data[0].versoes[i].equipe) {
+            modulo_html += '<dt>Equipe Técnica</dt><dd>';
 
+            if(data[0].versoes[i].coordenadores_equipe.length > 0){
+              for (var j in data[0].versoes[i].coordenadores_equipe) {
+                if(data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe != null && data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe != ""){
+                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe;
+                }
+                else{
+                  src_link = 'img/sem_img_user.png';
+                }
+
+                if(data[0].versoes[i].coordenadores_equipe[j].tx_url_equipe != ""){
+                  modulo_html += '<div><span><a href="'+data[0].versoes[i].coordenadores_equipe[j].tx_url_equipe+'" title="Site externo" target="_blank"><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32" onerror="'+link_erro+';"></img>'+data[0].versoes[i].coordenadores_equipe[j].tx_nome_equipe+'</a><i> (coordenador técnico)</i></span></div>';
+                }else {
+                  modulo_html += '<div><span><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32"  onerror="'+link_erro+';"></img>'+data[0].versoes[i].coordenadores_equipe[j].tx_nome_equipe+'</span><i> (coordenador técnico)</i></div>';
+                }
+              }
+            }
+
+            if(data[0].versoes[i].equipe.length > 0){
+              for (var j in data[0].versoes[i].equipe) {
                 if(data[0].versoes[i].equipe[j].tx_imagem_equipe != null && data[0].versoes[i].equipe[j].tx_imagem_equipe != ""){
                   src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].equipe[j].tx_imagem_equipe;
                 }
@@ -89,10 +106,9 @@ require(['rotas','jquery-ui'], function (React) {
                 }else {
                   modulo_html += '<div><span><img class="img-circle imgEquipe" src="'+src_link+'" height="32" width="32"  onerror="'+link_erro+';"></img>'+data[0].versoes[i].equipe[j].tx_nome_equipe+'</span></div>';
                 }
-
               }
-              modulo_html += '</dd>';
             }
+            modulo_html += '</dd>';
             modulo_html += '</dl><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></li>';
           }
           modulo_html += '</ul>';
