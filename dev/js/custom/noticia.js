@@ -46,10 +46,12 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.NoticiaByID(idNoticia)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
+      var html = '<div class="row"><div class="col-md-12"><h2 class="text-primary">'+data.tx_titulo_noticia+'</h2><hr></div></div>';
 
-      var html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_noticia+'</h3>';
       html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_noticia+'</span>';
       html += '<div class="text-justify txtBloco">'+data.tx_descricao_noticia+'</div>';
 

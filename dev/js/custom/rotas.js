@@ -284,6 +284,14 @@ class Rotas{
     return this.getBaseUrlCMS()+"/videoByID/"+id;
   }
 
+  //Publicações
+  Publicacoes(){
+    return this.getBaseUrlCMS()+"/publicacoes";
+  }
+  PublicacaoByID(id){
+    return this.getBaseUrlCMS()+"/publicacaoByID/"+id;
+  }
+
   //MROSC
   MenuMrosc(){
     return this.getBaseUrlCMS()+"/menuMrosc";

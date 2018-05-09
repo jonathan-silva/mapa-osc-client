@@ -55,10 +55,12 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     data: {flag: 'consulta', rota: rotas.VideoByID(idVideo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
     },
     success: function(data){
+      var html = '<div class="row"><div class="col-md-12"><h2 class="text-primary">'+data.tx_titulo_video+'</h2><hr></div></div>';
 
-      var html = '<h3 class="subTitulo text-capitalize">'+data.tx_titulo_video+'</h3>';
       html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_video+'</span>';
       var link_video = data.tx_link_video.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
       html += '<div><center><iframe width="853" height="480" src="'+link_video+'?rel=0" frameborder="0" allowfullscreen></iframe></center></div>';

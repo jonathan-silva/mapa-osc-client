@@ -1,4 +1,4 @@
-require(["jquery-ui"], function (React) {
+require(['rotas','jquery',"jquery-ui"], function (React) {
 
   $(document).tooltip({
     position: {
@@ -21,5 +21,44 @@ require(["jquery-ui"], function (React) {
           $('html,body').animate({scrollTop:$(this.hash).offset().top}, 800);
      });
   });
-  
+
+  $("#voltaPagAnterior").on("click", function(){
+    history.go(-1);
+  });
+
+  function addLinkVoltar(id){
+  		$("#voltaPublicacao").attr("href","publicacao.html#/"+id);
+  }
+
+  var rotas = new Rotas();
+  var valoresURL = window.location.href.split('#')[1]!==undefined ? window.location.href.split('#/')[1].split('=') : null;
+  var idPublicacao = "";
+
+  if(valoresURL !== null){
+    idPublicacao = valoresURL[0];
+    addLinkVoltar(idPublicacao);
+  }
+
+  $.ajax({
+    url: 'js/controller.php',
+    type: 'GET',
+    dataType: 'json',
+    data: {flag: 'consulta', rota: rotas.PublicacaoByID(idPublicacao)},
+    error: function(e){
+        console.log("ERRO no AJAX :" + e);
+        $('.manutencao').css('display', 'block');
+        $('.loading').addClass('hide');
+    },
+    success: function(data){
+
+      var html = '<div class="row"><div class="col-md-12"><h2 class="text-primary">'+data.tx_titulo_publicacao+'</h2><hr></div></div>';
+
+      html += '<span class="glyphicon glyphicon-calendar txtData" aria-hidden="true"> '+data.dt_publicacao+'</span>';
+      html += '<div class="text-justify txtBloco">'+data.tx_descricao_publicacao+'</div>';
+
+      $('#publicacao').append(html);
+      $('.loading').addClass('hide');
+    }
+  });
+
 });
