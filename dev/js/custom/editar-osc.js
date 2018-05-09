@@ -1908,8 +1908,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var newJson = {};
         newJson["headers"] = authHeader;
         newJson["id_osc"] = idOsc;
-        newJson["fonte_recursos"] = [];
         $("#recursos").children().each(function(){
+          //newJson["fonte_recursos"] = [];
           var ano = $(this).find("select").val();
           var nao_possui = $('#recursos_geral-'+ano+' input[type="checkbox"]').is(':checked');
           var nao_possui_rec_pub = $('#recursos_publicos-'+ano+' input[type="checkbox"]').is(':checked');
@@ -1917,23 +1917,23 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var nao_possui_rec_pri = $('#recursos_privados-'+ano+' input[type="checkbox"]').is(':checked');
           var nao_possui_rec_nao_fin = $('#recursos_nao_financeiros-'+ano+' input[type="checkbox"]').is(':checked');
 
-          var obj = {};
-          obj.dt_ano_recursos_osc = ano;
-          obj.bo_nao_possui = nao_possui;
+          //var obj = {};
+          newJson["dt_ano_recursos_osc"] = ano;
+          newJson["bo_nao_possui"] = nao_possui;
 
-          obj.bo_nao_possui_recursos_proprios = nao_possui_rec_pro;
-          obj.bo_nao_possui_recursos_publicos = nao_possui_rec_pub;
-          obj.bo_nao_possui_recursos_privados = nao_possui_rec_pri;
-          obj.bo_nao_possui_recursos_nao_financeiros = nao_possui_rec_nao_fin;
+          newJson["nao_possui_recursos_proprios"] = nao_possui_rec_pro;
+          newJson["nao_possui_recursos_publicos"] = nao_possui_rec_pub;
+          newJson["nao_possui_recursos_privados"] = nao_possui_rec_pri;
+          newJson["nao_possui_recursos_nao_financeiros"] = nao_possui_rec_nao_fin;
 
           if(nao_possui){
-            obj.bo_nao_possui_recursos_proprios = true;
-            obj.bo_nao_possui_recursos_publicos = true;
-            obj.bo_nao_possui_recursos_privados = true;
-            obj.bo_nao_possui_recursos_nao_financeiros = true;
+            newJson["nao_possui_recursos_proprios"] = true;
+            newJson["nao_possui_recursos_publicos"] = true;
+            newJson["nao_possui_recursos_privados"] = true;
+            newJson["nao_possui_recursos_nao_financeiros"] = true;
           }
 
-          obj.recursos = [];
+          newJson["recursos"] = [];
 
           if(!nao_possui){
             $(this).find('input:not([type="checkbox"])').each(function(){
@@ -1943,14 +1943,17 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               if(valorRecurso != ""){
                 obj2.cd_fonte_recursos_osc = $(this).attr("id");
                 obj2.nr_valor_recursos_osc = parseFloat(valorRecurso);
-                obj.recursos.push(obj2);
+                newJson.recursos.push(obj2);
               }
             });
           }
-          newJson.fonte_recursos.push(obj);
+          success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
+          newJson = {};
+          newJson["headers"] = authHeader;
+          newJson["id_osc"] = idOsc;
         });
         //console.log(newJson);
-        success = util.carregaAjax(rotas.AtualizarFontesRecursos(idOsc), 'POST', newJson);
+
 
       var jsonSalvoSucesso = {"Salvo com sucesso!":"Suas alterações serão processadas aproximadamente em instantes.<br><br>Obrigado!"};
       util.abrirModalAjuda("Salvo com sucesso!", jsonSalvoSucesso);
