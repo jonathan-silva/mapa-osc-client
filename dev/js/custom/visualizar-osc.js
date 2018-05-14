@@ -317,7 +317,8 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
 	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2017'> 2017</label></div>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2017'> 2017</label>";
+	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2018'> 2018</label></div>";
 	corpo += "</fieldset>";
 
 	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
