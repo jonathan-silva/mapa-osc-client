@@ -2946,6 +2946,7 @@
       "version": "1.10.3"
     },
     "gulp-concat": "^2.6.1",
+    "gulp-conflict": "^0.4.0",
     "gulp-minify": {
       "dependencies": {
         "ansi-regex": {
@@ -6788,13 +6789,13 @@
     }
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "gulp": "^3.9.1",
-    "gulp-babel": "^7.0.0",
-    "gulp-git": "^2.4.2",
+    "gulp-babel": "^7.0.1",
+    "gulp-git": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "karma": "^1.7.1",
-    "pump": "^1.0.2",
+    "pump": "^1.0.3",
     "yargs": "^10.0.3"
   }
 }
