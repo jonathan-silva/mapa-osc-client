@@ -178,9 +178,69 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
 
 } );
 
-require(["bootstrap","jquery-ui", "rotas"], function (React) {
+require(["rotas","bootstrap","jquery-ui" ], function (React) {
 
   var rotas = new Rotas();
+
+  var urlCMS = rotas.getBaseUrlCMS();
+
+  $.ajax({
+    url: 'js/controller.php',
+    type: 'GET',
+    dataType: 'json',
+    data: {flag: 'consulta', rota: rotas.ModuloWebdoors()},
+    error: function(e){
+        console.log("ERRO no AJAX :" + e);
+        $('.loading').addClass('hide');
+    },
+    success: function(data){
+
+      var src_link = '';
+      var link_erro = "this.src='img/item_cms.png'";
+
+      if(data.length > 0){
+          var indicators = '<ol class="carousel-indicators">';
+          var listbox = '<div class="carousel-inner" role="listbox">';
+
+          for (var i in data) {
+            if(i == 0){
+              indicators += '<li data-target="#carousel-topo" data-slide-to="'+i+'" class="active"></li>';
+              listbox += '<div class="item active">';
+            }
+            else {
+              indicators += '<li data-target="#carousel-topo" data-slide-to="'+i+'"></li>';
+              listbox += '<div class="item">';
+            }
+
+            if(data[i].tx_imagem_webdoor != null && data[i].tx_imagem_webdoor != ""){
+              src_link =  urlCMS+'/imagens/webdoors/'+data[i].tx_imagem_webdoor;
+            }
+            else{
+              src_link = 'img/item_cms.png';
+            }
+
+            listbox += '<a class="btn-item" href="'+data[i].tx_link_webdoor+'">';
+            listbox += '<img src="'+src_link+'"  onerror="'+link_erro+';" alt="" title="Link para '+data[i].tx_titulo_webdoor+'">';
+            listbox += '<div class="carousel-caption"><h4 class="legenda">'+data[i].tx_titulo_webdoor+':</h4></div></a></div>';
+
+          }
+          indicators += '</ol>';
+          listbox += '</div>';
+
+          var controls =  '<a class="left carousel-control" href="#carousel-topo" role="button" data-slide="prev">';
+          controls += '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Anterior</span></a>';
+          controls += '<a class="right carousel-control" href="#carousel-topo" role="button" data-slide="next">';
+          controls += '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Próximo</span></a>';
+
+          $('#carousel-topo').append(indicators);
+          $('#carousel-topo').append(listbox);
+          $('#carousel-topo').append(controls);
+        }
+        $('.loading').addClass('hide');
+    }
+  });
+
+
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
   var controller = "js/controller.php";
