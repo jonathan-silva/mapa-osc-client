@@ -581,11 +581,12 @@ class DataForms{
         {
           "id": "ano",
           "label": "Ano",
-          "content": "2017",
+          "content": "2018",
           "fonte": null,
           "placeholder":"",
           "type": "select",
           "options": [
+            "2018",
             "2017",
             "2016",
             "2015",
