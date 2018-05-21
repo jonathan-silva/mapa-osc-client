@@ -1303,3 +1303,14 @@ display: inline-block;
   margin-top: 2px;
   margin-bottom: 5px;
 }
+
+
+#carousel-topo .carousel-descricao{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background:none;
+}

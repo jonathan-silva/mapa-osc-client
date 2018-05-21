@@ -199,10 +199,11 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
       var link_erro = "this.src='img/item_cms.png'";
 
       if(data.length > 0){
-          var indicators = '<ol class="carousel-indicators">';
-          var listbox = '<div class="carousel-inner" role="listbox">';
 
           for (var i in data) {
+            var indicators = '';
+            var listbox = '';
+
             if(i == 0){
               indicators += '<li data-target="#carousel-topo" data-slide-to="'+i+'" class="active"></li>';
               listbox += '<div class="item active">';
@@ -221,20 +222,16 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
 
             listbox += '<a class="btn-item" href="'+data[i].tx_link_webdoor+'">';
             listbox += '<img src="'+src_link+'"  onerror="'+link_erro+';" alt="" title="Link para '+data[i].tx_titulo_webdoor+'">';
-            listbox += '<div class="carousel-caption"><h4 class="legenda">'+data[i].tx_titulo_webdoor+':</h4></div></a></div>';
+            listbox += '<div class="carousel-caption"><h4 class="legenda">'+data[i].tx_titulo_webdoor+'</h4></div>';
 
+            if(data[i].tx_descricao_webdoor != null && data[i].tx_descricao_webdoor != ""){
+                listbox += '<div class="carousel-caption carousel-descricao"><div">'+data[i].tx_descricao_webdoor+'</div></div>';
+            }
+            listbox += '</a></div>';
+
+            $('.carousel-indicators').append(indicators);
+            $('.carousel-inner').append(listbox);
           }
-          indicators += '</ol>';
-          listbox += '</div>';
-
-          var controls =  '<a class="left carousel-control" href="#carousel-topo" role="button" data-slide="prev">';
-          controls += '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Anterior</span></a>';
-          controls += '<a class="right carousel-control" href="#carousel-topo" role="button" data-slide="next">';
-          controls += '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Próximo</span></a>';
-
-          $('#carousel-topo').append(indicators);
-          $('#carousel-topo').append(listbox);
-          $('#carousel-topo').append(controls);
         }
         $('.loading').addClass('hide');
     }
