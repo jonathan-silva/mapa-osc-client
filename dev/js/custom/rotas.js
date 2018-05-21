@@ -312,6 +312,10 @@ class Rotas{
     return this.getBaseUrlCMS()+"/apoios";
   }
 
+  ModuloWebdoors(){
+    return this.getBaseUrlCMS()+"/webdoors";
+  }
+
   ModuloBySlug(slug){
     return this.getBaseUrlCMS()+"/ModuloBySlug/"+slug;
   }

@@ -1279,3 +1279,38 @@ display: inline-block;
 .pub_news .social{
   display: none;
 }
+
+#carousel-topo img{
+  max-height: 237px;
+  max-width: 1140px;
+}
+
+#carousel-topo .carousel-caption{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 205px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background: linear-gradient(0deg, rgba(22,88,191,0.9), rgba(22,88,191,0.5));
+}
+#carousel-topo .carousel-indicators{
+  bottom: 20px;
+  margin-bottom: 0px;
+}
+
+#carousel-topo .legenda{
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+
+#carousel-topo .carousel-descricao{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  background:none;
+}
