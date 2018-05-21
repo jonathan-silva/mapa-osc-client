@@ -210,7 +210,7 @@ $('#titulacoesCertificacoes').mousedown(function() {
 
         html += '</div></div></div>';
 
-        $('#cd_certificado').append(html);
+        $('#cd_certificado').html(html);
       }
       else{
 
@@ -246,7 +246,7 @@ $('#titulacoesCertificacoes').mousedown(function() {
      nome_titulo = 'titulacao_utilidadePublicaMunicipal'
    }
    else if(cd_certificado == 9){
-     nome_titulo = 'Não Possui'
+     nome_titulo = 'titulacao_naoPossui'
    }
    return nome_titulo;
  }
