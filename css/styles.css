@@ -1072,9 +1072,7 @@ select{
   margin-left: 15px;
   color: #337cbb;
 }
-.subareaAtuacao{
- visibility: hidden;
-}
+
 
 .botao-projeto{
   float: right;
@@ -1313,4 +1311,14 @@ display: inline-block;
   left: 0px;
   bottom: 0px;
   background:none;
+}
+.itemAreaAtuacao{
+  font-weight: bold !important;
+  font-style: italic;
+  color: #1658bf;
+  padding-left: 0px !important;
+}
+.buscaSubareaAtuacao{
+  padding-top: 0px;
+  margin-bottom: 0px;
 }

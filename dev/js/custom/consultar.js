@@ -33,6 +33,7 @@ require(['react'], function (React) {
     var limiteAutocompleteCidade = 25;
 
     var box_cd_situacao_imovel_osc = true;
+    var sub_area;
 
     $("#accordion .panel-heading").each(function () {
       $(this).click(function() {
@@ -190,7 +191,6 @@ require(['react'], function (React) {
       }
     });
   });*/
-$('#titulacoesCertificacoes').mousedown(function() {
 
   $.ajax({
     url: 'js/controller.php',
@@ -201,123 +201,89 @@ $('#titulacoesCertificacoes').mousedown(function() {
         console.log("ERRO no AJAX :" + e);
     },
     success: function(data){
+
+      var id_certificados = {1:"titulacao_entidadeAmbientalista", 2:"titulacao_cebasEducacao",
+                             3:"titulacao_cebasSaude", 4:"titulacao_oscip",
+                             5:"titulacao_utilidadePublicaFederal", 6:"titulacao_cebasAssistenciaSocial",
+                             7:"titulacao_utilidadePublicaEstadual",
+                             8:"titulacao_utilidadePublicaMunicipal", 9:"titulacao_naoPossui"
+                           };
+
       if (data.length > 0){
-        var html = '<div class="row"><div class="form-group"><div class="checkbox">';
 
           for (var i in data) {
-            html += '<label><input id="'+recuperar_id_certificado(data[i].cd_certificado)+'" type="checkbox">'+data[i].tx_nome_certificado+'</label>';
+            var html = '<label><input id="'+id_certificados[data[i].cd_certificado]+'" value="'+data[i].cd_certificado+'"  type="checkbox">'+data[i].tx_nome_certificado+'</label>';
+            $('#cd_certificado').append(html);
           }
-
-        html += '</div></div></div>';
-
-        $('#cd_certificado').html(html);
       }
-      else{
 
-      }
     }
   });
-});
-
- function recuperar_id_certificado(cd_certificado){
-   var nome_titulo;
-   if(cd_certificado == 1){
-     nome_titulo = 'titulacao_entidadeAmbientalista'
-   }
-   else if(cd_certificado == 2){
-     nome_titulo = 'titulacao_cebasEducacao'
-   }
-   else if(cd_certificado == 3){
-     nome_titulo = 'titulacao_cebasSaude'
-   }
-   else if(cd_certificado == 4){
-     nome_titulo = 'titulacao_oscip'
-   }
-   else if(cd_certificado == 5){
-     nome_titulo = 'titulacao_utilidadePublicaFederal'
-   }
-   else if(cd_certificado == 6){
-     nome_titulo = 'titulacao_cebasAssistenciaSocial'
-   }
-   else if(cd_certificado == 7){
-     nome_titulo = 'titulacao_utilidadePublicaEstadual'
-   }
-   else if(cd_certificado == 8){
-     nome_titulo = 'titulacao_utilidadePublicaMunicipal'
-   }
-   else if(cd_certificado == 9){
-     nome_titulo = 'titulacao_naoPossui'
-   }
-   return nome_titulo;
- }
-
-    $('#areasSubareasAtuacao').mousedown(function() {
-
-        $("#cd_area_atuacao").selectBoxIt({
-          theme: "default",
-          defaultText: "Selecione uma opção",
-          autoWidth: false,
-
-          populate: function() {
-              var deferred = $.Deferred(),
-                  arr = [],
-                  x = -1;
-              $.ajax({
-                url: controller,
-                type: 'GET',
-                async: true,
-                dataType: 'json',
-                data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
-              }).done(function(data) {
-                  while(++x < data.length) {
-                      arr.push({"text": data[x].tx_nome_area_atuacao, "value": data[x].cd_area_atuacao,})
-                  }
-                  deferred.resolve(arr);
-              });
-              return deferred;
-          }
-        });
-    });
 
 
-    var sub_area_box;
     $.ajax({
       url: controller,
       type: 'GET',
       async: true,
       dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.SubAreaAtuacao()},
+      data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
       error:function(e){
         console.log("Erro no ajax: ");
-        console.log(e);
       },
       success: function(data){
-          sub_area_box = data;
-      }
-    });
 
-    $( "#cd_area_atuacao" ).change(function() {
-      var cd_area_atuacao = $(this).val();
+        if(data != null ){
+          for(var i in data){
+            var html = '<label><input id="cd_area_atuacao-'+data[i].cd_area_atuacao+'" value="'+data[i].cd_area_atuacao+'"  type="checkbox">'+ data[i].tx_nome_area_atuacao+'</label>';
+            $('#cd_area_atuacao').append(html);
+          }
+        }
 
-      if (sub_area_box != null) {
-        var selectbox = $('#cd_subarea_atuacao');
-        var html = '';
+        $.ajax({
+          url: controller,
+          type: 'GET',
+          async: true,
+          dataType: 'json',
+          data:{flag: 'consulta', rota:  rotas.SubAreaAtuacao()},
+          error:function(e){
+            console.log("Erro no ajax: ");
+          },
+          success: function(data){
 
-        $.each(sub_area_box, function (key, value) {
-          if(cd_area_atuacao == value.cd_area_atuacao ){
-            html += '<label><input id="cd_subarea_atuacao-'+value.cd_subarea_atuacao+'" type="checkbox">'+value.tx_nome_subarea_atuacao+'</label>';
+            sub_area = data;
+            $("#cd_area_atuacao input").change(function() {
+                var cd_area_atuacao = $(this).val();
+                var tx_area_atuacao = $(this).parent().text();
+                if(tx_area_atuacao != "Outros"){
+                  if(this.checked) {
+
+                    if (sub_area != null) {
+                      var selectbox = $('#cd_subarea_atuacao');
+                      var html = '';
+                      html += '<div class="form-group col-xs-6 col-sm-12 buscaSubareaAtuacao" id="item_'+cd_area_atuacao+'" ><label class="control-label itemAreaAtuacao">'+tx_area_atuacao+':</label>';
+
+                      $.each(sub_area, function (key, value) {
+                        if(cd_area_atuacao == value.cd_area_atuacao ){
+                          html += '<label><input id="cd_subarea_atuacao-'+value.cd_subarea_atuacao+'" value="'+value.cd_subarea_atuacao+'" type="checkbox">'+value.tx_nome_subarea_atuacao+'</label>';
+                        }
+                      });
+                      html += '</div>';
+
+                      $(".subareaAtuacao").css('visibility','visible');
+                      selectbox.append(html);
+
+                    }
+                  }else{
+                    $("#item_"+cd_area_atuacao).remove();
+                  }
+              }
+            });
           }
         });
 
-        if(html == ''){
-          $(".subareaAtuacao").css('visibility','hidden');
-        }else{
-          $(".subareaAtuacao").css('visibility','visible');
-        }
-        selectbox.html(html);
+
 
       }
-
     });
 
 
@@ -832,9 +798,11 @@ $('#titulacoesCertificacoes').mousedown(function() {
     $("label[for='valor_dinheiro']").parent().find('.min, .max').mask('000.000.000.000.000,00', {reverse: true});
 
     $("#btnLimpar").on("click", function() {
-      $(".consultaAvancada input").each(function () {
+
+      $(".consultaAvancada input[type=text]").each(function () {
         $(this).val('');
       });
+
       $('input[type=checkbox]').each(function () {
         $(this).attr('checked', false);
         $(this).prop('checked', false);
@@ -842,7 +810,9 @@ $('#titulacoesCertificacoes').mousedown(function() {
 
       $(".consultaAvancada select").each(function () {
         if($(this).hasClass('newSelectBox')){
-          $(this).data("selectBox-selectBoxIt").selectOption("");
+          if($(this).data("selectBox-selectBoxIt") != undefined){
+            $(this).data("selectBox-selectBoxIt").selectOption("");
+          }
         }
         else{
           $(this).prop('selectedIndex',0);
@@ -852,6 +822,10 @@ $('#titulacoesCertificacoes').mousedown(function() {
       $("div[id^='slider-range-']").each(function () {
         $(this).slider("values", 0, "");
         $(this).slider("values", 1, 99999999999);
+      });
+
+      $(".buscaSubareaAtuacao").each(function () {
+        $(this).remove();
       });
 
     });
