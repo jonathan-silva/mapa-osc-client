@@ -222,7 +222,7 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
 
             listbox += '<a class="btn-item" href="'+data[i].tx_link_webdoor+'">';
             listbox += '<img src="'+src_link+'"  onerror="'+link_erro+';" alt="" title="Link para '+data[i].tx_titulo_webdoor+'">';
-            listbox += '<div class="carousel-caption"><h4 class="legenda">'+data[i].tx_titulo_webdoor+'</h4></div>';
+            listbox += '<div class="carousel-caption"><h4 class="legenda">'+data[i].tx_legenda_webdoor+'</h4></div>';
 
             if(data[i].tx_descricao_webdoor != null && data[i].tx_descricao_webdoor != ""){
                 listbox += '<div class="carousel-caption carousel-descricao"><div">'+data[i].tx_descricao_webdoor+'</div></div>';
