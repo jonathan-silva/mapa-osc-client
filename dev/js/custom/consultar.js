@@ -839,6 +839,11 @@ require(['react'], function (React) {
           $(this).find("input[type=text], select").each(function () {
             if( $(this).val() != "")
             {
+              if (idSecao === 'areasSubareasAtuacao')
+              {
+                idSecao = 'atividadeEconomica';
+              }
+
               if(jsonConsulta[idSecao] === undefined )
               {
                 jsonConsulta[idSecao] = {};
@@ -850,6 +855,11 @@ require(['react'], function (React) {
            $(this).find("input[type=hidden]").each(function () {
              if( $(this).val() != "")
              {
+               if (idSecao === 'areasSubareasAtuacao')
+               {
+                 idSecao = 'atividadeEconomica';
+               }
+
                if(jsonConsulta[idSecao] === undefined )
                {
                  jsonConsulta[idSecao] = {};
@@ -862,6 +872,11 @@ require(['react'], function (React) {
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
              {
+               if (idSecao === 'atividadeEconomica')
+               {
+                 idSecao = 'areasSubareasAtuacao';
+               }
+
                if(jsonConsulta[idSecao] === undefined )
                {
                  jsonConsulta[idSecao] = {};
