@@ -80,7 +80,7 @@ require(["jquery-ui", "rotas"], function(React) {
              },
              success: function(data){
                jQuery("#modalTitle").text("");
-               jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
+               jQuery("#modalConteudo").text(data.msg);
                $modal.modal('show');
              }
          }); //final envio ajax
