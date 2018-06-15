@@ -734,7 +734,7 @@ require(['react'], function (React) {
                type: 'GET',
                async: true,
                dataType: "json",
-               data: {flag: 'autocomplete', rota: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+               data: {flag: 'autocomplete', rota: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
                success: function (data) {
                  if(data.length > 0){
                    response($.map( data, function( item ) {
