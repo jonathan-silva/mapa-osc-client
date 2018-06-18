@@ -872,16 +872,39 @@ require(['react'], function (React) {
            $(this).find("input[type=checkbox]").each(function () {
              if( $(this).prop( "checked"))
              {
-               if (idSecao === 'atividadeEconomica')
+               if (idSecao == 'atividadeEconomica' || idSecao == 'areasSubareasAtuacao' )
                {
                  idSecao = 'areasSubareasAtuacao';
-               }
 
-               if(jsonConsulta[idSecao] === undefined )
-               {
-                 jsonConsulta[idSecao] = {};
+                 if($(this).parent().parent().parent().attr('id') == "cd_subarea_atuacao")
+                 {
+                   if(jsonConsulta[idSecao] === undefined )
+                   {
+                     jsonConsulta[idSecao] = {};
+                   }
+                   jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
+                 }
+                 else {
+
+                   var id_area = $(this).val();
+                   if($("#item_"+id_area).find("input[type=checkbox]:checked").length == 0)
+                   {
+                      if(jsonConsulta[idSecao] === undefined )
+                      {
+                        jsonConsulta[idSecao] = {};
+                      }
+                      jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
+                   }
+                 }
                }
-               jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
+               else{
+
+                 if(jsonConsulta[idSecao] === undefined )
+                 {
+                   jsonConsulta[idSecao] = {};
+                 }
+                 jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
+               }
              }
             });
 
