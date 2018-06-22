@@ -1,4 +1,14 @@
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteRule ^([a-zA-Z0-9_-])+/?$ /visualizar-osc.html#/$1 [NC]
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} ^(\/api+.*)? [NC]
+    RewriteRule ^ index.php [L]
+
+	RewriteRule ^(osc\/)+(.*)$ /visualizar-osc.html#/$2 [L,R=301]
 </IfModule>
