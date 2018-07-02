@@ -16,6 +16,7 @@ require(["jquery-ui"], function (React) {
   });
 });
 
+/*
 require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
 
@@ -106,3 +107,4 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
   } );
 });
+*/
