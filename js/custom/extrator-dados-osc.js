@@ -1,0 +1,1 @@
+"use strict";require(["jquery-ui"],function(t){$(document).tooltip({position:{my:"center bottom-20",at:"center top",using:function(t,i){$(this).css(t),$("<div>").addClass("arrow").addClass(i.vertical).addClass(i.horizontal).appendTo(this)}}})});
