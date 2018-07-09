@@ -492,6 +492,7 @@
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
                       <span class="form-control-static">{{conselho.tx_nome_conselho}}</span>
+                      <span  ng-if="conselho.tx_nome_conselho_outro " class="form-control-static">- {{conselho.tx_nome_conselho_outro}}</span>
                       <span ng-if="conselho.tx_nome_conselho && conselho.ft_conselho" title="{{conselho.ft_conselho  | icon_title }}">
             					<img class="{{conselho.ft_conselho | icon_class}}" ng-src="{{conselho.ft_conselho | icone}}">
             				  </span>

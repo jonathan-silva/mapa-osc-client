@@ -127,7 +127,7 @@ class Util {
               $element.append('<div id="outro_'+idClass+'" style="padding-top: 10px;">'
                     +'<label class = "control-label">Novo Item:</label>'
                       +'<div class="input-box">'
-                        +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" id="outro-'+idClass+'_'+index+'" value="">'
+                        +'<input type="text" class="form-control " placeholder="Insira o novo item aqui" id="outro_'+idClass+'-'+index+'" value="">'
                         +'<span class="fonte-de-dados dado-organizacao" title="Informação preenchida pela Organização">'
                           +'<img class="imgDadoEditavel" src="img/dado_representante.png">'
                         +'</span>'
