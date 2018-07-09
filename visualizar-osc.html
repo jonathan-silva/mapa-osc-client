@@ -491,15 +491,15 @@
                 <tbody>
                   <tr ng-repeat="conselho in ctrl.osc.participacao_social.conselho">
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_nome_conselho}}</span>
-                      <span ng-if="conselho.conselho.tx_nome_conselho && conselho.conselho.ft_conselho" title="{{conselho.conselho.ft_conselho  | icon_title }}">
-            					<img class="{{conselho.conselho.ft_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_conselho | icone}}">
+                      <span class="form-control-static">{{conselho.tx_nome_conselho}}</span>
+                      <span ng-if="conselho.tx_nome_conselho && conselho.ft_conselho" title="{{conselho.ft_conselho  | icon_title }}">
+            					<img class="{{conselho.ft_conselho | icon_class}}" ng-src="{{conselho.ft_conselho | icone}}">
             				  </span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_nome_tipo_participacao}}</span>
-                      <span ng-if="conselho.conselho.tx_nome_tipo_participacao && conselho.conselho.ft_tipo_participacao" title="{{conselho.conselho.ft_tipo_participacao  | icon_title }}">
-                      <img class="{{conselho.conselho.ft_tipo_participacao | icon_class}}" ng-src="{{conselho.conselho.ft_tipo_participacao | icone}}">
+                      <span class="form-control-static">{{conselho.tx_nome_tipo_participacao}}</span>
+                      <span ng-if="conselho.tx_nome_tipo_participacao && conselho.ft_tipo_participacao" title="{{conselho.ft_tipo_participacao  | icon_title }}">
+                      <img class="{{conselho.ft_tipo_participacao | icon_class}}" ng-src="{{conselho.ft_tipo_participacao | icone}}">
                       </span>
                     </td>
                     <td>
@@ -514,21 +514,21 @@
                       </div>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.tx_nome_periodicidade_reuniao_conselho}}</span>
-                      <span ng-if="conselho.conselho.tx_nome_periodicidade_reuniao_conselho && conselho.conselho.ft_periodicidade_reuniao" title="{{conselho.conselho.ft_periodicidade_reuniao | icon_title }}">
-                      <img class="{{conselho.conselho.ft_periodicidade_reuniao | icon_class}}" ng-src="{{conselho.conselho.ft_periodicidade_reuniao | icone}}">
+                      <span class="form-control-static">{{conselho.tx_periodicidade_reuniao}}</span>
+                      <span ng-if="conselho.tx_periodicidade_reuniao && conselho.ft_periodicidade_reuniao" title="{{conselho.ft_periodicidade_reuniao | icon_title }}">
+                      <img class="{{conselho.ft_periodicidade_reuniao | icon_class}}" ng-src="{{conselho.ft_periodicidade_reuniao | icone}}">
                       </span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.dt_data_inicio_conselho}}</span>
-                      <span ng-if="conselho.conselho.dt_data_inicio_conselho && conselho.conselho.ft_data_inicio_conselho" title="{{conselho.conselho.ft_data_inicio_conselho | icon_title }}">
-                      <img class="{{conselho.conselho.ft_data_inicio_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_data_inicio_conselho | icone}}">
+                      <span class="form-control-static">{{conselho.dt_data_inicio_conselho}}</span>
+                      <span ng-if="conselho.dt_data_inicio_conselho && conselho.ft_data_inicio_conselho" title="{{conselho.ft_data_inicio_conselho | icon_title }}">
+                      <img class="{{conselho.ft_data_inicio_conselho | icon_class}}" ng-src="{{conselho.ft_data_inicio_conselho | icone}}">
                       </span>
                     </td>
                     <td>
-                      <span class="form-control-static">{{conselho.conselho.dt_data_fim_conselho}}</span>
-                      <span ng-if="conselho.conselho.dt_data_fim_conselho && conselho.conselho.ft_data_fim_conselho" title="{{conselho.conselho.ft_data_fim_conselho | icon_title }}">
-                      <img class="{{conselho.conselho.ft_data_fim_conselho | icon_class}}" ng-src="{{conselho.conselho.ft_data_fim_conselho | icone}}">
+                      <span class="form-control-static">{{conselho.dt_data_fim_conselho}}</span>
+                      <span ng-if="conselho.dt_data_fim_conselho && conselho.ft_data_fim_conselho" title="{{conselho.ft_data_fim_conselho | icon_title }}">
+                      <img class="{{conselho.ft_data_fim_conselho | icon_class}}" ng-src="{{conselho.ft_data_fim_conselho | icone}}">
                       </span>
                     </td>
                   </tr>
