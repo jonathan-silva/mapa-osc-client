@@ -235,11 +235,11 @@ class EspacosPartSocial {
               formItens.push(util.FormItens(property+"-"+conferencias[j].id_conferencia, "Nome da Conferência", conferencias[j].tx_nome_conferencia, conferencias[j].ft_conferencia, null, "select", lista_conferencia));
             }
 
-            if (property == "tx_nome_conferencia_outro"){
-                if ( conferencias[j].tx_nome_conferencia_outro ){
-                    formItens.push(util.FormItens("outro-conferencia-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outro ? conferencias[j].tx_nome_conferencia_outro  : "" , conferencias[j].ft_conferencia, null, "text"));
+            if (property == "tx_nome_conferencia_outra"){
+                if ( conferencias[j].tx_nome_conferencia_outra ){
+                    formItens.push(util.FormItens("outro_conferencia-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outra ? conferencias[j].tx_nome_conferencia_outra  : "" , conferencias[j].ft_conferencia, null, "text"));
                 }else{
-                        formItens.push(util.FormItens("outro-conferencia-empty-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outro ? conferencias[j].tx_nome_conferencia_outro  : "" , conferencias[j].ft_conferencia, null, "text", null, null,null, true));
+                        formItens.push(util.FormItens("outro_conferencia-empty-"+conferencias[j].id_conferencia, "Identificação da Confêrencia", conferencias[j].tx_nome_conferencia_outra ? conferencias[j].tx_nome_conferencia_outra  : "" , conferencias[j].ft_conferencia, null, "text", null, null,null, true));
                 }
             }
 

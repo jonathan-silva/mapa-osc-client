@@ -1836,7 +1836,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           $(this).find("input").each(function(){
              var split = $(this).attr("id").split("-");
              var campo = split[0];
-             if (campo == "outro"){
+              if (campo == "outro_conferencia" && $(this).val() != ''){
                 obj.tx_nome_conferencia = $(this).val();
              }
 

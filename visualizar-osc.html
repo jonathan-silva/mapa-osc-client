@@ -582,6 +582,7 @@
                     </td>
                     <td>
                       <span class="form-control-static">{{conferencia.tx_nome_conferencia}}</span>
+                      <span  ng-if="conferencia.tx_nome_conferencia_outra " class="form-control-static">- {{conferencia.tx_nome_conferencia_outra}}</span>
                       <span ng-if="conferencia.tx_nome_conferencia && conferencia.ft_ano_realizacao " title="{{conferencia.ft_conferencia  | icon_title }}">
                       <img class="{{conferencia.ft_conferencia | icon_class}}" ng-src="{{conferencia.ft_conferencia | icone}}">
                       </span>
