@@ -148,7 +148,7 @@ class FonteRecurso {
     var sections = dadosForm.itemsRecurso();
     var recursos_form = dadosForm.tiposRecurso();
     var fontesRecursos = this.carregaFontes(rotas);
-    if (json.recursos.recursos == null) {
+    if (json.recursos.recursos.length == 0 || json.recursos.recursos == null) {
       //for (var i = 0; i < 5; i++) {
         json.recursos.recursos = [0,1,2,3];
         json.recursos.recursos[0]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
@@ -157,7 +157,6 @@ class FonteRecurso {
         json.recursos.recursos[3]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
         json.recursos.recursos[4]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
       //}
-      console.log(json.recursos.recursos);
         for (var i = 0; i < 5; i++) {
           json.recursos.recursos[i].dt_ano_recursos_osc = 2014+i;
           json.recursos.recursos[i].bo_nao_possui = false;
@@ -167,8 +166,6 @@ class FonteRecurso {
           json.recursos.recursos[i].bo_nao_possui_recursos_nao_financeiros = false;
         }
     }
-    console.log(json.recursos.recursos.length);
-    console.log(json.recursos.recursos);
     for (var j = 0; j < json.recursos.recursos.length; j++) {
         this.montarPorAno(
           json.recursos.recursos[j].dt_ano_recursos_osc,
