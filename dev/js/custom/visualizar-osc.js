@@ -32,7 +32,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 					self.osc = response.data
 					var projeto_array = response.data.projeto
 					if(projeto_array != undefined){
-						$scope.projs = projeto_array.projeto // PROJETOS
+						$scope.projs = projeto_array // PROJETOS
 					}
 					else {
 						$scope.projs = "";
