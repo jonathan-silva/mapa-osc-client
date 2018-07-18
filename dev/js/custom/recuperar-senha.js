@@ -73,21 +73,14 @@ require(["jquery-ui", "rotas"], function(React) {
              dataType: 'json',
              data: {flag: 'consultaPost', rota: rotas.RecuperSenha(), parametros: json},
              error:function(data){
-
-               if (data.status == 200){
-                 jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
-                 jQuery("#modalConteudo").text("Em breve você receberá um e-mail com o procedimento para alterar a senha.");
-                 $modal.modal('show');
-               }else{
                  jQuery("#modalTitle").text("Problema na solicitação!");
-                 jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
+                 jQuery("#modalConteudo").text("Não foi possível recuperar a senha.");
                  $modal.modal('show');
                  return false;
-               }
              },
              success: function(data){
-               jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
-               jQuery("#modalConteudo").text("Em breve você receberá um e-mail com o procedimento para alterar a senha.");
+               jQuery("#modalTitle").text("");
+               jQuery("#modalConteudo").text(data.responseText);
                $modal.modal('show');
              }
          }); //final envio ajax
