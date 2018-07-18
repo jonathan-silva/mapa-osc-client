@@ -130,7 +130,7 @@ class Projeto {
       var type = labelMap[sectionId].type;
       var options = labelMap[sectionId].options;
       var placeholder = labelMap[sectionId].placeholder;
-      var infoTitle = labelMap[property].infoTitle;
+      var infoTitle = labelMap[sectionId].infoTitle;
 
       var buttons = null;
       var buttonsInLine = false;

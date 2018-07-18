@@ -191,11 +191,13 @@ class Util {
             $select.parent().removeClass('has-error');
             $input.after().find('span').remove();
             $select.after().find('span').remove();
-            var $clone = $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
+            $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
             var $cloneChildren = $('#'+idDiv).children();
             $cloneDiv.clone().appendTo($cloneChildren);
+            $cloneDiv.parent().parent().children().first().children().last().remove();
             $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
             $cloneDiv.parent().children().last().find('input[type=text]').val('');
+            $cloneDiv.parent().children().last().find('select').val('-1');
 
             var date_inputs = $cloneDiv.parent().children().last().find(".date");
             var ano_inputs = $cloneDiv.parent().children().last().find(".ano");

@@ -2305,6 +2305,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           }
         }
 
+        obj["bo_nao_possui_projetos"] = $('#projetos .pro input[type="checkbox"]').is(':checked');
+
         return obj;
       }
 
