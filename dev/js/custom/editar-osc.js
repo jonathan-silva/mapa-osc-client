@@ -1733,10 +1733,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              }
            }
 
-           if (campo == "tx_nome_conselho") {
-             obj.conselho[campo] = $(this).val();
-           }
-
          });
 
          $(this).find("input").each(function(index){
