@@ -29,7 +29,11 @@ class TitulosCertificacoes {
     var formItens = [];
     var items = util.validateObject(certificacoes.certificado, []);
 
-    if(items.length > 0){
+    if(items.length == 1 && items[0].id_certificado == null){
+      items = [];
+    }
+
+    if(items.length > 0 ){
       for (var j=0; j<items.length; j++){
         items[j].dt_inicio_certificado = (items[j].dt_inicio_certificado?items[j].dt_inicio_certificado:"Não informado");
         items[j].dt_fim_certificado = (items[j].dt_fim_certificado?items[j].dt_fim_certificado:"Não informado");

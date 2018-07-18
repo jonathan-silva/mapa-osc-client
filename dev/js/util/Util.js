@@ -194,7 +194,9 @@ class Util {
             $cloneDiv.find('button').text('Remover').attr('class', 'btn-danger btn');
             var $cloneChildren = $('#'+idDiv).children();
             $cloneDiv.clone().appendTo($cloneChildren);
-            $cloneDiv.parent().parent().children().first().children().last().remove();
+            if(idDiv == "conselhos" || idDiv == "conferencias" || idDiv == "outros_part"){
+              $cloneDiv.parent().parent().children().first().children().last().remove();
+            }
             $cloneDiv.parent().children().last().find('button').text('Adicionar').attr('class', 'btn-primary btn').click(addItemm(idDiv));
             $cloneDiv.parent().children().last().find('input[type=text]').val('');
             $cloneDiv.parent().children().last().find('select').val('-1');
