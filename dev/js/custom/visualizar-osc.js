@@ -3,6 +3,7 @@ var idOsc;
 var absUrl;
 var rotas;
 var util = new Util();
+var recursos_relatorio;
 
 controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', function($http, $location, $scope, $filter) {
 
@@ -39,6 +40,11 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 					}
 
 		    	self.msg = '';
+
+					if(response.data.recursos != undefined){
+						recursos_relatorio = response.data.recursos.recursos;
+					}
+
 				}else{
 					self.msg = response.data.msg;
 				}
@@ -314,11 +320,14 @@ function abrirModalRelatorio(titulo) {
 	corpo += "<label><input type='checkbox' name='secao' value='projetos' checked> Projetos, atividades e/ou programas</label><br>";
 	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoProjeto' value='todos_projetos'> Todas as Informações do Projeto</label></div>";
 	corpo += "<label><input type='checkbox' name='secao' value='recursos_vis' checked> Fontes de recursos anuais da OSC</label><br>";
-	corpo += "<div class='subCheckbox'><label><input type='checkbox' name='secaoRecurso' value='2014'> 2014</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2015'> 2015</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2016'> 2016</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2017'> 2017</label>";
-	corpo += "<label><input type='checkbox' name='secaoRecurso' value='2018'> 2018</label></div>";
+
+	if(recursos_relatorio.length > 0){
+		corpo += "<div class='subCheckbox'>";
+		for (var i = 0; i < recursos_relatorio.length; i++) {
+			corpo += "<label><input type='checkbox' name='secaoRecurso' value='"+recursos_relatorio[i].dt_ano_recursos_osc+"'> "+recursos_relatorio[i].dt_ano_recursos_osc+"</label>";
+		}
+		corpo += "</div>";
+	}
 	corpo += "</fieldset>";
 
 	var btn = "<button type='button' class='btn btn-success' data-dismiss='modal' onclick='imprimir()'><span class='glyphicon glyphicon-print' aria-hidden='true'></span> Imprimir</button>";
@@ -352,8 +361,9 @@ function acionarModalAjuda(titulo, corpo, btn) {
 
 function imprimir(){
 
+	$("#grafico-progress").parent().hide();
 	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
-	  valor = $(this).val();
+	  var valor = $(this).val();
 		$("#"+valor).hide();
 	});
 
@@ -398,8 +408,9 @@ function imprimir(){
 		});
 	});
 
+	$("#grafico-progress").parent().show();
 	$("#escolhaImpressao input:checkbox[name=secao]:not(:checked)").each(function(){
-		valor = $(this).val();
+		var valor = $(this).val();
 		$("#"+valor).show();
 	});
 
