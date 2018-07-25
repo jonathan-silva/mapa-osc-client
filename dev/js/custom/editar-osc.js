@@ -1833,7 +1833,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
              var split = $(this).attr("id").split("-");
              var campo = split[0];
               if (campo == "outro_conferencia" && $(this).val() != ''){
-                obj.tx_nome_conferencia = $(this).val();
+                obj.tx_nome_conferencia_outra = $(this).val();
              }
 
              for (var i=0;i<lconferencia.length;i++){
