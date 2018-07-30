@@ -148,25 +148,31 @@ class FonteRecurso {
     var sections = dadosForm.itemsRecurso();
     var recursos_form = dadosForm.tiposRecurso();
     var fontesRecursos = this.carregaFontes(rotas);
-    if (json.recursos.recursos.length == 0 || json.recursos.recursos == null) {
-      //for (var i = 0; i < 5; i++) {
-        json.recursos.recursos = [0,1,2,3];
-        json.recursos.recursos[0]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
-        json.recursos.recursos[1]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
-        json.recursos.recursos[2]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
-        json.recursos.recursos[3]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
-        json.recursos.recursos[4]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
-      //}
-        for (var i = 0; i < 5; i++) {
-          json.recursos.recursos[i].dt_ano_recursos_osc = 2014+i;
-          json.recursos.recursos[i].bo_nao_possui = false;
-          json.recursos.recursos[i].bo_nao_possui_recursos_proprios = false;
-          json.recursos.recursos[i].bo_nao_possui_recursos_publicos = false;
-          json.recursos.recursos[i].bo_nao_possui_recursos_privados = false;
-          json.recursos.recursos[i].bo_nao_possui_recursos_nao_financeiros = false;
+    var lista_anos_recursos = [2014,2015,2016,2017,2018]
+    var qtd_ano_total = lista_anos_recursos.length;
+
+    for (var j = 0; j < json.recursos.recursos.length; j++) {
+      var index = lista_anos_recursos.indexOf(parseInt(json.recursos.recursos[j].dt_ano_recursos_osc));
+      if (index !== -1) lista_anos_recursos.splice(index, 1);
+    }
+
+    if (lista_anos_recursos.length > 0 ) {
+        var qtd_ano_preenchido = json.recursos.recursos.length
+
+        for (var i = 0; i < lista_anos_recursos.length; i++) {
+          json.recursos.recursos.push(qtd_ano_preenchido+i);
+          json.recursos.recursos[qtd_ano_preenchido+i]=["dt_ano_recursos_osc","bo_nao_possui","bo_nao_possui_recursos_proprios","bo_nao_possui_recursos_publicos","bo_nao_possui_recursos_privados","bo_nao_possui_recursos_nao_financeiros"];
+          json.recursos.recursos[qtd_ano_preenchido+i].dt_ano_recursos_osc = lista_anos_recursos[i];
+          json.recursos.recursos[qtd_ano_preenchido+i].bo_nao_possui = false;
+          json.recursos.recursos[qtd_ano_preenchido+i].bo_nao_possui_recursos_proprios = false;
+          json.recursos.recursos[qtd_ano_preenchido+i].bo_nao_possui_recursos_publicos = false;
+          json.recursos.recursos[qtd_ano_preenchido+i].bo_nao_possui_recursos_privados = false;
+          json.recursos.recursos[qtd_ano_preenchido+i].bo_nao_possui_recursos_nao_financeiros = false;
         }
     }
+
     for (var j = 0; j < json.recursos.recursos.length; j++) {
+
         this.montarPorAno(
           json.recursos.recursos[j].dt_ano_recursos_osc,
           json.recursos.recursos[j].bo_nao_possui,
@@ -178,6 +184,8 @@ class FonteRecurso {
           json.recursos.recursos[j],
           util, fontesRecursos, sections, recursos_form, React, ReactDOM, Section, FormItem);
     }
+
+
 
     // interacoes da selecao de anos
     $(".select-ano").find(".form-control").bind("change", function(){
