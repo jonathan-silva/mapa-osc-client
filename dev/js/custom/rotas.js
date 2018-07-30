@@ -10,7 +10,7 @@ class Rotas{
     return "https://localhost";
   }
   getBaseUrlCMS(){
-    return  this.getBaseUrl() + ":8080/cms";
+    return  this.getBaseUrl() + "/cms";
   }
 
   //index.js
