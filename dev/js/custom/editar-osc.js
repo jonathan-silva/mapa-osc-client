@@ -772,7 +772,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $("#table_lista_projetos_paginate").click(function(e){
-        var ct_pag=$(".paginate_button.current").text();
+        var ct_pag = $("#lista_projetos .paginate_button.current").attr("data-dt-idx");
         ct_pag = (ct_pag-1)*10;
 
         if( ($("#id_botao-projeto").length==0) ) {
@@ -783,7 +783,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
               if (fonte == 'Representante de OSC' || fonte == 'Representante'){
                 $(this).append(
-                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
+                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'  );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
               }
             }

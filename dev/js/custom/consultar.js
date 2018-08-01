@@ -848,7 +848,11 @@ require(['react'], function (React) {
               {
                 jsonConsulta[idSecao] = {};
               }
-              jsonConsulta[idSecao][$(this).attr('id')] = $(this).val();
+              if($(this).attr('id') == 'cd_identificador_osc'){
+                jsonConsulta[idSecao][$(this).attr('id')] = $(this).val().replace(/\D/g, "");
+              }else {
+                jsonConsulta[idSecao][$(this).attr('id')] = $(this).val();
+              }
             }
            });
 
