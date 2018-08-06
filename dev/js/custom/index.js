@@ -214,7 +214,7 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
   var rotas = new Rotas();
 
   var urlCMS = rotas.getBaseUrlCMS();
-
+/*
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
@@ -267,7 +267,7 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
         $('.loading').addClass('hide');
     }
   });
-
+*/
 
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;

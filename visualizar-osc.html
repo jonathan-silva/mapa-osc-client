@@ -814,8 +814,8 @@
                       <div class="col-md-3 ">
                         <div class="header ">Tipo da Fontes de Recursos</div>
                         <div class="form-group" ng-repeat="fonte_recursos in proj.fonte_recursos">
-                          <span class="form-control-static">{{(fonte_recursos.tx_nome_valor)}}</span>
-            						  <span ng-if="fonte_recursos.ft_fonte_recursos_projeto && fonte_recursos.tx_nome_valor" title="{{fonte_recursos.ft_fonte_recursos_projeto  | icon_title  }}">
+                          <span class="form-control-static">{{(fonte_recursos.tx_nome_origem_fonte_recursos_projeto)}}</span>
+            						  <span ng-if="fonte_recursos.ft_fonte_recursos_projeto && fonte_recursos.tx_nome_origem_fonte_recursos_projeto" title="{{fonte_recursos.ft_fonte_recursos_projeto  | icon_title  }}">
             						    <img class="{{fonte_recursos.ft_fonte_recursos_projeto | icon_class}}" ng-src="{{fonte_recursos.ft_fonte_recursos_projeto | icone}}">
           					      </span>
                           <br>
@@ -870,8 +870,8 @@
                       <div class="col-md-3 ">
                         <div class="header ">Tipo de Parceria</div>
                         <div class="form-group"  ng-repeat="tipo_parceria in proj.tipo_parceria">
-                          <span class="form-control-static">{{(tipo_parceria.tx_nome_valor)}}</span>
-                          <span ng-if="tipo_parceria.ft_tipo_parceria_projeto && tipo_parceria.tx_nome_valor" title="{{tipo_parceria.ft_tipo_parceria_projeto  | icon_title  }}">
+                          <span class="form-control-static">{{(tipo_parceria.tx_nome_tipo_parceria)}}</span>
+                          <span ng-if="tipo_parceria.ft_tipo_parceria_projeto && tipo_parceria.tx_nome_tipo_parceria" title="{{tipo_parceria.ft_tipo_parceria_projeto  | icon_title  }}">
             						    <img class="{{tipo_parceria.ft_tipo_parceria_projeto | icon_class}}" ng-src="{{tipo_parceria.ft_tipo_parceria_projeto | icone}}">
             						  </span>
                           <br>

@@ -691,6 +691,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
           var divId = "projeto-" + id_projeto;
           $(this).after('<div id="' + divId + '" class="projeto col-md-12">');
 
+          if($(this).find('#id_botao-projeto').length == 0){
+            $(this).append('<button id="id_botao-projeto" attr="'+id_projeto+'" class="btn-danger btn botao-projeto">Remover Projeto</button>');
+            $('.botao-projeto').click(function(){
+              remove_projeto($(this).attr('attr'));
+            });
+          }
+
           agrupamento(result, id_projeto);
           montarAreasDeAtuacaoProjetos(areas_atuacao_sugestoes);
 
@@ -772,7 +779,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       });
 
       $("#table_lista_projetos_paginate").click(function(e){
-        var ct_pag=$(".paginate_button.current").text();
+        var ct_pag = $("#lista_projetos .paginate_button.current").attr("data-dt-idx");
         ct_pag = (ct_pag-1)*10;
 
         if( ($("#id_botao-projeto").length==0) ) {
@@ -783,8 +790,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
               if (fonte == 'Representante de OSC' || fonte == 'Representante'){
                 $(this).append(
-                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'             );
+                 '<button id="id_botao-projeto" attr="'+newData[i+ct_pag][0]+'" class="btn-danger btn botao-projeto">Remover Projeto</button>'  );
                 $(this).prepend('<span class="glyphicon glyphicon-book" aria-hidden="true"></span> ');
+                $(this).wrapInner( "<div class='titulo-projeto'></div>" );
               }
             }
 
@@ -807,7 +815,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       function remove_projeto(id_proj) {
           var jsonRemoverSucesso;
           var novo=false;
-          if(id_proj == '-1'){
+          if(parseInt(id_proj) <= 0){
             novo = true;
           }
           var res = projeto.carregaProjeto(id_proj, dadosForm, rotas, util, novo);
@@ -825,13 +833,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             }
           }
           else {
-            if(id_proj != '-1'){
+            if(parseInt(id_proj) > 0){
               jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente é um projeto de dados oficiais e não pode ser removido.<br> Suas alterações serão processadas aproximadamente em 1(uma) hora.<br><br>Obrigado!"};
               util.abrirModalAjuda("Problema ao remover projeto!", jsonRemoverSucesso);
             }
             else {
-              jsonRemoverSucesso = {"Novo Projeto!":"Esse projeto possivelmente foi inseriodo agora!"}
-              util.abrirModalAjuda("Erro ao remover projeto!",jsonRemoverSucesso);
+              jsonRemoverSucesso = {"Problema ao remover projeto!":"Esse projeto possivelmente foi inseriodo agora!"}
+              util.abrirModalAjuda("Problema ao remover projeto!",jsonRemoverSucesso);
             }
           }
       }
