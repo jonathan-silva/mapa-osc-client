@@ -24,6 +24,7 @@ require(["jquery-ui"], function (React) {
 
 });
 
+/*
 require(['rotas',"jquery-ui"], function (React) {
 
     var rotas = new Rotas();
@@ -56,5 +57,5 @@ require(['rotas',"jquery-ui"], function (React) {
 
       }
     });
-
 });
+*/
