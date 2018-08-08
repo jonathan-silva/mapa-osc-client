@@ -39,10 +39,9 @@ require(['react', 'rotas','jsx!components/Util'], function (React) {
     var urlCMS = rotas.getBaseUrlCMS();
 
     $.ajax({
-      url: 'js/controller.php',
+      url: rotas.ModuloLinks(),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.ModuloLinks()},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
