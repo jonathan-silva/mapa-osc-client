@@ -1,5 +1,4 @@
 require(["jquery-ui", "rotas", "bootstrap"], function (React) {
-  var urlController = 'js/controller.php';
   var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
   var tipoConsulta;
@@ -13,10 +12,9 @@ require(["jquery-ui", "rotas", "bootstrap"], function (React) {
 
         if((tipoConsulta=="token")&&(stringBuscada)){
               $.ajax({
-                   url: urlController,
+                   url: rotas.AtivarUsuario(stringBuscada),
                    type: 'GET',
                    dataType: 'json',
-                   data: {flag: 'consulta', rota: rotas.AtivarUsuario(stringBuscada)},
                    error:function(data){
                      if (data.status == 200){
                        jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
