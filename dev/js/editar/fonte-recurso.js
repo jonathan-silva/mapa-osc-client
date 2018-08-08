@@ -127,11 +127,10 @@ class FonteRecurso {
   carregaFontes(rotas){
     var fontesRecursos = null;
     $.ajax({
-      url: 'js/controller.php',
+      url: rotas.FontesRecursos(),
       async: false,
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.FontesRecursos()},
       success: function(data) {
           fontesRecursos = data;
       },
