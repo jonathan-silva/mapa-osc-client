@@ -171,13 +171,13 @@ define(['react','rotas'], function(React) {
               };
 
               var rotas = new Rotas();
-              var urlController = 'js/controller.php';
-              jQuery("#labelError").text(""); // Limpar dados
+              
+              jQuery("#labelError").text("");
               $.ajax({
-              url: urlController,
+              url: rotas.Login(),
               type: 'POST',
               dataType: 'json',
-              data: {flag: 'login', rota: rotas.Login(), parametros: $json},
+              data: $json,
               success: function (data) {
                   window.localStorage.setItem('User', data.id_usuario);
                   window.localStorage.setItem('Authorization', data.access_token);
@@ -234,7 +234,6 @@ define(['react','rotas'], function(React) {
       else if (index == 10) {
 
         var rotas = new Rotas();
-        var controller = 'js/controller.php';
         var limiteAutocompleteCidade = 10;
 
         function replaceSpecialChars(str){
@@ -259,11 +258,10 @@ define(['react','rotas'], function(React) {
             minLength: 1,
             source: function (request, response) {
                $.ajax({
-                   url: controller,
+                   url: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade),
                    type: 'GET',
                    async: true,
                    dataType: "json",
-                   data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
                    success: function (data) {
                      response($.map( data, function( item ) {
                         return {
@@ -485,14 +483,11 @@ function escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao) {
 }
 
 function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
-  var controller = 'js/controller.php';
-
   $.ajax({
-    url: controller,
+    url: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao),
     type: 'GET',
     async: false,
     dataType: 'json',
-    data: {flag: 'consulta', rota: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao)},
     error: function(e){
       console.log("Erro no ajax: ");
       console.log(e);
