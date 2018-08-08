@@ -36,7 +36,6 @@ require(['react', 'jsx!components/Util'], function(React) {
         var $modal = $('#modalMensagem');
         var limiteAutocomplete = 10;
         var limiteAutocompleteCidade = 25;
-        var controller = "js/controller.php";
         var localidadeAtiva = false;
         var erroLocalidade = false;
 
@@ -123,11 +122,10 @@ require(['react', 'jsx!components/Util'], function(React) {
             minLength: 1,
             source: function (request, response) {
                $.ajax({
-                   url: controller,
+                   url: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade),
                    type: 'GET',
                    async: true,
                    dataType: "json",
-                   data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
                    success: function (data) {
                      response($.map( data, function( item ) {
                         return {
@@ -429,11 +427,10 @@ require(['react', 'jsx!components/Util'], function(React) {
         //FUNCOES DE VALIDACAO usando ajax
         function validarLocalidade(cod_localidade) {
           $.ajax({
-            url: 'js/controller.php',
+            url: rotas.ValidarLocalidade(cod_localidade),
             type: 'GET',
             async: false,
             dataType: 'json',
-            data: {flag: 'consulta', rota: rotas.ValidarLocalidade(cod_localidade)},
             error: function(e){
               erroLocalidade = true;
             },
