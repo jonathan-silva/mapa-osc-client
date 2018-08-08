@@ -51,9 +51,7 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
     var $id_osc = '';
     var rotas = new Rotas();
     var limiteAutocomplete = 10;
-    var controller = "js/controller.php";
     var $modal = $('#modalMensagem');
-
 
     $('#send').on('click', function() {
 
@@ -86,10 +84,10 @@ require(['react', 'jsx!components/Util', 'jquery-ui', 'rotas', 'tagsinput'], fun
 
 
             $.ajax({
-                 url: controller,
+                 url: rotas.AlterarSenha(),
                  type: 'POST',
                  dataType: 'json',
-                 data: {flag: 'consultaPost', rota: rotas.AlterarSenha(), parametros: json},
+                 data: json,
                  error:function(data){
                    if (data.status == 200){
                      jQuery("#modalTitle").text("Sucesso");
