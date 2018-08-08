@@ -622,7 +622,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#projetos .sections h2").parent().append('<div class="input-box checkbox pro"><label><input type="checkbox">Não possui projetos, atividades e programas</label></div>');
 
-      var porjetos = util.validateObject(data.projetos, 0);
+      var projetos = util.validateObject(data.projetos, 0);
       $('#projetos .pro input[type="checkbox"]').prop('checked', projetos.bo_nao_possui_projetos);
 
       $('#projetos .pro input[type="checkbox"]').change(function() {
@@ -1397,10 +1397,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         for (var i=0; i<items.length; i++){
           var checkboxItem = null;
           if(cd_metas.includes(items[i].cd_meta_projeto)){
-            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", true);
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", true);
             checkboxItems.push(checkboxItem);
           } else {
-            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].tx_nome_meta_projeto, "checkbox", false);
+            checkboxItem = new CheckboxItem(items[i].cd_meta_projeto, items[i].tx_nome_meta_projeto, items[i].cd_meta_projeto, "checkbox", false);
             checkboxItems.push(checkboxItem);
           }
         }
@@ -2088,10 +2088,8 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               obj["objetivo_meta"] = [];
             }
             if($(this).prop("checked")){
-              var codigo = valor.split(" ")[0];
               obj["objetivo_meta"].push({
-                "cd_meta_projeto": codigo,
-                "tx_meta_projeto": valor
+                "cd_meta_projeto": valor
               });
             }
           }
@@ -2315,6 +2313,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       $(".projeto").each(function(){
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+
         if(!$(this).hasClass("projeto-salvo")) {
           var str = $(this).attr("id");
           var id_projeto_text = str.substr(0,str.indexOf('-'));

@@ -916,7 +916,7 @@ class DataForms{
       },
       "osc_parceira": {
         "header": "OSCs Parceiras",
-        "containerClass": "col-md-6 osc_parceira",
+        "containerClass": "col-md-9 osc_parceira",
         "removable": true,
         "type": "text",
         "options": null,
@@ -1018,15 +1018,15 @@ class DataForms{
       "cd_zona_atuacao_projeto": null,
       "tx_nome_zona_atuacao": null,
       "ft_zona_atuacao_projeto": null,
+      "fonte_recursos":[],
+      "tipo_parceria": [],
+      "osc_parceira": [],
       "publico_beneficiado": [],
       "area_atuacao": [],
       "area_atuacao_outra": [],
       "localizacao_projeto": [],
-      "tipo_parceria": [],
-      "osc_parceira": [],
       "financiador_projeto": [],
       "objetivo_meta": [],
-      "fonte_recursos":[],
       "recursos": null
     };
     return project;

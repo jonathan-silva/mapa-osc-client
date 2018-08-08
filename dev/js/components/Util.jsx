@@ -600,7 +600,7 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
         var checkboxElement;
         if(dados.content != null){
           for (var j = 0; j < dados.content.length; j++) {
-            if(item == dados.content[j].tx_nome_valor){
+            if(item == dados.content[j].tx_nome_tipo_parceria || item == dados.content[j].tx_nome_origem_fonte_recursos_projeto){
               selected = true;
             }
           }
@@ -1414,11 +1414,11 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           header = "";
         }
 
-        if(inputs[0].fonte === "Representante de OSC"){
+        if(inputs[0].fonte === "Representante de OSC" || (inputs[0].fonte != null && inputs[0].fonte != undefined && inputs[0].fonte.length > 0)){
           className = "imgDadoEditavel";
           src = "img/dado_representante.png";
         }
-        else if((inputs[0].fonte === null) || (inputs[0].fonte === undefined)){
+        else if((inputs[0].fonte === null) || (inputs[0].fonte === undefined) || inputs[0].fonte.length == 0){
           className = "";
           src = "";
         }
@@ -1431,8 +1431,8 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
         }
 
         var fonte = item.inputs[0].fonte;
-
-        if ((fonte == "Representante de OSC")) {
+        //TO DO fonte tipo_parceria e fonte_recursos mudar versao 2.7
+        if ((fonte == "Representante de OSC") || (fonte != null && fonte != undefined && fonte.length > 0)) {
             ContainerElement =
             <div className={containerClass}>
               <div className="header" title={infoTitle}>{header}
@@ -1442,7 +1442,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
               {ButtonElement}
             </div>
         }
-        else if ((fonte == null) || (fonte == undefined)) {
+        else if ((fonte == null) || (fonte == undefined) || fonte.length == 0 ) {
             ContainerElement =
             <div className={containerClass}>
               <div className="header" title={infoTitle}>{header}
