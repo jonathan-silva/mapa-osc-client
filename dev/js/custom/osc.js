@@ -7,9 +7,8 @@ controller.controller('OscCtrl', ['$http', '$location', function($http, $locatio
 		var idOsc = $location.path().split('/')[1];
 		
 		$http({
-		     url: 'js/controller.php',
+		     url: rotas.OSCByID(idOsc),
 		     method: "GET",
-		     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
 		}).then(function(response) {
 			if(response.data.msg == undefined){
 				self.osc = response.data;
