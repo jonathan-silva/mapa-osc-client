@@ -720,7 +720,7 @@
                         <div class="header ">Link para o projeto</div>
                         <div class="form-group">
                             <span ng-if="(proj.tx_link_projeto == null || proj.tx_link_projeto == '')" class="form-control-static" >Não informado</span>
-                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='{{(proj.tx_link_projeto)?proj.tx_link_projeto:""}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
+                            <a ng-if="(proj.tx_link_projeto != null && proj.tx_link_projeto != '' )" class="btn-link" href='{{proj.tx_link_projeto | verificarLink}}' target="_blank" title="Link Externo">{{proj.tx_link_projeto | limitTo:22}}... <img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>
                             <span ng-if="proj.ft_link_projeto && proj.tx_link_projeto " title="{{proj.ft_link_projeto  | icon_title  }}">
 					                  <img class="{{proj.ft_link_projeto | icon_class}}" ng-src="{{proj.ft_link_projeto | icone}}">
                             </span>
