@@ -41,13 +41,11 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas', 'datatables-respons
    var $id_osc = '';
    var rotas = new Rotas();
    var limiteAutocomplete = 10;
-   var controller = "js/controller.php";
 
    $.ajax({
-       url: controller,
+       url: rotas.ValidarUsuario(user),
        type: 'GET',
        dataType: "json",
-       data: {flag: 'validaUsuario', rota: rotas.ValidarUsuario(user), parametros: newJson},
        success: function(data) {
 
          var columns = 3;
