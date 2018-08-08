@@ -74,10 +74,9 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.Publicacoes(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.Publicacoes()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         tabela('#publicacao_formato_dados','','');
