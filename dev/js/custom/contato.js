@@ -93,8 +93,8 @@ require(['react'], function (React) {
       $('#loading').show();
 
 		  $.ajax({
-  			type: rotas.Contato(),
-  			url: 'js/controller.php',
+  			type: 'POST',
+  			url: rotas.Contato(),
   			data: $json,
   			dataType: 'json',
         success: function(data) {
