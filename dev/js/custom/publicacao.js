@@ -40,10 +40,9 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
   }
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.PublicacaoByID(idPublicacao),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.PublicacaoByID(idPublicacao)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         $('.manutencao').css('display', 'block');
