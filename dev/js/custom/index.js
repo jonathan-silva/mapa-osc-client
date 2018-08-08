@@ -216,10 +216,9 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
   var urlCMS = rotas.getBaseUrlCMS();
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.ModuloWebdoors(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.ModuloWebdoors()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         $('.loading').addClass('hide');
@@ -271,7 +270,6 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
 
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
-  var controller = "js/controller.php";
 
   var flagMultiplo = true;
   var textoBusca = '';
@@ -323,10 +321,9 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
 	   textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',');
 
        $.ajax({
-           url: controller,
+           url: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0),
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -353,10 +350,9 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
     minLength: 3,
     source: function (request, response) {
        $.ajax({
-           url: controller,//4204251
+           url: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocompleteCidade),
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -383,10 +379,9 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
    minLength: 3,
    source: function (request, response) {
       $.ajax({
-          url: controller,//4204251
+          url: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete),
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -413,10 +408,9 @@ $("#regiao .form-control").autocomplete({
   minLength: 3,
   source: function (request, response) {
      $.ajax({
-         url: controller,//4204251
+         url: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete),
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
@@ -457,11 +451,10 @@ $("#regiao .form-control").autocomplete({
       window.localStorage.setItem('cd_longitude', long.toLocaleString('PT'));
 
       $.ajax({
-        url: controller,
+        url: rotas.RecuperarMunicipio(lat, long),
         type: 'GET',
         async: true,
         dataType: 'json',
-        data:{flag: 'consulta', rota:  rotas.RecuperarMunicipio(lat, long)},
         error: function(e){
           verificarLocalidade();
         },
@@ -611,11 +604,10 @@ $("#regiao .form-control").autocomplete({
      function recuperarOscLocalidadeAreaAtuacao(cd_area_atuacao, nome_area_atuacao) {
 
        $.ajax({
-         url: controller,
+         url: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao),
          type: 'GET',
          async: false,
          dataType: 'json',
-         data: {flag: 'consulta', rota: escolherRotaLocalidadeAreaAtuacao(cd_area_atuacao)},
          error: function(e){
            console.log("Erro no ajax: ");
            console.log(e);
@@ -654,11 +646,10 @@ $("#regiao .form-control").autocomplete({
     function mostrarAreaAtuacaoPersonalizada() {
 
        $.ajax({
-         url: controller,
+         url: rotas.AreaAtuacao(),
          type: 'GET',
          async: true,
          dataType: 'json',
-         data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
          error: function(e){
            console.log("Erro no ajax: ");
            console.log(e);
@@ -714,11 +705,10 @@ $("#regiao .form-control").autocomplete({
      }
 
      $.ajax({
-       url: controller,
+       url: rotas.RecuperarOscAtualizacao(),
        type: 'GET',
        async: false,
        dataType: 'json',
-       data: {flag: 'consulta', rota: rotas.RecuperarOscAtualizacao()},
        error: function(e){
          console.log("Erro no ajax: ");
          console.log(e);
