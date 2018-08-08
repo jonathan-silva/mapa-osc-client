@@ -27,7 +27,6 @@ require(['react'], function (React) {
 
   require(['jquery-ui','rotas','jquery', 'select-boxit'], function (React) {
 
-    var controller = 'js/controller.php'
     var rotas = new Rotas();
     var limiteAutocomplete = 10;
     var limiteAutocompleteCidade = 25;
@@ -126,11 +125,10 @@ require(['react'], function (React) {
       }
 
       $.ajax({
-        url: controller,
+        url: rotas.MetaProjeto(cd_objetivo),
         type: 'GET',
         async: true,
         dataType: 'json',
-        data:{flag: "consulta", rota: rotas.MetaProjeto(cd_objetivo)},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
@@ -164,39 +162,10 @@ require(['react'], function (React) {
       });
     }
 
-  /*  $('#titulacoesCertificacoes').mousedown(function() {
-
-      $("#cd_certificado").selectBoxIt({
-      theme: "default",
-      defaultText: "Selecione uma opção",
-      autoWidth: false,
-
-      populate: function() {
-          var deferred = $.Deferred(),
-              arr = [],
-              x = -1;
-          $.ajax({
-            url: controller,
-            type: 'GET',
-            async: true,
-            dataType: 'json',
-            data:{flag: 'consulta', rota:  rotas.Busca_Certificado()},
-          }).done(function(data) {
-              while(++x < data.length) {
-                  arr.push({"text": data[x].tx_nome_certificado, "value": data[x].cd_certificado,})
-              }
-              deferred.resolve(arr);
-          });
-          return deferred;
-      }
-    });
-  });*/
-
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.Busca_Certificado(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.Busca_Certificado()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
@@ -222,11 +191,10 @@ require(['react'], function (React) {
 
 
     $.ajax({
-      url: controller,
+      url: rotas.AreaAtuacao(),
       type: 'GET',
       async: true,
       dataType: 'json',
-      data:{flag: 'consulta', rota:  rotas.AreaAtuacao()},
       error:function(e){
         console.log("Erro no ajax: ");
       },
@@ -240,11 +208,10 @@ require(['react'], function (React) {
         }
 
         $.ajax({
-          url: controller,
+          url: rotas.SubAreaAtuacao(),
           type: 'GET',
           async: true,
           dataType: 'json',
-          data:{flag: 'consulta', rota:  rotas.SubAreaAtuacao()},
           error:function(e){
             console.log("Erro no ajax: ");
           },
@@ -298,11 +265,10 @@ require(['react'], function (React) {
               arr = [],
               x = -1;
           $.ajax({
-            url: controller,
+            url: rotas.SituacaoImovel(),
             type: 'GET',
             async: true,
-            dataType: 'json',
-            data:{flag: 'consulta', rota:  rotas.SituacaoImovel()},
+            dataType: 'json'
           }).done(function(data) {
               while(++x < data.length) {
                   arr.push({"text": data[x].tx_nome_situacao_imovel, "value": data[x].cd_situacao_imovel,})
@@ -325,11 +291,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.Titularidade(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.Titularidade()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_tipo_participacao, "value": data[x].cd_tipo_participacao,})
@@ -350,11 +315,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.Conselho(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.Conselho()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_conselho, "value": data[x].cd_conselho,})
@@ -375,11 +339,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.FormaParticipacaoConferencia(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.FormaParticipacaoConferencia()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_forma_participacao_conferencia, "value": data[x].cd_forma_participacao_conferencia,})
@@ -400,11 +363,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.Conferencia(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.Conferencia()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_conferencia, "value": data[x].cd_conferencia,})
@@ -430,11 +392,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.FontesRecursosProjeto(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.FontesRecursosProjeto()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_origem_fonte_recursos_projeto, "value": data[x].cd_origem_fonte_recursos_projeto,})
@@ -455,11 +416,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.SituacaoProjeto(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.SituacaoProjeto()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_status_projeto, "value": data[x].cd_status_projeto,})
@@ -480,11 +440,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.ZonaAtuacaoProjeto(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.ZonaAtuacaoProjeto()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_zona_atuacao, "value": data[x].cd_zona_atuacao_projeto,})
@@ -505,11 +464,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.AbrangenciaProjeto(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.AbrangenciaProjeto()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_abrangencia_projeto, "value": data[x].cd_abrangencia_projeto,})
@@ -534,11 +492,10 @@ require(['react'], function (React) {
                 arr = [],
                 x = -1;
             $.ajax({
-              url: controller,
+              url: rotas.Objetivos(),
               type: 'GET',
               async: true,
-              dataType: 'json',
-              data:{flag: 'consulta', rota:  rotas.Objetivos()},
+              dataType: 'json'
             }).done(function(data) {
                 while(++x < data.length) {
                     arr.push({"text": data[x].tx_nome_objetivo_projeto, "value": data[x].cd_objetivo_projeto,})
@@ -581,11 +538,10 @@ require(['react'], function (React) {
               arr = [],
               x = -1;
           $.ajax({
-            url: controller,
+            url: rotas.Objetivos(),
             type: 'GET',
             async: true,
-            dataType: 'json',
-            data:{flag: 'consulta', rota:  rotas.Objetivos()},
+            dataType: 'json'
           }).done(function(data) {
               while(++x < data.length) {
                   arr.push({"text": data[x].tx_nome_objetivo_projeto, "value": data[x].cd_objetivo_projeto,})
@@ -640,11 +596,10 @@ require(['react'], function (React) {
         minLength: 1,
         source: function (request, response) {
            $.ajax({
-               url: controller,
+               url: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade),
                type: 'GET',
                async: true,
                dataType: "json",
-               data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocompleteCidade)},
                success: function (data) {
                  response($.map( data, function( item ) {
                     return {
@@ -670,11 +625,10 @@ require(['react'], function (React) {
       minLength: 1,
       source: function (request, response) {
          $.ajax({
-             url: controller,
+             url: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete),
              type: 'GET',
              async: true,
              dataType: "json",
-             data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
              success: function (data) {
                response($.map( data, function( item ) {
                   return {
@@ -700,11 +654,10 @@ require(['react'], function (React) {
      minLength: 1,
      source: function (request, response) {
         $.ajax({
-            url: controller,
+            url: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete),
             type: 'GET',
             async: true,
             dataType: "json",
-            data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
             success: function (data) {
               response($.map( data, function( item ) {
                  return {
@@ -730,11 +683,10 @@ require(['react'], function (React) {
         minLength: 1,
         source: function (request, response) {
            $.ajax({
-               url: controller,
+               url: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete),
                type: 'GET',
                async: true,
                dataType: "json",
-               data: {flag: 'autocomplete', rota: rotas.AutocompleteAtividadeEconomica(replaceSpecialChars(request.term).replace(/ /g, '_'), limiteAutocomplete)},
                success: function (data) {
                  if(data.length > 0){
                    response($.map( data, function( item ) {
