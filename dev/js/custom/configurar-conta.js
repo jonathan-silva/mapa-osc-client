@@ -79,7 +79,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
    var $id_osc = '';
    var rotas = new Rotas();
    var limiteAutocomplete = 10;
-   var controller = "js/controller.php";
+   
    $('#tag').tagsinput({
        cancelConfirmKeysOnEmpty: false,
        freeInput: false,
@@ -88,10 +88,9 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
       });
 
    $.ajax({
-       url: controller,
+       url: rotas.ValidarUsuario(user),
        type: 'GET',
        dataType: "json",
-       data: {flag: 'validaUsuario', rota: rotas.ValidarUsuario(user), parametros: newJson},
        success: function(data) {
          $('#nome').val(data.tx_nome_usuario);
          $('#email').val(data.tx_email_usuario);
@@ -124,13 +123,9 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
            minLength: 14,
            source: function(request, response) {
                $.ajax({
-                   url: controller,
+                   url: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete),
                    type: 'GET',
                    dataType: "json",
-                   data: {
-                       flag: 'autocomplete',
-                       rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)
-                   },
                    success: function(data) {
                      if (data === null){
                          $("#nomeEntidade.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -247,10 +242,10 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
           newJson['id_usuario'] = user;
 
           $.ajax({
-              url: 'js/controller.php',
+              url: rotas.UpdateUsuario(user),
               type: 'POST',
               dataType: "json",
-              data: {flag:'login', rota: rotas.UpdateUsuario(user), parametros: newJson},
+              data: newJson,
               success: function(data) {
 
                 $('#modalTitle').text('Sucesso');
