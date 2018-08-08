@@ -198,7 +198,22 @@ class Projeto {
       }
    }
     //metasObjetivos(project, projectId);
-    return agrupadores;
+
+    //ordenar canpos
+    var campos_projetos =  dadosForm.getEmptyProject();
+    var agrupadores_ordenado = [];
+
+    for (var campo in campos_projetos) {
+      for (var i = 0; i < agrupadores.length; i++) {
+        if (  agrupadores[i].id == campo) {
+          agrupadores_ordenado.push(agrupadores[i]);
+          break;
+        }
+      }
+
+    }
+
+    return agrupadores_ordenado;
   }
 
   carregaProjeto(id, dadosForm, rotas, util, novo){

@@ -622,7 +622,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#projetos .sections h2").parent().append('<div class="input-box checkbox pro"><label><input type="checkbox">Não possui projetos, atividades e programas</label></div>');
 
-      var porjetos = util.validateObject(data.projetos, 0);
+      var projetos = util.validateObject(data.projetos, 0);
       $('#projetos .pro input[type="checkbox"]').prop('checked', projetos.bo_nao_possui_projetos);
 
       $('#projetos .pro input[type="checkbox"]').change(function() {
@@ -2313,6 +2313,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       $(".projeto").each(function(){
+        var newJson = {};
+        newJson["headers"] = authHeader;
+        newJson["id_osc"] = idOsc;
+
         if(!$(this).hasClass("projeto-salvo")) {
           var str = $(this).attr("id");
           var id_projeto_text = str.substr(0,str.indexOf('-'));

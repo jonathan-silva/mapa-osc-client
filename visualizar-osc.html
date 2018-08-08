@@ -793,7 +793,7 @@
                 				    <img class="{{localizacao.ft_nome_regiao_localizacao_projeto | icon_class}}" ng-src="{{localizacao.ft_nome_regiao_localizacao_projeto | icone}}">
               			      </span>
                         </div>
-                        <div class="form-group" ng-if="proj.localizacao == null">
+                        <div class="form-group" ng-if="proj.localizacao == null || proj.localizacao.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -806,7 +806,7 @@
                 				    <img class="{{pubben.ft_publico_beneficiado_projeto | icon_class}}" ng-src="{{pubben.ft_publico_beneficiado_projeto | icone}}">
               			      </span>
                         </div>
-                        <div class="form-group" ng-if="proj.publico_beneficiado == null">
+                        <div class="form-group" ng-if="proj.publico_beneficiado == null || proj.publico_beneficiado.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -820,7 +820,7 @@
           					      </span>
                           <br>
                         </div>
-                        <div class="form-group" ng-if="proj.fonte_recursos == null">
+                        <div class="form-group" ng-if="proj.fonte_recursos == null || proj.fonte_recursos.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -833,7 +833,7 @@
             						    <img class="{{osc_parceira.ft_osc_parceira_projeto | icon_class}}" ng-src="{{osc_parceira.ft_osc_parceira_projeto | icone}}">
     					            </span>
                         </div>
-                        <div class="form-group" ng-if="proj.osc_parceira == null">
+                        <div class="form-group" ng-if="proj.osc_parceira == null || proj.osc_parceira.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -862,7 +862,7 @@
             						    <img class="{{financiador.ft_nome_financiador | icon_class}}" ng-src="{{financiador.ft_nome_financiador | icone}}">
           						    </span>
                         </div>
-                        <div class="form-group"  ng-if="proj.financiador_projeto == null">
+                        <div class="form-group"  ng-if="proj.financiador_projeto == null || proj.financiador_projeto.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -876,7 +876,7 @@
             						  </span>
                           <br>
                         </div>
-                        <div class="form-group"  ng-if="proj.tipo_parceria == null">
+                        <div class="form-group"  ng-if="proj.tipo_parceria == null || proj.tipo_parceria.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -903,7 +903,7 @@
             						    <img class="{{objetivo.ft_objetivo_projeto | icon_class}}" ng-src="{{objetivo.ft_objetivo_projeto | icone}}">
             						  </span>
                         </div>
-                        <div class="form-group"  ng-if="proj.objetivo_meta == null">
+                        <div class="form-group"  ng-if="proj.objetivo_meta == null || proj.objetivo_meta.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
@@ -918,7 +918,7 @@
             						    <img class="{{objetivo_meta.ft_objetivo_projeto  | icon_class}}" ng-src="{{objetivo_meta.ft_objetivo_projeto | icone}}">
             						  </span>
                         </div>
-                        <div class="form-group"  ng-if="proj.objetivo_meta == null">
+                        <div class="form-group"  ng-if="proj.objetivo_meta == null || proj.objetivo_meta.length == 0">
                           <span class="form-control-static">Não informado</span>
                         </div>
                       </div>
