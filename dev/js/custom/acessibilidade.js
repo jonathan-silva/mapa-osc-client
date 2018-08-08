@@ -20,10 +20,9 @@ require(['rotas','jquery-ui'], function (React) {
   var modulo = "acessibilidade";
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.ModuloBySlug(modulo),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         $('.manutencao').css('display', 'block');
