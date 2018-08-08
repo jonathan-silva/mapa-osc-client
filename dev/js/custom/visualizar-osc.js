@@ -25,9 +25,8 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 		self.carregarDadosGerais = function(){
 
 			$http({
-			     url: 'js/controller.php',
-			     method: "GET",
-			     params: {flag: 'consulta', rota: rotas.OSCByID(idOsc)}
+			     url: rotas.OSCByID(idOsc),
+			     method: "GET"
 			}).then(function(response) {
 				if(response.data.msg == undefined){
 					self.osc = response.data
@@ -203,8 +202,6 @@ function abrirProjeto(e) {
 
 
 require(["jquery-ui", 'rotas'], function (React) {
-
-	var controller = 'js/controller.php'
 	var rotas = new Rotas();
 
   $(document).tooltip({
@@ -249,11 +246,10 @@ require(["jquery-ui", 'rotas'], function (React) {
 		 };
 
 		 $.ajax({
-			 url: controller,
+			 url: rotas.BarraTransparencia(idOsc),
 			 type: 'GET',
 			 async: true,
 			 dataType: 'json',
-			 data:{flag: 'consulta', rota: rotas.BarraTransparencia(idOsc)},
 			 error:function(e){
 				 console.log("Erro no ajax: ");
 				 console.log(e);
