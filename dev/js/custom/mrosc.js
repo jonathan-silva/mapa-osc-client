@@ -29,10 +29,9 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
   function carregarMenuMrosc(){
 
     $.ajax({
-      url: 'js/controller.php',
+      url: rotas.MenuMrosc(),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.MenuMrosc()},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -67,10 +66,9 @@ require(['rotas','jquery',"jquery-ui"], function (React) {
     $('#conteudoMrosc').empty();
 
       $.ajax({
-        url: 'js/controller.php',
+        url: rotas.ConteudoMroscByID(idConteudo),
         type: 'GET',
         dataType: 'json',
-        data: {flag: 'consulta', rota: rotas.ConteudoMroscByID(idConteudo)},
         error: function(e){
             console.log("ERRO no AJAX :" + e);
         },
