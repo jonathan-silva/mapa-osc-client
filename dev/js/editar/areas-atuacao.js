@@ -129,23 +129,20 @@ class AreaAtuacao {
   }
 
   carregaMacro(rotas, area_suggestions){
-    var controller = 'js/controller.php'
     var res;
     $.ajax({
-      url: controller,
+      url: rotas.AreaAtuacao(),
       async: false,
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.AreaAtuacao()},
       success: function(data) {
           area_suggestions.push(data);
 
           $.ajax({
-            url: controller,
+            url: rotas.SubAreaAtuacao(),
             async: false,
             type: 'GET',
             dataType: 'json',
-            data: {flag: 'consulta', rota: rotas.SubAreaAtuacao()},
             success: function(data) {
                 area_suggestions.push(data);
             },
