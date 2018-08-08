@@ -40,11 +40,9 @@ require(["jquery-ui","rotas"], function (React) {
       jQuery("#labelCaptcha").text("");
     }
 
-    var controller = "js/controller.php";
     var $nome = $('#nome').val();
     var $email = $('#email').val();
     var $modal = $('#modalMensagem');
-
 
     if (!validaEmail($email)) {
         $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -58,10 +56,10 @@ require(["jquery-ui","rotas"], function (React) {
 
     $('#loading').show();
     $.ajax({
-         url: controller,
+         url: rotas.ReceberNoticia(),
          type: 'POST',
          dataType: 'json',
-         data: {flag: 'consultaPost', rota: rotas.ReceberNoticia(), parametros: json},
+         data: json,
          error:function(data){
            if (data.status == 200){
              jQuery("#modalTitle").text("Notícias do Portal");
