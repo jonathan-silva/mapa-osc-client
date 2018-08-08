@@ -44,13 +44,11 @@ require(['react', 'jsx!components/Util'], function(React) {
         var $id_osc = '';
         var rotas = new Rotas();
         var $modal = $('#modalMensagem');
-        var controller = "js/controller.php";
 
         $.ajax({
-            url: controller,
+            url: rotas.ValidarUsuario(user),
             type: 'GET',
             dataType: "json",
-            data: {flag: 'validaUsuario', rota: rotas.ValidarUsuario(user), parametros: newJson},
             success: function(data) {
               $('#tx_nome_representante').val(data.tx_nome_usuario);
               $('#tx_email').val(data.tx_email_usuario);
@@ -230,10 +228,10 @@ require(['react', 'jsx!components/Util'], function(React) {
             newJson["tx_dado_institucional"] = registro_institucional;
 
             $.ajax({
-                url: 'js/controller.php',
+                url: rotas.UpdateUsuarioGov(user),
                 type: 'POST',
                 dataType: "json",
-                data: {flag:'login', rota: rotas.UpdateUsuarioGov(user), parametros: newJson},
+                data: newJson,
                 success: function(data) {
 
                   $('#modalTitle').text('Sucesso');
