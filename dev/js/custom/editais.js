@@ -65,10 +65,9 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     var rotas = new Rotas();
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.Edital(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.Edital()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
