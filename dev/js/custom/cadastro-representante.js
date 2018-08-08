@@ -59,8 +59,6 @@ require(['react', 'jsx!components/Util'], function(React) {
         var $modal = $('#modalMensagem');
         var limiteAutocomplete = 10;
         var limiteAutocompleteCidade = 25;
-        var controller = "js/controller.php";
-
 
         $("#cnpj.form-control").blur(function(event, ui) {
           $cnpj_osc = $('#cnpj').val();
@@ -74,13 +72,9 @@ require(['react', 'jsx!components/Util'], function(React) {
             $modal.modal('show');
           }else{
               $.ajax({
-                  url: controller,
+                  url: rotas.AutocompleteOSCByCnpj(replaceSpecialChars($cnpj_osc).replace(/ /g, '+'), limiteAutocomplete),
                   type: 'GET',
                   dataType: "json",
-                  data: {
-                      flag: 'autocomplete',
-                      rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars($cnpj_osc).replace(/ /g, '+'), limiteAutocomplete)
-                  },
                   success: function(data) {
                     if (data[0]){
                        jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
@@ -256,10 +250,10 @@ require(['react', 'jsx!components/Util'], function(React) {
 
 
             $.ajax({
-                url: controller,
+                url: rotas.CadastroRepresentante(),
                 type: 'POST',
                 dataType: 'json',
-                data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
+                data: json,
                 error: function(data) {
                     if (data.status == 200){
                         jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
