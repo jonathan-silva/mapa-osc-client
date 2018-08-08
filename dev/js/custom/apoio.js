@@ -30,10 +30,9 @@ require(['rotas',"jquery-ui"], function (React) {
     var urlCMS = rotas.getBaseUrlCMS();
 
     $.ajax({
-      url: 'js/controller.php',
+      url: rotas.ModuloApoio(),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.ModuloApoio()},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
           $('.manutencao').css('display', 'block');
