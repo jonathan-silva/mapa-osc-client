@@ -26,10 +26,9 @@ require(['rotas','jquery-ui'], function (React) {
   var urlCMS = rotas.getBaseUrlCMS();
 
   $.ajax({
-    url: 'js/controller.php',
+    url: rotas.ModuloEquipe(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.ModuloEquipe()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
         $('.manutencao').css('display', 'block');
