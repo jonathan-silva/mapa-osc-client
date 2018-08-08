@@ -53,9 +53,6 @@ require(["jquery-ui", "rotas"], function(React) {
         var $email = $('#email').val();
         var $modal = $('#modalMensagem');
         var rotas = new Rotas();
-        var controller = "js/controller.php";
-
-
 
         if (!validaEmail($email)) {
             $("#email.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -68,10 +65,10 @@ require(["jquery-ui", "rotas"], function(React) {
 
 
         $.ajax({
-             url: controller,
+             url: rotas.RecuperSenha(),
              type: 'POST',
              dataType: 'json',
-             data: {flag: 'consultaPost', rota: rotas.RecuperSenha(), parametros: json},
+             data: json,
              error:function(data){
                  jQuery("#modalTitle").text("Problema na solicitação!");
                  jQuery("#modalConteudo").text("Não foi possível recuperar a senha.");
