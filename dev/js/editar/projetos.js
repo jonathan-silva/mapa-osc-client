@@ -224,11 +224,10 @@ class Projeto {
       res.agrupadores = this.montarProjeto(empty_project, util, dadosForm,rotas);
     } else {
       $.ajax({
-        url: 'js/controller.php',
+        url: rotas.ProjectByID(id),
         type: 'GET',
         async: false,
         dataType: 'json',
-        data:{flag: 'consulta', rota: rotas.ProjectByID(id)},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
