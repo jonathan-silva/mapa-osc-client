@@ -54,7 +54,6 @@ require(['react', 'jsx!components/Util'], function (React) {
     json['headers'] = authHeader;
 
     var rotas = new Rotas();
-    var controller = "js/controller.php";
 
     $("input:radio").change(function () {
       if($(this).val() === "web_service"){
@@ -98,11 +97,11 @@ require(['react', 'jsx!components/Util'], function (React) {
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: controller,
+            url: rotas.EnviarArquivoEstadoMunicipio(),
             cache : false,
             processData: false,
             contentType: false,
-            data: {flag: 'consultaPost', rota: rotas.EnviarArquivoEstadoMunicipio(), parametros: json},
+            data: json,
             error: function(e) {
               $("#modalTitle").text("Entrada de Dados");
               $("#modalConteudo").text('Não foi possível enviar o arquivo!');
