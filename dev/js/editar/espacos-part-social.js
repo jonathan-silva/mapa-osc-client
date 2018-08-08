@@ -49,13 +49,11 @@ class EspacosPartSocial {
   }
 
   montarEspacosParticipacaoSocial(json, util, participacao_social_form, lconselho, lconferencia, lperiodicidadeReuniao, lforma, lformaPartConfe){
-    var controller = 'js/controller.php'
     $.ajax({
-      url: controller,
+      url: lconselho,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{flag: 'consulta', rota: lconselho},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -68,11 +66,10 @@ class EspacosPartSocial {
     for (var i=0;i<lconselho.length;i++){ lista_conselho[i] = lconselho[i].tx_nome_conselho}
 
     $.ajax({
-      url: controller,
+      url: lperiodicidadeReuniao,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{flag: 'consulta', rota: lperiodicidadeReuniao},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -85,11 +82,10 @@ class EspacosPartSocial {
     for (var i=0;i<lperiodicidadeReuniao.length;i++){ lista_periodicidadeReuniao[i] = lperiodicidadeReuniao[i].tx_nome_periodicidade_reuniao_conselho}
 
     $.ajax({
-      url: controller,
+      url: lconferencia,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{flag: 'consulta', rota: lconferencia},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -110,11 +106,10 @@ class EspacosPartSocial {
     }
 */
     $.ajax({
-      url: controller,
+      url: lforma,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{flag: 'consulta', rota: lforma},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -202,11 +197,10 @@ class EspacosPartSocial {
 
 
     $.ajax({
-      url: controller,
+      url: lformaPartConfe,
       type: 'GET',
       async: false,
       dataType: 'json',
-      data:{flag: 'consulta', rota: lformaPartConfe},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
