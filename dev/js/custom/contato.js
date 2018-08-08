@@ -24,10 +24,9 @@ require(['react'], function (React) {
     var modulo = "contato";
 
     $.ajax({
-      url: 'js/controller.php',
+      url: rotas.ModuloBySlug(modulo),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -94,9 +93,9 @@ require(['react'], function (React) {
       $('#loading').show();
 
 		  $.ajax({
-  			type: 'POST',
+  			type: rotas.Contato(),
   			url: 'js/controller.php',
-  			data:{flag: 'consultaPost', rota: rotas.Contato(), parametros: $json},
+  			data: $json,
   			dataType: 'json',
         success: function(data) {
             console.log(data.responseText);
