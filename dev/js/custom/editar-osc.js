@@ -22,7 +22,6 @@ require(["jquery-ui", "libs/jquery-mask/jquery.mask.min"], function (React) {
 });
 
 require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'jquery', 'jquery-ui', 'datatables-responsive', 'editarCabecalho'], function (React) {
-  var urlController = 'js/controller.php';
   var dadosForm = new DataForms();
   var util = new Util();
   var rotas = new Rotas();
@@ -75,14 +74,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     newJson["headers"] = authHeader;
     newJson["id_osc"] = idOsc;
 
-    function ajaxConsulta(urlController, urlRota, isAsync){
+    function ajaxConsulta(urlRota, isAsync){
       var result = "";
       $.ajax({
-      url: urlController,
+      url: urlRota,
       async: isAsync,
       type: 'GET',
       dataType: 'json',
-      data:{flag: "consulta", rota: urlRota},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -92,17 +90,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       return result;
     }
 
-    function ajaxAutoComplete(urlController, urlRota, isAsync){
+    function ajaxAutoComplete(urlRota, isAsync){
       var result = "";
       $.ajax({
-        url: urlController,
+        url: urlRota,
         async: isAsync,
         type: 'GET',
         dataType: "json",
-        data: {
-            flag: 'autocomplete',
-            rota: urlRota
-        },
         success: function(data) {result = data;},
         error: function(e) {
             response([]);
@@ -112,10 +106,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     $.ajax({
-      url: urlController,
+      url: rotas.OSCByID_no_project(idOsc),
       type: 'GET',
       dataType: 'json',
-      data:{flag: "consulta", rota: rotas.OSCByID_no_project(idOsc)},
       error:function(e){
         console.log("Erro no ajax: ");
         console.log(e);
@@ -360,7 +353,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
             }
             if ( routes != "" ) {
-              var data = ajaxAutoComplete(urlController, routes, false);
+              var data = ajaxAutoComplete(routes, false);
               response($.map( data, function( item ) {
                 if ( util.contains('municipal',abrang) ) {
                    return {
@@ -448,7 +441,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       $divDadosGerais.append('<div class="form-group" id="objetivosOsc-metas"</div>');
       $("#objetivosOsc-metas").append('<span class="input-group-btn"><button id="add_objetivo_ods" class="btn-primary btn">Adicionar Objetivo</button></span>');
 
-      var data = ajaxConsulta(urlController, rotas.Objetivos(), false);
+      var data = ajaxConsulta(rotas.Objetivos(), false);
       if(objetivo_metas == ""){
         criarObjetivosOsc(data,"",-1,-1,Checkbox);
         qtdObjODS++;
@@ -464,7 +457,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       $("#add_objetivo_ods").click(function(){
         if(qtdObjODS < limiteObjetivos){
-          var data = ajaxConsulta(urlController, rotas.Objetivos(), false);
+          var data = ajaxConsulta(rotas.Objetivos(), false);
           criarObjetivosOsc(data,"",-1,-numODS,Checkbox);
           qtdObjODS++;
           numODS++;
@@ -530,7 +523,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
     }
 
     function loadMetasOsc(cd_objetivo, cd_metas, Checkbox){
-      var data = ajaxConsulta(urlController, rotas.MetaProjeto(cd_objetivo), false);
+      var data = ajaxConsulta(rotas.MetaProjeto(cd_objetivo), false);
       montarMetasOsc(data, cd_objetivo, cd_metas, Checkbox);
     }
 
@@ -750,7 +743,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                   //$('#osc_parceira').find('input')[0].value = "Valor de CNPJ inválido!";
                 }
                 else {
-                    var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
+                    var data = ajaxAutoComplete(rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
                   if (data == null){
                       $('#' + divId + ' #osc_parceira').find('input')[0].value = "Entidade não cadastrada!";
                   }
@@ -1100,10 +1093,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       }
 
       $.ajax({
-        url: urlController,
+        url: rotas.Objetivos(),
         type: 'GET',
         dataType: 'json',
-        data:{flag: "consulta", rota: rotas.Objetivos()},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
@@ -1327,10 +1319,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         id = "";
       }
       $.ajax({
-        url: urlController,
+        url: rotas.MetaProjeto(id),
         type: 'GET',
         dataType: 'json',
-        data:{flag: "consulta", rota: rotas.MetaProjeto(id)},
         error:function(e){
           console.log("Erro no ajax: ");
           console.log(e);
@@ -1686,13 +1677,13 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         // Participacao social
         // Conselho
         var lforma = [];
-        lforma = ajaxConsulta(urlController, rotas.Titularidade(), false);
+        lforma = ajaxConsulta(rotas.Titularidade(), false);
 
         var lconselho =[];
-        lconselho = ajaxConsulta(urlController, rotas.Conselho(), false);
+        lconselho = ajaxConsulta(rotas.Conselho(), false);
 
         var lperiodicidadeReuniao =[];
-        lperiodicidadeReuniao = ajaxConsulta(urlController, rotas.PeriodicidadeReuniao(), false);
+        lperiodicidadeReuniao = ajaxConsulta(rotas.PeriodicidadeReuniao(), false);
 
         //conselho
         var newJson = {};
@@ -1790,11 +1781,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var lconferencia ={};
 
         $.ajax({
-          url: urlController,
+          url: rotas.Conferencia(),
           type: 'GET',
           async: false,
           dataType: 'json',
-          data:{flag: 'consulta', rota: rotas.Conferencia()},
           error:function(e){
             console.log("Erro no ajax: ");
             console.log(e);
@@ -1979,7 +1969,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
             routes = rotas.AutocompleteOSCByState(util.replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete);
           }
           if ( routes != "" ) {
-            var data = ajaxAutoComplete(urlController, routes, false);
+            var data = ajaxAutoComplete(routes, false);
             response($.map( data, function( item ) {
               if ((abrang == 'estadual') || (abrang == 'municipal') || (abrang == '-1')) {
                  return {
@@ -2049,7 +2039,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
            //$('#osc_parceira').find('input')[i].value = "Valor de CNPJ inválido!";
          }
          else {
-            var data = ajaxAutoComplete(urlController, rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
+            var data = ajaxAutoComplete(rotas.AutocompleteOSCByCnpj(util.replaceSpecialChars(cnpj).replace(/ /g, '+'), 10/*limiteAutocomplete*/), false);
            if (data == null){
                $('#osc_parceira').find('input')[i].value = "Entidade não cadastrada! ";
            }else{
