@@ -24,11 +24,10 @@ require(["jquery-ui"], function (React) {
 
 });
 
-/*
+
 require(['rotas',"jquery-ui"], function (React) {
 
     var rotas = new Rotas();
-    var urlCMS = rotas.getBaseUrlCMS();
 
     $.ajax({
       url: 'js/controller.php',
@@ -44,7 +43,7 @@ require(['rotas',"jquery-ui"], function (React) {
         if (data.length > 0){
           var modulo_html ="";
           for (var i in data) {
-            var src_link = urlCMS+'/imagens/apoios/'+ data[i].tx_imagem_apoio;
+            var src_link = '/cms/imagens/apoios/'+ data[i].tx_imagem_apoio;
             modulo_html += '<div class="img-apoio"><a target="_blank" href="'+data[i].tx_link_apoio+'" title="Link externo '+data[i].tx_titulo_apoio+'">';
             modulo_html += '<img src='+src_link+' alt='+data[i].tx_titulo_apoio+'></a></div>';
           }
@@ -58,4 +57,3 @@ require(['rotas',"jquery-ui"], function (React) {
       }
     });
 });
-*/

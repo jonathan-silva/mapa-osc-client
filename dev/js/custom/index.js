@@ -213,8 +213,6 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
 
   var rotas = new Rotas();
 
-  var urlCMS = rotas.getBaseUrlCMS();
-/*
   $.ajax({
     url: 'js/controller.php',
     type: 'GET',
@@ -245,7 +243,7 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
             }
 
             if(data[i].tx_imagem_webdoor != null && data[i].tx_imagem_webdoor != ""){
-              src_link =  urlCMS+'/imagens/webdoors/'+data[i].tx_imagem_webdoor;
+              src_link =  '/cms/imagens/webdoors/'+data[i].tx_imagem_webdoor;
             }
             else{
               src_link = 'img/item_cms.png';
@@ -267,7 +265,7 @@ require(["rotas","bootstrap","jquery-ui" ], function (React) {
         $('.loading').addClass('hide');
     }
   });
-*/
+
 
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;

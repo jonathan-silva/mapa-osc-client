@@ -23,7 +23,6 @@ require(['rotas',"jquery-ui"], function (React) {
   });
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
   var modulo = "versao";
 
   $.ajax({

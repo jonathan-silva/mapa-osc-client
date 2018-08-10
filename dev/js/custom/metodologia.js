@@ -16,7 +16,6 @@ require(["jquery-ui","rotas"], function (React) {
   });
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
   var modulo = "metodologia";
 
   $.ajax({
