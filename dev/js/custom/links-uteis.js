@@ -25,7 +25,7 @@ require(["jquery-ui"], function (React) {
 });
 
 require(['react', 'rotas','jsx!components/Util'], function (React) {
-
+/*CMS IMG
   require(['componenteLinksUteis'], function(LinksUteis){
     function LinkUtil(titulo, desc, imagem, elo, linkExterno){
       this.titulo = titulo;
@@ -58,9 +58,9 @@ require(['react', 'rotas','jsx!components/Util'], function (React) {
     LinksUteis = React.createFactory(LinksUteis);
     ReactDOM.render(LinksUteis({dados:linksuteis}), document.getElementById("linksuteis_formato_dados"));
   });
+  */
 
 
-/*CMS IMG
 
 
   require(['componenteLinksUteis'], function(LinksUteis){
@@ -102,6 +102,6 @@ require(['react', 'rotas','jsx!components/Util'], function (React) {
 
   });
 
-  */
+
 
 });
