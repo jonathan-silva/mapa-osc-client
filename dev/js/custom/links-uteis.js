@@ -73,7 +73,6 @@ require(['react', 'rotas','jsx!components/Util'], function (React) {
     }
 
     var rotas = new Rotas();
-    var urlCMS = rotas.getBaseUrlCMS();
 
     $.ajax({
       url: 'js/controller.php',
@@ -88,7 +87,7 @@ require(['react', 'rotas','jsx!components/Util'], function (React) {
         var linksuteis = [];
         if (data.length > 0){
           for (var i in data) {
-            var src_link = urlCMS+'/imagens/links/xs-'+ data[i].tx_imagem_link;
+            var src_link = '/cms/imagens/links/xs-'+ data[i].tx_imagem_link;
             linksuteis.push(new LinkUtil(data[i].tx_titulo_link, data[i].tx_descricao_link, src_link, data[i].tx_link_link, true));
           }
         }
