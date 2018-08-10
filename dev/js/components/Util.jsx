@@ -1426,6 +1426,7 @@ define('componenteAgrupadorInputProjeto', ['react', 'componenteFormInputProjeto'
           className = "imgDadoOficial";
           src = "img/base_dados.png";
         }
+
         if(infoTitle != ""){
           iconVisivel = 'visible';
         }

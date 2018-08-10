@@ -20,7 +20,6 @@ require(['react'], function (React) {
     });
 
     var rotas = new Rotas();
-    var urlCMS = rotas.getBaseUrlCMS();
     var modulo = "contato";
 
     $.ajax({
