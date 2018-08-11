@@ -23,7 +23,6 @@ require(["rotas","jquery-ui"], function (React) {
   });
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
   var modulo = "colabore";
 
   $.ajax({
@@ -52,7 +51,7 @@ require(["rotas","jquery-ui"], function (React) {
       }
       else{
         $('.manutencao').css('display', 'block');
-      }    
+      }
       $('.loading').addClass('hide');
     }
   });

@@ -23,7 +23,6 @@ require(['rotas','jquery-ui'], function (React) {
   });
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
 
   $.ajax({
     url: rotas.ModuloEquipe(),
@@ -58,7 +57,7 @@ require(['rotas','jquery-ui'], function (React) {
               for (var j in data[0].versoes[i].coordenadores) {
 
                 if(data[0].versoes[i].coordenadores[j].tx_imagem_equipe != null && data[0].versoes[i].coordenadores[j].tx_imagem_equipe != ""){
-                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores[j].tx_imagem_equipe;
+                  src_link = '/cms/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores[j].tx_imagem_equipe;
                 }
                 else{
                   src_link = 'img/sem_img_user.png';
@@ -77,7 +76,7 @@ require(['rotas','jquery-ui'], function (React) {
             if(data[0].versoes[i].coordenadores_equipe.length > 0){
               for (var j in data[0].versoes[i].coordenadores_equipe) {
                 if(data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe != null && data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe != ""){
-                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe;
+                  src_link = '/cms/imagens/integrantes/xs-'+data[0].versoes[i].coordenadores_equipe[j].tx_imagem_equipe;
                 }
                 else{
                   src_link = 'img/sem_img_user.png';
@@ -94,7 +93,7 @@ require(['rotas','jquery-ui'], function (React) {
             if(data[0].versoes[i].equipe.length > 0){
               for (var j in data[0].versoes[i].equipe) {
                 if(data[0].versoes[i].equipe[j].tx_imagem_equipe != null && data[0].versoes[i].equipe[j].tx_imagem_equipe != ""){
-                  src_link = urlCMS+'/imagens/integrantes/xs-'+data[0].versoes[i].equipe[j].tx_imagem_equipe;
+                  src_link = '/cms/imagens/integrantes/xs-'+data[0].versoes[i].equipe[j].tx_imagem_equipe;
                 }
                 else{
                   src_link = 'img/sem_img_user.png';

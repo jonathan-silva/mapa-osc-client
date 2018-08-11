@@ -28,7 +28,6 @@ require(["jquery-ui"], function (React) {
 require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
 
   function popularDadosPublicacao(data){
     var sizeOfData = data.length;
@@ -43,7 +42,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> '+data[i].dt_publicacao+'<\div>';
 
       if(data[i].tx_link_img_publicacao != null && data[i].tx_link_img_publicacao != ""){
-        src_link =  urlCMS+'/imagens/publications/xs-'+data[i].tx_link_img_publicacao;
+        src_link =  '/cms/imagens/publications/xs-'+data[i].tx_link_img_publicacao;
       }
       else{
         src_link = 'img/noticia_icon.png';

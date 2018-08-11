@@ -28,7 +28,6 @@ require(["jquery-ui"], function (React) {
 require(['rotas','jquery-ui','datatables-responsive'], function (React) {
 
   var rotas = new Rotas();
-  var urlCMS = rotas.getBaseUrlCMS();
 
   function popularDadosNoticia(data){
     var sizeOfData = data.length;
@@ -43,7 +42,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> '+data[i].dt_noticia+'<\div>';
 
       if(data[i].tx_link_img_noticia != null && data[i].tx_link_img_noticia != ""){
-        src_link =  urlCMS+'/imagens/noticias/xs-'+data[i].tx_link_img_noticia;
+        src_link =  '/cms/imagens/noticias/xs-'+data[i].tx_link_img_noticia;
       }
       else{
         src_link = 'img/noticia_icon.png';
@@ -65,7 +64,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       newData[i] = new Array(columns);
       newData[i][0] = '<div><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> '+data[i].dt_video+'<\div>';
       if(data[i].tx_link_img_video != null && data[i].tx_link_img_video != ""){
-        src_link = urlCMS+'/imagens/videos/xs-'+data[i].tx_link_img_video;
+        src_link = '/cms/imagens/videos/xs-'+data[i].tx_link_img_video;
       }
       else{
         src_link = 'img/video_icon.png';
