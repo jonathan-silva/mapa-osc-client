@@ -19,15 +19,13 @@ class Util {
   }
 
   carregaAjax(url, type, params){
-    var controller = "js/controller.php";
     var retorno = null;
     $.ajax({
-      url: controller,//url,
+      url: url,
       async: false,
       type: type,
       dataType: 'json',
-      //data: params,
-      data: {flag: 'consultaPost', rota: url, parametros: params},
+      data: params,
       success: function(data) {
         retorno =  data;
       },
