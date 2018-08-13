@@ -4,10 +4,8 @@ class Rotas{
   }
 
   getBaseUrl(){
-    //return "https://mapaosc-desenv.ipea.gov.br";
-    //return "https://10.1.4.110";
-    //return "https://10.1.4.205";
-    return "https://localhost";
+    var loc = window.location;
+    return loc.protocol + '//' + loc.host + ':' + loc.port + '/api/';
   }
   getBaseUrlCMS(){
     return  this.getBaseUrl() + "/cms";
@@ -15,261 +13,261 @@ class Rotas{
 
   //index.js
   AutocompleteOSCByName(term, limit, similarity){
-    return this.getBaseUrl()+":8383/api/search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
+    return this.getBaseUrl()+"search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
   }
   AutocompleteOSCByCnpj(term, limit){
-    return this.getBaseUrl()+":8383/api/search/cnpj/autocomplete/"+term+"/"+limit+"/0";
+    return this.getBaseUrl()+"search/cnpj/autocomplete/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByCounty(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/municipio/"+term+"/"+limit+"/0";
+    return this.getBaseUrl()+"menu/geo/municipio/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByState(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/estado/"+term+"/"+limit+"/0";
+    return this.getBaseUrl()+"menu/geo/estado/"+term+"/"+limit+"/0";
   }
   AutocompleteOSCByRegion(term, limit){
-    return this.getBaseUrl()+":8383/api/menu/geo/regiao/"+term+"/"+limit+"/0";
+    return this.getBaseUrl()+"menu/geo/regiao/"+term+"/"+limit+"/0";
   }
 
   //resultado-consulta.js
   OSCPopUpByID(id){
-    return this.getBaseUrl()+":8383/api/osc/popup/"+id;
+    return this.getBaseUrl()+"osc/popup/"+id;
   }
   OSCByID(id){
-    return this.getBaseUrl()+":8383/api/osc/"+id;
+    return this.getBaseUrl()+"osc/"+id;
   }
   OSCByNameInMap(term, similarity){
-    return this.getBaseUrl()+":8383/api/search/osc/geo/"+term+"/0/0/"+similarity;
+    return this.getBaseUrl()+"search/osc/geo/"+term+"/0/0/"+similarity;
   }
   OSCByCountyInMap(term){
-    return this.getBaseUrl()+":8383/api/search/municipio/geo/"+term;
+    return this.getBaseUrl()+"search/municipio/geo/"+term;
   }
   OSCByStateInMap(term){
-    return this.getBaseUrl()+":8383/api/search/estado/geo/"+term;
+    return this.getBaseUrl()+"search/estado/geo/"+term;
   }
   OSCByRegionInMap(term){
-    return this.getBaseUrl()+":8383/api/search/regiao/geo/"+term;
+    return this.getBaseUrl()+"search/regiao/geo/"+term;
   }
   AllOSCInMap(){
-    return this.getBaseUrl()+":8383/api/geo/osc/";
+    return this.getBaseUrl()+"geo/osc/";
   }
 
   OSCByName(term, offset, similarity){
-    return this.getBaseUrl()+":8484/api/search/osc/lista/"+term+"/10/"+offset+"/"+similarity;
+    return this.getBaseUrl()+"search/osc/lista/"+term+"/10/"+offset+"/"+similarity;
   }
   OSCByCounty(term,offset){
-    return this.getBaseUrl()+":8484/api/search/municipio/lista/"+term+"/10/"+offset;
+    return this.getBaseUrl()+"search/municipio/lista/"+term+"/10/"+offset;
   }
   OSCByState(term,offset){
-    return this.getBaseUrl()+":8484/api/search/estado/lista/"+term+"/10/"+offset;
+    return this.getBaseUrl()+"search/estado/lista/"+term+"/10/"+offset;
   }
   OSCByRegion(term,offset){
-    return this.getBaseUrl()+":8484/api/search/regiao/lista/"+term+"/10/"+offset;
+    return this.getBaseUrl()+"search/regiao/lista/"+term+"/10/"+offset;
   }
   AllOSC(offset){
-    return this.getBaseUrl()+":8484/api/search/all/lista/10/"+offset;
+    return this.getBaseUrl()+"search/all/lista/10/"+offset;
   }
 
   ClusterMunicipio(){
-    return this.getBaseUrl()+":8383/api/geo/cluster/municipio";
+    return this.getBaseUrl()+"geo/cluster/municipio";
   }
   ClusterEstado(){
-    return this.getBaseUrl()+":8383/api/geo/cluster/estado";
+    return this.getBaseUrl()+"geo/cluster/estado";
   }
   ClusterEstadoPorRegiao(id){
-    return this.getBaseUrl()+":8383/api/geo/cluster/estado/"+id;
+    return this.getBaseUrl()+"geo/cluster/estado/"+id;
   }
   ClusterPais(){
-    return this.getBaseUrl()+":8383/api/geo/cluster/regiao";
+    return this.getBaseUrl()+"geo/cluster/regiao";
   }
   ClusterRegiao(id){
-    return this.getBaseUrl()+":8383/api/geo/cluster/regiao/"+id;
+    return this.getBaseUrl()+"geo/cluster/regiao/"+id;
   }
 
   // editar-osc.js
   OSCByID_no_project(id){
-    return this.getBaseUrl()+":8383/api/osc/no_project/"+id;
+    return this.getBaseUrl()+"osc/no_project/"+id;
   }
   ProjectByID(id){
-    return this.getBaseUrl()+":8383/api/projeto/"+id;
+    return this.getBaseUrl()+"projeto/"+id;
   }
   AtualizarProjectByID(id){
-    return this.getBaseUrl()+":8383/api/osc/projeto/"+id;
+    return this.getBaseUrl()+"osc/projeto/"+id;
   }
   CriarProjectByID(id){
-    return this.getBaseUrl()+":8383/api/osc/projeto/insert/"+id;
+    return this.getBaseUrl()+"osc/projeto/insert/"+id;
   }
   RemoverProjectByID(id_proj,id_osc){
-    return this.getBaseUrl()+":8383/api/osc/projeto/"+id_proj+"/"+id_osc;
+    return this.getBaseUrl()+"osc/projeto/"+id_proj+"/"+id_osc;
   }
   Objetivos(){
-    return this.getBaseUrl()+":8383/api/menu/osc/objetivo_projeto";
+    return this.getBaseUrl()+"menu/osc/objetivo_projeto";
   }
   MetasById(id){
-    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
+    return this.getBaseUrl()+"menu/osc/meta_projeto/"+id;
   }
   AreaAtuacao(){
-    return this.getBaseUrl()+":8383/api/menu/osc/area_atuacao";
+    return this.getBaseUrl()+"menu/osc/area_atuacao";
   }
   AtualizarAreaAtuacao(id){
-    return this.getBaseUrl()+":8383/api/osc/area_atuacao/"+id;
+    return this.getBaseUrl()+"osc/area_atuacao/"+id;
   }
   DadosGerais(id){
-    return this.getBaseUrl()+":8383/api/osc/dadosgerais/"+id;
+    return this.getBaseUrl()+"osc/dadosgerais/"+id;
   }
   SubAreaAtuacao(){
-    return this.getBaseUrl()+":8383/api/menu/osc/subarea_atuacao";
+    return this.getBaseUrl()+"menu/osc/subarea_atuacao";
   }
   MetaProjeto(id){
-    return this.getBaseUrl()+":8383/api/menu/osc/meta_projeto/"+id;
+    return this.getBaseUrl()+"menu/osc/meta_projeto/"+id;
   }
   Descricao(id){
-    return this.getBaseUrl()+":8383/api/osc/descricao/"+id;
+    return this.getBaseUrl()+"osc/descricao/"+id;
   }
   Certificado(id){
-    return this.getBaseUrl()+":8383/api/osc/certificado/"+id;
+    return this.getBaseUrl()+"osc/certificado/"+id;
   }
   Busca_Certificado(){
-    return this.getBaseUrl()+":8383/api/menu/osc/certificado";
+    return this.getBaseUrl()+"menu/osc/certificado";
   }
   RelacoesTrabalho(id){
-    return this.getBaseUrl()+":8383/api/osc/relacoestrabalho/"+id;
+    return this.getBaseUrl()+"osc/relacoestrabalho/"+id;
   }
   RelacoesTrabalhoOutra(id){
-    return this.getBaseUrl()+":8383/api/osc/relacoestrabalhooutra/"+id;
+    return this.getBaseUrl()+"osc/relacoestrabalhooutra/"+id;
   }
   ParticipacaoSocialConselho(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialconselho/"+id;
+    return this.getBaseUrl()+"osc/participacaosocialconselho/"+id;
   }
   ParticipacaoSocialConferencia(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialconferencia/"+id;
+    return this.getBaseUrl()+"osc/participacaosocialconferencia/"+id;
   }
   OutraParticipacaoSocial(id){
-    return this.getBaseUrl()+":8383/api/osc/participacaosocialoutra/"+id;
+    return this.getBaseUrl()+"osc/participacaosocialoutra/"+id;
   }
   PeriodicidadeReuniao(){
-    return this.getBaseUrl()+":8383/api/menu/osc/periodicidade_reuniao/";
+    return this.getBaseUrl()+"menu/osc/periodicidade_reuniao/";
   }
   Conselho(){
-    return this.getBaseUrl()+":8383/api/menu/osc/conselho/";
+    return this.getBaseUrl()+"menu/osc/conselho/";
   }
   Conferencia(){
-    return this.getBaseUrl()+":8383/api/menu/osc/conferencia/";
+    return this.getBaseUrl()+"menu/osc/conferencia/";
   }
   Titularidade(){
-    return this.getBaseUrl()+":8383/api/menu/osc/tipo_participacao/";
+    return this.getBaseUrl()+"menu/osc/tipo_participacao/";
   }
   FontesRecursosById(id){
-    return this.getBaseUrl()+":8383/api/osc/recursos/"+id;
+    return this.getBaseUrl()+"osc/recursos/"+id;
   }
   FontesRecursos(){
-    return this.getBaseUrl()+":8383/api/menu/osc/fonte_recursos_osc";
+    return this.getBaseUrl()+"menu/osc/fonte_recursos_osc";
   }
   AtualizarFontesRecursos(id){
-    return this.getBaseUrl()+":8383/api/osc/recursososc/"+id;
+    return this.getBaseUrl()+"osc/recursososc/"+id;
   }
   ConselhoFiscal(id){
-    return this.getBaseUrl()+":8383/api/osc/conselhofiscal/"+id;
+    return this.getBaseUrl()+"osc/conselhofiscal/"+id;
   }
   Dirigente(id){
-    return this.getBaseUrl()+":8383/api/osc/dirigente/"+id;
+    return this.getBaseUrl()+"osc/dirigente/"+id;
   }
   // editais.js
   Edital(){
-    return this.getBaseUrl()+":8383/api/edital";
+    return this.getBaseUrl()+"edital";
   }
 
   // Header.jsx
   Login(){
-    return this.getBaseUrl()+":8383/api/user/login/";
+    return this.getBaseUrl()+"user/login/";
   }
 
   //cadastro-receber-noticia.js
   ReceberNoticia(){
-    return this.getBaseUrl()+":8383/api/user/newsletter/";
+    return this.getBaseUrl()+"user/newsletter/";
   }
 
   //cadastro-representante.js
   CadastroRepresentante(){
-    return this.getBaseUrl()+":8383/api/user/";
+    return this.getBaseUrl()+"user/";
   }
 
   //cadastro-estado-municipio.js
   CadastroRepresentanteEstadoMunicipio(){
-    return this.getBaseUrl()+":8383/api/user/governo/";
+    return this.getBaseUrl()+"user/governo/";
   }
 
   ValidarLocalidade(cod_localidade){
-    return this.getBaseUrl()+":8383/api/user/governo/ativo/localidade/"+cod_localidade;
+    return this.getBaseUrl()+"user/governo/ativo/localidade/"+cod_localidade;
   }
 
   //contato.js
   Contato(){
-    return this.getBaseUrl()+":8383/api/user/contato/";
+    return this.getBaseUrl()+"user/contato/";
   }
 
   //recuperar-senha
   RecuperSenha(){
-    return this.getBaseUrl()+":8383/api/user/esquecisenha/";
+    return this.getBaseUrl()+"user/esquecisenha/";
   }
 
   //alterar-senha
   AlterarSenha(){
-    return this.getBaseUrl()+":8383/api/user/alterarsenha/";
+    return this.getBaseUrl()+"user/alterarsenha/";
   }
 
   //configurar-conta.js
   ValidarUsuario(id){
-    return this.getBaseUrl()+":8383/api/user/"+id;
+    return this.getBaseUrl()+"user/"+id;
   }
 
   UpdateUsuario(id){
-    return this.getBaseUrl()+":8383/api/user/"+id;
+    return this.getBaseUrl()+"user/"+id;
    }
 
    UpdateUsuarioGov(id){
-     return this.getBaseUrl()+":8383/api/user/governo/"+id;
+     return this.getBaseUrl()+"user/governo/"+id;
     }
 
    //usuario
   AtivarUsuario(token){
-    return this.getBaseUrl()+":8383/api/user/ativarcadastro/"+token;
+    return this.getBaseUrl()+"user/ativarcadastro/"+token;
   }
 
   //consulta avancada
   SituacaoImovel(){
-    return this.getBaseUrl()+":8383/api/menu/osc/situacao_imovel/";
+    return this.getBaseUrl()+"menu/osc/situacao_imovel/";
   }
 
   FontesRecursosProjeto(){
-    return this.getBaseUrl()+":8383/api/menu/osc/origem_fonte_recursos_projeto/";
+    return this.getBaseUrl()+"menu/osc/origem_fonte_recursos_projeto/";
   }
 
   ZonaAtuacaoProjeto(){
-    return this.getBaseUrl()+":8383/api/menu/osc/zona_atuacao_projeto/";
+    return this.getBaseUrl()+"menu/osc/zona_atuacao_projeto/";
   }
 
   AbrangenciaProjeto(){
-    return this.getBaseUrl()+":8383/api/menu/osc/abrangencia_projeto/";
+    return this.getBaseUrl()+"menu/osc/abrangencia_projeto/";
   }
 
   SituacaoProjeto(){
-    return this.getBaseUrl()+":8383/api/menu/osc/status_projeto/";
+    return this.getBaseUrl()+"menu/osc/status_projeto/";
   }
 
   FormaParticipacaoConferencia(){
-    return this.getBaseUrl()+":8383/api/menu/osc/forma_participacao_conferencia/";
+    return this.getBaseUrl()+"menu/osc/forma_participacao_conferencia/";
   }
 
   ConsultaAvancadaLista(offset){
-    return this.getBaseUrl()+":8484/api/search/advanced/lista/10/"+offset;
+    return this.getBaseUrl()+"search/advanced/lista/10/"+offset;
   }
 
   ConsultaAvancadaMapa(term){
-    return this.getBaseUrl()+":8383/api/search/advanced/geo/0/0";
+    return this.getBaseUrl()+"search/advanced/geo/0/0";
   }
 
   AutocompleteAtividadeEconomica(term, limit){
-    return this.getBaseUrl()+":8383/api/search/atividade_economica/autocomplete/"+term+"/"+limit;
+    return this.getBaseUrl()+"search/atividade_economica/autocomplete/"+term+"/"+limit;
   }
 
   //INICIO CMS
@@ -329,31 +327,31 @@ class Rotas{
 
 
   BarraTransparencia(id_osc){
-    return this.getBaseUrl()+":8383/api/osc/barratransparencia/"+id_osc;
+    return this.getBaseUrl()+"osc/barratransparencia/"+id_osc;
   }
 
   RecuperarOscPorLocalidadeAreaAtuacao(cd_area_atuacao, cd_municipio){
-    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/municipio/"+cd_municipio;
+    return this.getBaseUrl()+"osc/listaareaatuacao/"+cd_area_atuacao+"/municipio/"+cd_municipio;
   }
 
   RecuperarOscPorGeolocalizacaoAreaAtuacao(cd_area_atuacao, latitude, longitude){
-    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao+"/geolocalizacao/"+latitude+"/"+longitude;
+    return this.getBaseUrl()+"osc/listaareaatuacao/"+cd_area_atuacao+"/geolocalizacao/"+latitude+"/"+longitude;
   }
 
   RecuperarOscAtualizacao(){
-    return this.getBaseUrl()+":8383/api/osc/listaatualizadas/";
+    return this.getBaseUrl()+"osc/listaatualizadas/";
   }
 
   RecuperarMunicipio(latitude, longitude){
-    return this.getBaseUrl()+":8383/api/geo/localidade/municipio/"+latitude+"/"+longitude;
+    return this.getBaseUrl()+"geo/localidade/municipio/"+latitude+"/"+longitude;
   }
 
   RecuperarOscPorAreaAtuacao(cd_area_atuacao){
-    return this.getBaseUrl()+":8383/api/osc/listaareaatuacao/"+cd_area_atuacao;
+    return this.getBaseUrl()+"osc/listaareaatuacao/"+cd_area_atuacao;
   }
 
   EnviarArquivoEstadoMunicipio(){
-    return this.getBaseUrl()+":8383/api/gov/carregararquivoparcerias";
+    return this.getBaseUrl()+"gov/carregararquivoparcerias";
   }
 
 }
