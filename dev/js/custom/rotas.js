@@ -8,7 +8,8 @@ class Rotas{
     return loc.protocol + '//' + loc.host + ':' + loc.port + '/api/';
   }
   getBaseUrlCMS(){
-    return  this.getBaseUrl() + "/cms";
+    var loc = window.location;
+    return loc.protocol + '//' + loc.host + ':8181/cms';
   }
 
   //index.js
