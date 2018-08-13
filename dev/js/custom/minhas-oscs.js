@@ -46,6 +46,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas', 'datatables-respons
        url: rotas.ValidarUsuario(user),
        type: 'GET',
        dataType: "json",
+       data: newJson,
        success: function(data) {
 
          var columns = 3;
