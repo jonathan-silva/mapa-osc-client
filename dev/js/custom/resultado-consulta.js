@@ -43,7 +43,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var isClusterVersion = true;
   var consulta_avancada = false;
   var params = {};
-  var urlController = 'js/controller.php';
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
   var flagMultiplo = true;
@@ -140,10 +139,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
      textoBusca = replaceSpecialChars(request.term.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',');
 
        $.ajax({
-           url: urlController,
+           url: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0),
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByName(textoBusca, limiteAutocomplete, 0)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -170,10 +168,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     minLength: 3,
     source: function (request, response) {
        $.ajax({
-           url: urlController,//4204251
+           url: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocompleteCidade),
            type: 'GET',
            dataType: "json",
-           data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByCounty(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocompleteCidade)},
            success: function (data) {
              response($.map( data, function( item ) {
                 return {
@@ -200,10 +197,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
    minLength: 3,
    source: function (request, response) {
       $.ajax({
-          url: urlController,//4204251
+          url: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete),
           type: 'GET',
           dataType: "json",
-          data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
           success: function (data) {
             response($.map( data, function( item ) {
                return {
@@ -230,10 +226,9 @@ $("#regiao .form-control").autocomplete({
   minLength: 3,
   source: function (request, response) {
      $.ajax({
-         url: urlController,//4204251
+         url: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete),
          type: 'GET',
          dataType: "json",
-         data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByRegion(replaceSpecialChars(request.term).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ','), limiteAutocomplete)},
          success: function (data) {
            response($.map( data, function( item ) {
               return {
@@ -321,14 +316,14 @@ $("#regiao .form-control").autocomplete({
     $('#resultadoconsulta_formato_dados').hide();
     if(consulta_avancada){
       type_http = "POST";
-      data_tipo = {flag: 'consultaPost', rota: urlRota, parametros: params};
+      data_tipo = params;
     }else{
       type_http = "GET";
-      data_tipo = {flag: 'consulta', rota: urlRota};
+      data_tipo = null;
     }
 
     $.ajax({
-      url: "js/controller.php",
+      url: urlRota,
       type: type_http,
       dataType: 'json',
       data:data_tipo,
@@ -424,10 +419,9 @@ $("#regiao .form-control").autocomplete({
     var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
     leafletMarker.bindPopup(loading).openPopup();
     $.ajax({
-      url: urlController,
+      url: rotas.OSCPopUpByID(id),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCPopUpByID(id)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -687,10 +681,9 @@ $("#regiao .form-control").autocomplete({
   function loadChunkData(idEstado){
     $("#loadingMapModal").show();
     $.ajax({
-      url: urlController,
+      url: rotas.OSCByStateInMap(idEstado),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -718,10 +711,9 @@ $("#regiao .form-control").autocomplete({
     var idRegiao = e.target.options.icon.options.id;
     $("#loadingMapModal").show();
     $.ajax({
-      url: urlController,
+      url: rotas.ClusterEstadoPorRegiao(idRegiao),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -753,10 +745,9 @@ $("#regiao .form-control").autocomplete({
     var idRegiao = layer.feature.properties.Regiao;
     $("#loadingMapModal").show();
     $.ajax({
-      url: urlController,
+      url: rotas.ClusterEstadoPorRegiao(idRegiao),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.ClusterEstadoPorRegiao(idRegiao)},//rotas.OSCByRegionInMap(idRegiao)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -831,10 +822,9 @@ $("#regiao .form-control").autocomplete({
     //zoomToFeature(idEstado);
     $("#loadingMapModal").show();
     $.ajax({
-      url: urlController,
+      url: rotas.OSCByStateInMap(idEstado),
       type: 'GET',
       dataType: 'json',
-      data: {flag: 'consulta', rota: rotas.OSCByStateInMap(idEstado)},
       error: function(e){
           console.log("ERRO no AJAX :" + e);
       },
@@ -879,14 +869,14 @@ $("#regiao .form-control").autocomplete({
   var data_tipo_mapa;
   if(consulta_avancada){
     type_http = "POST";
-    data_tipo_mapa = {flag: 'consultaPost', rota: urlRotaMapa, parametros: params};
+    data_tipo_mapa = params;
   }else{
     type_http = "GET";
-    data_tipo_mapa = {flag: 'consulta', rota: urlRotaMapa};
+    data_tipo_mapa = null;
   }
 
   $.ajax({
-    url: urlController,
+    url: urlRotaMapa,
     type: type_http,
     dataType: 'json',
     data: data_tipo_mapa,
@@ -933,10 +923,9 @@ $("#regiao .form-control").autocomplete({
 
   //Coloração do mapa
   $.ajax({
-    url: urlController,
+    url: rotas.ClusterEstado(),
     type: 'GET',
     dataType: 'json',
-    data: {flag: 'consulta', rota: rotas.ClusterEstado()},
     error: function(e){
         console.log("ERRO no AJAX :" + e);
     },
