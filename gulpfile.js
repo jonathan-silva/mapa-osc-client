@@ -21,7 +21,6 @@ var editarJsFiles = 'dev/js/editar/**/*.js',
     componentDest = 'js/components/',
     headerFooterFile = 'dev/js/custom/header-footer.js',
     headerFooterDest = 'js/',
-    controllerOrigin = 'dev/js/controller.php',
     controllerDest = 'js/';
 
 
@@ -102,12 +101,6 @@ gulp.task('scripts6', function (cb) {
   pump([
     gulp.src(headerFooterFile),
     gulp.dest(headerFooterDest)
-  ], cb);
-});
-gulp.task('scripts7', function (cb) {
-  pump([
-    gulp.src(controllerOrigin),
-    gulp.dest(controllerDest)
   ], cb);
 });
 
