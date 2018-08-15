@@ -105,7 +105,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         },
         success: function(data) {result = data;},
         error: function(e) {
-            response([]);
         }
       });
       return result;
