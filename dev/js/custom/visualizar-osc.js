@@ -31,7 +31,7 @@ controller.controller('OscCtrl', ['$http', '$location', '$scope', '$filter', fun
 			}).then(function(response) {
 				if(response.data.msg == undefined){
 					self.osc = response.data
-					var projeto_array = response.data.projeto
+					var projeto_array = response.data.projeto.projeto
 					if(projeto_array != undefined){
 						$scope.projs = projeto_array // PROJETOS
 					}
@@ -274,16 +274,36 @@ require(["jquery-ui", 'rotas'], function (React) {
 					 };
 
 	 				 perfil(dataJson['values']);
+					 add_medalha(parseInt(data.transparencia_osc));
 
 				}
 			}
 
 		 });
 
-
-
-
 	});
+
+	function add_medalha(valor) {
+		var img = "sem_medalha.png";
+
+		if(valor >= 50 && valor < 70){
+			img = "bronze.png";
+		}
+		else if(valor >= 70 && valor < 90){
+			img = "prata.png";
+		}
+		else if (valor >= 90 && valor < 99) {
+			img = "ouro.png";
+		}
+		else if(valor == 100) {
+			img = "diamante.png";
+		}
+
+		var html = '<a href="metodologia.html" title="Conquista referente ao Índice de Preenchimento."><img src="img/'+img+'" class="medalha"></a>';
+
+		$(".divImg").append(html);
+	}
+
 
 });
 
