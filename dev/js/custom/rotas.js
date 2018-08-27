@@ -10,7 +10,7 @@ class Rotas{
     //return "https://localhost";
   }
   getBaseUrlCMS(){
-    return  this.getBaseUrl() + "/cms";
+    return  this.getBaseUrl().replace("https:","http:") + ":8181"; //+ "/cms";
   }
 
   //index.js
