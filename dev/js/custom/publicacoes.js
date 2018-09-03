@@ -47,7 +47,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       else{
         src_link = 'img/noticia_icon.png';
       }
-      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./publicacao.html#/'+data[i].cd_publicacao+'" target="_self"><img class="media-object img-rounded" src="'+src_link+'" height="80" width="120" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./publicacao.html#/'+data[i].cd_publicacao+'" target="_self">'+data[i].tx_titulo_publicacao+'</a></h4><p>'+data[i].tx_resumo_publicacao+'</p></div></li></ul>';
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./publicacao.html#/'+data[i].cd_publicacao+'" target="_self"><img class="media-object img-rounded img-publicacao" src="'+src_link+'" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./publicacao.html#/'+data[i].cd_publicacao+'" target="_self">'+data[i].tx_titulo_publicacao+'</a></h4><p>'+data[i].tx_resumo_publicacao+'</p></div></li></ul>';
     }
     return newData;
   }

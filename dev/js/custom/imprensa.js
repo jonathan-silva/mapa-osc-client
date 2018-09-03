@@ -47,7 +47,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       else{
         src_link = 'img/noticia_icon.png';
       }
-      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-rounded" src="'+src_link+'" height="80" width="120" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-rounded img-noticia" src="'+src_link+'" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
     }
     return newData;
   }
@@ -69,7 +69,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
       else{
         src_link = 'img/video_icon.png';
       }
-      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./video.html#/'+data[i].cd_video+'" target="_self"><img class="media-object img-rounded" src="'+src_link+'" height="80" width="120" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./video.html#/'+data[i].cd_video+'" target="_self">'+data[i].tx_titulo_video+'</a></h4><p>'+data[i].tx_resumo_video+'</p></div></li></ul>';
+      newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./video.html#/'+data[i].cd_video+'" target="_self"><img class="media-object img-rounded img-video" src="'+src_link+'" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./video.html#/'+data[i].cd_video+'" target="_self">'+data[i].tx_titulo_video+'</a></h4><p>'+data[i].tx_resumo_video+'</p></div></li></ul>';
     }
     return newData;
   }
