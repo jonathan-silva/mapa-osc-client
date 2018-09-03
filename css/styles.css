@@ -198,17 +198,16 @@ div.dropdown-container > div.dropdown-list > div > div > span {
   margin-left: 15px;
   margin-right: 15px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   float: left;
-  height: 50px;
 }
 .img-apoio img:hover {
   -webkit-filter: opacity(80%);
   filter: opacity(80%);
 }
 .img-apoio img {
-  max-width: 2400px;
-  max-height: 120px;
+  max-width: 240px;
+  max-height: 100px;
   display: block;
   margin: auto;
 }
@@ -1324,4 +1323,13 @@ display: inline-block;
 }
 .medalha{
   margin-top: 10px;
+}
+
+.img-publicacao:hover, .img-noticia:hover, .img-video:hover {
+  -webkit-filter: opacity(80%);
+  filter: opacity(80%);
+}
+.img-publicacao, .img-noticia, .img-video{
+  max-width: 120px;
+  max-height: 120px;
 }
