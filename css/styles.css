@@ -859,6 +859,8 @@ body.indisponivel {
 
 .logoOSC{
   max-width: 150px;
+  background-color: transparent !important;
+  padding: 0px !important;
 }
 .divImg{
   padding-bottom: 15px;
