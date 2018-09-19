@@ -1,3 +1,95 @@
+function escolherGrafico(num, data){
+  var inverterLabel = true;
+  var grafico = "#grafico-" + num;
+  var tabela = "#tabela-" + num;
+  var json = {"config":[],"leg_X":"","leg_Y":"","tituloColuna":[],"legenda":"","titulo":""};
+
+  json["config"] = data.configuracao.join().replace(/'/gi,"").split(",");
+  json["leg_X"] = data.legenda_x;
+  json["leg_Y"] = data.legenda_y;
+  json["tituloColuna"] = data.titulo_colunas;
+  json["titulo"] = data.titulo;
+  json["legenda"] = "Fonte: " + data.fontes.join(', ') + ". " + data.legenda;
+
+  var tipoGrafico = removerAcentos(data.tipo_grafico.toLowerCase());
+  var series;
+
+  if(inverterLabel){
+    series = data.series;
+  }
+  else {
+    series = data.series_2;
+  }
+
+  if(tipoGrafico == "rede" || tipoGrafico == "linhas" || tipoGrafico == "areas" || tipoGrafico == "linhasBar" || tipoGrafico == "coluna" || tipoGrafico == "linhasFocus"){
+
+    json["series"] = series;
+    var dados = [];
+    dados.push(json);
+
+    if(tipoGrafico == "rede"){
+      createMultiBarChart(grafico,dados);
+    }
+    else if(tipoGrafico == "linhas"){
+      createLineChart(grafico,dados);
+    }
+    else if (tipoGrafico == "linhasBar") {
+      createLinePlusBarChart(grafico,dados);
+    }
+    else if (tipoGrafico == "areas") {
+      createStackedAreaChart(grafico,dados);
+    }
+    else if (tipoGrafico == "coluna") {
+      createMultiBarHorizontalChart(grafico,dados);
+    }
+    else if (tipoGrafico == "linhasFocus") {
+      createLineWithFocusChart(grafico,dados);
+    }
+
+    $(tabela).click(function(){
+        createTabela_MultBar_Line(dados,false);
+    });
+
+  }
+  else if (tipoGrafico == "barra" || tipoGrafico == "pizza" ) {
+
+    json["values"] = series;
+    var dados = [];
+    dados.push(json);
+
+    if(tipoGrafico == "barra"){
+      createBarChart(grafico,dados);
+    }
+    else if(tipoGrafico == "pizza"){
+      createDonutChart(grafico,dados);
+    }
+
+    $(tabela).click(function(){
+        createTabela_Bar_Donut(dados);
+    });
+  }
+
+}
+
+function removerAcentos( newStringComAcento ) {
+  var string = newStringComAcento;
+	var mapaAcentosHex 	= {
+		a : /[\xE0-\xE6]/g,
+		e : /[\xE8-\xEB]/g,
+		i : /[\xEC-\xEF]/g,
+		o : /[\xF2-\xF6]/g,
+		u : /[\xF9-\xFC]/g,
+		c : /\xE7/g,
+		n : /\xF1/g
+	};
+
+	for ( var letra in mapaAcentosHex ) {
+		var expressaoRegular = mapaAcentosHex[letra];
+		string = string.replace( expressaoRegular, letra );
+	}
+
+	return string;
+}
 
 //Acionar o modal e trasnformar os dados do grafico em tabela
 

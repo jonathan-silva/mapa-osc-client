@@ -356,4 +356,8 @@ class Rotas{
     return this.getBaseUrl()+":8383/api/gov/carregararquivoparcerias";
   }
 
+  RecuperarGrafico(id_grafico){
+    return this.getBaseUrl()+":8383/api/analises?id="+id_grafico;
+  }
+
 }
