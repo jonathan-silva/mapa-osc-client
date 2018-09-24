@@ -1,20 +1,22 @@
 function createDonutChart(grafico, valores){
 
 	var total = 0;
-	valores[0].values.forEach(function (d) {
-	    total = total + d.value;
-	});
+	var tp ="";
+	if(valores[0].values != null){
+		valores[0].values.forEach(function (d) {
+		    total = total + d.value;
+		});
 
-	var tp = function(key, y, e, graph) {
-		if(readCookie("contraste") == "true"){
-			content = '<div class="nvtooltip contrasteGrafico"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
-		}
-		else {
-			content = '<div class="nvtooltip"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
-		}
-		return content;
-	};
-
+		tp = function(key, y, e, graph) {
+			if(readCookie("contraste") == "true"){
+				content = '<div class="nvtooltip contrasteGrafico"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+			}
+			else {
+				content = '<div class="nvtooltip"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+			}
+			return content;
+		};
+	}
 	//Donut chart example
 	nv.addGraph(function() {
 	  var chart = nv.models.pieChart()

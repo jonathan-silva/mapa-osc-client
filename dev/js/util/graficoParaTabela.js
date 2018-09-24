@@ -2,73 +2,87 @@ function escolherGrafico(num, data){
   var inverterLabel = true;
   var grafico = "#grafico-" + num;
   var tabela = "#tabela-" + num;
-  var json = {"config":[],"leg_X":"","leg_Y":"","tituloColuna":[],"legenda":"","titulo":""};
+  var json = {"config":["f","1","","f"],"leg_X":"","leg_Y":"","tituloColuna":[],"legenda":"","titulo":""};
+  var fontes = ". ";
+  var line = false;
 
-  json["config"] = data.configuracao.join().replace(/'/gi,"").split(",");
+  if(data != null && data.configuracao != null ){
+    json["config"] = data.configuracao.join().replace(/'/gi,"").split(",");
+  }
+
   json["leg_X"] = data.legenda_x;
   json["leg_Y"] = data.legenda_y;
   json["tituloColuna"] = data.titulo_colunas;
   json["titulo"] = data.titulo;
-  json["legenda"] = "Fonte: " + data.fontes.join(', ') + ". " + data.legenda;
+
+  if(data.fontes != null){
+    fontes = data.fontes.join(", ");
+    fontes += ". ";
+  }
+
+  json["legenda"] = "Fonte: " + fontes + data.legenda;
 
   var tipoGrafico = removerAcentos(data.tipo_grafico.toLowerCase());
   var series;
 
   if(inverterLabel){
-    series = data.series;
+    series = data.series_1;
   }
   else {
     series = data.series_2;
   }
 
-  if(tipoGrafico == "rede" || tipoGrafico == "linhas" || tipoGrafico == "areas" || tipoGrafico == "linhasBar" || tipoGrafico == "coluna" || tipoGrafico == "linhasFocus"){
+  if(series != null){
 
-    json["series"] = series;
-    var dados = [];
-    dados.push(json);
+    if(tipoGrafico == "LinePlusBarChart" || tipoGrafico == "LineChart" || tipoGrafico == "MultiBarChart" || tipoGrafico == "rede" || tipoGrafico == "linhas" || tipoGrafico == "areas" || tipoGrafico == "linhasBar" || tipoGrafico == "coluna" || tipoGrafico == "linhasFocus"){
 
-    if(tipoGrafico == "rede"){
-      createMultiBarChart(grafico,dados);
-    }
-    else if(tipoGrafico == "linhas"){
-      createLineChart(grafico,dados);
-    }
-    else if (tipoGrafico == "linhasBar") {
-      createLinePlusBarChart(grafico,dados);
-    }
-    else if (tipoGrafico == "areas") {
-      createStackedAreaChart(grafico,dados);
-    }
-    else if (tipoGrafico == "coluna") {
-      createMultiBarHorizontalChart(grafico,dados);
-    }
-    else if (tipoGrafico == "linhasFocus") {
-      createLineWithFocusChart(grafico,dados);
-    }
+      json["series"] = series;
+      var dados = [];
+      dados.push(json);
 
-    $(tabela).click(function(){
-        createTabela_MultBar_Line(dados,false);
-    });
+      if(tipoGrafico == "rede" || tipoGrafico == "MultiBarChart"){
+        createMultiBarChart(grafico,dados);
+      }
+      else if(tipoGrafico == "linhas" || tipoGrafico == "LineChart"){
+        createLineChart(grafico,dados);
+        line = true;
+      }
+      else if (tipoGrafico == "linhasBar" || tipoGrafico == "LinePlusBarChart" || tipoGrafico == "areas") {
+        createLinePlusBarChart(grafico,dados);
+      }
+      else if (tipoGrafico == "coluna") {
+        createMultiBarHorizontalChart(grafico,dados);
+      }
+      else if (tipoGrafico == "linhasFocus") {
+        createLineWithFocusChart(grafico,dados);
+      }
+      //  else if (tipoGrafico == "areas") {
+      //    createStackedAreaChart(grafico,dados);
+    //}
 
+      $(tabela).click(function(){
+          createTabela_MultBar_Line(dados,line);
+      });
+
+    }
+    else if (tipoGrafico == "barra" || tipoGrafico == "pizza" || tipoGrafico == "DonutChart"  || tipoGrafico == "BarChart") {
+
+      json["values"] = series;
+      var dados = [];
+      dados.push(json);
+
+      if(tipoGrafico == "barra" || tipoGrafico == "BarChart"){
+        createBarChart(grafico,dados);
+      }
+      else if(tipoGrafico == "pizza" || tipoGrafico == "DonutChart"){
+        createDonutChart(grafico,dados);
+      }
+
+      $(tabela).click(function(){
+          createTabela_Bar_Donut(dados);
+      });
+    }
   }
-  else if (tipoGrafico == "barra" || tipoGrafico == "pizza" ) {
-
-    json["values"] = series;
-    var dados = [];
-    dados.push(json);
-
-    if(tipoGrafico == "barra"){
-      createBarChart(grafico,dados);
-    }
-    else if(tipoGrafico == "pizza"){
-      createDonutChart(grafico,dados);
-    }
-
-    $(tabela).click(function(){
-        createTabela_Bar_Donut(dados);
-    });
-  }
-
 }
 
 function removerAcentos( newStringComAcento ) {

@@ -27,7 +27,7 @@ require(['jquery-ui'], function (React) {
 });
 
 
-require(["nv.d3.lib","graficoParaTabela"], function (React) {
+require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
 
 
   var rotas = new Rotas();
@@ -52,6 +52,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
           if(data != null ){
             var menu_msg = "";
             var grafico_msg = "";
+            var fontes = ". ";
 
             var num = i+1;
             if(i == 0){
@@ -60,7 +61,13 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
               grafico_msg += '<div class="tab-pane active" id="dado-'+num+'">';
               grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
               grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
-              grafico_msg += '<h5>Fonte: '+ data.fontes.join(", ") + '. '+ data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
+
+              if(data.fontes != null){
+                fontes = data.fontes.join(", ");
+                fontes += ". ";
+              }
+
+              grafico_msg += '<h5>Fonte: '+ fontes + data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
             }
             else{
               menu_msg += '<li><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
@@ -68,7 +75,13 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
               grafico_msg += '<div class="tab-pane" id="dado-'+num+'">';
               grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
               grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
-              grafico_msg += '<h5>Fonte: '+ data.fontes.join(", ") + '. '+ data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
+
+              if(data.fontes != null){
+                fontes = data.fontes.join(", ");
+                fontes += ". ";
+              }
+
+              grafico_msg += '<h5>Fonte: '+ fontes + data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
 
             }
             $("#tabGrafico").append(menu_msg);
