@@ -28,21 +28,16 @@ require(['jquery-ui'], function (React) {
 
 
 require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
-
-
   var rotas = new Rotas();
-  var controller = "js/controller.php";
 
   var idsGraficos = [1,2,3,4,5,6,7,8];
 
   for (var i = 0; i < idsGraficos.length; i++) {
-
       $.ajax({
-        url: controller,
+        url: rotas.RecuperarGrafico(idsGraficos[i]),
         type: 'GET',
         async: false,
         dataType: 'json',
-        data: {flag: 'consulta', rota: rotas.RecuperarGrafico(idsGraficos[i])},
         error: function(e){
           console.log("Erro no ajax: ");
           console.log(e);
