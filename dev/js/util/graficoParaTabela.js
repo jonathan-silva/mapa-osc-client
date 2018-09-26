@@ -1,3 +1,109 @@
+function escolherGrafico(num, data){
+  var inverterLabel = true;
+  var grafico = "#grafico-" + num;
+  var tabela = "#tabela-" + num;
+  var json = {"config":["f","1","","f"],"leg_X":"","leg_Y":"","tituloColuna":[],"legenda":"","titulo":""};
+  var fontes = ". ";
+  var line = false;
+
+  if(data != null && data.configuracao != null ){
+    json["config"] = data.configuracao.join().replace(/'/gi,"").split(",");
+  }
+
+  json["leg_X"] = data.legenda_x;
+  json["leg_Y"] = data.legenda_y;
+  json["tituloColuna"] = data.titulo_colunas;
+  json["titulo"] = data.titulo;
+
+  if(data.fontes != null){
+    fontes = data.fontes.join(", ");
+    fontes += ". ";
+  }
+
+  json["legenda"] = "Fonte: " + fontes + data.legenda;
+
+  var tipoGrafico = removerAcentos(data.tipo_grafico.toLowerCase());
+  var series;
+
+  if(inverterLabel){
+    series = data.series_1;
+  }
+  else {
+    series = data.series_2;
+  }
+
+  if(series != null){
+
+    if(tipoGrafico == "LinePlusBarChart" || tipoGrafico == "LineChart" || tipoGrafico == "MultiBarChart" || tipoGrafico == "rede" || tipoGrafico == "linhas" || tipoGrafico == "areas" || tipoGrafico == "linhasBar" || tipoGrafico == "coluna" || tipoGrafico == "linhasFocus"){
+
+      json["series"] = series;
+      var dados = [];
+      dados.push(json);
+
+      if(tipoGrafico == "rede" || tipoGrafico == "MultiBarChart"){
+        createMultiBarChart(grafico,dados);
+      }
+      else if(tipoGrafico == "linhas" || tipoGrafico == "LineChart"){
+        createLineChart(grafico,dados);
+        line = true;
+      }
+      else if (tipoGrafico == "linhasBar" || tipoGrafico == "LinePlusBarChart" || tipoGrafico == "areas") {
+        createLinePlusBarChart(grafico,dados);
+      }
+      else if (tipoGrafico == "coluna") {
+        createMultiBarHorizontalChart(grafico,dados);
+      }
+      else if (tipoGrafico == "linhasFocus") {
+        createLineWithFocusChart(grafico,dados);
+      }
+      //  else if (tipoGrafico == "areas") {
+      //    createStackedAreaChart(grafico,dados);
+    //}
+
+      $(tabela).click(function(){
+          createTabela_MultBar_Line(dados,line);
+      });
+
+    }
+    else if (tipoGrafico == "barra" || tipoGrafico == "pizza" || tipoGrafico == "DonutChart"  || tipoGrafico == "BarChart") {
+
+      json["values"] = series;
+      var dados = [];
+      dados.push(json);
+
+      if(tipoGrafico == "barra" || tipoGrafico == "BarChart"){
+        createBarChart(grafico,dados);
+      }
+      else if(tipoGrafico == "pizza" || tipoGrafico == "DonutChart"){
+        createDonutChart(grafico,dados);
+      }
+
+      $(tabela).click(function(){
+          createTabela_Bar_Donut(dados);
+      });
+    }
+  }
+}
+
+function removerAcentos( newStringComAcento ) {
+  var string = newStringComAcento;
+	var mapaAcentosHex 	= {
+		a : /[\xE0-\xE6]/g,
+		e : /[\xE8-\xEB]/g,
+		i : /[\xEC-\xEF]/g,
+		o : /[\xF2-\xF6]/g,
+		u : /[\xF9-\xFC]/g,
+		c : /\xE7/g,
+		n : /\xF1/g
+	};
+
+	for ( var letra in mapaAcentosHex ) {
+		var expressaoRegular = mapaAcentosHex[letra];
+		string = string.replace( expressaoRegular, letra );
+	}
+
+	return string;
+}
 
 //Acionar o modal e trasnformar os dados do grafico em tabela
 

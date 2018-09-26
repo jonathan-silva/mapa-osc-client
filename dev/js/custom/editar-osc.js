@@ -99,7 +99,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         dataType: "json",
         success: function(data) {result = data;},
         error: function(e) {
-            response([]);
         }
       });
       return result;

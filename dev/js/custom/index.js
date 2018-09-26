@@ -24,8 +24,56 @@ require(["jquery-ui"], function (React) {
 
 });
 
-require(["nv.d3.lib","graficoParaTabela"], function (React) {
+require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
 
+  var rotas = new Rotas();
+  var controller = "js/controller.php";
+
+  var idsGraficos = [9,10,11,12];
+
+  for (var i = 0; i < idsGraficos.length; i++) {
+
+    $.ajax({
+      url: controller,
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      data: {flag: 'consulta', rota: rotas.RecuperarGrafico(idsGraficos[i])},
+      error: function(e){
+        console.log("Erro no ajax: ");
+        console.log(e);
+      },
+      success: function(data){
+
+        if(data != null ){
+          var menu_msg = "";
+          var fontes = "Elaboração própria.";
+          var num = i+1;
+
+          menu_msg += '<div class="container"><div class="row"><div class="col-md-12"><hr>';
+          menu_msg += '<h2 class="text-center">'+data.titulo+'</h2>';
+          menu_msg += '</div></div><div class="row"><div class="col-md-12"><hr></div></div>';
+          menu_msg += '<div class="row"><div class="col-md-12"><div class="chart-container" id="graficoMain-'+num+'"><svg></svg></div>';
+
+          if(data.fontes != null){
+            fontes = data.fontes.join(", ");
+            fontes += ".";
+          }
+
+          menu_msg += '<h5>Fonte: '+fontes+'</h5>';
+          menu_msg += '<h5>'+data.legenda+'</h5>';
+          menu_msg += '<h5><a id="tabelaMain-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
+          menu_msg += '</div></div><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div>';
+
+          $("#itemGrafico").append(menu_msg);
+
+          escolherGrafico(num,data);
+        }
+      }
+    });
+
+  }
+/*
   var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Elaboração do Ipea com base em dados da Secretaria da Receita Federal (2016).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2016",
   series:[
     {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 268864 }, {"label" : "SUL", "value" : 142398 }, {"label" : "NORDESTE", "value" : 184477 }, {"label" : "CENTRO-OESTE", "value" : 53663 }, {"label" : "NORTE", "value" : 56079 }, {"label" : "Não informado", "value" : 3065 }]},
@@ -175,6 +223,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
         }
   ]}];
 
+
   createMultiBarChart('#graficoMain-1',jsonGrafico1);
 //  createLinePlusBarChart('#graficoMain-2',jsonGrafico2);
 //  createLineChart('#graficoMain-3',jsonGrafico3);
@@ -186,7 +235,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabelaMain-1").click(function(){
       createTabela_MultBar_Line(jsonGrafico1,false);
   });
-/*
+
   $("#tabelaMain-2").click(function(){
       createTabela_MultBar_Line(jsonGrafico2,false);
   });
@@ -194,7 +243,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabelaMain-3").click(function(){
       createTabela_MultBar_Line(jsonGrafico3,true);
   });
-*/
+
   $("#tabelaMain-4").click(function(){
       createTabela_Bar_Donut(jsonGrafico4);
   });
@@ -206,6 +255,7 @@ require(["nv.d3.lib","graficoParaTabela"], function (React) {
   $("#tabelaMain-6").click(function(){
       createTabela_MultBar_Line(jsonGrafico6,true);
   });
+  */
 
 } );
 

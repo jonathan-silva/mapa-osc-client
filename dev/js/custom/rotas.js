@@ -7,6 +7,7 @@ class Rotas{
     var loc = window.location;
     return loc.protocol + '//' + loc.host + ':' + loc.port + '/api/';
   }
+  
   getBaseUrlCMS(){
     var loc = window.location;
     return loc.protocol + loc.host.replace(':81', ':8181');
@@ -353,6 +354,10 @@ class Rotas{
 
   EnviarArquivoEstadoMunicipio(){
     return this.getBaseUrl()+"gov/carregararquivoparcerias";
+  }
+
+  RecuperarGrafico(id_grafico){
+    return this.getBaseUrl()+":8383/api/analises?id="+id_grafico;
   }
 
 }

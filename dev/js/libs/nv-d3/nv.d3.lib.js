@@ -1,20 +1,22 @@
 function createDonutChart(grafico, valores){
 
 	var total = 0;
-	valores[0].values.forEach(function (d) {
-	    total = total + d.value;
-	});
+	var tp ="";
+	if(valores[0].values != null){
+		valores[0].values.forEach(function (d) {
+		    total = total + d.value;
+		});
 
-	var tp = function(key, y, e, graph) {
-		if(readCookie("contraste") == "true"){
-			content = '<div class="nvtooltip contrasteGrafico"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
-		}
-		else {
-			content = '<div class="nvtooltip"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
-		}
-		return content;
-	};
-
+		tp = function(key, y, e, graph) {
+			if(readCookie("contraste") == "true"){
+				content = '<div class="nvtooltip contrasteGrafico"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+			}
+			else {
+				content = '<div class="nvtooltip"><h3>' + key + '</h3><p>' + y + ' (' + (y * 100/total).toFixed(1) + '%)</p></div>';
+			}
+			return content;
+		};
+	}
 	//Donut chart example
 	nv.addGraph(function() {
 	  var chart = nv.models.pieChart()
@@ -60,7 +62,7 @@ function createBarChart(grafico, valores)
 
 		chart.yAxis     //Chart y-axis settings
 					.axisLabel(valores[0].leg_Y)
-					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
 	  d3.select(grafico + " svg")
 	      .datum(valores)
@@ -77,22 +79,6 @@ function createBarChart(grafico, valores)
 		rotateLabelGrafico(grafico);
 
 	  return chart;
-}
-
-function createMultiChart(grafico, valores)
-{
-		var chart = nv.models.multiChart()
-				.margin({top: 30, right: 60, bottom: 50, left: 70})
-				.color(d3.scale.category10().range());
-
-		chart.xAxis.tickFormat(d3.format(',f'));
-		chart.yAxis1.tickFormat(d3.format(',.1f'));
-		chart.yAxis2.tickFormat(d3.format(',.1f'));
-
-		d3.select(grafico + " svg")
-				.datum(valores[0].series)
-				.transition().duration(500).call(chart);
-		return chart;
 }
 
 function createMultiBarChart(grafico, valores)
@@ -113,7 +99,7 @@ function createMultiBarChart(grafico, valores)
 
 		chart.yAxis     //Chart y-axis settings
 					.axisLabel(valores[0].leg_Y)
-					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
 	    d3.select(grafico + " svg")
 	        .datum(valores[0].series)
@@ -158,7 +144,7 @@ function createLineChart(grafico, valores)
 
 	chart.yAxis     //Chart y-axis settings
 				.axisLabel(valores[0].leg_Y)
-				.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+				.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
   d3.select(grafico + " svg")    //Select the <svg> element you want to render the chart in.
       .datum(valores[0].series)         //Populate the <svg> element with chart data...
@@ -204,7 +190,7 @@ function createLinePlusBarChart(grafico, valores)
 			.tickFormat(d3.format(valores[0].config[3]));
 
 	chart.y2Axis
-			.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+			.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
 	chart.bars.forceY([0]);
 
@@ -281,7 +267,7 @@ function createStackedAreaChart(grafico, valores)
 
 		chart.yAxis     //Chart y-axis settings
 					.axisLabel(valores[0].leg_Y)
-					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
 		d3.select(grafico + " svg")
 				.datum(valores[0].series)
@@ -316,7 +302,7 @@ function createLineWithFocusChart(grafico, valores)
 
 		chart.y2Axis     //Chart y-axis settings
 					.axisLabel(valores[0].leg_Y)
-					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/valores[0].config[1]) + valores[0].config[2] });
+					.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
 
 	  d3.select(grafico + " svg")
 	      .datum(valores[0].series)
