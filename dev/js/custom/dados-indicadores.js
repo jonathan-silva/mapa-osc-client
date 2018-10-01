@@ -66,8 +66,11 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
                 fontes = data.fontes.join(", ");
                 fontes += ". ";
               }
-
-              grafico_msg += '<h5>Fonte: '+ fontes + data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
+              grafico_msg += '<h5>Fonte: '+ fontes;
+              if(data.legenda != null){
+                grafico_msg += data.legenda;
+              }
+              grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
             }
             else{
               menu_msg += '<li><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
@@ -80,9 +83,11 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
                 fontes = data.fontes.join(", ");
                 fontes += ". ";
               }
-
-              grafico_msg += '<h5>Fonte: '+ fontes + data.legenda +'<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
-
+              grafico_msg += '<h5>Fonte: '+ fontes;
+              if(data.legenda != null){
+                grafico_msg += data.legenda;
+              }
+              grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
             }
             $("#tabGrafico").append(menu_msg);
             $("#graficosView").append(grafico_msg);

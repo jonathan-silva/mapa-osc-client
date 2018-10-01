@@ -1,5 +1,4 @@
 function escolherGrafico(num, data){
-  var inverterLabel = true;
   var grafico = "#grafico-" + num;
   var tabela = "#tabela-" + num;
   var json = {"config":["f","1","","f"],"leg_X":"","leg_Y":"","tituloColuna":[],"legenda":"","titulo":""};
@@ -22,59 +21,64 @@ function escolherGrafico(num, data){
 
   json["legenda"] = "Fonte: " + fontes + data.legenda;
 
-  var tipoGrafico = removerAcentos(data.tipo_grafico.toLowerCase());
+  var tipoGrafico;
+
+  if(data.tipo_grafico != null){
+    tipoGrafico = removerAcentos(data.tipo_grafico.toLowerCase());
+  }
+
   var series;
 
-  if(inverterLabel){
-    series = data.series_1;
+  if(data.inverter_eixo){
+    series = data.series_2;
   }
   else {
-    series = data.series_2;
+    series = data.series_1;
   }
 
   if(series != null){
 
-    if(tipoGrafico == "LinePlusBarChart" || tipoGrafico == "LineChart" || tipoGrafico == "MultiBarChart" || tipoGrafico == "rede" || tipoGrafico == "linhas" || tipoGrafico == "areas" || tipoGrafico == "linhasBar" || tipoGrafico == "coluna" || tipoGrafico == "linhasFocus"){
+    if(tipoGrafico == "lineplusbarchart" || tipoGrafico == "linechart" || tipoGrafico == "multibarchart" || tipoGrafico == "multibarhorizontalchart" || tipoGrafico == "linewithfocuschart" || tipoGrafico == "stackedareachart"){
 
       json["series"] = series;
       var dados = [];
       dados.push(json);
 
-      if(tipoGrafico == "rede" || tipoGrafico == "MultiBarChart"){
+      if(tipoGrafico == "multibarchart"){
         createMultiBarChart(grafico,dados);
       }
-      else if(tipoGrafico == "linhas" || tipoGrafico == "LineChart"){
+      else if(tipoGrafico == "linechart"){
         createLineChart(grafico,dados);
         line = true;
       }
-      else if (tipoGrafico == "linhasBar" || tipoGrafico == "LinePlusBarChart" || tipoGrafico == "areas") {
+      else if (tipoGrafico == "lineplusbarchart") {
         createLinePlusBarChart(grafico,dados);
       }
-      else if (tipoGrafico == "coluna") {
+      else if (tipoGrafico == "multibarhorizontalchart") {
         createMultiBarHorizontalChart(grafico,dados);
       }
-      else if (tipoGrafico == "linhasFocus") {
+      else if (tipoGrafico == "linewithfocuschart") {
         createLineWithFocusChart(grafico,dados);
       }
-      //  else if (tipoGrafico == "areas") {
-      //    createStackedAreaChart(grafico,dados);
-    //}
+      else if (tipoGrafico == "stackedareachart") {
+          createStackedAreaChart(grafico,dados);
+     }
 
       $(tabela).click(function(){
           createTabela_MultBar_Line(dados,line);
       });
 
     }
-    else if (tipoGrafico == "barra" || tipoGrafico == "pizza" || tipoGrafico == "DonutChart"  || tipoGrafico == "BarChart") {
+    else if ( tipoGrafico == "donutchart"  || tipoGrafico == "barchart") {
 
       json["values"] = series;
       var dados = [];
       dados.push(json);
 
-      if(tipoGrafico == "barra" || tipoGrafico == "BarChart"){
+      if( tipoGrafico == "barchart"){
         createBarChart(grafico,dados);
       }
-      else if(tipoGrafico == "pizza" || tipoGrafico == "DonutChart"){
+      else if(tipoGrafico == "donutchart"){
         createDonutChart(grafico,dados);
       }
 

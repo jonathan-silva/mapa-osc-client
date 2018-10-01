@@ -61,7 +61,9 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
           }
 
           menu_msg += '<h5>Fonte: '+fontes+'</h5>';
-          menu_msg += '<h5>'+data.legenda+'</h5>';
+          if(data.legenda != null){
+            menu_msg += '<h5>'+data.legenda+'</h5>';
+          }
           menu_msg += '<h5><a id="tabelaMain-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
           menu_msg += '</div></div><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div>';
 
