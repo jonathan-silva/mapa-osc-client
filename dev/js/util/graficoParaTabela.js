@@ -29,7 +29,7 @@ function escolherGrafico(num, data){
 
   var series;
 
-  if(data.inverter_eixo){
+  if(data.inverter_label){
     series = data.series_2;
   }
   else {
@@ -130,7 +130,7 @@ function createTabela_Bar_Donut(json) {
   var cabecalho = '<thead><tr>';
   for(var i in json[0].tituloColuna)
   {
-    cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
+    cabecalho += '<th>' + json[0].tituloColuna[i].replace(/'/gi,"") + '</th>';
   }
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
@@ -162,7 +162,7 @@ function createTabela_MultBar_Line(json, line) {
   var cabecalho = '<thead><tr>';
   for(var i in json[0].tituloColuna)
   {
-    cabecalho += '<th>' + json[0].tituloColuna[i] + '</th>';
+    cabecalho += '<th>' + json[0].tituloColuna[i].replace(/'/gi,"") + '</th>';
   }
   cabecalho += '</tr></thead>';
   tabela += cabecalho;
