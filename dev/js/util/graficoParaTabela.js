@@ -6,7 +6,11 @@ function escolherGrafico(num, data){
   var line = false;
 
   if(data != null && data.configuracao != null ){
-    json["config"] = data.configuracao.join().replace(/'/gi,"").split(",");
+    var config = [];
+    for (const parte of data.configuracao) {
+      config.push(parte.replace(/'/gi,""));
+    }
+    json["config"] = config;
   }
 
   json["leg_X"] = data.legenda_x;
