@@ -15,7 +15,7 @@ function escolherGrafico(num, data){
   json["titulo"] = data.titulo;
 
   if(data.fontes != null){
-    fontes = data.fontes.join(", ");
+    fontes = data.fontes.join(", ").replace(/'/gi,"");
     fontes += ". ";
   }
 
