@@ -35,7 +35,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
     var newData = new Array(sizeOfData);
     var txtVazioNulo = 'Dado não informado.';
     var src_link = '';
-    var link_erro = "this.src='img/noticia_icon.png'";
+    var link_erro = "this.src='img/imagem-imprensa.jpg'";
 
     for (var i=0; i < sizeOfData; i++){
       newData[i] = new Array(columns);
@@ -45,7 +45,7 @@ require(['rotas','jquery-ui','datatables-responsive'], function (React) {
         src_link =  '/cms/imagens/noticias/xs-'+data[i].tx_link_img_noticia;
       }
       else{
-        src_link = 'img/noticia_icon.png';
+        src_link = 'img/imagem-imprensa.jpg';
       }
       newData[i][1] = '<ul class="media-list"><li class="media"><a class="pull-left" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self"><img class="media-object img-rounded img-noticia" src="'+src_link+'" onerror="'+link_erro+';"></a><div class="media-body"><h4 class="media-heading"><a class="btn-link" href="./noticia.html#/'+data[i].cd_noticia+'" target="_self">'+data[i].tx_titulo_noticia+'</a></h4><p>'+data[i].tx_resumo_noticia+'</p></div></li></ul>';
     }

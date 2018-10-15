@@ -24,7 +24,7 @@ require(["jquery-ui"], function (React) {
 
 });
 
-require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
+require(["rotas","jquery-ui","nv.d3.lib","graficoParaTabela"], function (React) {
 
   var rotas = new Rotas();
 
@@ -51,10 +51,10 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
           menu_msg += '<div class="container"><div class="row"><div class="col-md-12"><hr>';
           menu_msg += '<h2 class="text-center">'+data.titulo+'</h2>';
           menu_msg += '</div></div><div class="row"><div class="col-md-12"><hr></div></div>';
-          menu_msg += '<div class="row"><div class="col-md-12"><div class="chart-container" id="graficoMain-'+num+'"><svg></svg></div>';
+          menu_msg += '<div class="row"><div class="col-md-12"><div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
 
           if(data.fontes != null){
-            fontes = data.fontes.join(", ");
+            fontes = data.fontes.join(", ").replace(/'/gi,"");
             fontes += ".";
           }
 
@@ -62,7 +62,7 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
           if(data.legenda != null){
             menu_msg += '<h5>'+data.legenda+'</h5>';
           }
-          menu_msg += '<h5><a id="tabelaMain-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
+          menu_msg += '<h5><a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
           menu_msg += '</div></div><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div>';
 
           $("#itemGrafico").append(menu_msg);
@@ -71,192 +71,7 @@ require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
         }
       }
     });
-
   }
-/*
-  var jsonGrafico1 = [{"config":[",f",1,""],"leg_X":"Região","leg_Y":"Quantidade de OSC","tituloColuna":["Natureza Jurídica", "Região", "Quantidade de OSCs"],"legenda":"Fonte: Elaboração do Ipea com base em dados da Secretaria da Receita Federal (2016).","titulo":"Número de OSCs por natureza jurídica e região, Brasil - 2016",
-  series:[
-    {key: "Associação Privada", values: [{"label" : "SUDESTE", "value" : 268864 }, {"label" : "SUL", "value" : 142398 }, {"label" : "NORDESTE", "value" : 184477 }, {"label" : "CENTRO-OESTE", "value" : 53663 }, {"label" : "NORTE", "value" : 56079 }, {"label" : "Não informado", "value" : 3065 }]},
-    {key: "Organização Religiosa", values: [{"label" : "SUDESTE", "value" : 51000 }, {"label" : "SUL", "value" : 13428 }, {"label" : "NORDESTE", "value" : 17550 }, {"label" : "CENTRO-OESTE", "value" : 9311 }, {"label" : "NORTE", "value" : 6539 }, {"label" : "Não informado", "value" : 813 }]},
-    {key: "Fundacao Privada", values: [{"label" : "SUDESTE", "value" : 5293 }, {"label" : "SUL", "value" : 2001 }, {"label" : "NORDESTE", "value" : 3128 }, {"label" : "CENTRO-OESTE", "value" : 1167 }, {"label" : "NORTE", "value" : 772 }, {"label" : "Não informado", "value" : 36 }]},
-    {key: "Organização Social", values: [{"label" : "SUDESTE", "value" : 219 }, {"label" : "SUL", "value" : 71 }, {"label" : "NORDESTE", "value" : 145 }, {"label" : "CENTRO-OESTE", "value" : 101 }, {"label" : "NORTE", "value" : 62 }, {"label" : "Não informado", "value" : 4 }]}
-    ]}];
-
-  var jsonGrafico2 = [{"config":[",f",1000000," M",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Ministério do Trabalho (2014), Ministério do Esporte (2016), Ministério da Cultura (2016), Ministério da Ciência (2016), Ministério da Fazenda (2016), Ministério do Planejamento (2016). Valores deflacionados pelo IPCA do mês corrente. Os valores exibidos referem-se aos valores efetivamente pagos para as organizações. A série histórica inclui os dados do SIAFI a partir de 2011. Os dados do Ministério da Fazenda cobrem 2011-2017; do MPOG, 2009-2017; do MinC, 1992-2012; do Ministério do Esporte, 2007-2016; do MCTI, 2009-2016.","titulo":"Evolução anual dos repasses federais para as OSCs, Brasil - 2009-2017",
-  series:[
-        {
-          "key" : "Número OSC Parcerias" ,
-          "bar": true,
-          "color": "#8ed5ff",
-          "values" : [ {"label" : 2009, "value" : 1251} , {"label" : 2010, "value" : 1526} ,
-                      {"label" : 2011, "value" : 16090} , {"label" : 2012, "value" : 16557},
-                      {"label" : 2013, "value" : 16642} , {"label" : 2014, "value" : 16974},
-                      {"label" : 2015, "value" : 14984} , {"label" : 2016, "value" : 16086},
-                      {"label" : 2017, "value" : 1441}]
-        } ,
-        {
-          "tipo_valor":"$",
-          "key" : "Valor Total Pago" ,
-          "color" : "#333",
-          "values" : [ {"label" : 2009, "value" : 2825785175.20046} , {"label" : 2010, "value" : 3689756338.37335} ,
-                      {"label" : 2011, "value" : 6897283626.21569} , {"label" : 2012, "value" : 7457550609.07884},
-                      {"label" : 2013, "value" : 8738240049.30125} , {"label" : 2014, "value" : 6582659367.61274},
-                      {"label" : 2015, "value" : 3476167177.2369} , {"label" : 2016, "value" : 3569745888.21392},
-                      {"label" : 2017, "value" : 144648063.09} ]
-        }
-        ]}];
-
-      var jsonGrafico3 = [{"config":[",f",1000000," M"],"leg_X":"Ano","leg_Y":"em R$","tituloColuna":["Divisão CNAE", "Ano da Parceria", "Valor Total Pago"],"legenda":"Siga Brasil/ Senado Federal (2017), RAIS/MTE (2015). Elaboração própria. Nota: referem-se aos valores executados (liquidados) e atualizados a preços de outubro de 2017.","titulo":"Evolução anual dos repasses federais para as OSCs por área de atuação, Brasil - 2010-2017",
-      series:[
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 2475271665 }, {"x" : 2011, "y" : 2344840370 },
-          {"x" : 2012, "y" : 2416751939 }, {"x" : 2013, "y" : 2360686002}, {"x" : 2014, "y" : 2619736378},
-           {"x" : 2015, "y" : 1996874918 }, {"x" : 2016, "y" : 1762657873 }, {"x" : 2017, "y" : 722616503 }],
-          key: 'Saúde'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 177621059 }, {"x" : 2011, "y" : 64130914 },
-          {"x" : 2012, "y" : 69157135 }, {"x" : 2013, "y" : 94974566 }, {"x" : 2014, "y" : 50767409 },
-           {"x" : 2015, "y" : 46070808 }, {"x" : 2016, "y" : 1661980 }, {"x" : 2017, "y" : 5048758 }],
-          key: 'Cultura e recreação'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 1494752250 }, {"x" : 2011, "y" : 1191614600 },
-          {"x" : 2012, "y" : 1337141937 }, {"x" : 2013, "y" : 1427079792 }, {"x" : 2014, "y" : 1350110928 },
-           {"x" : 2015, "y" : 912500271 }, {"x" : 2016, "y" : 158224896 }, {"x" : 2017, "y" : 91640974 }],
-          key: 'Educação e pesquisa'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 57311974 }, {"x" : 2011, "y" : 41024076 },
-           {"x" : 2012, "y": 38312968 }, {"x" : 2013, "y" : 43477853 }, {"x" : 2014, "y" : 45573709 },
-           {"x" : 2015, "y": 28400811 }, {"x" : 2016, "y" : 3059934 }, {"x" : 2017, "y" : 626165}],
-          key: 'Assistência social'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 95856103 }, {"x" : 2011, "y" : 205217992 },
-           {"x" : 2012, "y" : 370389290 }, {"x" : 2013, "y" : 485292129 }, {"x" : 2014, "y" : 543865255 },
-           {"x" : 2015, "y" : 547896405 }, {"x" : 2016, "y" : 17662647 }, {"x" : 2017, "y" : 1266568 } ],
-          key: 'Religião'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 121545818 }, {"x" : 2011, "y" : 69282477 },
-          {"x" : 2012, "y" : 59832981 }, {"x" : 2013, "y" : 42126887 }, {"x" : 2014, "y" : 47604912 },
-          {"x" : 2015, "y" : 41902403 }, {"x" : 2016, "y" : 4238713 }, {"x" : 2017, "y" : 2107919 }],
-          key: 'Associações patronais e profissionais'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 4368739661 }, {"x" : 2011, "y" : 4032601858 },
-          {"x" : 2012, "y" : 4135465164 }, {"x" : 2013, "y" : 4056921248 }, {"x" : 2014, "y" : 4318619203 },
-          {"x" : 2015, "y" : 4890688981 }, {"x" : 2016, "y" : 88522782 }, {"x" : 2017, "y" : 28639038 }],
-          key: 'Defesa de direitos e interesses'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 533526888 }, {"x" : 2011, "y" : 433086831 },
-          {"x" : 2012, "y" : 450237599 }, {"x" : 2013, "y" : 400444828 }, {"x" : 2014, "y" : 400102753 },
-          {"x" : 2015, "y" : 371235115 }, {"x" : 2016, "y" : 21185665 }, {"x" : 2017, "y" : 9205267 }],
-          key: 'Associações atividades não espececificadas anteriormente'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 1953406383 }, {"x" : 2011, "y" : 1530160133 },
-          {"x" : 2012, "y" : 1580161756 }, {"x" : 2013, "y" : 2031165053 }, {"x" : 2014, "y" : 2564745833 },
-          {"x" : 2015, "y" : 2371791054 }, {"x" : 2016, "y" : 222185524 }, {"x" : 2017, "y" : 34488223 }],
-          key: 'Outras organizações da sociedade civil'
-        }
-      ]}];
-
-  var jsonGrafico4 = [{"config":[",f",1,""],"leg_X":"Tipo de título ou certificação","leg_Y":"Quantidade de OSC","tituloColuna":["Títulos e Certificados", "Número de OSC"],"legenda":"Fonte: Ministério da Justiça (2017), Ministério da Educação (2017), Ministério da Saúde (2017), Ministério do Desenvolvimento Social (2017).","titulo":"Número de organizações civis com títulos e certificações, Brasil - 2017", key: "GraficoMain 4",
-  values: [ {"label" : "OSCIP/MJ", "value" : 7114}, {"label" : "CEBAS/MDS", "value" : 5487 } ,
-            { "label" : "CEBAS/MS" , "value" : 1363 },{"label" : "CEBAS/MEC", "value" : 944 } ]}];
-
-  var jsonGrafico5 = [{"config":[",.1%",1,"",",f"],"leg_X":"Ano","leg_Y":"Quantidade de OSC","tituloColuna":["", "Ano", "Valores"],"legenda":"Fonte: Elaboração do Ipea, com base em dados da Secretaria da Receita Federal (2016) e RAIS/MTE (2015).<br> * NOTA: em 2016 calculou-se o total de OSCs ativas do país a partir da base de dados da ficha cadastral de CNPJ da Secretaria da Receita Federal – SRF. Esses microdados não estavam disponíveis para análise de 2010 a 2015, quando se utilizou somente a base de dados da RAIS para calcular o total de OSCs. Observou-se na base da SRF milhares de OSCs ativas, mas ausentes da base RAIS/MTE. A alteração na fonte dos dados para calcular o total das OSCs explica a maior parte do crescimento observado entre os anos de 2015 e 2016.<br>Consulte a <a href='metodologia.html' target='_self'>seção metodológica</a> para mais detalhes.","titulo":"Total de OSC, por ano (2010-2016)*",
-  series:[
-        {
-          "key" : "Número de OSCs" ,
-          "bar": true,
-          "color": "#ccf",
-          "values" : [{"label" : 2010, "value" : 514027} , {"label" : 2011, "value" : 534728},
-                      {"label" : 2012, "value" : 539792} , {"label" : 2013, "value" : 546453},
-                      {"label" : 2014, "value" : 509608} , {"label" : 2015, "value" : 525591},
-                      {"label" : 2016, "value" : 820186} ]
-        } ,
-        {
-          "key" : "Taxa de Crescimento Acumulado" ,
-          "color" : "#ff7f0e",
-          "values" : [{"label" : 2010, "value" : 0} , {"label" : 2011, "value" : 0.04} ,
-                      {"label" : 2012, "value" : 0.01} , {"label" : 2013, "value" : 0.012},
-                      {"label" : 2014, "value" : -0.067} , {"label" : 2015, "value" : 0.031},
-                      {"label" : 2016, "value" : 0.56} ]
-        }
-        ]}];
-
-  var jsonGrafico6 = [{"config":[",.1f",1000000000,""],"leg_X":"Ano","leg_Y":"em Bilhoes R$","tituloColuna":["Entidade", "Ano", "Valor Total"],"legenda":"Fonte: Senado Federal (2018). Elaboração própria. Nota: Referem-se aos valores executados (liquidados). Valores corrigidos para preços de janeiro de 2018 pelo IPCA/IBGE. Para calcular o valor do orçamento, foram excluídos os valores destinados ao serviço da dívida pública.","titulo":"Evolução de recursos públicos federais transferidos para entidades sem fins lucrativos e somente para OSCs (2010-2017)",
-  series:[
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 6278480452 }, {"x" : 2011, "y" : 4898668291 },
-          {"x" : 2012, "y" : 6688450140 }, {"x" : 2013, "y" : 8196459734}, {"x" : 2014, "y" : 8265271851},
-           {"x" : 2015, "y" : 6744253807 }, {"x" : 2016, "y" : 4901355349 }, {"x" : 2017, "y" : 3252559195 }],
-          key: 'ESFLs'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 11440189630.5479 }, {"x" : 2011, "y" : 10054475412.4703 },
-          {"x" : 2012, "y" : 10607810116.9065 }, {"x" : 2013, "y" : 11099497076.5084 }, {"x" : 2014, "y" : 12112818316.924 },
-           {"x" : 2015, "y" : 11368502473.1809 }, {"x" : 2016, "y" : 2312173689.10068 }, {"x" : 2017, "y" : 6352490520.4482 }],
-          key: 'OSCs'
-        },
-        {
-          "tipo_valor":"$",
-          values: [{"x" : 2010, "y" : 2678099914.85083 }, {"x" : 2011, "y" : 1640846786.21371 },
-          {"x" : 2012, "y" : 2433787954.02355 }, {"x" : 2013, "y" : 2664537618.54551 }, {"x" : 2014, "y" : 2498533417.99339 },
-           {"x" : 2015, "y" : 1787719861.38991 }, {"x" : 2016, "y" : 353510128.429499 }, {"x" : 2017, "y" : 2229340028.59652 }],
-          key: 'OSCs (Modalidade 50)'
-        }
-  ]}];
-
-
-  createMultiBarChart('#graficoMain-1',jsonGrafico1);
-//  createLinePlusBarChart('#graficoMain-2',jsonGrafico2);
-//  createLineChart('#graficoMain-3',jsonGrafico3);
-  createBarChart('#graficoMain-4',jsonGrafico4);
-  createLinePlusBarChart('#graficoMain-5',jsonGrafico5);
-  createLineChart('#graficoMain-6',jsonGrafico6);
-
-
-  $("#tabelaMain-1").click(function(){
-      createTabela_MultBar_Line(jsonGrafico1,false);
-  });
-
-  $("#tabelaMain-2").click(function(){
-      createTabela_MultBar_Line(jsonGrafico2,false);
-  });
-
-  $("#tabelaMain-3").click(function(){
-      createTabela_MultBar_Line(jsonGrafico3,true);
-  });
-
-  $("#tabelaMain-4").click(function(){
-      createTabela_Bar_Donut(jsonGrafico4);
-  });
-
-  $("#tabelaMain-5").click(function(){
-      createTabela_MultBar_Line(jsonGrafico5,false);
-  });
-
-  $("#tabelaMain-6").click(function(){
-      createTabela_MultBar_Line(jsonGrafico6,true);
-  });
-  */
-
 } );
 
 require(["rotas","bootstrap","jquery-ui" ], function (React) {
