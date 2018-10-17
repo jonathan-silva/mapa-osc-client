@@ -653,6 +653,13 @@ body.indisponivel {
   background-position: -128px -62px;
 }
 
+.csv {
+    margin-left: 10px;
+    width: 32px;
+    height: 35px;
+    background-position: -192px -62px;
+}
+
 .format-label:hover{
   -webkit-filter: opacity(80%);
   filter: opacity(80%);
@@ -1335,3 +1342,6 @@ display: inline-block;
   max-width: 120px;
   max-height: 120px;
 }
+#datahora{
+    font-weight: bold;
+  }
