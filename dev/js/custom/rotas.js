@@ -10,7 +10,7 @@ class Rotas{
   
   getBaseUrlCMS(){
     var loc = window.location;
-    return loc.protocol + loc.host.replace(':81', ':8181');
+    return "http://" + loc.host.split(":")[0] + ':8181';
   }
 
   //index.js
