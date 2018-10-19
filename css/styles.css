@@ -652,6 +652,12 @@ body.indisponivel {
   height: 35px;
   background-position: -128px -62px;
 }
+.csv {
+     margin-left: 10px;
+     width: 32px;
+     height: 35px;
+     background-position: -192px -62px;
+ }
 
 .format-label:hover{
   -webkit-filter: opacity(80%);
@@ -861,6 +867,14 @@ body.indisponivel {
   max-width: 150px;
   background-color: transparent !important;
   padding: 0px !important;
+}
+.logoOSC_vis{
+  max-width: 150px;
+  background-color: transparent !important;
+  padding: 0px !important;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }
 .divImg{
   padding-bottom: 15px;
@@ -1335,3 +1349,6 @@ display: inline-block;
   max-width: 120px;
   max-height: 120px;
 }
+#datahora{
+     font-weight: bold;
+   }

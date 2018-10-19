@@ -105,7 +105,7 @@ gulp.task('scripts6', function (cb) {
 });
 
 //concatenating
-gulp.task('css', function() {  
+gulp.task('css', function() {
     return gulp.src(cssFiles)
         .pipe(concat('concat.css'))
         .pipe(gulp.dest(cssDest));
@@ -128,5 +128,5 @@ gulp.task('tdd', function (done) {
   }, done).start();
 });
 
-gulp.task('min', ['scripts', 'scripts2','scripts3', 'scripts4', 'scripts5', 'scripts6', 'scripts7']);//
+gulp.task('min', ['scripts', 'scripts2','scripts3', 'scripts4', 'scripts5', 'scripts6']);//
 gulp.task('deploy', ['pull','commit', 'push']);
