@@ -28,50 +28,64 @@ require(["rotas","jquery-ui","nv.d3.lib","graficoParaTabela"], function (React) 
 
   var rotas = new Rotas();
 
-  var idsGraficos = [9,10,11,12];
+  $.ajax({
+    url: rotas.GraficosSlug("home"),
+    type: 'GET',
+    async: false,
+    dataType: 'json',
+    error: function(e){
+      console.log("Erro no ajax: ");
+      console.log(e);
+    },
+    success: function(idsGraficos){
 
-  for (var i = 0; i < idsGraficos.length; i++) {
+      if(idsGraficos != null ){
+        for (var i = 0; i < idsGraficos.length; i++) {
+          
+              $.ajax({
+                url: rotas.RecuperarGrafico(idsGraficos[i]),
+                type: 'GET',
+                async: false,
+                dataType: 'json',
+                error: function(e){
+                  console.log("Erro no ajax: ");
+                  console.log(e);
+                },
+                success: function(data){
 
-    $.ajax({
-      url: rotas.RecuperarGrafico(idsGraficos[i]),
-      type: 'GET',
-      async: false,
-      dataType: 'json',
-      error: function(e){
-        console.log("Erro no ajax: ");
-        console.log(e);
-      },
-      success: function(data){
+                  if(data != null ){
+                    var menu_msg = "";
+                    var fontes = "Elaboração própria.";
+                    var num = i+1;
 
-        if(data != null ){
-          var menu_msg = "";
-          var fontes = "Elaboração própria.";
-          var num = i+1;
+                    menu_msg += '<div class="container"><div class="row"><div class="col-md-12"><hr>';
+                    menu_msg += '<h2 class="text-center">'+data.titulo+'</h2>';
+                    menu_msg += '</div></div><div class="row"><div class="col-md-12"><hr></div></div>';
+                    menu_msg += '<div class="row"><div class="col-md-12"><div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
 
-          menu_msg += '<div class="container"><div class="row"><div class="col-md-12"><hr>';
-          menu_msg += '<h2 class="text-center">'+data.titulo+'</h2>';
-          menu_msg += '</div></div><div class="row"><div class="col-md-12"><hr></div></div>';
-          menu_msg += '<div class="row"><div class="col-md-12"><div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
+                    if(data.fontes != null){
+                      fontes = data.fontes.join(", ").replace(/'/gi,"");
+                      fontes += ".";
+                    }
 
-          if(data.fontes != null){
-            fontes = data.fontes.join(", ").replace(/'/gi,"");
-            fontes += ".";
-          }
+                    menu_msg += '<h5>Fonte: '+fontes+'</h5>';
+                    if(data.legenda != null){
+                      menu_msg += '<h5>'+data.legenda+'</h5>';
+                    }
+                    menu_msg += '<h5><a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
+                    menu_msg += '</div></div><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div>';
 
-          menu_msg += '<h5>Fonte: '+fontes+'</h5>';
-          if(data.legenda != null){
-            menu_msg += '<h5>'+data.legenda+'</h5>';
-          }
-          menu_msg += '<h5><a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
-          menu_msg += '</div></div><a href="#header" name="header" class="scroll topo">Voltar para o topo</a></div>';
+                    $("#itemGrafico").append(menu_msg);
 
-          $("#itemGrafico").append(menu_msg);
-
-          escolherGrafico(num,data);
+                    escolherGrafico(num,data);
+                  }
+                }
+              });
         }
       }
-    });
-  }
+    }
+  });
+
 } );
 
 require(["rotas","bootstrap","jquery-ui" ], function (React) {

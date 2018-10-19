@@ -30,68 +30,83 @@ require(['jquery-ui'], function (React) {
 require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
   var rotas = new Rotas();
 
-  var idsGraficos = [1,2,3,4,5,6,7,8];
+  $.ajax({
+    url: rotas.GraficosSlug("indicadores"),
+    type: 'GET',
+    async: false,
+    dataType: 'json',
+    error: function(e){
+      console.log("Erro no ajax: ");
+      console.log(e);
+    },
+    success: function(idsGraficos){
 
-  for (var i = 0; i < idsGraficos.length; i++) {
-      $.ajax({
-        url: rotas.RecuperarGrafico(idsGraficos[i]),
-        type: 'GET',
-        async: false,
-        dataType: 'json',
-        error: function(e){
-          console.log("Erro no ajax: ");
-          console.log(e);
-        },
-        success: function(data){
+      if(idsGraficos != null ){
+        for (var i = 0; i < idsGraficos.length; i++) {
 
-          if(data != null ){
-            var menu_msg = "";
-            var grafico_msg = "";
-            var fontes = ". ";
+          $.ajax({
+            url: rotas.RecuperarGrafico(idsGraficos[i]),
+            type: 'GET',
+            async: false,
+            dataType: 'json',
+            error: function(e){
+              console.log("Erro no ajax: ");
+              console.log(e);
+            },
+            success: function(data){
 
-            var num = i+1;
-            if(i == 0){
-              menu_msg += '<li class="active"><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
+              if(data != null ){
+                var menu_msg = "";
+                var grafico_msg = "";
+                var fontes = ". ";
 
-              grafico_msg += '<div class="tab-pane active" id="dado-'+num+'">';
-              grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
-              grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
+                var num = i+1;
+                if(i == 0){
+                  menu_msg += '<li class="active"><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
 
-              if(data.fontes != null){
-                fontes = data.fontes.join(", ");
-                fontes += ". ";
+                  grafico_msg += '<div class="tab-pane active" id="dado-'+num+'">';
+                  grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
+                  grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
+
+                  if(data.fontes != null){
+                    fontes = data.fontes.join(", ");
+                    fontes += ". ";
+                  }
+                  grafico_msg += '<h5>Fonte: '+ fontes;
+                  if(data.legenda != null){
+                    grafico_msg += data.legenda;
+                  }
+                  grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
+                }
+                else{
+                  menu_msg += '<li><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
+
+                  grafico_msg += '<div class="tab-pane" id="dado-'+num+'">';
+                  grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
+                  grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
+
+                  if(data.fontes != null){
+                    fontes = data.fontes.join(", ");
+                    fontes += ". ";
+                  }
+                  grafico_msg += '<h5>Fonte: '+ fontes;
+                  if(data.legenda != null){
+                    grafico_msg += data.legenda;
+                  }
+                  grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
+                }
+                $("#tabGrafico").append(menu_msg);
+                $("#graficosView").append(grafico_msg);
+
+                escolherGrafico(num,data);
               }
-              grafico_msg += '<h5>Fonte: '+ fontes;
-              if(data.legenda != null){
-                grafico_msg += data.legenda;
-              }
-              grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
             }
-            else{
-              menu_msg += '<li><a href="#dado-'+num+'" data-toggle="tab">'+num+'-'+data.titulo+'</a></li>';
-
-              grafico_msg += '<div class="tab-pane" id="dado-'+num+'">';
-              grafico_msg += '<h4>'+num+'-'+data.titulo+'</h4>';
-              grafico_msg += '<div class="chart-container" id="grafico-'+num+'"><svg></svg></div>';
-
-              if(data.fontes != null){
-                fontes = data.fontes.join(", ");
-                fontes += ". ";
-              }
-              grafico_msg += '<h5>Fonte: '+ fontes;
-              if(data.legenda != null){
-                grafico_msg += data.legenda;
-              }
-              grafico_msg += '<a id="tabela-'+num+'" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5></div>';
-            }
-            $("#tabGrafico").append(menu_msg);
-            $("#graficosView").append(grafico_msg);
-
-            escolherGrafico(num,data);
-          }
+          });
         }
-      });
-  }
+      }
+    }
+  });
+
 
   jQuery('#tabGrafico a').click(function (e) {
       e.preventDefault()

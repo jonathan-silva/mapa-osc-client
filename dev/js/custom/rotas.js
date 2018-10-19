@@ -295,6 +295,11 @@ class Rotas{
     return this.getBaseUrlCMS()+"/publicacaoByID/"+id;
   }
 
+  //graficos
+  GraficosSlug(slug){
+    return this.getBaseUrlCMS()+"/graficosSlug/"+slug;
+  }
+
   //MROSC
   MenuMrosc(){
     return this.getBaseUrlCMS()+"/menuMrosc";
