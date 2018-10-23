@@ -1349,6 +1349,9 @@ display: inline-block;
   max-width: 120px;
   max-height: 120px;
 }
-#datahora{
-     font-weight: bold;
-   }
+.txt_datahora{
+  display: inline-flex;
+}
+#base_dados img {
+ margin-right: 5px;
+}
