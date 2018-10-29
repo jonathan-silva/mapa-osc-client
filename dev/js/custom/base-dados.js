@@ -29,7 +29,8 @@ require(["rotas","jquery-ui"], function (React) {
   var modulo = "base_dados";
 
   $.ajax({
-    url: rotas.ModuloBySlug(modulo),
+    url: 'js/controller.php',
+    data: {flag: 'consulta', rota: rotas.ModuloBySlug(modulo)},
     type: 'GET',
     dataType: 'json',
     error: function(e){
