@@ -82,7 +82,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                       rota: rotas.AutocompleteOSCByCnpj(replaceSpecialChars($cnpj_osc).replace(/ /g, '+'), limiteAutocomplete)
                   },
                   success: function(data) {
-                    if (data[0]){
+                    if (data != null && data.length != 0){
                        jQuery("#entidadeLabel").text(data[0].tx_nome_osc);
                        $('#entidadeLabel').removeClass('hide');
                        $id_osc = data[0].id_osc;
@@ -101,6 +101,16 @@ require(['react', 'jsx!components/Util'], function(React) {
                   },
                   error: function (jqXHR, exception) {
                         console.log(getErrorMessage(jqXHR, exception));
+
+                        $('#entidadeLabel').addClass('hide');
+                        jQuery("#entidadeLabel").text('');
+                        $("#cnpj").closest('.form-group').removeClass('has-success').addClass('has-error');
+                        $id_osc = '';
+                        $cnpj_osc = '';
+                        jQuery("#modalTitle").text("Erro");
+                        jQuery("#modalConteudo").text('');
+                        jQuery("#modalConteudo").text("Essa organização não se encontra em nosso mapa! ");
+                        $modal.modal('show');
                   }
               });
           }//fim else
@@ -149,7 +159,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         $("#confirmarSenha.form-control").blur(function(event, ui) {
             var confirmarSenha = this.value;
             var senha = $('#senha').val();
-            if (confirmarSenha == senha) {
+            if (confirmarSenha == senha && senha.length > 5) {
                 $("#senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
             } else {
@@ -219,7 +229,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 return false;
             };
 
-            if ((senha == "") || (senha != confirmarSenha)) {
+            if (senha == "" || senha != confirmarSenha || senha.length < 6 ) {
                 id_attr = "#" + $("#senha.form-control").attr("id") + "1";
                 $("#senha.form-control").closest('.form-group').removeClass('has-success').addClass('has-error');
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
@@ -229,7 +239,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 $(id_attr).removeClass('glyphicon-ok').addClass('glyphicon-remove');
 
                 jQuery("#modalTitle").text("Problema no cadastro!");
-                jQuery("#modalConteudo").text("Os valores da senha e da confirmação são diferentes.");
+                jQuery("#modalConteudo").text("Os valores da senha e da confirmação são diferentes ou senha menor que 5 caracteres.");
                 $modal.modal('show');
                 return false;
             };
@@ -261,15 +271,10 @@ require(['react', 'jsx!components/Util'], function(React) {
                 dataType: 'json',
                 data: {flag: 'consultaPost', rota: rotas.CadastroRepresentante(), parametros: json},
                 error: function(data) {
-                    if (data.status == 200){
-                        jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
-                        jQuery("#modalConteudo").text('');
-                        jQuery("#modalConteudo").text("Você já está cadastrado/a na plataforma e poderá fazer login para atualizar informações da OSC.");
-                    }else{
-                        jQuery("#modalTitle").text("Problema no cadastro!");
-                        jQuery("#modalConteudo").text('');
-                        jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
-                    }
+
+                    jQuery("#modalTitle").text("Problema no cadastro!");
+                    jQuery("#modalConteudo").text("Não foi possível cadastrar o representante.");
+
                     $modal.modal('show');
                 },
                 success: function(data) {
