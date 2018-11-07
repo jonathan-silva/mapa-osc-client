@@ -153,7 +153,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         $("#confirmarSenha.form-control").blur(function(event, ui) {
             var confirmarSenha = this.value;
             var senha = $('#senha').val();
-            if (confirmarSenha == senha || senha.length > 5 ) {
+            if (confirmarSenha == senha && senha.length > 5 ) {
                 $("#senha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
                 $("#confirmarSenha.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
             } else {
