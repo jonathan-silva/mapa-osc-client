@@ -42,6 +42,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
   var consulta_avancada = false;
+  var analisePerfil = false;
+  var txtFederacao="";
+  var txtLocalidade="";
+  var idPerfil;
   var params = {};
   var limiteAutocomplete = 10;
   var limiteAutocompleteCidade = 25;
@@ -99,7 +103,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var id = tabAtiva.attr("id");
     var val = tabAtiva.find(".form-control").val();
     val = replaceSpecialChars(val.trim()).replace(/ /g, '_').replace(/[\/|\\|\||:|#|@|$|&|!|?|(|)|\[|\]]/g, '').replace(/\./g, ',').replace(/\+{2,}/g, '_');
-    
+
     if (id == 'organizacao' && val !== ''){
       link = "./resultado-consulta.html?" + id + "=" + val + "&tipoBusca=0";
       location.href=link;
@@ -269,19 +273,29 @@ $("#regiao .form-control").autocomplete({
       urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('tipoBusca'));
       urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('tipoBusca'));
       isClusterVersion=false;
+      analisePerfil = true;
     }
     else if(tipoConsulta=="municipio"){
       urlRota = rotas.OSCByCounty(stringBuscada,0);
       urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
       isClusterVersion=false;
+      analisePerfil = true;
+      idPerfil = stringBuscada;
+      txtFederacao = "do município ";
     }
     else if(tipoConsulta=="estado"){
       urlRota = rotas.OSCByState(stringBuscada,0);
       urlRotaMapa=rotas.ClusterEstadoPorRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
+      analisePerfil = true;
+      idPerfil = stringBuscada;
+      txtFederacao = "do estado ";
     }
     else if(tipoConsulta=="regiao"){
       urlRota = rotas.OSCByRegion(stringBuscada,0);
       urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+      analisePerfil = true;
+      idPerfil = stringBuscada;
+      txtFederacao = "da região ";
     }
     else if(tipoConsulta=="avancado"){
       params["avancado"] = window.localStorage.getItem('params_busca_avancada');
@@ -307,6 +321,12 @@ $("#regiao .form-control").autocomplete({
     tipoConsulta="todos";
     urlRotaMapa = rotas.ClusterPais();
     urlRota = rotas.AllOSC(0);
+  }
+
+  if(analisePerfil){
+    var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
+    $("#analisePerfil").text(txtPerfil);
+    $("#analisePerfil").attr("href","analise-perfil.html#/"+idPerfil);
   }
 
   //*** Methods
