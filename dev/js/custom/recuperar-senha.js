@@ -79,8 +79,9 @@ require(["jquery-ui", "rotas"], function(React) {
                  return false;
              },
              success: function(data){
-               jQuery("#modalTitle").text("");
-               jQuery("#modalConteudo").text(data.responseText);
+               jQuery("#modalTitle").text("Recuperar Senha");
+               jQuery("#modalConteudo").text("Foi enviado um e-mail para a troca da senha");
+               //jQuery("#modalConteudo").text(data.responseText);
                $modal.modal('show');
              }
          }); //final envio ajax
