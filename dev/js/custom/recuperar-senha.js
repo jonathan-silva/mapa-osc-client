@@ -72,12 +72,14 @@ require(["jquery-ui", "rotas"], function(React) {
              error:function(data){
                  jQuery("#modalTitle").text("Problema na solicitação!");
                  jQuery("#modalConteudo").text("Não foi possível recuperar a senha.");
+                 //jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
                  $modal.modal('show');
                  return false;
              },
              success: function(data){
-               jQuery("#modalTitle").text("");
-               jQuery("#modalConteudo").text(data.responseText);
+               jQuery("#modalTitle").text("Recuperar Senha");
+               jQuery("#modalConteudo").text("Foi enviado um e-mail para a troca da senha");
+               //jQuery("#modalConteudo").text(JSON.parse(data.responseText).msg);
                $modal.modal('show');
              }
          }); //final envio ajax
