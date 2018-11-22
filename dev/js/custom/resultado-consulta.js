@@ -326,7 +326,7 @@ $("#regiao .form-control").autocomplete({
   if(analisePerfil){
     var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
     $("#analisePerfil").text(txtPerfil);
-    $("#analisePerfil").attr("href","analise-perfil.html#/"+idPerfil);
+    $("#analisePerfil").attr("href","analise-perfil.html?localidade="+idPerfil);
   }
 
   //*** Methods

@@ -368,4 +368,9 @@ class Rotas{
     return this.getBaseUrl()+"analises?id="+id_grafico;
   }
 
+  RecuperarPerfilByIDLocalidade(id){
+    return this.getBaseUrl()+"osc/listaareaatuacao/5/municipio/"+id;
+  }
+
+
 }

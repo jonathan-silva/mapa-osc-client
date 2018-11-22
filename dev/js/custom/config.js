@@ -14,6 +14,7 @@ require.config({
     "nv.d3":"libs/nv-d3/nv.d3",
     "nv.d3.lib":"libs/nv-d3/nv.d3.lib",
     "stream":"libs/nv-d3/stream-layers",
+    "highcharts":"libs/highcharts/highcharts",
     "tablesaw":"libs/tablesaw-3.0/tablesaw",
     "tablesaw-init":"libs/tablesaw-3.0/tablesaw-init",
     "datatables.net": "libs/DataTables/DataTables-1.10.12/js/jquery.dataTables.min",
@@ -60,6 +61,7 @@ require.config({
       'graficoParaTabela': ['bootstrap'],
       'util':['jquery'],
       'simplePagination': ['jquery'],
+      'highcharts': ['jquery'],
       'tagsinput':['bootstrap','jquery'],
       'select-boxit': ['bootstrap'],
       'editarCabecalho':['util','dataForms','editarAreasAtuacao','editarDadosGerais','editarDescricao','editarEspPartSoc','editarFonteRecurso','editarTitCert','editarProjeto','editarRelGovernanca']
