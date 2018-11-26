@@ -1,4 +1,6 @@
-require(['rotas','highcharts','jquery',"jquery-ui"], function (React) {
+require(['jquery-ui'], function (React) {
+  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
   $(document).tooltip({
     position: {
@@ -22,6 +24,12 @@ require(['rotas','highcharts','jquery',"jquery-ui"], function (React) {
      });
   });
 
+});
+
+
+require(["rotas","nv.d3.lib","graficoParaTabela"], function (React) {
+  var rotas = new Rotas();
+
   $("#voltaPagAnterior").on("click", function(){
     history.go(-1);
   });
@@ -30,7 +38,6 @@ require(['rotas','highcharts','jquery',"jquery-ui"], function (React) {
   		$("#voltaPerfil").attr("href","analise-perfil.html?localidade="+id);
   }
 
-  var rotas = new Rotas();
   var valoresURL = window.location.href.split('?')[1]!==undefined ? window.location.href.split('?')[1].split('=') : null;
   var idLocalidade = "";
 
@@ -58,29 +65,6 @@ require(['rotas','highcharts','jquery',"jquery-ui"], function (React) {
 
 
 
-          var myChart = Highcharts.chart('grafico', {
-              chart: {
-                  type: 'bar'
-              },
-              title: {
-                  text: 'Fruit Consumption'
-              },
-              xAxis: {
-                  categories: ['Apples', 'Bananas', 'Oranges']
-              },
-              yAxis: {
-                  title: {
-                      text: 'Fruit eaten'
-                  }
-              },
-              series: [{
-                  name: 'Jane',
-                  data: [1, 0, 4]
-              }, {
-                  name: 'John',
-                  data: [5, 7, 3]
-              }]
-          });
 
 
 

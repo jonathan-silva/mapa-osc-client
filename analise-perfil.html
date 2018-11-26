@@ -10,6 +10,27 @@
       <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
       <link href="css/base.css" rel="stylesheet" type="text/css">
       <link href="css/styles.css" rel="stylesheet" type="text/css">
+
+      <style type="text/css">
+
+          td {
+            font-size: xx-large;
+          }
+
+          .table-bordered {
+              border: 4px solid #99d8ff;
+          }
+          .table-bordered > tbody > tr > td, .table-bordered > thead > tr > th{
+            border:none;
+            text-align: center;
+          }
+          .table > thead > tr > th {
+              vertical-align: bottom;
+              border-bottom: 2.5px solid #99d8ff;
+          }
+
+      </style>
+
   </head>
   <body>
     <!-- header -->
@@ -28,23 +49,138 @@
         </div>
       </div>
       <div class="container">
+
         <div class="row">
           <div class="col-md-12">
             <img class="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
-            <div id="perfil" class="pub_news">
-              <div class="social">
-                <div class="fb-share-button div_social" data-href="" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Compartilhar</a></div>
-                <div class="div_social"><a href="https://twitter.com/share" class="twitter-share-button" data-text="Mapa das OSCs" data-count="horizontal" data-hashtags="mapaosc,ipea">Tweet</a></div>
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-primary">São Paulo - SP</h2>
+                <hr>
               </div>
             </div>
 
-            <div id="grafico" style="width:100%; height:400px;"></div>
-
-            <img class="manutencao" src="img/pag_manutencao.png"/>
-            <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+            <div class="social">
+              <div class="fb-share-button div_social" data-href="" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Compartilhar</a></div>
+              <div class="div_social"><a href="https://twitter.com/share" class="twitter-share-button" data-text="Mapa das OSCs" data-count="horizontal" data-hashtags="mapaosc,ipea">Tweet</a></div>
+            </div>
 
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="subTitulo">Características</h4>
+            <div id="grafico-1" style="width:100%; height:300px;"></div>
+
+            <div class="table-responsive-sm">
+              <table class="table table-bordered">
+                <caption align="bottom">Fonte: ...</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Quantidade OSCs</th>
+                  <th scope="col">Quantidade Trabalhadores</th>
+                  <th scope="col">Quantidade Recursos</th>
+                  <th scope="col">Quantidade Projetos</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>4572</td>
+                  <td>165451</td>
+                  <td>R$ 170 milhões</td>
+                  <td>25000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          </div>
+          <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellente</p>
+          </div>
+
+        </div>
+
+        <hr>
+        <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+        <img class="manutencao" src="img/pag_manutencao.png"/>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="subTitulo">Natureza Juridica</h4>
+            <div class="text-justify">
+              <div class="text-justify txtBloco">
+                <p>O Mapa das OSCs possui informações individualizadas das organizações distribuídas nos seguintes blocos: Dados gerais; Áreas e subáreas de atuação; Titulações e certificações; Relações de trabalho e governança; Espaços de participação social; Projetos; Fontes de recursos. </p>
+                <p>Dessa forma, o Mapa permite que sejam visualizadas características dessas entidades como localização, tamanho, área de atuação, natureza jurídica, recursos públicos transferidos, remunerações e vínculos de trabalho, entre muitas outras. Tais informações são provenientes de duas fontes: </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="grafico-2" style="width:100%; height:300px;"></div>
+          </div>
+        </div>
+
+        <hr>
+        <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div id="grafico-3" style="width:100%; height:300px;"></div>
+          </div>
+          <div class="col-md-6">
+            <h4 class="subTitulo">Repasse de Recursos Federais</h4>
+            <div class="text-justify">
+              <div class="text-justify txtBloco">
+                <p>O Mapa das OSCs possui informações individualizadas das organizações distribuídas nos seguintes blocos: Dados gerais; Áreas e subáreas de atuação; Titulações e certificações; Relações de trabalho e governança; Espaços de participação social; Projetos; Fontes de recursos. </p>
+                <p>Dessa forma, o Mapa permite que sejam visualizadas características dessas entidades como localização, tamanho, área de atuação, natureza jurídica, recursos públicos transferidos, remunerações e vínculos de trabalho, entre muitas outras. Tais informações são provenientes de duas fontes: </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <hr>
+        <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="subTitulo">Área de Atuação</h4>
+            <div class="text-justify">
+              <div class="text-justify txtBloco">
+                <p>O Mapa das OSCs possui informações individualizadas das organizações distribuídas nos seguintes blocos: Dados gerais; Áreas e subáreas de atuação; Titulações e certificações; Relações de trabalho e governança; Espaços de participação social; Projetos; Fontes de recursos. </p>
+                <p>Dessa forma, o Mapa permite que sejam visualizadas características dessas entidades como localização, tamanho, área de atuação, natureza jurídica, recursos públicos transferidos, remunerações e vínculos de trabalho, entre muitas outras. Tais informações são provenientes de duas fontes: </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="grafico-2" style="width:100%; height:300px;"></div>
+          </div>
+        </div>
+
+        <hr>
+        <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div id="grafico-3" style="width:100%; height:300px;"></div>
+          </div>
+          <div class="col-md-6">
+            <h4 class="subTitulo">Trabalhadores</h4>
+            <div class="text-justify">
+              <div class="text-justify txtBloco">
+                <p>O Mapa das OSCs possui informações individualizadas das organizações distribuídas nos seguintes blocos: Dados gerais; Áreas e subáreas de atuação; Titulações e certificações; Relações de trabalho e governança; Espaços de participação social; Projetos; Fontes de recursos. </p>
+                <p>Dessa forma, o Mapa permite que sejam visualizadas características dessas entidades como localização, tamanho, área de atuação, natureza jurídica, recursos públicos transferidos, remunerações e vínculos de trabalho, entre muitas outras. Tais informações são provenientes de duas fontes: </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="#header" name="header" class="scroll topo">Voltar para o topo</a>
 
     </div>
   </div>
