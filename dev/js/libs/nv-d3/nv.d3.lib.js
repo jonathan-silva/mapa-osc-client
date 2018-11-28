@@ -90,7 +90,7 @@ function createMultiBarChart(grafico, valores)
 	      .transitionDuration(350)
 	      .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
 	      .rotateLabels(0)      //Angle to rotate x-axis labels.
-	      .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+	      .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
 	      .groupSpacing(0.1)    //Distance between each group of bars.
 				.height(430);
 
@@ -223,7 +223,7 @@ function createStackedAreaChart(grafico, valores)
 							 .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
 							 .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
 							 .transitionDuration(500)
-							 .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+							 .showControls(false)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
 							 .clipEdge(true);
 
 	 //Format x-axis labels with custom function.
@@ -260,7 +260,7 @@ function createStackedAreaChart(grafico, valores)
 								.showValues(true)           //Show bar value next to each bar.
 								.tooltips(true)             //Show tooltips on hover.
 								.transitionDuration(350)
-								.showControls(true);        //Allow user to switch between "Grouped" and "Stacked" mode.
+								.showControls(false);        //Allow user to switch between "Grouped" and "Stacked" mode.
 
 		chart.xAxis
 				.axisLabel(valores[0].leg_X);
