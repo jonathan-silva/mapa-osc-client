@@ -51,7 +51,7 @@ var dados = [{
 
 "id_localidade": 3304557,
 "tx_localidade": "Rio de Janeiro - RJ",
-"txt_tipo_localidade": "município",
+"tx_tipo_localidade": "município",
 
 "caracteristicas":{
   "nr_quantidade_oscs": 452,
@@ -116,7 +116,24 @@ function formatar_fontes(fontes){
   return "Fonte: " + fonte_format ;
 }
 
+function formatar_tipo_localidade(tipo_localidade,artigo){
+  var tx_tipoLocalidade = tipo_localidade.toLowerCase();
+  var txt_tipo = "do "+tx_tipoLocalidade;
 
+  if(artigo == 1){
+    txt_tipo = "O "+tx_tipoLocalidade;
+  }
+
+  if(tx_tipoLocalidade == 'região'){
+    txt_tipo = "da "+ tx_tipoLocalidade;
+
+    if(artigo == 1){
+      txt_tipo = "A "+ tx_tipoLocalidade;
+    }
+  }
+
+  return txt_tipo;
+}
 
   $.ajax({
     url: rotas.RecuperarPerfilByIDLocalidade(idLocalidade),
@@ -136,9 +153,9 @@ function formatar_fontes(fontes){
       var grafico = {};
       grafico['configuracao'] = ["f","1","","f"];
       grafico['legenda_x'] = "Ano";
-      grafico['legenda_y'] = "Quantidade";
-      grafico['titulo_colunas'] = ["",""];
-      grafico['titulo'] = "Evolucao quantidade OSCs por ano";
+      grafico['legenda_y'] = "Quantidade OSC";
+      grafico['titulo_colunas'] = ["Quantidade OSC","Ano"];
+      grafico['titulo'] = "Evolucao da quantidade OSCs por ano";
       grafico['fontes'] = dados[0].evolucao_quantidade_osc_ano.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "linewithfocuschart";
@@ -166,81 +183,98 @@ function formatar_fontes(fontes){
       //natureza juridica
       var grafico = {};
       grafico['configuracao'] = ["f","1","","f"];
-      grafico['legenda_x'] = "Ano";
-      grafico['legenda_y'] = "Quantidade";
-      grafico['titulo_colunas'] = ["",""];
-      grafico['titulo'] = "Evolucao quantidade OSCs por ano";
+      grafico['legenda_x'] = "Natureza Jurídica";
+      grafico['legenda_y'] = "Quantidade OSC";
+      grafico['titulo_colunas'] = ["Quantidade OSC","Natureza Jurídica"];
+      grafico['titulo'] = "Número de OSCs por natureza jurídica";
       grafico['fontes'] = dados[0].natureza_juridica.fontes;
       grafico['legenda'] = "";
-      grafico['tipo_grafico'] = "linewithfocuschart";
+      grafico['tipo_grafico'] = "barchart";
       grafico['series_1'] = dados[0].natureza_juridica.series_1;
 
       escolherGrafico(2,grafico);
 
-      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].natureza_juridica.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional.';
-      txt += '</p>';
+      var txt = '<p>Na população de OSCs '+formatar_tipo_localidade(dados[0].tx_tipo_localidade,2)+', '+dados[0].natureza_juridica.nr_porcentagem_maior+'% são ';
+      txt += dados[0].natureza_juridica.tx_porcentagem_maior+'. Enquanto, em relação a média nacional '+dados[0].natureza_juridica.nr_porcentagem_maior_media_nacional+'% são ';
+      txt += dados[0].natureza_juridica.tx_porcentagem_maior_media_nacional;
+      txt += '.</p>';
 
       $("#tx_natureza_juridica").append(txt);
 
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'<h5>';
+      $("#tx_natureza_juridica").append(txt);
 
       //Repasse de Recursos
       var grafico = {};
-      grafico['configuracao'] = ["f","1","","f"];
+      grafico['configuracao'] = ["f","1000000","","f"];
       grafico['legenda_x'] = "Ano";
-      grafico['legenda_y'] = "Quantidade";
-      grafico['titulo_colunas'] = ["",""];
-      grafico['titulo'] = "Evolucao quantidade OSCs por ano";
+      grafico['legenda_y'] = "Recursos (em milhões R$)";
+      grafico['titulo_colunas'] = ["Ano","Recursos (em milhões R$)"];
+      grafico['titulo'] = "Evolução de recursos transferidos para OSCs";
       grafico['fontes'] = dados[0].repasse_recursos.fontes;
       grafico['legenda'] = "";
-      grafico['tipo_grafico'] = "linewithfocuschart";
+      grafico['tipo_grafico'] = "linechart";
       grafico['series_1'] = dados[0].repasse_recursos.series_1;
 
       escolherGrafico(3,grafico);
 
-      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].repasse_recursos.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional.';
+      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].repasse_recursos.nr_colocacao_nacional+'º em relação ao repasse de recursos, com média de ';
+      txt += formatarDinheiro(dados[0].repasse_recursos.nr_repasse_media)+' por ano, enquanto a média nacional ficou em '+formatarDinheiro(dados[0].repasse_recursos.nr_repasse_media_nacional);
+      txt += '. A entidade que mais repassou foi '+dados[0].repasse_recursos.tx_maior_tipo_repasse+', chegando a '+dados[0].repasse_recursos.nr_porcentagem_maior_tipo_repasse+'% dos valores.';
       txt += '</p>';
 
+      $("#tx_repasse_recursos").append(txt);
+
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'<h5>';
       $("#tx_repasse_recursos").append(txt);
 
       //Área de Atuação
       var grafico = {};
       grafico['configuracao'] = ["f","1","","f"];
-      grafico['legenda_x'] = "Ano";
-      grafico['legenda_y'] = "Quantidade";
-      grafico['titulo_colunas'] = ["",""];
-      grafico['titulo'] = "Evolucao quantidade OSCs por ano";
+      grafico['legenda_x'] = "Atividade Econômica";
+      grafico['legenda_y'] = "Quantidade OSC";
+      grafico['titulo_colunas'] = ["Quantidade OSC","Atividade Econômica"];
+      grafico['titulo'] = "Distribuição de OSCs por área de atuação";
       grafico['fontes'] = dados[0].area_atuacao.fontes;
       grafico['legenda'] = "";
-      grafico['tipo_grafico'] = "linewithfocuschart";
+      grafico['tipo_grafico'] = "donutchart";
       grafico['series_1'] = dados[0].area_atuacao.series_1;
 
       escolherGrafico(3,grafico);
 
-      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].area_atuacao.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional.';
-      txt += '</p>';
+      var txt = '<p>'+dados[0].tx_localidade+' contém '+dados[0].area_atuacao.nr_porcentagem_maior+'% das OSCs atuando em '+dados[0].area_atuacao.tx_porcentagem_maior;
+      txt += '. Enquanto a média nacional está com '+dados[0].area_atuacao.nr_porcentagem_maior_media_nacional+'% relacionada a atividade econômica ';
+      txt += dados[0].area_atuacao.tx_porcentagem_maior_media_nacional;
+      txt += '.</p>';
 
       $("#tx_area_atuacao").append(txt);
 
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'<h5>';
+      $("#tx_area_atuacao").append(txt);
 
       //Trabalhadores
       var grafico = {};
       grafico['configuracao'] = ["f","1","","f"];
-      grafico['legenda_x'] = "Ano";
-      grafico['legenda_y'] = "Quantidade";
-      grafico['titulo_colunas'] = ["",""];
-      grafico['titulo'] = "Evolucao quantidade OSCs por ano";
+      grafico['legenda_x'] = "Tipo";
+      grafico['legenda_y'] = "Número de trabalhadores";
+      grafico['titulo_colunas'] = ["Tipo","Número de trabalhadores"];
+      grafico['titulo'] = "Distribuição de trabalhodores";
       grafico['fontes'] = dados[0].trabalhadores.fontes;
       grafico['legenda'] = "";
-      grafico['tipo_grafico'] = "linewithfocuschart";
+      grafico['tipo_grafico'] = "barchart";
       grafico['series_1'] = dados[0].trabalhadores.series_1;
 
       escolherGrafico(3,grafico);
 
-      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].trabalhadores.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional.';
+      var txt = '<p>'+formatar_tipo_localidade(dados[0].tx_tipo_localidade,1)+' possui '+dados[0].trabalhadores.nr_porcentagem_maior+'% de trabalhadores ';
+      txt += dados[0].trabalhadores.tx_porcentagem_maior+'. Enquanto a média nacional apresenta '+dados[0].trabalhadores.nr_porcentagem_maior_media_nacional+'% de trabalhadores ';
+      txt += dados[0].trabalhadores.tx_porcentagem_maior_media_nacional;
       txt += '</p>';
 
       $("#tx_trabalhadores").append(txt);
 
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'<h5>';
+      $("#tx_trabalhadores").append(txt);
 
       // Limpar tela
       $( ".dt_pub_news" ).before( $( ".social" ) );

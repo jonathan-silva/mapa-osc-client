@@ -1355,3 +1355,6 @@ display: inline-block;
 #base_dados img {
  margin-right: 5px;
 }
+.legenda_perfil{
+  color: gray;
+}
