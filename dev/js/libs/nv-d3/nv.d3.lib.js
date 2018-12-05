@@ -29,7 +29,7 @@ function createDonutChart(grafico, valores){
 	      .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
 				.tooltips(true)
 				.tooltipContent(tp)
-	      .height(430);
+	    ; //  .height(430)
 
 	    d3.select(grafico + " svg")
 	        .datum(valores[0].values)
@@ -55,7 +55,7 @@ function createBarChart(grafico, valores)
 	      .staggerLabels(false)
 	      .tooltips(true)
 	      .showValues(true)
-	      .height(430);
+	      ;   //.height(430)
 
 		chart.xAxis
 				.axisLabel(valores[0].leg_X);
@@ -92,7 +92,7 @@ function createMultiBarChart(grafico, valores)
 	      .rotateLabels(0)      //Angle to rotate x-axis labels.
 	      .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
 	      .groupSpacing(0.1)    //Distance between each group of bars.
-				.height(430);
+				; //   .height(430)
 
 		chart.xAxis
 				.axisLabel(valores[0].leg_X);
@@ -137,7 +137,7 @@ function createLineChart(grafico, valores)
                 .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
                 .showYAxis(true)        //Show the y-axis
                 .showXAxis(true)        //Show the x-axis
-								.height(430);
+								;
 
 	chart.xAxis
 			.axisLabel(valores[0].leg_X);
@@ -215,25 +215,33 @@ function createLinePlusBarChart(grafico, valores)
 function createStackedAreaChart(grafico, valores)
 {
 		var chart = nv.models.stackedAreaChart()
-							 .margin({top: 30, right: 100, bottom: 70, left: 50})
+							 .margin({top: 30, right: 50, bottom: 60, left: 50})
 					//     .x(function(d) { return d[0] })   //We can modify the data accessor functions...
 					//		 .y(function(d) { return d[1] })   //...in case your data is formatted differently.
 							 .x(function(d) { return d.label })
 							 .y(function(d) { return d.value })
 							 .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
-							 .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+							 .rightAlignYAxis(false)      //Let's move the y-axis to the right side.
 							 .transitionDuration(500)
-							 .showControls(false)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+							 .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
 							 .clipEdge(true);
 
 	 //Format x-axis labels with custom function.
-/*	 chart.xAxis
+	 chart.xAxis
 			 .tickFormat(function(d) {
 				 return d3.time.format('%x')(new Date(d))
 	 });
-*/
+/*
 	 chart.yAxis
 			 .tickFormat(d3.format(',.2f'));
+
+	 chart.xAxis
+	 		.axisLabel(valores[0].leg_X);
+*/
+	 chart.yAxis     //Chart y-axis settings
+	 			.axisLabel(valores[0].leg_Y)
+	 			.tickFormat(function(d) { return d3.format(valores[0].config[0])(d/parseInt(valores[0].config[1])) + valores[0].config[2] });
+
 
 	 d3.select(grafico + " svg")
 		 .datum(valores[0].series)
@@ -291,7 +299,7 @@ function createLineWithFocusChart(grafico, valores)
 	  var chart = nv.models.lineWithFocusChart()
 								.margin({top: 30, right: 50, bottom: 70, left: 50}) //Adjust chart margins to give the x-axis some breathing room.
 								.showLegend(true)
-								.height(430);
+								; //   .height(430)
 
 
 		chart.xAxis
