@@ -79,7 +79,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
    var $id_osc = '';
    var rotas = new Rotas();
    var limiteAutocomplete = 10;
-   
+
    $('#tag').tagsinput({
        cancelConfirmKeysOnEmpty: false,
        freeInput: false,
@@ -159,7 +159,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
      $('#send').on('click', function(){
         var nome = $('#nome').val();
-        var email = $('#email').val();
+        var email = $('#email').val().toLowerCase();
         var senha = $('#senha').val();
         var confirmarSenha = $('#confirmarSenha').val();
         var tag = $('#tag').val();

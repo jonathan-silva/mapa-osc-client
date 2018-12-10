@@ -124,7 +124,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         });
 
         $("#email.form-control").blur(function(event, ui) {
-            var email = this.value;
+            var email = this.value.toLowerCase();
             if (validaEmail(email)) {
                 var id_attr = "#" + $("#email.form-control").attr("id") + "1";
                 $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -177,7 +177,7 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
 
             var nome = $('#nome').val();
-            var email = $('#email').val();
+            var email = $('#email').val().toLowerCase();
             var cpf = $('#cpf').val();
             var senha = $('#senha').val();
             var confirmarSenha = $('#confirmarSenha').val();

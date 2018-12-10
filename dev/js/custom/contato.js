@@ -49,7 +49,7 @@ require(['react'], function (React) {
     });
 
     $("#email.form-control").blur(function(event, ui) {
-        var email = this.value;
+        var email = this.value.toLowerCase();
         if (validaEmail(email)) {
             var id_attr = "#" + $("#email.form-control").attr("id") + "1";
             $("#email.form-control").closest('.form-group').removeClass('has-error').addClass('has-success');
@@ -75,7 +75,7 @@ require(['react'], function (React) {
 
       var $assunto = $('#assunto :selected').text();
       var $nome = $('#nome').val();
-      var $email = $('#email').val();
+      var $email = $('#email').val().toLowerCase();
       var $mensagem = $('#mensagem').val();
       var $modal = $('#modalMensagem');
 
