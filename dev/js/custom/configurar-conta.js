@@ -164,7 +164,7 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas','tagsinput'], functi
 
      $('#send').on('click', function(){
         var nome = $('#nome').val();
-        var email = $('#email').val();
+        var email = $('#email').val().toLowerCase();
         var senha = $('#senha').val();
         var confirmarSenha = $('#confirmarSenha').val();
         var tag = $('#tag').val();

@@ -55,7 +55,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         });
 
         $("#tx_email.form-control").blur(function(event, ui) {
-            var email = this.value;
+            var email = this.value.toLowerCase();
             var id_attr = '';
             if (validaEmail(email)) {
                 id_attr = "#" + $("#tx_email.form-control").attr("id");
@@ -69,7 +69,7 @@ require(['react', 'jsx!components/Util'], function(React) {
         });
 
         $("#tx_email_confirmacao.form-control").blur(function(event, ui) {
-            var email = this.value;
+            var email = this.value.toLowerCase();
             var id_attr = '';
             if (validaEmailGov(email)) {
                 id_attr = "#" + $("#tx_email_confirmacao.form-control").attr("id");
@@ -294,7 +294,7 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
             var id_attr = '';
             var nome = $('#tx_nome_representante').val();
-            var email = $('#tx_email').val();
+            var email = $('#tx_email').val().toLowerCase();
             var cpf = $('#tx_cpf').val();
             var orgao_trabalha = $('#tx_orgao_trabalha').val();
             var tel1 = $('#tx_telefone1').val();

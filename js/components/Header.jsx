@@ -145,7 +145,7 @@ define(['react','rotas'], function(React) {
         }
       }else if (index == 6) {
 
-              var email =  $('#emailLogin').val();
+              var email =  $('#emailLogin').val().toLowerCase();
               var senha =  $('#senhaLogin').val();
               jQuery("#labelError").text("");
 
