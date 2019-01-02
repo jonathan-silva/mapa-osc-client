@@ -730,6 +730,43 @@ require(['react'], function (React) {
 
      //Fim de autocomplete
 
+     // Inicio Ipea Data
+
+     var id_ipeadata = {1:"IDHM", 2:"IDHM_Renda",
+                            3:"IDHM_Educacao", 4:"IDHM_Longevidade",
+                            5:"mort_infant", 6:"mort_infant5"
+                          };
+
+         for (var i in id_ipeadata) {
+           var html = '<label><input id="'+id_ipeadata[i]+'" type="checkbox">'+id_ipeadata[i]+'</label>';
+           $('#ipea_data').append(html);
+         }
+         /*
+     $.ajax({
+       url: rotas.Busca_Certificado(),
+       type: 'GET',
+       dataType: 'json',
+       error: function(e){
+           console.log("ERRO no AJAX :" + e);
+       },
+       success: function(data){
+
+         var id_ipeadata = {1:"IDHM", 2:"IDHM_Renda",
+                                3:"IDHM_Educacao", 4:"IDHM_Longevidade",
+                                5:"mort_infant", 6:"mort_infant5"
+                              };
+
+         if (data.length > 0){
+
+             for (var i in data) {
+               var html = '<label><input id="'+id_ipeadata[i]+'" type="checkbox">'+id_ipeadata[i]+'</label>';
+               $('#ipea_data').append(html);
+             }
+         }
+
+       }
+     });*/
+
     //permite somente numeros
     $(".min, .max").keypress( function() {
       var evt = window.event;

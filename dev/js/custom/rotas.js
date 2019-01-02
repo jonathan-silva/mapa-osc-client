@@ -16,6 +16,10 @@ class Rotas{
 
   }
 
+  getBaseUrlIData(){
+    return  "http://ipeadata.ipea.gov.br/api/v1/AnoValors";
+  }
+
   //index.js
   AutocompleteOSCByName(term, limit, similarity){
     return this.getBaseUrl()+"search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
@@ -370,6 +374,26 @@ class Rotas{
 
   RecuperarPerfilByIDLocalidade(id){
     return this.getBaseUrl()+"osc/listaareaatuacao/5/municipio/"+id;
+  }
+
+  // Ipea Data
+  IDHM(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13IDHM',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  IDHM_Educacao(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_E',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  IDHM_Longevidade(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_L',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  IDHM_Renda(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_R',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  mort_infant5(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13MORT5',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  mort_infant(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13MORT1',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
 
 

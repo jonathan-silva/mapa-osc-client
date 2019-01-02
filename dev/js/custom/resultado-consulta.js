@@ -29,16 +29,20 @@ function getParameter( name, url ) {
 var urlRota;
 var type_http;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
-require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination'], function (React) {
+require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination', 'util'], function (React) {
   var geojson;
   var link;
+  var util = new Util();
+  var composto = [];
   var mapState = {};
   var mapRegion = {};
+  var llayersIDH = {}; //layers do mapa de calor IDHM
   var llayers = {}; //layers do mapa de calor
   var clayers = {}; //layers dos estados
   var rlayers = {}; //layers das regiões
   var clustersLayer = L.layerGroup();
   var layerGroup = L.layerGroup();
+  var layerGroupIDH = L.layerGroup();
   var isControlLoaded = false;//verifica se controle já foi adicionado a tela
   var isClusterVersion = true;
   var consulta_avancada = false;
@@ -299,6 +303,7 @@ $("#regiao .form-control").autocomplete({
     }
     else if(tipoConsulta=="avancado"){
       params["avancado"] = window.localStorage.getItem('params_busca_avancada');
+
       if(params["avancado"] == '{}'){
         //consulta tudo
         tipoConsulta="todos";
@@ -310,7 +315,19 @@ $("#regiao .form-control").autocomplete({
         urlRotaMapa=rotas.ConsultaAvancadaMapa();
         isClusterVersion=false;
         consulta_avancada = true;
-      }
+        if(util.contains('IDHM',params["avancado"])){
+            var data = util.carregaAjax(rotas.IDHM(),'GET',null);
+            if(data!==undefined){
+              for (var i in data.value){
+                var obj = {};
+                obj['codigo'] = data.value[i].TERCODIGO;
+                obj['valor'] = data.value[i].a2010m01d01;
+                //obj[data.value[i].TERCODIGO] = data.value[i].a2010m01d01;
+                composto.push(obj);
+              }
+            }
+        }
+     }
     }
     else{
       console.log("ERRO de URL!");
@@ -573,10 +590,13 @@ $("#regiao .form-control").autocomplete({
               click: zoomToFeature
           });
           layerGroup.addLayer(layer);
+          layerGroupIDH.addLayer(layer);
           llayers[layer.feature.properties.id] = layer;
+          llayersIDH[layer.feature.properties.id] = layer;
       }
 
       map.addLayer(layerGroup);
+      map.addLayer(layerGroupIDH);
 
       info.onAdd = function (map) {
           this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -880,6 +900,7 @@ $("#regiao .form-control").autocomplete({
     var zoomMap = map.getZoom();
     if(zoomMap==zoomMaximo){
       map.removeLayer(layerGroup);
+      map.removeLayer(layerGroupIDH);
     }
   }
 
@@ -943,7 +964,7 @@ $("#regiao .form-control").autocomplete({
 
   //Coloração do mapa
   $.ajax({
-    url: rotas.ClusterEstado(),
+    url: rotas.ClusterEstado(),//rotas.IDHM,//
     type: 'GET',
     dataType: 'json',
     error: function(e){
@@ -953,15 +974,18 @@ $("#regiao .form-control").autocomplete({
       if(data!==undefined){
         var pdfs={};
         var ids={};
+        //for(var k in data.value){
         for(var k in data){
           pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
+          //pdfs[data.value[k].TERNOME]=data.value[k].a2010m01d01;
           ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
+          //ids[data.value[k].TERNOME]=data.value[k].TERCODIGO;
         }
         map.addControl(new L.Control.Layers({
           'Satélite':googleHybrid,
           'Contraste': tilesGrayscale,
-          'Mapa': tiles
-          }, { 'Mapa de calor':layerGroup },{collapsed:false}));
+          'Mapa': tiles,
+        }, { 'Mapa de calor':layerGroup,'IDHM':layerGroupIDH },{collapsed:false}));
         heatMap(pdfs, ids);
       }
     }
