@@ -310,6 +310,7 @@ $("#regiao .form-control").autocomplete({
         urlRotaMapa=rotas.ConsultaAvancadaMapa();
         isClusterVersion=false;
         consulta_avancada = true;
+        visualizar_filtro_busca(params["avancado"]);
       }
     }
     else{
@@ -327,6 +328,79 @@ $("#regiao .form-control").autocomplete({
     var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
     $("#analisePerfil").text(txtPerfil);
     $("#analisePerfil").attr("href","analise-perfil.html?localidade="+idPerfil);
+  }
+
+  function visualizar_filtro_busca(json){
+    var json_filtro = JSON.parse(json);
+    var dadosgerais = json_filtro.dadosGerais;
+    var txt = '<b><u>Filtros utilizados:</u></b> ';
+    var nj = false;
+
+    if(dadosgerais){
+
+      if(dadosgerais.tx_razao_social_osc){
+        txt += "<b><i>Nome da OSC:</i></b> " + dadosgerais.tx_razao_social_osc + ", ";
+      }
+      if(dadosgerais.tx_nome_regiao){
+        txt += "<b><i>Região:</i></b> " + dadosgerais.tx_nome_regiao + ", ";
+      }
+      if(dadosgerais.tx_nome_fantasia_osc ){
+        txt += "<b><i>Nome Fantasia:</i></b> " + dadosgerais.tx_nome_fantasia_osc + ", ";
+      }
+      if(dadosgerais.tx_nome_uf){
+        txt += "<b><i>Estado:</i></b> " + dadosgerais.tx_nome_uf + ", ";
+      }
+      if(dadosgerais.cd_identificador_osc){
+        txt += "<b><i>CNPJ:</i></b> " + dadosgerais.cd_identificador_osc + ", ";
+      }
+      if(dadosgerais.anoFundacaoMIN ){
+        txt += "<b><i>Ano de Fundação de:</i></b> " + dadosgerais.anoFundacaoMIN + ", ";
+      }
+      if(dadosgerais.anoFundacaoMAX ){
+        txt += "<b><i>Ano de Fundação até:</i></b> " + dadosgerais.anoFundacaoMAX + ", ";
+      }
+      if(dadosgerais.tx_nome_municipio){
+        txt += "<b><i>Município:</i></b> " + dadosgerais.tx_nome_municipio + ", ";
+      }
+
+      var txt_nj = "<b><i>Natureza Jurídica:</i></b> ";
+      if(dadosgerais.naturezaJuridica_associacaoPrivada){
+        txt_nj += "Associação Privada" + ", ";
+        nj = true;
+      }
+
+      if(dadosgerais.naturezaJuridica_fundacaoPrivada){
+        txt_nj += "Fundação Privada" + ", ";
+        nj = true;
+      }
+
+      if(dadosgerais.naturezaJuridica_organizacaoReligiosa){
+        txt_nj += "Organização Religiosa"  + ", ";
+        nj = true;
+      }
+
+      if(dadosgerais.naturezaJuridica_organizacaoSocial){
+        txt_nj += "Organização Social"  + ", ";
+        nj = true;
+      }
+
+      if(dadosgerais.naturezaJuridica_outra){
+        txt_nj += "Não informado"  + ", ";
+        nj = true;
+      }
+
+      if(nj)
+      {
+        txt += txt_nj;
+      }
+
+      dadosgerais.cd_situacao_imovel_osc;
+      dadosgerais.cd_objetivo_osc;
+      dadosgerais.cd_meta_osc;
+    }
+
+    $("#filtros p").html(txt);
+
   }
 
   //*** Methods
