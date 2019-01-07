@@ -661,7 +661,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
 
       var proj_id_generator = 0;
       $('#add_projeto').click(function(){
-        salvarProjetos();
+        //salvarProjetos();
         table_lista_projetos.row.add([
           -1,
           '<div class="titulo-projeto"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Novo Projeto'
