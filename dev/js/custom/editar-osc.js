@@ -675,7 +675,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         var id_projeto = table_lista_projetos.row(tr_projeto).data()[0];
         var projetos = $(this).next(".projeto");
 
-        if(id_projeto == -1 ){ //projeto nove
+        if(id_projeto == -1 ){ //projeto novo
           novo = true;
           id_projeto = Number(id_projeto) - proj_id_generator;
           proj_id_generator += 1;
