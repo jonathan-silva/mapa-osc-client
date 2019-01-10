@@ -418,6 +418,77 @@ $("#regiao .form-control").autocomplete({
       dadosgerais.cd_meta_osc;
     }
 
+    var atividadeEconomica = json_filtro.atividadeEconomica;
+    if(atividadeEconomica){
+      txt += "<b><i>Atividade Econômica (CNAE):</i></b> " + atividadeEconomica.tx_atividade_economica + ", ";
+
+    }
+
+    var areasSubareasAtuacao = json_filtro.areasSubareasAtuacao;
+    if(areasSubareasAtuacao){
+      var nomes_area_sub_atuacao = [];
+
+      $.ajax({
+        url: rotas.AreaAtuacao(),
+        type: 'GET',
+        async:false,
+        dataType: 'json',
+        error:function(e){
+          console.log("Erro no ajax: ");
+        },
+        success: function(data){
+
+          for (var key in areasSubareasAtuacao ){
+            var cd_area_atuacao = parseInt(key.split('cd_area_atuacao-')[1]);
+
+            if(cd_area_atuacao != undefined){
+              $.each(data, function (k, value) {
+                if(cd_area_atuacao == value.cd_area_atuacao ){
+                  if (nomes_area_sub_atuacao.indexOf(value.tx_nome_area_atuacao) === -1) {
+                    nomes_area_sub_atuacao.push( value.tx_nome_area_atuacao);
+                  }
+                }
+              });
+            }
+          }
+
+          $.ajax({
+            url: rotas.SubAreaAtuacao(),
+            type: 'GET',
+            async:false,
+            dataType: 'json',
+            error:function(e){
+              console.log("Erro no ajax: ");
+            },
+            success: function(data){
+
+                for (key in areasSubareasAtuacao ){
+                  var cd_subarea_atuacao = parseInt(key.split('cd_subarea_atuacao-')[1]);
+
+                  if(cd_subarea_atuacao != undefined){
+                    $.each(data, function (k, value) {
+                      if(cd_subarea_atuacao == value.cd_subarea_atuacao ){
+                        if (nomes_area_sub_atuacao.indexOf(value.tx_nome_subarea_atuacao) === -1) {
+                          nomes_area_sub_atuacao.push( value.tx_nome_subarea_atuacao);
+                        }
+                      }
+                    });
+                  }
+                }
+
+                if(nomes_area_sub_atuacao.length > 0){
+
+                  txt += "<b><i>Área e Subárea de Atuação:</i></b> " + nomes_area_sub_atuacao.join(', ') + ", ";
+                }
+              }
+            });
+
+          }
+        });
+
+    }
+
+
     $("#filtros p").html(txt);
 
   }
