@@ -603,6 +603,9 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
             if(item == dados.content[j].tx_nome_tipo_parceria || item == dados.content[j].tx_nome_origem_fonte_recursos_projeto){
               selected = true;
             }
+            else if( contains("financeiros",dados.content[j].tx_nome_tipo_parceria) && contains("financeiros",item) ){
+              selected = true;
+            }
           }
         }
 
