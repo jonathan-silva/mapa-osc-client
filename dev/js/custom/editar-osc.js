@@ -1614,7 +1614,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         }
 
         item.id_certificado = $(this).prop("id");
-        console.log(item);
+        //console.log(item);
 
         if(cd_certificado > 0){
           newJson.certificado.push(item);
@@ -1710,7 +1710,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
          $(this).find("select").each(function(){
            var split = $(this).attr("id").split("-");
            var campo = split[0];
-           console.log(campo);
+           //console.log(campo);
            conselho_id = parseInt($(this).attr("id").split("-")[1]);
            if(conselho_id == 0){
             obj.conselho.id_conselho = null;
@@ -2133,7 +2133,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
 
               var cod_tipo_parceria = null;
-              if($(this).is(':visible') && $(this).prop("checked")){
+              if(obj["fonte_recursos"][0].cd_origem_fonte_recursos_projeto == 1 && $(this).prop("checked")){
                 var tipo_parceria = $(this).val();
 
                 switch(tipo_parceria) {

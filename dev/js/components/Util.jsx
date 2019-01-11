@@ -593,6 +593,7 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
     renderListItems: function(){
       var dados = this.props.dados;
       var itens = [];
+      var k = 0;
 
       for (var i = 0; i < dados.options.length; i++) {
         var item = dados.options[i];
@@ -600,9 +601,15 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
         var checkboxElement;
         if(dados.content != null){
           for (var j = 0; j < dados.content.length; j++) {
-            if(item == dados.content[j].tx_nome_tipo_parceria || item == dados.content[j].tx_nome_origem_fonte_recursos_projeto){
+            if(item == dados.content[j].tx_nome_origem_fonte_recursos_projeto){
               selected = true;
             }
+            else if (contains("financeiros",dados.content[j].tx_nome_origem_fonte_recursos_projeto) && contains("financeiros",item) ){
+              selected = true;
+            }
+            if(item == dados.content[j].tx_nome_tipo_parceria){
+                selected = true;
+              }
           }
         }
 
@@ -614,7 +621,7 @@ define('componenteCheckboxProjeto', ['react'], function (React) {
         itens.push(
           checkboxElement
         );
-      }
+      } 
       return itens;
     },
 
