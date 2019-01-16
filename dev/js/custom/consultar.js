@@ -747,7 +747,10 @@ require(['react'], function (React) {
                           };
 
          for (var i in id_ipeadata) {
-           var html = '<label><input id="'+id_ipeadata[i]+'" type="checkbox">'+id_ipeadata[i]+'</label>';
+           var html = '<input id="'+id_ipeadata[i]+
+           '" type="radio" name="idh" value="'+id_ipeadata[i]+
+           '"><label for="'+id_ipeadata[i]+'">'+id_ipeadata[i]+'</label>';
+
            $('#ipea_data').append(html);
          }
          /*
