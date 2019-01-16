@@ -299,7 +299,11 @@ require(["jquery-ui", 'rotas'], function (React) {
 			img = "diamante.png";
 		}
 
-		var html = '<a href="metodologia.html" title="Conquista referente ao Índice de Preenchimento."><img src="img/'+img+'" class="medalha"></a>';
+		var html = '<a href="metodologia.html" title="Conquista referente ao Índice de Preenchimento."><img src="img/'+img+'" class="medalha"></a>'+
+		'<br><br>'+
+		'<a href="https://gife.org.br/indicadores-gife-de-governanca/autoavaliacao" title="Acesse os Indicadores GIFE de Governança" target="_blank">'+
+		'<img src="/cms/imagens/apoios/5469-gife-marca.png" width="55" height="25">'+
+		'<img class="imgLinkExterno" src="img/site-ext.gif" width="17" height="11" alt="Site Externo." title="Site Externo."></a>';
 
 		$(".divImg").append(html);
 	}
