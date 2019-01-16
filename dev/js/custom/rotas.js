@@ -279,6 +279,53 @@ class Rotas{
     return this.getBaseUrl()+"search/atividade_economica/autocomplete/"+term+"/"+limit;
   }
 
+  //Recuperar por get nome campo - resultado da busca
+  SituacaoImovel_id(id){
+    return this.getBaseUrl()+"menu/osc/situacao_imovel/"+id;
+  }
+
+  FontesRecursosProjeto_id(id){
+    return this.getBaseUrl()+"menu/osc/origem_fonte_recursos_projeto/"+id;
+  }
+
+  ZonaAtuacaoProjeto_id(id){
+    return this.getBaseUrl()+"menu/osc/zona_atuacao_projeto/"+id;
+  }
+
+  AbrangenciaProjeto_id(id){
+    return this.getBaseUrl()+"menu/osc/abrangencia_projeto/"+id;
+  }
+
+  SituacaoProjeto_id(id){
+    return this.getBaseUrl()+"menu/osc/status_projeto/"+id;
+  }
+
+  FormaParticipacaoConferencia_id(id){
+    return this.getBaseUrl()+"menu/osc/forma_participacao_conferencia/"+id;
+  }
+
+  PeriodicidadeReuniao_id(id){
+    return this.getBaseUrl()+"menu/osc/periodicidade_reuniao/"+id;
+  }
+  Conselho_id(id){
+    return this.getBaseUrl()+"menu/osc/conselho/"+id;
+  }
+  Conferencia_id(id){
+    return this.getBaseUrl()+"menu/osc/conferencia/"+id;
+  }
+  Titularidade_id(id){
+    return this.getBaseUrl()+"menu/osc/tipo_participacao/"+id;
+  }
+  FontesRecursos_id(id){
+      return this.getBaseUrl()+"menu/osc/fonte_recursos_osc/"+id;
+  }
+  Objetivos_ODS_id(id){
+      return this.getBaseUrl()+"menu/osc/objetivoprojeto/"+id;
+  }
+  Metas_ODS_Id(id){
+      return this.getBaseUrl()+"menu/osc/metaprojeto/"+id;
+  }
+
   //INICIO CMS
   //Imprensa
   Imprensa(){
