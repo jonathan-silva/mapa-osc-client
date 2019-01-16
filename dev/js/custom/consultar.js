@@ -732,9 +732,18 @@ require(['react'], function (React) {
 
      // Inicio Ipea Data
 
-     var id_ipeadata = {1:"IDHM", 2:"IDHM_Renda",
-                            3:"IDHM_Educacao", 4:"IDHM_Longevidade",
-                            5:"mort_infant", 6:"mort_infant5"
+     var id_ipeadata = {1:"IDHM", 2:"IDHM Renda",
+                            3:"IDHM Educacao", 4:"IDHM Longevidade",
+                            5:"Indice de mort. infantil",
+                            6:"Indice de mort. infant. de 1 a 5 anos",
+                            7:"",
+                            8:"",
+                            9:"",
+                            10:"",
+                            11:"",
+                            12:"",
+                            13:"",
+                            14:""
                           };
 
          for (var i in id_ipeadata) {

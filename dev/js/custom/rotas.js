@@ -380,21 +380,122 @@ class Rotas{
   IDHM(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-  IDHM_Educacao(){
+  IDHM_Edu(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_E',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-  IDHM_Longevidade(){
+  IDHM_Long(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_L',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
   IDHM_Renda(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_R',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-  mort_infant5(){
+  Mort_infant5(){
     return this.getBaseUrlIData()+"(SERCODIGO='13MORT5',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-  mort_infant(){
+  Mort_infant(){
     return this.getBaseUrlIData()+"(SERCODIGO='13MORT1',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-
+  Bols_Fam(){
+    return this.getBaseUrlIData()+"(SERCODIGO='FAM_PBF',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2016&ANOFINAL=2016";
+  }
+  Benef_idoso(){
+    return this.getBaseUrlIData()+"(SERCODIGO='BPC_idos',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2014&ANOFINAL=2014";
+  }
+  Benef_defic(){
+    return this.getBaseUrlIData()+"(SERCODIGO='BPC_defi',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2016&ANOFINAL=2016";
+  }
+  Pop_Rur(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13PESORUR',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Pop_Urb(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13PESOURB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Medic(){
+    return this.getBaseUrlIData()+"(SERCODIGO='MEDHAB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2000&ANOFINAL=2000";
+  }
+  Analf(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_ANALF15M',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Anos_Est(){
+    return this.getBaseUrlIData()+"(SERCODIGO='MEDUCA',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2000&ANOFINAL=2000";
+  }
+  Fund_Comp(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_FUND25M',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Medio_Comp(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_MED25M',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Super_Comp(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_SUPER25M',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Fora_4a5(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_FORA4A5',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Fora_6a14(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_FORA6A14',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Freq_Esc(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13I_FREQ_PROP',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Desoc(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_DES18M',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Emp_Cart(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13TRABCC',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Emp_SCart(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13TRABSC',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Pop_Pobr(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13PMPOB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Pop_ExPob(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13PIND',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Pop_VPob(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13PPOB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Desig(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13GINI',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Renda_PC(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13RDPC',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Renda_VPob(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13RPOB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Renda_Pobr(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13RMPOB',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Renda_ExPob(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13RIND',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Mae_Chefe(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_MULCHEFEFIF014',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Dom_Agua(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_AGUA',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Dom_AgEsg(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13AGUA_ESGOTO',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Dom_SEner(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_SLUZ',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Dom_Energ(){
+    return this.getBaseUrlIData()+"(SERCODIGO='13T_LUZ',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+  }
+  Hom_Masc(){
+    return "http://www.ipea.gov.br/atlasviolencia/periodo/39/2016-01-15/2016-01-15/0/3";
+  }
+  Hom_Fem(){
+    return "http://www.ipea.gov.br/atlasviolencia/periodo/40/2016-01-15/2016-01-15/0/3";
+  }
+  Hom_15a24(){
+    return "http://www.ipea.gov.br/atlasviolencia/periodo/24/2016-01-15/2016-01-15/0/4";
+  }
+  Homic(){
+    return "http://www.ipea.gov.br/atlasviolencia/periodo/17/2016-01-15/2016-01-15/0/4";
+  }
 
 }
