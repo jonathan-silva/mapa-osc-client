@@ -16,10 +16,6 @@ class Rotas{
 
   }
 
-  getBaseUrlIData(){
-    return  "http://ipeadata.ipea.gov.br/api/v1/AnoValors";
-  }
-
   //index.js
   AutocompleteOSCByName(term, limit, similarity){
     return this.getBaseUrl()+"search/osc/autocomplete/"+term+"/"+limit+"/0/"+similarity;
@@ -425,10 +421,14 @@ class Rotas{
 
   // Ipea Data
 
+    getBaseUrlIData(){
+      return  "http://ipeadata.ipea.gov.br/api/v1/AnoValors";
+    }
+
   Ipea_Data(sercodigo, ano){
     return this.getBaseUrlIData()+"(SERCODIGO='"+sercodigo+"',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL="+ano+"&ANOFINAL="+ano;
   }
-  IDHM_Edu(){
+  /*IDHM_Edu(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_E',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
   IDHM_Long(){
@@ -533,7 +533,7 @@ class Rotas{
   Dom_Energ(){
     return this.getBaseUrlIData()+"(SERCODIGO='13T_LUZ',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
-
+*/
   // Atlas violencia
   getBaseUrlAtlasVio(){
     return  "http://www.ipea.gov.br/atlasviolencia/";
@@ -541,7 +541,7 @@ class Rotas{
   AtlasViolencia(serie,param){
     return this.getBaseUrlAtlasVio()+"periodo/"+serie+"/2016-01-15/2016-01-15/0/"+param;
   }
-  Hom_Masc(){
+  /*Hom_Masc(){
     return getBaseUrlAtlasVio()+"periodo/39/2016-01-15/2016-01-15/0/3";
   }
   Hom_Fem(){
@@ -552,6 +552,6 @@ class Rotas{
   }
   Homic(){
     return "http://www.ipea.gov.br/atlasviolencia/periodo/17/2016-01-15/2016-01-15/0/4";
-  }
+  }*/
 
 }

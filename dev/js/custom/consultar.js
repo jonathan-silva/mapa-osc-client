@@ -731,25 +731,33 @@ require(['react'], function (React) {
      //Fim de autocomplete
 
      // Inicio Ipea Data
+    /* http://atlasbrasil.org.br/2013/pt/ranking
+     Muito Alto 	0,800 - 1,000
+	   Alto 	0,700 - 0,799
+	   Médio 	0,600 - 0,699
+	   Baixo 	0,500 - 0,599
+	   Muito Baixo 	0,000 - 0,499*/
 
-     var id_ipeadata = {1:"IDHM", 2:"IDHM Renda",
-                            3:"IDHM Educacao", 4:"IDHM Longevidade",
-                            5:"Indice de mort. infantil",
-                            6:"Indice de mort. infant. de 1 a 5 anos",
-                            7:"Bolsa Família",
-                            8:"Benef. idosos",
-                            9:"Benef. deficientes",
-                            10:"Pop. Rural",
-                            11:"Pop. Urbana",
-                            12:"Médicos",
-                            13:"Analfabetismo",
-                            14:"Anos de Estudos"
+     var id_ipeadata = {1:"IDHM", 2:"IDHM Renda", 3:"IDHM Educação",
+                            4:"IDHM Longevidade", 5:"Taxa de mort. infantil",
+                            6:"Taxa de mort. infantil até 5 anos",
+                            7:"Bolsa Família", 8:"Benef. idosos",
+                            9:"Benef. deficientes", 10:"Pop. Rural",
+                            11:"Pop. Urbana", 12:"Médicos Residentes",
+                            13:"Analfabetismo de pessoas com 15 anos e mais",
+                            14:"Media de anos de estudo de pessoas com 25 anos e mais",
+                            15:"En. Fund. Completo de pessoas com 25 anos e mais",
+                            16:"En. Médio Completo de pessoas com 25 anos e mais",
+                            17:"En. Superior Completo de pessoas com 25 anos e mais",
+                            18:"Crianças de 4 a 5 anos fora da escola",
+                            19:"Crianças de 6 a 14 anos fora da escola",
+                            20:"Frequência de crianças e jovens à escola",
                           };
 
          for (var i in id_ipeadata) {
-           var html = '<input id="'+id_ipeadata[i]+
+           var html = '<label for="'+id_ipeadata[i]+'"><input id="'+id_ipeadata[i]+
            '" type="radio" name="idh" value="'+id_ipeadata[i]+
-           '"><label for="'+id_ipeadata[i]+'">'+id_ipeadata[i]+'</label>';
+           '">'+id_ipeadata[i]+'</label>';
 
            $('#ipea_data').append(html);
          }
