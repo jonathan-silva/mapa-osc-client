@@ -317,7 +317,7 @@ $("#regiao .form-control").autocomplete({
         consulta_avancada = true;
 
         if(util.contains('IDHM',params["avancado"])){ // fa\zer funcão talvez passando todos como IDH ou ipeadata sei lá
-            var data = util.carregaAjax(rotas.IDHM(),'GET',null);
+            var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010),'GET',null);
             if(data!==undefined){
               for (var i in data.value){
                 var obj = {};

@@ -736,14 +736,14 @@ require(['react'], function (React) {
                             3:"IDHM Educacao", 4:"IDHM Longevidade",
                             5:"Indice de mort. infantil",
                             6:"Indice de mort. infant. de 1 a 5 anos",
-                            7:"",
-                            8:"",
-                            9:"",
-                            10:"",
-                            11:"",
-                            12:"",
-                            13:"",
-                            14:""
+                            7:"Bolsa Família",
+                            8:"Benef. idosos",
+                            9:"Benef. deficientes",
+                            10:"Pop. Rural",
+                            11:"Pop. Urbana",
+                            12:"Médicos",
+                            13:"Analfabetismo",
+                            14:"Anos de Estudos"
                           };
 
          for (var i in id_ipeadata) {
@@ -912,6 +912,17 @@ require(['react'], function (React) {
                }
              }
             });
+
+          $(this).find("input[type=radio]").each(function () {
+            if( $(this).prop( "checked")) {
+              if(jsonConsulta[idSecao] === undefined )
+              {
+                jsonConsulta[idSecao] = {};
+              }
+            jsonConsulta[idSecao][$(this).attr('id')] = $(this).prop( "checked");
+          }
+
+          });
 
          });
 

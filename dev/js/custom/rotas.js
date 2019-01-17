@@ -424,8 +424,9 @@ class Rotas{
   }
 
   // Ipea Data
-  IDHM(){
-    return this.getBaseUrlIData()+"(SERCODIGO='13IDHM',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
+
+  Ipea_Data(sercodigo, ano){
+    return this.getBaseUrlIData()+"(SERCODIGO='"+sercodigo+"',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL="+ano+"&ANOFINAL="+ano;
   }
   IDHM_Edu(){
     return this.getBaseUrlIData()+"(SERCODIGO='13IDHM_E',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
@@ -532,8 +533,16 @@ class Rotas{
   Dom_Energ(){
     return this.getBaseUrlIData()+"(SERCODIGO='13T_LUZ',NIVNOME='Munic%C3%ADpios')?$count=true&ANOINICIAL=2010&ANOFINAL=2010";
   }
+
+  // Atlas violencia
+  getBaseUrlAtlasVio(){
+    return  "http://www.ipea.gov.br/atlasviolencia/";
+  }
+  AtlasViolencia(serie,param){
+    return this.getBaseUrlAtlasVio()+"periodo/"+serie+"/2016-01-15/2016-01-15/0/"+param;
+  }
   Hom_Masc(){
-    return "http://www.ipea.gov.br/atlasviolencia/periodo/39/2016-01-15/2016-01-15/0/3";
+    return getBaseUrlAtlasVio()+"periodo/39/2016-01-15/2016-01-15/0/3";
   }
   Hom_Fem(){
     return "http://www.ipea.gov.br/atlasviolencia/periodo/40/2016-01-15/2016-01-15/0/3";
