@@ -304,7 +304,7 @@ $("#regiao .form-control").autocomplete({
     else if(tipoConsulta=="avancado"){
       params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-      if(params["avancado"] == '{}'){
+      if(params["avancado"] == '{}' || util.contains('{"ipeadata":{',params["avancado"]) ){
         //consulta tudo
         tipoConsulta="todos";
         urlRotaMapa = rotas.ClusterPais();
@@ -315,22 +315,34 @@ $("#regiao .form-control").autocomplete({
         urlRotaMapa=rotas.ConsultaAvancadaMapa();
         isClusterVersion=false;
         consulta_avancada = true;
-
-        if(util.contains('IDHM',params["avancado"])){ // fa\zer funcão talvez passando todos como IDH ou ipeadata sei lá
-            var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010),'GET',null);
-            if(data!==undefined){
-              for (var i in data.value){
-                var obj = {};
-                obj['codigo'] = data.value[i].TERCODIGO;
-                obj['valor'] = data.value[i].a2010m01d01;
-                //obj[data.value[i].TERCODIGO] = data.value[i].a2010m01d01;
-                composto.push(obj);
-              }
-            }
-        }
-
         visualizar_filtro_busca(params["avancado"]);
-     }
+      }
+
+      if (util.contains('IDH M',params["avancado"])) {
+          var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010),'GET',null);
+        /*  if(data!==undefined){
+            for (var i in data.value){
+              var obj = {};
+              obj['codigo'] = data.value[i].TERCODIGO;
+              obj['valor'] = data.value[i].a2010m01d01;
+              //obj[data.value[i].TERCODIGO] = data.value[i].a2010m01d01;
+              composto.push(obj);
+            }
+          }*/
+      }
+      if (util.contains('IDHM R',params["avancado"])) {
+          util.carregaAjax(rotas.Ipea_Data('13IDHM_R',2010),'GET',null);
+      }
+      if (util.contains('IDHM E',params["avancado"])) {
+        util.carregaAjax(rotas.Ipea_Data('13IDHM_E',2010),'GET',null);
+      }
+      if (util.contains('IDHM L',params["avancado"])) {
+        util.carregaAjax(rotas.Ipea_Data('13IDHM_L',2010),'GET',null);
+      }
+      if (util.contains('Freq',params["avancado"])) {
+        util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP',2010),'GET',null);
+      }
+
     }
     else{
       console.log("ERRO de URL!");
