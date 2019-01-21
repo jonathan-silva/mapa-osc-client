@@ -304,7 +304,7 @@ $("#regiao .form-control").autocomplete({
     else if(tipoConsulta=="avancado"){
       params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-      if(params["avancado"] == '{}' || util.contains('{"ipeadata":{',params["avancado"]) ){
+      if(params["avancado"] == '{}' || util.contains('{"IDH":{',params["avancado"]) ){
         //consulta tudo
         tipoConsulta="todos";
         urlRotaMapa = rotas.ClusterPais();

@@ -738,7 +738,7 @@ require(['react'], function (React) {
 	   Baixo 	0,500 - 0,599
 	   Muito Baixo 	0,000 - 0,499*/
 
-     var id_ipeadata = {1:"IDH Municipal", 2:"IDHM Renda", 3:"IDHM Educação",
+     var id_ipeadata = {1:"IDH Municipal"/*, 2:"IDHM Renda", 3:"IDHM Educação",
                             4:"IDHM Longevidade", 5:"Taxa de mort. infantil",
                             6:"Taxa de mort. infantil até 5 anos",
                             7:"Bolsa Família", 8:"Benef. idosos",
@@ -751,16 +751,34 @@ require(['react'], function (React) {
                             17:"En. Superior Completo de pessoas com 25 anos e mais",
                             18:"Crianças de 4 a 5 anos fora da escola",
                             19:"Crianças de 6 a 14 anos fora da escola",
-                            20:"Frequência de crianças e jovens à escola",
+                            20:"Frequência de crianças e jovens à escola",*/
                           };
 
          for (var i in id_ipeadata) {
            var html = '<label for="'+id_ipeadata[i]+'"><input id="'+id_ipeadata[i]+
            '" type="checkbox" name="idh" value="'+id_ipeadata[i]+
-           '">'+id_ipeadata[i]+'</label>';
+           '">'+id_ipeadata[i]+'</label><br><br>';
 
-           $('#ipea_data').append(html);
+           $('#IDHM').append(html);
          }
+         $("#IDHM input").change(function() {
+               if(this.checked) {
+               var selectbox = $('#IDHM');
+               var html = '<div id="faixa_IDHM">';
+               html += '<label><b>Faixas de IDHM</b>:&nbsp;&nbsp;</label><br>';
+                html += '<label><input id="baixo" value="baixo" type="checkbox">Baixo&nbsp;&nbsp;</label>';
+                html += '<label><input id="medio" value="medio" type="checkbox">Médio&nbsp;&nbsp;</label>';
+                html += '<label><input id="alto" value="alto" type="checkbox">Alto</label>';
+                html += '</div>';
+
+                   $(".faixa_IDHM").css('visibility','visible');
+                   selectbox.append(html);
+
+               }else{
+                 $("#faixa_IDHM").remove();
+               }
+           //}
+         });
          /*
      $.ajax({
        url: rotas.Busca_Certificado(),
