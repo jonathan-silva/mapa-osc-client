@@ -738,7 +738,7 @@ require(['react'], function (React) {
 	   Baixo 	0,500 - 0,599
 	   Muito Baixo 	0,000 - 0,499*/
 
-     var id_ipeadata = {1:"IDH Municipal"/*, 2:"IDHM Renda", 3:"IDHM Educação",
+     var id_ipeadata = {1:"IDH_Municipal"/*, 2:"IDHM Renda", 3:"IDHM Educação",
                             4:"IDHM Longevidade", 5:"Taxa de mort. infantil",
                             6:"Taxa de mort. infantil até 5 anos",
                             7:"Bolsa Família", 8:"Benef. idosos",
@@ -757,7 +757,7 @@ require(['react'], function (React) {
          for (var i in id_ipeadata) {
            var html = '<label for="'+id_ipeadata[i]+'"><input id="'+id_ipeadata[i]+
            '" type="checkbox" name="idh" value="'+id_ipeadata[i]+
-           '">'+id_ipeadata[i]+'</label><br><br>';
+           '">'+id_ipeadata[i].replace("_", " ")+'</label><br><br>';
 
            $('#IDHM').append(html);
          }
