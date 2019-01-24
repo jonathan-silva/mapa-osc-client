@@ -49,6 +49,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
   var analisePerfil = false;
   var txtFederacao="";
   var txtLocalidade="";
+  var icon_perfil = "";
   var idPerfil;
   var params = {};
   var limiteAutocomplete = 10;
@@ -286,6 +287,7 @@ $("#regiao .form-control").autocomplete({
       analisePerfil = true;
       idPerfil = stringBuscada;
       txtFederacao = "do município ";
+      icon_perfil = "municipio.png";
     }
     else if(tipoConsulta=="estado"){
       urlRota = rotas.OSCByState(stringBuscada,0);
@@ -293,6 +295,7 @@ $("#regiao .form-control").autocomplete({
       analisePerfil = true;
       idPerfil = stringBuscada;
       txtFederacao = "do estado ";
+      icon_perfil = "estado.png";
     }
     else if(tipoConsulta=="regiao"){
       urlRota = rotas.OSCByRegion(stringBuscada,0);
@@ -300,6 +303,7 @@ $("#regiao .form-control").autocomplete({
       analisePerfil = true;
       idPerfil = stringBuscada;
       txtFederacao = "da região ";
+      icon_perfil = "regiao.png";
     }
     else if(tipoConsulta=="avancado"){
       params["avancado"] = window.localStorage.getItem('params_busca_avancada');
@@ -361,6 +365,8 @@ $("#regiao .form-control").autocomplete({
     var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
     $("#analisePerfil").text(txtPerfil);
     $("#analisePerfil").attr("href","analise-perfil.html?localidade="+idPerfil);
+    var img_perfil = '<img src="img/'+icon_perfil +'" alt="'+txtLocalidade+'" height=40>';
+    $("#analisePerfil").append(img_perfil)
   }
 
   function visualizar_filtro_busca(json,tipoConsulta){
