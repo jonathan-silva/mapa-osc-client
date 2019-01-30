@@ -416,7 +416,7 @@ class Rotas{
   }
 
   RecuperarPerfilByIDLocalidade(id){
-    return this.getBaseUrl()+"osc/listaareaatuacao/5/municipio/"+id;
+    return this.getBaseUrl()+"analises/localidade/"+id;
   }
 
   // Ipea Data

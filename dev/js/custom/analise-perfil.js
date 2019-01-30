@@ -193,33 +193,34 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
         console.log("ERRO no AJAX :" + e);
         $('.manutencao').css('display', 'block');
         $('.loading').addClass('hide');
+        $('.tela').addClass('hide');
     },
     success: function(data){
 
-      $("#tx_localidade").text(dados[0].tx_localidade);
+      $("#tx_localidade").text(data.tx_localidade);
 
       //Características
 
-      $("#tabela caption").text(formatar_fontes(dados[0].caracteristicas.fontes));
+      $("#tabela caption").text(formatar_fontes(data.caracteristicas.fontes));
 
       var txt = '<h5><a id="tabela-p1" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tabela caption").append(txt);
 
 
       var tab = '<tr>';
-      tab += '<td>'+dados[0].caracteristicas.nr_quantidade_oscs+'</td>';
-      tab += '<td>'+dados[0].caracteristicas.nr_quantidade_trabalhadores+'</td>';
-      tab += '<td>'+formatarDinheiro(dados[0].caracteristicas.nr_quantidade_recursos)+'</td>';
-      tab += '<td>'+dados[0].caracteristicas.nr_quantidade_projetos+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_oscs+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_trabalhadores+'</td>';
+      tab += '<td>'+formatarDinheiro(data.caracteristicas.nr_quantidade_recursos)+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_projetos+'</td>';
       tab += '</tr>';
 
       $("#tabela tbody").append(tab);
 
-      txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].evolucao_quantidade_osc_ano.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional. ';
-      txt += 'Nesse ranking, o estado ('+dados[0].evolucao_quantidade_osc_ano.tx_primeiro_colocado_estado+', '+dados[0].evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_estado+' OSCs) ';
-      txt += 'e o município ('+dados[0].evolucao_quantidade_osc_ano.tx_primeiro_colocado_municipio+', '+dados[0].evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_municipio+' OSCs) são os que contêm mais OSCs. '
-      txt += 'O estado ('+dados[0].evolucao_quantidade_osc_ano.tx_ultimo_colocado_estado+') e o município ('+dados[0].evolucao_quantidade_osc_ano.tx_ultimo_colocado_municipio+') ';
-      txt += 'são os que contêm menos OSCs, '+dados[0].evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_estado+' e '+dados[0].evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_municipio+' respectivamente.';
+      txt = '<p>'+data.tx_localidade+' é o '+data.evolucao_quantidade_osc_ano.nr_colocacao_nacional+'º em relação a quantidade de OSCs no âmbito nacional. ';
+      txt += 'Nesse ranking, o estado ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_estado+', '+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_estado+' OSCs) ';
+      txt += 'e o município ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_municipio+', '+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_municipio+' OSCs) são os que contêm mais OSCs. '
+      txt += 'O estado ('+data.evolucao_quantidade_osc_ano.tx_ultimo_colocado_estado[0]+') e o município ('+data.evolucao_quantidade_osc_ano.tx_ultimo_colocado_municipio[0]+') ';
+      txt += 'são os que contêm menos OSCs, '+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_estado+' e '+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_municipio+' respectivamente.';
       txt += '</p>';
 
       $("#tx_caracteristicas").append(txt);
@@ -230,23 +231,23 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['legenda_y'] = "Quantidade OSC";
       grafico['titulo_colunas'] = ["Evolução","Ano","Quantidade"];
       grafico['titulo'] = "Evolucao da quantidade OSCs por ano";
-      grafico['fontes'] = dados[0].evolucao_quantidade_osc_ano.fontes;
+      grafico['fontes'] = data.evolucao_quantidade_osc_ano.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "linechart";
-      grafico['series_1'] = dados[0].evolucao_quantidade_osc_ano.series_1;
+      grafico['series_1'] = data.evolucao_quantidade_osc_ano.series_1;
 
       escolherGrafico("p1",grafico);
 
       //natureza juridica
 
-      var txt = '<p>Na população de OSCs '+formatar_tipo_localidade(dados[0].tx_tipo_localidade,2)+', '+dados[0].natureza_juridica.nr_porcentagem_maior+'% são ';
-      txt += dados[0].natureza_juridica.tx_porcentagem_maior+'. Enquanto, em relação a média nacional '+dados[0].natureza_juridica.nr_porcentagem_maior_media_nacional+'% são ';
-      txt += dados[0].natureza_juridica.tx_porcentagem_maior_media_nacional;
+      var txt = '<p>Na população de OSCs '+formatar_tipo_localidade(data.tx_tipo_localidade,2)+', '+data.natureza_juridica.nr_porcentagem_maior+'% são ';
+      txt += data.natureza_juridica.tx_porcentagem_maior+'. Enquanto, em relação a média nacional '+data.natureza_juridica.nr_porcentagem_maior_media_nacional+'% são ';
+      txt += data.natureza_juridica.tx_porcentagem_maior_media_nacional;
       txt += '.</p>';
 
       $("#tx_natureza_juridica").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p2" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_natureza_juridica").append(txt);
 
@@ -256,23 +257,23 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['legenda_y'] = "Quantidade OSC";
       grafico['titulo_colunas'] = ["Natureza Jurídica","Quantidade OSC"];
       grafico['titulo'] = "Número de OSCs por natureza jurídica";
-      grafico['fontes'] = dados[0].natureza_juridica.fontes;
+      grafico['fontes'] = data.natureza_juridica.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "barchart";
-      grafico['series_1'] = dados[0].natureza_juridica.series_1;
+      grafico['series_1'] = data.natureza_juridica.series_1;
 
       escolherGrafico("p2",grafico);
 
       //Repasse de Recursos
 
-      var txt = '<p>'+dados[0].tx_localidade+' é o '+dados[0].repasse_recursos.nr_colocacao_nacional+'º em relação ao repasse de recursos, com média de ';
-      txt += formatarDinheiro(dados[0].repasse_recursos.nr_repasse_media)+' por ano, enquanto a média nacional ficou em '+formatarDinheiro(dados[0].repasse_recursos.nr_repasse_media_nacional);
-      txt += '. A entidade que mais repassou foi '+dados[0].repasse_recursos.tx_maior_tipo_repasse+', chegando a '+dados[0].repasse_recursos.nr_porcentagem_maior_tipo_repasse+'% dos valores.';
+      var txt = '<p>'+data.tx_localidade+' é o '+data.repasse_recursos.nr_colocacao_nacional+'º em relação ao repasse de recursos, com média de ';
+      txt += formatarDinheiro(data.repasse_recursos.nr_repasse_media)+' por ano, enquanto a média nacional ficou em '+formatarDinheiro(data.repasse_recursos.nr_repasse_media_nacional);
+      txt += '. A entidade que mais repassou foi '+data.repasse_recursos.tx_maior_tipo_repasse+', chegando a '+data.repasse_recursos.nr_porcentagem_maior_tipo_repasse+'% dos valores.';
       txt += '</p>';
 
       $("#tx_repasse_recursos").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p3" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_repasse_recursos").append(txt);
 
@@ -282,23 +283,23 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['legenda_y'] = "Recursos (em milhões R$)";
       grafico['titulo_colunas'] = ["Repasse","Ano","Recursos (em milhões R$)"];
       grafico['titulo'] = "Evolução de recursos transferidos para OSCs";
-      grafico['fontes'] = dados[0].repasse_recursos.fontes;
+      grafico['fontes'] = data.repasse_recursos.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "linechart";
-      grafico['series_1'] = dados[0].repasse_recursos.series_1;
+      grafico['series_1'] = data.repasse_recursos.series_1;
 
       escolherGrafico("p3",grafico);
 
       //Área de Atuação
 
-      var txt = '<p>'+dados[0].tx_localidade+' contém '+dados[0].area_atuacao.nr_porcentagem_maior+'% das OSCs atuando em '+dados[0].area_atuacao.tx_porcentagem_maior;
-      txt += '. Enquanto a média nacional está com '+dados[0].area_atuacao.nr_porcentagem_maior_media_nacional+'% relacionada a atividade econômica ';
-      txt += dados[0].area_atuacao.tx_porcentagem_maior_media_nacional;
+      var txt = '<p>'+data.tx_localidade+' contém '+data.area_atuacao.nr_porcentagem_maior+'% das OSCs atuando em '+data.area_atuacao.tx_porcentagem_maior;
+      txt += '. Enquanto a média nacional está com '+data.area_atuacao.nr_porcentagem_maior_media_nacional+'% relacionada a atividade econômica ';
+      txt += data.area_atuacao.tx_porcentagem_maior_media_nacional;
       txt += '.</p>';
 
       $("#tx_area_atuacao").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p4" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_area_atuacao").append(txt);
 
@@ -308,23 +309,23 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['legenda_y'] = "Quantidade OSC";
       grafico['titulo_colunas'] = ["Atividade Econômica","Quantidade OSC"];
       grafico['titulo'] = "Distribuição de OSCs por área de atuação";
-      grafico['fontes'] = dados[0].area_atuacao.fontes;
+      grafico['fontes'] = data.area_atuacao.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "donutchart";
-      grafico['series_1'] = dados[0].area_atuacao.series_1;
+      grafico['series_1'] = data.area_atuacao.series_1;
 
       escolherGrafico("p4",grafico);
 
       //Trabalhadores
 
-      var txt = '<p>'+formatar_tipo_localidade(dados[0].tx_tipo_localidade,1)+' possui '+dados[0].trabalhadores.nr_porcentagem_maior+'% de trabalhadores ';
-      txt += dados[0].trabalhadores.tx_porcentagem_maior+'. Enquanto a média nacional apresenta '+dados[0].trabalhadores.nr_porcentagem_maior_media_nacional+'% de trabalhadores ';
-      txt += dados[0].trabalhadores.tx_porcentagem_maior_media_nacional;
+      var txt = '<p>'+formatar_tipo_localidade(data.tx_tipo_localidade,1)+' possui '+data.trabalhadores.nr_porcentagem_maior+'% de trabalhadores ';
+      txt += data.trabalhadores.tx_porcentagem_maior+'. Enquanto a média nacional apresenta '+data.trabalhadores.nr_porcentagem_maior_media_nacional+'% de trabalhadores ';
+      txt += data.trabalhadores.tx_porcentagem_maior_media_nacional;
       txt += '</p>';
 
       $("#tx_trabalhadores").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(dados[0].natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p5" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_trabalhadores").append(txt);
 
@@ -334,10 +335,10 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['legenda_y'] = "Número de trabalhadores";
       grafico['titulo_colunas'] = ["Tipo","Número de trabalhadores"];
       grafico['titulo'] = "Distribuição de trabalhodores";
-      grafico['fontes'] = dados[0].trabalhadores.fontes;
+      grafico['fontes'] = data.trabalhadores.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "barchart";
-      grafico['series_1'] = dados[0].trabalhadores.series_1;
+      grafico['series_1'] = data.trabalhadores.series_1;
 
       escolherGrafico("p5",grafico);
 
