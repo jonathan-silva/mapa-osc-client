@@ -27,6 +27,7 @@ function createDonutChart(grafico, valores){
 	      .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
 	      .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
 	      .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+				.showLegend(true)
 				.tooltips(true)
 				.tooltipContent(tp)
 	    ; //  .height(430)
@@ -52,7 +53,7 @@ function createBarChart(grafico, valores)
 				.margin({top: 30, right: 50, bottom: 70, left: 80})
 	      .x(function(d) { return d.label })
 	      .y(function(d) { return d.value })
-	      .staggerLabels(false)
+	      .staggerLabels(true).margin({bottom: 60})
 	      .tooltips(true)
 	      .showValues(true)
 	      ;   //.height(430)
@@ -331,20 +332,21 @@ function createLineWithFocusChart(grafico, valores)
 
 function rotateLabelGrafico(grafico){
 
-	if(window.innerWidth < 550){
-		var xTicks1 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
-			.selectAll('text').style('text-anchor','end').style('opacity',1).style('font-size',9)
-			.attr('transform', function(d,i,j) { return 'translate (-10, 5) rotate(-90 0,0)' });
-		var xleg1 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
-				.attr('transform', function(d,i,j) { return 'translate (0, 40) rotate(0 0,0)' }) ;
-		}
-		else{
-			var xTicks2 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
-				.selectAll("text").style('text-anchor','middle').style('opacity',1).style('font-size',12)
-				.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
-			var xleg2 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
-					.attr('transform', function(d,i,j) { return 'translate (0, 20) rotate(0 0,0)' }) ;
-		}
+		if(window.innerWidth < 550){
+			var xTicks1 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
+				.selectAll('text').style('text-anchor','end').style('opacity',1).style('font-size',9)
+				.attr('transform', function(d,i,j) { return 'translate (-10, 5) rotate(-90 0,0)' });
+			var xleg1 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
+					.attr('transform', function(d,i,j) { return 'translate (0, 40) rotate(0 0,0)' }) ;
+			}
+			else if(grafico != '#grafico-p2' && grafico != '#grafico-p5'){
+				var xTicks2 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
+					.selectAll("text").style('text-anchor','middle').style('opacity',1).style('font-size',12)
+					.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;
+				var xleg2 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
+						.attr('transform', function(d,i,j) { return 'translate (0, 20) rotate(0 0,0)' }) ;
+			}
+
 }
 
 function verificarContrasteGrafico(grafico){
