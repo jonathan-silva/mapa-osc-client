@@ -315,7 +315,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
             visualizar_filtro_busca(params["avancado"],tipoConsulta);
 
-            if (util.contains('IDH M',params["avancado"])) {
+            if (util.contains('IDH_M',params["avancado"])) {
                 var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010), 'GET', null);
             }
 
@@ -477,7 +477,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             }
 
             var atividadeEconomica = json_filtro.atividadeEconomica;
-            
+
             if(atividadeEconomica){
                 txt += "<b><i>Atividade Econômica (CNAE):</i></b> " + atividadeEconomica.tx_atividade_economica + ", ";
             }
@@ -750,12 +750,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             }
 
             var projetos = json_filtro.projetos;
-            
+
             if(projetos){
                 if(projetos.tx_nome_projeto){
                     txt += "<b><i>Nome do Projeto:</i></b> " + projetos.tx_nome_projeto + ", ";
                 }
-                
+
                 if(projetos.cd_status_projeto){
                     $.ajax({
                         url: rotas.SituacaoProjeto_id(projetos.cd_status_projeto),
@@ -884,7 +884,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(projetos.totalBeneficiariosMIN || projetos.totalBeneficiariosMAX){
                     txt += "<b><i>Total de Beneficiários</i></b> ";
-                    
+
                     if(projetos.totalBeneficiariosMIN){
                         txt += "<b><i>maior que:</i></b> " + projetos.totalBeneficiariosMIN  + ", ";
                     }
@@ -896,11 +896,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(projetos.valorTotalMIN || projetos.valorTotalMAX){
                     txt += "<b><i>Valor Total Projeto</i></b> ";
-                    
+
                     if(projetos.valorTotalMIN ){
                         txt += "<b><i>maior que:</i></b> " + projetos.valorTotalMIN  + ", ";
                     }
-                    
+
                     if(projetos.valorTotalMAX){
                         txt += "<b><i>menor que:</i></b> " + projetos.valorTotalMAX  + ", ";
                     }
@@ -912,7 +912,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     if(projetos.valorRecebidoMIN ){
                         txt += "<b><i>maior que:</i></b> " + projetos.valorRecebidoMIN  + ", ";
                     }
-                
+
                     if(projetos.valorRecebidoMAX ){
                         txt += "<b><i>menor que:</i></b> " + projetos.valorRecebidoMAX  + ", ";
                     }
@@ -1004,11 +1004,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.empresasPublicasSociedadesEconomiaMistaMIN || fontesRecursos.empresasPublicasSociedadesEconomiaMistaMAX){
                     txt += "<b><i>Empresas públicas ou sociedades de economia mista</i></b> ";
-                    
+
                     if(fontesRecursos.empresasPublicasSociedadesEconomiaMistaMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.empresasPublicasSociedadesEconomiaMistaMIN  + ", ";
                     }
-                
+
                     if(fontesRecursos.empresasPublicasSociedadesEconomiaMistaMAX){
                         txt += "<b><i>menor que:</i></b> " + fontesRecursos.empresasPublicasSociedadesEconomiaMistaMAX  + ", ";
                     }
@@ -1016,7 +1016,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.acordoOrganismosMultilateraisMIN || fontesRecursos.acordoOrganismosMultilateraisMAX){
                     txt += "<b><i>Acordo com organismos multilaterais</i></b> ";
-                    
+
                     if(fontesRecursos.acordoOrganismosMultilateraisMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.acordoOrganismosMultilateraisMIN  + ", ";
                     }
@@ -1032,7 +1032,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     if(fontesRecursos.parceriaGovernoFederalMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.parceriaGovernoFederalMIN  + ", ";
                     }
-                    
+
                     if(fontesRecursos.parceriaGovernoFederalMAX){
                         txt += "<b><i>menor que:</i></b> " + fontesRecursos.parceriaGovernoFederalMAX  + ", ";
                     }
@@ -1088,7 +1088,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.parceriaOscEstrangeirasMIN || fontesRecursos.parceriaOscEstrangeirasMAX){
                     txt += "<b><i>Parceria com OSCs estrangeiras</i></b> ";
-                    
+
                     if(fontesRecursos.parceriaOscEstrangeirasMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.parceriaOscEstrangeirasMIN  + ", ";
                     }
@@ -1100,7 +1100,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.parceriaOrganizacoesReligiosasBrasileirasMIN || fontesRecursos.parceriaOrganizacoesReligiosasBrasileirasMAX){
                     txt += "<b><i>Parceria com organizações religiosas brasileiras</i></b> ";
-                    
+
                     if(fontesRecursos.parceriaOrganizacoesReligiosasBrasileirasMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.parceriaOrganizacoesReligiosasBrasileirasMIN  + ", ";
                     }
@@ -1112,7 +1112,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.parceriaOrganizacoesReligiosasEstrangeirasMIN || fontesRecursos.parceriaOrganizacoesReligiosasEstrangeirasMAX){
                     txt += "<b><i>Parceria com organizações religiosas estrangeiras</i></b> ";
-                    
+
                     if(fontesRecursos.parceriaOrganizacoesReligiosasEstrangeirasMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.parceriaOrganizacoesReligiosasEstrangeirasMIN  + ", ";
                     }
@@ -1124,7 +1124,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.empresasPrivadasBrasileirasMIN || fontesRecursos.empresasPrivadasBrasileirasMAX){
                     txt += "<b><i>Empresas privadas brasileiras</i></b> ";
-                    
+
                     if(fontesRecursos.empresasPrivadasBrasileirasMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.empresasPrivadasBrasileirasMIN  + ", ";
                     }
@@ -1232,7 +1232,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.doacoesRecebidasFormaProdutosServicosSemNFMIN || fontesRecursos.doacoesRecebidasFormaProdutosServicosSemNFMAX){
                     txt += "<b><i>Doações recebidas na forma de produtos e serviços (sem NF)</i></b> ";
-                    
+
                     if(fontesRecursos.doacoesRecebidasFormaProdutosServicosSemNFMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.doacoesRecebidasFormaProdutosServicosSemNFMIN  + ", ";
                     }
@@ -1248,7 +1248,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             if(idh_json){
                 if(idh_json.IDH_Municipal){
                     txt += "<b><i>Índice de Desenvolvimento Humano:</i></b> IDH Municipal - Faixa: ";
-                    
+
                     if(idh_json.baixo){
                         txt += "baixa, ";
                     }
@@ -1661,7 +1661,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     for(var i = 0; i < data.length; i++){
                         count += data[i].nr_quantidade_osc_regiao;
                     }
-                    
+
                     paginar(count);
                 }else{
                     paginar(Object.keys(data).length-1);
