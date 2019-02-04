@@ -1675,249 +1675,255 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function clickClusterRegiao(e){
-    //console.log(e.target);
-    var idRegiao = e.target.options.icon.options.id;
-    $("#loadingMapModal").show();
-    $.ajax({
-    url: rotas.ClusterEstadoPorRegiao(idRegiao),
-    type: 'GET',
-    dataType: 'json',
-    error: function(e){
-    console.log("ERRO no AJAX :" + e);
-    },
-    success: function(data){
-    tabela(urlRota, consulta_avancada);
-    if(typeof data.length !== 'undefined'){
-    var count = 0;
-    for(var i = 0; i < data.length; i++){
-    count += data[i].nr_quantidade_osc_regiao;
-    }
-    paginar(count);
-    }
-    else{
-    paginar(Object.keys(data).length-1);
-    }
+        var idRegiao = e.target.options.icon.options.id;
+        $("#loadingMapModal").show();
+        $.ajax({
+            url: rotas.ClusterEstadoPorRegiao(idRegiao),
+            type: 'GET',
+            dataType: 'json',
+            error: function(e){
+                console.log("ERRO no AJAX :" + e);
+            },
+            success: function(data){
+                tabela(urlRota, consulta_avancada);
+                if(typeof data.length !== 'undefined'){
+                    var count = 0;
+                    for(var i = 0; i < data.length; i++){
+                        count += data[i].nr_quantidade_osc_regiao;
+                    }
+                    paginar(count);
+                }else{
+                    paginar(Object.keys(data).length-1);
+                }
 
-    if(data!==undefined){
-
-    map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
-    map.removeLayer(e.target);
-    delete rlayers[idRegiao];
-    carregaMapaCluster(data, "estado");
-    }
-    }
-    });
+                if(data!==undefined){
+                    map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
+                    map.removeLayer(e.target);
+                    delete rlayers[idRegiao];
+                    carregaMapaCluster(data, "estado");
+                }
+            }
+        });
     }
 
     function loadChunkDataRegiao(layer){
-    var idRegiao = layer.feature.properties.Regiao;
-    $("#loadingMapModal").show();
-    $.ajax({
-    url: rotas.ClusterEstadoPorRegiao(idRegiao),
-    type: 'GET',
-    dataType: 'json',
-    error: function(e){
-    console.log("ERRO no AJAX :" + e);
-    },
-    success: function(data){
-    tabela(urlRota, consulta_avancada);
-    if(typeof data.length !== 'undefined'){
-    var count = 0;
-    for(var i = 0; i < data.length; i++){
-    count += data[i].nr_quantidade_osc_regiao;
-    }
-    paginar(count);
-    }
-    else{
-    paginar(Object.keys(data).length-1);
-    }
-    if(data!==undefined){
-    carregaMapaCluster(data, "estado");
-    var r = rlayers[idRegiao];
-    map.removeLayer(r);
-    delete rlayers[idRegiao];
-    var l = clayers[layer.feature.properties.id];
-    map.removeLayer(l);
-    }
-    }
-    });
+        var idRegiao = layer.feature.properties.Regiao;
+        $("#loadingMapModal").show();
+        $.ajax({
+            url: rotas.ClusterEstadoPorRegiao(idRegiao),
+            type: 'GET',
+            dataType: 'json',
+            error: function(e){
+                console.log("ERRO no AJAX :" + e);
+            },
+            success: function(data){
+                tabela(urlRota, consulta_avancada);
+                if(typeof data.length !== 'undefined'){
+                    var count = 0;
+                    for(var i = 0; i < data.length; i++){
+                        count += data[i].nr_quantidade_osc_regiao;
+                    }
+
+                    paginar(count);
+                }else{
+                    paginar(Object.keys(data).length-1);
+                }
+
+                if(data!==undefined){
+                    carregaMapaCluster(data, "estado");
+                    var r = rlayers[idRegiao];
+                    map.removeLayer(r);
+                    delete rlayers[idRegiao];
+                    var l = clayers[layer.feature.properties.id];
+                    map.removeLayer(l);
+                }
+            }
+        });
     }
 
     function paginar(qtdPagination){
-    $('.pagination').pagination({
-    items: qtdPagination,
-    itemsOnPage: 10,
-    hrefTextPrefix: "#",
-    prevText: "Anterior",
-    nextText: "Próximo",
-    onPageClick: function(pageNumber){(paginarAction(pageNumber))}
-    });
-
+        $('.pagination').pagination({
+            items: qtdPagination,
+            itemsOnPage: 10,
+            hrefTextPrefix: "#",
+            prevText: "Anterior",
+            nextText: "Próximo",
+            onPageClick: function(pageNumber){(paginarAction(pageNumber))}
+        });
     }
 
     function paginarAction(pageNumber){
-    if(pageNumber === null){
-    pageNumber = 0;
-    }
-    var offset = parseInt(pageNumber) * 10 - 10;
+        if(pageNumber === null){
+            pageNumber = 0;
+        }
 
-    if(tipoConsulta == "avancado"){
-    urlRota = rotas.ConsultaAvancadaLista(offset);
-    consulta_avancada = true;
-    }
-    else if(tipoConsulta == "municipio"){
-    urlRota = rotas.OSCByCounty(stringBuscada,offset);
-    }
-    else if(tipoConsulta == "estado"){
-    urlRota = rotas.OSCByState(stringBuscada,offset);
-    }
-    else if(tipoConsulta == "regiao"){
-    urlRota = rotas.OSCByRegion(stringBuscada,offset);
-    }
-    else if(tipoConsulta == "todos"){
-    urlRota = rotas.AllOSC(offset);
-    }
-    else if(tipoConsulta == "organizacao"){
-    urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('tipoBusca'));
-    }
+        var offset = parseInt(pageNumber) * 10 - 10;
 
-    tabela(urlRota, consulta_avancada);
+        if(tipoConsulta == "avancado"){
+            urlRota = rotas.ConsultaAvancadaLista(offset);
+            consulta_avancada = true;
+        }else if(tipoConsulta == "municipio"){
+            urlRota = rotas.OSCByCounty(stringBuscada,offset);
+        }else if(tipoConsulta == "estado"){
+            urlRota = rotas.OSCByState(stringBuscada,offset);
+        }else if(tipoConsulta == "regiao"){
+            urlRota = rotas.OSCByRegion(stringBuscada,offset);
+        }else if(tipoConsulta == "todos"){
+            urlRota = rotas.AllOSC(offset);
+        }else if(tipoConsulta == "organizacao"){
+            urlRota = rotas.OSCByName(getParameter('organizacao'), offset, getParameter('tipoBusca'));
+        }
+
+        tabela(urlRota, consulta_avancada);
     }
 
     function clickClusterEstado(e){
-    //console.log(e);
-    var idEstado = e.target.options.icon.options.id;
-    //zoomToFeature(idEstado);
-    $("#loadingMapModal").show();
-    $.ajax({
-    url: rotas.OSCByStateInMap(idEstado),
-    type: 'GET',
-    dataType: 'json',
-    error: function(e){
-    console.log("ERRO no AJAX :" + e);
-    },
-    success: function(data){
-    tabela(urlRota, consulta_avancada);
-    if(typeof data.length !== 'undefined'){
-    var count = 0;
-    for(var i = 0; i < data.length; i++){
-    count += data[i].nr_quantidade_osc_regiao;
-    }
-    paginar(count);
-    }
-    else{
-    paginar(Object.keys(data).length-1);
-    }
-    if(data!==undefined){
-    map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
-    map.removeLayer(e.target);
-    var l = llayers[idEstado];
-    l.off();
-    l.on({
-    mouseover: highlightFeature,
-    mouseout: resetHighlight,
-    click: zoomm
-    });
-    carregaMapa(data);
-    }
-    }
-    });
+        var idEstado = e.target.options.icon.options.id;
+        //zoomToFeature(idEstado);
+        $("#loadingMapModal").show();
+
+        $.ajax({
+            url: rotas.OSCByStateInMap(idEstado),
+            type: 'GET',
+            dataType: 'json',
+            error: function(e){
+                console.log("ERRO no AJAX :" + e);
+            },
+            success: function(data){
+                tabela(urlRota, consulta_avancada);
+                if(typeof data.length !== 'undefined'){
+                    var count = 0;
+                    for(var i = 0; i < data.length; i++){
+                        count += data[i].nr_quantidade_osc_regiao;
+                    }
+
+                    paginar(count);
+                }else{
+                    paginar(Object.keys(data).length-1);
+                }
+
+                if(data!==undefined){
+                    map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
+                    map.removeLayer(e.target);
+                    var l = llayers[idEstado];
+                    l.off();
+
+                    l.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight,
+                        click: zoomm
+                    });
+
+                    carregaMapa(data);
+                }
+            }
+        });
     }
 
     function apagaMapaDeCalor(e){
-    var zoomMap = map.getZoom();
-    if(zoomMap==zoomMaximo){
-    map.removeLayer(layerGroup);
-    map.removeLayer(layerGroupIDH);
+        var zoomMap = map.getZoom();
+        
+        if(zoomMap==zoomMaximo){
+            map.removeLayer(layerGroup);
+            map.removeLayer(layerGroupIDH);
+        }
     }
-    }
-
 
     //*** MAIN ***\\
     $("#loadingMapModal").show();
+    
     var data_tipo_mapa;
+
     if(consulta_avancada){
-    type_http = "POST";
-    data_tipo_mapa = params;
+        type_http = "POST";
+        data_tipo_mapa = params;
     }else{
-    type_http = "GET";
-    data_tipo_mapa = null;
+        type_http = "GET";
+        data_tipo_mapa = null;
     }
 
     $.ajax({
-    url: urlRotaMapa,
-    type: type_http,
-    dataType: 'json',
-    data: data_tipo_mapa,
-    error: function(e){
-    console.log("ERRO no AJAX :" + e);
-    },
-    success: function(data){
+        url: urlRotaMapa,
+        type: type_http,
+        dataType: 'json',
+        data: data_tipo_mapa,
+        error: function(e){
+            console.log("ERRO no AJAX :" + e);
+        },
+        success: function(data){
+            if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" ){
+                tabela(urlRota, consulta_avancada);
+                var count = 0;
 
-    if(data !== "" && data !== undefined && data !== "Nenhuma Organização encontrada!" ){
-    tabela(urlRota, consulta_avancada);
-    var count = 0;
+                if(isClusterVersion){
+                    if(typeof data.length !== 'undefined'){
+                        for(var i = 0; i < data.length; i++){
+                            count += data[i].nr_quantidade_osc_regiao;
+                        }
+                    }
 
-    if(isClusterVersion){
-    if(typeof data.length !== 'undefined'){
-    for(var i = 0; i < data.length; i++){
-    count += data[i].nr_quantidade_osc_regiao;
-    }
-    }
+                    paginar(count);
+                    $("#legenda p").append(count);
+                    carregaMapaCluster(data, tipoConsulta);
+                }else{
+                    count = Object.keys(data).length-1;
+                    paginar(count);
+                    $("#legenda p").append(count);
+                    carregaMapa(data);
+                }
+            }else{
+                $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+                $('#modalTitle').text('Nenhuma OSC encontrada!');
 
-    paginar(count);
-    $("#legenda p").append(count);
+                if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
+                    $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+                }else{
+                    $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
+                }
 
-    carregaMapaCluster(data, tipoConsulta);
-    }
-    else{
-    count = Object.keys(data).length-1;
-    paginar(count);
-    $("#legenda p").append(count);
-
-    carregaMapa(data);
-    }
-    }else{
-    $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
-    $('#modalTitle').text('Nenhuma OSC encontrada!');
-    if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
-    $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
-    }else {
-    $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
-    }
-    $('#modalMensagem').modal('show');
-    }
-    }
+                $('#modalMensagem').modal('show');
+            }
+        }
     });
 
     //Coloração do mapa
     $.ajax({
-    url: rotas.ClusterEstado(),//rotas.IDHM,//
-    type: 'GET',
-    dataType: 'json',
-    error: function(e){
-    console.log("ERRO no AJAX :" + e);
-    },
-    success: function(data){
-    if(data!==undefined){
-    var pdfs={};
-    var ids={};
-    //for(var k in data.value){
-    for(var k in data){
-    pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
-    //pdfs[data.value[k].TERNOME]=data.value[k].a2010m01d01;
-    ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
-    //ids[data.value[k].TERNOME]=data.value[k].TERCODIGO;
-    }
-    map.addControl(new L.Control.Layers({
-    'Satélite':googleHybrid,
-    'Contraste': tilesGrayscale,
-    'Mapa': tiles,
-    }, { 'Mapa de calor':layerGroup,'IDHM':layerGroupIDH },{collapsed:false}));
-    heatMap(pdfs, ids);
-    }
-    }
+        url: rotas.ClusterEstado(),//rotas.IDHM,//
+        type: 'GET',
+        dataType: 'json',
+        error: function(e){
+            console.log("ERRO no AJAX :" + e);
+        },
+        success: function(data){
+            if(data!==undefined){
+                var pdfs={};
+                var ids={};
 
+                //for(var k in data.value){
+                for(var k in data){
+                    pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
+                    //pdfs[data.value[k].TERNOME]=data.value[k].a2010m01d01;
+                    ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
+                    //ids[data.value[k].TERNOME]=data.value[k].TERCODIGO;
+                }
+
+                map.addControl(new L.Control.Layers(
+                    {
+                        'Satélite':googleHybrid,
+                        'Contraste': tilesGrayscale,
+                        'Mapa': tiles,
+                    },
+                    {
+                        'Mapa de calor':layerGroup,'IDHM':layerGroupIDH
+                    },
+                    {
+                        collapsed:false
+                    }
+                ));
+
+                heatMap(pdfs, ids);
+            }
+        }
     });
 
     map.on('zoomend', apagaMapaDeCalor);
