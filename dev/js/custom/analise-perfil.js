@@ -100,19 +100,19 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
 
 
       var tab = '<tr>';
-      tab += '<td>'+data.caracteristicas.nr_quantidade_oscs+'</td>';
-      tab += '<td>'+data.caracteristicas.nr_quantidade_trabalhadores+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_oscs.toLocaleString('pt-BR')+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_trabalhadores.toLocaleString('pt-BR')+'</td>';
       tab += '<td>'+formatarDinheiro(data.caracteristicas.nr_quantidade_recursos)+'</td>';
-      tab += '<td>'+data.caracteristicas.nr_quantidade_projetos+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_projetos.toLocaleString('pt-BR')+'</td>';
       tab += '</tr>';
 
       $("#tabela tbody").append(tab);
 
       txt = '<p>'+data.tx_localidade+' é o <b>'+data.evolucao_quantidade_osc_ano.nr_colocacao_nacional+'º</b> em relação a quantidade de OSCs no âmbito nacional. ';
-      txt += 'Nesse ranking, o estado ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_estado+', <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_estado+'</b> OSCs) ';
-      txt += 'e o município ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_municipio+', <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_municipio+'</b> OSCs) são os que contêm mais OSCs. '
+      txt += 'Nesse ranking, o estado ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_estado+', <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_estado.toLocaleString('pt-BR')+'</b> OSCs) ';
+      txt += 'e o município ('+data.evolucao_quantidade_osc_ano.tx_primeiro_colocado_municipio+', <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_primeiro_colocado_municipio.toLocaleString('pt-BR')+'</b> OSCs) são os que contêm mais OSCs. '
       txt += 'O estado ('+data.evolucao_quantidade_osc_ano.tx_ultimo_colocado_estado[0]+') e o município ('+data.evolucao_quantidade_osc_ano.tx_ultimo_colocado_municipio[0]+') ';
-      txt += 'são os que contêm menos OSCs, <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_estado+'</b> e <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_municipio+'</b> respectivamente.';
+      txt += 'são os que contêm menos OSCs, <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_estado.toLocaleString('pt-BR')+'</b> e <b>'+data.evolucao_quantidade_osc_ano.nr_quantidade_oscs_ultimo_colocado_municipio.toLocaleString('pt-BR')+'</b> respectivamente.';
       txt += '</p>';
 
       $("#tx_caracteristicas").append(txt);
@@ -181,7 +181,38 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['fontes'] = data.repasse_recursos.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "linechart";
-      grafico['series_1'] = data.repasse_recursos.series_1;
+
+      if(data.repasse_recursos.series_1 != null){
+        grafico['series_1'] = data.repasse_recursos.series_1;
+      }
+      else{
+        var ano = new Date().getFullYear();
+
+          var series_vazia = [
+           {
+             "tipo_valor":"$",
+             values: [{"x" : ano, "y" : 0 }],
+             key: 'Recursos próprios'
+           },
+           {
+             "tipo_valor":"$",
+             values: [{"x" : ano, "y" : 0 }],
+             key: 'Recursos públicos'
+           },
+           {
+             "tipo_valor":"$",
+             values: [{"x" : ano, "y" : 0 }],
+             key: 'Recursos privados'
+           },
+           {
+             "tipo_valor":"$",
+             values: [{"x" : ano, "y" : 0 }],
+             key: 'Recursos não financeiros'
+           }
+         ];
+
+        grafico['series_1'] = series_vazia;
+      }
 
       escolherGrafico("p3",grafico);
 

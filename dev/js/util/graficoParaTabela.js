@@ -147,6 +147,9 @@ function createTabela_Bar_Donut(json) {
     if(json[0].tipo_valor == "$"){
       valor = formatarDinheiro(valor);
     }
+    else{
+      valor = valor.toLocaleString('pt-BR');
+    }
     corpo += '<td>' + valor + '</td></tr>';
   }
   corpo += '</tbody>';
@@ -183,6 +186,10 @@ function createTabela_MultBar_Line(json, line) {
         if(json[0].series[i].tipo_valor == "$"){
           valor = formatarDinheiro(valor);
         }
+        else{
+          valor = valor.toLocaleString('pt-BR');
+        }
+
         corpo += '<td>' + valor + '</td></tr>';
       }
       else{
@@ -190,6 +197,9 @@ function createTabela_MultBar_Line(json, line) {
         var valor_line = json[0].series[i].values[j].y;
         if(json[0].series[i].tipo_valor == "$"){
           valor_line = formatarDinheiro(valor_line);
+        }
+        else{
+          valor_line = valor_line.toLocaleString('pt-BR');
         }
         corpo += '<td>' + valor_line + '</td></tr>';
       }
