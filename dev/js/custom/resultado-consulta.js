@@ -923,83 +923,99 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
             if(fontesRecursos){
                 if(fontesRecursos.anoFonteRecursoMIN || fontesRecursos.anoFonteRecursoMAX){
-                txt += "<b><i>Fontes de recursos anuais da OSC Ano</i></b> ";
-                if(fontesRecursos.anoFonteRecursoMIN ){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.anoFonteRecursoMIN  + ", ";
-                }
-                if(fontesRecursos.anoFonteRecursoMAX ){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.anoFonteRecursoMAX  + ", ";
-                }
+                    txt += "<b><i>Fontes de recursos anuais da OSC Ano</i></b> ";
+                    
+                    if(fontesRecursos.anoFonteRecursoMIN ){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.anoFonteRecursoMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.anoFonteRecursoMAX ){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.anoFonteRecursoMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN || fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX){
-                txt += "<b><i>Rendimentos financeiros de reservas ou contas correntes próprias</i></b> ";
-                if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN  + ", ";
-                }
-                if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX  + ", ";
-                }
+                    txt += "<b><i>Rendimentos financeiros de reservas ou contas correntes próprias</i></b> ";
+                    
+                    if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.rendimentosFundosPatrimoniaisMIN || fontesRecursos.rendimentosFundosPatrimoniaisMAX){
-                txt += "<b><i>Rendimentos de fundos patrimoniais</i></b> ";
-                if(fontesRecursos.rendimentosFundosPatrimoniaisMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.rendimentosFundosPatrimoniaisMIN  + ", ";
-                }
-                if(fontesRecursos.rendimentosFundosPatrimoniaisMAX){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.rendimentosFundosPatrimoniaisMAX  + ", ";
-                }
+                    txt += "<b><i>Rendimentos de fundos patrimoniais</i></b> ";
+
+                    if(fontesRecursos.rendimentosFundosPatrimoniaisMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.rendimentosFundosPatrimoniaisMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.rendimentosFundosPatrimoniaisMAX){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.rendimentosFundosPatrimoniaisMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.mensalidadesContribuicoesAssociadosMIN || fontesRecursos.mensalidadesContribuicoesAssociadosMAX){
-                txt += "<b><i>Mensalidades ou contribuições de associados</i></b> ";
-                if(fontesRecursos.mensalidadesContribuicoesAssociadosMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.mensalidadesContribuicoesAssociadosMIN  + ", ";
-                }
-                if(fontesRecursos.mensalidadesContribuicoesAssociadosMAX ){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.mensalidadesContribuicoesAssociadosMAX  + ", ";
-                }
+                    txt += "<b><i>Mensalidades ou contribuições de associados</i></b> ";
+
+                    if(fontesRecursos.mensalidadesContribuicoesAssociadosMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.mensalidadesContribuicoesAssociadosMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.mensalidadesContribuicoesAssociadosMAX ){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.mensalidadesContribuicoesAssociadosMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.vendaBensDireitosMIN || fontesRecursos.vendaBensDireitosMAX){
-                txt += "<b><i>Venda de bens e direitos</i></b> ";
-                if(fontesRecursos.vendaBensDireitosMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.vendaBensDireitosMIN  + ", ";
-                }
-                if(fontesRecursos.vendaBensDireitosMAX ){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.vendaBensDireitosMAX  + ", ";
-                }
+                    txt += "<b><i>Venda de bens e direitos</i></b> ";
+
+                    if(fontesRecursos.vendaBensDireitosMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.vendaBensDireitosMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.vendaBensDireitosMAX ){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.vendaBensDireitosMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.premiosRecebidosMIN || fontesRecursos.premiosRecebidosMAX){
-                txt += "<b><i>Prêmios recebidos</i></b> ";
-                if(fontesRecursos.premiosRecebidosMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.premiosRecebidosMIN  + ", ";
-                }
-                if(fontesRecursos.premiosRecebidosMAX){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.premiosRecebidosMAX  + ", ";
-                }
+                    txt += "<b><i>Prêmios recebidos</i></b> ";
+
+                    if(fontesRecursos.premiosRecebidosMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.premiosRecebidosMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.premiosRecebidosMAX){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.premiosRecebidosMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.vendaProdutosMIN || fontesRecursos.vendaProdutosMAX){
-                txt += "<b><i>Venda de produtos</i></b> ";
-                if(fontesRecursos.vendaProdutosMIN){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.vendaProdutosMIN  + ", ";
-                }
-                if(fontesRecursos.vendaProdutosMAX){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.vendaProdutosMAX  + ", ";
-                }
+                    txt += "<b><i>Venda de produtos</i></b> ";
+
+                    if(fontesRecursos.vendaProdutosMIN){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.vendaProdutosMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.vendaProdutosMAX){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.vendaProdutosMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.prestacaoServicosMIN || fontesRecursos.prestacaoServicosMAX){
-                txt += "<b><i>Prestação de serviços</i></b> ";
-                if(fontesRecursos.prestacaoServicosMIN ){
-                txt += "<b><i>maior que:</i></b> " + fontesRecursos.prestacaoServicosMIN  + ", ";
-                }
-                if(fontesRecursos.prestacaoServicosMAX ){
-                txt += "<b><i>menor que:</i></b> " + fontesRecursos.prestacaoServicosMAX  + ", ";
-                }
+                    txt += "<b><i>Prestação de serviços</i></b> ";
+
+                    if(fontesRecursos.prestacaoServicosMIN ){
+                        txt += "<b><i>maior que:</i></b> " + fontesRecursos.prestacaoServicosMIN  + ", ";
+                    }
+
+                    if(fontesRecursos.prestacaoServicosMAX ){
+                        txt += "<b><i>menor que:</i></b> " + fontesRecursos.prestacaoServicosMAX  + ", ";
+                    }
                 }
 
                 if(fontesRecursos.empresasPublicasSociedadesEconomiaMistaMIN || fontesRecursos.empresasPublicasSociedadesEconomiaMistaMAX){
@@ -1379,6 +1395,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function loadPopUp(id, leafletMarker){
         var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
         leafletMarker.bindPopup(loading).openPopup();
+        
         $.ajax({
             url: rotas.OSCPopUpByID(id),
             type: 'GET',
@@ -1394,14 +1411,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     var enderecoCompleto = endereco+' - '+bairro;
                     var txtVazioNulo = 'Dado não informado.';
                     var div = '<div class="mapa_organizacao clearfix">' +
-                    '<span id="spantitle" class="magneticTooltip">'+
-                    '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#'+ id +'">'+
-                    '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
-                    '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
-                    '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
-                    '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
-                    '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
-                    '</div></div></div>';
+                        '<span id="spantitle" class="magneticTooltip">'+
+                        '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#'+ id +'">'+
+                        '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
+                        '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
+                        '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
+                        '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
+                        '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
+                        '</div></div></div>';
                     leafletMarker.bindPopup(div).openPopup();
                 }
             }
@@ -1492,11 +1509,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function heatMap(arrayPDF, arrayID){
         var nomeEstado;
+
         $.each(statesData.features , function(i){
             nomeEstado = statesData.features[i].properties.Name;
             statesData.features[i].properties.density = arrayPDF[nomeEstado];
             statesData.features[i].properties.id = arrayID[nomeEstado];
-            //console.log(statesData.features[i].properties.density);
         });
 
         function style(feature) {
@@ -1536,8 +1553,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
             this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
-            '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
-            : 'Passe o mouse sobre um estado');
+                '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
+                : 'Passe o mouse sobre um estado');
         };
 
         info.addTo(map);
@@ -1573,8 +1590,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             labels = [];
 
             div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
-            // loop through our density intervals and generate a label with a colored square for each interval
-            for (var i = 0; i < grades.length; i++) {
+
+            for(var i = 0; i < grades.length; i++){
                 div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
                 parseInt(grades[i] + 1) + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
@@ -1586,7 +1603,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         legend.addTo(map);
 
         geojson = L.geoJson(statesData, {
-            style: function (statesData) {
+            style: function(statesData){
                 return {
                     fillColor: getColor(statesData.properties.density),
                     weight: 2,
@@ -1600,7 +1617,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }).addTo(map);
     }
 
-    function getColor(d) {
+    function getColor(d){
         //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 5 níveis,
         //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
         return d > 60000 ? '#800026' :
@@ -1613,8 +1630,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function carregaMapaCluster(dados, level){
         var classNameLevel;
-        if(level=="regiao" || level == "todos") classNameLevel = "labelClassRegiao";
-        else if(level=="estado") classNameLevel = "labelClassEstado";
+        
+        if(level=="regiao" || level == "todos"){
+            classNameLevel = "labelClassRegiao";
+        }else if(level=="estado"){
+            classNameLevel = "labelClassEstado";
+        }
+
         for(var k in dados){
             var markerGroup = [];
 
@@ -1628,9 +1650,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             var layerPoint = loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level);
             clustersLayer.addLayer(layerPoint);
 
-            if(level=="estado") {
+            if(level=="estado"){
                 clayers[dados[k].id_regiao]=layerPoint;
-            }else if (level=="regiao" || level == "todos") {
+            }else if(level=="regiao" || level == "todos"){
                 rlayers[dados[k].id_regiao]=layerPoint;
             }
         }
@@ -1646,6 +1668,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function loadChunkData(idEstado){
         $("#loadingMapModal").show();
+
         $.ajax({
             url: rotas.OSCByStateInMap(idEstado),
             type: 'GET',
@@ -1677,6 +1700,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function clickClusterRegiao(e){
         var idRegiao = e.target.options.icon.options.id;
         $("#loadingMapModal").show();
+
         $.ajax({
             url: rotas.ClusterEstadoPorRegiao(idRegiao),
             type: 'GET',
@@ -1688,9 +1712,11 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 tabela(urlRota, consulta_avancada);
                 if(typeof data.length !== 'undefined'){
                     var count = 0;
+
                     for(var i = 0; i < data.length; i++){
                         count += data[i].nr_quantidade_osc_regiao;
                     }
+
                     paginar(count);
                 }else{
                     paginar(Object.keys(data).length-1);
@@ -1709,6 +1735,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function loadChunkDataRegiao(layer){
         var idRegiao = layer.feature.properties.Regiao;
         $("#loadingMapModal").show();
+
         $.ajax({
             url: rotas.ClusterEstadoPorRegiao(idRegiao),
             type: 'GET',
@@ -1720,6 +1747,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 tabela(urlRota, consulta_avancada);
                 if(typeof data.length !== 'undefined'){
                     var count = 0;
+
                     for(var i = 0; i < data.length; i++){
                         count += data[i].nr_quantidade_osc_regiao;
                     }
