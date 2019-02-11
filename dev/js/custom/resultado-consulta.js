@@ -307,6 +307,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
+                $("#export").show()
                 urlRota = rotas.ConsultaAvancadaLista(0);
                 urlRotaMapa=rotas.ConsultaAvancadaMapa();
                 isClusterVersion=false;
@@ -924,7 +925,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             if(fontesRecursos){
                 if(fontesRecursos.anoFonteRecursoMIN || fontesRecursos.anoFonteRecursoMAX){
                     txt += "<b><i>Fontes de recursos anuais da OSC Ano</i></b> ";
-                    
+
                     if(fontesRecursos.anoFonteRecursoMIN ){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.anoFonteRecursoMIN  + ", ";
                     }
@@ -936,7 +937,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN || fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMAX){
                     txt += "<b><i>Rendimentos financeiros de reservas ou contas correntes próprias</i></b> ";
-                    
+
                     if(fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN){
                         txt += "<b><i>maior que:</i></b> " + fontesRecursos.rendimentosFinanceirosReservasContasCorrentesPropriasMIN  + ", ";
                     }
@@ -1395,7 +1396,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function loadPopUp(id, leafletMarker){
         var loading = '<img id="loading" src="img/loading.gif" style="padding-top: 10px; padding-left: 10px;"/>';
         leafletMarker.bindPopup(loading).openPopup();
-        
+
         $.ajax({
             url: rotas.OSCPopUpByID(id),
             type: 'GET',
@@ -1630,7 +1631,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function carregaMapaCluster(dados, level){
         var classNameLevel;
-        
+
         if(level=="regiao" || level == "todos"){
             classNameLevel = "labelClassRegiao";
         }else if(level=="estado"){
@@ -1850,7 +1851,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function apagaMapaDeCalor(e){
         var zoomMap = map.getZoom();
-        
+
         if(zoomMap==zoomMaximo){
             map.removeLayer(layerGroup);
             map.removeLayer(layerGroupIDH);
@@ -1859,7 +1860,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     //*** MAIN ***\\
     $("#loadingMapModal").show();
-    
+
     var data_tipo_mapa;
 
     if(consulta_avancada){

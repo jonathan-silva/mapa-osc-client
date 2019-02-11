@@ -1376,3 +1376,10 @@ display: inline-block;
 .legenda_perfil{
   color: gray;
 }
+
+#export button{
+  float: right;
+}
+#export{
+  display: none;
+}
