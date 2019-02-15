@@ -766,9 +766,9 @@ require(['react'], function (React) {
                var selectbox = $('#IDHM');
                var html = '<div id="faixa_IDHM">';
                html += '<label><b>Faixas de IDHM</b>:&nbsp;&nbsp;</label><br>';
-                html += '<label><input id="baixo" value="baixo" type="checkbox">Baixo&nbsp;&nbsp;</label>';
-                html += '<label><input id="medio" value="medio" type="checkbox">Médio&nbsp;&nbsp;</label>';
-                html += '<label><input id="alto" value="alto" type="checkbox">Alto</label>';
+                html += '<label><input id="baixo" value="baixo" type="checkbox">Baixo (abaixo de 0,600)&nbsp;&nbsp;</label>';
+                html += '<label><input id="medio" value="medio" type="checkbox">Médio (entre 0,600 e 0,699)&nbsp;&nbsp;</label>';
+                html += '<label><input id="alto" value="alto" type="checkbox">Alto (0,700 ou mais)</label>';
                 html += '</div>';
 
                    $(".faixa_IDHM").css('visibility','visible');
