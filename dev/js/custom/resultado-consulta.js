@@ -1759,7 +1759,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(Object.keys(data).length-1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     carregaMapaCluster(data, "estado");
                     var r = rlayers[idRegiao];
                     map.removeLayer(r);
