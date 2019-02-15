@@ -301,7 +301,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }else if(tipoConsulta=="avancado"){
             params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-            if(params["avancado"] == '{}' || util.contains('{"IDH":{',params["avancado"]) ){
+            if(params["avancado"] == '{}' || util.contains('{"IDH":{', params["avancado"])){
                 //consulta tudo
                 tipoConsulta="todos";
                 urlRotaMapa = rotas.ClusterPais();
@@ -314,25 +314,25 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 consulta_avancada = true;
             }
 
-            visualizar_filtro_busca(params["avancado"],tipoConsulta);
+            visualizar_filtro_busca(params["avancado"], tipoConsulta);
 
-            if (util.contains('IDH_M',params["avancado"])) {
+            if(util.contains('IDH_M', params["avancado"])){
                 var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010), 'GET', null);
             }
 
-            if (util.contains('IDHM R',params["avancado"])) {
+            if(util.contains('IDHM R', params["avancado"])){
                 util.carregaAjax(rotas.Ipea_Data('13IDHM_R',2010),'GET',null);
             }
 
-            if (util.contains('IDHM E',params["avancado"])) {
+            if (util.contains('IDHM E', params["avancado"])){
                 util.carregaAjax(rotas.Ipea_Data('13IDHM_E',2010),'GET',null);
             }
 
-            if (util.contains('IDHM L',params["avancado"])) {
+            if(util.contains('IDHM L', params["avancado"])){
                 util.carregaAjax(rotas.Ipea_Data('13IDHM_L',2010),'GET',null);
             }
 
-            if (util.contains('Freq',params["avancado"])) {
+            if(util.contains('Freq', params["avancado"])){
                 util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP',2010),'GET',null);
             }
         }else{
@@ -348,12 +348,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     if(analisePerfil){
         var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
         $("#analisePerfil").text(txtPerfil);
-        $("#analisePerfil").attr("href","analise-perfil.html?localidade="+idPerfil);
-        var img_perfil = '<img src="img/'+icon_perfil +'" alt="'+txtLocalidade+'" height=40>';
-        $("#analisePerfil").append(img_perfil)
+        $("#analisePerfil").attr("href", "analise-perfil.html?localidade=" + idPerfil);
+        var img_perfil = '<img src="img/' + icon_perfil + '" alt="' + txtLocalidade + '" height=40>';
+        $("#analisePerfil").append(img_perfil);
     }
 
-    function visualizar_filtro_busca(json,tipoConsulta){
+    function visualizar_filtro_busca(json, tipoConsulta){
         if(tipoConsulta == 'avancado'){
             var json_filtro = JSON.parse(json);
 
@@ -368,7 +368,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 if(dadosgerais.tx_nome_regiao){
                     txt += "<b><i>Região:</i></b> " + dadosgerais.tx_nome_regiao + ", ";
                 }
-                if(dadosgerais.tx_nome_fantasia_osc ){
+                if(dadosgerais.tx_nome_fantasia_osc){
                     txt += "<b><i>Nome Fantasia:</i></b> " + dadosgerais.tx_nome_fantasia_osc + ", ";
                 }
                 if(dadosgerais.tx_nome_uf){
@@ -1905,7 +1905,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 $('#modalTitle').text('Nenhuma OSC encontrada!');
 
                 if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
-                    $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+                    $('#modalConteudo').text('Sua pesquisa "' + decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
                 }else{
                     $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
                 }
