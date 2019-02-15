@@ -29,6 +29,7 @@ var type_http;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination', 'util'], function (React) {
     var geojson;
+    var geoJsonIdh;
     var link;
     var util = new Util();
     var composto = [];
@@ -41,6 +42,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var clustersLayer = L.layerGroup();
     var layerGroup = L.layerGroup();
     var layerGroupIDH = L.layerGroup();
+    var flagMapaCalor = true;
+    var flagIdh = true;
     var isControlLoaded = false;//verifica se controle já foi adicionado a tela
     var isClusterVersion = true;
     var consulta_avancada = false;
@@ -1287,6 +1290,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var data_tipo;
         $('#loading').removeClass('hide');
         $('#resultadoconsulta_formato_dados').hide();
+
         if(consulta_avancada){
             type_http = "POST";
             data_tipo = params;
@@ -1301,7 +1305,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             dataType: 'json',
             data:data_tipo,
             error:function(e){
-                console.log("Erro no ajax: "+e);
+                console.log("Erro no ajax: " + e);
             },
             success: function(data){
                 if(data !== "Nenhuma Organização encontrada!"){
@@ -1312,7 +1316,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     var txtVazioNulo = 'Dado não informado.';
                     var srcPadrao = 'img/camera.jpg';
 
-                    for (var j in data){
+                    for(var j in data){
                         if(j=="0"){
                             continue;
                         }else{
@@ -1323,7 +1327,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
                             newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
                             newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
-                            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
+                            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#' + j + '\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
                             i++;
                         }
                     }
@@ -1340,7 +1344,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             dom: 'Bfrtip',
                             "bPaginate": false,
                             "bSort": true,
-                            "aaSorting": [[ 1, 'asc' ]],
+                            "aaSorting": [[1, 'asc']],
                             columns: [
                                 {title: "", width: 50},
                                 {title: "Nome da OSC", width: 200},
@@ -1350,9 +1354,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                                 {title: "Detalhar"}
                             ],
                             aoColumnDefs: [
-                                {bSortable :false, aTargets: [0]},
-                                {bSortable :false, aTargets: [5]},
-                                {bSortable :false, aTargets: [4]}
+                                {bSortable: false, aTargets: [0]},
+                                {bSortable: false, aTargets: [5]},
+                                {bSortable: false, aTargets: [4]}
                             ],
                             autoWidth: true
                         });
@@ -1378,7 +1382,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     $('#modalTitle').text('Nenhuma OSC encontrada!');
 
                     if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
-                        $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+                        $('#modalConteudo').text('Sua pesquisa "' + decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
                     }else {
                         $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
                     }
@@ -1404,20 +1408,19 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 console.log("ERRO no AJAX :" + e);
             },
             success: function(data){
-                if(data!==undefined){
-                    //console.log(data);
+                if(data !== undefined){
                     var endereco = data.tx_endereco !== null ? data.tx_endereco : '';
                     var bairro = data.tx_bairro !== null? data.tx_bairro : '';
                     var enderecoCompleto = endereco+' - '+bairro;
                     var txtVazioNulo = 'Dado não informado.';
                     var div = '<div class="mapa_organizacao clearfix">' +
-                        '<span id="spantitle" class="magneticTooltip">'+
-                        '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#'+ id +'">'+
-                        '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
-                        '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
-                        '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
-                        '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
-                        '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
+                        '<span id="spantitle" class="magneticTooltip">' +
+                        '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#' + id + '">' +
+                        '<h4>' + (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo) + '</h4></button></span>' +
+                        '<div class="coluna1"><strong></strong><strong>Endereço: </strong>' + enderecoCompleto + '<br>' +
+                        '<strong>Atividade Econômica: </strong>' + (data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo) + '<br>' +
+                        '<strong>Natureza Jurídica: </strong>' + (data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo) + '<br><br>' +
+                        '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>' +
                         '</div></div></div>';
                     leafletMarker.bindPopup(div).openPopup();
                 }
@@ -1426,7 +1429,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function loadPoint(id, latFinal, lngFinal){
-        if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+        if((latFinal !== "")&&(latFinal !== null) || (lngFinal !== null) && (lngFinal !== "")){
             var marker = new PruneCluster.Marker(latFinal, lngFinal);
             marker.data.ID = id;
 
@@ -1444,10 +1447,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function loadPointCluster(icone, id, latFinal, lngFinal, tipoCluster){
-        if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+        if((latFinal !== "") && (latFinal !== null) || (lngFinal !== null) && (lngFinal !== "")){
             var marker;
 
-            if(tipoCluster=="regiao" || tipoCluster=="todos"){
+            if(tipoCluster == "regiao" || tipoCluster == "todos"){
                 marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterRegiao);
             }else if(tipoCluster=="estado"){
                 marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterEstado);
@@ -1489,7 +1492,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             layer.bringToFront();
         }
 
-        if(layer.feature.properties.Name=="GO"){
+        if(layer.feature.properties.Name == "GO"){
             //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
             layer.bringToBack();
         }
@@ -1499,6 +1502,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function resetHighlight(e) {
         geojson.resetStyle(e.target);
+        geoJsonIdh.resetStyle(e.target);
         info.update();
     }
 
@@ -1527,7 +1531,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             };
         }
 
-        function onEachFeature(feature, layer) {
+        function onEachFeature(feature, layer){
+            flagMapaCalor = !flagMapaCalor;
+
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -1539,7 +1545,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             llayers[layer.feature.properties.id] = layer;
         }
 
-        function onEachFeatureIdhm(feature, layer) {
+        function onEachFeatureIdh(feature, layer){
+            flagIdh = !flagIdh;
+
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -1554,14 +1562,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         map.addLayer(layerGroup);
         map.addLayer(layerGroupIDH);
 
-        info.onAdd = function (map) {
+        info.onAdd = function(map){
             this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
             this.update();
             return this._div;
         };
 
         // method that we will use to update the control based on feature properties passed
-        info.update = function (props) {
+        info.update = function(props){
             this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
                 '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
                 : 'Passe o mouse sobre um estado');
@@ -1570,7 +1578,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         info.addTo(map);
         var lll;
 
-        function zoomToFeature(e) {
+        function zoomToFeature(e){
             var layer = e.target;
             map.fitBounds(layer.getBounds());
             loadChunkData(layer.feature.properties.id);
@@ -1612,34 +1620,38 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         };
 
         legend.addTo(map);
+        
+        if(flagMapaCalor){
+            geojson = L.geoJson(statesData, {
+                style: function(statesData){
+                    return {
+                        fillColor: getColor(statesData.properties.density),
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.6
+                    };
+                },
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        }
 
-        geojson = L.geoJson(statesData, {
-            style: function(statesData){
-                return {
-                    fillColor: getColor(statesData.properties.density),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.6
-                };
-            },
-            onEachFeature: onEachFeature
-        }).addTo(map);
-
-        geojson = L.geoJson(statesData, {
-            style: function(statesData){
-                return {
-                    fillColor: getColor(statesData.properties.density),
-                    weight: 2,
-                    opacity: 1,
-                    color: 'white',
-                    dashArray: '3',
-                    fillOpacity: 0.6
-                };
-            },
-            onEachFeature: onEachFeatureIdhm
-        }).addTo(map);
+        if(flagIdh){
+            geoJsonIdh = L.geoJson(statesData, {
+                style: function(statesData){
+                    return {
+                        fillColor: getColor(statesData.properties.density),
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.6
+                    };
+                },
+                onEachFeature: onEachFeatureIdh
+            }).addTo(map);
+        }
     }
 
     function getColor(d){
@@ -1656,9 +1668,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function carregaMapaCluster(dados, level){
         var classNameLevel;
 
-        if(level=="regiao" || level == "todos"){
+        if(level == "regiao" || level == "todos"){
             classNameLevel = "labelClassRegiao";
-        }else if(level=="estado"){
+        }else if(level == "estado"){
             classNameLevel = "labelClassEstado";
         }
 
@@ -1668,23 +1680,23 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             var icone =  L.divIcon({
                 id: dados[k].id_regiao,
                 className: classNameLevel,
-                html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
+                html: "<p>" + dados[k].nr_quantidade_osc_regiao + "</p>"
             });
 
             mapRegion[dados[k].id_regiao] = dados[k].nr_quantidade_osc_regiao;
             var layerPoint = loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level);
             clustersLayer.addLayer(layerPoint);
 
-            if(level=="estado"){
-                clayers[dados[k].id_regiao]=layerPoint;
-            }else if(level=="regiao" || level == "todos"){
-                rlayers[dados[k].id_regiao]=layerPoint;
+            if(level == "estado"){
+                clayers[dados[k].id_regiao] = layerPoint;
+            }else if(level == "regiao" || level == "todos"){
+                rlayers[dados[k].id_regiao] = layerPoint;
             }
         }
 
         if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
             clustersLayer.addTo(map);
-            isControlLoaded=true;
+            isControlLoaded = true;
         }
 
         $("#loadingMapModal").hide();
@@ -1744,10 +1756,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                     paginar(count);
                 }else{
-                    paginar(Object.keys(data).length-1);
+                    paginar(Object.keys(data).length - 1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
                     map.removeLayer(e.target);
                     delete rlayers[idRegiao];
@@ -1855,7 +1867,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(Object.keys(data).length-1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
                     map.removeLayer(e.target);
                     var l = llayers[idEstado];
@@ -1876,7 +1888,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     function apagaMapaDeCalor(e){
         var zoomMap = map.getZoom();
 
-        if(zoomMap==zoomMaximo){
+        if(zoomMap == zoomMaximo){
             map.removeLayer(layerGroup);
             map.removeLayer(layerGroupIDH);
         }
@@ -1948,9 +1960,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             console.log("ERRO no AJAX :" + e);
         },
         success: function(data){
-            if(data!==undefined){
-                var pdfs={};
-                var ids={};
+            if(data !== undefined){
+                var pdfs = {};
+                var ids = {};
 
                 for(var k in data){
                     pdfs[data[k].tx_sigla_regiao] = data[k].nr_quantidade_osc_regiao;
