@@ -264,8 +264,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
     });
 
-    if(valoresURL!==null){
-        //consulta baseado na escolha da tela anterior
+    if(valoresURL !== null){
         tipoConsulta = valoresURL[0];
         var stringBuscada = valoresURL[1];
         stringBuscada = stringBuscada.replace(/\./g, "");
@@ -274,66 +273,66 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         if(tipoConsulta == "organizacao"){
             urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('tipoBusca'));
             urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('tipoBusca'));
-            isClusterVersion=false;
+            isClusterVersion = false;
             analisePerfil = true;
-        }else if(tipoConsulta=="municipio"){
-            urlRota = rotas.OSCByCounty(stringBuscada,0);
-            urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
-            isClusterVersion=false;
+        }else if(tipoConsulta == "municipio"){
+            urlRota = rotas.OSCByCounty(stringBuscada, 0);
+            urlRotaMapa = rotas.OSCByCountyInMap(stringBuscada);
+            isClusterVersion = false;
             analisePerfil = true;
             idPerfil = stringBuscada;
             txtFederacao = "do município ";
             icon_perfil = "municipio.png";
-        }else if(tipoConsulta=="estado"){
-            urlRota = rotas.OSCByState(stringBuscada,0);
-            urlRotaMapa=rotas.ClusterEstadoPorRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByStateInMap(stringBuscada);
+        }else if(tipoConsulta == "estado"){
+            urlRota = rotas.OSCByState(stringBuscada, 0);
+            urlRotaMapa = rotas.ClusterEstadoPorRegiao(stringBuscada);
             analisePerfil = true;
             idPerfil = stringBuscada;
             txtFederacao = "do estado ";
             icon_perfil = "estado.png";
-        }else if(tipoConsulta=="regiao"){
+        }else if(tipoConsulta == "regiao"){
             urlRota = rotas.OSCByRegion(stringBuscada,0);
-            urlRotaMapa=rotas.ClusterRegiao(stringBuscada);//urlRotaMapa=rotas.OSCByRegionInMap(stringBuscada);
+            urlRotaMapa = rotas.ClusterRegiao(stringBuscada);
             analisePerfil = true;
             idPerfil = stringBuscada;
             txtFederacao = "da região ";
             icon_perfil = "regiao.png";
-        }else if(tipoConsulta=="avancado"){
+        }else if(tipoConsulta == "avancado"){
             params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-            if(params["avancado"] == '{}' || util.contains('{"IDH":{',params["avancado"]) ){
+            if(params["avancado"] == '{}' || util.contains('{"IDH":{', params["avancado"])){
                 //consulta tudo
-                tipoConsulta="todos";
+                tipoConsulta = "todos";
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
                 $("#export").show()
                 urlRota = rotas.ConsultaAvancadaLista(0);
-                urlRotaMapa=rotas.ConsultaAvancadaMapa();
-                isClusterVersion=false;
+                urlRotaMapa = rotas.ConsultaAvancadaMapa();
+                isClusterVersion = false;
                 consulta_avancada = true;
             }
 
-            visualizar_filtro_busca(params["avancado"],tipoConsulta);
+            visualizar_filtro_busca(params["avancado"], tipoConsulta);
 
             if (util.contains('IDH_M',params["avancado"])) {
-                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010), 'GET', null);
+                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM', 2010), 'GET', null);
             }
 
-            if (util.contains('IDHM R',params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13IDHM_R',2010),'GET',null);
+            if (util.contains('IDHM R', params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13IDHM_R', 2010), 'GET', null);
             }
 
-            if (util.contains('IDHM E',params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13IDHM_E',2010),'GET',null);
+            if (util.contains('IDHM E', params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13IDHM_E', 2010), 'GET', null);
             }
 
-            if (util.contains('IDHM L',params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13IDHM_L',2010),'GET',null);
+            if (util.contains('IDHM L', params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13IDHM_L', 2010), 'GET', null);
             }
 
-            if (util.contains('Freq',params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP',2010),'GET',null);
+            if (util.contains('Freq', params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP', 2010), 'GET', null);
             }
         }else{
             console.log("ERRO de URL!");
@@ -348,8 +347,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     if(analisePerfil){
         var txtPerfil = "Análise " + txtFederacao + txtLocalidade;
         $("#analisePerfil").text(txtPerfil);
-        $("#analisePerfil").attr("href","analise-perfil.html?localidade="+idPerfil);
-        var img_perfil = '<img src="img/'+icon_perfil +'" alt="'+txtLocalidade+'" height=40>';
+        $("#analisePerfil").attr("href", "analise-perfil.html?localidade=" + idPerfil);
+        var img_perfil = '<img src="img/' + icon_perfil + '" alt="' + txtLocalidade + '" height=40>';
         $("#analisePerfil").append(img_perfil)
     }
 
@@ -502,8 +501,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             if(cd_area_atuacao != undefined){
                                 $.each(data, function (k, value) {
                                     if(cd_area_atuacao == value.cd_area_atuacao ){
-                                        if (nomes_area_sub_atuacao.indexOf(value.tx_nome_area_atuacao) === -1) {
-                                            nomes_area_sub_atuacao.push( value.tx_nome_area_atuacao);
+                                        if(nomes_area_sub_atuacao.indexOf(value.tx_nome_area_atuacao) === -1){
+                                            nomes_area_sub_atuacao.push(value.tx_nome_area_atuacao);
                                         }
                                     }
                                 });
@@ -525,7 +524,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                                     if(cd_subarea_atuacao != undefined){
                                         $.each(data, function (k, value) {
                                             if(cd_subarea_atuacao == value.cd_subarea_atuacao ){
-                                                if (nomes_area_sub_atuacao.indexOf(value.tx_nome_subarea_atuacao) === -1) {
+                                                if(nomes_area_sub_atuacao.indexOf(value.tx_nome_subarea_atuacao) === -1){
                                                     nomes_area_sub_atuacao.push( value.tx_nome_subarea_atuacao);
                                                 }
                                             }
@@ -572,9 +571,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                         for (var key in titulacoesCertificacoes ){
                             for (var cd in id_certificados){
                                 if(id_certificados[cd] == key){
-                                    for (var i in data) {
+                                    for(var i in data){
                                         if(data[i].cd_certificado == cd){
-                                            if (nomes_titulacoesCertificacoes.indexOf(data[i].tx_nome_certificado) === -1) {
+                                            if(nomes_titulacoesCertificacoes.indexOf(data[i].tx_nome_certificado) === -1){
                                                 nomes_titulacoesCertificacoes.push(data[i].tx_nome_certificado);
                                             }
                                         }
@@ -1918,7 +1917,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     //Coloração do mapa
     $.ajax({
-        url: rotas.ClusterEstado(),//rotas.IDHM,//
+        url: rotas.ClusterEstado(),
         type: 'GET',
         dataType: 'json',
         error: function(e){
