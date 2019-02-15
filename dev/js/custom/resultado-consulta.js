@@ -300,7 +300,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }else if(tipoConsulta == "avancado"){
             params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-            if(params["avancado"] == '{}' || util.contains('{"IDH":{', params["avancado"])){
+            if(params["avancado"] == '{}') {//|| util.contains('{"IDH":{',params["avancado"]) ){
                 //consulta tudo
                 tipoConsulta = "todos";
                 urlRotaMapa = rotas.ClusterPais();
@@ -315,8 +315,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
             visualizar_filtro_busca(params["avancado"], tipoConsulta);
 
-            if (util.contains('IDH_M',params["avancado"])) {
-                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM', 2010), 'GET', null);
+            /*if (util.contains('IDH_M',params["avancado"])) {
+                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010), 'GET', null);
             }
 
             if (util.contains('IDHM R', params["avancado"])) {
@@ -331,9 +331,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 util.carregaAjax(rotas.Ipea_Data('13IDHM_L', 2010), 'GET', null);
             }
 
-            if (util.contains('Freq', params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP', 2010), 'GET', null);
-            }
+            if (util.contains('Freq',params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP',2010),'GET',null);
+            }*/
         }else{
             console.log("ERRO de URL!");
         }
