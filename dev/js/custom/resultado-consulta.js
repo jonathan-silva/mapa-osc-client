@@ -1538,6 +1538,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
             layerGroup.addLayer(layer);
             layerGroupIDH.addLayer(layer);
+            
             llayers[layer.feature.properties.id] = layer;
             llayersIDH[layer.feature.properties.id] = layer;
         }
@@ -1928,12 +1929,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 var pdfs={};
                 var ids={};
 
-                //for(var k in data.value){
                 for(var k in data){
-                    pdfs[data[k].tx_sigla_regiao]=data[k].nr_quantidade_osc_regiao;
-                    //pdfs[data.value[k].TERNOME]=data.value[k].a2010m01d01;
-                    ids[data[k].tx_sigla_regiao]=data[k].id_regiao;
-                    //ids[data.value[k].TERNOME]=data.value[k].TERCODIGO;
+                    pdfs[data[k].tx_sigla_regiao] = data[k].nr_quantidade_osc_regiao;
+                    ids[data[k].tx_sigla_regiao] = data[k].id_regiao;
                 }
 
                 map.addControl(new L.Control.Layers(
