@@ -196,6 +196,14 @@ class Rotas{
     return this.getBaseUrl()+"user/";
   }
 
+  //resultado-consulta.js
+  ExportarDadosConsulta(){
+    return this.getBaseUrl()+"exportacao/busca";
+  }
+
+
+
+
   //cadastro-estado-municipio.js
   CadastroRepresentanteEstadoMunicipio(){
     return this.getBaseUrl()+"user/governo/";
@@ -553,5 +561,6 @@ class Rotas{
   Homic(){
     return "http://www.ipea.gov.br/atlasviolencia/periodo/17/2016-01-15/2016-01-15/0/4";
   }*/
+
 
 }
