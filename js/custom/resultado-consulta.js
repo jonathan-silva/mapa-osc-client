@@ -42,8 +42,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var clustersLayer = L.layerGroup();
     var layerGroup = L.layerGroup();
     var layerGroupIDH = L.layerGroup();
-    var flagMapaCalor = true;
-    var flagIdh = true;
     var isControlLoaded = false;//verifica se controle já foi adicionado a tela
     var isClusterVersion = true;
     var consulta_avancada = false;
@@ -1532,8 +1530,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
 
         function onEachFeature(feature, layer){
-            flagMapaCalor = !flagMapaCalor;
-
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -1546,15 +1542,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
 
         function onEachFeatureIdh(feature, layer){
-            flagIdh = !flagIdh;
-
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
                 //click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
-                click: zoomToFeature
+                click: zoomToFeatureIdh
             });
-
+        
             layerGroupIDH.addLayer(layer);            
             llayersIDH[layer.feature.properties.id] = layer;
         }
@@ -1585,6 +1579,31 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
             if(rlayers[layer.feature.properties.Regiao] == undefined){
                 var l = clayers[layer.feature.properties.id];
+
+                if(l != undefined){
+                    map.removeLayer(l);
+                }
+            }else{
+                loadChunkDataRegiao(layer);
+            }
+
+            layer.off();
+
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomm
+            });
+        }
+
+        function zoomToFeatureIdh(e){
+            var layer = e.target;
+            map.fitBounds(layer.getBounds());
+            loadChunkData(layer.feature.properties.id);
+
+            if(rlayers[layer.feature.properties.Regiao] == undefined){
+                var l = clayers[layer.feature.properties.id];
+
                 if(l != undefined){
                     map.removeLayer(l);
                 }
@@ -1621,48 +1640,44 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
         legend.addTo(map);
         
-        if(flagMapaCalor){
-            geojson = L.geoJson(statesData, {
-                style: function(statesData){
-                    return {
-                        fillColor: getColor(statesData.properties.density),
-                        weight: 2,
-                        opacity: 1,
-                        color: 'white',
-                        dashArray: '3',
-                        fillOpacity: 0.6
-                    };
-                },
-                onEachFeature: onEachFeature
-            }).addTo(map);
-        }
+        geojson = L.geoJson(statesData, {
+            style: function(statesData){
+                return {
+                    fillColor: getColor(statesData.properties.density),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.6
+                };
+            },
+            onEachFeature: onEachFeature
+        }).addTo(map);
 
-        if(flagIdh){
-            geoJsonIdh = L.geoJson(statesData, {
-                style: function(statesData){
-                    return {
-                        fillColor: getColor(statesData.properties.density),
-                        weight: 2,
-                        opacity: 1,
-                        color: 'white',
-                        dashArray: '3',
-                        fillOpacity: 0.6
-                    };
-                },
-                onEachFeature: onEachFeatureIdh
-            }).addTo(map);
-        }
+        geoJsonIdh = L.geoJson(statesData, {
+            style: function(statesData){
+                return {
+                    fillColor: getColor(statesData.properties.density),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.6
+                };
+            },
+            onEachFeature: onEachFeatureIdh
+        }).addTo(map);
     }
 
     function getColor(d){
         //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 5 níveis,
         //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
         return d > 60000 ? '#800026' :
-        d > 45000  ? '#E31A1C' :
-        d > 30000  ? '#FC4E2A' :
-        d > 15000   ? '#FEB24C' :
-        d > 1000  ? '#FED976' :
-        '#FFEDA0';
+            d > 45000 ? '#E31A1C' :
+            d > 30000 ? '#FC4E2A' :
+            d > 15000 ? '#FEB24C' :
+            d > 1000 ? '#FED976' :
+            '#FFEDA0';
     }
 
     function carregaMapaCluster(dados, level){
@@ -1677,7 +1692,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         for(var k in dados){
             var markerGroup = [];
 
-            var icone =  L.divIcon({
+            var icone = L.divIcon({
                 id: dados[k].id_regiao,
                 className: classNameLevel,
                 html: "<p>" + dados[k].nr_quantidade_osc_regiao + "</p>"
@@ -1727,7 +1742,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(Object.keys(data).length-1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     carregaMapa(data);
                 }
             }
@@ -1969,20 +1984,22 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     ids[data[k].tx_sigla_regiao] = data[k].id_regiao;
                 }
 
-                map.addControl(new L.Control.Layers(
-                    {
-                        'Satélite': googleHybrid,
-                        'Contraste': tilesGrayscale,
-                        'Mapa': tiles,
-                    },
-                    {
-                        'Mapa de calor': layerGroup,
-                        'IDHM': layerGroupIDH
-                    },
-                    {
-                        collapsed: false
-                    }
-                ));
+                var baseLayers = {
+                    'Satélite': googleHybrid,
+                    'Contraste': tilesGrayscale,
+                    'Mapa': tiles,
+                };
+
+                var overlays = {
+                    'Mapa de calor': layerGroup,
+                    'IDHM': layerGroupIDH
+                };
+
+                var options = {
+                    collapsed: false
+                };
+
+                map.addControl(new L.Control.Layers(baseLayers, overlays, options));
 
                 heatMap(pdfs, ids);
             }
