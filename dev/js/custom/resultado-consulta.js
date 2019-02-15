@@ -60,6 +60,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         zoom: 4,
         minZoom: 4 //18 niveis de zoom
     };
+    var id_osc_export = [];
 
     var map = new L.Map('map', mapOptions);
 
@@ -1899,6 +1900,45 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(count);
                     $("#legenda p").append(count);
                     carregaMapa(data);
+
+                    if(consulta_avancada){
+
+                      for(var k in data){
+                          if(k != "0"){
+                            id_osc_export.push(k);
+                          }
+                      }
+
+                      $( "#export button" ).click(function() {
+                        var param_exp = {};
+                        param_exp['lista_osc'] = id_osc_export;
+                        param_exp['variaveis_adicionais'] = [];
+
+                        $.ajax({
+                            url: rotas.ExportarDadosConsulta(),
+                            type: 'POST',
+                            dataType: 'json',
+                            async:false,
+                            data: param_exp,
+                            error: function(e){
+                                console.log("ERRO no AJAX :" + e);
+                            },
+                            success: function(retorno){
+
+                              retorno = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(retorno));
+                              var a = document.createElement("a");
+                              document.body.appendChild(a);
+                              a.style = "display: none";
+                              a.href = 'data:' + retorno ;
+                              a.download = "data.json";
+                              a.click();
+
+                            }
+                          });
+
+
+                      });
+                    }
                 }
             }else{
                 $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
