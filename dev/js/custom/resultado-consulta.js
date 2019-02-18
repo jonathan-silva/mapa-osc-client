@@ -61,6 +61,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         minZoom: 4 //18 niveis de zoom
     };
     var id_osc_export = [];
+    var var_adc = [];
 
     var map = new L.Map('map', mapOptions);
 
@@ -1912,7 +1913,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                       $( "#export button" ).click(function() {
                         var param_exp = {};
                         param_exp['lista_osc'] = id_osc_export;
-                        param_exp['variaveis_adicionais'] = [];
+                        param_exp['variaveis_adicionais'] = var_adc;
 
                         $.ajax({
                             url: rotas.ExportarDadosConsulta(),
