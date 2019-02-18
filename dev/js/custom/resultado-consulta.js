@@ -276,7 +276,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             urlRota = rotas.OSCByName(getParameter('organizacao'), 0, getParameter('tipoBusca'));
             urlRotaMapa = rotas.OSCByNameInMap(getParameter('organizacao'), getParameter('tipoBusca'));
             isClusterVersion=false;
-            analisePerfil = true;
+            analisePerfil = false;
         }else if(tipoConsulta=="municipio"){
             urlRota = rotas.OSCByCounty(stringBuscada,0);
             urlRotaMapa=rotas.OSCByCountyInMap(stringBuscada);
@@ -308,11 +308,41 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
-                $("#export").show()
+                $('#export button').removeAttr('disabled');
+                $('#export button').addClass('btn-success');
+                $('#export button' ).attr( "title", "" );
+
                 urlRota = rotas.ConsultaAvancadaLista(0);
                 urlRotaMapa=rotas.ConsultaAvancadaMapa();
                 isClusterVersion=false;
                 consulta_avancada = true;
+
+                var json_filtro_perfil = JSON.parse(params["avancado"]);
+
+                if (json_filtro_perfil.dadosGerais.cd_regiao){
+                  idPerfil = json_filtro_perfil.dadosGerais.cd_regiao;
+                  txtFederacao = "da região ";
+                  icon_perfil = "regiao.png";
+                  analisePerfil = true;
+                }
+
+                if (json_filtro_perfil.dadosGerais.cd_uf){
+
+                  idPerfil = json_filtro_perfil.dadosGerais.cd_uf;
+                  txtFederacao = "do estado ";
+                  icon_perfil = "estado.png";
+                  analisePerfil = true;
+                }
+
+                if(json_filtro_perfil.dadosGerais.cd_municipio){
+                  idPerfil = json_filtro_perfil.dadosGerais.cd_municipio;
+                  txtFederacao = "do município ";
+                  icon_perfil = "municipio.png";
+                  analisePerfil = true;
+                }
+
+
+
             }
 
             visualizar_filtro_busca(params["avancado"],tipoConsulta);
@@ -353,6 +383,38 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var img_perfil = '<img src="img/'+icon_perfil +'" alt="'+txtLocalidade+'" height=40>';
         $("#analisePerfil").append(img_perfil)
     }
+
+    function convertArrayOfObjectsToCSV(args) {
+            var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+            data = args.data || null;
+            if (data == null || !data.length) {
+                return null;
+            }
+
+            columnDelimiter = args.columnDelimiter || ';';
+            lineDelimiter = args.lineDelimiter || '\n';
+
+            keys = Object.keys(data[0]);
+
+            result = '';
+            result += keys.join(columnDelimiter);
+            result += lineDelimiter;
+
+            data.forEach(function(item) {
+                ctr = 0;
+                keys.forEach(function(key) {
+                    if (ctr > 0) result += columnDelimiter;
+
+                    result += item[key];
+                    ctr++;
+                });
+                result += lineDelimiter;
+            });
+
+            return result;
+        }
+
 
     function visualizar_filtro_busca(json,tipoConsulta){
         if(tipoConsulta == 'avancado'){
@@ -1925,12 +1987,21 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             },
                             success: function(retorno){
 
-                              retorno = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(retorno));
+                              var data, filename, link;
+                              var csv = convertArrayOfObjectsToCSV({
+                                   data: retorno
+                              });
+
+                              if (!csv.match(/^data:text\/csv/i)) {
+                                 csv = 'data:text/csv;charset=utf-8,' + csv;
+                              }
+                              data = encodeURI(csv);
+
                               var a = document.createElement("a");
                               document.body.appendChild(a);
                               a.style = "display: none";
-                              a.href = 'data:' + retorno ;
-                              a.download = "data.json";
+                              a.href =  data ;
+                              a.download = "export.csv";
                               a.click();
 
                             }
