@@ -320,29 +320,29 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 var json_filtro_perfil = JSON.parse(params["avancado"]);
 
-                if (json_filtro_perfil.dadosGerais.cd_regiao){
-                  idPerfil = json_filtro_perfil.dadosGerais.cd_regiao;
-                  txtFederacao = "da região ";
-                  icon_perfil = "regiao.png";
-                  analisePerfil = true;
+                if(json_filtro_perfil.dadosGerais){
+                    if (json_filtro_perfil.dadosGerais.cd_regiao){
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_regiao;
+                      txtFederacao = "da região ";
+                      icon_perfil = "regiao.png";
+                      analisePerfil = true;
+                    }
+
+                    if (json_filtro_perfil.dadosGerais.cd_uf){
+
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_uf;
+                      txtFederacao = "do estado ";
+                      icon_perfil = "estado.png";
+                      analisePerfil = true;
+                    }
+
+                    if(json_filtro_perfil.dadosGerais.cd_municipio){
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_municipio;
+                      txtFederacao = "do município ";
+                      icon_perfil = "municipio.png";
+                      analisePerfil = true;
+                    }
                 }
-
-                if (json_filtro_perfil.dadosGerais.cd_uf){
-
-                  idPerfil = json_filtro_perfil.dadosGerais.cd_uf;
-                  txtFederacao = "do estado ";
-                  icon_perfil = "estado.png";
-                  analisePerfil = true;
-                }
-
-                if(json_filtro_perfil.dadosGerais.cd_municipio){
-                  idPerfil = json_filtro_perfil.dadosGerais.cd_municipio;
-                  txtFederacao = "do município ";
-                  icon_perfil = "municipio.png";
-                  analisePerfil = true;
-                }
-
-
 
             }
 
@@ -516,8 +516,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
@@ -907,8 +907,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
