@@ -112,7 +112,7 @@ class Rotas{
     return this.getBaseUrl()+"menu/osc/objetivo_projeto";
   }
   MetasById(id){
-    return this.getBaseUrl()+"menu/osc/meta_projeto/"+id;
+    return this.getBaseUrl()+"componente/metas_objetivo_projeto/"+id;
   }
   AreaAtuacao(){
     return this.getBaseUrl()+"menu/osc/area_atuacao";
@@ -127,7 +127,7 @@ class Rotas{
     return this.getBaseUrl()+"menu/osc/subarea_atuacao";
   }
   MetaProjeto(id){
-    return this.getBaseUrl()+"menu/osc/meta_projeto/"+id;
+    return this.getBaseUrl()+"componente/metas_objetivo_projeto/"+id;
   }
   Descricao(id){
     return this.getBaseUrl()+"osc/descricao/"+id;
@@ -323,7 +323,7 @@ class Rotas{
       return this.getBaseUrl()+"menu/osc/objetivoprojeto/"+id;
   }
   Metas_ODS_Id(id){
-      return this.getBaseUrl()+"menu/osc/metaprojeto/"+id;
+      return this.getBaseUrl()+"componente/metas_objetivo_projeto/"+id;
   }
 
   //INICIO CMS
