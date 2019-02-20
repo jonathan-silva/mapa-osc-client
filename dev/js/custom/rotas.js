@@ -112,7 +112,7 @@ class Rotas{
     return this.getBaseUrl()+"menu/osc/objetivo_projeto";
   }
   MetasById(id){
-    return this.getBaseUrl()+"componente/metas_objetivo_projeto/"+id;
+    return this.getBaseUrl()+"menu/osc/meta_projeto/"+id;
   }
   AreaAtuacao(){
     return this.getBaseUrl()+"menu/osc/area_atuacao";

@@ -532,7 +532,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(dadosgerais.cd_meta_osc){
                     $.ajax({
-                        url: rotas.Metas_ODS_Id(dadosgerais.cd_meta_osc),
+                        url: rotas.MetasById(dadosgerais.cd_meta_osc),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -540,8 +540,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data.tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
@@ -923,7 +923,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(projetos.cd_meta_projeto){
                     $.ajax({
-                        url: rotas.Metas_ODS_Id(projetos.cd_meta_projeto),
+                        url: rotas.MetasById(projetos.cd_meta_projeto),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -931,8 +931,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data.tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
