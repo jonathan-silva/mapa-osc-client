@@ -342,6 +342,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                       icon_perfil = "municipio.png";
                       analisePerfil = true;
                     }
+
+                    if(json_filtro_perfil.Adicionais){
+                      for ( var k in json_filtro_perfil.Adicionais) {
+                        var cd = k.split('cd_indice-')[1];
+                        var_adc.push(cd);
+                      }
+                    }
                 }
 
             }
@@ -2055,7 +2062,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                         'Mapa': tiles,
                     },
                     {
-                        'Mapa de calor':layerGroup,'IDHM':layerGroupIDH
+                        'Mapa de calor':layerGroup//,'IDHM':layerGroupIDH
                     },
                     {
                         collapsed:false
