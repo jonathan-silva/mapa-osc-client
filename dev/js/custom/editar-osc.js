@@ -2156,6 +2156,9 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
               }
 
               var cod_tipo_parceria = null;
+
+            if(obj["fonte_recursos"][0]){
+
               if(obj["fonte_recursos"][0].cd_origem_fonte_recursos_projeto == 1 && $(this).prop("checked")){
                 var tipo_parceria = $(this).val();
 
@@ -2192,6 +2195,7 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
                  });
               }
             }
+          }
 
           }
           else if( $pai.attr("id") === "area_atuacao_outra"){
