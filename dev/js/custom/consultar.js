@@ -788,6 +788,7 @@ require(['react'], function (React) {
 
        $('#IDH_Adicionais').append(html);
      }*/
+
      $.ajax({
        url: rotas.Ipeadata(),
        type: 'GET',
@@ -801,7 +802,8 @@ require(['react'], function (React) {
          if(data != null ){
            for(var i in data){
              var html = '<label><input id="cd_indice-'+data[i].cd_indice+'" value="'+data[i].cd_indice+'"  type="checkbox">'+ data[i].tx_nome_indice+'</label>';
-             $('#IDH_Adicionais').append(html);
+             $('#'+data[i].tx_tema).append(html);
+             if(data[i].tx_tema == 'Qualidade de vida e bem-estar'){ console.log(data[i].tx_tema);}
            }
          }
        }
