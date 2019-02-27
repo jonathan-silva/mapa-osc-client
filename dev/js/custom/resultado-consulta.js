@@ -1981,7 +1981,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                       $( "#export button" ).click(function() {
                         var param_exp = {};
-                        param_exp['lista_osc'] = id_osc_export;
+                        param_exp['lista_osc'] = ''+id_osc_export;
                         param_exp['variaveis_adicionais'] = var_adc;
 
                         $.ajax({
