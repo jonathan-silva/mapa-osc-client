@@ -1999,18 +1999,30 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                               var csv = convertArrayOfObjectsToCSV({
                                    data: retorno
                               });
+                              filename = "exportacao_consulta.csv";
 
-                              if (!csv.match(/^data:text\/csv/i)) {
-                                 csv = 'data:text/csv;charset=utf-8,' + csv;
+                              var isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
+
+                              var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+                              if (!isMac) {
+                                var BOM = "\ufeff";
+                                csv = BOM + csv;
                               }
-                              data = encodeURI(csv);
 
-                              var a = document.createElement("a");
-                              document.body.appendChild(a);
-                              a.style = "display: none";
-                              a.href =  data ;
-                              a.download = "export.csv";
-                              a.click();
+                              var blob = new Blob([csv], {
+                                encoding: "UTF-8",
+                                type: "text/csv;charset=UTF-8"
+                              });
+                              var blobUrl = window.URL.createObjectURL(blob);
+
+                              //ie (naturally) does things differently
+                              var csvLink = document.getElementById("download_report");
+                              if (!window.navigator.msSaveOrOpenBlob) {
+                                csvLink.href = blobUrl;
+                                csvLink.download = filename;
+                              }
+                              csvLink.click();
 
                             }
                           });
