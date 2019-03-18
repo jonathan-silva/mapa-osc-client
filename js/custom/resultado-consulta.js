@@ -33,7 +33,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var link;
     var util = new Util();
     var composto = [];
-    var mapState = {};
     var mapRegion = {};
     var llayersIDH = {}; //layers do mapa de calor IDHM
     var llayers = {}; //layers do mapa de calor
@@ -91,9 +90,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     map.addLayer(tilesGrayscale);
     map.addLayer(tiles);
 
-    // create fullscreen control
     var fsControl = new L.Control.FullScreen();
-    // add fullscreen control to the map
     map.addControl(fsControl);
 
     var newData, urlRotaMapa;
@@ -1517,7 +1514,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             statesData.features[i].properties.density = arrayPDF[nomeEstado];
             statesData.features[i].properties.id = arrayID[nomeEstado];
         });
-
+        /*
+        $.each(idhCitiesBounds.features , function(i){
+            nomeEstado = idhCitiesBounds.features[i].properties.Name;
+            idhCitiesBounds.features[i].properties.density = arrayPDF[nomeEstado];
+            idhCitiesBounds.features[i].properties.id = arrayID[nomeEstado];
+        });
+        */
         function style(feature) {
             return {
                 fillColor: getColor(feature.properties.density),
@@ -1545,7 +1548,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
-                //click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
                 click: zoomToFeatureIdh
             });
         
@@ -1554,7 +1556,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
 
         map.addLayer(layerGroup);
-        //map.addLayer(layerGroupIDH);
 
         info.onAdd = function(map){
             this._div = L.DomUtil.create('div', 'info');
@@ -1653,10 +1654,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             onEachFeature: onEachFeature
         });
 
-        geoJsonIdh = L.geoJson(statesData, {
-            style: function(statesData){
+        geoJsonIdh = L.geoJson(idhCitiesBounds, {
+            style: function(idhCitiesBounds){
                 return {
-                    fillColor: getColor(statesData.properties.density),
+                    fillColor: getColor(idhCitiesBounds.properties.density),
                     weight: 2,
                     opacity: 1,
                     color: 'white',
@@ -1900,6 +1901,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function apagaMapaDeCalor(e){
+        console.log("apagaMapaDeCalor");
         var zoomMap = map.getZoom();
 
         if(zoomMap == zoomMaximo){
@@ -1995,7 +1997,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
 
                 var options = {
-                    collapsed: false
+                    collapsed: true
                 };
 
                 map.addControl(new L.Control.Layers(baseLayers, overlays, options));
