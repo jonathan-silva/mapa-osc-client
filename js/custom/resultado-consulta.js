@@ -26,8 +26,37 @@ function getParameter(name, url) {
 
 var urlRota;
 var type_http;
-//require(['jquery','datatables-responsive', 'google'], function (React) {
-require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination', 'util'], function (React) {
+var map;
+var layerGroup;
+var layerGroupIDH;
+var clustersLayer;
+var flagMapaCalor = true;
+var flagMapaIdh = false;
+
+function clickMenuMapaCalor(){
+    flagMapaCalor = !flagMapaCalor;
+    console.log("clickMenuMapaCalor");
+
+    if(flagMapaCalor == true){
+        $('#titulo').text('OSCs por Estado');
+        flagMapaIdh = false;
+        map.removeLayer(layerGroupIDH);
+    }
+}
+
+function clickMenuIdh(){
+    flagMapaIdh = !flagMapaIdh;
+    console.log("clickMenuIdh");
+    console.log(flagMapaIdh);
+
+    if(flagMapaIdh == true){
+        $('#titulo').text('IDH por Município');
+        flagMapaCalor = false;
+        map.removeLayer(layerGroup);
+    }
+}
+
+require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination', 'util'], function (React){
     var geojson;
     var geoJsonIdh;
     var link;
@@ -38,9 +67,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     var llayers = {}; //layers do mapa de calor
     var clayers = {}; //layers dos estados
     var rlayers = {}; //layers das regiões
-    var clustersLayer = L.layerGroup();
-    var layerGroup = L.layerGroup();
-    var layerGroupIDH = L.layerGroup();
     var isControlLoaded = false;//verifica se controle já foi adicionado a tela
     var isClusterVersion = true;
     var consulta_avancada = false;
@@ -61,7 +87,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         minZoom: 4 //18 niveis de zoom
     };
 
-    var map = new L.Map('map', mapOptions);
+    map = new L.Map('map', mapOptions);
+    layerGroup = L.layerGroup();
+    layerGroupIDH = L.layerGroup();
+    clustersLayer = L.layerGroup();
 
     var leafletView = new PruneClusterForLeaflet();//Prune Cluster library version
     //var leafletView = L.markerClusterGroup();//Marker Cluster library version
@@ -1514,13 +1543,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             statesData.features[i].properties.density = arrayPDF[nomeEstado];
             statesData.features[i].properties.id = arrayID[nomeEstado];
         });
-        /*
+        
         $.each(idhCitiesBounds.features , function(i){
             nomeEstado = idhCitiesBounds.features[i].properties.Name;
             idhCitiesBounds.features[i].properties.density = arrayPDF[nomeEstado];
             idhCitiesBounds.features[i].properties.id = arrayID[nomeEstado];
         });
-        */
+        
         function style(feature) {
             return {
                 fillColor: getColor(feature.properties.density),
@@ -1536,7 +1565,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
-                //click: zoomm //zoomToFeature //metodo que carrega pontos ao clicar no estado
                 click: zoomToFeature
             });
 
@@ -1550,12 +1578,18 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 mouseout: resetHighlight,
                 click: zoomToFeatureIdh
             });
-        
-            layerGroupIDH.addLayer(layer);            
+            
+            layerGroupIDH.addLayer(layer);
             llayersIDH[layer.feature.properties.id] = layer;
         }
 
-        map.addLayer(layerGroup);
+        if(flagMapaCalor){
+            map.addLayer(layerGroup);
+        }
+        
+        if(flagMapaIdh){
+            map.addLayer(layerGroupIDH);
+        }
 
         info.onAdd = function(map){
             this._div = L.DomUtil.create('div', 'info');
@@ -1564,7 +1598,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         };
 
         info.update = function(props){
-            this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
+            this._div.innerHTML = '<h4 id="titulo">OSCs por Estado</h4>' +  (props ?
                 '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
                 : 'Passe o mouse sobre um estado');
         };
@@ -1623,10 +1657,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var legend = L.control({position: 'bottomright'});
 
         legend.onAdd = function(map){
-            var div = L.DomUtil.create('div', 'info legend'),
-            grades = [0, 1000, 15000, 30000, 45000, 60000],
-            labels = [];
-
+            var div = L.DomUtil.create('div', 'info legend');
+            var grades = [0, 1000, 15000, 30000, 45000, 60000];
+            var labels = [];
+            
             div.innerHTML += '<h5>Escala de OSCs por estado</h5>';
 
             for(var i = 0; i < grades.length; i++){
@@ -1992,8 +2026,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
 
                 var overlays = {
-                    'Mapa de calor': layerGroup,
-                    'IDHM': layerGroupIDH
+                    '<span onclick="clickMenuMapaCalor()">Mapa de calor</span>': layerGroup,
+                    '<span onclick="clickMenuIdh()">IDHM</span>': layerGroupIDH
                 };
 
                 var options = {

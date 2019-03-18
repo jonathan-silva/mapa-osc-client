@@ -1514,13 +1514,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             statesData.features[i].properties.density = arrayPDF[nomeEstado];
             statesData.features[i].properties.id = arrayID[nomeEstado];
         });
-        /*
+        
         $.each(idhCitiesBounds.features , function(i){
             nomeEstado = idhCitiesBounds.features[i].properties.Name;
             idhCitiesBounds.features[i].properties.density = arrayPDF[nomeEstado];
             idhCitiesBounds.features[i].properties.id = arrayID[nomeEstado];
         });
-        */
+        
         function style(feature) {
             return {
                 fillColor: getColor(feature.properties.density),
@@ -1910,6 +1910,16 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
     }
 
+    function onClick(e){
+        console.log("apagaMapaDeCalor");
+        var zoomMap = map.getZoom();
+
+        if(zoomMap == zoomMaximo){
+            map.removeLayer(layerGroup);
+            map.removeLayer(layerGroupIDH);
+        }
+    }
+
     //*** MAIN ***\\
     $("#loadingMapModal").show();
 
@@ -1993,7 +2003,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 var overlays = {
                     'Mapa de calor': layerGroup,
-                    'IDHM': layerGroupIDH
+                    '<span onclick=onClick();">IDHM</span>': layerGroupIDH
                 };
 
                 var options = {
