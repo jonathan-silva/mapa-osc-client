@@ -1666,7 +1666,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
             },
             onEachFeature: onEachFeatureIdh
-        }).addTo(map);
+        })//.addTo(map); 
     }
 
     function getColor(d){
