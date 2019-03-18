@@ -29,10 +29,10 @@ var type_http;
 //require(['jquery','datatables-responsive', 'google'], function (React) {
 require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simplePagination', 'util'], function (React) {
     var geojson;
+    var geoJsonIdh;
     var link;
     var util = new Util();
     var composto = [];
-    var mapState = {};
     var mapRegion = {};
     var llayersIDH = {}; //layers do mapa de calor IDHM
     var llayers = {}; //layers do mapa de calor
@@ -60,8 +60,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         zoom: 4,
         minZoom: 4 //18 niveis de zoom
     };
-    var id_osc_export = [];
-    var var_adc = [];
 
     var map = new L.Map('map', mapOptions);
 
@@ -92,9 +90,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     map.addLayer(tilesGrayscale);
     map.addLayer(tiles);
 
-    // create fullscreen control
     var fsControl = new L.Control.FullScreen();
-    // add fullscreen control to the map
     map.addControl(fsControl);
 
     var newData, urlRotaMapa;
@@ -302,60 +298,23 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }else if(tipoConsulta == "avancado"){
             params["avancado"] = window.localStorage.getItem('params_busca_avancada');
 
-            if(params["avancado"] == '{}') {//|| util.contains('{"IDH":{',params["avancado"]) ){
+            if(params["avancado"] == '{}' || util.contains('{"IDH":{', params["avancado"])){
                 //consulta tudo
                 tipoConsulta = "todos";
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
-                $('#export button').removeAttr('disabled');
-                $('#export button').addClass('btn-success');
-                $('#export button' ).attr( "title", "" );
-
+                $("#export").show()
                 urlRota = rotas.ConsultaAvancadaLista(0);
                 urlRotaMapa = rotas.ConsultaAvancadaMapa();
                 isClusterVersion = false;
                 consulta_avancada = true;
-
-                var json_filtro_perfil = JSON.parse(params["avancado"]);
-
-                if(json_filtro_perfil.dadosGerais){
-                    if (json_filtro_perfil.dadosGerais.cd_regiao){
-                      idPerfil = json_filtro_perfil.dadosGerais.cd_regiao;
-                      txtFederacao = "da região ";
-                      icon_perfil = "regiao.png";
-                      analisePerfil = true;
-                    }
-
-                    if (json_filtro_perfil.dadosGerais.cd_uf){
-
-                      idPerfil = json_filtro_perfil.dadosGerais.cd_uf;
-                      txtFederacao = "do estado ";
-                      icon_perfil = "estado.png";
-                      analisePerfil = true;
-                    }
-
-                    if(json_filtro_perfil.dadosGerais.cd_municipio){
-                      idPerfil = json_filtro_perfil.dadosGerais.cd_municipio;
-                      txtFederacao = "do município ";
-                      icon_perfil = "municipio.png";
-                      analisePerfil = true;
-                    }
-
-                    if(json_filtro_perfil.Adicionais){
-                      for ( var k in json_filtro_perfil.Adicionais) {
-                        var cd = k.split('cd_indice-')[1];
-                        var_adc.push(cd);
-                      }
-                    }
-                }
-
             }
 
             visualizar_filtro_busca(params["avancado"], tipoConsulta);
 
-            /*if (util.contains('IDH_M',params["avancado"])) {
-                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM',2010), 'GET', null);
+            if (util.contains('IDH_M',params["avancado"])) {
+                var data = util.carregaAjax(rotas.Ipea_Data('13IDHM', 2010), 'GET', null);
             }
 
             if (util.contains('IDHM R', params["avancado"])) {
@@ -370,9 +329,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 util.carregaAjax(rotas.Ipea_Data('13IDHM_L', 2010), 'GET', null);
             }
 
-            if (util.contains('Freq',params["avancado"])) {
-                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP',2010),'GET',null);
-            }*/
+            if (util.contains('Freq', params["avancado"])) {
+                util.carregaAjax(rotas.Ipea_Data('13I_FREQ_PROP', 2010), 'GET', null);
+            }
         }else{
             console.log("ERRO de URL!");
         }
@@ -390,38 +349,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var img_perfil = '<img src="img/' + icon_perfil + '" alt="' + txtLocalidade + '" height=40>';
         $("#analisePerfil").append(img_perfil)
     }
-
-    function convertArrayOfObjectsToCSV(args) {
-            var result, ctr, keys, columnDelimiter, lineDelimiter, data;
-
-            data = args.data || null;
-            if (data == null || !data.length) {
-                return null;
-            }
-
-            columnDelimiter = args.columnDelimiter || ';';
-            lineDelimiter = args.lineDelimiter || '\n';
-
-            keys = Object.keys(data[0]);
-
-            result = '';
-            result += keys.join(columnDelimiter);
-            result += lineDelimiter;
-
-            data.forEach(function(item) {
-                ctr = 0;
-                keys.forEach(function(key) {
-                    if (ctr > 0) result += columnDelimiter;
-
-                    result += item[key];
-                    ctr++;
-                });
-                result += lineDelimiter;
-            });
-
-            return result;
-        }
-
 
     function visualizar_filtro_busca(json,tipoConsulta){
         if(tipoConsulta == 'avancado'){
@@ -522,8 +449,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
+                            if(data.length > 0){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
@@ -531,7 +458,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(dadosgerais.cd_meta_osc){
                     $.ajax({
-                        url: rotas.MetasById(dadosgerais.cd_meta_osc),
+                        url: rotas.Metas_ODS_Id(dadosgerais.cd_meta_osc),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -539,8 +466,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data){
-                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data.tx_nome_meta_projeto + ", ";
+                            if(data.length > 0){
+                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
@@ -913,8 +840,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
+                            if(data.length > 0){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
@@ -922,7 +849,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(projetos.cd_meta_projeto){
                     $.ajax({
-                        url: rotas.MetasById(projetos.cd_meta_projeto),
+                        url: rotas.Metas_ODS_Id(projetos.cd_meta_projeto),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -930,8 +857,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data){
-                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data.tx_nome_meta_projeto + ", ";
+                            if(data.length > 0){
+                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
@@ -1358,6 +1285,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var data_tipo;
         $('#loading').removeClass('hide');
         $('#resultadoconsulta_formato_dados').hide();
+
         if(consulta_avancada){
             type_http = "POST";
             data_tipo = params;
@@ -1372,7 +1300,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             dataType: 'json',
             data:data_tipo,
             error:function(e){
-                console.log("Erro no ajax: "+e);
+                console.log("Erro no ajax: " + e);
             },
             success: function(data){
                 if(data !== "Nenhuma Organização encontrada!"){
@@ -1383,7 +1311,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     var txtVazioNulo = 'Dado não informado.';
                     var srcPadrao = 'img/camera.jpg';
 
-                    for (var j in data){
+                    for(var j in data){
                         if(j=="0"){
                             continue;
                         }else{
@@ -1394,7 +1322,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             newData[i][2] = data[j][1] !== null ? data[j][1] : txtVazioNulo;//cd_identificador_osc;
                             newData[i][3] = data[j][2] !== null ? data[j][2] : txtVazioNulo;//tx_natureza_juridica_osc;
                             newData[i][4] = data[j][3] !== null ? data[j][3] : txtVazioNulo;//tx_endereco_osc;
-                            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#'+j+'\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
+                            newData[i][5] = '<button type="button" onclick="location.href=\'visualizar-osc.html#' + j + '\';" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>';
                             i++;
                         }
                     }
@@ -1411,7 +1339,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             dom: 'Bfrtip',
                             "bPaginate": false,
                             "bSort": true,
-                            "aaSorting": [[ 1, 'asc' ]],
+                            "aaSorting": [[1, 'asc']],
                             columns: [
                                 {title: "", width: 50},
                                 {title: "Nome da OSC", width: 200},
@@ -1421,9 +1349,9 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                                 {title: "Detalhar"}
                             ],
                             aoColumnDefs: [
-                                {bSortable :false, aTargets: [0]},
-                                {bSortable :false, aTargets: [5]},
-                                {bSortable :false, aTargets: [4]}
+                                {bSortable: false, aTargets: [0]},
+                                {bSortable: false, aTargets: [5]},
+                                {bSortable: false, aTargets: [4]}
                             ],
                             autoWidth: true
                         });
@@ -1449,7 +1377,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     $('#modalTitle').text('Nenhuma OSC encontrada!');
 
                     if(tipoConsulta !== "avancado" && tipoConsulta !== "municipio"){
-                        $('#modalConteudo').text('Sua pesquisa "'+ decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
+                        $('#modalConteudo').text('Sua pesquisa "' + decodeURIComponent(stringBuscada) + '" não retornou nenhuma OSC.');
                     }else {
                         $('#modalConteudo').text('Sua pesquisa não retornou nenhuma OSC.');
                     }
@@ -1475,20 +1403,19 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 console.log("ERRO no AJAX :" + e);
             },
             success: function(data){
-                if(data!==undefined){
-                    //console.log(data);
+                if(data !== undefined){
                     var endereco = data.tx_endereco !== null ? data.tx_endereco : '';
                     var bairro = data.tx_bairro !== null? data.tx_bairro : '';
                     var enderecoCompleto = endereco+' - '+bairro;
                     var txtVazioNulo = 'Dado não informado.';
                     var div = '<div class="mapa_organizacao clearfix">' +
-                        '<span id="spantitle" class="magneticTooltip">'+
-                        '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#'+ id +'">'+
-                        '<h4>'+ (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo)+'</h4></button></span>'+
-                        '<div class="coluna1"><strong></strong><strong>Endereço: </strong>'+ enderecoCompleto +'<br>'+
-                        '<strong>Atividade Econômica: </strong>'+(data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo)+'<br>'+
-                        '<strong>Natureza Jurídica: </strong>'+(data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo)+'<br><br>'+
-                        '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>'+
+                        '<span id="spantitle" class="magneticTooltip">' +
+                        '<button id="title" class="btn-link"  onclick=location.href="visualizar-osc.html#' + id + '">' +
+                        '<h4>' + (data.tx_nome_osc !== null ? data.tx_nome_osc : txtVazioNulo) + '</h4></button></span>' +
+                        '<div class="coluna1"><strong></strong><strong>Endereço: </strong>' + enderecoCompleto + '<br>' +
+                        '<strong>Atividade Econômica: </strong>' + (data.tx_nome_atividade_economica !== null ? data.tx_nome_atividade_economica : txtVazioNulo) + '<br>' +
+                        '<strong>Natureza Jurídica: </strong>' + (data.tx_nome_natureza_juridica !== null ? data.tx_nome_natureza_juridica : txtVazioNulo) + '<br><br>' +
+                        '<div align="center"><button type = button class="btn btn-info" onclick=location.href="visualizar-osc.html#'+ id +'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Detalhar</button>' +
                         '</div></div></div>';
                     leafletMarker.bindPopup(div).openPopup();
                 }
@@ -1497,7 +1424,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function loadPoint(id, latFinal, lngFinal){
-        if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+        if((latFinal !== "")&&(latFinal !== null) || (lngFinal !== null) && (lngFinal !== "")){
             var marker = new PruneCluster.Marker(latFinal, lngFinal);
             marker.data.ID = id;
 
@@ -1515,10 +1442,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function loadPointCluster(icone, id, latFinal, lngFinal, tipoCluster){
-        if((latFinal !=="")&&(latFinal !==null) || (lngFinal!==null)&&(lngFinal !== "")){
+        if((latFinal !== "") && (latFinal !== null) || (lngFinal !== null) && (lngFinal !== "")){
             var marker;
 
-            if(tipoCluster=="regiao" || tipoCluster=="todos"){
+            if(tipoCluster == "regiao" || tipoCluster == "todos"){
                 marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterRegiao);
             }else if(tipoCluster=="estado"){
                 marker = L.marker([latFinal, lngFinal], {icon: icone}).on('click', clickClusterEstado);
@@ -1560,7 +1487,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             layer.bringToFront();
         }
 
-        if(layer.feature.properties.Name=="GO"){
+        if(layer.feature.properties.Name == "GO"){
             //Necessário para a layer de Goiás não se sobrepor a layer do Distrito federal
             layer.bringToBack();
         }
@@ -1570,6 +1497,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
     function resetHighlight(e) {
         geojson.resetStyle(e.target);
+        geoJsonIdh.resetStyle(e.target);
         info.update();
     }
 
@@ -1586,7 +1514,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             statesData.features[i].properties.density = arrayPDF[nomeEstado];
             statesData.features[i].properties.id = arrayID[nomeEstado];
         });
-
+        /*
+        $.each(idhCitiesBounds.features , function(i){
+            nomeEstado = idhCitiesBounds.features[i].properties.Name;
+            idhCitiesBounds.features[i].properties.density = arrayPDF[nomeEstado];
+            idhCitiesBounds.features[i].properties.id = arrayID[nomeEstado];
+        });
+        */
         function style(feature) {
             return {
                 fillColor: getColor(feature.properties.density),
@@ -1598,7 +1532,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             };
         }
 
-        function onEachFeature(feature, layer) {
+        function onEachFeature(feature, layer){
             layer.on({
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
@@ -1607,23 +1541,29 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             });
 
             layerGroup.addLayer(layer);
-            layerGroupIDH.addLayer(layer);
-            
             llayers[layer.feature.properties.id] = layer;
+        }
+
+        function onEachFeatureIdh(feature, layer){
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomToFeatureIdh
+            });
+        
+            layerGroupIDH.addLayer(layer);            
             llayersIDH[layer.feature.properties.id] = layer;
         }
 
         map.addLayer(layerGroup);
-        map.addLayer(layerGroupIDH);
 
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        info.onAdd = function(map){
+            this._div = L.DomUtil.create('div', 'info');
             this.update();
             return this._div;
         };
 
-        // method that we will use to update the control based on feature properties passed
-        info.update = function (props) {
+        info.update = function(props){
             this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
                 '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
                 : 'Passe o mouse sobre um estado');
@@ -1632,15 +1572,41 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         info.addTo(map);
         var lll;
 
-        function zoomToFeature(e) {
+        function zoomToFeature(e){
             var layer = e.target;
             map.fitBounds(layer.getBounds());
             loadChunkData(layer.feature.properties.id);
 
-            if(rlayers[layer.feature.properties.Regiao]==undefined){
+            if(rlayers[layer.feature.properties.Regiao] == undefined){
                 var l = clayers[layer.feature.properties.id];
-                if(l!=undefined)
-                map.removeLayer(l);
+
+                if(l != undefined){
+                    map.removeLayer(l);
+                }
+            }else{
+                loadChunkDataRegiao(layer);
+            }
+
+            layer.off();
+
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+                click: zoomm
+            });
+        }
+
+        function zoomToFeatureIdh(e){
+            var layer = e.target;
+            map.fitBounds(layer.getBounds());
+            loadChunkData(layer.feature.properties.id);
+
+            if(rlayers[layer.feature.properties.Regiao] == undefined){
+                var l = clayers[layer.feature.properties.id];
+
+                if(l != undefined){
+                    map.removeLayer(l);
+                }
             }else{
                 loadChunkDataRegiao(layer);
             }
@@ -1673,7 +1639,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         };
 
         legend.addTo(map);
-
+        
         geojson = L.geoJson(statesData, {
             style: function(statesData){
                 return {
@@ -1686,52 +1652,66 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
             },
             onEachFeature: onEachFeature
-        }).addTo(map);
+        });
+
+        geoJsonIdh = L.geoJson(idhCitiesBounds, {
+            style: function(idhCitiesBounds){
+                return {
+                    fillColor: getColor(idhCitiesBounds.properties.density),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.6
+                };
+            },
+            onEachFeature: onEachFeatureIdh
+        });
     }
 
     function getColor(d){
         //o menor valor de OScs em um estado é de ~537 e o maior ~91665, a escala abaixo está em 5 níveis,
         //logo o cálculo de degradê abaixo está considerando estes 3 fatores mais um arredondamento
         return d > 60000 ? '#800026' :
-        d > 45000  ? '#E31A1C' :
-        d > 30000  ? '#FC4E2A' :
-        d > 15000   ? '#FEB24C' :
-        d > 1000  ? '#FED976' :
-        '#FFEDA0';
+            d > 45000 ? '#E31A1C' :
+            d > 30000 ? '#FC4E2A' :
+            d > 15000 ? '#FEB24C' :
+            d > 1000 ? '#FED976' :
+            '#FFEDA0';
     }
 
     function carregaMapaCluster(dados, level){
         var classNameLevel;
 
-        if(level=="regiao" || level == "todos"){
+        if(level == "regiao" || level == "todos"){
             classNameLevel = "labelClassRegiao";
-        }else if(level=="estado"){
+        }else if(level == "estado"){
             classNameLevel = "labelClassEstado";
         }
 
         for(var k in dados){
             var markerGroup = [];
 
-            var icone =  L.divIcon({
+            var icone = L.divIcon({
                 id: dados[k].id_regiao,
                 className: classNameLevel,
-                html: "<p>"+dados[k].nr_quantidade_osc_regiao+"</p>"
+                html: "<p>" + dados[k].nr_quantidade_osc_regiao + "</p>"
             });
 
             mapRegion[dados[k].id_regiao] = dados[k].nr_quantidade_osc_regiao;
             var layerPoint = loadPointCluster(icone, dados[k].id_regiao, dados[k].geo_lat_centroid_regiao, dados[k].geo_lng_centroid_regiao, level);
             clustersLayer.addLayer(layerPoint);
 
-            if(level=="estado"){
-                clayers[dados[k].id_regiao]=layerPoint;
-            }else if(level=="regiao" || level == "todos"){
-                rlayers[dados[k].id_regiao]=layerPoint;
+            if(level == "estado"){
+                clayers[dados[k].id_regiao] = layerPoint;
+            }else if(level == "regiao" || level == "todos"){
+                rlayers[dados[k].id_regiao] = layerPoint;
             }
         }
 
         if(!isControlLoaded){//Evitar adicionar controles repetidamente na tela
             clustersLayer.addTo(map);
-            isControlLoaded=true;
+            isControlLoaded = true;
         }
 
         $("#loadingMapModal").hide();
@@ -1762,7 +1742,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(Object.keys(data).length-1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     carregaMapa(data);
                 }
             }
@@ -1791,10 +1771,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                     paginar(count);
                 }else{
-                    paginar(Object.keys(data).length-1);
+                    paginar(Object.keys(data).length - 1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     map.setView([e.target._latlng.lat, e.target._latlng.lng], 5);
                     map.removeLayer(e.target);
                     delete rlayers[idRegiao];
@@ -1902,7 +1882,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(Object.keys(data).length-1);
                 }
 
-                if(data!==undefined){
+                if(data !== undefined){
                     map.setView([e.target._latlng.lat, e.target._latlng.lng], 6);
                     map.removeLayer(e.target);
                     var l = llayers[idEstado];
@@ -1921,9 +1901,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
     }
 
     function apagaMapaDeCalor(e){
+        console.log("apagaMapaDeCalor");
         var zoomMap = map.getZoom();
 
-        if(zoomMap==zoomMaximo){
+        if(zoomMap == zoomMaximo){
             map.removeLayer(layerGroup);
             map.removeLayer(layerGroupIDH);
         }
@@ -1970,66 +1951,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(count);
                     $("#legenda p").append(count);
                     carregaMapa(data);
-
-                    if(consulta_avancada){
-
-                      for(var k in data){
-                          if(k != "0"){
-                            id_osc_export.push(k);
-                          }
-                      }
-
-                      $( "#export button" ).click(function() {
-                        var param_exp = {};
-                        param_exp['lista_osc'] = ''+id_osc_export;
-                        param_exp['variaveis_adicionais'] = var_adc;
-
-                        $.ajax({
-                            url: rotas.ExportarDadosConsulta(),
-                            type: 'POST',
-                            dataType: 'json',
-                            async:false,
-                            data: param_exp,
-                            error: function(e){
-                                console.log("ERRO no AJAX :" + e);
-                            },
-                            success: function(retorno){
-
-                              var data, filename, link;
-                              var csv = convertArrayOfObjectsToCSV({
-                                   data: retorno
-                              });
-                              filename = "exportacao_consulta.csv";
-
-                              var isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
-
-                              var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-                              if (!isMac) {
-                                var BOM = "\ufeff";
-                                csv = BOM + csv;
-                              }
-
-                              var blob = new Blob([csv], {
-                                encoding: "UTF-8",
-                                type: "text/csv;charset=UTF-8"
-                              });
-                              var blobUrl = window.URL.createObjectURL(blob);
-
-                              //ie (naturally) does things differently
-                              var csvLink = document.getElementById("download_report");
-                              if (!window.navigator.msSaveOrOpenBlob) {
-                                csvLink.href = blobUrl;
-                                csvLink.download = filename;
-                              }
-                              csvLink.click();
-
-                            }
-                          });
-
-
-                      });
-                    }
                 }
             }else{
                 $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
@@ -2055,29 +1976,31 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             console.log("ERRO no AJAX :" + e);
         },
         success: function(data){
-            if(data!==undefined){
-                var pdfs={};
-                var ids={};
+            if(data !== undefined){
+                var pdfs = {};
+                var ids = {};
 
                 for(var k in data){
                     pdfs[data[k].tx_sigla_regiao] = data[k].nr_quantidade_osc_regiao;
                     ids[data[k].tx_sigla_regiao] = data[k].id_regiao;
                 }
 
-                map.addControl(new L.Control.Layers(
-                    {
-                        'Satélite': googleHybrid,
-                        'Contraste': tilesGrayscale,
-                        'Mapa': tiles,
-                    },
-                    {
-                        'Mapa de calor': layerGroup,
-                        'IDHM': layerGroupIDH
-                    },
-                    {
-                        collapsed: false
-                    }
-                ));
+                var baseLayers = {
+                    'Satélite': googleHybrid,
+                    'Contraste': tilesGrayscale,
+                    'Mapa': tiles,
+                };
+
+                var overlays = {
+                    'Mapa de calor': layerGroup,
+                    'IDHM': layerGroupIDH
+                };
+
+                var options = {
+                    collapsed: true
+                };
+
+                map.addControl(new L.Control.Layers(baseLayers, overlays, options));
 
                 heatMap(pdfs, ids);
             }
