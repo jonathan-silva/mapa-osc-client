@@ -93,14 +93,35 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
 
       //Características
 
-      $("#tabela caption").text(formatar_fontes(data.caracteristicas.fontes));
+      //$("#tabela caption").text(formatar_fontes(data.caracteristicas.fontes));
+      var fontes1 = [];
+      fontes1.push('Quantidade OSCs e Quantidade Trabalhadores: '+data.caracteristicas.ft_quantidade_osc);
+      $("#tabela caption").text(formatar_fontes(fontes1));
+
+      var fontes2 = [];
+      if (data.caracteristicas.ft_quantidade_recursos.length) {
+        fontes2.push('Quantidade Recursos: '+data.caracteristicas.ft_quantidade_recursos);
+      }
+      else {
+        fontes2.push('Quantidade Recursos: Representante de OSC');
+      }
+      $("#tabela caption").append('<br>'+formatar_fontes(fontes2));
+
+      var fontes3 = [];
+      if (data.caracteristicas.ft_quantidade_projetos.length) {
+        fontes3.push('Quantidade Projetos: '+data.caracteristicas.ft_quantidade_projetos);
+      }
+      else {
+        fontes3.push('Quantidade Projetos: Não há projetos');
+      }
+      $("#tabela caption").append('<br>'+formatar_fontes(fontes3));
 
       var txt = '<h5><a id="tabela-p1" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tabela caption").append(txt);
 
 
       var tab = '<tr>';
-      tab += '<td>'+data.caracteristicas.nr_quantidade_oscs.toLocaleString('pt-BR')+'</td>';
+      tab += '<td>'+data.caracteristicas.nr_quantidade_osc.toLocaleString('pt-BR')+'</td>';
       tab += '<td>'+data.caracteristicas.nr_quantidade_trabalhadores.toLocaleString('pt-BR')+'</td>';
       tab += '<td>'+formatarDinheiro(data.caracteristicas.nr_quantidade_recursos)+'</td>';
       tab += '<td>'+data.caracteristicas.nr_quantidade_projetos.toLocaleString('pt-BR')+'</td>';
@@ -194,7 +215,7 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
 
       $("#tx_repasse_recursos").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.repasse_recursos.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p3" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_repasse_recursos").append(txt);
 
@@ -251,7 +272,7 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
 
       $("#tx_area_atuacao").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.area_atuacao.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p4" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_area_atuacao").append(txt);
 
@@ -277,7 +298,7 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
 
       $("#tx_trabalhadores").append(txt);
 
-      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.natureza_juridica.fontes)+'</h5>';
+      txt = '<h5 class="legenda_perfil">'+formatar_fontes(data.trabalhadores.fontes)+'</h5>';
       txt +='<h5><a id="tabela-p5" class="btn-item" data-toggle="modal" title="Mostrar os dados em Tabela.">Visualize os dados em tabela.</a></h5>';
       $("#tx_trabalhadores").append(txt);
 
