@@ -1980,6 +1980,10 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                       }
 
                       $( "#export button" ).click(function() {
+                        $("#modal_loading").modal('show');
+
+                        setTimeout(function(){
+
                         var param_exp = {};
                         param_exp['lista_osc'] = ''+id_osc_export;
                         param_exp['variaveis_adicionais'] = var_adc;
@@ -2024,8 +2028,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                               }
                               csvLink.click();
 
+                              $("#modal_loading").modal('hide');
                             }
                           });
+                          
+                        }, 1000);
+
+
 
 
                       });
