@@ -1380,6 +1380,6 @@ display: inline-block;
 #export button{
   float: right;
 }
-#export{
+#download_report{
   display: none;
 }

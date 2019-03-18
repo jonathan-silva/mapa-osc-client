@@ -738,47 +738,77 @@ require(['react'], function (React) {
 	   Baixo 	0,500 - 0,599
 	   Muito Baixo 	0,000 - 0,499*/
 
-     var id_ipeadata = {1:"IDH_Municipal"/*, 2:"IDHM Renda", 3:"IDHM Educação",
-                            4:"IDHM Longevidade", 5:"Taxa de mort. infantil",
-                            6:"Taxa de mort. infantil até 5 anos",
-                            7:"Bolsa Família", 8:"Benef. idosos",
-                            9:"Benef. deficientes", 10:"Pop. Rural",
-                            11:"Pop. Urbana", 12:"Médicos Residentes",
-                            13:"Analfabetismo de pessoas com 15 anos e mais",
-                            14:"Media de anos de estudo de pessoas com 25 anos e mais",
-                            15:"En. Fund. Completo de pessoas com 25 anos e mais",
-                            16:"En. Médio Completo de pessoas com 25 anos e mais",
-                            17:"En. Superior Completo de pessoas com 25 anos e mais",
-                            18:"Crianças de 4 a 5 anos fora da escola",
-                            19:"Crianças de 6 a 14 anos fora da escola",
-                            20:"Frequência de crianças e jovens à escola",*/
-                          };
+     var id_ipeadata = {1:"IDH_Municipal"};
 
-         for (var i in id_ipeadata) {
+     for (var i in id_ipeadata) {
            var html = '<label for="'+id_ipeadata[i]+'"><input id="'+id_ipeadata[i]+
            '" type="checkbox" name="idh" value="'+id_ipeadata[i]+
            '">'+id_ipeadata[i].replace("_", " ")+'</label><br><br>';
 
            $('#IDHM').append(html);
          }
-         $("#IDHM input").change(function() {
-               if(this.checked) {
-               var selectbox = $('#IDHM');
-               var html = '<div id="faixa_IDHM">';
-               html += '<label><b>Faixas de IDHM</b>:&nbsp;&nbsp;</label><br>';
-                html += '<label><input id="baixo" value="baixo" type="checkbox">Baixo&nbsp;&nbsp;</label>';
-                html += '<label><input id="medio" value="medio" type="checkbox">Médio&nbsp;&nbsp;</label>';
-                html += '<label><input id="alto" value="alto" type="checkbox">Alto</label>';
-                html += '</div>';
+     $("#IDHM input").change(function() {
+       if(this.checked) {
+         var selectbox = $('#IDHM');
+         var html = '<div id="faixa_IDHM">';
+         html += '<label><b>Faixas de IDHM</b>:&nbsp;&nbsp;</label><br>';
+         html += '<label><input id="baixo" value="baixo" type="checkbox">Baixo (abaixo de 0,600)&nbsp;&nbsp;</label>';
+         html += '<label><input id="medio" value="medio" type="checkbox">Médio (entre 0,600 e 0,699)&nbsp;&nbsp;</label>';
+         html += '<label><input id="alto" value="alto" type="checkbox">Alto (0,700 ou mais)</label>';
+         html += '</div>';
 
-                   $(".faixa_IDHM").css('visibility','visible');
-                   selectbox.append(html);
+         $(".faixa_IDHM").css('visibility','visible');
+         selectbox.append(html);
+      }
+      else{
+        $("#faixa_IDHM").remove();
+      }
+    });
 
-               }else{
-                 $("#faixa_IDHM").remove();
-               }
-           //}
-         });
+    /*var id_ipeadata_adc = {2:"IDHM Renda", 3:"IDHM Educação",
+                           4:"IDHM Longevidade", 5:"Taxa de mort. infantil",
+                           6:"Taxa de mort. infantil até 5 anos",
+                           7:"Bolsa Família", 8:"Benef. idosos",
+                           9:"Benef. deficientes", 10:"Pop. Rural",
+                           11:"Pop. Urbana", 12:"Médicos Residentes",
+                           13:"Analfabetismo de pessoas com 15 anos e mais",
+                           14:"Media de anos de estudo de pessoas com 25 anos e mais",
+                           15:"En. Fund. Completo de pessoas com 25 anos e mais",
+                           16:"En. Médio Completo de pessoas com 25 anos e mais",
+                           17:"En. Superior Completo de pessoas com 25 anos e mais",
+                           18:"Crianças de 4 a 5 anos fora da escola",
+                           19:"Crianças de 6 a 14 anos fora da escola",
+                           20:"Frequência de crianças e jovens à escola"
+                         };
+
+    for (var i in id_ipeadata_adc) {
+       var html = '<label for="'+id_ipeadata_adc[i]+'"><input id="'+id_ipeadata_adc[i]+
+       '" type="checkbox" name="idh" value="'+id_ipeadata_adc[i]+
+       '">'+id_ipeadata_adc[i].replace("_", " ")+'</label>';
+
+       $('#IDH_Adicionais').append(html);
+     }*/
+
+     $.ajax({
+       url: rotas.Ipeadata(),
+       type: 'GET',
+       async: true,
+       dataType: 'json',
+       error:function(e){
+         console.log("Erro no ajax: ");
+       },
+       success: function(data){
+
+         if(data != null ){
+           for(var i in data){
+             var html = '<label><input id="cd_indice-'+data[i].cd_indice+'" value="'+data[i].cd_indice+'"  type="checkbox">'+ data[i].tx_nome_indice+'</label>';
+             $('#'+data[i].tx_tema).append(html);
+             if(data[i].tx_tema == 'Qualidade de vida e bem-estar'){ console.log(data[i].tx_tema);}
+           }
+         }
+       }
+     });
+
          /*
      $.ajax({
        url: rotas.Busca_Certificado(),

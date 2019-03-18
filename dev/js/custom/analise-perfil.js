@@ -126,14 +126,40 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       grafico['fontes'] = data.evolucao_quantidade_osc_ano.fontes;
       grafico['legenda'] = "";
       grafico['tipo_grafico'] = "linechart";
-      grafico['series_1'] = data.evolucao_quantidade_osc_ano.series_1;
+      //grafico['series_1'] = data.evolucao_quantidade_osc_ano.series_1;
+
+      var series_1 = [];
+      series_1.push(data.evolucao_quantidade_osc_ano.series_1[0]);
+
+      var evol = {};
+      evol['area'] = false;
+      evol['color'] = '#ff7f0e';
+      evol['key'] = "Quantidade OSC Acumulada";
+      evol['tipo_valor'] = '';
+
+      var valores = [];
+      var valor_acum = 0;
+
+      for (var i = 0; i < data.evolucao_quantidade_osc_ano.series_1.length; i++) {
+        for (var j = 0; j < data.evolucao_quantidade_osc_ano.series_1[i].values.length; j++) {
+          var valor = {}
+          valor['x'] =  data.evolucao_quantidade_osc_ano.series_1[i].values[j].x;
+          valor_acum += data.evolucao_quantidade_osc_ano.series_1[i].values[j].y;
+          valor['y'] = valor_acum;
+          valores.push(valor);
+        }
+      }
+
+      evol['values'] = valores;
+      series_1.push(evol)
+      grafico['series_1'] = series_1;
 
       escolherGrafico("p1",grafico);
 
       //natureza juridica
 
       var txt = '<p>Na população de OSCs '+formatar_tipo_localidade(data.tx_tipo_localidade,2)+', <b>'+data.natureza_juridica.nr_porcentagem_maior+'%</b> são ';
-      txt += data.natureza_juridica.tx_porcentagem_maior+'. Enquanto, em relação a média nacional <b>'+data.natureza_juridica.nr_porcentagem_maior_media_nacional+'%</b> são ';
+      txt += data.natureza_juridica.tx_porcentagem_maior+'. Enquanto, em relação ao percentual médio nacional <b>'+data.natureza_juridica.nr_porcentagem_maior_media_nacional+'%</b> são ';
       txt += data.natureza_juridica.tx_porcentagem_maior_media_nacional;
       txt += '.</p>';
 
@@ -219,7 +245,7 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       //Área de Atuação
 
       var txt = '<p>'+data.tx_localidade+' contém <b>'+data.area_atuacao.nr_porcentagem_maior+'%</b> das OSCs atuando em '+data.area_atuacao.tx_porcentagem_maior;
-      txt += '. Enquanto a média nacional está com <b>'+data.area_atuacao.nr_porcentagem_maior_media_nacional+'%</b> relacionada a atividade econômica ';
+      txt += '. Enquanto o percentual médio nacional está com <b>'+data.area_atuacao.nr_porcentagem_maior_media_nacional+'%</b> relacionada a atividade econômica ';
       txt += data.area_atuacao.tx_porcentagem_maior_media_nacional;
       txt += '.</p>';
 
@@ -245,7 +271,7 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
       //Trabalhadores
 
       var txt = '<p>'+formatar_tipo_localidade(data.tx_tipo_localidade,1)+' possui <b>'+data.trabalhadores.nr_porcentagem_maior+'%</b> de ';
-      txt += data.trabalhadores.tx_porcentagem_maior+'. Enquanto a média nacional apresenta <b>'+data.trabalhadores.nr_porcentagem_maior_media_nacional+'%</b> de ';
+      txt += data.trabalhadores.tx_porcentagem_maior+'. Enquanto o percentual médio nacional representa <b>'+data.trabalhadores.nr_porcentagem_maior_media_nacional+'%</b> de ';
       txt += data.trabalhadores.tx_porcentagem_maior_media_nacional;
       txt += '</p>';
 

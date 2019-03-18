@@ -60,6 +60,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         zoom: 4,
         minZoom: 4 //18 niveis de zoom
     };
+    var id_osc_export = [];
+    var var_adc = [];
 
     var map = new L.Map('map', mapOptions);
 
@@ -306,11 +308,48 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
-                $("#export").show()
+                $('#export button').removeAttr('disabled');
+                $('#export button').addClass('btn-success');
+                $('#export button' ).attr( "title", "" );
+
                 urlRota = rotas.ConsultaAvancadaLista(0);
                 urlRotaMapa = rotas.ConsultaAvancadaMapa();
                 isClusterVersion = false;
                 consulta_avancada = true;
+
+                var json_filtro_perfil = JSON.parse(params["avancado"]);
+
+                if(json_filtro_perfil.dadosGerais){
+                    if (json_filtro_perfil.dadosGerais.cd_regiao){
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_regiao;
+                      txtFederacao = "da região ";
+                      icon_perfil = "regiao.png";
+                      analisePerfil = true;
+                    }
+
+                    if (json_filtro_perfil.dadosGerais.cd_uf){
+
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_uf;
+                      txtFederacao = "do estado ";
+                      icon_perfil = "estado.png";
+                      analisePerfil = true;
+                    }
+
+                    if(json_filtro_perfil.dadosGerais.cd_municipio){
+                      idPerfil = json_filtro_perfil.dadosGerais.cd_municipio;
+                      txtFederacao = "do município ";
+                      icon_perfil = "municipio.png";
+                      analisePerfil = true;
+                    }
+
+                    if(json_filtro_perfil.Adicionais){
+                      for ( var k in json_filtro_perfil.Adicionais) {
+                        var cd = k.split('cd_indice-')[1];
+                        var_adc.push(cd);
+                      }
+                    }
+                }
+
             }
 
             visualizar_filtro_busca(params["avancado"], tipoConsulta);
@@ -351,6 +390,38 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         var img_perfil = '<img src="img/' + icon_perfil + '" alt="' + txtLocalidade + '" height=40>';
         $("#analisePerfil").append(img_perfil)
     }
+
+    function convertArrayOfObjectsToCSV(args) {
+            var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+            data = args.data || null;
+            if (data == null || !data.length) {
+                return null;
+            }
+
+            columnDelimiter = args.columnDelimiter || ';';
+            lineDelimiter = args.lineDelimiter || '\n';
+
+            keys = Object.keys(data[0]);
+
+            result = '';
+            result += keys.join(columnDelimiter);
+            result += lineDelimiter;
+
+            data.forEach(function(item) {
+                ctr = 0;
+                keys.forEach(function(key) {
+                    if (ctr > 0) result += columnDelimiter;
+
+                    result += item[key];
+                    ctr++;
+                });
+                result += lineDelimiter;
+            });
+
+            return result;
+        }
+
 
     function visualizar_filtro_busca(json,tipoConsulta){
         if(tipoConsulta == 'avancado'){
@@ -451,8 +522,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
@@ -460,7 +531,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(dadosgerais.cd_meta_osc){
                     $.ajax({
-                        url: rotas.Metas_ODS_Id(dadosgerais.cd_meta_osc),
+                        url: rotas.MetasById(dadosgerais.cd_meta_osc),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -468,8 +539,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Metas Relacionadas ao ODS:</i></b> " + data.tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
@@ -842,8 +913,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data[0].tx_nome_objetivo_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Objetivos do Desenvolvimento Sustentável - ODS para Projeto:</i></b> " + data.tx_nome_objetivo_projeto + ", ";
                             }
                         }
                     });
@@ -851,7 +922,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
 
                 if(projetos.cd_meta_projeto){
                     $.ajax({
-                        url: rotas.Metas_ODS_Id(projetos.cd_meta_projeto),
+                        url: rotas.MetasById(projetos.cd_meta_projeto),
                         type: 'GET',
                         async:false,
                         dataType: 'json',
@@ -859,8 +930,8 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             console.log("ERRO no AJAX :" + e);
                         },
                         success: function(data){
-                            if(data.length > 0){
-                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data[0].tx_nome_meta_projeto + ", ";
+                            if(data){
+                                txt += "<b><i>Metas Relacionadas ao ODS para projeto:</i></b> " + data.tx_nome_meta_projeto + ", ";
                             }
                         }
                     });
@@ -1899,6 +1970,66 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                     paginar(count);
                     $("#legenda p").append(count);
                     carregaMapa(data);
+
+                    if(consulta_avancada){
+
+                      for(var k in data){
+                          if(k != "0"){
+                            id_osc_export.push(k);
+                          }
+                      }
+
+                      $( "#export button" ).click(function() {
+                        var param_exp = {};
+                        param_exp['lista_osc'] = ''+id_osc_export;
+                        param_exp['variaveis_adicionais'] = var_adc;
+
+                        $.ajax({
+                            url: rotas.ExportarDadosConsulta(),
+                            type: 'POST',
+                            dataType: 'json',
+                            async:false,
+                            data: param_exp,
+                            error: function(e){
+                                console.log("ERRO no AJAX :" + e);
+                            },
+                            success: function(retorno){
+
+                              var data, filename, link;
+                              var csv = convertArrayOfObjectsToCSV({
+                                   data: retorno
+                              });
+                              filename = "exportacao_consulta.csv";
+
+                              var isMac = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
+
+                              var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+                              if (!isMac) {
+                                var BOM = "\ufeff";
+                                csv = BOM + csv;
+                              }
+
+                              var blob = new Blob([csv], {
+                                encoding: "UTF-8",
+                                type: "text/csv;charset=UTF-8"
+                              });
+                              var blobUrl = window.URL.createObjectURL(blob);
+
+                              //ie (naturally) does things differently
+                              var csvLink = document.getElementById("download_report");
+                              if (!window.navigator.msSaveOrOpenBlob) {
+                                csvLink.href = blobUrl;
+                                csvLink.download = filename;
+                              }
+                              csvLink.click();
+
+                            }
+                          });
+
+
+                      });
+                    }
                 }
             }else{
                 $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
