@@ -339,7 +339,7 @@ function rotateLabelGrafico(grafico){
 			var xleg1 = d3.select(grafico + ' .nv-axislabel').style('text-anchor','middle').style('opacity',1).style('font-size',12)
 					.attr('transform', function(d,i,j) { return 'translate (0, 40) rotate(0 0,0)' }) ;
 			}
-			else if(grafico != '#grafico-p2' && grafico != '#grafico-p5'){
+			else if(grafico != '#grafico-p2' && grafico != '#grafico-p5' &&  grafico != "#grafico-4"){
 				var xTicks2 = d3.select(grafico + ' .nv-x.nv-axis > g').selectAll('g')
 					.selectAll("text").style('text-anchor','middle').style('opacity',1).style('font-size',12)
 					.attr('transform', function(d,i,j) { return 'translate (0, 10) rotate(0 0,0)' }) ;

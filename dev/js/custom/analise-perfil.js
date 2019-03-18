@@ -238,22 +238,22 @@ function formatar_tipo_localidade(tipo_localidade,artigo){
           var series_vazia = [
            {
              "tipo_valor":"$",
-             values: [{"x" : ano, "y" : 0 }],
+             values: [{"x" : ano-2, "y" : 0 },{"x" : ano-1, "y" : 0 },{"x" : ano, "y" : 0 }],
              key: 'Recursos próprios'
            },
            {
              "tipo_valor":"$",
-             values: [{"x" : ano, "y" : 0 }],
+             values: [{"x" : ano-2, "y" : 0 },{"x" : ano-1, "y" : 0 },{"x" : ano, "y" : 0 }],
              key: 'Recursos públicos'
            },
            {
              "tipo_valor":"$",
-             values: [{"x" : ano, "y" : 0 }],
+             values: [{"x" : ano-2, "y" : 0 },{"x" : ano-1, "y" : 0 },{"x" : ano, "y" : 0 }],
              key: 'Recursos privados'
            },
            {
              "tipo_valor":"$",
-             values: [{"x" : ano, "y" : 0 }],
+             values: [{"x" : ano-2, "y" : 0 },{"x" : ano-1, "y" : 0 },{"x" : ano, "y" : 0 }],
              key: 'Recursos não financeiros'
            }
          ];
