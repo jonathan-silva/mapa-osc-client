@@ -309,10 +309,6 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
-                $('#export button').removeAttr('disabled');
-                $('#export button').addClass('btn-success');
-                $('#export button' ).attr( "title", "" );
-
                 urlRota = rotas.ConsultaAvancadaLista(0);
                 urlRotaMapa=rotas.ConsultaAvancadaMapa();
                 isClusterVersion=false;
@@ -1541,6 +1537,12 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
             }
         }
 
+        if(tipoConsulta=="avancado" && params["avancado"] != '{}'){
+              $('#export button').removeAttr('disabled');
+              $('#export button').addClass('btn-success');
+              $('#export button' ).attr( "title", "" );
+        }
+
         $("#loadingMapModal").hide();
         leafletView.ProcessView();
     }
@@ -2031,7 +2033,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                               $("#modal_loading").modal('hide');
                             }
                           });
-                          
+
                         }, 1000);
 
 
