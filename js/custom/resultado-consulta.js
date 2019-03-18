@@ -1554,15 +1554,14 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
         }
 
         map.addLayer(layerGroup);
-        map.addLayer(layerGroupIDH);
+        //map.addLayer(layerGroupIDH);
 
         info.onAdd = function(map){
-            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this._div = L.DomUtil.create('div', 'info');
             this.update();
             return this._div;
         };
 
-        // method that we will use to update the control based on feature properties passed
         info.update = function(props){
             this._div.innerHTML = '<h4>OSCs por Estado</h4>' +  (props ?
                 '<b>' + props.Name + '</b><br />' + props.density + ' OSCs.'
@@ -1652,7 +1651,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
             },
             onEachFeature: onEachFeature
-        }).addTo(map);
+        });
 
         geoJsonIdh = L.geoJson(statesData, {
             style: function(statesData){
@@ -1666,7 +1665,7 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 };
             },
             onEachFeature: onEachFeatureIdh
-        })//.addTo(map); 
+        });
     }
 
     function getColor(d){
