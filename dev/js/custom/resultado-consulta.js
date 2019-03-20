@@ -309,12 +309,26 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                 urlRotaMapa = rotas.ClusterPais();
                 urlRota = rotas.AllOSC(0);
             }else{
-                urlRota = rotas.ConsultaAvancadaLista(0);
-                urlRotaMapa=rotas.ConsultaAvancadaMapa();
-                isClusterVersion=false;
-                consulta_avancada = true;
-
                 var json_filtro_perfil = JSON.parse(params["avancado"]);
+                var exportar_dados = true;
+
+                if(json_filtro_perfil.Adicionais){
+                  if(Object.keys(json_filtro_perfil).length == 1){
+                    exportar_dados = false;
+                  }
+                }
+
+                if(exportar_dados){
+                  urlRota = rotas.ConsultaAvancadaLista(0);
+                  urlRotaMapa=rotas.ConsultaAvancadaMapa();
+                  isClusterVersion=false;
+                  consulta_avancada = true;
+
+                }else{
+                  tipoConsulta="todos";
+                  urlRotaMapa = rotas.ClusterPais();
+                  urlRota = rotas.AllOSC(0);
+                }
 
                 if(json_filtro_perfil.dadosGerais){
                     if (json_filtro_perfil.dadosGerais.cd_regiao){
@@ -338,13 +352,13 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                       icon_perfil = "municipio.png";
                       analisePerfil = true;
                     }
+                }
 
-                    if(json_filtro_perfil.Adicionais){
-                      for ( var k in json_filtro_perfil.Adicionais) {
-                        var cd = k.split('cd_indice-')[1];
-                        var_adc.push(cd);
-                      }
-                    }
+                if(json_filtro_perfil.Adicionais){
+                  for ( var k in json_filtro_perfil.Adicionais) {
+                    var cd = k.split('cd_indice-')[1];
+                    var_adc.push(cd);
+                  }
                 }
 
             }
