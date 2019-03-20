@@ -165,11 +165,11 @@ require(['react', 'jsx!components/Util'], function(React) {
           minLength: 1,
           source: function (request, response) {
              $.ajax({
-                 url: controller,
+                 url: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete),
                  type: 'GET',
                  async: true,
                  dataType: "json",
-                 data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
+                 // data: {flag: 'autocomplete', rota: rotas.AutocompleteOSCByState(replaceSpecialChars(request.term).replace(/ /g, '+'), limiteAutocomplete)},
                  success: function (data) {
                    response($.map( data, function( item ) {
                       return {
@@ -381,7 +381,7 @@ require(['react', 'jsx!components/Util'], function(React) {
                 "tx_senha_usuario": senha,
                 "tx_nome_usuario": nome,
                 "nr_cpf_usuario": cpf,
-                "tx_orgao_trabalha": orgao_trabalha,
+                "tx_orgao_usuario": orgao_trabalha,
                 "tx_telefone_1": tel1,
                 "tx_telefone_2": tel2,
                 "bo_lista_email": newsletter,
@@ -398,10 +398,11 @@ require(['react', 'jsx!components/Util'], function(React) {
             }
 
             $.ajax({
-                url: controller,
+                url: rotas.CadastroRepresentanteEstadoMunicipio(),
                 type: 'POST',
                 dataType: 'json',
-                data: {flag: 'consultaPost', rota: rotas.CadastroRepresentanteEstadoMunicipio(), parametros: json},
+                // data: {flag: 'consultaPost', rota: rotas.CadastroRepresentanteEstadoMunicipio(), parametros: json},
+                data: json,
                 error: function(data) {
                     if (data.status == 200){
                         jQuery("#modalTitle").text("Solicitação realizada com sucesso!");
