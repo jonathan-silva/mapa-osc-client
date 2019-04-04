@@ -2011,7 +2011,15 @@ require(['rotas','jquery-ui','datatables-responsive', 'leafletCluster', 'simpleP
                             async:false,
                             data: param_exp,
                             error: function(e){
-                                console.log("ERRO no AJAX :" + e);
+                                $("#modal_loading").modal('hide');
+
+                                $('#modalMensagem').modal({backdrop: 'static', keyboard: false});
+                                $('#modalTitle').text('Limite para exportação excedido!');
+                                $('#modalConteudo').html('<p>A consulta excedeu o limite para exportação.</p><br><p>Adicione mais filtros ou realize o download completo da base do Mapa das OSCs no link <a title="Link para a Base de Dados." href="/base-dados.html" target="_blank">Base de Dados</a></p>');
+                                $('#modalMensagem button').attr('onclick', '');
+
+                                $('#modalMensagem').modal('show');
+
                             },
                             success: function(retorno){
 
