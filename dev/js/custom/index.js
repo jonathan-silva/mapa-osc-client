@@ -322,6 +322,7 @@ $("#regiao .form-control").autocomplete({
     var lat = position.coords.latitude;
     var long = position.coords.longitude;
 
+    console.log(position);
     if(lat != undefined && lat != null && lat != "" && long != undefined && long != null && long != ""){
 
       window.localStorage.setItem('cd_latitude', lat.toLocaleString('PT'));

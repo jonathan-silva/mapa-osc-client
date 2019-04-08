@@ -85,7 +85,10 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
         console.log("Erro no ajax: ");
         console.log(e);
       },
-      success: function(data){result = data;}
+      success: function(data){
+        result = data;
+        console.log(data);
+      }
       });
       return result;
     }
