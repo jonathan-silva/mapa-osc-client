@@ -1,15 +1,8 @@
 require('chromedriver');
 var webdriver = require('selenium-webdriver');
-const { Builder, By, until, Key } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-var request = require("request");
 var chai = require("chai");
 var expect = chai.expect;
 urlBase = 'http://localhost:8080/index.html';
-
-// let o = new chrome.Options();
-// o.addArguments('disable-infobars');
-// o.setUserPreferences({ credential_enable_service: false });
 
 const driver = new webdriver.Builder()
   .forBrowser('chrome')
