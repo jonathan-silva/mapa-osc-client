@@ -1,3 +1,20 @@
+// Testar em modo background
+// require('chromedriver');
+// var webdriver = require('selenium-webdriver'),
+//   chrome = require('selenium-webdriver/chrome');
+
+// options = new chrome.Options();
+// options.addArguments('headless') // note: without dashes
+// options.addArguments('disable-gpu');
+// var chai = require("chai");
+// var expect = chai.expect;
+// urlBase = 'http://localhost:8080/index.html';
+
+// const driver = new webdriver.Builder()
+//   .forBrowser('chrome')
+//   .withCapabilities(webdriver.Capabilities.chrome())
+//   .setChromeOptions(options)                         // note this
+//   .build();
 require('chromedriver');
 var webdriver = require('selenium-webdriver');
 var chai = require("chai");
@@ -7,6 +24,7 @@ urlBase = 'http://localhost:8080/index.html';
 const driver = new webdriver.Builder()
   .forBrowser('chrome')
   .build();
+
 driver.manage().window().maximize();
 
 function main(name, tests) {
@@ -29,7 +47,7 @@ main('Starting ... ', function () {
 
 main('Pesquisa Municipio', function () {
   it('Pesquisa Rio de Janeiro', async () => {
-    await driver.get(urlBase);
+    // await driver.get(urlBase);
     await driver.sleep(2000);
     await driver.findElement(webdriver.By.id('localidade')).click();
     await driver.findElement(webdriver.By.id('localidade')).sendKeys('Rio de Janeiro - RJ');
