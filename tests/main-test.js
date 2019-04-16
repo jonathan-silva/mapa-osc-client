@@ -1,5 +1,6 @@
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
+const webdriver = require('selenium-webdriver');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 options = new chrome.Options();
 options.addArguments("--headless");
@@ -12,12 +13,15 @@ urlBase = 'http://localhost:8081/index.html';
 const username = 'teste2@gmail.com';
 const passwordApp = '654321';
 
+// const driver = new Builder()
+// .forBrowser('chrome')
+// .setChromeOptions(options) 
+// .setFirefoxOptions(new firefox.Options())
+// .build();
 const driver = new Builder()
-  .forBrowser('chrome')
-  // .setChromeOptions(options) 
-  // .setFirefoxOptions(new firefox.Options())
+  .usingServer('http://localhost:9515')
+  .withCapabilities(webdriver.Capabilities.chrome())
   .build();
-
 function main(name, tests) {
   describe(name, function () {
     tests();
