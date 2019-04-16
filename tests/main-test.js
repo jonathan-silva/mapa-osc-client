@@ -14,7 +14,7 @@ const passwordApp = '654321';
 
 const driver = new Builder()
   .forBrowser('chrome')
-  .setChromeOptions(options) 
+  // .setChromeOptions(options) 
   // .setFirefoxOptions(new firefox.Options())
   .build();
 
@@ -83,6 +83,9 @@ main('Pesquisa Municipio Modal', function () {
     await driver.sleep(2000);
     await driver.executeScript(" return $('.ui-menu-item-wrapper').click()");
     await driver.sleep(2000);
+    await driver.wait(function () {
+      return driver.findElement(By.id("btn-localidade-modal"));
+    }, 2000);
     await driver.executeScript(" return $('#btn-localidade-modal')[0].click()");
     await driver.sleep(2000);
   });
@@ -93,6 +96,11 @@ main('Pesquisa Municipio Modal', function () {
  */
 main('Login', function () {
   it('Usuario Teste', async () => {
+    await driver.wait(function () {
+      return driver.executeScript('return document.readyState').then(function (readyState) {
+        return readyState === 'complete';
+      });
+    });
     await driver.wait(function () {
       return driver.executeScript("return $('#btnEntrar').click()");
     }, 3000);
@@ -135,6 +143,11 @@ main('Pesquisa Municipio Mapa', function () {
  */
 main('Pesquisa Avançada', function () {
   it('Pesquisa Brasília - DF', async () => {
+    await driver.wait(function () {
+      return driver.executeScript('return document.readyState').then(function (readyState) {
+        return readyState === 'complete';
+      });
+    });
     await driver.sleep(5000);
     await driver.executeScript(" return $('.consultaAvancada a span').click()");
     await driver.sleep(2000);
@@ -186,7 +199,6 @@ main('Detalhar / Editar Osc', function () {
     await driver.executeScript("return $('#tx_nome_fantasia_osc').val('Organização de Teste')");
     await driver.sleep(2000);
     await driver.executeScript("return $('#salvar').click()");
-    await driver.sleep(3000);
   });
   driver.manage().deleteAllCookies();
   after(async () => driver.quit());
