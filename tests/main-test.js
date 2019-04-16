@@ -3,7 +3,9 @@ const firefox = require('selenium-webdriver/firefox');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 options = new chrome.Options();
 options.addArguments("--headless");
-options.addArguments("--disable-gpu");
+// options.addArguments("--disable-gpu");
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 
 urlBase = 'http://localhost:8081/index.html';
 
@@ -12,7 +14,7 @@ const passwordApp = '654321';
 
 const driver = new Builder()
   .forBrowser('chrome')
-  // .setChromeOptions(options) 
+  .setChromeOptions(options) 
   // .setFirefoxOptions(new firefox.Options())
   .build();
 
