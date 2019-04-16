@@ -2,7 +2,7 @@
   "requires": true,
   "lockfileVersion": 1,
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --timeout 20000 tests/main-test.js"
+    "test": "node_modules/mocha/bin/mocha --timeout 500000 tests/main-test.js"
   },
   "dependencies": {
     "abbrev": {
@@ -1638,7 +1638,7 @@
       "resolved": "https://registry.npmjs.org/chokidar/-/chokidar-1.7.0.tgz",
       "version": "1.7.0"
     },
-    "chromedriver": "^2.46.0",
+    "chromedriver": "2.46",
     "cli-cursor": {
       "integrity": "sha1-s12sN2R5+sw+lHR9QdDQ9SOP/LU=",
       "requires": {
@@ -6355,94 +6355,7 @@
       "resolved": "https://registry.npmjs.org/wdio-dot-reporter/-/wdio-dot-reporter-0.0.8.tgz",
       "version": "0.0.8"
     },
-    "webdriverio": {
-      "dependencies": {
-        "archiver": {
-          "integrity": "sha1-0t8ujVdzqCwdzOklzMQUUOqZmv0=",
-          "requires": {
-            "archiver-utils": "1.3.0",
-            "async": "2.6.0",
-            "buffer-crc32": "0.2.13",
-            "glob": "7.1.2",
-            "lodash": "4.17.4",
-            "readable-stream": "2.3.3",
-            "tar-stream": "1.5.4",
-            "zip-stream": "1.2.0"
-          },
-          "resolved": "https://registry.npmjs.org/archiver/-/archiver-2.1.0.tgz",
-          "version": "2.1.0"
-        },
-        "babel-runtime": {
-          "integrity": "sha1-llxwWGaOgrVde/4E/yM3vItWR/4=",
-          "requires": {
-            "core-js": "2.4.1",
-            "regenerator-runtime": "0.11.0"
-          },
-          "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.26.0.tgz",
-          "version": "6.26.0"
-        },
-        "deepmerge": {
-          "integrity": "sha512-VIPwiMJqJ13ZQfaCsIFnp5Me9tnjURiaIFxfz7EH0Ci0dTSQpZtSLrqOicXqEd/z2r+z+Klk9GzmnRsgpgbOsQ==",
-          "resolved": "https://registry.npmjs.org/deepmerge/-/deepmerge-2.0.1.tgz",
-          "version": "2.0.1"
-        },
-        "has-flag": {
-          "integrity": "sha1-6CB68cx7MNRGzHC3NLXovhj4jVE=",
-          "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-2.0.0.tgz",
-          "version": "2.0.0"
-        },
-        "regenerator-runtime": {
-          "integrity": "sha512-/aA0kLeRb5N9K0d4fw7ooEbI+xDe+DKD499EQqygGqeS8N3xto15p09uY2xj7ixP81sNPXvRLnAQIqdVStgb1A==",
-          "resolved": "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz",
-          "version": "0.11.0"
-        },
-        "supports-color": {
-          "integrity": "sha1-HbJiKfauAvms21QQkHw2zi42KxM=",
-          "requires": {
-            "has-flag": "2.0.0"
-          },
-          "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-5.0.0.tgz",
-          "version": "5.0.0"
-        },
-        "validator": {
-          "integrity": "sha512-1TGGX1GKilfmcEa9rm+9nI9AqIUQK8oj4jZI0DmTGLTPM5jmowBBhyBIHCks73+P1QPZk2i6oOYUq583uOetHQ==",
-          "resolved": "https://registry.npmjs.org/validator/-/validator-9.1.1.tgz",
-          "version": "9.1.1"
-        },
-        "wgxpath": {
-          "integrity": "sha1-7vikudVYzEla06mit1FZfs2a9pA=",
-          "resolved": "https://registry.npmjs.org/wgxpath/-/wgxpath-1.0.0.tgz",
-          "version": "1.0.0"
-        }
-      },
-      "integrity": "sha1-jAV0eej75qRx6Lwlo2VlVxEY3aI=",
-      "requires": {
-        "archiver": "2.1.0",
-        "babel-runtime": "6.26.0",
-        "css-parse": "2.0.0",
-        "css-value": "0.0.1",
-        "deepmerge": "2.0.1",
-        "ejs": "2.5.7",
-        "gaze": "1.1.2",
-        "glob": "7.1.2",
-        "inquirer": "3.3.0",
-        "json-stringify-safe": "5.0.1",
-        "mkdirp": "0.5.1",
-        "npm-install-package": "2.1.0",
-        "optimist": "0.6.1",
-        "q": "1.5.1",
-        "request": "2.83.0",
-        "rgb2hex": "0.1.0",
-        "safe-buffer": "5.1.1",
-        "supports-color": "5.0.0",
-        "url": "0.11.0",
-        "validator": "9.1.1",
-        "wdio-dot-reporter": "0.0.8",
-        "wgxpath": "1.0.0"
-      },
-      "resolved": "https://registry.npmjs.org/webdriverio/-/webdriverio-4.9.4.tgz",
-      "version": "4.9.4"
-    },
+    "webdriverio": "^5.7.13",
     "weinre": {
       "dependencies": {
         "underscore": {

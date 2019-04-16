@@ -1,86 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Resultado da Consulta</title>
-      <link rel="icon" href="img/fav.png"/>
-      <link rel="shortcut icon" type="image/png" href="img/fav.png"/>
-      <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-      <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/jquery.dataTables.min.css"/><!--js/libs/datatable/datatables.min.css-->
-      <link rel="stylesheet" href="css/libs/leaflet-0.7.7/leaflet.css">
-      <link rel="stylesheet" href="css/libs/leaflet-0.7.7/pruneCluster.css">
-      <link rel="stylesheet" href="css/libs/leaflet-0.7.7/control.fullscreen.css">
-      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Bootstrap-3.3.6/css/bootstrap.min.css"/>
-      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/dataTables.bootstrap.min.css"/>
-      <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Responsive-2.1.0/css/responsive.bootstrap.min.css"/>
-      <link href="css/base.css" rel="stylesheet" type="text/css">
-      <link href="css/styles.css" rel="stylesheet" type="text/css">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultado da Consulta</title>
+  <link rel="icon" href="img/fav.png" />
+  <link rel="shortcut icon" type="image/png" href="img/fav.png" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="css/libs/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="js/libs/DataTables/DataTables-1.10.12/css/jquery.dataTables.min.css" />
+  <!--js/libs/datatable/datatables.min.css-->
+  <link rel="stylesheet" href="css/libs/leaflet-0.7.7/leaflet.css">
+  <link rel="stylesheet" href="css/libs/leaflet-0.7.7/pruneCluster.css">
+  <link rel="stylesheet" href="css/libs/leaflet-0.7.7/control.fullscreen.css">
+  <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Bootstrap-3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="js/libs/DataTables/DataTables-1.10.12/css/dataTables.bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="js/libs/DataTables/Responsive-2.1.0/css/responsive.bootstrap.min.css" />
+  <link href="css/base.css" rel="stylesheet" type="text/css">
+  <link href="css/styles.css" rel="stylesheet" type="text/css">
 
 
-  </head>
-  <body>
-    <style>
+</head>
+
+<body>
+  <style>
     #map {
-        width:100%;
-        height:600px;
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
+      width: 100%;
+      height: 600px;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
     }
 
-    #loadingMapModal{
+    #loadingMapModal {
       position: absolute;
       z-index: 10000;
       padding-left: 85%;
       padding-top: 20%;
     }
+
     /*Cluster região*/
-    .labelClassRegiao{
+    .labelClassRegiao {
       background: rgba(0, 0, 0, 0) url("img/cluster_r.png") no-repeat scroll 0 0 / 60px auto;
-      height: 60px!important;
-      width: 60px!important;
+      height: 60px !important;
+      width: 60px !important;
     }
-    .labelClassRegiao p{
+
+    .labelClassRegiao p {
       margin-top: 20px;
       text-align: center;
     }
+
     /*Cluster estado*/
-    .labelClassEstado{
+    .labelClassEstado {
       background: rgba(0, 0, 0, 0) url("img/cluster_y.png") no-repeat scroll 0 0 / 50px auto;
-      height: 50px!important;
-      width: 50px!important;
+      height: 50px !important;
+      width: 50px !important;
     }
-    .labelClassEstado p{
+
+    .labelClassEstado p {
       margin-top: 15px;
       text-align: center;
     }
-    </style>
-    <!-- header -->
-    <div id="barra-brasil"></div>
-    <div id="header"></div>
-    <!--Fim header-->
-    <div id="conteudo" class="section">
-      <div class="container">
-        <div class="row rastro-navegacao">
-          <a href="/">Home</a>
-          <span> &gt; </span>
-          <a href="">Mapa</a>
-        </div>
+  </style>
+  <!-- header -->
+  <div id="barra-brasil"></div>
+  <div id="header"></div>
+  <!--Fim header-->
+  <div id="conteudo" class="section">
+    <div class="container">
+      <div class="row rastro-navegacao">
+        <a href="/">Home</a>
+        <span> &gt; </span>
+        <a href="">Mapa</a>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="text-primary">Resultado da Consulta</h1>
-            <hr>
-          </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-primary">Resultado da Consulta</h1>
+          <hr>
+        </div>
 
-          <div class="col-md-12">
+        <div class="col-md-12">
 
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
-              <a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1">
+              <a role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true"
+                aria-controls="collapse-1" href="#collapse-1">
                 <div class="panel-heading" role="tab" id="heading-1">
                   <h4 class="panel-title" id="novaConsulta"><b>Nova Consulta</b></h4>
                 </div>
@@ -88,72 +97,78 @@
               <div id="collapse-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-1">
                 <div class="panel-body">
 
-                    <div id="buscarPerfil" class="row">
-                      <div class="col-md-offset-3 col-md-6">
-                        <ul class="nav nav-pills">
-                          <li class="active">
-                            <a data-toggle="pill" title="Buscar pelo Nome ou CNPJ." href="#organizacao">Organização</a>
-                          </li>
-                          <li>
-                            <a data-toggle="pill" title="Buscar pelo Nome do Município." href="#municipio">Município</a>
-                          </li>
-                          <li>
-                            <a data-toggle="pill" title="Buscar pelo Nome do Estado." href="#estado">Estado</a>
-                          </li>
-                          <li>
-                            <a data-toggle="pill" title="Buscar pelo Nome da Região." href="#regiao">Região</a>
-                          </li>
-                        </ul>
-                        <div class="tab-content">
-                          <div id="organizacao" class="tab-pane fade in active">
-                            <form role="form">
-                              <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                  <input type="text" class="form-control" placeholder="Digite o Nome ou CNPJ.">
-                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
-                                  <div class="response"></div>
-                                </div>
+                  <div id="buscarPerfil" class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                      <ul class="nav nav-pills">
+                        <li class="active">
+                          <a data-toggle="pill" title="Buscar pelo Nome ou CNPJ." href="#organizacao">Organização</a>
+                        </li>
+                        <li>
+                          <a data-toggle="pill" title="Buscar pelo Nome do Município." href="#municipio">Município</a>
+                        </li>
+                        <li>
+                          <a data-toggle="pill" title="Buscar pelo Nome do Estado." href="#estado">Estado</a>
+                        </li>
+                        <li>
+                          <a data-toggle="pill" title="Buscar pelo Nome da Região." href="#regiao">Região</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div id="organizacao" class="tab-pane fade in active">
+                          <form role="form">
+                            <div class="form-group">
+                              <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" placeholder="Digite o Nome ou CNPJ.">
+                                <span class="input-group-btn"><a class="btn btn-primary" type="submit"
+                                    title="Confirmar a Busca.">Buscar</a></span>
+                                <div class="response"></div>
                               </div>
-                            </form>
-                          </div>
-                          <div id="municipio" class="tab-pane fade">
-                            <form role="form">
-                              <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                  <input type="text" class="form-control" placeholder="Digite o Nome do Município.">
-                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
-                                </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div id="municipio" class="tab-pane fade">
+                          <form role="form">
+                            <div class="form-group">
+                              <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" placeholder="Digite o Nome do Município.">
+                                <span class="input-group-btn"><a class="btn btn-primary" type="submit"
+                                    title="Confirmar a Busca.">Buscar</a></span>
                               </div>
-                            </form>
-                          </div>
-                          <div id="estado" class="tab-pane fade">
-                            <form role="form">
-                              <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                  <input type="text" class="form-control" placeholder="Digite o Nome do Estado.">
-                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
-                                </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div id="estado" class="tab-pane fade">
+                          <form role="form">
+                            <div class="form-group">
+                              <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" placeholder="Digite o Nome do Estado.">
+                                <span class="input-group-btn"><a class="btn btn-primary" type="submit"
+                                    title="Confirmar a Busca.">Buscar</a></span>
                               </div>
-                            </form>
-                          </div>
-                          <div id="regiao" class="tab-pane fade">
-                            <form role="form">
-                              <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                  <input type="text" class="form-control" placeholder="Digite o Nome da Região.">
-                                  <span class="input-group-btn"><a class="btn btn-primary" type="submit" title="Confirmar a Busca.">Buscar</a></span>
-                                </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div id="regiao" class="tab-pane fade">
+                          <form role="form">
+                            <div class="form-group">
+                              <div class="input-group input-group-lg">
+                                <input type="text" class="form-control" placeholder="Digite o Nome da Região.">
+                                <span class="input-group-btn"><a class="btn btn-primary" type="submit"
+                                    title="Confirmar a Busca.">Buscar</a></span>
                               </div>
-                            </form>
-                          </div>
-                          <div class="consultaAvancada"><a class="btn btn-info btn-sm" href="consultar.html" title="Link para consulta avançada."><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Consulta Avançada</a></div>
-                          <div class="alert alert-danger fade in hide" id="errorLabel">
-                              <a href="#" class="close" onclick="$('.alert').addClass('hide')">&times;</a>
-                              <strong>Erro!</strong> É necessário digitar um valor no campo ou selecioná-lo na lista.
-                          </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="consultaAvancada"><a class="btn btn-info btn-sm" href="consultar.html"
+                            title="Link para consulta avançada."><span class="glyphicon glyphicon-search"
+                              aria-hidden="true"></span> Consulta Avançada</a></div>
+                        <div class="alert alert-danger fade in hide" id="errorLabel">
+                          <a href="#" class="close" onclick="$('.alert').addClass('hide')">&times;</a>
+                          <strong>Erro!</strong> É necessário digitar um valor no campo ou selecioná-lo na lista.
                         </div>
                       </div>
                     </div>
+                  </div>
 
                 </div>
               </div>
@@ -161,82 +176,89 @@
           </div>
         </div>
 
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-12" id="filtros">
+            <p class="text-primary"></p>
+          </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-              <div class="col-md-12" id="filtros">
-                <p class="text-primary"></p>
-              </div>
+        <div class="col-md-12">
+          <div class="col-md-3" id="legenda">
+            <p class="text-primary">Quantidade de OSCs: </p>
           </div>
-          <div class="col-md-12">
-              <div class="col-md-3" id="legenda">
-                <p class="text-primary">Quantidade de OSCs: </p>
-              </div>
 
-              <div class="col-md-6" style="padding-top: 0px;">
-                <a id="analisePerfil" href=""></a>
-              </div>
-              <div class="col-md-3" id="export">
-                <button type="button" class="btn" title="Utilize a consulta Avançada para exportar os dados!"><span class="glyphicon glyphicon-download-alt" aria-hidden="true" disabled></span> Exportar</button>
-              </div>
+          <div class="col-md-6" style="padding-top: 0px;">
+            <a id="analisePerfil" href=""></a>
           </div>
-          <div class="col-md-12">
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#mapa" aria-controls="home" role="tab" data-toggle="tab">Visualizar por Mapa</a></li>
-                <li role="presentation"><a href="#lista" aria-controls="profile" role="tab" data-toggle="tab">Visualizar por Lista</a></li>
-              </ul>
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="mapa">
-                  <img id="loadingMapModal" src="img/loading.gif" />
-                  <div id="map"><!-- Mapa --></div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="lista">
-                  <table id="resultadoconsulta_formato_dados" class="display compact row-border tablesaw" width="100%">
-                    <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;"/>
-                  </table>
-                    <!--<div class = "pagination"></div>-->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                          <!--<li onclick ="pagination(this.id)" class="active" id="1"><a href="#">1</a></li>
+          <div class="col-md-3" id="export">
+            <button type="button" class="btn" title="Utilize a consulta Avançada para exportar os dados!"><span
+                class="glyphicon glyphicon-download-alt" aria-hidden="true" disabled></span> Exportar</button>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#mapa" aria-controls="home" role="tab"
+                data-toggle="tab">Visualizar por Mapa</a></li>
+            <li role="presentation"><a href="#lista" aria-controls="profile" role="tab" data-toggle="tab">Visualizar por
+                Lista</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="mapa">
+              <img id="loadingMapModal" src="img/loading.gif" />
+              <div id="map">
+                <!-- Mapa -->
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="lista">
+              <table id="resultadoconsulta_formato_dados" class="display compact row-border tablesaw" width="100%">
+                <img id="loading" src="img/loading.gif" style="padding-top: 40px; padding-left: 40%;" />
+              </table>
+              <!--<div class = "pagination"></div>-->
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <!--<li onclick ="pagination(this.id)" class="active" id="1"><a href="#">1</a></li>
                           <li onclick ="pagination(this.id)" id="2"><a href="#">2</a></li>-->
-                        </ul>
-                      </nav>
+                </ul>
+              </nav>
 
-                </div>
-              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="modalMensagem" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div id="modalTitle"  class="modal-header negrito"></div>
-          <div  id="modalConteudo" class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="history.go(-1);">OK </button>
-          </div>
+  </div>
+  <div id="modalMensagem" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div id="modalTitle" class="modal-header negrito"></div>
+        <div id="modalConteudo" class="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="history.go(-1);">OK </button>
         </div>
       </div>
     </div>
-    <!-- footer -->
-    <div id="rodape"></div>
-    <footer class="section section-primary">
-      <div class="container">
-        <div id="footer-brasil"></div>
-      </div>
-    </footer>
-    <!--Fim footer-->
-    <!--SCRIPTS-->
-    <script src="js/libs/react-15.3.1/react.min.js"></script>
-    <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
-    <script type="text/javascript" data-main="js/custom/header-footer.js" src="js/libs/require-2.3.2/require.min.js"></script>
-    <script src="js/custom/config.js"></script>
-    <script type="text/javascript" src="js/helpers/statesBounds.js"></script>
-    <script type="text/javascript" src="js/helpers/percapta.js"></script>
-    <script type="text/javascript" src="js/custom/resultado-consulta.js"></script>
-    <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+  </div>
+  <!-- footer -->
+  <div id="rodape"></div>
+  <footer class="section section-primary">
+    <div class="container">
+      <div id="footer-brasil"></div>
+    </div>
+  </footer>
+  <!--Fim footer-->
+  <!--SCRIPTS-->
+  <script src="js/libs/react-15.3.1/react.min.js"></script>
+  <script src="js/libs/react-15.3.1/react-dom.min.js"></script>
+  <script type="text/javascript" data-main="js/custom/header-footer.js"
+    src="js/libs/require-2.3.2/require.min.js"></script>
+  <script src="js/custom/config.js"></script>
+  <script type="text/javascript" src="js/helpers/statesBounds.js"></script>
+  <script type="text/javascript" src="js/helpers/percapta.js"></script>
+  <script type="text/javascript" src="js/custom/resultado-consulta.js"></script>
+  <script async src="https://barra.brasil.gov.br/barra.js" type="text/javascript"></script>
 </body>
+
 </html>
