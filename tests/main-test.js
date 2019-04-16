@@ -4,8 +4,8 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 options = new chrome.Options();
 options.addArguments("--headless");
 // options.addArguments("--disable-gpu");
-options.add_argument('--no-sandbox')
-options.add_argument('--disable-dev-shm-usage')
+options.addArguments('--no-sandbox');
+options.addArguments('--disable-dev-shm-usage');
 
 urlBase = 'http://localhost:8081/index.html';
 
@@ -75,13 +75,16 @@ main('Pesquisa Municipio Modal', function () {
     await driver.wait(function () {
       return driver.findElement(By.xpath("//div[@id='modalLocalidade']"));
     }, 2000);
-    await driver.findElement(By.id('localidade')).click();
-    await driver.findElement(By.xpath("//div/div/div/div//input[@id='localidade']")).sendKeys('Rio de Janeiro - RJ');
-    await driver.sleep(3000);
-    await driver.findElement(By.id('localidade')).sendKeys(Key.ARROW_DOWN);
-    await driver.findElement(By.id('localidade')).sendKeys(Key.ENTER);
+    await driver.executeScript(" return $('#localidade').val('Rio de Janeiro - RJ')");
     await driver.sleep(2000);
-    await driver.findElement(By.xpath("//a[@id='btn-localidade-modal']")).click();
+    await driver.executeScript(" return $('#localidade').click()");
+    await driver.sleep(2000);
+    await driver.executeScript(" return $('#localidade').keydown()");
+    await driver.sleep(2000);
+    await driver.executeScript(" return $('.ui-menu-item-wrapper').click()");
+    await driver.sleep(2000);
+    await driver.executeScript(" return $('#btn-localidade-modal')[0].click()");
+    await driver.sleep(2000);
   });
 });
 
@@ -183,6 +186,7 @@ main('Detalhar / Editar Osc', function () {
     await driver.executeScript("return $('#tx_nome_fantasia_osc').val('Organização de Teste')");
     await driver.sleep(2000);
     await driver.executeScript("return $('#salvar').click()");
+    await driver.sleep(3000);
   });
   driver.manage().deleteAllCookies();
   after(async () => driver.quit());

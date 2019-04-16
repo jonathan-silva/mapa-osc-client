@@ -2,7 +2,7 @@
   "requires": true,
   "lockfileVersion": 1,
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --timeout 500000 tests/main-test.js"
+    "test": "node_modules/mocha/bin/mocha --timeout 100000 tests/main-test.js"
   },
   "dependencies": {
     "abbrev": {
