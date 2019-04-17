@@ -107,6 +107,26 @@ main('Pesquisa Municipio Modal', function () {
 });
 
 /**
+ * Pesquisa Goiás - GO Mapa
+ */
+main('Pesquisa Municipio Mapa', function () {
+  it('Pesquisa Goiás - GO', async () => {
+    await driver.sleep(2000);
+    await driver.wait(function () {
+      return driver.executeScript('return document.readyState').then(function (readyState) {
+        return readyState === 'complete';
+      });
+    });
+    await driver.findElement(By.xpath("//a[@href='#municipio']")).click();
+    await driver.executeScript("return $('#municipio :input').val('Goiás - GO').keydown()");
+    await driver.sleep(2000);
+    await driver.wait(function () {
+      return driver.executeScript("return $('.ui-menu-item-wrapper').click()");
+    }, 5000);
+  });
+});
+
+/**
  * Efetua o Login na aplicação
  */
 main('Login', function () {
@@ -145,26 +165,6 @@ main('Login', function () {
     await driver.sleep(5000);
   });
 })
-
-/**
- * Efetua o Login na aplicação
- */
-main('Pesquisa Municipio Mapa', function () {
-  it('Pesquisa Goiás - GO', async () => {
-    await driver.sleep(2000);
-    await driver.wait(function () {
-      return driver.executeScript('return document.readyState').then(function (readyState) {
-        return readyState === 'complete';
-      });
-    });
-    await driver.findElement(By.xpath("//a[@href='#municipio']")).click();
-    await driver.executeScript("return $('#municipio :input').val('Goiás - GO').keydown()");
-    await driver.sleep(2000);
-    await driver.wait(function () {
-      return driver.executeScript("return $('.ui-menu-item-wrapper').click()");
-    }, 5000);
-  });
-});
 
 /**
  * Pesquisa Avançada
