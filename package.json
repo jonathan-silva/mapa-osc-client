@@ -2,7 +2,10 @@
   "requires": true,
   "lockfileVersion": 1,
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha --timeout 100000 tests/main-test.js"
+    "forever-start": "/opt/node-v8.12.0-linux-x64/bin/forever start node_modules/chromedriver/bin/chromedriver",
+    "forever-stop": "/opt/node-v8.12.0-linux-x64/bin/forever stop node_modules/chromedriver/bin/chromedriver",
+    "mocha-test": "node_modules/mocha/bin/mocha --timeout 100000 tests/main-test.js",
+    "test": "npm run forever && npm run test && npm run forever-stop"
   },
   "dependencies": {
     "abbrev": {
