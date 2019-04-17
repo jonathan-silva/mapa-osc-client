@@ -28,6 +28,10 @@ function main(name, tests) {
   });
 }
 
+function quit(){
+  driver.close();
+  driver.quit();
+}
 /**
  * Limpa Cookie antes  de abrir a sessão
  */
@@ -91,10 +95,7 @@ main('Pesquisa Municipio Modal', function () {
       if (value === 'Rio de Janeiro - RJ') {
         return true;
       } else {
-        driver.close();
-        driver.manage().deleteAllCookies();
-        Error('Algo deu Errado em Pesquisa Rio de Janeiro Modal');
-        return process.exit(1);
+        return quit();
       }
     });
     await driver.sleep(2000);

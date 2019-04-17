@@ -2,10 +2,10 @@
   "requires": true,
   "lockfileVersion": 1,
   "scripts": {
-    "forever-start": "/opt/node-v8.12.0-linux-x64/bin/forever start node_modules/chromedriver/bin/chromedriver",
-    "forever-stop": "/opt/node-v8.12.0-linux-x64/bin/forever stop node_modules/chromedriver/bin/chromedriver",
+    "forever-start": "node_modules/forever/bin/forever start node_modules/chromedriver/bin/chromedriver",
+    "forever-stop": "node_modules/forever/bin/forever stopall && node_modules/forever/bin/forever cleanlogs",
     "mocha-test": "node_modules/mocha/bin/mocha --timeout 100000 tests/main-test.js",
-    "test": "npm run forever-start && npm run mocha-test && pkill chrome"
+    "test": "npm run forever-start && npm run mocha-test && npm run forever-stop"
   },
   "dependencies": {
     "abbrev": {
@@ -6523,6 +6523,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "chai": "^4.2.0",
+    "forever": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
     "gulp-git": "^2.6.0",
