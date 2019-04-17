@@ -91,7 +91,7 @@ main('Pesquisa Municipio Modal', function () {
       if (value === 'Rio de Janeiro - RJ') {
         return true;
       } else {
-        driver.quit();
+        driver.close();
         driver.manage().deleteAllCookies();
         Error('Algo deu Errado em Pesquisa Rio de Janeiro Modal');
         return process.exit(1);
