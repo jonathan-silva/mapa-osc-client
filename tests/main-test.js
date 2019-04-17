@@ -87,6 +87,17 @@ main('Pesquisa Municipio Modal', function () {
     await driver.sleep(2000);
     await driver.executeScript(" return $('.ui-menu-item-wrapper').click()");
     await driver.sleep(2000);
+    await driver.executeScript(" return $('#localidade').val()").then((value) => {
+      if (value === 'Rio de Janeiro - RJ') {
+        return true;
+      } else {
+        driver.quit();
+        driver.manage().deleteAllCookies();
+        Error('Algo deu Errado em Pesquisa Rio de Janeiro Modal');
+        return process.exit(1);
+      }
+    });
+    await driver.sleep(2000);
     await driver.wait(function () {
       return driver.findElement(By.id("btn-localidade-modal"));
     }, 2000);
@@ -118,6 +129,19 @@ main('Login', function () {
     }, 3000);
     await driver.sleep(3000);
     await driver.executeScript("return $('#btn-logar-modal')[0].click()");
+    await driver.sleep(3000);
+    await driver.wait(function () {
+      return driver.executeScript(" return $('#labelError').click()[0].innerText").then((value) => {
+        if (value === 'E-mail e/ou senha incorretos. Tente novamente.') {
+          driver.manage().deleteAllCookies();
+          driver.quit();
+          process.exit(1);
+          throw Error('Algo deu Errado em Login no Usuario Teste');
+        } else {
+          return true;
+        }
+      });
+    }, 3000);
     await driver.sleep(5000);
   });
 })
