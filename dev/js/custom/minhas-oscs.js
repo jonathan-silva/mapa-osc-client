@@ -48,7 +48,6 @@ require(['react', 'jsx!components/Util','jquery-ui','rotas', 'datatables-respons
        dataType: "json",
        data: newJson,
        success: function(data) {
-         console.log(data);
          var columns = 3;
          var sizeOfData = data.representacao.length;
          var newData = new Array(sizeOfData);

@@ -87,7 +87,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       },
       success: function(data){
         result = data;
-        console.log(data);
       }
       });
       return result;
@@ -113,7 +112,6 @@ require(['react', 'rotas', 'jsx!components/Util', 'jsx!components/EditarOSC', 'j
       dataType: 'json',
       error:function(e){
         console.log("Erro no ajax: ");
-        console.log(e);
       },
       success: function(data){
         //Cabeçalho
