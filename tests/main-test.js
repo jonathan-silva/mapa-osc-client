@@ -15,13 +15,16 @@ urlBase = 'http://localhost:8081/index.html';
 const username = 'teste2@gmail.com';
 const passwordApp = '654321';
 
+/**
+ * com setChromeOption o teste roda em background
+ */
 const driver = new Builder()
   .forBrowser('chrome')
   .setChromeOptions(options)
   .build();
 
 /**
- * setChromeOption deve ser descomentado caso queira rodar o teste em background
+ * sem setChromeOption caso queira ver o teste de integração com chrome
  */
 // const driver = new Builder()
 //   .usingServer('http://localhost:9515')
