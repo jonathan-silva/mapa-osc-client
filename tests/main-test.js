@@ -1,5 +1,4 @@
 const chrome = require('selenium-webdriver/chrome');
-const firefox = require('selenium-webdriver/firefox');
 const webdriver = require('selenium-webdriver');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 options = new chrome.Options();
@@ -16,21 +15,27 @@ urlBase = 'http://localhost:8081/index.html';
 const username = 'teste2@gmail.com';
 const passwordApp = '654321';
 
+const driver = new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
+
 /**
  * setChromeOption deve ser descomentado caso queira rodar o teste em background
  */
-const driver = new Builder()
-  .usingServer('http://localhost:9515')
-  // .setChromeOptions(options) 
-  .withCapabilities(webdriver.Capabilities.chrome())
-  .build();
+// const driver = new Builder()
+//   .usingServer('http://localhost:9515')
+//   // .setChromeOptions(options) 
+//   .withCapabilities(webdriver.Capabilities.chrome())
+//   .build();
+
 function main(name, tests) {
   describe(name, function () {
     tests();
   });
 }
 
-function quit(){
+function quit() {
   driver.close();
   driver.quit();
 }
