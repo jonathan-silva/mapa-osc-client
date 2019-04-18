@@ -8,18 +8,20 @@ options.addArguments("--headless");
 options.addArguments('--no-sandbox');
 options.addArguments('--disable-dev-shm-usage');
 
+/**
+ * Deve ser alterado apontando para o ambiente que deve realizar o teste
+ */
 urlBase = 'http://localhost:8081/index.html';
 
 const username = 'teste2@gmail.com';
 const passwordApp = '654321';
 
-// const driver = new Builder()
-// .forBrowser('chrome')
-// .setChromeOptions(options) 
-// .setFirefoxOptions(new firefox.Options())
-// .build();
+/**
+ * setChromeOption deve ser descomentado caso queira rodar o teste em background
+ */
 const driver = new Builder()
   .usingServer('http://localhost:9515')
+  // .setChromeOptions(options) 
   .withCapabilities(webdriver.Capabilities.chrome())
   .build();
 function main(name, tests) {
@@ -32,6 +34,7 @@ function quit(){
   driver.close();
   driver.quit();
 }
+
 /**
  * Limpa Cookie antes  de abrir a sessão
  */
